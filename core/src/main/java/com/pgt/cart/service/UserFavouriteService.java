@@ -5,10 +5,13 @@ import com.pgt.cart.bean.FavouriteBuilder;
 import com.pgt.cart.dao.UserFavouriteDao;
 import com.pgt.internal.bean.pagination.InternalPagination;
 import com.pgt.product.bean.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,12 +20,22 @@ import java.util.List;
 @Service("userFavouriteService")
 public class UserFavouriteService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserFavouriteService.class);
+
 	@Resource(name = "userFavouriteDao")
 	private UserFavouriteDao mUserFavouriteDao;
 
-	public void queryFavouritePage(final int pUserId, final InternalPagination pPagination) {
-		List<Favourite> favourites = getUserFavouriteDao().queryFavouritePage(pUserId, pPagination);
-		pPagination.setResult(favourites);
+	public List<Favourite> queryFavouritePage(final int pUserId, final InternalPagination pPagination) {
+		long count = getUserFavouriteDao().queryFavouriteCount(pUserId, pPagination);
+		pPagination.setCount(count);
+		LOGGER.debug("Get favourite item of count: {} with keyword: {} for user: {}", count, pPagination.getKeyword(), pUserId);
+		if (count > 0) {
+			List<Favourite> favourites = getUserFavouriteDao().queryFavouritePage(pUserId, pPagination);
+			pPagination.setResult(favourites);
+		} else {
+			pPagination.setResult(Collections.EMPTY_LIST);
+		}
+		return (List<Favourite>) pPagination.getResult();
 	}
 
 	public Favourite queryFavouriteByProduct(final int pUserId, final int pProductId) {

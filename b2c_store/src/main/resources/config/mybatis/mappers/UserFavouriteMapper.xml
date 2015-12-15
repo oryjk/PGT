@@ -29,6 +29,15 @@
 		<association column="snapshot_id" property="snapshotMedia" resultMap="com.pgt.product.dao.ProductMapper.productMedia" />
 	</resultMap>
 
+	<select id="queryFavouriteCount" resultType="long">
+		SELECT COUNT(fav.id)
+		FROM FAVOURITE fav
+		WHERE fav.user_id = #{userId}
+		<if test="@Ognl@isNotBlankString(pagination.keyword)">
+			AND fav.name LIKE CONCAT('%', #{pagination.keyword}, '%')
+		</if>
+	</select>
+
 	<select id="queryFavouritePage" resultMap="favourite">
 		SELECT fav.id, fav.user_id, fav.prod_id, fav.creation_date, fav.snapshot_id,
 			IFNULL(prod.name, fav.name) `name`, IFNULL(prod.description, fav.description) `description`,

@@ -20,8 +20,10 @@
 		FROM PRODUCT p
 		LEFT JOIN PRODUCT_CATEGORY pc ON p.product_id = pc.product_id
 		LEFT JOIN CATEGORIES c ON c.category_id = pc.category_id AND c.TYPE = 'HIERARCHY'
-		WHERE p.stock != 0
-		AND c.category_id = #{categoryId}
+		WHERE c.category_id = #{categoryId}
+		<if test="!includeOutOfStock">
+			AND p.stock != 0
+		</if>
 	</select>
 
 	<select id="queryCategoryIdsExclude" resultType="int">

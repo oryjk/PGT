@@ -42,7 +42,6 @@
                         <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                     </div>
                     <div class="product-message">添加成功</div>
-                    <div class="out-of-stock"></div>
                 </li>
             </c:forEach>
         </ul>
@@ -72,7 +71,6 @@
                             <a class="addCart" href="#" data-value="${product.source.productId}"><i class="foundicon-cart"></i></a>
                         </div>
                         <div class="product-message">添加成功</div>
-                        <div class="out-of-stock"></div>
                     </li>
                 </c:forEach>
             </ul>
@@ -103,7 +101,6 @@
                             <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                         </div>
                         <div class="product-message">添加成功</div>
-                        <div class="out-of-stock"></div>
                     </li>
                 </c:forEach>
             </ul>

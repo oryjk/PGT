@@ -35,7 +35,6 @@
                     <a class="addEnjoy" href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
                     <a class="addCart" href="#"  data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                 </div>
-                <div class="out-of-stock"></div>
                 <div class="product-message">添加成功</div>
             </li>
         </c:forEach>

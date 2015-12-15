@@ -42,6 +42,8 @@ public class RecommendService {
 
 	private int mRecommendCount = 20;
 
+	private boolean mRecommendOutOfStockProduct = false;
+
 	private String[] mRecommendURLs = new String[] {"/myAccount/favourites", "/myAccount/orderHistory", "/404"};
 
 	private static final String SUFFIX_JS = ".js";
@@ -77,7 +79,7 @@ public class RecommendService {
 	}
 
 	public List<Product> figureRecommendProducts(List<Integer> pRecentBrowsedProductIds, int pCurrentProductId) {
-		List<Integer> recommendProductIds = new ArrayList<>(getRecommendCount());
+		List<Integer> recommendProductIds = new ArrayList(getRecommendCount());
 		if (CollectionUtils.isEmpty(pRecentBrowsedProductIds)) {
 			LOGGER.debug("Empty recently browsed products, recommend products randomly.");
 			recommendRandomly(recommendProductIds, null);
@@ -102,7 +104,7 @@ public class RecommendService {
 					if (!RepositoryUtils.idIsValid(categoryId)) {
 						continue;
 					}
-					List<Integer> categoryProductIds = getRecommendDao().queryAvailableProductIds(categoryId);
+					List<Integer> categoryProductIds = getRecommendDao().queryAvailableProductIds(categoryId, isRecommendOutOfStockProduct());
 					if (categoryProductIds.size() == 0) {
 						continue;
 					}
@@ -123,24 +125,23 @@ public class RecommendService {
 					presentCount += categoryRecommendCount;
 					// generate start index by random
 					for (int j = RandomUtils.nextInt(0, categoryProductIds.size()); categoryRecommendCount > 0; j++) {
-						// exclude current product id
-						if (j == currentProductIndex) {
-							continue;
-						}
 						categoryRecommendCount--;
 						// restart loop at the begin of list
 						if (j == categoryProductIds.size() - 1) {
+							// exclude current product id
+							if (j != currentProductIndex) {
+								recommendProductIds.add(categoryProductIds.get(j));
+							}
 							// reset
-							recommendProductIds.add(categoryProductIds.get(j));
 							j = 0;
-						} else {
+						} else if (j != currentProductIndex) {
 							recommendProductIds.add(categoryProductIds.get(j));
 						}
 					}
 				}
 			}
 			if (recommendProductIds.size() < getRecommendCount()) {
-				List<String> recommendedCategoryIds = new ArrayList<>(categoryProductCounts.size());
+				List<String> recommendedCategoryIds = new ArrayList(categoryProductCounts.size());
 				for (Map<String, Object> categoryProductCount : categoryProductCounts) {
 					recommendedCategoryIds.add((String) categoryProductCount.get("categoryId"));
 				}
@@ -154,7 +155,7 @@ public class RecommendService {
 	public void recommendRandomly(List<Integer> pRecommendProducts, List<String> pRecommendedCategoryIds) {
 		List<Integer> randomRecommendCategoryIds = getRecommendDao().queryCategoryIdsExclude(pRecommendedCategoryIds);
 		for (Integer categoryId : randomRecommendCategoryIds) {
-			List<Integer> categoryProductIds = getRecommendDao().queryAvailableProductIds(categoryId);
+			List<Integer> categoryProductIds = getRecommendDao().queryAvailableProductIds(categoryId, isRecommendOutOfStockProduct());
 			for (int i = RandomUtils.nextInt(0, categoryProductIds.size()); pRecommendProducts.size() < getRecommendCount(); i++) {
 				pRecommendProducts.add(categoryProductIds.get(i));
 				// restart loop at the begin of list
@@ -207,6 +208,14 @@ public class RecommendService {
 
 	public void setRecommendCount(final int pRecommendCount) {
 		mRecommendCount = pRecommendCount;
+	}
+
+	public boolean isRecommendOutOfStockProduct() {
+		return mRecommendOutOfStockProduct;
+	}
+
+	public void setRecommendOutOfStockProduct(final boolean pRecommendOutOfStockProduct) {
+		mRecommendOutOfStockProduct = pRecommendOutOfStockProduct;
 	}
 
 	public URLConfiguration getURLConfiguration() {

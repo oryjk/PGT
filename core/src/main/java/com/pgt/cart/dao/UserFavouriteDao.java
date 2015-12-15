@@ -25,4 +25,6 @@ public interface UserFavouriteDao extends SqlMapper {
 	Favourite queryFavourite(@Param("favouriteId") int pFavouriteId);
 
 	List<Favourite> queryFavourites(@Param("userId") int pUserId);
+
+	long queryFavouriteCount(@Param("userId") int pUserId, @Param("pagination") InternalPagination pPagination);
 }
