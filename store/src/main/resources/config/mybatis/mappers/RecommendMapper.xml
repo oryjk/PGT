@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.cart.dao.RecommendDao">
+
+	<select id="countCategoryProductMapping" resultType="map">
+		SELECT pc.category_id AS categoryId, count(pc.product_id) `count`
+		FROM PRODUCT_CATEGORY pc
+		LEFT JOIN CATEGORIES c ON pc.category_id = c.CATEGORY_ID AND c.TYPE = 'HIERARCHY'
+		WHERE pc.product_id IN
+		<foreach collection="list" item="item" open="(" close=")" separator=", ">
+			#{item}
+		</foreach>
+		GROUP BY pc.category_id
+	</select>
+
+	<select id="queryAvailableProductIds" resultType="int">
+		SELECT p.product_id
+		FROM PRODUCT p
+		LEFT JOIN PRODUCT_CATEGORY pc ON p.product_id = pc.product_id
+		LEFT JOIN CATEGORIES c ON c.category_id = pc.category_id AND c.TYPE = 'HIERARCHY'
+		WHERE p.stock != 0
+		AND c.category_id = #{categoryId}
+	</select>
+
+	<select id="queryCategoryIdsExclude" resultType="int">
+		SELECT category_id
+		FROM CATEGORIES
+		WHERE TYPE = 'HIERARCHY'
+		<if test="list != null">
+			AND category_id NOT IN
+			<foreach collection="list" item="item" open="(" close=")" separator=", ">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

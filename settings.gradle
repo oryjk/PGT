@@ -1,0 +1,6 @@
+rootProject.name = 'pgt'
+include 'core'
+include 'store'
+include 'store'
+include 'admin'
+

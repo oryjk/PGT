@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.cart.dao.ShoppingCartDao">
+
+	<resultMap id="order" type="com.pgt.cart.bean.Order">
+		<id column="order_id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="status" property="status" />
+		<result column="shipping_fee" property="shippingFee" />
+		<result column="subtotal" property="subtotal" />
+		<result column="total" property="total" />
+		<result column="user_comments" property="userComments" />
+		<result column="creation_date" property="creationDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+
+	<resultMap id="commerceItem" type="com.pgt.cart.bean.CommerceItem">
+		<id column="commerce_item_id" property="id" />
+		<result column="order_id" property="orderId" />
+		<result column="reference_id" property="referenceId" />
+		<result column="name" property="name" />
+		<result column="quality" property="quality" />
+		<result column="list_price" property="listPrice" />
+		<result column="sale_price" property="salePrice" />
+		<result column="quantity" property="quantity" />
+		<result column="amount" property="amount" />
+		<result column="snapshot_id" property="snapshotId" />
+		<result column="index" property="index" />
+		<result column="creation_date" property="creationDate" />
+		<result column="update_date" property="updateDate" />
+		<association column="snapshot_id" property="snapshotMedia" resultMap="com.pgt.product.dao.ProductMapper.productMedia" />
+	</resultMap>
+
+	<resultMap id="productPrice" type="com.pgt.cart.bean.ProductPriceVector">
+		<id column="product_id" property="productId" />
+		<result column="list_price" property="listPrice" />
+		<result column="sale_price" property="salePrice" />
+	</resultMap>
+
+	<select id="loadInitialOrderByUserId" parameterType="int" resultMap="order">
+		SELECT *
+		FROM `ORDER` o
+		WHERE o.user_id = #{userId}
+		AND o.status = 1
+	</select>
+
+	<insert id="createOrder" parameterType="com.pgt.cart.bean.Order" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO `ORDER` (user_id, status, shipping_fee, subtotal, total, creation_date, update_date, user_comments)
+		VALUES (#{userId}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{userComments})
+	</insert>
+
+	<update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
+		UPDATE `ORDER`
+		<set>
+			status = #{status}, shipping_fee = #{shippingFee}, subtotal = #{subtotal}, total = #{total}, user_comments = #{userComments},
+			submit_data = #{submitDate}, update_date = now()
+		</set>
+		WHERE order_id = #{id}
+	</update>
+
+	<insert id="createCommerceItem" parameterType="com.pgt.cart.bean.CommerceItem" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO COMMERCE_ITEM (order_id, reference_id, name, quality, list_price, sale_price, quantity, amount, snapshot_id, `index`, creation_date, update_date)
+		VALUES (#{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, now(), now())
+	</insert>
+
+	<update id="updateCommerceItems" parameterType="list">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE COMMERCE_ITEM
+			<set>
+				order_id = #{item.orderId}, reference_id = #{item.referenceId}, name = #{item.name}, quality = #{quality}, list_price = #{item.listPrice},
+				sale_price = #{item.salePrice}, quantity = #{item.quantity}, amount = #{item.amount}, snapshot_id = #{item.snapshotId},
+				`index` = #{item.index}, update_date = now()
+			</set>
+			WHERE commerce_item_id = #{item.id}
+		</foreach>
+	</update>
+
+	<select id="loadCommerceItemsFromOrderWithRealTimePrice" parameterType="int" resultMap="commerceItem">
+		SELECT ci.commerce_item_id, ci.order_id, ci.reference_id, ci.name, ci.quality, prod.list_price, prod.sale_price, ci.quantity, ci.amount,
+			ci.snapshot_id, ci.`index`, ci.creation_date, ci.update_date, m.media_id, m.title, m.path
+		FROM COMMERCE_ITEM ci
+		LEFT JOIN PRODUCT prod ON ci.reference_id = prod.product_id
+		LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
+		WHERE ci.order_id = #{orderId}
+		ORDER BY ci.index
+	</select>
+
+	<select id="loadProductPrice" resultMap="productPrice">
+		SELECT product_id, list_price, sale_price
+		FROM PRODUCT prod
+		WHERE prod.product_id IN
+		<foreach collection="array" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+	<delete id="deleteCommerceItem" parameterType="int">
+		DELETE FROM COMMERCE_ITEM
+		WHERE commerce_item_id = #{commerceItemId}
+	</delete>
+
+	<select id="queryThumbnailMedia" parameterType="int" resultMap="com.pgt.product.dao.ProductMapper.productMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE media_id = #{mediaId} AND type = 'thumbnail'
+	</select>
+
+	<delete id="deleteAllCommerceItems" parameterType="int">
+		DELETE FROM COMMERCE_ITEM
+		WHERE order_id = #{orderId}
+	</delete>
+
+	<delete id="deleteCommerceItems">
+		DELETE FROM COMMERCE_ITEM
+		WHERE commerce_item_id IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>

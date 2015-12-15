@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.shipping.dao.ShippingMethodMapper">
+    <resultMap id="shippingMethod" type="com.pgt.shipping.bean.ShippingMethod">
+        <id column="shipping_method_id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="status" property="status"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+    <parameterMap id="paramShippingMethod" type="com.pgt.shipping.bean.ShippingMethod">
+    </parameterMap>
+
+    <insert id="addShippingMethod" parameterMap="paramShippingMethod" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO SHIPPING_METHOD(name,status,creation_date,update_date)
+        VALUES (#{name},#{status},#{creationDate},#{updateDate})
+        <selectKey keyProperty="id" resultType="int">   
+                     select LAST_INSERT_ID()
+        </selectKey>   
+    </insert>
+    
+    <select id="selectShippingMethod" parameterType="int" resultMap="shippingMethod">
+        SELECT * FROM SHIPPING_METHOD WHERE shipping_method_id = #{id}
+    </select>
+    
+    <update id="update" parameterMap="paramShippingMethod">
+        UPDATE SHIPPING_ADDRESS SET name = #{name},status = #{status},creation_date = #{creationDate},update_date = #{updateDate}
+         WHERE shipping_method_id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        DELETE FROM SHIPPING_METHOD WHERE shipping_method_id = #{id}
+    </delete>
+</mapper>

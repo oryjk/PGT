@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.payment.dao.TransactionLogMapper">
+	
+	<insert id="createTransactionLog" parameterType="com.pgt.payment.bean.TransactionLog" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO TRANSACTION_LOG (ORDER_ID, USER_ID, PAYMENT_GROUP_ID, TRANSACTION_ID, INBOUND, OUTBOUND, INBOUND_TIME, OUTBOUND_TIME, PAYMENT_TYPE, SERVICE_NAME)
+		VALUES (#{orderId}, #{userId}, #{paymentGroupId}, #{transactionId},#{inbound}, #{outbound}, #{inboundTime}, #{outboundTime}, #{paymentType}, #{serviceName})
+		<selectKey resultType="long" order="AFTER" keyProperty="id">
+        	SELECT LAST_INSERT_ID() as id
+    	</selectKey>
+	</insert>
+
+	<update id="updateTransactionLog" parameterType="com.pgt.payment.bean.TransactionLog">
+		UPDATE TRANSACTION_LOG
+		SET ORDER_ID = #{orderId}, USER_ID = #{userId}, PAYMENT_GROUP_ID = #{paymentGroupId}, TRANSACTION_ID = #{transactionId}, 
+		INBOUND = #{inbound}, OUTBOUND = #{outbound}, INBOUND_TIME = #{inboundTime}, OUTBOUND_TIME = #{outboundTime}, 
+		PAYMENT_TYPE = #{paymentType}, SERVICE_NAME = #{serviceName}
+		WHERE ID = #{id}
+	</update>
+	
+	
+	<resultMap id="transactionLog" type="com.pgt.payment.bean.TransactionLog">
+		<id column="ID" property="id"/>
+		<result column="ORDER_ID" property="orderId"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="PAYMENT_GROUP_ID" property="paymentGroupId"/>
+		<result column="TRANSACTION_ID" property="transactionId"/>
+		<result column="INBOUND" property="inbound"/>
+		<result column="OUTBOUND" property="outbound"/>
+		<result column="INBOUND_TIME" property="inboundTime"/>
+		<result column="OUTBOUND_TIME" property="outboundTime"/>
+		<result column="PAYMENT_TYPE" property="paymentType"/>
+		<result column="SERVICE_NAME" property="serviceName"/>
+	</resultMap>
+	
+	
+	<select id="findById" resultMap="transactionLog" parameterType="int">
+		SELECT *
+		FROM TRANSACTION_LOG where ID = #{id}
+	</select>
+	
+	
+	<select id="findByTrackingNo" resultMap="transactionLog" parameterType="string">
+		SELECT *
+		FROM TRANSACTION_LOG WHERE OUTBOUND LIKE CONCAT('%',  #{id} ,'%') AND INBOUND IS NULL
+	</select>
+
+</mapper>

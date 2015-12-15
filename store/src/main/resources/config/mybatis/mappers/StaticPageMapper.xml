@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.page.dao.StaticPageMapper">
+
+	<!--StaticPage result map -->
+	<resultMap id="StaticPageResult" type="com.pgt.page.bean.StaticPage">
+		<id column="STATICPAGE_ID" property="staticPageId" />
+		<result column="NAME" property="name"/>
+		<result column="JS" property="js" />
+		<result column="CSS" property="css" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+
+	<!-- StaticPageBannerRelation result map -->
+	<resultMap id="StaticPageBannerRelationResult" type="com.pgt.page.bean.StaticPageBannerRelation">
+		<id column="ID" property="staticPageBannerRelationId" />
+		<result column="STATICPAGE_ID" property="staticPageId" />
+		<result column="BANNER_ID" property="bannerId" />
+	</resultMap>
+
+
+	<!-- StaticPageCategoryRelation result map -->
+	<resultMap id="StaticPageCategoryRelationResult" type="com.pgt.page.bean.StaticPageCategoryRelation">
+		<id column="ID" property="staticPageCategoryRelationId" />
+		<result column="STATICPAGE_ID" property="staticPageId" />
+		<result column="CATEGORY_ID" property="categoryId" />
+	</resultMap>
+
+
+
+	<!-- create a StaticPage bean -->
+	<insert id="createStaticPage" parameterType="com.pgt.page.bean.StaticPage"
+		keyProperty="staticPageId" useGeneratedKeys="true">
+		INSERT INTO
+		STATICPAGE(NAME,JS,CSS,STATUS)VALUES(#{name},#{js},#{css},#{status})
+	</insert>
+
+	<!-- update a StaticPage bean -->
+	<update id="updateStaticPage" parameterType="com.pgt.page.bean.StaticPage"
+		keyProperty="staticPageId" useGeneratedKeys="true">
+		UPDATE STATICPAGE SET
+		NAME=#{name},JS=#{js},CSS=#{css},STATUS=#{status} WHERE
+		STATICPAGE_ID=#{staticPageId}
+	</update>
+
+	<!-- delete a StaticPage bean -->
+	<delete id="deleteStaticPageById">
+		DELETE FROM
+		STATICPAGE WHERE
+		STATICPAGE_ID=#{staticPageId}
+	</delete>
+
+	<select id="queryStaticPage" resultMap="StaticPageResult">
+		SELECT
+		*
+		FROM STATICPAGE
+		WHERE
+		STATICPAGE_ID=#{staticPageId}
+	</select>
+
+	<select id="queryAllStaticPage" resultMap="StaticPageResult">
+		SELECT * FROM
+		STATICPAGE
+	</select>
+
+
+	<!-- create a StaticPageBannerRelation bean -->
+	<insert id="createStaticPageBannerRelation" parameterType="com.pgt.page.bean.StaticPageBannerRelation"
+		keyProperty="staticPageBannerRelationId" useGeneratedKeys="true">
+		INSERT INTO
+		STATICPAGE_BANNER(STATICPAGE_ID,BANNER_ID)VALUES(#{staticPageId},#{bannerId})
+	</insert>
+
+	<!-- delete a StaticPageBannerRelation bean -->
+	<delete id="deleteStaticPageBannerRelation">
+		DELETE FROM
+		STATICPAGE_BANNER WHERE
+		STATICPAGE_ID=#{staticPageId}
+	</delete>
+
+	<select id="queryStaticPageBannerRelation" resultMap="StaticPageBannerRelationResult">
+		SELECT
+		*
+		FROM STATICPAGE_BANNER
+		WHERE
+		STATICPAGE_ID=#{staticPageId}
+	</select>
+	
+	
+	
+	<!-- create a StaticPageCategoryRelation bean -->
+	<insert id="createStaticPageCategoryRelation" parameterType="com.pgt.page.bean.StaticPageCategoryRelation"
+		keyProperty="staticPageCategoryRelationId" useGeneratedKeys="true">
+		INSERT INTO
+		STATICPAGE_CATEGORY(STATICPAGE_ID,CATEGORY_ID)VALUES(#{staticPageId},#{categoryId})
+	</insert>
+
+	<!-- delete a StaticPageCategoryRelation bean -->
+	<delete id="deleteStaticPageCategoryRelation">
+		DELETE FROM
+		STATICPAGE_CATEGORY WHERE
+		STATICPAGE_ID=#{staticPageId}
+	</delete>
+
+	<select id="queryStaticPageCategoryRelation" resultMap="StaticPageCategoryRelationResult">
+		SELECT
+		*
+		FROM STATICPAGE_CATEGORY
+		WHERE
+		STATICPAGE_ID=#{staticPageId}
+	</select>
+	
+</mapper>

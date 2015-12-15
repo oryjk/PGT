@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.city.dao.CityMapper">
+    <resultMap type="com.pgt.city.bean.Province" id="province">
+        <result column="provinceID" property="id"/>
+        <result column="province" property="name"/>
+    </resultMap>
+    <resultMap type="com.pgt.city.bean.City" id="city">
+        <result column="cityID" property="id"/>
+        <result column="city" property="name"/>
+    </resultMap>
+    <resultMap type="com.pgt.city.bean.Area" id="area">
+        <result column="areaID" property="id"/>
+        <result column="area" property="name"/>
+    </resultMap>
+    <select id="getAllProvince" resultMap="province">
+        SELECT provinceID, province FROM CN_PROVINCE
+    </select>
+    <select id="getCityByProvinceId" parameterType="int" resultMap="city">
+        SELECT cityID, city FROM CN_CITY WHERE father = #{provinceId}
+    </select>
+    <select id="getAreaByCityId" parameterType="int" resultMap="area">
+        SELECT areaID, area FROM CN_AREA WHERE father = #{cityId}
+    </select>
+</mapper>

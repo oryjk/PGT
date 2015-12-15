@@ -1,0 +1,166 @@
+@import "commonMixin";
+@import "globleVariable";
+@import "component";
+
+.footer {
+  background: $darkGray;
+}
+
+.goods-box {
+  background: $ashGray;
+}
+
+.us {
+  position: relative;
+  @include bfc;
+}
+
+/*our-goods
+************************************************/
+.our-goods {
+  margin: 0 auto;
+  padding: $colSpace 0;
+  @include wh($c11, 70px);
+}
+
+.our-good {
+  float: left;
+  @include wh(20%, 70px);
+
+
+  .icon-box {
+    float: left;
+    @include wh(70px, 100%);
+    border-radius: 50px;
+    background: $viceColor;
+    line-height: 70px;
+    text-align: center;
+  }
+
+  i {
+    color: white;
+    font-size: 35px;
+  }
+}
+
+/*2维码*/
+.two-dimension {
+  opacity: 0;
+  //transition: opacity 0.1s linear;
+  position: absolute;
+  top: 0;
+  left: 100px;
+}
+
+.our-app a:hover {
+  .two-dimension {
+    opacity: 1;
+    transition: opacity 1s linear;
+  }
+}
+
+
+
+.good-text {
+  margin-left: 80px;
+  padding-top: 10px;
+  h4,
+  p {
+    @include o;
+    font-size: 14px;
+  }
+  p {
+    color: $middleGray;
+  }
+}
+
+/*about-us
+************************************************/
+.about-us {
+  margin: 0 auto;
+  @include bfc;
+  padding: $colSpace 0;
+  width: $c11;
+
+  h3 {
+    color: $ashGray;
+  }
+
+  a {
+    @extend %footer-nav-a;
+  }
+
+  p {
+    @extend %footer-p;
+  }
+
+  ul {
+    float: left;
+    @include o;
+    width: 12%;
+    list-style: none;
+  }
+
+  li {
+    padding: 1px 0;
+  }
+
+  .us {
+    margin-left: 60%;
+  }
+
+  .our-app {
+    float: right;
+    width: 50%;
+  }
+
+  .apple-dimension,
+  .android-dimension,
+  .online-server,
+  .online-server {
+    float: left;
+    display: block;
+    margin-bottom: 10px;
+    width: 50%;
+    text-align: center;
+
+    img {
+      width: 30%;
+    }
+  }
+}
+
+/*approve-box
+************************************************/
+.approve-box {
+  background: #333333;
+  padding: $colSpace 0 5px;
+  text-align: center;
+
+  p {
+    @extend %footer-p;
+  }
+}
+
+.approve {
+  @include bfc;
+  margin: 0 auto;
+  width: 600px;
+
+  a {
+    float: left;
+    padding-right: $colSpace;
+    @include wh(100px, 30px);
+  }
+
+  img {
+    @include wh(100%, 100%);
+  }
+}
+
+/*fixed-aside
+*******************************************************/
+.fixed-aside-1 {
+  @include fixed-aside-one;
+}
+

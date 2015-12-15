@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.communication.dao.ConsultingMapper">
+
+
+	<!-- sql片段 需要查询咨询的相关信息 -->
+	<sql id="query_start">
+		SELECT
+		CONSULTING.*,USERS.LOGIN,PRODUCT.NAME
+		FROM
+		CONSULTING,
+		USERS,
+		PRODUCT
+	</sql>
+
+
+	<sql id="query_end">
+		AND USERS.USER_ID = CONSULTING.USER_ID
+		AND
+		PRODUCT.PRODUCT_ID =
+		CONSULTING.PRODUCT_ID
+	</sql>
+
+
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.currentIndex},
+					#{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+
+	<!--Consulting result map -->
+	<resultMap id="ConsultingResult" type="com.pgt.communication.bean.Consulting">
+		<id column="ID" property="id" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="CONTENT" property="content" />
+		<result column="IP" property="ip" />
+		<result column="IS_SHOW" property="isShow" />
+		<result column="PHONE_NUMBER" property="phoneNumber" />
+
+		 <association property="user" column="USER_ID"
+			select="selectUser"/>
+
+		<association property="product" javaType="com.pgt.product.bean.Product">
+			<id column="PRODUCT_ID" property="productId" />
+			<result column="NAME" property="name" />
+		</association>
+
+		<association property="parent"
+			javaType="com.pgt.communication.bean.Consulting">
+			<id column="PARENT_CONSULATING_ID" property="id" />
+		</association>
+
+		<collection property="childrens" column="ID"
+			select="queryChildConsulting" />
+	</resultMap>
+
+   <select id="selectUser" parameterType="int" resultMap="com.pgt.user.dao.UserMapper.user">
+		SELECT *
+		FROM USERS WHERE user_id = #{USER_ID}
+	</select>
+
+	<!-- insert a Consulting bean -->
+	<insert id="createConsulting" parameterType="com.pgt.communication.bean.Consulting"
+		keyProperty="id" useGeneratedKeys="true">
+
+		INSERT INTO
+		CONSULTING(CREATE_DATE,CONTENT,IP,IS_SHOW,USER_ID,PRODUCT_ID,PARENT_CONSULATING_ID,PHONE_NUMBER)
+		VALUES(#{createDate},#{content},#{ip},#{isShow},#{user.id},#{product.productId},#{parent.id},#{phoneNumber})
+
+	</insert>
+
+	<!-- updateIsShow -->
+	<update id="updateIsShow" parameterType="com.pgt.communication.bean.Consulting"
+		keyProperty="id" useGeneratedKeys="true">
+		UPDATE CONSULTING SET
+		IS_SHOW=#{isShow} WHERE ID=#{id}
+	</update>
+
+	<!-- delete a Consulting bean -->
+	<delete id="deleteConsultingById">
+		DELETE FROM
+		CONSULTING WHERE
+		ID=#{id}
+	</delete>
+
+	<!-- 批量删除 deleteConsultingByKes -->
+	<delete id="deleteConsultingByKes">
+
+		DELETE FROM CONSULTING WHERE
+		ID IN
+		<foreach collection="array" separator="," item="id" open="("
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+
+	<!-- 查询某个商品 -->
+	<select id="queryConsulting" resultMap="ConsultingResult">
+		<include refid="query_start" />
+		<where>
+			ID = #{id}
+			<include refid="query_end" />
+		</where>
+	</select>
+
+	<!-- 查询咨询所有的回复 -->
+	<select id="queryChildConsulting" resultMap="ConsultingResult">
+		<include refid="query_start" />
+		<where>
+			PARENT_CONSULATING_ID=#{id}
+			<include refid="query_end" />
+		</where>
+	</select>
+
+	<!-- 后台：查询所有的咨询 带分页 -->
+	<select id="queryAllConsulting" parameterType="com.pgt.communication.bean.ConsultingCustom"
+		resultMap="ConsultingResult">
+		<include refid="query_start" />
+		<where>
+			<include refid="query_end" />
+		</where>
+		<include refid="pageBean" />
+	</select>
+
+
+	<!-- 后台：查询所有的咨询的总记录数 -->
+	<select id="queryAllConsultingCount" parameterType="com.pgt.communication.bean.ConsultingCustom"
+		resultType="Integer">
+		SELECT
+		COUNT(*)
+		FROM
+		CONSULTING,
+		USERS,
+		PRODUCT
+		<where>
+			<include refid="query_end" />
+		</where>
+	</select>
+
+	<!-- 查询用户的所有咨询 -->
+	<select id="queryUserAllConsulting" parameterType="Long"
+		resultMap="ConsultingResult">
+		<include refid="query_start" />
+		<where>
+			CONSULTING.USER_ID = #{userId} AND IS_SHOW = 1
+			<include refid="query_end" />
+		</where>
+	</select>
+
+	<!-- 查询一个商品下面所有的咨询 -->
+	<select id="queryAllConsultingByProduct" parameterType="com.pgt.communication.bean.ConsultingCustom"
+		resultMap="ConsultingResult">
+
+		SELECT
+		CONSULTING.*,
+		PRODUCT. NAME
+		FROM
+		CONSULTING,
+		PRODUCT
+		WHERE
+		CONSULTING.PRODUCT_ID = #{product.productId}
+		AND IS_SHOW = 1
+		AND
+		PRODUCT.PRODUCT_ID = CONSULTING.PRODUCT_ID
+		AND PARENT_CONSULATING_ID IS NULL
+        <include refid="pageBean" />
+	</select>
+
+	<!-- 查询一个商品下面所有咨询的总记录数 -->
+	<select id="queryAllConsultingByProductCount" parameterType="com.pgt.communication.bean.ConsultingCustom"
+		resultType="Integer">
+	
+	   SELECT
+		
+		COUNT(*)
+		      
+		FROM
+		CONSULTING,
+		PRODUCT
+		WHERE
+		CONSULTING.PRODUCT_ID = #{product.productId}
+		AND IS_SHOW = 1
+		AND
+		PRODUCT.PRODUCT_ID = CONSULTING.PRODUCT_ID
+		AND PARENT_CONSULATING_ID IS NULL
+	
+	</select>
+
+</mapper>

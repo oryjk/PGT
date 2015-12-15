@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.integration.alipay.dao.AlipayResultMapper">
+    <resultMap id="alipayResult" type="com.pgt.integration.alipay.bean.AlipayResult">
+		<id column="ALIPAY_ID" property="id"/>
+		<result column="ORDER_ID" property="orderId"/>
+		<result column="BUYER_ID" property="buyerId"/>
+		<result column="BUYER_ACCOUNT" property="buyerAccount"/>
+		<result column="CREATION_DATE" property="createDate"/>
+		<result column="UPDATE_DATE" property="updateDate"/>
+	</resultMap>
+	
+    <select id="findAlipayResult" parameterType="int" resultMap="alipayResult">
+		SELECT * FROM ALIPAY_RESULT WHERE alipay_id = #{id}
+	</select>
+    
+    <insert id="createAlipayResult" parameterType="com.pgt.integration.alipay.bean.AlipayResult" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO ALIPAY_RESULT (order_id,buyer_id,buyer_account,creation_date,update_date)
+		VALUES (#{orderId},#{buyerId},#{buyerAccount},#{creationDate},#{updateDate});
+	</insert>
+</mapper>

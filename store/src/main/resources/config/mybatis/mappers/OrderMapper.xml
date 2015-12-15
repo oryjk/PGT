@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.cart.dao.OrderMapper">
+	<resultMap id="order" type="com.pgt.cart.bean.Order">
+		<id column="order_id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="status" property="status" />
+		<result column="shipping_fee" property="shippingFee" />
+		<result column="subtotal" property="subtotal" />
+		<result column="total" property="total" />
+		<result column="user_comments" property="userComments" />
+		<result column="creation_date" property="creationDate" />
+		<result column="update_date" property="updateDate" />
+		<association property="shippingVO" column="shipping_id" 
+            select="com.pgt.shipping.dao.ShippingVOMapper.findShipping"/>
+		<collection property="commerceItems" column="order_id" select="selectCommerceItemByOrderId"/>
+	</resultMap>
+	<resultMap id="commerceItem" type="com.pgt.cart.bean.CommerceItem">
+		<id column="commerce_item_id" property="id" />
+		<result column="order_id" property="orderId" />
+		<result column="reference_id" property="referenceId" />
+		<result column="name" property="name" />
+		<result column="quality" property="quality" />
+		<result column="list_price" property="listPrice" />
+		<result column="sale_price" property="salePrice" />
+		<result column="quantity" property="quantity" />
+		<result column="amount" property="amount" />
+		<result column="snapshot_id" property="snapshotId" />
+		<result column="index" property="index" />
+		<result column="creation_date" property="creationDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+	
+    <select id="loadOrder" parameterType="int" resultMap="order">
+        SELECT * FROM `order` WHERE order_id = #{orderId} 
+    </select>
+    
+    <select id="selectCommerceItemByOrderId" parameterType="int" resultMap="commerceItem">
+        SELECT * FROM commerce_item WHERE order_id = #{orderId}
+    </select>
+</mapper>

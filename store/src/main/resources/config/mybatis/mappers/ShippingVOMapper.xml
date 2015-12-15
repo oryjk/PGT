@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.shipping.dao.ShippingVOMapper">
+    <resultMap id="shipping_base" type="com.pgt.shipping.bean.ShippingVO">
+        <id column="shipping_id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="tracking_number" property="trackNumber"/>
+        <result column="shipping_type" property="shippingType"/>
+        <result column="status" property="status"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+    <resultMap id="shippingVO" type="com.pgt.shipping.bean.ShippingVO" extends="shipping_base">
+        <association property="shippingAddress" column="shiping_address_id" 
+            select="com.pgt.shipping.dao.ShippingAddressMapper.selectAddress"/>
+         <association property="shippingMethod" column="shipping_method_id" 
+            select="com.pgt.shipping.dao.ShippingMethodMapper.selectShippingMethod"/>
+    </resultMap>
+    <parameterMap id="paramShippingVO" type="com.pgt.shipping.bean.ShippingVO"/>
+    
+    <insert id="addShipping" parameterMap="paramShippingVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO SHIPPING(order_id,shiping_address_id,shipping_method_id,status,tracking_number,shipping_type,creation_date,update_date,amount)
+        VALUES (#{orderId},#{shippingAddress.id},#{shippingMethod.id},#{status},#{trackingNumber},#{shippingType},#{creationDate},#{updateDate},#{amount})
+    </insert>
+    
+    <select id="findShipping" resultMap="shippingVO" parameterType="int">
+        SELECT * FROM SHIPPING WHERE shipping_id=#{id} 
+    </select>
+    <select id="findShippingByOrderId" resultMap="shippingVO" parameterType="java.lang.String">
+        SELECT * FROM SHIPPING WHERE order_id=#{orderId}
+    </select>
+    
+    <update id="saveShippingToOrder" parameterType="com.pgt.cart.bean.Order">
+        UPDATE ORDER SET shipping_id = #{shippingVO.id} WHERE order_id=#{id}
+    </update>
+    
+    <update id="deleteLinkAddressId" parameterType="int">
+        UPDATE SHIPPING SET shiping_address_id = null WHERE shiping_address_id=#{id}
+    </update>
+    
+    <update id="deleteLinkShippingMethodId" parameterType="int">
+        UPDATE SHIPPING SET shipping_method_id = null WHERE shiping_method_id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        DELETE FROM SHIPPING WHERE shipping_id = #{id}
+    </delete>
+    
+    <update id="update" parameterMap="paramShippingVO">
+        UPDATE SHIPPING SET order_id = #{orderId},shiping_address_id = #{shippingAddress.id},shipping_method_id = #{shippingMethod.id},status=#{status},
+        tracking_number = #{trackingNumber},shipping_type=#{shippingType},amount = #{amount},update_date = #{updateDate}
+         WHERE shipping_id = #{id}
+    </update>
+</mapper>

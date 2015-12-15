@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.cart.dao.UserOrderDao">
+
+	<sql id="limit-split-page">
+		<if test="@Ognl@isNotBlankString(pagination.sortFieldName)">
+			ORDER BY ${pagination.sortFieldName}
+			<if test="not pagination.asc">
+				DESC
+			</if>
+		</if>
+		<if test="not pagination.invalidPagination">
+			LIMIT #{pagination.sqlStartIndex}, #{pagination.capacity}
+		</if>
+	</sql>
+
+	<resultMap id="orderWithCommerceItem" type="com.pgt.cart.bean.Order">
+		<id column="order_id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="status" property="status" />
+		<result column="shipping_fee" property="shippingFee" />
+		<result column="subtotal" property="subtotal" />
+		<result column="total" property="total" />
+		<result column="user_comments" property="userComments" />
+		<result column="creation_date" property="creationDate" />
+		<result column="update_date" property="updateDate" />
+		<result column="submit_Date" property="submitDate" />
+		<collection column="order_id" property="commerceItems" select="loadCommerceItemsFromOrder" />
+	</resultMap>
+
+	<resultMap id="browsedProduct" type="com.pgt.cart.bean.BrowsedProductVO">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="prod_id" property="productId" />
+		<result column="creation_date" property="creationDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+
+	<select id="queryOrderPage" resultMap="orderWithCommerceItem">
+		SELECT o.*
+		FROM `ORDER` o
+		WHERE o.user_id = #{userId}
+		<if test="@Ognl@isNotBlankString(pagination.keyword)">
+			AND o.order_id IN (
+			SELECT DISTINCT order_id
+			FROM COMMERCE_ITEM ci
+			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%'))
+		</if>
+		<include refid="limit-split-page" />
+	</select>
+
+	<select id="loadCommerceItemsFromOrder" parameterType="int" resultMap="com.pgt.cart.dao.ShoppingCartDao.commerceItem">
+		SELECT commerce_item_id, order_id, ci.reference_id, name, quality, list_price, sale_price, quantity, amount, snapshot_id, ci.`index`,
+		creation_date, update_date, m.media_id, m.title, m.path
+		FROM COMMERCE_ITEM ci
+		LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
+		WHERE order_id = #{orderId}
+		ORDER BY `index`
+	</select>
+
+	<select id="loadOrderHistory" parameterType="int" resultMap="orderWithCommerceItem">
+		SELECT *
+		FROM `ORDER` o
+		WHERE o.order_id = #{orderId}
+	</select>
+
+	<select id="queryBrowsedProducts" parameterType="int" resultMap="browsedProduct">
+		SELECT *
+		FROM RECENT_BROWSE
+		WHERE user_id = #{userId}
+		ORDER BY update_date DESC
+	</select>
+
+	<update id="resetBrowsedProductUpdateDate" parameterType="int">
+		UPDATE RECENT_BROWSE
+		SET update_date = now()
+		WHERE id = #{browsedProductId}
+	</update>
+
+	<update id="replaceBrowsedProductRecord">
+		UPDATE RECENT_BROWSE
+		SET prod_id = #{productId}, creation_date = now(), update_date = now()
+		WHERE id = #{browsedProductId}
+	</update>
+
+	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO RECENT_BROWSE (user_id, prod_id, creation_date, update_date)
+		VALUES (#{userId}, #{productId}, now(), now())
+	</insert>
+
+	<update id="resetBrowsedProductsBatchUpdateDate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE RECENT_BROWSE
+			SET update_date = now()
+			WHERE id = #{item}
+		</foreach>
+	</update>
+</mapper>

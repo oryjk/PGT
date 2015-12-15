@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.category.dao.CategoryMapper">
+
+
+    <!--category result map -->
+    <resultMap id="CategoryResult" type="com.pgt.category.bean.Category">
+        <id column="CATEGORY_ID" property="id"/>
+        <result column="NAME" property="name"></result>
+        <result column="CODE" property="code"></result>
+        <result column="TYPE" property="type"></result>
+        <result column="STATUS" property="status"></result>
+        <result column="COLOR" property="color"/>
+        <association property="frontMedia" column="MEDIA_ID"
+                     select="com.pgt.product.dao.ProductMapper.queryProductFrontMedia"/>
+        <association property="parent" column="PARENT_CATEGORY_ID"
+                     javaType="com.pgt.category.bean.Category" select="queryCategory"/>
+        <collection property="children" column="CATEGORY_ID"
+                    select="queryChildCategory"/>
+    </resultMap>
+
+    <resultMap id="resultProduct" type="com.pgt.product.bean.Product">
+        <id column="PRODUCT_ID" property="productId"/>
+        <result column="NAME" property="name"></result>
+        <result column="SERIAL_NUMBER" property="serialNumber"></result>
+        <result column="LIST_PRICE" property="listPrice"></result>
+        <result column="SALE_PRICE" property="salePrice"></result>
+        <result column="STATUS" property="status"></result>
+        <result column="DESCRIPTION" property="description"></result>
+        <result column="SHIPPING_FEE" property="shippingFee"></result>
+        <result column="RELATED_CATEGORY_ID" property="relatedCategoryId"></result>
+        <result column="STOCK" property="stock"></result>
+        <result column="CREATION_DATE" property="creationDate"></result>
+        <result column="UPDATE_DATE" property="updateDate"></result>
+        <collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>
+    </resultMap>
+
+    <!--insert a hot product bean -->
+    <insert id="createCategory" parameterType="com.pgt.category.bean.Category"
+            keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO CATEGORIES(NAME,CODE,PARENT_CATEGORY_ID,STATUS,TYPE)
+		VALUES
+		(#{name},#{code},#{parent.id},#{status},#{type})
+	</insert>
+    <!--update a hot product bean -->
+    <update id="updateCategory" parameterType="com.pgt.category.bean.Category"
+            keyProperty="id" useGeneratedKeys="true">
+		UPDATE CATEGORIES SET
+		NAME=#{name},CODE=#{code},PARENT_CATEGORY_ID=#{parent.id},STATUS=#{status},TYPE=#{type}
+		WHERE CATEGORY_ID=#{id}
+	</update>
+
+    <select id="queryCategory" resultMap="CategoryResult">
+		SELECT * FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
+	</select>
+    <select id="queryChildCategory" resultMap="CategoryResult">
+		SELECT * FROM CATEGORIES WHERE PARENT_CATEGORY_ID=#{categoryId}
+	</select>
+
+    <select id="queryAllCategories" resultMap="CategoryResult">
+		SELECT * FROM CATEGORIES
+	</select>
+
+    <select id="queryCategories" parameterType="com.pgt.category.bean.Category"
+            resultMap="CategoryResult">
+        SELECT * FROM CATEGORIES WHERE 1=1
+        <if test="category.type!=null">
+            AND TYPE=#{category.type}
+        </if>
+        <if test="category.code!=null">
+            AND CODE=#{category.code}
+        </if>
+        <if test="category.status!=null">
+            AND STATUS=${category.status}
+        </if>
+        <if test="category.name!=null">
+            AND NAME LIKE "%${category.name}%"
+        </if>
+        <if test="paginationBean!=null">
+            <if test="paginationBean.currentIndex != null">
+                <if test="paginationBean.capacity != null">
+                    limit #{paginationBean.currentIndex}, #{paginationBean.capacity}
+                </if>
+            </if>
+        </if>
+
+    </select>
+
+    <delete id="deleteProductCategoryRelation" parameterType="com.pgt.product.bean.ProductCategoryRelation">
+		DELETE FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId} AND
+		CATEGORY_ID=#{categoryId}
+	</delete>
+
+
+    <select id="queryParentCategoryByProductId" parameterType="int" resultMap="CategoryResult">
+        SELECT c.* FROM CATEGORIES c left join
+                PRODUCT_CATEGORY pc
+                on
+                pc.PRODUCT_ID=#{productId} where
+                c.CATEGORY_ID=pc.CATEGORY_ID
+    </select>
+    
+</mapper>

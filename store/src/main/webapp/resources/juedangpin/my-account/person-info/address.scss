@@ -1,0 +1,174 @@
+@import '../base/my-account';
+
+
+.address-list {
+  overflow: hidden;
+  min-height: 517px;
+}
+
+/*message-box
+****************************************************/
+.message-box {
+  float: right;
+  margin: 20px 0;
+  padding: 5px 15px 5px 40px;
+  font-size: 14px;
+  background: url("../../core/images/myaccount/message.png") no-repeat 0 center;
+
+  p {
+    @include o;
+    color: $middleGray;
+  }
+  span {
+    color: $viceColor;
+  }
+}
+
+/*address-box
+****************************************************/
+.address,
+.add-address {
+  float: left;
+  margin: 2.5% 3%;
+  border-radius: 5px;
+  @include wh(25%, 140px);
+  background: white;
+
+}
+
+.address {
+  padding: 15px 8px;
+  border: 1px solid $ashGray;
+  font-size: 14px;
+
+  .right {
+    float: right;
+  }
+
+  .row2 {
+    padding-top: 20px;
+
+    span {
+      color: black;
+    }
+
+    .divide {
+      padding: 0 $colSpace;
+    }
+  }
+
+  .row3 {
+    padding-top: 14px;
+  }
+
+  .row4 {
+    padding-top: 8px;
+    height: 36px;
+  }
+}
+
+.add-address {
+  padding: 13px 6px;
+  border: 3px dashed $ashGray;
+  text-align: center;
+  color: $middleGray;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $viceColor;
+
+    * {
+      color: $viceColor;
+    }
+  }
+
+  .row1 {
+    padding-top: 35px;
+    font-size: 40px;
+
+  }
+  .row2 {
+    span {
+      font-size: 18px;
+    }
+  }
+}
+
+/*page-box
+****************************************************/
+.page-box {
+  @include page;
+}
+
+/*page-box
+****************************************************/
+.pop-up {
+  @include pop;
+  display: none;
+
+  input[type=text] {
+    @include wh(220px, 23px);
+
+    &:focus {
+      border: 2px solid $viceColor;
+    }
+  }
+
+  .must-write,
+  .pop-tips {
+    color: $emColor;
+  }
+
+
+  label {
+    display: block;
+    padding-bottom: 3px;
+  }
+
+  .row1,
+  .row2,
+  .row3,
+  .row4,
+  .row5,
+  .row6,
+  .row7 {
+    padding-top: 15px;
+  }
+
+  .row3 {
+    input {
+      width: 460px;
+    }
+  }
+
+  .row4,
+  .row5 {
+    float: left;
+    width: 240px;
+  }
+
+  .row6 {
+    clear: both;
+  }
+
+  .row7 {
+    float: right;
+  }
+}
+
+/*for-js
+****************************************************/
+.default-address {
+  border: 1px solid $viceColor;
+  border-top-width: 11px;
+  padding-top: 5px;
+
+  .set-default {
+    color: $viceColor;
+    cursor: default;
+
+    i {
+      display: none;
+    }
+  }
+}

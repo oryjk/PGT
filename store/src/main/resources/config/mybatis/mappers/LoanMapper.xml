@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.loan.dao.LoanMapper">
+	
+	<resultMap type="com.pgt.loan.bean.Loan" id="loanInfo">
+    	<id column="LOAN_ID" property="loanId"/>  
+        <result column="NAME" property="name"/>
+        <result column="EARNINGS_RATE" property="earingsRate"/>
+        <result column="SERVICE_FEE_RATE" property="serviceFeeRate"/>
+        <result column="COLLECT_END_DATE" property="collectionEndDate"/>
+        <result column="AMOUNT" property="amount"/>
+        <result column="INVEST_AMOUNT_MIN" property="investAmountMin"/>
+        <result column="INVEST_AMOUNT_MAX" property="investAmountMax"/>
+        <result column="COUNTER_PURCHASE" property="counterPurchase"/>
+        <result column="STATUS" property="status"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="CREATION_DATE" property="createionDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="IS_MOCK_DATA" property="isMockData"/>
+        <result column="IS_POPULATE" property="isPopulate"/>
+        <association property="loanPeriod" javaType="com.pgt.loan.bean.LoanPeriod">
+            <id property="id" column="LOAN_PERIOD_ID" />
+            <result property="displayName" column="PERIOD_NAME" />
+            <result property="unit" column="PERIOD_UNIT" />
+            <result property="amount" column="PERIOD_AMOUNT" />            
+        </association>
+        <association property="settlementCycle" javaType="com.pgt.loan.bean.SettlementCycle">
+            <id property="id" column="SETTLEMENT_CYCLE_ID" />
+            <result property="displayName" column="CYCLE_NAME" />
+        </association> 
+    </resultMap>
+    
+    <resultMap type="com.pgt.loan.bean.Loan" id="loanDetail">
+    	<id column="LOAN_ID" property="id"/>  
+        <result column="NAME" property="name"/>
+        <result column="EARNINGS_RATE" property="earingsRate"/>
+        <result column="SERVICE_FEE_RATE" property="serviceFeeRate"/>
+        <result column="COLLECT_END_DATE" property="collectionEndDate"/>
+        <result column="AMOUNT" property="amount"/>
+        <result column="INVEST_AMOUNT_MIN" property="investAmountMin"/>
+        <result column="INVEST_AMOUNT_MAX" property="investAmountMax"/>
+        <result column="COUNTER_PURCHASE" property="counterPurchase"/>
+        <result column="STATUS" property="status"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="CREATION_DATE" property="createionDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="IS_MOCK_DATA" property="isMockData"/>
+        <result column="IS_POPULATE" property="isPopulate"/>
+        <association property="loanPeriod" column="LOAN_PERIOD_ID" javaType="com.pgt.loan.bean.LoanPeriod">
+            <id property="id" column="LOAN_PERIOD_ID" />
+            <result property="displayName" column="PERIOD_NAME" />
+            <result property="unit" column="PERIOD_UNIT" />
+            <result property="amount" column="PERIOD_AMOUNT" />            
+        </association>
+        <association property="settlementCycle" column="SETTLEMENT_CYCLE_ID" javaType="com.pgt.loan.bean.SettlementCycle">
+            <id property="id" column="SETTLEMENT_CYCLE_ID" />
+            <result property="displayName" column="CYCLE_NAME" />
+        </association> 
+    </resultMap>
+        
+    <select id="findLoansWithIntro" resultMap="loanInfo" parameterType="java.util.Map">
+        SELECT loan.LOAN_ID, loan.NAME, loan.EARNINGS_RATE, loan.SERVICE_FEE_RATE, loan.COLLECT_END_DATE,
+		loan.AMOUNT, loan.INVEST_AMOUNT_MIN, loan.INVEST_AMOUNT_MAX, loan.COUNTER_PURCHASE, loan.STATUS,
+		loan.REFUND_AMOUNT, loan.CREATION_DATE, loan.UPDATE_DATE, loan.IS_MOCK_DATA, loan.IS_POPULATE,
+		lp.DISPLAY_NAME as PERIOD_NAME, lp.AMOUNT as PERIOD_AMOUNT, lp.UNIT AS PERIOD_UNIT, 
+		sc.DISPLAY_NAME as CYCLE_NAME, loan.LOAN_PERIOD_ID, loan.SETTLEMENT_CYCLE_ID
+		FROM loan
+		INNER JOIN loan_period lp on lp.LOAN_PERIOD_ID = loan.LOAN_PERIOD_ID
+		INNER JOIN settlement_cycle sc on sc.SETTLEMENT_CYCLE_ID = loan.SETTLEMENT_CYCLE_ID
+		WHERE 1=1
+		<if test="id != null">
+			and loan.LOAN_ID = #{id}
+		</if>
+		<if test="category != null">
+			and loan.CATEGORY_ID = #{category}
+		</if>
+		<if test="notIncludeMock != null">
+			and loan.IS_MOCK_DATA = 0
+		</if>
+		<if test="onlyIncludePopulate != null">
+			and loan.IS_POPULATE = 1
+		</if>
+		<if test="name != null">
+			and loan.NAME like CONCAT('%', #{name}, '%')
+		</if>
+		<if test="status != null">
+			and loan.STATUS = #{status}
+		</if>
+		
+		<if test="sortFiledName != null">
+			order by #{sortFiledName}
+		</if>
+		<if test="sqlStartIndex != null">
+			<if test="capacity != null">
+			limit #{sqlStartIndex}, #{capacity}
+			</if>
+		</if>
+    </select>
+    
+    <select id="findLoansWithIntroTotalAmount" resultType="long" parameterType="java.util.Map">
+        SELECT count(loan.LOAN_ID)
+		FROM loan
+		INNER JOIN loan_period lp on lp.LOAN_PERIOD_ID = loan.LOAN_PERIOD_ID
+		INNER JOIN settlement_cycle sc on sc.SETTLEMENT_CYCLE_ID = loan.SETTLEMENT_CYCLE_ID
+		WHERE 1=1
+		<if test="id != null">
+			and loan.LOAN_ID = #{id}
+		</if>
+		<if test="category != null">
+			and loan.CATEGORY_ID = #{category}
+		</if>
+		<if test="notIncludeMock != null">
+			and loan.IS_MOCK_DATA = 0
+		</if>
+		<if test="name != null">
+			and loan.NAME like CONCAT('%', #{name}, '%')
+		</if>
+		<if test="sortFiledName != null">
+			order by ${sortFiledName}
+		</if>
+		<if test="sqlStartIndex != null">
+			<if test="capacity != null">
+			limit ${sqlStartIndex}, ${capacity}
+			</if>
+		</if>
+    </select>
+
+
+</mapper>

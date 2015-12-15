@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.pgt.help.dao.HelpCenterMapper">
+
+	<resultMap id="helpCenterResult" type="com.pgt.help.bean.HelpCenter">
+		<id column="ID" property="id" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="REFERENCE_ID" property="relatedCategoryId" />
+		<result column="TYPE" property="type" />
+		<association property="frontMedia" column="ID"
+			select="queryHelpCenterFrontMedia" />
+		<collection property="childrens" column="ID"
+			select="queryChildHelpCenter" />
+	</resultMap>
+	
+	
+	<insert id="createHelpCenter" parameterType="com.pgt.help.bean.HelpCenter"
+		keyProperty="bannerId" useGeneratedKeys="true">
+		
+		INSERT INTO
+		HELPCENTER(TITLE,CONTENT,TYPE,PARENT_ID)VALUES(#{title},#{content},#{type},#{parent.id})
+	</insert>
+
+	<!-- update a helpCenter bean -->
+	<update id="updateHelpCenter" parameterType="com.pgt.help.bean.HelpCenter">
+		
+		UPDATE HELPCENTER SET
+		TITLE=#{title},CONTENT=#{content},TYPE=#{type},PARENT_ID=#{parent.id}
+		WHERE ID=#{id}
+	
+	</update>
+
+	<!-- delete a helpCenter bean -->
+	<delete id="deleteHelpCenterById">
+		DELETE FROM
+		HELPCENTER WHERE
+		ID=#{id}
+	</delete>
+	
+	<select id="queryHelpCenterFrontMedia" parameterType="int"
+		resultMap="com.pgt.common.dao.MediaMapper.MediaResult">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{id} AND TYPE =
+		'help'
+	</select>
+
+	<select id="queryChildHelpCenter" parameterType="Integer"
+		resultMap="helpCenterResult">
+           SELECT * FROM HELPCENTER WHERE PARENT_ID=#{id}
+	</select>
+
+	<select id="findHelpCentersByCategoryId" parameterType="int"
+		resultMap="helpCenterResult">
+
+		SELECT * FROM HELPCENTER WHERE
+		REFERENCE_ID=#{relatedCategoryId}
+
+	</select>
+
+	<select id="findHelpCenterById" parameterType="int" resultMap="helpCenterResult">
+		SELECT * FROM HELPCENTER WHERE ID =#{ID}
+	</select>
+
+</mapper>

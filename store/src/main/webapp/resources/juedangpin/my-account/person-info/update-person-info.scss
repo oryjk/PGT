@@ -1,0 +1,163 @@
+@import '../base/my-account';
+
+/*main
+************************************************/
+
+.main-right{
+  width:900px;
+  height:550px;
+  background-color:#fcfbff;
+  float:left;
+  font-size: 14px;
+}
+
+.update{
+  width: 180px;
+  height: 20px;
+  font-size: 15px;
+  margin-left: 50px;
+
+}
+.personal-content{
+  width: 900px;
+  height: 550px;
+  background: #ffffff;
+  margin:10px 10px 10px 10px;
+  border: 1px solid #cccccc;
+  overflow: hidden;
+}
+.box1{
+  width:100%;
+  font-size: 15px;
+  float: left;
+  margin:50px 50px 10px 65px;
+}
+.box2{
+  width:100%;
+  font-size: 15px;
+  float: left;
+  margin:25px 50px 5px 65px;
+
+}
+.box3{
+  width:100%;
+  font-size: 10px;
+  float: left;
+  margin: 0 50px 10px 130px ;
+}
+.box4{
+  width: 100%;
+  font-size: 15px;
+  float: left;
+  margin: 10px 50px 10px 50px;
+}
+.box5{
+  float: left;
+  font-size:15px;
+  margin: 10px 50px 10px 130px;
+}
+.button{
+  width: 80px;
+  height: 30px;
+  padding: 2px 6px 3px;
+  border: none;
+  color: white;
+  line-height: 1.5;
+  background: #ff9900;
+  border-radius: 3px;
+
+}
+.personal-left{
+  width: 230px;
+  height: 550px;
+  float: left;
+}
+.personal-right{
+  margin-left: 50px;
+  width: 600px;
+  height: 550px;
+  float: left;
+}
+.personal-img{
+  padding: 6px;
+  background: $lightGray;
+  border-radius: 5px;
+  width: 140px;
+  height: 140px;
+  margin: 50px auto 30px;
+
+  img {
+    @include wh(100%, 100%);
+  }
+}
+
+.new-input-file {
+  margin: 0 auto;
+
+  @include like-file(120px, 30px, 16px);
+}
+
+.text1{
+  width: 245px;
+  height: 25px;
+  margin-top: 60px;
+}
+.text2{
+  width: 245px;
+  height: 25px;
+  margin-top:20px;
+}
+.text3{
+  margin-top: 20px;
+  width: 400px;
+  height: 25px;
+  margin-left: 8px;
+}
+.text3-font1{
+  margin: 0;
+  padding: 0;
+  width: 80px;
+  height: 20px;
+  float: left;
+}
+.text3-font2{
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  float: left;
+}
+.input-text1{
+  padding: 0;
+  width: 150px;
+  height: 20px;
+  margin-left: 40px; ;
+}
+.input-text2{
+  padding: 0;
+  width: 150px;
+  height: 20px;
+  margin-left: 15px;
+
+}
+.input-text3{
+  padding: 0;
+  width: 150px;
+  height: 20px;
+  margin-left: 27px;
+
+}
+.input-text4{
+  padding:0;
+  width: 150px;
+  height: 30px;
+  float: left;
+}
+.input-text5 {
+  padding-left: 5px;
+  width: 80px;
+  height: 30px;
+  float: left;
+}
+.input-btn{
+  margin: 25px 0 0 200px;
+}

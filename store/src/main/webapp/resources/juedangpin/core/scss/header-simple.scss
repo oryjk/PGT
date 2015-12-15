@@ -1,0 +1,28 @@
+@import "commonMixin";
+@import "globleVariable";
+
+.header {
+  height: 100px;
+}
+
+.logo-box {
+  margin: 0 auto;
+  @include wh($mainWidth, 100%);
+
+  .logo {
+    float: left;
+    width: 200px;
+    background: url("../core/images/header/logo.png") 0 center no-repeat;
+  }
+
+  a {
+    display: block;
+    text-indent: -5000px;
+    width: 100%;
+  }
+
+  h1 {
+    @include o;
+    line-height: 100px;
+  }
+}

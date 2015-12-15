@@ -1,0 +1,965 @@
+
+@import "commonMixin";
+@import "globleVariable";
+@import "fontGeneral";
+
+/*主列表
+****************************************************/
+@mixin list($width, $fontSize:14px, $priceFont:22px,$btnSize: 14px, $max: 215px) {
+  .list-product {
+    position: relative;
+    float: left;
+    width: $width;
+    margin-bottom: 5px;
+
+    &:hover {
+      box-shadow: 0 0 2px 2px $ashGray;
+
+      .product-handle {
+        //display: block;
+        opacity: 1;
+        top: 90%;
+        transition: all .4s linear;
+      }
+    }
+
+    .inner {
+      padding: 10px;
+
+      div,
+      p {
+        width: 100%;
+      }
+
+      p {
+        height: 34px;
+        overflow: hidden;
+      }
+
+      .product-handle {
+        width: auto;
+      }
+    }
+
+    .list-img-box {
+      display: block;
+      width: 100%;
+      text-align: center;
+
+      img {
+        @include wh($max, $max);
+      }
+    }
+
+    .list-price-box {
+      margin: 10px 0;
+      span {
+        @extend %list-price-span;
+        font-size: $priceFont;
+      }
+    }
+
+    p {
+      a {
+        @extend %product-link;
+        font-size: $fontSize;
+      }
+    }
+  }
+
+  .product-handle {
+    //display: none;
+    position: absolute;
+    opacity: 0;
+    right: 5%;
+    top: 92%;
+    //transition: opacity .5s ease-in;
+
+    a {
+      font-size: $btnSize;
+      padding: 3px;
+      //border: 1px solid $ashGray;
+      background: $viceColor;
+      color: white;
+      text-decoration: none;
+      vertical-align: top;
+
+      &:hover {
+        background: $viceHoverColor;
+        color: white;
+      }
+
+      i {
+        color: white;
+      }
+    }
+
+    .disLike {
+      background: $ashGray;
+
+      &:hover {
+        background: $middleGray;
+      }
+    }
+
+    .addEnjoy {
+      background: $yeepayColor3;
+
+      &:hover {
+        background: $yeepayColor2;
+      }
+    }
+  }
+
+  .out-of-stock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include wh(140px, 90px);
+    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
+    opacity: .7;
+  }
+
+  .product-message {
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    background: linear-gradient(to right, rgba(100,100,100,.2) 0% , rgba(100,100,100,.9) 50%, rgba(100,100,100,.2) 100%);
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+  }
+
+  .product-link {
+    height: 51px;
+  }
+}
+
+/*纵向商品列表
+****************************************************/
+@mixin vertical-list($fontSize:14px, $priceFont:22px,$btnSize: 16px, $max:143px) {
+  float: left;
+  margin: $colSpace 0 0 0;
+  padding: 0 0 10px 0;
+  border: 1px solid $ashGray;
+  width: $c2;
+  background: white;
+
+  h2 {
+    margin: 0 auto 3px;
+    padding: 15px 0 10px;
+    border-bottom: 1px solid $viceColor;
+    width: 160px;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .inner {
+    position: relative;
+    overflow: hidden;
+    padding: 3px 0;
+  }
+
+  ul {
+    position: relative;
+    list-style: none;
+    @include o;
+  }
+
+  .move-top,
+  .move-bottom {
+    display: block;
+    margin: 0 10px;
+    height: 15px;
+    background: $viceColor;
+    line-height: 15px;
+    text-align: center;
+    text-decoration: none;
+
+    &:hover {
+      background: $viceHoverColor;
+    }
+
+    i {
+      color: white;
+    }
+  }
+
+  .move-top {
+    margin-bottom: 2px;
+  }
+  .move-bottom {
+    margin-top: 2px;
+  }
+  .move-top-disable,
+  .move-bottom-disable {
+    background: $ashGray;
+    cursor: default;
+
+    &:hover {
+      background: $ashGray;
+    }
+  }
+
+  .aside-product {
+    position: relative;
+    margin: 0 auto;
+    width: $c2 - $colSpace - 10px;
+    padding: 10px;
+
+    &:hover {
+      box-shadow: 0 0 2px 2px $ashGray;
+      .product-handle {
+        //display: block;
+        opacity: 1;
+        top: 165px;
+        transition: all .4s linear;
+      }
+    }
+
+    a {
+      display: block;
+      width: 100%;
+    }
+
+    img {
+      @include wh($max, $max);
+    }
+
+    p {
+      a {
+        @extend %product-link;
+      }
+    }
+
+
+
+    .aside-product-imgbox {
+      text-align: center;
+    }
+
+    .aside-product-priceh {
+      @extend %asdie-price-head-span
+    }
+
+    .aside-product-price {
+      @extend %aside-pirce-span;
+
+      span {
+        @extend %aside-pirce-span;
+      }
+    }
+  }
+
+  .product-handle {
+    //display: none;
+    position: absolute;
+    opacity: 0;
+    right: 5%;
+    top: 170px;
+    //transition: opacity .5s ease-in;
+
+    a {
+      display: inline;
+      font-size: $btnSize;
+      padding: 3px;
+      //border: 1px solid $ashGray;
+      color: $viceColor;
+      text-decoration: none;
+      vertical-align: top;
+
+      &:hover {
+        color: $viceHoverColor;
+      }
+    }
+
+    .disLike {
+      color: $middleGray;
+
+      &:hover {
+        color: $darkGray;
+      }
+    }
+
+    .addEnjoy {
+      color: $yeepayColor3;
+
+      &:hover {
+        color: $yeepayColor2;
+      }
+    }
+  }
+
+  .out-of-stock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include wh(140px, 90px);
+    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
+    opacity: .7;
+  }
+
+  .product-message {
+    display: none;
+    position: absolute;
+    top: 30%;
+    height: 40px;
+    width: 150px;
+    background: linear-gradient(to right, rgba(100,100,100,.2) 0% , rgba(100,100,100,.9) 50%, rgba(100,100,100,.2) 100%);
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+  }
+
+}
+
+/*横向商品列表
+****************************************************/
+@mixin row-list($rowWidth,$btnSize: 18px, $max: 192px) {
+  position: relative;
+  //float: left;
+  @include bfc;
+  border: 1px solid $ashGray;
+  padding: 0 30px;
+  background: white;
+
+  &:hover {
+    .move-right-box,
+    .move-left-box {
+      a {
+        opacity: .7;
+      }
+    }
+  }
+
+  h2 {
+    position: relative;
+    z-index: 1;
+    margin: 0 -20px;
+    padding: 15px 30px 10px;
+    border-bottom: 1px solid $viceColor;
+  }
+
+  .move-left-box,
+  .move-right-box {
+    position: absolute;
+    top: 0;
+    @include wh(30px, 100%);
+    background: white;
+
+    a {
+      position: absolute;
+      top: 50%;
+      margin-top: -25px;
+      @include wh(26px, 48px);
+      border: 2px solid $viceColor;
+      color: $viceColor;
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      line-height: 48px;
+      font-weight: 400;
+
+      &:hover {
+        background: $viceColor;
+        color: white;
+      }
+    }
+  }
+
+  .move-left-box {
+    left: 0;
+  }
+
+  .move-right-box {
+    right: 0;
+  }
+
+  .move-left-box,
+  .move-right-box {
+    a {
+      opacity: .1;
+    }
+  }
+
+
+  ul {
+    margin: 0;
+    padding: 10px 5px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    width: 10000%;
+  }
+
+  li {
+    position: relative;
+    @include be-nav(left);
+    margin: 0 ($rowWidth * 0.01);
+    padding-top: 5px;
+    width: ($rowWidth * 0.18);
+
+    &:hover {
+      box-shadow: 0 0 2px 2px $ashGray;
+
+      .product-handle {
+        //display: block;
+        opacity: 1;
+        top: 91%;
+        transition: all .4s linear;
+      }
+    }
+
+    img {
+      @include wh($max, $max);
+    }
+  }
+
+  .similar-pic-box {
+    display: block;
+    margin: 0 auto;
+    width: 95%;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  .similar-name {
+    display: block;
+    margin-top: 15px;
+    height: 60px;
+    @extend %similar-link;
+  }
+
+  .similar-cost {
+    margin: 5px 0;
+    @extend %aside-pirce-span;
+    text-align: left;
+
+    span {
+      @extend %aside-pirce-span;
+    }
+  }
+
+  .product-handle {
+    //display: none;
+    position: absolute;
+    opacity: 0;
+    right: 5%;
+    top: 93%;
+    //transition: opacity .5s ease-in;
+
+    a {
+      display: inline;
+      font-size: $btnSize;
+      padding: 3px;
+      //border: 1px solid $ashGray;
+      color: $viceColor;
+      text-decoration: none;
+      vertical-align: top;
+
+      &:hover {
+        color: $viceHoverColor;
+      }
+    }
+
+    .disLike {
+      color: $middleGray;
+
+      &:hover {
+        color: $darkGray;
+      }
+    }
+
+    .addEnjoy {
+      color: $yeepayColor3;
+
+      &:hover {
+        color: $yeepayColor2;
+      }
+    }
+  }
+
+  .out-of-stock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include wh(140px, 90px);
+    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
+    opacity: .7;
+  }
+
+  .product-message {
+    display: none;
+    position: absolute;
+    top: 30%;
+    height: 40px;
+    width: 100%;
+    background: linear-gradient(to right, rgba(100,100,100,.2) 0% , rgba(100,100,100,.9) 50%, rgba(100,100,100,.2) 100%);
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+  }
+}
+
+/*tab切换
+****************************************************/
+@mixin tab() {
+  margin: 0;
+  padding:10px 0 10px 10px;
+  @include bfc;
+
+  li {
+    border-top: 3px solid transparent;
+    @include be-nav(left);
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+  .choose {
+    cursor: auto;
+    border-color: $viceColor;
+    h2 {
+      color: $viceColor;
+    }
+  }
+
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/*页码部件
+****************************************************/
+@mixin page() {
+  @include bfc;
+  clear: both;
+  padding: $colSpace  $colSpace $colSpace 300px;
+  border-top: 1px solid $ashGray;
+
+  ol,
+  ul {
+    @include o;
+  }
+
+  li {
+    @include be-nav(left);
+    margin-right: 10px;
+    @extend %page-blur;
+
+    * {
+      vertical-align: middle;
+    }
+  }
+
+  span {
+    @extend %page-blur;
+  }
+
+  a {
+    @extend %page-blur;
+    border: 1px solid $ashGray;
+
+    &:hover {
+      color: $viceColor;
+    }
+  }
+
+  .page-list {
+    margin: 0;
+  }
+
+  .page-which {
+    margin-left: $colSpace;
+
+    input {
+      width: 30px;
+    }
+  }
+
+  .page-count {
+    margin-left: $colSpace;
+
+    span {
+      color: $viceColor;
+    }
+  }
+
+  /*for js*/
+  .page-focus {
+    @extend %page-focus;
+    cursor: text;
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+/*小搜索框
+****************************************************/
+@mixin search($color) {
+  vertical-align: middle;
+  input {
+    margin: 0;
+    padding: 2px;
+    border: 1px solid $color;
+    @include wh(150px, 20px);
+    vertical-align: middle;
+    outline: none;
+
+    &:focus {
+      border-color: $viceColor;
+
+      &+a {
+        background: $viceColor;
+        border-color: $viceColor;
+      }
+    }
+  }
+  a {
+    display: inline-block;
+    padding: 2px;
+    border: 1px solid $color;
+    border-left: none;
+    @include wh(30px, 20px);
+    line-height: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    background: $color;
+    color: white;
+  }
+}
+
+/*弹出框
+****************************************************/
+@mixin pop($width:600px) {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  @include wh(100%, 100%);
+  background: rgba(0, 0, 0, .4);
+
+  .inner {
+    margin: 150px auto;
+    width: $width;
+    border-radius: 8px;
+    @include bfc;
+    border: 1px solid $middleGray;
+    box-shadow: black 0 0 20px;
+    background: white;
+    font-size: 14px;
+  }
+
+  h3 {
+    @include o;
+    padding: 10px 20px;
+    background: $viceColor;
+    color: white;
+
+    .pop-title {
+      color: white;
+      font-size: 20px;
+    }
+
+    .close {
+      float: right;
+      margin-right: 20px;
+      color: white;
+      cursor: pointer;
+      font-weight: 100;
+
+      &:hover {
+        color: $ashGray;
+      }
+    }
+  }
+
+  .pop-content {
+    width: $width - 120px;
+    margin: 20px auto 40px;
+    @include bfc;
+  }
+}
+
+/*侧边栏样式1
+****************************************************/
+@mixin fixed-aside-one() {
+  position: fixed;
+  top: 30%;
+  right: 0;
+  @include o;
+  background: $mainColor;
+  list-style: none;
+  text-align: center;
+
+  li {
+    padding: 0 10px;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      span {
+        color: $viceColor;
+      }
+
+      .count-number {
+        color: white;
+      }
+    }
+  }
+
+  span {
+    display: block;
+    color: white;
+    font-size: 13px;
+  }
+
+  .count-box {
+    transform:scale(1);
+    opacity: 1;
+    transition: all .5s linear;
+  }
+
+
+  .count-number {
+    display: inline;
+    padding: 2px 6px 0;
+    border-radius: 10px;
+    background: $emColor;
+
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .aside-person {
+    padding: 16px 0 11px;
+    border-bottom: 1px solid black;
+
+    img {
+      width: 20px;
+    }
+  }
+
+  .aside-cart {
+    position: relative;
+    padding: 10px 0 8px;
+    border-top: 1px solid $middleGray;
+    border-bottom: 1px solid black;
+
+    img {
+      width: 18px;
+      padding-bottom: 10px;
+    }
+
+    span {
+      padding-bottom: 4px;
+    }
+  }
+
+  .aside-order {
+    padding: 10px 0 18px;
+    border-top: 1px solid $middleGray;
+
+    img {
+      width: 15px;
+      padding-bottom: 5px;
+    }
+  }
+
+  .aside-account {
+    padding: 10px 0 10px;
+    border-bottom: 1px solid black;
+
+    img {
+      width: 20px;
+      padding-bottom: 5px;
+    }
+  }
+
+  .aside-top {
+    padding: 10px 0 23px;
+    border-top: 1px solid $middleGray;
+
+    img {
+      width: 20px;
+      padding-bottom: 5px;
+    }
+
+    span {
+      padding-bottom: 2px;
+    }
+  }
+}
+
+/*发光
+****************************************************/
+@mixin light-hover($imgWidth, $time) {
+  position: relative;
+  overflow: hidden;
+
+  .light{
+    cursor:pointer;
+    position: absolute;
+    left: 0 - ($imgWidth * 1.5);
+    top: 0;
+    @include wh(100%, 100%);
+    background-image: -moz-linear-gradient(0deg,rgba(255,255,255,0),rgba(255,255,255,0.5),rgba(255,255,255,0));
+    background-image: -webkit-linear-gradient(0deg,rgba(255,255,255,0),rgba(255,255,255,0.5),rgba(255,255,255,0));
+    transform: skewx(-30deg);
+    //-o-transform: skewx(--30deg);
+    //-moz-transform: skewx(--30deg);
+    //-webkit-transform: skewx(--30deg);
+  }
+
+  &:hover {
+    .light{
+      left: $imgWidth*1.5;
+      transition: left $time*3;
+    }
+  }
+}
+
+
+/*仿控件
+****************************************************/
+/*checkbox*/
+@mixin like-checkbox($width:15px, $height:15px, $fontSize:12px) {
+  @include wh($width, $height);
+  border: 1px solid $middleGray;
+  text-align: center;
+  line-height: $height;
+
+  &:hover {
+    border-color: $viceColor;
+  }
+
+  i {
+    display: none;
+    font-size: $fontSize;
+    font-weight: 100;
+    color: $viceColor;
+  }
+}
+/*file*/
+@mixin like-file($width:100px, $height: 25px, $fontSize:14px) {
+  @include wh($width, $height);
+  color: $viceColor;
+  position: relative;
+  border: 1px solid $viceColor;
+  border-radius: 3px;
+  text-align: center;
+  line-height: $height;
+  font-size: $fontSize;
+
+  &:hover {
+    color: #ce8221;
+  }
+
+  .oriinal-input-file {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+/*select*/
+@mixin like-select($width:100px, $height:25px, $fontSize: 14px, $color: $viceColor, $colorHover:#ce8221) {
+  position: relative;
+  display: inline-block;
+  @include wh($width, $height);
+
+
+  i,
+  a {
+    font-size: $fontSize;
+  }
+
+  i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    @include wh($height, $height);
+    line-height: 25px;
+    text-align: center;
+    font-size: 12px;
+
+    color: white;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .select-view {
+    display: block;
+    @include wh(100%, 100%);
+    color: white;
+    background: $color;
+    border-radius: 3px;
+    line-height: $height;
+
+    &:hover {
+      background: $colorHover;
+    }
+
+    span {
+      color: white;
+    }
+  }
+
+  ul {
+    position: absolute;
+    display: none;
+    top: 105%;
+    left: 0;
+    @include o;
+    border: 1px solid $color;
+    width: $width - 2px;
+    background: white;
+    list-style: none;
+  }
+
+  li {
+    margin: 3px 0;
+
+    a {
+      color: $color;
+    }
+
+    &:hover {
+      background: $color;
+
+      a {
+        color: white;
+      }
+    }
+  }
+}

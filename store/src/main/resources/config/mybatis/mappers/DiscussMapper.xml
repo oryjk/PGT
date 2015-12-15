@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.communication.dao.DiscussMapper">
+
+	<!-- 封装公共的查询条件 -->
+	<sql id="">
+
+	</sql>
+
+
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.currentIndex},
+					#{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+	<!-- sql片段 需要查询讨论的相关信息 -->
+	<sql id="query_start">
+		SELECT
+		DISCUSS.*,USERS.LOGIN,PRODUCT.NAME
+		FROM
+		DISCUSS,
+		USERS,
+		PRODUCT
+	</sql>
+
+
+	<sql id="query_end">
+		AND USERS.USER_ID = DISCUSS.USER_ID
+		AND
+		PRODUCT.PRODUCT_ID =
+		DISCUSS.PRODUCT_ID
+	</sql>
+
+
+	<!--Discuss result map -->
+	<resultMap id="DiscussResult" type="com.pgt.communication.bean.Discuss">
+		<id column="ID" property="id" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="CONTENT" property="content" />
+		<result column="IP" property="ip" />
+		<result column="IS_SHOW" property="isShow" />
+
+       <association property="user" column="USER_ID"
+			select="selectUser"/>
+
+		<association property="product" javaType="com.pgt.product.bean.Product">
+			<id column="PRODUCT_ID" property="productId" />
+			<result column="NAME" property="name" />
+		</association>
+		
+	</resultMap>
+	
+	
+	<select id="selectUser" parameterType="int" resultMap="com.pgt.user.dao.UserMapper.user">
+		SELECT *
+		FROM USERS WHERE user_id = #{USER_ID}
+	</select>
+	
+
+	<!-- insert a Discuss bean -->
+	<insert id="createDiscuss" parameterType="com.pgt.communication.bean.Discuss"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		DISCUSS(CREATE_DATE,CONTENT,IP,IS_SHOW,USER_ID,PRODUCT_ID)
+		VALUES(#{createDate},#{content},#{ip},#{isShow},#{user.id},#{product.productId})
+	</insert>
+
+	<!-- updateIsShow -->
+	<update id="updateIsShow" parameterType="com.pgt.communication.bean.Discuss"
+		keyProperty="id" useGeneratedKeys="true">
+		UPDATE DISCUSS SET
+		IS_SHOW=#{isShow}
+		WHERE ID=#{id}
+	</update>
+
+	<!-- delete a Discuss bean -->
+	<delete id="deleteDiscussById">
+		DELETE FROM
+		DISCUSS WHERE
+		ID=#{id}
+	</delete>
+
+
+	<!-- 批量删除 deleteDiscussByKes -->
+	<delete id="deleteDiscussByKes">
+		DELETE FROM DISCUSS WHERE
+		ID IN
+		<foreach collection="array" separator="," item="id" open="("
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryDiscussById" resultMap="DiscussResult">
+
+		<include refid="query_start" />
+		<where>
+			ID=#{id}
+			<include refid="query_end" />
+		</where>
+
+	</select>
+
+	<select id="queryAllDiscuss" parameterType="com.pgt.communication.bean.DiscussCustom"
+		resultMap="DiscussResult">
+		<include refid="query_start" />
+		<where>
+			<include refid="query_end" />
+		</where>
+		<include refid="pageBean" />
+	</select>
+
+	<!--queryAllDiscuss总记录数查询 -->
+	<select id="queryAllDiscussCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM
+		DISCUSS,
+		USERS,
+		PRODUCT
+		<where>
+			<include refid="query_end" />
+		</where>
+	</select>
+
+
+
+	<select id="queryProductAllDiscuss" parameterType="com.pgt.communication.bean.DiscussCustom"
+		resultMap="DiscussResult">
+		
+		SELECT
+		DISCUSS.*,PRODUCT.NAME
+		FROM
+		DISCUSS,
+		PRODUCT WHERE
+		DISCUSS.PRODUCT_ID =#{product.productId}
+		AND PRODUCT.PRODUCT_ID = DISCUSS.PRODUCT_ID
+		AND IS_SHOW = 1
+	   <include refid="pageBean" />
+	</select>
+
+      <select id="queryUserByDicuss" parameterType="int" resultMap="com.pgt.user.dao.UserMapper.user">
+        SELECT * FROM USERS WHERE user_id = #{USER_ID}
+    </select>
+
+	<!-- queryProductAllDiscuss总记录数查询 -->
+	<select id="queryProductAllDiscussCount" parameterType="com.pgt.communication.bean.DiscussCustom"
+		resultType="Integer">
+		SELECT COUNT(*)
+		FROM
+		DISCUSS,
+		PRODUCT
+		<where>
+			DISCUSS.PRODUCT_ID = #{product.productId} AND IS_SHOW = 1
+			AND PRODUCT.PRODUCT_ID = DISCUSS.PRODUCT_ID
+		</where>
+	</select>
+
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.common.dao.ImageMapper">
+
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.currentIndex},
+					#{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+	<!--Image result map -->
+	<resultMap id="ImageResult" type="com.pgt.common.bean.Image">
+		<id column="IMAGE_ID" property="imageId" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="LOCATION" property="location" />
+		<result column="URL" property="url" />
+		<result column="PATH" property="path" />
+		<result column="TYPE" property="type" />
+		<result column="TITLE" property="title" />
+		<result column="COLOR" property="color" />
+	</resultMap>
+
+	<!-- insert a Image bean -->
+	<insert id="createImage" parameterType="com.pgt.common.bean.Image"
+		keyProperty="imageId" useGeneratedKeys="true">
+		INSERT INTO
+		IMAGE(CREATE_DATE,END_DATE,LOCATION,URL,PATH,TYPE,TITLE,COLOR)
+		VALUES(#{createDate},#{endDate},#{location},#{url},#{path},#{type},#{title},#{color})
+	</insert>
+
+	<!-- update a Image bean -->
+	<update id="updateImage" parameterType="com.pgt.common.bean.Image"
+		keyProperty="imageId" useGeneratedKeys="true">
+		UPDATE IMAGE SET
+		CREATE_DATE=#{createDate},END_DATE=#{endDate},LOCATION=#{location},URL=#{url},
+		PATH=#{path},TYPE=#{type},TITLE=#{title},COLOR=#{color}
+		WHERE
+		IMAGE_ID=#{imageId}
+	</update>
+
+	<!-- delete a Image bean -->
+	<delete id="deleteImageById">
+		DELETE FROM
+		Image WHERE
+		IMAGE_ID=#{imageId}
+	</delete>
+
+	<!-- 批量删除 deleteImageByKes -->
+	<delete id="deleteImageByKes">
+		DELETE FROM IMAGE WHERE
+		IMAGE_ID IN
+		<foreach collection="array" separator="," item="" open="("
+			close=")">
+			#{imageId}
+		</foreach>
+	</delete>
+
+	<select id="queryImageById" resultMap="ImageResult">
+
+		SELECT * FROM IMAGE WHERE
+		IMAGE_ID = #{imageId}
+
+	</select>
+
+	<select id="queryAllImage" parameterType="com.pgt.common.bean.ImageCustom"
+		resultMap="ImageResult">
+		SELECT * FROM IMAGE
+		<include refid="pageBean" />
+	</select>
+
+
+	<select id="queryAllImageByBannerId" parameterType="Integer"
+		resultMap="ImageResult">
+		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID}
+	</select>
+
+	<!-- 查询总记录数 -->
+	<select id="queryAllImageCount" parameterType="com.pgt.common.bean.ImageCustom"
+		resultType="Integer">
+		SELECT count(*) FROM IMAGE
+	</select>
+
+
+	<!-- 查询在一个位置的图片信息 -->
+	<select id="queryAllImageByLocation" parameterType="com.pgt.common.bean.ImageCustom"
+		resultMap="ImageResult">
+		SELECT * FROM IMAGE
+		<where>
+			<if test="location!=null">
+				LOCATION = #{location}
+			</if>
+		</where>
+	</select>
+
+
+</mapper>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.product.dao.ProductMapper">
+
+    <!-- product parameter map -->
+    <parameterMap id="paramProduct" type="com.pgt.product.bean.Product">
+    </parameterMap>
+
+
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache">
+        <property name="timeToIdleSeconds" value="3600"/>
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+
+    <!--product result map -->
+    <resultMap id="resultProduct" type="com.pgt.product.bean.Product">
+        <id column="PRODUCT_ID" property="productId"/>
+        <result column="NAME" property="name"></result>
+        <result column="SERIAL_NUMBER" property="serialNumber"></result>
+        <result column="LIST_PRICE" property="listPrice"></result>
+        <result column="SALE_PRICE" property="salePrice"></result>
+        <result column="STATUS" property="status"></result>
+        <result column="DESCRIPTION" property="description"></result>
+        <result column="SHIPPING_FEE" property="shippingFee"></result>
+        <result column="RELATED_CATEGORY_ID" property="relatedCategoryId"></result>
+        <result column="STOCK" property="stock"></result>
+        <result column="CREATION_DATE" property="creationDate"></result>
+        <result column="UPDATE_DATE" property="updateDate"></result>
+        <result column="IS_NEW" property="isNew"/>
+        <result column="SHORT_DESCRIPYION" property="shortDescription"/>
+        <result column="TITLE" property="title"/>
+
+        <association property="shippingAddress" column="PRODUCT_ID"
+                     select="com.pgt.shipping.dao.ShippingAddressMapper.queryAddressByProduct"/>
+        <association property="expertMedia" column="PRODUCT_ID" select="queryProductExpertMedia"/>
+        <association property="advertisementMedia" column="PRODUCT_ID" select="queryProductAdvertisementMedia"/>
+        <association property="frontMedia" column="PRODUCT_ID" select="queryProductFrontMedia"/>
+        <collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>
+        <collection property="heroMedias" column="PRODUCT_ID" select="queryProductHeroMedias"/>
+        <collection property="mainMedias" column="PRODUCT_ID" select="queryProductMainMedias"/>
+        <collection property="thumbnailMedias" column="PRODUCT_ID" select="queryProductThumbnailMedias"/>
+
+    </resultMap>
+
+    <resultMap id="productMedia" type="com.pgt.product.bean.ProductMedia">
+        <id column="media_id" property="id"/>
+        <result column="reference_id" property="referenceId"></result>
+        <result column="title" property="title"></result>
+        <result column="path" property="path"></result>
+        <result column="type" property="type"></result>
+        <result column="index" property="index"></result>
+    </resultMap>
+
+    <resultMap type="com.pgt.hot.bean.HotSearch" id="hotSearch">
+        <id column="HOT_SEARCH_ID" property="hotSearchId"/>
+        <result column="TERM" property="term"/>
+        <association property="frontMedia" column="MEDIA_ID"
+                     select="queryProductFrontMedia"/>
+    </resultMap>
+
+    <resultMap id="ProductCategoryResult" type="com.pgt.product.bean.ProductCategoryRelation">
+        <id column="ID" property="productCategoryRelationId"/>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="CATEGORY_ID" property="categoryId"></result>
+    </resultMap>
+
+    <select id="queryProductMedias" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{productId}
+        ORDER BY 'index'
+        asc
+    </select>
+
+    <select id="queryProductHeroMedias" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{productId} AND TYPE='hero'
+        ORDER BY 'index'
+        asc
+    </select>
+    <select id="queryProductMainMedias" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{productId} AND TYPE='main'
+        ORDER BY 'index'
+        asc
+    </select>
+    <select id="queryProductThumbnailMedias" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{productId} AND TYPE='thumbnail'
+        ORDER BY 'index'
+        asc
+    </select>
+    <select id="queryProductAdvertisementMedia" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{productId} AND TYPE='ad'
+        ORDER BY 'index'
+        asc
+    </select>
+    <select id="queryProductFrontMedia" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{productId} AND TYPE='front'
+        ORDER BY 'index'
+        asc
+    </select>
+    <select id="queryProductExpertMedia" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{productId} AND TYPE='expert'
+        ORDER BY 'index'
+        asc
+    </select>
+
+    <select id="queryProduct" parameterType="int" resultMap="resultProduct">
+		SELECT *
+		FROM PRODUCT WHERE PRODUCT_ID=#{productId}
+	</select>
+
+    <select id="queryProducts" parameterType="com.pgt.search.bean.SearchPaginationBean"
+            resultMap="resultProduct">
+
+        <choose>
+            <when test="categoryId!=null">
+                SELECT * FROM PRODUCT p left join
+                PRODUCT_CATEGORY pc
+                on
+                pc.CATEGORY_ID=#{categoryId} where
+                p.PRODUCT_ID=pc.PRODUCT_ID
+            </when>
+            <otherwise>
+                SELECT * FROM PRODUCT p where 1=1
+            </otherwise>
+        </choose>
+
+        <choose>
+            <when test="stock!=-1">
+                AND stock > 0
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+
+        <if test="term!=null">
+            AND p.name like "%${term}%"
+        </if>
+
+        <if test="term!=null">
+            OR p.PRODUCT_ID =#{term}
+        </if>
+
+        <if test="isNew!=null">
+            <where>
+                p.IS_NEW = #{isNew}
+            </where>
+        </if>
+
+        <if test="sortBeans!=null">
+            ORDER BY
+            <foreach collection="sortBeans" item="sortBean" index="index">
+                #{sortBean.propertyName} #{sortBean.sort}
+                <if test="index+1 != sortBeans.size">
+                    ,
+                </if>
+            </foreach>
+        </if>
+        <if test="currentIndex != null">
+            <choose>
+                <when test="currentIndex >-1">
+                    <if test="capacity != null">
+                        <choose>
+                            <when test="capacity>-1">
+                                limit #{currentIndex}, #{capacity}
+                            </when>
+                            <otherwise>
+                            </otherwise>
+                        </choose>
+                    </if>
+                </when>
+                <otherwise>
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <select id="queryAllProducts" resultMap="resultProduct"
+            parameterType="int">
+        SELECT * FROM PRODUCT
+        <if test="stock!=-1">
+            WHERE STOCK>0
+        </if>
+    </select>
+
+    <insert id="createProduct" parameterMap="paramProduct"
+            keyProperty="productId" useGeneratedKeys="true">
+
+		INSERT INTO
+		PRODUCT(NAME,SERIAL_NUMBER,LIST_PRICE,SALE_PRICE,STATUS,DESCRIPTION,
+		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE)
+		VALUES
+		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title})
+	</insert>
+
+
+    <update id="updateProduct" parameterMap="paramProduct">
+		UPDATE PRODUCT SET
+		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
+		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},CREATION_DATE=#{creationDate},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title}
+		UPDATE_DATE=#{updateDate}
+	</update>
+    <delete id="deleteProduct" parameterType="int">
+		DELETE FROM PRODUCT
+		WHERE PRODUCT_ID=#{productId}
+	</delete>
+
+    <delete id="deleteProducts" parameterType="java.util.List">
+        delete from PRODUCT where PRODUCT_ID in
+        <foreach collection="list" item="productId" open="("
+                 separator="," close=")">#{productId}
+        </foreach>
+    </delete>
+
+
+    <!--Use to hot product -->
+    <insert id="createProductCategoryRelation" parameterType="com.pgt.product.bean.ProductCategoryRelation"
+            keyProperty="productCategoryRelationId" useGeneratedKeys="true">
+		INSERT INTO
+		PRODUCT_CATEGORY(PRODUCT_ID,CATEGORY_ID)
+		VALUES
+		(#{productId},#{categoryId})
+	</insert>
+    <update id="updateProductCategoryRelation" parameterType="com.pgt.product.bean.ProductCategoryRelation"
+            keyProperty="productCategoryRelationId" useGeneratedKeys="true">
+		UPDATE
+		PRODUCT_CATEGORY SET
+		PRODUCT_ID=#{productId},CATEGORY_ID=#{categoryId}
+	</update>
+
+    <select id="queryProductCategoryRelationProducts" parameterType="com.pgt.category.bean.CategoryType"
+            resultMap="resultProduct">
+		SELECT p.* from PRODUCT p INNER JOIN PRODUCT_CATEGORY pc ON
+		p.product_id=pc.product_id
+		INNER JOIN CATEGORIES c ON
+		c.category_id=pc.category_id WHERE
+		c.TYPE=#{categoryType};
+	</select>
+    <select id="queryProductCategoryRelation" parameterType="com.pgt.product.bean.ProductCategoryRelation"
+            resultMap="ProductCategoryResult">
+        SELECT * FROM PRODUCT_CATEGORY WHERE
+        <if test="categoryId!=null">
+            CATEGORY_ID=#{categoryId}
+        </if>
+        <if test="productId!=null">
+            AND
+            PRODUCT_ID=#{productId}
+        </if>
+    </select>
+    <select id="queryProductsByCategoryIdAndCategoryType" resultMap="resultProduct">
+        SELECT p.* from PRODUCT p INNER JOIN
+        PRODUCT_CATEGORY pc ON
+        p.product_id=pc.product_id
+        INNER JOIN CATEGORIES
+        c ON c.category_id=pc.category_id WHERE
+        c.CATEGORY_ID=#{categoryId}
+        <if test="isHot!=null">
+            AND p.IS_HOT=#{isHot}
+        </if>
+    </select>
+    <delete id="deleteProductCategoryRelation" parameterType="com.pgt.product.bean.ProductCategoryRelation">
+		DELETE
+		FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId} AND
+		CATEGORY_ID=#{categoryId}
+	</delete>
+
+    <!-- hotSearch -->
+    <insert id="createHotSearch" parameterType="com.pgt.hot.bean.HotSearch"
+            keyProperty="hotSearchId" useGeneratedKeys="true">
+		INSERT INTO
+		HOT_SEARCH(TERM,MEDIA_ID)
+		VALUES {#{term},#{frontMedia.mId})
+	</insert>
+
+    <select id="queryAllHotsearch" resultMap="hotSearch">
+	      SELECT * FROM HOT_SEARCH
+	</select>
+
+    <select id="queryProductByIds" parameterType="java.util.List" resultMap="resultProduct">
+        SELECT *
+        FROM PRODUCT
+        WHERE product_id IN
+        <foreach collection="list" item="id" open="(" close=")" separator=", ">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

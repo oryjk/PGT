@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.payment.dao.PaymentMapper">
+	
+	<insert id="createPaymentGroup" parameterType="com.pgt.payment.bean.PaymentGroup" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO PAYMENT_GROUP (ORDER_ID, AMOUNT, STATUS, TYPE, TRACKING_NO, CREATION_DATE, UPDATE_DATE)
+		VALUES (#{orderId}, #{amount}, #{status}, #{type},#{trackingNo}, #{createDate}, #{updateDate})
+		<selectKey resultType="long" order="AFTER" keyProperty="id">
+        	SELECT LAST_INSERT_ID() as id
+    	</selectKey>
+	</insert>
+	
+	
+	<insert id="createTransaction" parameterType="com.pgt.payment.bean.Transaction" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO TRANSACTIONS (ORDER_ID, PAYMENT_GROUP_ID, AMOUNT, TRACKING_ID, TRANSACTION_TIME, STATUS, CREATION_DATE, UDPATE_DATE)
+		VALUES (#{orderId}, #{paymentGroupId}, #{amount}, #{trackingNo},#{transactionTime}, #{status}, #{creationDate}, #{updateDate})
+		<selectKey resultType="long" order="AFTER" keyProperty="id">
+        	SELECT LAST_INSERT_ID() as id
+    	</selectKey>
+	</insert>
+	
+
+	<update id="updatePaymentGroup" parameterType="com.pgt.payment.bean.PaymentGroup">
+		UPDATE PAYMENT_GROUP
+		SET ORDER_ID = #{orderId}, AMOUNT = #{amount}, STATUS = #{status}, TYPE = #{type}, 
+		TRACKING_NO = #{trackingNo}, UPDATE_DATE = #{updateDate}
+		WHERE PAYMENT_GROUP_ID = #{id}
+	</update>
+	
+	<update id="updateTransaction" parameterType="com.pgt.payment.bean.Transaction">
+		UPDATE TRANSACTIONS
+		SET ORDER_ID = #{orderId}, PAYMENT_GROUP_ID = #{paymentGroupId}, AMOUNT = #{amount}, TRACKING_ID = #{trackingNo}, 
+		TRANSACTION_TIME = #{transactionTime}, STATUS = #{status}, CREATION_DATE = #{creationDate}, UDPATE_DATE = #{updateDate}
+		WHERE TRANSACTION_ID = #{id}
+	</update>
+	
+	
+	<resultMap id="payment" type="com.pgt.payment.bean.PaymentGroup">
+		<id column="PAYMENT_GROUP_ID" property="id"/>
+		<result column="ORDER_ID" property="orderId"/>
+		<result column="AMOUNT" property="amount"/>
+		<result column="STATUS" property="status"/>
+		<result column="TYPE" property="type"/>
+		<result column="TRACKING_NO" property="trackingNo"/>
+		<result column="CREATION_DATE" property="createDate"/>
+		<result column="UPDATE_DATE" property="updateDate"/>
+	</resultMap>
+	
+	<resultMap id="transaction" type="com.pgt.payment.bean.Transaction">
+		<id column="TRANSACTION_ID" property="id"/>
+		<result column="ORDER_ID" property="orderId"/>
+		<result column="PAYMENT_GROUP_ID" property="paymentGroupId"/>
+		<result column="AMOUNT" property="amount"/>
+		<result column="TRACKING_ID" property="trackingNo"/>
+		<result column="TRANSACTION_TIME" property="transactionTime"/>
+		<result column="STATUS" property="status"/>
+		<result column="CREATION_DATE" property="creationDate"/>
+		<result column="UDPATE_DATE" property="updateDate"/>
+	</resultMap>
+	
+	
+	<select id="findPaymentGroupByOrderId" resultMap="payment" parameterType="int">
+		SELECT *
+		FROM PAYMENT_GROUP where ORDER_ID = #{id}
+	</select>
+	
+	<select id="findPaymentGroupById" resultMap="payment" parameterType="int">
+		SELECT *
+		FROM PAYMENT_GROUP where PAYMENT_GROUP_ID = #{id}
+	</select>
+	
+	<select id="findTransactionByTrackingNumber" resultMap="transaction" parameterType="string">
+		SELECT *
+		FROM TRANSACTIONS where TRACKING_ID = #{id}
+	</select>
+
+	
+	
+	
+	
+</mapper>

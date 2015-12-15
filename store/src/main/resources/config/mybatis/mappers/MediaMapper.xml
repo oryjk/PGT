@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.common.dao.MediaMapper">
+
+    <!-- product parameter map -->
+    <parameterMap id="paramMedia" type="com.pgt.common.bean.Media">
+    </parameterMap>
+    <!-- MediaResult -->
+    <resultMap id="MediaResult" type="com.pgt.common.bean.Media">
+        <id column="MEDIA_ID" property="id"/>
+        <result column="REFERENCE_ID" property="referenceId"></result>
+        <result column="TITLE" property="title"></result>
+        <result column="PATH" property="path"></result>
+        <result column="INDEX" property="index"></result>
+        <result column="TYPE" property="type"></result>
+    </resultMap>
+
+    <select id="queryMedias" parameterType="int" resultMap="MediaResult">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{MEDIA_ID}
+		ORDER BY 'index'
+		asc
+	</select>
+    <select id="queryMedia" resultMap="MediaResult">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{referenceId} AND TYPE = #{mediaType}
+		ORDER BY 'index'
+		asc
+	</select>
+
+    <select id="queryFrontMedia" parameterType="int"
+            resultMap="MediaResult">
+		SELECT *
+		FROM MEDIA
+		WHERE MEDIA_ID = #{MEDIA_ID}
+	</select>
+
+    <insert id="createMedia" parameterMap="paramMedia">
+        INSERT INTO MEDIA(REFERENCE_ID,TITLE,PATH,TYPE) VALUES (#{referenceId},#{title},#{path},#{type})
+    </insert>
+
+
+</mapper>

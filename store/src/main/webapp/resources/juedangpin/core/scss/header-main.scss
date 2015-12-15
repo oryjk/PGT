@@ -1,0 +1,426 @@
+@import "commonMixin";
+@import "globleVariable";
+
+/*all style
+************************************************/
+.header {
+
+  border-bottom: 2px solid $mainColor;
+
+  span,
+  i,
+  a,
+  input {
+    vertical-align: middle;
+  }
+
+  .cart {
+    display: block;
+    text-decoration: none;
+  }
+}
+
+
+/*top-status
+************************************************/
+.top-box {
+  background: $lightGray;
+}
+
+.top-status {
+  margin: 0 auto;
+  @include wh($mainWidth, 30px);
+
+  li {
+    @include be-nav(left);
+    padding-top: 8px;
+  }
+
+  a {
+    padding: 0 10px;
+    @extend %header-a;
+  }
+}
+
+.top-nav,
+.will-login,
+.have-login {
+  @include bfc;
+  float: right;
+  @include o;
+  list-style: none;
+}
+
+.top-nav {
+  a {
+    border-left: 1px solid $ashGray;
+  }
+}
+
+
+/*top-bannner
+************************************************/
+.top-banner {
+  background: #cc7849;
+}
+
+.top-banner-box {
+  margin: 0 auto;
+  @include wh($mainWidth, 70px);
+
+  a {
+    display: block;
+    @include wh(100%, 100%);
+
+    img {
+      display: block;
+      margin: 0 auto;
+      height: 100%;
+    }
+  }
+}
+
+/*head-box
+************************************************/
+.head-box {
+  margin: 15px auto 0;
+  width: $mainWidth;
+  @include bfc;
+
+  .logo-box {
+    float: left;
+    @include wh($c3, 100px);
+
+
+    h1 {
+      margin: 15px 0;
+      @include wh(100%, 70px);
+      background: url("../core/images/header/logo.png") 0 0 no-repeat;
+    }
+
+    a {
+      display: block;
+      @include wh(100%, 100%);
+      text-indent: -5000px;
+
+    }
+  }
+
+  .search-box {
+    float: left;
+    margin-left: $colSpace;
+    @include wh($c6, 100px);
+
+    form {
+      position: relative;
+      margin-top: 15px;
+      width: 100%;
+    }
+
+  }
+
+  .search-text {
+    @include wh(80%, 30px);
+    padding: 3px 10px;
+    border: 2px solid $mainColor;
+    font-size: 18px;
+    outline: none;
+  }
+
+  .search-sub {
+    @include wh(15%, 40px);
+    border: none;
+    background: $mainColor;
+    color: white;
+    font-size: 18px;
+  }
+
+  .search-tips {
+    position: absolute;
+    display: none;
+    @include o;
+    border: 1px solid $mainColor;
+    border-top: none;
+    @include wh(486px, 100px);
+    list-style: none;
+    background: white;
+
+
+    li {
+      padding-left: 10px;
+      font-size: 16px;
+      height: 20px;
+
+      &:hover {
+        background: $lightGray;
+      }
+    }
+  }
+
+  .hot-words {
+    padding-top: 5px;
+
+    a {
+      @extend %header-a;
+      padding-right: 10px;
+    }
+  }
+
+  .cart-box {
+    float: left;
+    margin-left: $colSpace;
+    @include wh($c3, 100px);
+  }
+
+  .cart {
+    margin: 15px auto;
+    border: 1px solid $ashGray;
+    padding: 10px 15px;
+    @include wh(120px, 20px);
+    background: $lightGray;
+    font-size: 15px;
+
+    &:hover {
+      background: #eeeeee;
+    }
+
+    i {
+      color: $viceColor;
+    }
+  }
+
+  .cart-count {
+    @include be-position(relative, 0, -15px);
+    padding: 0 3px;
+    background: $viceColor;
+    color: white;
+    border-radius: 10px;
+  }
+}
+
+
+/*fixed-head-box
+************************************************/
+.fixed-head-box {
+  position: fixed;
+  display: none;
+  z-index: 1;
+  opacity: .99;
+  @include wh(100%, 60px);
+  top: 0;
+  background: $lightGray;
+
+  .fixed-head {
+    margin: 0 auto;
+    @include wh($mainWidth, 100%);
+  }
+
+  .logo-box {
+    float: left;
+    @include wh($c2, 100%);
+
+    h1 {
+      @include o;
+      @include wh(100%, 100%);
+    }
+
+    a {
+      display: block;
+      margin-top: 10px;
+      @include wh(100%, 40px);
+    }
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .search-box {
+    float: left;
+    margin-left: $colSpace;
+    @include wh($c7, 100%);
+
+    form {
+      position: relative;
+      margin-top: 10px;
+      width: 100%;
+    }
+  }
+
+  .search-text {
+    @include wh(80%, 30px);
+    padding: 3px 10px;
+    border: 2px solid $mainColor;
+    font-size: 18px;
+    outline: none;
+  }
+
+  .search-sub {
+    @include wh(15%, 40px);
+    border: none;
+    background: $mainColor;
+    color: white;
+    font-size: 18px;
+  }
+
+  .search-tips {
+    position: absolute;
+    display: none;
+    @include o;
+    border: 1px solid $mainColor;
+    border-top: none;
+    @include wh(565px, 100px);
+    list-style: none;
+    background: white;
+
+
+    li {
+      padding-left: 10px;
+      font-size: 16px;
+      height: 20px;
+
+      &:hover {
+        background: $lightGray;
+      }
+    }
+  }
+
+
+  .cart-box {
+    float: left;
+    margin-left: $colSpace;
+    @include wh($c3, 100px);
+
+    span {
+      color: white;
+    }
+
+    i {
+      color: white;
+    }
+
+    .cart-count {
+      @include be-position(relative, 0, -15px);
+      padding: 0 3px;
+      background: white;
+      color: $viceColor;
+      border-radius: 10px;
+    }
+  }
+
+  .cart {
+    margin: 9px auto 0;
+    padding: 10px 15px;
+    @include wh(120px, 20px);
+    background: $viceColor;
+    font-size: 15px;
+    cursor: pointer;
+
+    &:hover {
+      background: #ce8221;
+    }
+
+
+  }
+}
+
+
+/*nav-box
+************************************************/
+.nav-box {
+  margin: 15px auto 0;
+  @include wh($mainWidth, 45px);
+}
+
+.menu {
+  @include be-position;
+  z-index: 2;
+  float: left;
+  @include wh($c2, 45px);
+  line-height: 45px;
+}
+
+.menu-head {
+  display: block;
+  @include wh(100%, 100%);
+  background: $mainColor;
+  line-height: 45px;
+  text-decoration: none;
+
+  span {
+    padding-left: 20px;
+    @extend %menu-a;
+  }
+}
+
+.menu-list {
+  @include be-position(absolute, 0, 47px);
+  @include o;
+  width: $c2;
+  list-style: none;
+  background: $darkGray;
+  line-height: 25px;
+
+  a {
+    @extend %menu-a;
+  }
+
+  li {
+    padding: 10px 20px;
+
+    &:hover {
+      background: $viceColor;
+      a {
+        color: $mainColor;
+      }
+    }
+  }
+
+  .menu-list-detail {
+    a {
+      font-size: 13px;
+      padding-right: 4px;
+    }
+  }
+}
+
+
+
+
+.hottest {
+  float: right;
+  display: block;
+  @include wh($c3, 45px);
+  line-height: 45px;
+  text-decoration: none;
+
+  h1 {
+    @include o;
+    color: $viceColor;
+  }
+
+  &:hover {
+    h1 {
+      text-decoration: underline;
+    }
+  }
+}
+
+.nav {
+  margin-left: $c2 + $colSpace;
+
+  ul {
+    @include o;
+  }
+
+  li {
+    @include be-nav(left);
+    padding: 0 20px;
+    height: 45px;
+    line-height: 45px;
+  }
+
+  a {
+    @extend %nav-a;
+  }
+}

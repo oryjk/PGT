@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.user.dao.UserInformationMapper">
+
+	<!-- userInformation map -->
+	<resultMap id="UserInformationResult" type="com.pgt.user.bean.UserInformation">
+
+		<id column="ID" property="id" />
+		<result column="NICKNAME" property=""></result>
+		<result column="PHONE_NUMBER" property="phoneNumber" />
+		<result column="GENDER" property="gender" />
+		<result column="ID_CARD" property="idCard" />
+		<result column="MARRAGE" property="marrage" />
+		<result column="GENDER" property="gender" />
+		<result column="INDUSTRY" property="industry" />
+		<result column="INCOME" property="income" />
+		<result column="PAY_NUMBER" property="payNumber" />
+		<result column="PERSON_EMAIL" property="personEmail" />
+		<result column="TYPE" property="type" />
+
+		<association property="frontMedia" column="MEDIA_ID"
+			select="com.pgt.common.dao.MediaMapper.queryFrontMedia" />
+
+		<association property="user" column="USER_ID" select="selectUser">
+		</association>
+		
+
+	</resultMap>
+	
+	
+	
+	  <resultMap id="user" type="com.pgt.user.bean.User">
+        <id column="user_id" property="id"/>
+
+        <result column="login" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="creation_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="count" property="count"/>
+        <result column="salt" property="salt"/>
+        <result column="available" property="available"/>
+        <result column="verify_code" property="authCode"/>
+        <result column="YEEPAY_STATUS" property="yeepayStatus"/>
+		<result column="YEEPAY_REGI_DATE" property="yeepayRegistoredDate"/>
+
+    </resultMap>
+
+	<!-- query associations UserInformation -->
+
+	<select id="selectUser" parameterType="int" resultMap="user">
+		SELECT *
+		FROM USERS WHERE user_id = #{USER_ID}
+	</select>
+
+   
+	<!-- insert a userInformation bean -->
+	<insert id="createInformation" parameterType="com.pgt.user.bean.UserInformation"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO USER_INFORMATION (
+		USER_ID,
+		NICKNAME,
+		PHENONE_NUMBER,
+		GENDER,
+		ID_CARD,
+		MARRAGE,
+		INDUSTRY,
+		INCOME,
+		MEDIA_ID,
+		PAY_BINDING,
+		PERSON_EMAIL,
+		TYPE
+		)
+		VALUES
+		(
+		#{user.id},
+		#{nickname},
+		#{phoneNumber},
+		#{gender},
+		#{idCard},
+		#{marrage},
+		#{industry},
+		#{income},
+		#{frontMedia.id},
+		#{payBinding},
+		#{personEmail},
+		#{type})
+	</insert>
+
+	<!-- update a userInformation bean -->
+	<update id="updateUserInformation" parameterType="com.pgt.user.bean.UserInformation"
+		keyProperty="id" useGeneratedKeys="true">
+		UPDATE USER_INFORMATION
+		SET
+		USER_ID=#{user.id},
+		NICKNAME=#{nickname},
+		PHONE_NUMBER=#{phnoneNumber},
+		GENDER=#{gender},
+		ID_CARD=#{idCard},
+		MARRAGE=#{marrage},
+		INDUSTRY=#{industry},
+		MEDIA_ID=#{frontMedia.id},
+		PAY_BINDING=#{payBinding},
+		PSERSON_EMAIL=#{personEmail},
+		TYPE=#{type}
+		WHERE id=#{id}
+	</update>
+
+	<!-- delete a userInformation bean -->
+	<delete id="deleteUserInformationById">
+		DELETE FROM
+		USER_INFORMATION WHERE
+		id=#{id}
+	</delete>
+
+	<select id="queryUserInformation" resultMap="UserInformationResult">
+		SELECT
+		*
+		FROM
+		USER_INFORMATION WHERE
+		id=#{id}
+	</select>
+
+	<select id="queryAllUserInformations" resultMap="UserInformationResult">
+		SELECT * FROM
+		USER_INFORMATION
+	</select>
+	
+</mapper>

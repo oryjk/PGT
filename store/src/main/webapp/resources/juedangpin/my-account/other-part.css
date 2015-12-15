@@ -1,0 +1,999 @@
+@charset "UTF-8";
+/*因为路径问题,把某些部分单独提出来,后面需要页面单独引入other-part.css部分*/
+/*color*/
+/*col*/
+body {
+  font-family: "宋体", "Microsoft YaHei", Verdana, Arial, sans-serif;
+  font-size: 12px; }
+
+/*headline*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.67em 0;
+  font-family: "Microsoft YaHei", "黑体", Verdana, Arial, sans-serif; }
+
+h2 {
+  font-size: 25px; }
+
+/*paragraph*/
+p {
+  margin: 0.67em 0; }
+
+.about-us p, .approve-box p {
+  color: #cccccc; }
+
+/*link*/
+a {
+  cursor: pointer; }
+
+.top-status a, .head-box .hot-words a {
+  color: #666666;
+  text-decoration: none; }
+  .top-status a:hover, .head-box .hot-words a:hover {
+    color: #ffaa00; }
+
+.menu-head span, .menu-list a {
+  color: #f8f8f8;
+  text-decoration: none;
+  font-size: 18px; }
+
+.nav a {
+  color: #666666;
+  text-decoration: none;
+  font-size: 18px; }
+  .nav a:hover {
+    color: #ffaa00;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #ffaa00; }
+
+.about-us a {
+  color: #cccccc;
+  text-decoration: none; }
+  .about-us a:hover {
+    color: white; }
+
+/*btn*/
+input:focus {
+  outline: none; }
+
+/*span*/
+span {
+  color: #666666; }
+
+/*商品详情绝当价*/
+.clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+/*color*/
+/*col*/
+/*all style
+************************************************/
+.header {
+  border-bottom: 2px solid #3f3f3f; }
+  .header span,
+  .header i,
+  .header a,
+  .header input {
+    vertical-align: middle; }
+  .header .cart {
+    display: block;
+    text-decoration: none; }
+
+/*top-status
+************************************************/
+.top-box {
+  background: #f8f8f8; }
+
+.top-status {
+  margin: 0 auto;
+  width: 1180px;
+  height: 30px; }
+  .top-status li {
+    float: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-top: 8px; }
+  .top-status a {
+    padding: 0 10px; }
+
+.top-nav,
+.will-login,
+.have-login {
+  overflow: hidden;
+  *zoom: 1;
+  float: right;
+  padding: 0;
+  margin: 0;
+  list-style: none; }
+
+.top-nav a {
+  border-left: 1px solid #cccccc; }
+
+/*top-bannner
+************************************************/
+.top-banner {
+  background: #cc7849; }
+
+.top-banner-box {
+  margin: 0 auto;
+  width: 1180px;
+  height: 70px; }
+  .top-banner-box a {
+    display: block;
+    width: 100%;
+    height: 100%; }
+    .top-banner-box a img {
+      display: block;
+      margin: 0 auto;
+      height: 100%; }
+
+/*head-box
+************************************************/
+.head-box {
+  margin: 15px auto 0;
+  width: 1180px;
+  overflow: hidden;
+  *zoom: 1; }
+  .head-box .logo-box {
+    float: left;
+    width: 280px;
+    height: 100px; }
+    .head-box .logo-box h1 {
+      margin: 15px 0;
+      width: 100%;
+      height: 70px;
+      background: url("../core/images/header/logo.png") 0 0 no-repeat; }
+    .head-box .logo-box a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-indent: -5000px; }
+  .head-box .search-box {
+    float: left;
+    margin-left: 20px;
+    width: 580px;
+    height: 100px; }
+    .head-box .search-box form {
+      position: relative;
+      margin-top: 15px;
+      width: 100%; }
+  .head-box .search-text {
+    width: 80%;
+    height: 30px;
+    padding: 3px 10px;
+    border: 2px solid #3f3f3f;
+    font-size: 18px;
+    outline: none; }
+  .head-box .search-sub {
+    width: 15%;
+    height: 40px;
+    border: none;
+    background: #3f3f3f;
+    color: white;
+    font-size: 18px; }
+  .head-box .search-tips {
+    position: absolute;
+    display: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #3f3f3f;
+    border-top: none;
+    width: 486px;
+    height: 100px;
+    list-style: none;
+    background: white; }
+    .head-box .search-tips li {
+      padding-left: 10px;
+      font-size: 16px;
+      height: 20px; }
+      .head-box .search-tips li:hover {
+        background: #f8f8f8; }
+  .head-box .hot-words {
+    padding-top: 5px; }
+    .head-box .hot-words a {
+      padding-right: 10px; }
+  .head-box .cart-box {
+    float: left;
+    margin-left: 20px;
+    width: 280px;
+    height: 100px; }
+  .head-box .cart {
+    margin: 15px auto;
+    border: 1px solid #cccccc;
+    padding: 10px 15px;
+    width: 120px;
+    height: 20px;
+    background: #f8f8f8;
+    font-size: 15px; }
+    .head-box .cart:hover {
+      background: #eeeeee; }
+    .head-box .cart i {
+      color: #ffaa00; }
+  .head-box .cart-count {
+    position: relative;
+    left: 0;
+    top: -15px;
+    padding: 0 3px;
+    background: #ffaa00;
+    color: white;
+    border-radius: 10px; }
+
+/*fixed-head-box
+************************************************/
+.fixed-head-box {
+  position: fixed;
+  display: none;
+  z-index: 1;
+  opacity: .99;
+  width: 100%;
+  height: 60px;
+  top: 0;
+  background: #f8f8f8; }
+  .fixed-head-box .fixed-head {
+    margin: 0 auto;
+    width: 1180px;
+    height: 100%; }
+  .fixed-head-box .logo-box {
+    float: left;
+    width: 180px;
+    height: 100%; }
+    .fixed-head-box .logo-box h1 {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%; }
+    .fixed-head-box .logo-box a {
+      display: block;
+      margin-top: 10px;
+      width: 100%;
+      height: 40px; }
+    .fixed-head-box .logo-box img {
+      height: 100%; }
+  .fixed-head-box .search-box {
+    float: left;
+    margin-left: 20px;
+    width: 680px;
+    height: 100%; }
+    .fixed-head-box .search-box form {
+      position: relative;
+      margin-top: 10px;
+      width: 100%; }
+  .fixed-head-box .search-text {
+    width: 80%;
+    height: 30px;
+    padding: 3px 10px;
+    border: 2px solid #3f3f3f;
+    font-size: 18px;
+    outline: none; }
+  .fixed-head-box .search-sub {
+    width: 15%;
+    height: 40px;
+    border: none;
+    background: #3f3f3f;
+    color: white;
+    font-size: 18px; }
+  .fixed-head-box .search-tips {
+    position: absolute;
+    display: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #3f3f3f;
+    border-top: none;
+    width: 565px;
+    height: 100px;
+    list-style: none;
+    background: white; }
+    .fixed-head-box .search-tips li {
+      padding-left: 10px;
+      font-size: 16px;
+      height: 20px; }
+      .fixed-head-box .search-tips li:hover {
+        background: #f8f8f8; }
+  .fixed-head-box .cart-box {
+    float: left;
+    margin-left: 20px;
+    width: 280px;
+    height: 100px; }
+    .fixed-head-box .cart-box span {
+      color: white; }
+    .fixed-head-box .cart-box i {
+      color: white; }
+    .fixed-head-box .cart-box .cart-count {
+      position: relative;
+      left: 0;
+      top: -15px;
+      padding: 0 3px;
+      background: white;
+      color: #ffaa00;
+      border-radius: 10px; }
+  .fixed-head-box .cart {
+    margin: 9px auto 0;
+    padding: 10px 15px;
+    width: 120px;
+    height: 20px;
+    background: #ffaa00;
+    font-size: 15px;
+    cursor: pointer; }
+    .fixed-head-box .cart:hover {
+      background: #ce8221; }
+
+/*nav-box
+************************************************/
+.nav-box {
+  margin: 15px auto 0;
+  width: 1180px;
+  height: 45px; }
+
+.menu {
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  float: left;
+  width: 180px;
+  height: 45px;
+  line-height: 45px; }
+
+.menu-head {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #3f3f3f;
+  line-height: 45px;
+  text-decoration: none; }
+  .menu-head span {
+    padding-left: 20px; }
+
+.menu-list {
+  position: absolute;
+  left: 0;
+  top: 47px;
+  padding: 0;
+  margin: 0;
+  width: 180px;
+  list-style: none;
+  background: #3f3f3f;
+  line-height: 25px; }
+  .menu-list li {
+    padding: 10px 20px; }
+    .menu-list li:hover {
+      background: #ffaa00; }
+      .menu-list li:hover a {
+        color: #3f3f3f; }
+  .menu-list .menu-list-detail a {
+    font-size: 13px;
+    padding-right: 4px; }
+
+.hottest {
+  float: right;
+  display: block;
+  width: 280px;
+  height: 45px;
+  line-height: 45px;
+  text-decoration: none; }
+  .hottest h1 {
+    padding: 0;
+    margin: 0;
+    color: #ffaa00; }
+  .hottest:hover h1 {
+    text-decoration: underline; }
+
+.nav {
+  margin-left: 200px; }
+  .nav ul {
+    padding: 0;
+    margin: 0; }
+  .nav li {
+    float: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding: 0 20px;
+    height: 45px;
+    line-height: 45px; }
+
+/*color*/
+/*col*/
+/*color*/
+/*col*/
+/*color*/
+/*col*/
+body {
+  font-family: "宋体", "Microsoft YaHei", Verdana, Arial, sans-serif;
+  font-size: 12px; }
+
+/*headline*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.67em 0;
+  font-family: "Microsoft YaHei", "黑体", Verdana, Arial, sans-serif; }
+
+h2 {
+  font-size: 25px; }
+
+/*paragraph*/
+p {
+  margin: 0.67em 0; }
+
+.about-us p, .approve-box p {
+  color: #cccccc; }
+
+/*link*/
+a {
+  cursor: pointer; }
+
+.top-status a, .head-box .hot-words a {
+  color: #666666;
+  text-decoration: none; }
+  .top-status a:hover, .head-box .hot-words a:hover {
+    color: #ffaa00; }
+
+.menu-head span, .menu-list a {
+  color: #f8f8f8;
+  text-decoration: none;
+  font-size: 18px; }
+
+.nav a {
+  color: #666666;
+  text-decoration: none;
+  font-size: 18px; }
+  .nav a:hover {
+    color: #ffaa00;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #ffaa00; }
+
+.about-us a {
+  color: #cccccc;
+  text-decoration: none; }
+  .about-us a:hover {
+    color: white; }
+
+/*btn*/
+input:focus {
+  outline: none; }
+
+/*span*/
+span {
+  color: #666666; }
+
+/*商品详情绝当价*/
+.clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+/*主列表
+****************************************************/
+/*纵向商品列表
+****************************************************/
+/*横向商品列表
+****************************************************/
+/*tab切换
+****************************************************/
+/*页码部件
+****************************************************/
+/*小搜索框
+****************************************************/
+/*弹出框
+****************************************************/
+/*侧边栏样式1
+****************************************************/
+/*发光
+****************************************************/
+/*仿控件
+****************************************************/
+/*checkbox*/
+/*file*/
+/*select*/
+.footer {
+  background: #3f3f3f; }
+
+.goods-box {
+  background: #cccccc; }
+
+.us {
+  position: relative;
+  overflow: hidden;
+  *zoom: 1; }
+
+/*our-goods
+************************************************/
+.our-goods {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 1080px;
+  height: 70px; }
+
+.our-good {
+  float: left;
+  width: 20%;
+  height: 70px; }
+  .our-good .icon-box {
+    float: left;
+    width: 70px;
+    height: 100%;
+    border-radius: 50px;
+    background: #ffaa00;
+    line-height: 70px;
+    text-align: center; }
+  .our-good i {
+    color: white;
+    font-size: 35px; }
+
+/*2维码*/
+.two-dimension {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 100px; }
+
+.our-app a:hover .two-dimension {
+  opacity: 1;
+  transition: opacity 1s linear; }
+
+.good-text {
+  margin-left: 80px;
+  padding-top: 10px; }
+  .good-text h4,
+  .good-text p {
+    padding: 0;
+    margin: 0;
+    font-size: 14px; }
+  .good-text p {
+    color: #666666; }
+
+/*about-us
+************************************************/
+.about-us {
+  margin: 0 auto;
+  overflow: hidden;
+  *zoom: 1;
+  padding: 20px 0;
+  width: 1080px; }
+  .about-us h3 {
+    color: #cccccc; }
+  .about-us ul {
+    float: left;
+    padding: 0;
+    margin: 0;
+    width: 12%;
+    list-style: none; }
+  .about-us li {
+    padding: 1px 0; }
+  .about-us .us {
+    margin-left: 60%; }
+  .about-us .our-app {
+    float: right;
+    width: 50%; }
+  .about-us .apple-dimension,
+  .about-us .android-dimension,
+  .about-us .online-server,
+  .about-us .online-server {
+    float: left;
+    display: block;
+    margin-bottom: 10px;
+    width: 50%;
+    text-align: center; }
+    .about-us .apple-dimension img,
+    .about-us .android-dimension img,
+    .about-us .online-server img,
+    .about-us .online-server img {
+      width: 30%; }
+
+/*approve-box
+************************************************/
+.approve-box {
+  background: #333333;
+  padding: 20px 0 5px;
+  text-align: center; }
+
+.approve {
+  overflow: hidden;
+  *zoom: 1;
+  margin: 0 auto;
+  width: 600px; }
+  .approve a {
+    float: left;
+    padding-right: 20px;
+    width: 100px;
+    height: 30px; }
+  .approve img {
+    width: 100%;
+    height: 100%; }
+
+/*fixed-aside
+*******************************************************/
+.fixed-aside-1 {
+  position: fixed;
+  top: 30%;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  background: #3f3f3f;
+  list-style: none;
+  text-align: center; }
+  .fixed-aside-1 li {
+    padding: 0 10px; }
+  .fixed-aside-1 a {
+    display: block;
+    text-decoration: none; }
+    .fixed-aside-1 a:focus {
+      outline: none; }
+    .fixed-aside-1 a:hover span {
+      color: #ffaa00; }
+    .fixed-aside-1 a:hover .count-number {
+      color: white; }
+  .fixed-aside-1 span {
+    display: block;
+    color: white;
+    font-size: 13px; }
+  .fixed-aside-1 .count-box {
+    transform: scale(1);
+    opacity: 1;
+    transition: all .5s linear; }
+  .fixed-aside-1 .count-number {
+    display: inline;
+    padding: 2px 6px 0;
+    border-radius: 10px;
+    background: #c20008; }
+  .fixed-aside-1 img {
+    display: block;
+    margin: 0 auto; }
+  .fixed-aside-1 .aside-person {
+    padding: 16px 0 11px;
+    border-bottom: 1px solid black; }
+    .fixed-aside-1 .aside-person img {
+      width: 20px; }
+  .fixed-aside-1 .aside-cart {
+    position: relative;
+    padding: 10px 0 8px;
+    border-top: 1px solid #666666;
+    border-bottom: 1px solid black; }
+    .fixed-aside-1 .aside-cart img {
+      width: 18px;
+      padding-bottom: 10px; }
+    .fixed-aside-1 .aside-cart span {
+      padding-bottom: 4px; }
+  .fixed-aside-1 .aside-order {
+    padding: 10px 0 18px;
+    border-top: 1px solid #666666; }
+    .fixed-aside-1 .aside-order img {
+      width: 15px;
+      padding-bottom: 5px; }
+  .fixed-aside-1 .aside-account {
+    padding: 10px 0 10px;
+    border-bottom: 1px solid black; }
+    .fixed-aside-1 .aside-account img {
+      width: 20px;
+      padding-bottom: 5px; }
+  .fixed-aside-1 .aside-top {
+    padding: 10px 0 23px;
+    border-top: 1px solid #666666; }
+    .fixed-aside-1 .aside-top img {
+      width: 20px;
+      padding-bottom: 5px; }
+    .fixed-aside-1 .aside-top span {
+      padding-bottom: 2px; }
+
+/* font-face */
+@font-face {
+  font-family: "GeneralFoundicons";
+  src: url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.eot");
+  src: url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.eot?#iefix") format("embedded-opentype"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.woff") format("woff"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.ttf") format("truetype"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.svg#GeneralFoundicons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/* global foundicon styles */
+[class*="foundicon-"] {
+  display: inline;
+  width: auto;
+  height: auto;
+  line-height: inherit;
+  vertical-align: baseline;
+  background-image: none;
+  background-position: 0 0;
+  background-repeat: repeat; }
+
+[class*="foundicon-"]:before {
+  font-family: "GeneralFoundicons";
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit; }
+
+/* icons */
+.foundicon-settings:before {
+  content: ""; }
+
+.foundicon-heart:before {
+  content: ""; }
+
+.foundicon-star:before {
+  content: ""; }
+
+.foundicon-plus:before {
+  content: ""; }
+
+.foundicon-minus:before {
+  content: ""; }
+
+.foundicon-checkmark:before {
+  content: ""; }
+
+.foundicon-remove:before {
+  content: ""; }
+
+.foundicon-mail:before {
+  content: ""; }
+
+.foundicon-calendar:before {
+  content: ""; }
+
+.foundicon-page:before {
+  content: ""; }
+
+.foundicon-tools:before {
+  content: ""; }
+
+.foundicon-globe:before {
+  content: ""; }
+
+.foundicon-home:before {
+  content: ""; }
+
+.foundicon-quote:before {
+  content: ""; }
+
+.foundicon-people:before {
+  content: ""; }
+
+.foundicon-monitor:before {
+  content: ""; }
+
+.foundicon-laptop:before {
+  content: ""; }
+
+.foundicon-phone:before {
+  content: ""; }
+
+.foundicon-cloud:before {
+  content: ""; }
+
+.foundicon-error:before {
+  content: ""; }
+
+.foundicon-right-arrow:before {
+  content: ""; }
+
+.foundicon-left-arrow:before {
+  content: ""; }
+
+.foundicon-up-arrow:before {
+  content: ""; }
+
+.foundicon-down-arrow:before {
+  content: ""; }
+
+.foundicon-trash:before {
+  content: ""; }
+
+.foundicon-add-doc:before {
+  content: ""; }
+
+.foundicon-edit:before {
+  content: ""; }
+
+.foundicon-lock:before {
+  content: ""; }
+
+.foundicon-unlock:before {
+  content: ""; }
+
+.foundicon-refresh:before {
+  content: ""; }
+
+.foundicon-paper-clip:before {
+  content: ""; }
+
+.foundicon-video:before {
+  content: ""; }
+
+.foundicon-photo:before {
+  content: ""; }
+
+.foundicon-graph:before {
+  content: ""; }
+
+.foundicon-idea:before {
+  content: ""; }
+
+.foundicon-mic:before {
+  content: ""; }
+
+.foundicon-cart:before {
+  content: ""; }
+
+.foundicon-address-book:before {
+  content: ""; }
+
+.foundicon-compass:before {
+  content: ""; }
+
+.foundicon-flag:before {
+  content: ""; }
+
+.foundicon-location:before {
+  content: ""; }
+
+.foundicon-clock:before {
+  content: ""; }
+
+.foundicon-folder:before {
+  content: ""; }
+
+.foundicon-inbox:before {
+  content: ""; }
+
+.foundicon-website:before {
+  content: ""; }
+
+.foundicon-smiley:before {
+  content: ""; }
+
+.foundicon-search:before {
+  content: ""; }
+
+/* general icons for IE7 */
+[class*="foundicon-"] {
+  font-family: "GeneralFoundicons";
+  font-weight: normal;
+  font-style: normal; }
+
+.foundicon-settings {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf000;"); }
+
+.foundicon-heart {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf001;"); }
+
+.foundicon-star {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf002;"); }
+
+.foundicon-plus {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf003;"); }
+
+.foundicon-minus {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf004;"); }
+
+.foundicon-checkmark {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf005;"); }
+
+.foundicon-remove {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf006;"); }
+
+.foundicon-mail {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf007;"); }
+
+.foundicon-calendar {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf008;"); }
+
+.foundicon-page {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf009;"); }
+
+.foundicon-tools {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00a;"); }
+
+.foundicon-globe {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00b;"); }
+
+.foundicon-home {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00c;"); }
+
+.foundicon-quote {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00d;"); }
+
+.foundicon-people {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00e;"); }
+
+.foundicon-monitor {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00f;"); }
+
+.foundicon-laptop {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf010;"); }
+
+.foundicon-phone {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf011;"); }
+
+.foundicon-cloud {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf012;"); }
+
+.foundicon-error {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf013;"); }
+
+.foundicon-right-arrow {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf014;"); }
+
+.foundicon-left-arrow {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf015;"); }
+
+.foundicon-up-arrow {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf016;"); }
+
+.foundicon-down-arrow {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf017;"); }
+
+.foundicon-trash {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf018;"); }
+
+.foundicon-add-doc {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf019;"); }
+
+.foundicon-edit {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01a;"); }
+
+.foundicon-lock {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01b;"); }
+
+.foundicon-unlock {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01c;"); }
+
+.foundicon-refresh {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01d;"); }
+
+.foundicon-paper-clip {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01e;"); }
+
+.foundicon-video {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01f;"); }
+
+.foundicon-photo {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf020;"); }
+
+.foundicon-graph {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf021;"); }
+
+.foundicon-idea {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf022;"); }
+
+.foundicon-mic {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf023;"); }
+
+.foundicon-cart {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf024;"); }
+
+.foundicon-address-book {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf025;"); }
+
+.foundicon-compass {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf026;"); }
+
+.foundicon-flag {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf027;"); }
+
+.foundicon-location {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf028;"); }
+
+.foundicon-clock {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf029;"); }
+
+.foundicon-folder {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02a;"); }
+
+.foundicon-inbox {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02b;"); }
+
+.foundicon-website {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02c;"); }
+
+.foundicon-smiley {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02d;"); }
+
+.foundicon-search {
+  *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02e;"); }

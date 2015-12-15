@@ -1,0 +1,22 @@
+@mixin wh($w:auto, $h:auto) {
+  width: $w;
+  height: $h;
+}
+@mixin o() {
+  padding: 0;
+  margin: 0;
+}
+@mixin be-nav($f:none) {
+  float: $f;
+  list-style: none;
+  @include o;
+}
+@mixin be-position($p:relative, $l:0, $t:0) {
+  position: $p;
+  left: $l;
+  top: $t;
+}
+@mixin bfc() {
+  overflow: hidden;
+  *zoom: 1;
+}

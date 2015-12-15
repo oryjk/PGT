@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.address.dao.AddressInfoMapper">
+	<resultMap id="addressInfo" type="com.pgt.address.bean.AddressInfo">
+		<id column="shipping_info_id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="telephone" property="telephone" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="district" property="district" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="status" property="status" />
+		<result column="creation_date" property="creationDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+	<parameterMap id="paramAddressInfo" type="com.pgt.address.bean.AddressInfo">
+	</parameterMap>
+
+	<insert id="add" parameterMap="paramAddressInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		SHIPPING_INFO(user_id,name,phone,telephone,province,city,district,address,email,status,creation_date,update_date)
+		VALUES
+		(#{userId},#{name},#{phone},#{telephone},#{province},#{city},#{district},#{address},#{email},#{status},#{creationDate},#{updateDate})
+		<selectKey keyProperty="id" resultType="int">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<select id="select" parameterType="int" resultMap="addressInfo">
+		SELECT * FROM SHIPPING_INFO WHERE shipping_info_id = #{id}
+	</select>
+	<select id="queryAddressByUserId" parameterType="int" resultMap="addressInfo">
+		SELECT * FROM SHIPPING_INFO WHERE user_id = #{userId}
+	</select>
+
+	<update id="update" parameterMap="paramAddressInfo">
+		UPDATE SHIPPING_INFO SET name = #{name},phone = #{phone},telephone = #{telephone},province =
+		#{province},city = #{city},district = #{district},address = #{address},email=#{email},
+		status = #{status},update_date = #{updateDate} WHERE shipping_info_id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM SHIPPING_INFO WHERE shipping_info_id = #{id}
+	</delete>
+</mapper>

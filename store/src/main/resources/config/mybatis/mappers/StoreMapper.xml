@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.address.dao.StoreMapper">
+    <resultMap type="com.pgt.address.bean.Store" id="store">
+        <id column="store_id" property="id" />
+        <id column="address" property="address" />
+        <id column="phone" property="phone" />
+    </resultMap>
+    <select id="findStoreByProductIds" resultMap="store">
+		SELECT * FROM STORE s WHERE s.store_id IN(SELECT sp.store_id FROM STORE_PRODUCT sp WHERE sp.product_id IN
+		<foreach collection="list" item="productId" open="(" close=")" separator=",">#{productId}</foreach>
+		GROUP BY sp.store_id HAVING COUNT(sp.store_id) = ${list.size()})<where></where>
+    </select>
+</mapper>
