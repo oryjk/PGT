@@ -38,7 +38,6 @@
                         ¥<span><fmt:formatNumber value="${product.salePrice}" pattern="#.00" type="number" /></span>
                     </p>
                     <div class="product-handle">
-                        <a class="disLike" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i></a>
                         <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
                         <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                     </div>
@@ -69,7 +68,6 @@
                             ¥<span><fmt:formatNumber value="${product.source.salePrice}" pattern="#.00" type="number" /></span>
                         </p>
                         <div class="product-handle">
-                            <a class="disLike" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i></a>
                             <a class="addEnjoy"  href="#" data-value="${product.source.productId}"><i class="foundicon-heart"></i></a>
                             <a class="addCart" href="#" data-value="${product.source.productId}"><i class="foundicon-cart"></i></a>
                         </div>
@@ -101,7 +99,6 @@
                             ¥<span><fmt:formatNumber value="${fav.finalPrice}" pattern="#.00" type="number" /></span>
                         </p>
                         <div class="product-handle">
-                            <a class="disLike" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i></a>
                             <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
                             <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                         </div>

@@ -621,7 +621,8 @@ span {
   width: 1180px; }
 
 .clear-float {
-  clear: both; }
+  clear: both;
+  margin-bottom: 20px; }
 
 /*aside
 ****************************************************/
@@ -631,9 +632,10 @@ span {
   padding: 0;
   width: 180px;
   background: #fcfcff; }
-  .aside .current-page {
-    background-color: #ffaa00;
-    color: white; }
+  .aside h2 {
+    font-size: 18px;
+    padding-left: 30%;
+    background: url("../../core/images/myaccount/user.png") no-repeat 30px center; }
   .aside ul {
     padding: 0;
     margin: 0;
@@ -644,16 +646,21 @@ span {
     display: block;
     line-height: 35px;
     padding-left: 30%;
-    font-size: 18px;
+    font-size: 17px;
     text-decoration: none;
     color: black; }
     .aside a:hover {
       background: #ffaa00;
       color: white; }
+  .aside .menu-level-1 {
+    background: url("../../core/images/myaccount/square.png") no-repeat 30px center; }
   .aside .menu-level-2 {
     color: #666666; }
   .aside .menu-level-end {
-    color: #cccccc; }
+    color: #666666; }
+  .aside .current-page {
+    background-color: #ffaa00;
+    color: white; }
 
 /*bread-nav
 ****************************************************/
@@ -834,6 +841,7 @@ span {
   margin: 20px 0 0 18px;
   padding: 0 20px;
   width: 940px;
+  min-height: 641px;
   background: #fcfcff; }
 
 .d-btn {

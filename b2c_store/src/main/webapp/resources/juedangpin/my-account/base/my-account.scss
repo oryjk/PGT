@@ -4,7 +4,6 @@
 @import "../../core/scss/fontGeneral";
 @import "../../core/scss/component";
 
-
 /*header menulist should be hidden
 ****************************************************/
 .menu-list {
@@ -32,8 +31,10 @@
   width: $mainWidth;
 }
 
+
 .clear-float {
   clear: both;
+  margin-bottom: $colSpace;
 }
 
 /*aside
@@ -45,9 +46,10 @@
   width: $c2;
   background: #fcfcff;
 
-  .current-page {
-    background-color: $viceColor;
-    color: white;
+  h2 {
+    font-size: 18px;
+    padding-left: 30%;
+    background: url("../../core/images/myaccount/user.png") no-repeat 30px center;
   }
 
   ul {
@@ -63,7 +65,7 @@
     display: block;
     line-height: 35px;
     padding-left: 30%;
-    font-size: 18px;
+    font-size: 17px;
     text-decoration: none;
     color: black;
 
@@ -73,15 +75,22 @@
     }
   }
 
+  .menu-level-1 {
+    background: url("../../core/images/myaccount/square.png") no-repeat 30px center;
+  }
+
   .menu-level-2 {
     color: $middleGray;
   }
 
   .menu-level-end {
-    color: $ashGray;
+    color: $middleGray;
   }
 
-
+  .current-page {
+    background-color: $viceColor;
+    color: white;
+  }
 
 }
 
@@ -136,6 +145,7 @@
   margin: $colSpace 0 0 $colSpace - 2px;
   padding: 0 $colSpace;
   width: $c10 - $colSpace * 2;
+  min-height: 641px;
   background: #fcfcff;
 }
 

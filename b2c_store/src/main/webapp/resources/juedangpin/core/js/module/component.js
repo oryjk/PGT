@@ -261,6 +261,20 @@ define(function() {
     };
 
     /**
+     * foldToggle 折叠
+     * munu: 折叠开关
+     */
+    var foldToggle = function(menu) {
+        menu.click(function(event) {
+            var that = $(this);
+            event.preventDefault();
+            if (that.siblings('ul')) {
+                that.siblings('ul').slideToggle(200);
+            }
+        })
+    };
+
+    /**
      * select 选择框
      * selectView: 点击的a标签
      * optionView: 选择的a标签
@@ -286,20 +300,21 @@ define(function() {
     };
 
     /**
-     * select2 选择框
+     * select2 三级联动所用选择框
      * selectView: 点击的a标签
-     * optionView: 选择的a标签
+     * [fnc]: 回调函数
      */
-    var select2 = function(selectView, optionView, fnc) {
+    var select2 = function(selectView, fnc) {
         selectView.click(function(event) {
             event.preventDefault();
             var that = $(this);
 
             that.siblings('ul').slideToggle(200);
         });
-        optionView.click(function(event) {
+        selectView.siblings('.options').delegate('a', 'click', function(event) {
             event.preventDefault();
-            var that = $(this);
+
+            var that = $(event.target);
             var ul = that.parents('ul');
             var id = that.attr('data-value');
             var name = that.html();
@@ -312,7 +327,9 @@ define(function() {
                 .html(that.html());
 
             //回调函数
-            fnc(id);
+            if (fnc) {
+                fnc(id);
+            }
         });
     };
 
@@ -353,6 +370,7 @@ define(function() {
         fixedHead: fixedHead,
         rowList: rowList,
         verticalList: verticalList,
+        foldToggle: foldToggle,
         pop: pop,
         select: select,
         select2: select2,

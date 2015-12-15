@@ -108,4 +108,5 @@ subprojects {
     task listJars(description: 'Display all compile jars.') << {
         configurations.compile.each { File file -> println file.name }
     }
+    
 }

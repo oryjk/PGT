@@ -44,42 +44,48 @@ require(['jquery', 'component'], function($, Cpn) {
             right: $('#moveLeft3')
         });
 
-        //为仿select绑定事件
+		//为仿select绑定事件
 		//省->市
 		var areaObj = {
 			province: $('#province'),
-			provinceOption: $('#province').siblings('.options').children().children(),
 			city: $('#city'),
-			cityOption: $('#city').siblings('.options').children().children(),
 			country: $('#country'),
-			countryOption: $('#country').siblings('.options').children().children()
 		};
 
-		Cpn.select2(areaObj.province, areaObj.provinceOption, function(id) {
+		Cpn.select2(areaObj.province, function(id) {
 			var url = '/dianjinzi/getCityByProvinceId/' + id;
 			$.ajax({
 				url: url,
 				data: null,
 				success: function(param) {
-					//console.log(param);
+					var str = '';
+					$.each($.parseJSON(param), function() {
+						str += '<li><a class="option-view" data-value="'+ this.id+'" href="#">'+ this.name+'</a></li>'
+					});
+					$('#city').children('.selected').html('请选择').end().siblings('.options').html(str).next('.select-value').val('');
+					$('#country').children('.selected').html('请选择').end().siblings('.options').html('').next('.select-value').val('');
 				}
 			})
 		});
 
 		//市->区
-		Cpn.select2(areaObj.city, areaObj.cityOption, function(id) {
+		Cpn.select2(areaObj.city, function(id) {
 			$.ajax({
 				type: 'get',
 				url: ('/dianjinzi/getAreaByCityId/' + id),
 				data: null,
 				success: function(param) {
-					//console.log(param);
+					var str = '';
+					$.each($.parseJSON(param), function() {
+						str += '<li><a class="option-view" data-value="'+ this.id+'" href="#">'+ this.name+'</a></li>'
+					});
+					$('#country').children('.selected').html('请选择').end().siblings('.options').html(str).next('.select-value').val('');
 				}
 			})
 		});
 
 		//区
-		Cpn.select2(areaObj.country, areaObj.countryOption);
+		Cpn.select2(areaObj.country);
 
 	});
     

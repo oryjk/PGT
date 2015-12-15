@@ -3,4 +3,5 @@ include 'core'
 include 'b2c_store'
 include 'admin'
 include 'p2p_store'
+include 'mobile'
 

@@ -79,5 +79,10 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             Prd.removeFavourite(favouriteId, productMessage, that);
         });
 
+        //菜单折叠
+        Cpn.foldToggle($('.menu-level-1'));
+
+
+
     });
 });
