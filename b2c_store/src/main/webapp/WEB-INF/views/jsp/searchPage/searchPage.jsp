@@ -106,7 +106,13 @@
 									class="foundicon-up-arrow"></i></a><a href="#"><i
 									class="foundicon-down-arrow"></i></a></li>
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
-<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=productId">综合排序</a></li>                               
+<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=productId">综合排序</a>
+								<!--仿checkbox-->
+								<span class="checkbox only-availble" data-value="0">
+									<i class="foundicon-checkmark"></i>
+									<input name="" type="hidden" value="0"/>
+								</span>
+							</li>
 						</ul>
 					</div>
 
@@ -142,9 +148,6 @@
 									</p>
 
 									<div class="product-handle">
-										<a class="disLike"
-											 href="#" data-favourite-id="${fav.id}"><i
-											class="foundicon-heart" data-value="${product.productId}"></i>取消</a>
 										<a class="addEnjoy"
 											data-value="${searchHit.source['productId']}" href="#"><i
 											class="foundicon-heart" data-value="${product.productId}"></i>收藏</a>
@@ -201,10 +204,6 @@
 						<jsp:include page="../core/pageView.jsp" />
 					</form>
 
-
-
-
-
 				</div>
 			</div>
 
@@ -236,7 +235,6 @@
 														  type="number"/></span>
 							</p>
 							<div class="product-handle">
-								<a class="disLike" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i></a>
 								<a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
 								<a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
 							</div>

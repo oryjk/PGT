@@ -271,20 +271,47 @@
                 </label>
 
                 <div class="text">
-                	<select name="province" id="">
-                	<c:forEach items="${provinceList}" var="province">
-	                     <option value="${province.name}" data-value="${province.id}">${province.name}</option>
-                  	</c:forEach>
-                  	</select>
-                    省
-                    <select name="city" id="">
-                        <option value="成都">成都</option>
-                    </select>
-                    市
-                    <select name="district" id="">
-                        <option value="武侯">武侯</option>
-                    </select>
-                    区\县
+                    <!-- 仿select-->
+                    <div class="province">
+                    <a id="province" class="select-view"  href="#">
+                    <span class="selected">请选择</span>
+                    <i class="foundicon-down-arrow"></i>
+                    </a>
+                    <ul class="options">
+                    <c:forEach items="${provinceList}" var="province">
+                        <li><a class="option-view" data-value="${province.id}" href="#">${province.name}</a></li>
+                    </c:forEach>
+                    </ul>
+                    <input class="select-value" name="province" type="hidden" value=""/>
+                    </div>省
+
+                    <!-- 仿select-->
+                    <div class="city">
+                    <a id="city" class="select-view"  href="#">
+                    <span class="selected">请选择</span>
+                    <i class="foundicon-down-arrow"></i>
+                    </a>
+                    <ul class="options">
+                    <li><a class="option-view" data-value="0" href="#">成都市</a></li>
+                    <li><a class="option-view" data-value="1" href="#">苏州市</a></li>
+                    <li><a class="option-view" data-value="2" href="#">安庆市</a></li>
+                    </ul>
+                    <input class="select-value" name="city" type="hidden" value=""/>
+                    </div>市
+
+                    <!-- 仿select-->
+                    <div class="county">
+                    <a id="county" class="select-view"  href="#">
+                    <span class="selected">请选择</span>
+                    <i class="foundicon-down-arrow"></i>
+                    </a>
+                    <ul class="options">
+                    <li><a class="option-view" data-value="0" href="#">高新区</a></li>
+                    <li><a class="option-view" data-value="1" href="#">姑苏区</a></li>
+                    <li><a class="option-view" data-value="2" href="#">宜秀区</a></li>
+                    </ul>
+                    <input class="select-value" name="district" type="hidden" value=""/>
+                    </div>区/县
                 </div>
             </div>
 
