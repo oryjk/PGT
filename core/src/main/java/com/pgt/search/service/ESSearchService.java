@@ -252,7 +252,7 @@ public class ESSearchService {
      * @return
      */
     public boolean reduceProductInventory(List<Integer> productIds) {
-        LOGGER.debug("Begin to update products.");
+        LOGGER.debug("Begin to reduce the product inventory.");
         BulkResponse bulkResponse;
 
         try {
@@ -285,7 +285,7 @@ public class ESSearchService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        LOGGER.debug("End to update products.");
+        LOGGER.debug("End to reduce the product inventory.");
         return true;
     }
 
