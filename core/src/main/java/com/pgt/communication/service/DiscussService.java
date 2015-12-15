@@ -36,7 +36,7 @@ public interface DiscussService {
 	Integer queryAllDiscussCount();
 	
 	// 查询某个商品下的讨论列表
-	List<Discuss> queryProductAllDiscuss(Integer productId,DiscussCustom discussCustom);
+	List<Discuss> queryProductAllDiscuss(Integer productId, DiscussCustom discussCustom);
 
     //查询某个商品下面的总记录数
 	Integer queryProductAllDiscussCount(Integer productId);

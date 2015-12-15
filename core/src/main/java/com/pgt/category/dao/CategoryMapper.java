@@ -28,6 +28,6 @@ public interface CategoryMapper extends SqlMapper {
 	List<Category> queryAllCategories();
 
 	List<Category> queryCategories(@Param("category") Category category,
-			@Param("paginationBean") PaginationBean paginationBean);
+								   @Param("paginationBean") PaginationBean paginationBean);
 
 }

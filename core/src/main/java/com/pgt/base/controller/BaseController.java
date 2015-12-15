@@ -13,5 +13,5 @@ public interface BaseController<T> {
     ModelAndView create(T t, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response);
 
     ModelAndView delete(String objectId, ModelAndView modelAndView, HttpServletRequest request,
-            HttpServletResponse response);
+                        HttpServletResponse response);
 }
