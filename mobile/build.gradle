@@ -1,0 +1,4 @@
+dependencies {
+    compile project(":b2c_store")
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
