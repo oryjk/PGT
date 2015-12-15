@@ -78,7 +78,6 @@
 			OR phone LIKE CONCAT('%', #{keyword}, '%')
 			OR email LIKE CONCAT('%', #{keyword}, '%'))
 		</if>
-		<include refid="limit-split-page" />
 	</select>
 
 	<select id="queryInternalUserPage" resultMap="internalUser" parameterType="com.pgt.internal.bean.pagination.InternalPagination">

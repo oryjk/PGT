@@ -307,7 +307,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			LOGGER.debug("Empty product ids to remove from order.");
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
-		List<Integer> commerceItemIds = new ArrayList<>(productIds.length);
+		List<Integer> commerceItemIds = new ArrayList(productIds.length);
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
 		synchronized (order) {
@@ -376,7 +376,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			itemCount = order.getCommerceItemCount();
 		}
 		LOGGER.debug("Get commerce item count: {} from current order.", itemCount);
-		Map<String, Object> result = new HashMap<>(1);
+		Map<String, Object> result = new HashMap(1);
 		result.put(CartConstant.CURRENT_ORDER_ITEM_COUNT, itemCount);
 		return new ResponseEntity(rb.setData(result).createResponse(), HttpStatus.OK);
 	}

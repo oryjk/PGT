@@ -77,7 +77,7 @@ public class RecommendService {
 	}
 
 	public List<Product> figureRecommendProducts(List<Integer> pRecentBrowsedProductIds, int pCurrentProductId) {
-		List<Integer> recommendProductIds = new ArrayList<>(getRecommendCount());
+		List<Integer> recommendProductIds = new ArrayList(getRecommendCount());
 		if (CollectionUtils.isEmpty(pRecentBrowsedProductIds)) {
 			LOGGER.debug("Empty recently browsed products, recommend products randomly.");
 			recommendRandomly(recommendProductIds, null);
@@ -140,7 +140,7 @@ public class RecommendService {
 				}
 			}
 			if (recommendProductIds.size() < getRecommendCount()) {
-				List<String> recommendedCategoryIds = new ArrayList<>(categoryProductCounts.size());
+				List<String> recommendedCategoryIds = new ArrayList(categoryProductCounts.size());
 				for (Map<String, Object> categoryProductCount : categoryProductCounts) {
 					recommendedCategoryIds.add((String) categoryProductCount.get("categoryId"));
 				}
