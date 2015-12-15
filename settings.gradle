@@ -3,4 +3,5 @@ include 'core'
 include 'store'
 include 'store'
 include 'admin'
+include 'p2p_store'
 

@@ -4,11 +4,13 @@
 build/
 out/
 pgt.iml
-store/store.iml
+b2c_store/b2c_store.iml
+p2p_store/p2p_store.iml
 core/core.iml
 admin/admin.iml
 .idea
-store/src/main/webapp/node_modules
+p2p_store/src/main/webapp/node_modules
+b2c_store/src/main/webapp/node_modules
 pgt.ipr
 pgt.iws
 bin/
