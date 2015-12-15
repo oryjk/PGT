@@ -1,7 +1,6 @@
 rootProject.name = 'pgt'
 include 'core'
-include 'store'
-include 'store'
+include 'b2c_store'
 include 'admin'
 include 'p2p_store'
 
