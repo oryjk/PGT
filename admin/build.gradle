@@ -3,3 +3,6 @@ version '1.0-SNAPSHOT'
 archivesBaseName = 'admin'
 group 'pgt'
 version '1.0-SNAPSHOT'
+dependencies {
+    compile project(":core")
+}
