@@ -176,11 +176,11 @@ a {
 
 %page-focus {
   padding: 5px;
+  border: 1px solid $viceColor;
   color: white;
   font-size: 16px;
   text-decoration: none;
   background: $viceColor;
-  border: none;
 }
 
 %page-blur {

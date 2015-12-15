@@ -204,7 +204,7 @@
 .fixed-head-box {
   position: fixed;
   display: none;
-  z-index: 1;
+  z-index: 3;
   opacity: .99;
   @include wh(100%, 60px);
   top: 0;

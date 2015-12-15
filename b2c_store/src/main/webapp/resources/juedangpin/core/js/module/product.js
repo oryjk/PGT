@@ -3,12 +3,13 @@
  */
 
 define(function() {
+    var main = '/b2c_store';
 
     //重新请求购物车数量 cartCount:购物车数字的jq
     var getOrderItemCount = function(cartCount) {
         $.ajax({
             type: 'get',
-            url: '/dianjinzi/shoppingCart/getOrderItemCount',
+            url: main + '/shoppingCart/getOrderItemCount',
             success: function(param) {
                 cartCount.html(param.data.itemCount);
             }
@@ -19,7 +20,7 @@ define(function() {
     var addItemToOrder = function(productId, productMessage, cartCount) {
         $.ajax({
             type: 'get',
-            url: '/dianjinzi/shoppingCart/ajaxAddItemToOrder',
+            url: main + '/shoppingCart/ajaxAddItemToOrder',
             data: {
                 'productId': productId
             },
@@ -49,7 +50,7 @@ define(function() {
     var addItemToFavourite = function(productId, productMessage, that) {
         $.ajax({
             type: 'GET',
-            url: '/dianjinzi/myAccount/favourite',
+            url: main + '/myAccount/favourite',
             data: {
                 'productId': productId
             },
@@ -82,7 +83,7 @@ define(function() {
     var removeFavourite = function(favouriteId, productMessage, that) {
         $.ajax({
             type: 'GET',
-            url: '/dianjinzi/myAccount/dislike',
+            url: main + '/myAccount/dislike',
             data: {
                 'favouriteId': favouriteId
             },

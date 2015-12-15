@@ -156,6 +156,13 @@
   }
 }
 
+.province,
+.city,
+.county,
+.invoice-title {
+  @include like-select(100px, 25px, 14px);
+}
+
 /*for-js
 ****************************************************/
 .default-address {
@@ -172,3 +179,5 @@
     }
   }
 }
+
+

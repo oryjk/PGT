@@ -405,11 +405,11 @@ a {
 
 .page-box .page-focus {
   padding: 5px;
+  border: 1px solid #ffaa00;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
-  border: none; }
+  background: #ffaa00; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -512,11 +512,11 @@ a {
 
 .page-box .page-focus {
   padding: 5px;
+  border: 1px solid #ffaa00;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
-  border: none; }
+  background: #ffaa00; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -959,7 +959,7 @@ span {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
@@ -1025,6 +1025,99 @@ span {
     clear: both; }
   .pop-up .row7 {
     float: right; }
+
+.province,
+.city,
+.county,
+.invoice-title {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 25px; }
+  .province i,
+  .province a,
+  .city i,
+  .city a,
+  .county i,
+  .county a,
+  .invoice-title i,
+  .invoice-title a {
+    font-size: 14px; }
+  .province i,
+  .city i,
+  .county i,
+  .invoice-title i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 12px;
+    color: white; }
+  .province a,
+  .city a,
+  .county a,
+  .invoice-title a {
+    display: block;
+    text-decoration: none;
+    text-align: center; }
+  .province .select-view,
+  .city .select-view,
+  .county .select-view,
+  .invoice-title .select-view {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background: #ffaa00;
+    border-radius: 3px;
+    line-height: 25px; }
+    .province .select-view:hover,
+    .city .select-view:hover,
+    .county .select-view:hover,
+    .invoice-title .select-view:hover {
+      background: #ce8221; }
+    .province .select-view span,
+    .city .select-view span,
+    .county .select-view span,
+    .invoice-title .select-view span {
+      color: white; }
+  .province ul,
+  .city ul,
+  .county ul,
+  .invoice-title ul {
+    position: absolute;
+    display: none;
+    top: 105%;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ffaa00;
+    width: 98px;
+    background: white;
+    list-style: none; }
+  .province li,
+  .city li,
+  .county li,
+  .invoice-title li {
+    margin: 3px 0; }
+    .province li a,
+    .city li a,
+    .county li a,
+    .invoice-title li a {
+      color: #ffaa00; }
+    .province li:hover,
+    .city li:hover,
+    .county li:hover,
+    .invoice-title li:hover {
+      background: #ffaa00; }
+      .province li:hover a,
+      .city li:hover a,
+      .county li:hover a,
+      .invoice-title li:hover a {
+        color: white; }
 
 /*for-js
 ****************************************************/

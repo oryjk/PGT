@@ -2,6 +2,10 @@
 
 .product-list {
   @include list(20%,13px, 18px, 12px, 168px);
+
+  .addEnjoy {
+    display: none;
+  }
 }
 
 .page-box {

@@ -221,9 +221,7 @@
                                             <i class="foundicon-down-arrow"></i>
                                         </a>
                                         <ul class="options">
-                                            <li><a class="option-view" data-value="0" href="#">成都市</a></li>
-                                            <li><a class="option-view" data-value="1" href="#">苏州市</a></li>
-                                            <li><a class="option-view" data-value="2" href="#">安庆市</a></li>
+
                                         </ul>
                                         <input class="select-value" name="city" type="hidden" value=""/>
                                     </div>市
@@ -235,9 +233,7 @@
                                             <i class="foundicon-down-arrow"></i>
                                         </a>
                                         <ul class="options">
-                                            <li><a class="option-view" data-value="0" href="#">高新区</a></li>
-                                            <li><a class="option-view" data-value="1" href="#">姑苏区</a></li>
-                                            <li><a class="option-view" data-value="2" href="#">宜秀区</a></li>
+
                                         </ul>
                                         <input class="select-value" name="district" type="hidden" value=""/>
                                     </div>区/县
