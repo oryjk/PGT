@@ -72,7 +72,13 @@
 						<li><a class="orderby-selection-focus" href="#">按价格</a></li>
 						<li><a href="#">按销量</a></li>
 						<li><a href="#">按评价</a></li>
-						<li><a href="#">综合排序</a></li>
+						<li><a href="#">综合排序</a>
+							<!--仿checkbox-->
+							<span class="checkbox only-availble" data-value="0">
+								<i class="foundicon-checkmark"></i>
+								<input name="" type="hidden" value="0"/>
+							</span>
+						</li>
 					</ul>
 				</div>
 				<div class="product-list">
@@ -102,7 +108,6 @@
 								<div class="product-message">添加成功</div>
 
 								<div class="product-handle">
-									<a class="disLike" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i>取消</a>
 									<a class="addEnjoy" href="#" data-value="${product.productId}"><i class="foundicon-heart"></i>收藏</a>
 									<a class="addCart" href="#" data-value="${product.productId}" data-url="<spring:url value="/shoppingCart/ajaxAddItemToOrder"/>"><i
 										class="foundicon-cart" ></i>购物车</a>
@@ -261,7 +266,6 @@
 								<div class="product-message">添加成功</div>
 
 								<div class="product-handle">
-									<a class="disLike" href="#" data-value="${product.productId}"><i class="foundicon-heart"></i>取消</a>
 									<a class="addEnjoy" href="#" data-value="${product.productId}"><i class="foundicon-heart"></i>收藏</a>
 									<a class="addCart" href="#" data-value="${product.productId}" data-url="<spring:url value="/shoppingCart/ajaxAddItemToOrder"/>"><i
 										class="foundicon-cart" ></i>购物车</a>

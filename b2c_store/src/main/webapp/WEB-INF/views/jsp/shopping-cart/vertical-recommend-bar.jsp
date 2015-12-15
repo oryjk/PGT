@@ -32,7 +32,6 @@
                     <a class="aside-product-name" href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>">${product.name} ${product.serialNumber}</a>
                 </p>
                 <div class="product-handle">
-                    <a class="disLike" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i></a>
                     <a class="addEnjoy" href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
                     <a class="addCart" href="#"  data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                 </div>
