@@ -55,7 +55,7 @@
                 </p>
                 <div class="buy">
                     <a class="buy-now" href="#"> <span>立即购买</span>
-                    </a> <a class="join-cart" href="#"> <span>加入购物车</span>
+                    </a> <a class="join-cart" href="#" data-value="${product.productId}"> <span>加入购物车</span>
                     </a> <a class="collect" href="#"> <span>添加收藏</span>
                     </a>
                 </div>

@@ -123,17 +123,16 @@ public class RecommendService {
 					presentCount += categoryRecommendCount;
 					// generate start index by random
 					for (int j = RandomUtils.nextInt(0, categoryProductIds.size()); categoryRecommendCount > 0; j++) {
-						// exclude current product id
-						if (j == currentProductIndex) {
-							continue;
-						}
 						categoryRecommendCount--;
 						// restart loop at the begin of list
 						if (j == categoryProductIds.size() - 1) {
+							// exclude current product id
+							if (j != currentProductIndex) {
+								recommendProductIds.add(categoryProductIds.get(j));
+							}
 							// reset
-							recommendProductIds.add(categoryProductIds.get(j));
 							j = 0;
-						} else {
+						} else if (j != currentProductIndex) {
 							recommendProductIds.add(categoryProductIds.get(j));
 						}
 					}
