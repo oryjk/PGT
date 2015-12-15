@@ -15,6 +15,7 @@ pgt.ipr
 pgt.iws
 bin/
 src/main/webapp/resources/.idea/workspace.xml
+b2c_store/src/main/webapp/resources/.idea/workspace.xml
 src/main/webapp/resources/.idea/
 src/main/webapp/.idea/
 .project
