@@ -25,7 +25,7 @@
                 <p>
                     <span class="aside-product-priceh"></span>
                     <span class="aside-product-price">¥
-                        <span><fmt:formatNumber value="${product.salePrice}" pattern="#.00" type="number" /></span>
+                        <span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number" /></span>
                     </span>
                 </p>
                 <p>
@@ -35,7 +35,6 @@
                     <a class="addEnjoy" href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
                     <a class="addCart" href="#"  data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                 </div>
-                <div class="out-of-stock"></div>
                 <div class="product-message">添加成功</div>
             </li>
         </c:forEach>

@@ -73,10 +73,10 @@
                                     <span class="level">${commerceItem.quality}</span>
                                 </td>
                                 <td class="product-old-cost">
-                                    ¥<span><fmt:formatNumber value="${commerceItem.listPrice}" pattern="#.00" type="number" /></span>
+                                    ¥<span><fmt:formatNumber value="${commerceItem.listPrice}" pattern="0.00" type="number" /></span>
                                 </td>
                                 <td class="product-now-cost">
-                                    ¥<span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="#.00" type="number" /></span>
+                                    ¥<span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span>
                                 </td>
                                 <td>
                                     <p><a class="link-btn" href="#">移入收藏</a></p>
@@ -90,7 +90,7 @@
                         <div class="right">
                             <p>
                                 <span class="settlement-name">商品总金额:</span>
-                                <span class="cost">¥<span><fmt:formatNumber value="${order.subtotal}" pattern="#.00" type="number" /></span></span>
+                                <span class="cost">¥<span><fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></span></span>
                             </p>
 
                             <p>
@@ -110,7 +110,7 @@
                             </p>
                         </div>
                         <div class="bottom">
-                            <span>账面应付金额 <span class="cost">¥<span><fmt:formatNumber value="${order.total}" pattern="#.00" type="number" /></span></span></span>
+                            <span>账面应付金额 <span class="cost">¥<span><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span></span></span>
                             <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}'"/>
                         </div>
                     </div>
@@ -121,6 +121,8 @@
 
     <jsp:include page="horizontal-recommend-bar.jsp" />
     <jsp:include page="../core/footer-main.jsp" />
+</div>
+
 </body>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"

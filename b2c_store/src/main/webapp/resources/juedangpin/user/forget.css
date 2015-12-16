@@ -584,7 +584,7 @@ span {
 .fixed-head-box {
   position: fixed;
   display: none;
-  z-index: 1;
+  z-index: 3;
   opacity: .99;
   width: 100%;
   height: 60px;

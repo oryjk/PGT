@@ -66,8 +66,13 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@RequestMapping(value = "/addItemToOrder")//, method = RequestMethod.POST)
 	public ModelAndView addItemToOrderRedirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productId", required = true) int productId) {
+			@RequestParam(value = "productId", required = true) int productId,
+			@RequestParam(value = "easyBuy", required = false, defaultValue = "0") int easyBuy) {
 		ModelAndView mav = new ModelAndView(getRedirectView(getURLMapping().getPDPUrl(String.valueOf(productId))));
+		if (easyBuy > 0) {
+			// TODO add shipping view name here!!
+			mav.setViewName(getRedirectView(""));
+		}
 		// check product
 		Product product = getProductService().queryProduct(productId);
 		if (!mShoppingCartService.checkProductValidity(product)) {

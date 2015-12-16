@@ -43,46 +43,86 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             right: $('#moveLeft3')
         });
 
+        //菜单折叠
+        Cpn.foldToggle($('.menu-level-1'));
+
+        //分页
+        var pageObj = {
+            currentIndex: 0,
+            capacity: 5
+        };
+        Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), Prd.baseUrl, pageObj, dataInPage);
+
+        //事件委托:加入购物车, 添加收藏, 取消收藏
+        $(document).on('click', '.addCart', addCart);
+        $(document).on('click', '.addEnjoy', addEnjoy);
+        $(document).on('click', '.disLike', disLike);
+
         //加入购物车
-        $('.addCart').click(function(event) {
+        function addCart(event) {
             var that = $(this);
             var productId = that.attr('data-value');
-            var url = that.attr('data-url');
             var productMessage = that.parent().siblings().filter('.product-message');
 
             event.preventDefault();
 
             Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
-        });
+        }
 
         //添加收藏
-        $('.addEnjoy').click(function(event) {
+        function addEnjoy(event) {
             var that = $(this);
             var productId = that.attr('data-value');
-            var url = that.attr('data-url');
             var productMessage = that.parent().siblings().filter('.product-message');
 
             event.preventDefault();
 
             Prd.addItemToFavourite(productId, productMessage, that);
-        });
+        }
 
         //取消收藏
-        $('.disLike').click(function(event) {
+        function disLike(event) {
             var that = $(this);
             var favouriteId = that.attr('data-favourite-id');
-            var url = that.attr('data-url');
             var productMessage = that.parent().siblings().filter('.product-message');
 
             event.preventDefault();
 
             Prd.removeFavourite(favouriteId, productMessage, that);
-        });
+        }
 
-        //菜单折叠
-        Cpn.foldToggle($('.menu-level-1'));
+        //渲染页面
+        function dataInPage(data, list) {
+            var favouriteStr = '';
+            $.each(data, function() {
+                favouriteStr +=
+                    '<div class="list-product">'
+                    +'    <div class="inner">'
+                    +'    <a class="list-img-box" href="'+Prd.baseUrl + '/product/' + this.productId+'">';
 
+                if (this.snapshotMedia) {
+                    favouriteStr += '    <img src="'+Prd.baseUrl +'/resources'+ this.snapshotMedia.path +'"';
+                } else {
+                    favouriteStr += '    <img src="'+Prd.baseUrl +'/resources' +'"';
+                }
 
+                favouriteStr += 'alt=" '+this.name+' "/></a>'
+                    +'    <div class="list-price-box"><span>¥</span><span>' +this.finalPrice+ '</span></div>'
+                    +'<p class="product-link"><a href=" ' +Prd.baseUrl + '/product/' + this.productId +' ">'+this.name+'</a></p>'
+                    +'<p><span></span> 评价</p>'
+                    +'<div class="product-handle">'
+                    +'    <a class="disLike" data-favourite-id="'+this.id+'" href="#"><i class="foundicon-heart"></i>取消</a>'
+                    +' <a class="addEnjoy" data-value="'+this.productId+'" href="#"><i class="foundicon-heart"></i>收藏</a>'
+                    +' <a class="addCart" data-vaule="'+this.productId+'" href="#"><i class="foundicon-cart"></i>购物车</a>'
+                    +'</div>'
+                    +'<div class="out-of-stock"></div>'
+                    +'<div class="product-message">添加成功</div>'
+                    +'</div>'
+                    +'</div>';
+            });
+
+            list.html(favouriteStr);
+        }
 
     });
 });

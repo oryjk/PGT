@@ -107,12 +107,15 @@
 									class="foundicon-down-arrow"></i></a></li>
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=productId">综合排序</a>
+
+							</li>
+							<li>
+								<a href="#">只显示有货</a>
 								<!--仿checkbox-->
 								<span class="checkbox only-availble" data-value="0">
 									<i class="foundicon-checkmark"></i>
 									<input name="" type="hidden" value="0"/>
-								</span>
-							</li>
+								</span></li>
 						</ul>
 					</div>
 
@@ -231,7 +234,7 @@
 							${product.name} ${product.serialNumber} </a>
 
 							<p class="similar-cost">
-								¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="#.00"
+								¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="0.00"
 														  type="number"/></span>
 							</p>
 							<div class="product-handle">
@@ -239,7 +242,11 @@
 								<a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
 							</div>
 							<div class="product-message">添加成功</div>
+
+							<c:if test="${product.stock<1}">
 							<div class="out-of-stock"></div>
+						    </c:if>
+
 						</li>
 					</c:forEach>
 				</ul>
@@ -253,9 +260,13 @@
 			</div>
 
 			<div class="clear"></div>
-
+	</div>
+	</div>
+			<jsp:include page="../core/helpSide.jsp"/>
 			<jsp:include page="../core/footer-main.jsp" />
+
 </body>
+
 <script
 	src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
 	data-main="<spring:url value="${juedangpinStaticPath}/searchPage/searchPage.js"/>"></script>

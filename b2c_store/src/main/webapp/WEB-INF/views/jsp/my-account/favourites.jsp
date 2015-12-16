@@ -57,7 +57,7 @@
                                 <a class="list-img-box" href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>">
                                     <img src="${pageContext.request.contextPath}/resources${fav['snapshotMedia']['path']}"
                                          alt="${empty fav['snapshotMedia']['title'] ? fav.name : fav['snapshotMedia']['title']}"/></a>
-                                <div class="list-price-box"><span>¥</span><span><fmt:formatNumber value="${fav.finalPrice}" pattern="#.00" type="number" /></span></div>
+                                <div class="list-price-box"><span>¥</span><span><fmt:formatNumber value="${fav.finalPrice}" pattern="0.00" type="number" /></span></div>
                                 <p class="product-link"><a href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>" data-favourite-id="${fav.id}">${fav.name}</a></p>
                                 <p><span>${fav.discussCount}</span> 评价</p>
                                 <div class="product-handle">
@@ -76,21 +76,17 @@
 
                 <div class="page-box">
                     <ul>
-                        <li><a href="#">上页</a></li>
+                        <li><a id="previousPage" href="#">上页</a></li>
                         <li class="page-list">
-                            <ol>
+                            <ol id="pages">
                                 <li><a class="page-focus" href="#">1</a></li>
                                 <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">6</a></li>
                             </ol>
                         </li>
-                        <li><a href="#">下页</a></li>
-                        <li class="page-count">共<span>6</span>页</li>
-                        <li class="page-which">跳转到第<input type="text"/>页</li>
-                        <li><input class="d-btn"  type="button" value="确认"/></li>
+                        <li><a id="nextPage" href="#">下页</a></li>
+                        <li class="page-count">共<span id="pageCount">6</span>页</li>
+                        <li class="page-which">跳转到第<input id="pageWhich" type="text"/>页</li>
+                        <li><input class="d-btn" id="pageSub"  type="button" value="确认"/></li>
                     </ul>
                 </div>
             </div>
@@ -103,6 +99,7 @@
 
     <jsp:include page="../core/footer-main.jsp" />
 </body>
+    <script src="<spring:url value="${juedangpinStaticPath}/core/js/module/url.js"/>"></script>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
         data-main="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.js"/>"></script>

@@ -90,7 +90,11 @@ public class ESSearchService {
         createHotSaleMapping(Constants.SITE_INDEX_NAME);
     }
 
-
+    /**
+     * Do category index.
+     *
+     * @return
+     */
     public BulkResponse categoryIndex() {
         BulkResponse bulkResponse = null;
         try {
@@ -142,6 +146,11 @@ public class ESSearchService {
     }
 
 
+    /**
+     * Do product index.
+     *
+     * @return
+     */
     public BulkResponse productIndex() {
 
         BulkResponse bulkResponse = null;
@@ -192,6 +201,11 @@ public class ESSearchService {
         return bulkResponse;
     }
 
+    /**
+     * Do hot sale product index.
+     *
+     * @return
+     */
     public BulkResponse hotProductIndex() {
 
         BulkResponse bulkResponse = null;
@@ -231,32 +245,48 @@ public class ESSearchService {
         return bulkResponse;
     }
 
-    public boolean updateProductIndex(List<Integer> productIds) {
+    /**
+     * Do product update
+     *
+     * @param productIds
+     * @return
+     */
+    public boolean reduceProductInventory(List<Integer> productIds) {
+        LOGGER.debug("Begin to reduce the product inventory.");
+        BulkResponse bulkResponse;
 
         try {
-
+            Client client = getIndexClient();
+            BulkRequestBuilder bulkRequest = client.prepareBulk();
             List<Product> products = productHelper.findProductsByIds(productIds);
-            List<ESProduct> esProducts = new ArrayList<>();
             products.stream().forEach(product -> {
                 Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
                 Category rootCategory = categoryService.queryRootCategoryByProductId(product.getProductId());
+                product.setStock(0);
                 ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
-                esProducts.add(esProduct);
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    byte[] bytes = mapper.writeValueAsBytes(esProduct);
+                    LOGGER.debug("Product id is {}.", esProduct.getProductId());
+                    UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
+                            .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setSource(bytes);
+                    bulkRequest.add(updateRequestBuilder);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             });
-
-
-            UpdateRequestBuilder updateRequestBuilder = getIndexClient().prepareUpdate();
-            ObjectMapper mapper = new ObjectMapper();
-
-            UpdateResponse updateResponse = updateRequestBuilder.setSource(mapper.writeValueAsBytes(esProducts)).execute().actionGet(100000);
-//            updateResponse.
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            bulkResponse = bulkRequest.execute().actionGet(100000);
+            if (bulkResponse.hasFailures()) {
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        LOGGER.debug("End to reduce the product inventory.");
+        return true;
     }
 
     private ESProduct buildESProduct(Product product, Category rootCategory, Category parentCategory) {

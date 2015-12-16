@@ -14,7 +14,7 @@
     <div class="top-status">
         <div class="status-box">
             <ul class="top-nav">
-                <li><a href="help/helpCenter">帮助中心</a></li>
+                <li><a href="${pageContext.request.contextPath}/helpcenter/query">帮助中心</a></li>
             </ul>
 
             <c:choose>

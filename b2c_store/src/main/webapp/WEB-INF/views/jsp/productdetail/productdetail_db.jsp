@@ -15,7 +15,9 @@
                     <img id="middlePic"
                         src="${pageContext.request.contextPath}/resources${product.heroMedias[0].path}"
                         alt="1" />
-                    <div id="glass" class="glass"></div>   
+                    <div class="out-of-stock"></div>
+
+                    <div id="glass" class="glass"></div>
                 </div>
                 <ul id="smallPic" class="small-pic">
                     <c:forEach items="${product.heroMedias}" var="productMedia">
@@ -55,7 +57,7 @@
                 </p>
                 <div class="buy">
                     <a class="buy-now" href="#"> <span>立即购买</span>
-                    </a> <a class="join-cart" href="#"> <span>加入购物车</span>
+                    </a> <a class="join-cart" href="#" data-value="${product.productId}"> <span>加入购物车</span>
                     </a> <a class="collect" href="#"> <span>添加收藏</span>
                     </a>
                 </div>

@@ -38,6 +38,18 @@
 		<result column="update_date" property="updateDate" />
 	</resultMap>
 
+	<select id="queryOrderCount" resultType="long">
+		SELECT COUNT(o.order_id)
+		FROM `ORDER` o
+		WHERE o.user_id = #{userId}
+		<if test="@Ognl@isNotBlankString(pagination.keyword)">
+			AND o.order_id IN (
+			SELECT DISTINCT order_id
+			FROM COMMERCE_ITEM ci
+			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%'))
+		</if>
+	</select>
+
 	<select id="queryOrderPage" resultMap="orderWithCommerceItem">
 		SELECT o.*
 		FROM `ORDER` o

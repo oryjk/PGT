@@ -275,6 +275,108 @@ define(function() {
     };
 
     /**
+     * page 分页
+     *  productLIst 被填充的列表合资 $('.product-list');
+     *  previousPage 上一页按钮 $('#previousPage');
+     *  nextPage 下一页按钮 $('#nextPage');
+     *  pageCount 总页数 $('#pageCount');
+     *  pageWhich 页数text框 $('#pageWhich');
+     *  pageSub 前往按钮 $('#pageSub');
+     *  pages 页码盒子 $('#pages');
+     *  baseUrl : Prd.baseUrl;
+     *  pageObj 分页信息 {
+     *     currentIndex: 0,
+     *     capacity: 5
+     * };
+     */
+    var page = function(productLIst, previousPage, nextPage, pageCount, pageWhich, pageSub, pages, baseUrl, pageObj, callbackFunction) {
+        var maxIndex = -1;
+
+        //载入时
+        getPage(pageObj);
+
+        //前页后页
+        previousPage.click(function(event) {
+            event.preventDefault();
+
+            pageObj.currentIndex --;
+            getPage(pageObj);
+        });
+        nextPage.click(function(event) {
+            event.preventDefault();
+
+            pageObj.currentIndex ++;
+            getPage(pageObj);
+        });
+
+        //填写页码并确定
+        pageSub.click(function(event) {
+            event.preventDefault();
+
+            var page = pageWhich.val() - 1;
+            if (page < 0) {
+                page = 0;
+            }
+            if (page > maxIndex) {
+                page = maxIndex;
+            }
+            pageObj.currentIndex = page;
+            getPage(pageObj);
+        });
+
+        //选择页码
+        pages.delegate('a', 'click', function(event) {
+            event.preventDefault();
+
+            var that = $(event.target);
+            pageObj.currentIndex = that.html() - 1;
+            getPage(pageObj);
+        });
+
+        function getPage(pageObj) {
+            $.ajax({
+                type: 'get',
+                url: baseUrl + '/myAccount/ajaxFavourites',
+                data: {
+                    currentIndex: pageObj.currentIndex
+                },
+                success: function(param) {
+                    if (param.success == 1) {
+                        pageObj.currentIndex = param.data.currentIndex;
+                        maxIndex = param.data.maxIndex;
+
+                        //前页后页选择性隐藏
+                        if (pageObj.currentIndex <= 0) {
+                            previousPage.hide();
+                        } else {
+                            previousPage.show();
+                        }
+                        if (pageObj.currentIndex >= maxIndex) {
+                            nextPage.hide();
+                        } else {
+                            nextPage.show();
+                        }
+
+                        //总页数显示
+                        pageCount.html(maxIndex + 1);
+
+                        //创造页码
+                        var pageStr = '';
+                        for (var i = 1; i <= maxIndex + 1; i ++) {
+                            pageStr += '<li><a href="#">' + i + '</a></li>';
+                        }
+                        pages.html(pageStr);
+                        pages.children().children('a').eq(pageObj.currentIndex).addClass('page-focus');
+
+                        //渲染数据
+                        callbackFunction($(param.data.result), productLIst);
+                    }
+                }
+            })
+        }
+    };
+
+    /**
      * select 选择框
      * selectView: 点击的a标签
      * optionView: 选择的a标签
@@ -372,6 +474,7 @@ define(function() {
         verticalList: verticalList,
         foldToggle: foldToggle,
         pop: pop,
+        page: page,
         select: select,
         select2: select2,
         checkbox: checkbox

@@ -454,11 +454,11 @@ a {
 
 .page-box .page-focus {
   padding: 5px;
+  border: 1px solid #ffaa00;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
-  border: none; }
+  background: #ffaa00; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -660,7 +660,7 @@ span {
 .fixed-head-box {
   position: fixed;
   display: none;
-  z-index: 1;
+  z-index: 3;
   opacity: .99;
   width: 100%;
   height: 60px;
@@ -932,11 +932,11 @@ a {
 
 .page-box .page-focus {
   padding: 5px;
+  border: 1px solid #ffaa00;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
-  border: none; }
+  background: #ffaa00; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -1292,11 +1292,11 @@ a {
 
 .page-box .page-focus {
   padding: 5px;
+  border: 1px solid #ffaa00;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
-  border: none; }
+  background: #ffaa00; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -1885,11 +1885,11 @@ span {
   .aside .out-of-stock {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 140px;
-    height: 90px;
-    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-    opacity: .7; }
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
+    opacity: 1; }
   .aside .product-message {
     display: none;
     position: absolute;
@@ -2009,11 +2009,11 @@ span {
   .list-box .out-of-stock {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 140px;
-    height: 90px;
-    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-    opacity: .7; }
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background: url("../core/images/productList/out-of-stock.png") no-repeat right top;
+    opacity: 1; }
   .list-box .product-message {
     display: none;
     position: absolute;
@@ -2196,11 +2196,11 @@ span {
   .similar-box .out-of-stock {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 140px;
-    height: 90px;
-    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-    opacity: .7; }
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
+    opacity: 1; }
   .similar-box .product-message {
     display: none;
     position: absolute;
