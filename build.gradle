@@ -42,12 +42,6 @@ subprojects {
             attributes("Implementation-Title": "Gradle")
         }
     }
-    configurations {
-        // 所有需要忽略的包定义在此
-        all*.exclude group: 'commons-httpclient'
-        all*.exclude group: 'commons-logging'
-        all*.exclude group: 'commons-beanutils', module: 'commons-beanutils'
-    }
     dependencies {
         compile fileTree(dir: 'libs', include: '*.jar')
         compile 'ch.qos.logback:logback-classic:1.1.3'
