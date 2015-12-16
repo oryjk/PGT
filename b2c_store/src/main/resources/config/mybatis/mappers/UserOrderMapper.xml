@@ -38,7 +38,7 @@
 		<result column="update_date" property="updateDate" />
 	</resultMap>
 
-	<select id="queryOrderPage" resultMap="orderWithCommerceItem">
+	<select id="queryOrderCount" resultMap="orderWithCommerceItem">
 		SELECT COUNT(o.order_id)
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
