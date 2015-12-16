@@ -67,9 +67,9 @@
 
 							<c:forEach items="${homeCategory['source']['category']['children']}"
 									   var="subCategory">
-								<li><a href="<spring:url value="${urlConfiguration.plpPage}/${subCategory.id}"/>">${subCategory['name']}</a></li>
+								<li><a href="<spring:url value="essearch?parentCategoryId=${subCategory.id}"/>">${subCategory['name']}</a></li>
 							</c:forEach>
-							<li><a href="<spring:url value="${urlConfiguration.plpPage}/${homeCategory['source']['category']['id']}"/>">
+							<li><a href="<spring:url value="essearch?parentCategoryId=${homeCategory['source']['category']['id']}"/>">
 								更多></a></li>
 						</ul>
 
@@ -125,16 +125,14 @@
 
 					<div class="products-list-even">
 						<ul class="products-nav">
-							<c:forEach items="${homeCategory['source']['category']['children']}" var="subCategory">
-								<li><a href="<spring:url value="${urlConfiguration.plpPage}/${subCategory.id}"/>">${subCategory['name']}</a></li>
+
+							<c:forEach items="${homeCategory['source']['category']['children']}"
+									   var="subCategory">
+								<li><a href="<spring:url value="essearch?parentCategoryId=${subCategory.id}"/>">${subCategory['name']}</a></li>
 							</c:forEach>
-							
-							<li>
-								<a href="<spring:url value="${urlConfiguration.plpPage}/${homeCategory['source']['category']['id']}"/>">
-								更多>
-								</a>
-							</li>
-						</ul>                                       
+							<li><a href="<spring:url value="essearch?parentCategoryId=${homeCategory['source']['category']['id']}"/>">
+								更多></a></li>
+						</ul>
 						<h2 style="border-bottom: 2px solid ${homeCategory['source']['category']['color']}">
 							${homeCategory['source']['category']['name']} <small style="color: ${homeCategory['source']['category']['color']}">品真 质纯 艺臻</small>
 						</h2>

@@ -35,7 +35,7 @@
                        ${product.name} ${product.serialNumber}
                     </a>
                     <p class="similar-cost">
-                        ¥<span><fmt:formatNumber value="${product.salePrice}" pattern="#.00" type="number" /></span>
+                        ¥<span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number" /></span>
                     </p>
                     <div class="product-handle">
                         <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
@@ -54,7 +54,7 @@
     </div>
     <c:if test="${fn:length(browsedProducts) gt 0 and empty param.excludeBrowsed}">
         <div class="similar-box" style="display: none">
-            <ul class="similar" id="rowList3">
+            <ul class="similar" id="rowList2">
                 <c:forEach var="product" items="${browsedProducts}">
                     <li>
                         <a class="similar-pic-box" href="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>">
@@ -64,7 +64,7 @@
                             ${product.source.name} ${product.source.serialNumber}
                         </a>
                         <p class="similar-cost">
-                            ¥<span><fmt:formatNumber value="${product.source.salePrice}" pattern="#.00" type="number" /></span>
+                            ¥<span><fmt:formatNumber value="${product.source.salePrice}" pattern="0.00" type="number" /></span>
                         </p>
                         <div class="product-handle">
                             <a class="addEnjoy"  href="#" data-value="${product.source.productId}"><i class="foundicon-heart"></i></a>
@@ -84,7 +84,7 @@
     </c:if>
     <c:if test="${not empty currentUser and fn:length(favourites.result) gt 0 and empty param.excludeFavourites}">
         <div class="similar-box" style="display: none">
-            <ul class="similar" id="rowList2">
+            <ul class="similar" id="rowList3">
                 <c:forEach var="fav" items="${favourites.result}">
                     <li>
                         <a class="similar-pic-box" href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>">
@@ -94,11 +94,11 @@
                             ${fav.name}
                         </a>
                         <p class="similar-cost">
-                            ¥<span><fmt:formatNumber value="${fav.finalPrice}" pattern="#.00" type="number" /></span>
+                            ¥<span><fmt:formatNumber value="${fav.finalPrice}" pattern="0.00" type="number" /></span>
                         </p>
                         <div class="product-handle">
-                            <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
-                            <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
+                            <a class="addEnjoy"  href="#" data-value="${fav.productId}"><i class="foundicon-heart"></i></a>
+                            <a class="addCart" href="#" data-value="${fav.productId}"><i class="foundicon-cart"></i></a>
                         </div>
                         <div class="product-message">添加成功</div>
                     </li>

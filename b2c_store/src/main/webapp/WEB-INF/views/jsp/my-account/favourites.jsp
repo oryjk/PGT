@@ -57,7 +57,7 @@
                                 <a class="list-img-box" href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>">
                                     <img src="${pageContext.request.contextPath}/resources${fav['snapshotMedia']['path']}"
                                          alt="${empty fav['snapshotMedia']['title'] ? fav.name : fav['snapshotMedia']['title']}"/></a>
-                                <div class="list-price-box"><span>¥</span><span><fmt:formatNumber value="${fav.finalPrice}" pattern="#.00" type="number" /></span></div>
+                                <div class="list-price-box"><span>¥</span><span><fmt:formatNumber value="${fav.finalPrice}" pattern="0.00" type="number" /></span></div>
                                 <p class="product-link"><a href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>" data-favourite-id="${fav.id}">${fav.name}</a></p>
                                 <p><span>${fav.discussCount}</span> 评价</p>
                                 <div class="product-handle">
@@ -99,6 +99,7 @@
 
     <jsp:include page="../core/footer-main.jsp" />
 </body>
+    <script src="<spring:url value="${juedangpinStaticPath}/core/js/module/url.js"/>"></script>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
         data-main="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.js"/>"></script>

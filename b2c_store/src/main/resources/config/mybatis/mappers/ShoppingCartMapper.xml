@@ -54,7 +54,7 @@
 		UPDATE `ORDER`
 		<set>
 			status = #{status}, shipping_fee = #{shippingFee}, subtotal = #{subtotal}, total = #{total}, user_comments = #{userComments},
-			submit_data = #{submitDate}, update_date = now()
+			SUBMIT_DATE = #{submitDate}, update_date = now()
 		</set>
 		WHERE order_id = #{id}
 	</update>

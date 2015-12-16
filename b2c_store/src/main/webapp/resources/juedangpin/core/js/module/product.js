@@ -3,13 +3,13 @@
  */
 
 define(function() {
-    var main = '/b2c_store';
+    var baseUrl = '/b2c_store';
 
     //重新请求购物车数量 cartCount:购物车数字的jq
     var getOrderItemCount = function(cartCount) {
         $.ajax({
             type: 'get',
-            url: main + '/shoppingCart/getOrderItemCount',
+            url: baseUrl + '/shoppingCart/getOrderItemCount',
             success: function(param) {
                 cartCount.html(param.data.itemCount);
             }
@@ -17,10 +17,10 @@ define(function() {
     };
 
     //加入购物车 productId:产品id, productMessage:提示标签的jq, cartCount:购物车数字的jq
-    var addItemToOrder = function(productId, productMessage, cartCount) {
+    var addItemToOrder = function(productId, productMessage, cartCount, callbackFunction) {
         $.ajax({
             type: 'get',
-            url: main + '/shoppingCart/ajaxAddItemToOrder',
+            url: baseUrl + '/shoppingCart/ajaxAddItemToOrder',
             data: {
                 'productId': productId
             },
@@ -34,6 +34,9 @@ define(function() {
                     if (cartCount) {
                         getOrderItemCount(cartCount);
                     }
+                    if (callbackFunction) {
+                        callbackFunction();
+                    }
 
                 } else if (param.success === 0) {
                     productMessage
@@ -46,11 +49,11 @@ define(function() {
         });
     };
 
-    //加入收藏 favouriteId:收藏id, productMessage:提示标签的jq, [that]:this的jq
+    //加入收藏 favouriteId:收藏id, productMessage:提示标签的jq, [that]:this的jq填入则可以进行收藏及取消的切换
     var addItemToFavourite = function(productId, productMessage, that) {
         $.ajax({
             type: 'GET',
-            url: main + '/myAccount/favourite',
+            url: baseUrl + '/myAccount/favourite',
             data: {
                 'productId': productId
             },
@@ -61,12 +64,14 @@ define(function() {
                         .fadeIn(1000)
                         .fadeOut(2000);
                     //收藏取消切换
-                    that
-                        .hide().
-                        siblings().
-                        filter('.disLike')
-                        .show()
-                        .attr('data-favourite-id', param.data.id);
+                    if (that) {
+                        that
+                            .hide().
+                            siblings().
+                            filter('.disLike')
+                            .show()
+                            .attr('data-favourite-id', param.data.id);
+                    }
 
                 } else if (param.success === 0) {
                     productMessage
@@ -83,7 +88,7 @@ define(function() {
     var removeFavourite = function(favouriteId, productMessage, that) {
         $.ajax({
             type: 'GET',
-            url: main + '/myAccount/dislike',
+            url: baseUrl + '/myAccount/dislike',
             data: {
                 'favouriteId': favouriteId
             },
@@ -117,6 +122,7 @@ define(function() {
         addItemToOrder: addItemToOrder,
         addItemToFavourite: addItemToFavourite,
         getOrderItemCount: getOrderItemCount,
-        removeFavourite: removeFavourite
+        removeFavourite: removeFavourite,
+        baseUrl: baseUrl
     }
 });

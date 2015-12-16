@@ -1754,6 +1754,14 @@ span {
     height: 50%;
     background: #cccccc;
     opacity: .2; }
+  .middle-pic .out-of-stock {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 88px;
+    height: 89px;
+    background: url("../core/images/productList/out-of-stock-l.png") no-repeat left top;
+    opacity: .7; }
 
 .small-pic {
   padding: 0;
@@ -1933,11 +1941,11 @@ span {
   .aside .out-of-stock {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 140px;
-    height: 90px;
-    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-    opacity: .7; }
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
+    opacity: 1; }
   .aside .product-message {
     display: none;
     position: absolute;
@@ -2093,11 +2101,11 @@ span {
   .similar-box .out-of-stock {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 140px;
-    height: 90px;
-    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-    opacity: .7; }
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
+    opacity: 1; }
   .similar-box .product-message {
     display: none;
     position: absolute;

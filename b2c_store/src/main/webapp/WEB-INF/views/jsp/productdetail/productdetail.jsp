@@ -56,6 +56,7 @@
 	</div>
 	</div>
 	</div>
+	<jsp:include page="../core/helpSide.jsp"/>
 	<jsp:include page="../core/footer-main.jsp" />
 	<!--弹出框-->
 	<div id="popUp" class="pop-up">

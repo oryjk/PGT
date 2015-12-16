@@ -15,6 +15,7 @@
                     <img id="middlePic"
                         src="${pageContext.request.contextPath}/resources${product['heroMedias'][0]['path']}"   
                         alt="1" />
+                    <div class="out-of-stock"></div>
                     <div id="glass" class="glass"></div>   
                 </div>
                 <ul id="smallPic" class="small-pic">
@@ -88,15 +89,27 @@
             <div class="similar-box">
                 <h2>类似商品</h2>
                 <ul class="similar" id="rowList">
-                   <c:forEach items="${similarProducts}" var="searchHit">
-                    <li><a class="similar-pic-box" href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}"><img
-                            src="${pageContext.request.contextPath}/resources/${searchHit.source['frontMedia']['path']}" alt="" /></a> <a
-                        class="similar-name" href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}"> ${searchHit.source['name']} </a>
-                        <p class="similar-cost">
-                            ¥ <span>${searchHit.source['salePrice']}</span>
-                        </p></li>
-                   </c:forEach>
-               
+
+                <c:forEach items="${recommendProducts}" var="product">
+                    <li><a class="similar-pic-box"
+                        href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>"><img
+                        src="${pageContext.request.contextPath}/resources${product.frontMedia.path}"
+                        alt="${empty product.frontMedia.title ? product.name : product.frontMedia.title}"/></a>
+                    <a class="similar-name" href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>">
+                        ${product.name} ${product.serialNumber} </a>
+
+                    <p class="similar-cost">
+                        ¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="0.00"
+                                              type="number"/></span>
+                    </p>
+                    <div class="product-handle">
+                        <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
+                        <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
+                    </div>
+                    <div class="product-message">添加成功</div>
+                    <div class="out-of-stock"></div>
+                    </li>
+                </c:forEach>
                 </ul>
                 <div class="move-left-box">
                     <a href="#"  id="moveLeft"><</a>

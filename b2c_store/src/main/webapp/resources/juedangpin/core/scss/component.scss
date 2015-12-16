@@ -114,10 +114,10 @@
   .out-of-stock {
     position: absolute;
     top: 0;
-    left: 0;
-    @include wh(140px, 90px);
-    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-    opacity: .7;
+    right: 0;
+    @include wh(70px, 70px);
+    background: url("../core/images/productList/out-of-stock.png") no-repeat right top;
+    opacity: 1;
   }
 
   .product-message {
@@ -297,10 +297,10 @@
   .out-of-stock {
     position: absolute;
     top: 0;
-    left: 0;
-    @include wh(140px, 90px);
-    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-    opacity: .7;
+    right: 0;
+    @include wh(70px, 70px);
+    background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
+    opacity: 1;
   }
 
   .product-message {
@@ -490,10 +490,10 @@
   .out-of-stock {
     position: absolute;
     top: 0;
-    left: 0;
-    @include wh(140px, 90px);
-    background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-    opacity: .7;
+    right: 0;
+    @include wh(70px, 70px);
+    background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
+    opacity: 1;
   }
 
   .product-message {
@@ -938,6 +938,8 @@
   ul {
     position: absolute;
     display: none;
+    overflow: scroll;
+    height: 95px;
     top: 105%;
     left: 0;
     @include o;

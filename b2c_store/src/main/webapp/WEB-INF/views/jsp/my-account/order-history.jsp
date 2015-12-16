@@ -76,7 +76,7 @@
                             <th class="col7">订单状态</th>
                         </tr>
                     </table>
-                    <c:forEach var="order" items="${historyOrders}">
+                    <c:forEach var="order" items="${historyOrders.result}">
                         <div class="each-order">
                             <c:if test="${order.status gt 1}">
                                 <div class="order-info">
@@ -121,20 +121,16 @@
                                         <c:if test="${ci_index.index eq 0}">
                                             <td class="col5" rowspan="100">关羽</td>
                                             <td class="col6" rowspan="100">
-                                                <span>¥</span><span><fmt:formatNumber value="${order.total}" pattern="#.00" type="number" /></span>
+                                                <span>¥</span><span><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span>
                                             </td>
                                             <td class="col7" rowspan="100">
                                                 <c:choose>
-                                                    <c:when test="${order.status eq 1}">
-                                                        <span>待结算</span>
-                                                        <a class="link-btn" href="#">结算</a>
-                                                    </c:when>
                                                     <c:when test="${order.status eq 2}">
                                                         <span>待付款</span>
                                                         <a class="link-btn" href="#">付款</a>
                                                     </c:when>
                                                     <c:when test="${order.status eq 3}">
-                                                        <span>待发货</span>
+                                                        <span>已付款</span>
                                                     </c:when>
                                                     <c:when test="${order.status eq 4}">
                                                         <span>待确认完成</span>
