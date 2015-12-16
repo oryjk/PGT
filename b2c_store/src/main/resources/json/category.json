@@ -1,0 +1,86 @@
+[
+  {
+    "id": "3",
+    "name": "文艺杂项",
+    "code": "1",
+    "children": [
+      {
+        "id": "31",
+        "name": "橄榄核雕",
+        "code": "1",
+        "type": "HIERARCHY"
+      },{
+        "id": "32",
+        "name": "牦牛角",
+        "code": "1",
+        "type": "HIERARCHY"
+      },{
+        "id": "33",
+        "name": "骆驼骨头",
+        "code": "1",
+        "type": "HIERARCHY"
+      }],
+    "status": "1",
+    "frontMedia":
+      {
+        "title": "1",
+        "ferenceId":"2",
+        "path": "/image/description/C0000Y-1_main__00.jpg",
+        "type": "main"
+      },
+    "color": "1",
+    "sort": "1",
+    "description":"橄榄核雕,牦牛角,骆驼骨头",
+    "type": "ROOT"
+  },
+
+  {
+    "id": "4",
+    "name": "木制品",
+    "code": "1",
+    "children": [
+      {
+        "id": "41",
+        "name": "黄花梨",
+        "code": "1",
+        "type": "HIERARCHY"
+      },{
+        "id": "42",
+        "name": "沉香",
+        "code": "1",
+        "type": "HIERARCHY"
+      },{
+        "id": "43",
+        "name": "菩提",
+        "code": "1",
+        "type": "HIERARCHY"
+      },{
+        "id": "44",
+        "name": "小叶紫檀（无）",
+        "code": "1",
+        "type": "HIERARCHY"
+      },{
+        "id": "45",
+        "name": "崖柏（无）",
+        "code": "1",
+        "type": "HIERARCHY"
+      },{
+        "id": "46",
+        "name": "金丝楠（无）",
+        "code": "1",
+        "type": "HIERARCHY"
+      }],
+    "status": "1",
+    "frontMedia":
+    {
+      "title": "1",
+      "ferenceId":"2",
+      "path": "/image/description/C0000Y-1_main__00.jpg",
+      "type": "main"
+    },
+    "color": "1",
+    "sort": "1",
+    "description":"黄花梨,沉香,菩提,小叶紫檀（无）,崖柏（无）,金丝楠（无）",
+    "type": "ROOT"
+  }
+]
