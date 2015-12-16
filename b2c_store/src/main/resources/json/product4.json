@@ -7,7 +7,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "44",
         "stock": "1",
         "mainMedias": [
             {
@@ -97,7 +97,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "44",
         "stock": "1",
         "mainMedias": [
             {
@@ -185,7 +185,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "44",
         "stock": "1",
         "mainMedias": [
             {
@@ -273,7 +273,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "45",
         "stock": "1",
         "mainMedias": [
             {
@@ -362,7 +362,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "45",
         "stock": "1",
         "mainMedias": [
             {
@@ -450,7 +450,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "45",
         "stock": "1",
         "mainMedias": [
             {
@@ -535,7 +535,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "32",
         "stock": "1",
         "mainMedias": [
             {
@@ -617,7 +617,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "32",
         "stock": "1",
         "mainMedias": [
             {
@@ -705,7 +705,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "32",
         "stock": "1",
         "mainMedias": [
             {
@@ -793,7 +793,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "32",
         "stock": "1",
         "mainMedias": [
             {
@@ -888,7 +888,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "32",
         "stock": "1",
         "mainMedias": [
             {
@@ -977,7 +977,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "27",
         "stock": "1",
         "mainMedias": [
             {
@@ -1065,7 +1065,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "27",
         "stock": "1",
         "mainMedias": [
             {
@@ -1147,7 +1147,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "27",
         "stock": "1",
         "mainMedias": [
             {
@@ -1237,7 +1237,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "31",
         "stock": "1",
         "mainMedias": [
             {
@@ -1315,7 +1315,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "38",
         "stock": "1",
         "mainMedias": [
             {
@@ -1407,7 +1407,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "28",
         "stock": "1",
         "mainMedias": [
             {
@@ -1487,88 +1487,6 @@
 
 
 
-	{
-        "name": "开片玛瑙手串",
-        "serialNumber": "MN0104SC",
-        "salePrice": "633",
-        "listPrice": "380",
-        "status": "1",
-        "description": "",
-        "shippingFee": "",
-        "relatedCategoryId": "",
-        "stock": "1",
-        "mainMedias": [
-            {
-                "title": "",
-                "path": "/image/description/MN0104SC_main_00.jpg",
-                "index": "",
-                "type": "main"
-            }, {
-                "title": "",
-                "path": "/image/description/MN0104SC_main_01.jpg",
-                "index": "",
-                "type": "main"
-            }, {
-                "title": "",
-                "path": "/image/description/MN0104SC_main_02.jpg",
-                "index": "",
-                "type": "main"
-            }],
-        "heroMedias": [
-            {
-                "title": "",
-                "path": "/image/description/5-hero.jpg",
-                "index": "",
-                "type": "hero"
-            }, {
-                "title": "",
-                "path": "/image/description/5-hero1.jpg",
-                "index": "",
-                "type": "hero"
-            }, {
-                "title": "",
-                "path": "/image/description/5-main2.jpg",
-                "index": "",
-                "type": "hero"
-            }, {
-                "title": "",
-                "path": "/image/description/5-main3.jpg",
-                "index": "",
-                "type": "hero"
-            }],
-        "thumbnailMedias": [
-            {
-                "title": "",
-                "path": "/image/description/MN0104SC_thumbnail_00.jpg",
-                "index": "",
-                "type": "thumbnail"
-            }
-        ],
-        "advertisementMedia": {
-
-            "title": "",
-            "path": "/image/description/MN0104SC_advertisement_00.jpg",
-            "index": "",
-            "type": "advertisement"
-        },
-        "frontMedia": {
-            "title": "",
-            "path": "/image/description/MN0104SC_front_00.jpg",
-            "index": "",
-            "type": "front"
-        },
-        "expertMedia": {
-            "title": "",
-            "path": "/image/description/MN0104SC_expert_00.jpg",
-            "index": "",
-            "type": "expert"
-        },
-        "title": "开片玛瑙手串",
-        "shortDescription": "天然材质 润艳度高 品质保证",
-        "isNew": "全新"
-    },
-
-
 
 	{
         "name": "星月菩提算盘珠",
@@ -1578,7 +1496,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "33",
         "stock": "1",
         "mainMedias": [
             {
@@ -1664,7 +1582,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "31",
         "stock": "1",
         "mainMedias": [
             {
@@ -1754,7 +1672,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "29",
         "stock": "1",
         "mainMedias": [
             {
@@ -1838,7 +1756,7 @@
         "status": "1",
         "description": "",
         "shippingFee": "",
-        "relatedCategoryId": "",
+        "relatedCategoryId": "38",
         "stock": "1",
         "mainMedias": [
             {

@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.pgt.utils.JsonUtil;
 
-@Ignore
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml") // 加载配置
 public class JsonUtilTest {
@@ -20,7 +20,7 @@ public class JsonUtilTest {
 	@Test
 	public void categoriesCreate(){
 		try{
-			jsonUtil.categoriesCreate("src/main/resources/json/category.json");
+			jsonUtil.categoriesCreate("src/main/resources/json/category1.json");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -29,7 +29,10 @@ public class JsonUtilTest {
 	@Test
 	public void productCreate(){
 		try{
-			jsonUtil.productCreate("src/main/resources/json/product1.json");
+			jsonUtil.productCreate("src/main/resources/json/product.json");
+			for(int i = 1;i < 6;i++){
+				jsonUtil.productCreate("src/main/resources/json/product" + i + ".json");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}

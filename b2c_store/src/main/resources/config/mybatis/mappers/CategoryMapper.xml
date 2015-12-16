@@ -59,8 +59,8 @@
 		SELECT * FROM CATEGORIES WHERE PARENT_CATEGORY_ID=#{categoryId}
 	</select>
 
-    <select id="queryAllCategories" resultMap="CategoryResult">
-		SELECT * FROM CATEGORIES
+    <select id="queryAllParentCategories" resultMap="CategoryResult">
+		SELECT * FROM CATEGORIES WHERE TYPE ='HIERARCHY'
 	</select>
 
     <select id="queryCategories" parameterType="com.pgt.category.bean.Category"

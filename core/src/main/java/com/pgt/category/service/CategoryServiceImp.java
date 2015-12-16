@@ -28,7 +28,8 @@ public class CategoryServiceImp implements CategoryService {
     @Override
     public String createCategory(Category category) {
         LOGGER.debug("Begin create category.");
-        Integer rootCategory = categoryMapper.createCategory(category);
+        categoryMapper.createCategory(category);
+        Integer rootCategory = category.getId();
         Media media = category.getFrontMedia();
         if (!ObjectUtils.isEmpty(media)) {
             LOGGER.debug("Create category media,the category id is {}.", rootCategory);
@@ -78,8 +79,8 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public List<Category> queryAllCategories() {
-        List<Category> categories = categoryMapper.queryAllCategories();
+    public List<Category> queryAllParentCategories() {
+        List<Category> categories = categoryMapper.queryAllParentCategories();
         return categories;
     }
 

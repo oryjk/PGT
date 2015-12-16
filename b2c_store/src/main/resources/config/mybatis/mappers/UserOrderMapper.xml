@@ -38,6 +38,7 @@
 		<result column="update_date" property="updateDate" />
 	</resultMap>
 
+
 	<select id="queryOrderCount" resultType="long">
 		SELECT COUNT(o.order_id)
 		FROM `ORDER` o
