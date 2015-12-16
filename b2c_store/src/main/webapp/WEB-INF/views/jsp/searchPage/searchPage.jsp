@@ -115,6 +115,7 @@
 						<ul>
 							<li><span>排序方式</span></li>
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
+
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=creationDate<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">上架时间</a>
 
 								<c:if test="${sortKey eq 'creationDate'}">
@@ -149,6 +150,7 @@
 
 
 							</li>
+
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=productId">综合排序</a>
 
@@ -184,8 +186,10 @@
 									<div class="product-message">添加成功</div>
 
 									<div class="list-price-box">
-										<span>¥</span><span>${searchHit.source['salePrice']}</span>
+										¥ <span><fmt:formatNumber value="${searchHit.source['salePrice']}" pattern="0.00"
+																  type="number"/></span>
 									</div>
+
 									<p>
 										<a href="#">${searchHit.source['name']}</a>
 									</p>
@@ -278,7 +282,7 @@
 							${product.name} ${product.serialNumber} </a>
 
 							<p class="similar-cost">
-								¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="#.00"
+								¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="0.00"
 														  type="number"/></span>
 							</p>
 							<div class="product-handle">

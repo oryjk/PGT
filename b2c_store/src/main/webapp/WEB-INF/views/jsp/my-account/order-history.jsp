@@ -121,7 +121,7 @@
                                         <c:if test="${ci_index.index eq 0}">
                                             <td class="col5" rowspan="100">关羽</td>
                                             <td class="col6" rowspan="100">
-                                                <span>¥</span><span><fmt:formatNumber value="${order.total}" pattern="#.00" type="number" /></span>
+                                                <span>¥</span><span><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span>
                                             </td>
                                             <td class="col7" rowspan="100">
                                                 <c:choose>

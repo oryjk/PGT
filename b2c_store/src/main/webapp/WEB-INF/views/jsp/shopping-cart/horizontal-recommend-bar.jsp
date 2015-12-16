@@ -35,7 +35,7 @@
                        ${product.name} ${product.serialNumber}
                     </a>
                     <p class="similar-cost">
-                        ¥<span><fmt:formatNumber value="${product.salePrice}" pattern="#.00" type="number" /></span>
+                        ¥<span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number" /></span>
                     </p>
                     <div class="product-handle">
                         <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
@@ -64,7 +64,7 @@
                             ${product.source.name} ${product.source.serialNumber}
                         </a>
                         <p class="similar-cost">
-                            ¥<span><fmt:formatNumber value="${product.source.salePrice}" pattern="#.00" type="number" /></span>
+                            ¥<span><fmt:formatNumber value="${product.source.salePrice}" pattern="0.00" type="number" /></span>
                         </p>
                         <div class="product-handle">
                             <a class="addEnjoy"  href="#" data-value="${product.source.productId}"><i class="foundicon-heart"></i></a>
@@ -94,7 +94,7 @@
                             ${fav.name}
                         </a>
                         <p class="similar-cost">
-                            ¥<span><fmt:formatNumber value="${fav.finalPrice}" pattern="#.00" type="number" /></span>
+                            ¥<span><fmt:formatNumber value="${fav.finalPrice}" pattern="0.00" type="number" /></span>
                         </p>
                         <div class="product-handle">
                             <a class="addEnjoy"  href="#" data-value="${fav.productId}"><i class="foundicon-heart"></i></a>

@@ -15,6 +15,8 @@ import java.util.List;
 @Repository(value = "userOrderDao")
 public interface UserOrderDao extends SqlMapper {
 
+	long queryOrderCount(@Param("userId") int pUserId, @Param("pagination") InternalPagination pPagination);
+
 	List<Order> queryOrderPage(@Param("userId") int pUserId, @Param("pagination") InternalPagination pPagination);
 
 	Order loadOrderHistory(@Param("orderId") int pOrderId);
@@ -29,5 +31,4 @@ public interface UserOrderDao extends SqlMapper {
 
 	int resetBrowsedProductsBatchUpdateDate(List<Integer> pBrowsedProductIds);
 
-	long queryOrderCount(@Param("userId") int pUserId);
 }

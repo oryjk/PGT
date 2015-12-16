@@ -23,7 +23,7 @@ public class UserOrderService {
 	private UserOrderDao mUserOrderDao;
 
 	public List<Order> queryOrderPage(final int pUserId, final InternalPagination pPagination) {
-		long count = getUserOrderDao().queryOrderCount(pUserId);
+		long count = getUserOrderDao().queryOrderCount(pUserId, pPagination);
 		LOGGER.debug("Get order count: {} with keyword: {}", count, pPagination.getKeyword());
 		pPagination.setCount(count);
 		if (count > 0) {
