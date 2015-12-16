@@ -121,6 +121,8 @@
 
     <jsp:include page="horizontal-recommend-bar.jsp" />
     <jsp:include page="../core/footer-main.jsp" />
+</div>
+
 </body>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"

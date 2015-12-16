@@ -4,11 +4,12 @@
 require.config({
     paths: {
         jquery: '../core/js/jquery.min',
-        component: '../core/js/module/component'
+        component: '../core/js/module/component',
+        product: '../core/js/module/product'
     }
 });
 
-require(['jquery', 'component'], function($, Cpn) {
+require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
     $(document).ready(function() {
         //tab切换
         Cpn.tab({
@@ -58,8 +59,13 @@ require(['jquery', 'component'], function($, Cpn) {
             close: $('#popClose, #popReset, #popSubmit')
         });
 
-        //购物车和收藏
-        $('.addCart').click(function(event) {
+
+        //事件委托:加入购物车, 添加收藏
+        $(document).on('click', '.addCart', addCart);
+        $(document).on('click', '.addEnjoy', addEnjoy);
+
+        //加入购物车
+        function addCart(event) {
             var that = $(this);
             var productId = that.attr('data-value');
             var productMessage = that.parent().siblings().filter('.product-message');
@@ -67,22 +73,18 @@ require(['jquery', 'component'], function($, Cpn) {
             event.preventDefault();
 
             Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
-        });
+        }
 
-        $('.addEnjoy').click(function(event) {
-            console.log(this);
+        //添加收藏
+        function addEnjoy(event) {
             var that = $(this);
             var productId = that.attr('data-value');
-            //var url = that.attr('data-url');
             var productMessage = that.parent().siblings().filter('.product-message');
 
             event.preventDefault();
 
             Prd.addItemToFavourite(productId, productMessage);
-        });
-
-
-
+        }
 
     });
 });

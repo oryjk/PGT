@@ -99,6 +99,7 @@
 
     <jsp:include page="../core/footer-main.jsp" />
 </body>
+    <script src="<spring:url value="${juedangpinStaticPath}/core/js/module/url.js"/>"></script>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
         data-main="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.js"/>"></script>

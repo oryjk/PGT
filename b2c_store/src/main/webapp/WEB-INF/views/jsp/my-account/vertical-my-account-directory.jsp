@@ -32,10 +32,10 @@
                 <li>
                     <c:choose>
                         <c:when test="${fn:contains(param.step, 'favourites')}">
-                            <a class="menu-level-1 current-page" href="<spring:url value="/myAccount/favourites"/>">我的收藏</a>
+                            <a class="menu-level-end current-page" href="<spring:url value="/myAccount/favourites"/>">我的收藏</a>
                         </c:when>
                         <c:otherwise>
-                            <a class="menu-level-1" href="<spring:url value="/myAccount/favourites"/>">我的收藏</a>
+                            <a class="menu-level-end" href="<spring:url value="/myAccount/favourites"/>">我的收藏</a>
                         </c:otherwise>
                     </c:choose>
                 </li>
@@ -63,34 +63,6 @@
         </li>
         <li>
             <a class="menu-level-1" href="#">帮助中心</a>
-            <ul>
-                <li>
-                    <a class="menu-level-2" href="#">购物与支付</a>
-                    <ul>
-                        <li>
-                            <a class="menu-level-end" href="#">购物流程</a>
-                        </li>
-                        <li>
-                            <a class="menu-level-end" href="#">支付方式</a>
-                        </li>
-                        <li>
-                            <a class="menu-level-end" href="#">发票制度</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="menu-level-2" href="#">配送说明</a>
-                    <ul></ul>
-                </li>
-                <li>
-                    <a class="menu-level-2" href="#">关于我们</a>
-                    <ul>
-                    </ul>
-                </li>
-                <li>
-                    <a class="menu-level-2" href="#">售后服务</a>
-                </li>
-            </ul>
         </li>
     </ul>
 </div>

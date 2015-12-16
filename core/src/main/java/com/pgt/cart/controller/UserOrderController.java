@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Created by Yove on 11/8/2015.
@@ -50,9 +49,9 @@ public class UserOrderController extends TransactionBaseController {
 		LOGGER.debug("Query order history with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
 		InternalPagination pagination = ipb.setSortFieldName("update_date").setAsc(ascBoolean).createInternalPagination();
-		List<Order> orders = getUserOrderService().queryOrderPage(currentUser.getId().intValue(), pagination);
+		getUserOrderService().queryOrderPage(currentUser.getId().intValue(), pagination);
 		ModelAndView mav = new ModelAndView("/my-account/order-history");
-		mav.addObject(CartConstant.ORDER_HISTORY, orders);
+		mav.addObject(CartConstant.ORDER_HISTORY, pagination);
 		return mav;
 	}
 

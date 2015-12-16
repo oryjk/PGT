@@ -75,7 +75,14 @@
     @include wh(50%, 50%);
     background: $ashGray;
     opacity: .2;
-
+  }
+  .out-of-stock {
+    position: absolute;
+    top: 0;
+    right: 0;
+    @include wh(88px, 89px);
+    background: url("../core/images/productList/out-of-stock-l.png") no-repeat left top;
+    opacity: .7;
   }
 }
 

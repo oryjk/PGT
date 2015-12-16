@@ -4,11 +4,12 @@
 require.config({
     paths: {
         jquery: '../core/js/jquery.min',
-        component: '../core/js/module/component'
+        component: '../core/js/module/component',
+		product: '../core/js/module/product'
     }
 });
 
-require(['jquery', 'component'], function($, Cpn) {
+require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
     $(document).ready(function() {
         var stepObj = {
             step: 1,
@@ -44,16 +45,42 @@ require(['jquery', 'component'], function($, Cpn) {
             right: $('#moveLeft3')
         });
 
+		//事件委托:加入购物车, 添加收藏
+		$(document).on('click', '.addCart', addCart);
+		$(document).on('click', '.addEnjoy', addEnjoy);
+
+		//加入购物车
+		function addCart(event) {
+			var that = $(this);
+			var productId = that.attr('data-value');
+			var productMessage = that.parent().siblings().filter('.product-message');
+
+			event.preventDefault();
+
+			Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
+		}
+
+		//添加收藏
+		function addEnjoy(event) {
+			var that = $(this);
+			var productId = that.attr('data-value');
+			var productMessage = that.parent().siblings().filter('.product-message');
+
+			event.preventDefault();
+
+			Prd.addItemToFavourite(productId, productMessage);
+		}
+
 		//为仿select绑定事件
 		//省->市
 		var areaObj = {
 			province: $('#province'),
 			city: $('#city'),
-			country: $('#country'),
+			country: $('#country')
 		};
 
 		Cpn.select2(areaObj.province, function(id) {
-			var url = '/dianjinzi/getCityByProvinceId/' + id;
+			var url = Prd.baseUrl + '/getCityByProvinceId/' + id;
 			$.ajax({
 				url: url,
 				data: null,
@@ -70,9 +97,10 @@ require(['jquery', 'component'], function($, Cpn) {
 
 		//市->区
 		Cpn.select2(areaObj.city, function(id) {
+			var url = Prd.baseUrl + '/getAreaByCityId/' + id;
 			$.ajax({
 				type: 'get',
-				url: ('/dianjinzi/getAreaByCityId/' + id),
+				url: url,
 				data: null,
 				success: function(param) {
 					var str = '';
