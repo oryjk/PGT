@@ -2,6 +2,9 @@ package com.pgt.category.service;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.dao.CategoryMapper;
+import com.pgt.common.bean.Media;
+import com.pgt.common.dao.MediaMapper;
+import com.pgt.media.bean.MediaType;
 import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +22,20 @@ public class CategoryServiceImp implements CategoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImp.class);
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private MediaMapper mediaMapper;
 
     @Override
     public String createCategory(Category category) {
         LOGGER.debug("Begin create category.");
         Integer rootCategory = categoryMapper.createCategory(category);
+        Media media = category.getFrontMedia();
+        if (!ObjectUtils.isEmpty(media)) {
+            LOGGER.debug("Create category media,the category id is {}.", rootCategory);
+            media.setReferenceId(rootCategory);
+            media.setType(MediaType.category.toString());
+            mediaMapper.createMedia(media);
+        }
         LOGGER.debug("The category id is {}.", rootCategory);
         category.setId(rootCategory);
         List<Category> subCategories = category.getChildren();

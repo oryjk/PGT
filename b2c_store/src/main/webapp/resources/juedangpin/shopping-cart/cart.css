@@ -1790,11 +1790,11 @@ td img {
     .recommend .similar-box .out-of-stock {
       position: absolute;
       top: 0;
-      left: 0;
-      width: 140px;
-      height: 90px;
-      background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
-      opacity: .7; }
+      right: 0;
+      width: 69px;
+      height: 69px;
+      background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
+      opacity: 1; }
     .recommend .similar-box .product-message {
       display: none;
       position: absolute;
