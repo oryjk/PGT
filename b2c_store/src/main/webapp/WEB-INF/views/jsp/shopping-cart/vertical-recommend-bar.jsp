@@ -25,7 +25,7 @@
                 <p>
                     <span class="aside-product-priceh"></span>
                     <span class="aside-product-price">¥
-                        <span><fmt:formatNumber value="${product.salePrice}" pattern="#.00" type="number" /></span>
+                        <span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number" /></span>
                     </span>
                 </p>
                 <p>
