@@ -260,8 +260,11 @@
 			</div>
 
 			<div class="clear"></div>
+	</div>
+	</div>
 			<jsp:include page="../core/helpSide.jsp"/>
 			<jsp:include page="../core/footer-main.jsp" />
+
 </body>
 
 <script
