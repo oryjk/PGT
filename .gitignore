@@ -151,3 +151,4 @@ server/
 /libs/umeditor-fragment-0.0.2.jar
 /libs/validation-api-1.1.0.Final.jar
 /libs/xml-apis-1.0.b2.jar
+/mobile/*.iml
