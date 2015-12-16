@@ -8,6 +8,7 @@ b2c_store/b2c_store.iml
 p2p_store/p2p_store.iml
 core/core.iml
 admin/admin.iml
+mobile/mobile.iml
 .idea
 p2p_store/src/main/webapp/node_modules
 b2c_store/src/main/webapp/node_modules

@@ -16,9 +16,9 @@
 		<property name="platformUserNoPrefix" value="pgt"></property>
 		<property name="requestNoPrefix" value="pgtr"/>
 		<property name="directRequestUrl" value="https://member.yeepay.com/member/bhaexter/bhaController" />
-		<property name="callbackUrl" value="http://localhost:8080/dianjinzi/yeepay/yeepayCallback" />
-		<property name="notifyUrl" value="http://localhost:8080/dianjinzi/yeepay/yeepayNotify"/>
-		<property name="completeTransactionNotifyUrl" value="http://localhost:8080/dianjinzi/yeepay/completeTransactionNotify"/>
+		<property name="callbackUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayCallback" />
+		<property name="notifyUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayNotify"/>
+		<property name="completeTransactionNotifyUrl" value="http://localhost:8080/b2c_store/yeepay/completeTransactionNotify"/>
 		<property name="targetPlatformUserNo" value="pgt14"/>
 		<!-- need change when go live -->
 		<property name="withdrawType" value="NORMAL"/>
