@@ -6,7 +6,7 @@ public class AlipayConfig {
 	private String	key;
 	private String	service			= "create_direct_pay_by_user";
 	private String	inputCharset	= "utf-8";
-	private String	signTtype		= "MD5";
+	private String	signType		= "MD5";
 	private String	paymentType		= "1";
 	private String	returnUrl;
 	private String	notifyUrl;
@@ -52,12 +52,12 @@ public class AlipayConfig {
 		this.inputCharset = inputCharset;
 	}
 
-	public String getSignTtype() {
-		return signTtype;
+	public String getSignType() {
+		return signType;
 	}
 
-	public void setSignTtype(String signTtype) {
-		this.signTtype = signTtype;
+	public void setSignType(String signType) {
+		this.signType = signType;
 	}
 
 	public String getPaymentType() {
