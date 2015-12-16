@@ -16,4 +16,18 @@ public interface HelpCenterService {
 	List<HelpCenter> findHelpCentersByCategoryId(Integer relatedCategoryId);
 
 	List<HelpCategoryVo> findAllHelpCategoryVo();
+
+
+	Integer createHelpCenter(HelpCenter helpCenter);
+
+
+	Integer updateHelpCenter(HelpCenter helpCenter);
+
+
+	void deleteHelpCenterById(Integer helpCenterId);
+
+
+	HelpCenter findHelpCenterById(Integer helpCenterId);
+
+
 }
