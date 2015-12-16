@@ -17,7 +17,7 @@ define(function() {
     };
 
     //加入购物车 productId:产品id, productMessage:提示标签的jq, cartCount:购物车数字的jq
-    var addItemToOrder = function(productId, productMessage, cartCount) {
+    var addItemToOrder = function(productId, productMessage, cartCount, callbackFunction) {
         $.ajax({
             type: 'get',
             url: baseUrl + '/shoppingCart/ajaxAddItemToOrder',
@@ -33,6 +33,9 @@ define(function() {
                     //购物车显示数量
                     if (cartCount) {
                         getOrderItemCount(cartCount);
+                    }
+                    if (callbackFunction) {
+                        callbackFunction();
                     }
 
                 } else if (param.success === 0) {

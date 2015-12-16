@@ -782,8 +782,8 @@ span {
     position: absolute;
     top: 0;
     right: 0;
-    width: 69px;
-    height: 69px;
+    width: 70px;
+    height: 70px;
     background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
     opacity: 1; }
   .similar-box .product-message {
@@ -963,6 +963,8 @@ span {
     .info-import .like-select ul {
       position: absolute;
       display: none;
+      overflow: scroll;
+      height: 95px;
       top: 105%;
       left: 0;
       padding: 0;
