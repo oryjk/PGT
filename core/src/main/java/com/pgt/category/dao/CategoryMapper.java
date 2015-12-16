@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public interface CategoryMapper extends SqlMapper {
 
-	void createCategory(Category category);
+	Integer createCategory(Category category);
 
 	void updateCategory(Category category);
 

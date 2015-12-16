@@ -53,4 +53,27 @@ public class HelpCenterServiceImp implements HelpCenterService {
 		return helpCategoryVos;
 	}
 
+	@Override
+	public Integer createHelpCenter(HelpCenter helpCenter) {
+
+		return helpCenterMapper.createHelpCenter(helpCenter);
+	}
+
+	@Override
+	public Integer updateHelpCenter(HelpCenter helpCenter) {
+
+
+		return helpCenterMapper.updateHelpCenter(helpCenter);
+	}
+
+	@Override
+	public void deleteHelpCenterById(Integer helpCenterId) {
+
+		helpCenterMapper.deleteHelpCenterById(helpCenterId);
+	}
+
+	@Override
+	public HelpCenter findHelpCenterById(Integer helpCenterId) {
+		return helpCenterMapper.findHelpCenterById(helpCenterId);
+	}
 }
