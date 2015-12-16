@@ -963,6 +963,8 @@ span {
     .info-import .like-select ul {
       position: absolute;
       display: none;
+      overflow: scroll;
+      height: 95px;
       top: 105%;
       left: 0;
       padding: 0;

@@ -237,7 +237,7 @@
 							${product.name} ${product.serialNumber} </a>
 
 							<p class="similar-cost">
-								¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="#.00"
+								¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="0.00"
 														  type="number"/></span>
 							</p>
 							<div class="product-handle">
