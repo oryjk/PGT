@@ -260,6 +260,7 @@
 			<jsp:include page="../core/helpSide.jsp"/>
 			<jsp:include page="../core/footer-main.jsp" />
 </body>
+
 <script
 	src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
 	data-main="<spring:url value="${juedangpinStaticPath}/searchPage/searchPage.js"/>"></script>

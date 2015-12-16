@@ -9,11 +9,12 @@
 require.config({
     paths: {
         jquery: '../../core/js/jquery.min',
-        component: '../../core/js/module/component'
-    }
+        component: '../../core/js/module/component',
+		product: '../../core/js/module/product'
+	}
 });
 
-require(['jquery', 'component'], function($, Cpn) {
+require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
     $(document).ready(function() {
 
         //固定头部
@@ -40,7 +41,7 @@ require(['jquery', 'component'], function($, Cpn) {
 
 		//省->市
 		Cpn.select2(areaObj.province, function(id) {
-			var url = '/dianjinzi/getCityByProvinceId/' + id;
+			var url = Prd.baseUrl + '/getCityByProvinceId/' + id;
 			$.ajax({
 				url: url,
 				data: null,
@@ -57,9 +58,10 @@ require(['jquery', 'component'], function($, Cpn) {
 
 		//市->区
 		Cpn.select2(areaObj.city, function(id) {
+			var url = Prd.baseUrl + '/getAreaByCityId/' + id;
 			$.ajax({
 				type: 'get',
-				url: ('/dianjinzi/getAreaByCityId/' + id),
+				url: url,
 				data: null,
 				success: function(param) {
 					var str = '';
