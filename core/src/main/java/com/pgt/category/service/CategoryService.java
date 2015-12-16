@@ -23,7 +23,7 @@ public interface CategoryService {
 
     Category queryRootCategoryByProductId(Integer productId);
 
-    List<Category> queryAllCategories();
+    List<Category> queryAllParentCategories();
 
     List<Category> queryCategories(Category category, PaginationBean paginationBean);
 

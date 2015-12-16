@@ -78,8 +78,8 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public List<Category> queryAllCategories() {
-        List<Category> categories = categoryMapper.queryAllCategories();
+    public List<Category> queryAllParentCategories() {
+        List<Category> categories = categoryMapper.queryAllParentCategories();
         return categories;
     }
 
