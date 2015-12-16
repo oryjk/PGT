@@ -28,4 +28,6 @@ public interface UserOrderDao extends SqlMapper {
 	int createBrowsedProductRecord(BrowsedProductVO pBrowsedProduct);
 
 	int resetBrowsedProductsBatchUpdateDate(List<Integer> pBrowsedProductIds);
+
+	long queryOrderCount(@Param("userId") int pUserId);
 }
