@@ -101,7 +101,10 @@
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=creationDate">上架时间</a><a href="#" class="orderby-choose">
 							<i class="foundicon-up-arrow"></i></a><a href="#"><i
 									class="foundicon-down-arrow"></i></a></li>
-							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
+							<li>
+								<form:>
+
+								<a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=listPrice">价格</a><a href="#" class="orderby-choose"><i
 									class="foundicon-up-arrow"></i></a><a href="#"><i
 									class="foundicon-down-arrow"></i></a></li>

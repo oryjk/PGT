@@ -87,7 +87,6 @@ public class UserController {
             return modelAndView;
         }
         LOGGER.debug("Go to login page with get method");
-        modelAndView.setViewName(urlConfiguration.getLoginPage());
         modelAndView.addObject(Constants.USER, new User());
         return modelAndView;
     }
