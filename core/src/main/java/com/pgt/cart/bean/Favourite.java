@@ -17,6 +17,7 @@ public class Favourite {
 	private double mFinalPrice;
 	private int mSnapshotId;
 	private Date mCreationDate;
+	private int mProductStock;
 
 	private Media mSnapshotMedia;
 	private int mDiscussCount;
@@ -118,5 +119,13 @@ public class Favourite {
 
 	public void setDiscussCount(final int pDiscussCount) {
 		mDiscussCount = pDiscussCount;
+	}
+
+	public int getProductStock() {
+		return mProductStock;
+	}
+
+	public void setProductStock(final int pProductStock) {
+		mProductStock = pProductStock;
 	}
 }
