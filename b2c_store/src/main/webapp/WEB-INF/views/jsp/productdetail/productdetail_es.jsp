@@ -15,6 +15,7 @@
                     <img id="middlePic"
                         src="${pageContext.request.contextPath}/resources${product['heroMedias'][0]['path']}"   
                         alt="1" />
+                    <div class="out-of-stock"></div>
                     <div id="glass" class="glass"></div>   
                 </div>
                 <ul id="smallPic" class="small-pic">
