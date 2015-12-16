@@ -110,12 +110,15 @@
 									class="foundicon-down-arrow"></i></a></li>
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=productId">综合排序</a>
+
+							</li>
+							<li>
+								<a href="#">只显示有货</a>
 								<!--仿checkbox-->
 								<span class="checkbox only-availble" data-value="0">
 									<i class="foundicon-checkmark"></i>
 									<input name="" type="hidden" value="0"/>
-								</span>
-							</li>
+								</span></li>
 						</ul>
 					</div>
 
@@ -260,8 +263,11 @@
 			</div>
 
 			<div class="clear"></div>
+	</div>
+	</div>
 			<jsp:include page="../core/helpSide.jsp"/>
 			<jsp:include page="../core/footer-main.jsp" />
+
 </body>
 
 <script
