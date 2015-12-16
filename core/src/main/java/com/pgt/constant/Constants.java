@@ -24,7 +24,7 @@ public class Constants {
     public static final String CONSULTING_PAGE = "/productdetail/consulting";
     public static final String DISCUSS_PAGE = "/productdetail/discuss";
     public static final String RESET_PASSWORD = "/user/resetforget";
-    public static final String HELP_CENTER="/helpcenter/helpcenter";
+    public static final String HELP_CENTER="/help/helpcenter";
     
     //user
     public static final String USER = "user";

@@ -13,6 +13,7 @@ import com.pgt.category.bean.Category;
 public class HelpCategoryVo {
 
 	private Category category;
+
 	private List<HelpCenter> helpCenterList;
 
 	public Category getCategory() {
