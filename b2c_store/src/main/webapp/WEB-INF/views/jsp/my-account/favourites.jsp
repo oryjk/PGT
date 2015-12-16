@@ -65,7 +65,7 @@
                                     <a class="addEnjoy" data-value="${fav.productId}" href="#"><i class="foundicon-heart"></i>收藏</a>
                                     <a class="addCart" data-vaule="${fav.productId}" href="#"><i class="foundicon-cart"></i>购物车</a>
                                 </div>
-                                <c:if test="${searchHit.source['stock']<1}">
+                                <c:if test="${searchHit.source['stock'] ne -1 or searchHit.source['stock'] lt 1}">
                                     <div class="out-of-stock"></div>
                                 </c:if>
                                 <div class="product-message">添加成功</div>

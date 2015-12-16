@@ -25,7 +25,7 @@ public interface CategoryMapper extends SqlMapper {
 
 	Category queryParentCategoryByProductId(Integer productId);
 
-	List<Category> queryAllCategories();
+	List<Category> queryAllParentCategories();
 
 	List<Category> queryCategories(@Param("category") Category category,
 								   @Param("paginationBean") PaginationBean paginationBean);

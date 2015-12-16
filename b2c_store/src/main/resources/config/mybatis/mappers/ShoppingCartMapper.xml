@@ -54,7 +54,7 @@
 		UPDATE `ORDER`
 		<set>
 			status = #{status}, shipping_fee = #{shippingFee}, subtotal = #{subtotal}, total = #{total}, user_comments = #{userComments},
-			SUBMIT_DATE = #{submitDate}, update_date = now()
+			submit_date = #{submitDate}, update_date = now()
 		</set>
 		WHERE order_id = #{id}
 	</update>
@@ -68,7 +68,7 @@
 		<foreach collection="list" item="item" open="" close="" separator=";">
 			UPDATE COMMERCE_ITEM
 			<set>
-				order_id = #{item.orderId}, reference_id = #{item.referenceId}, name = #{item.name}, quality = #{quality}, list_price = #{item.listPrice},
+				order_id = #{item.orderId}, reference_id = #{item.referenceId}, name = #{item.name}, quality = #{item.quality}, list_price = #{item.listPrice},
 				sale_price = #{item.salePrice}, quantity = #{item.quantity}, amount = #{item.amount}, snapshot_id = #{item.snapshotId},
 				`index` = #{item.index}, update_date = now()
 			</set>

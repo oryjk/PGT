@@ -23,7 +23,7 @@ subprojects {
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
     repositories {
         maven {
-            url 'http://maven.oschina.net/content/groups/public/'
+            url 'http://repo1.maven.org/maven2'
         }
 
 
