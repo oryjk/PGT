@@ -44,7 +44,8 @@ public class UserOrderController extends TransactionBaseController implements Us
 			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
 			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
 			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc) {
+			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
+			@RequestParam(value = "status", required = false, defaultValue = "0") int status) {
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
 		if (currentUser == null) {
@@ -58,7 +59,7 @@ public class UserOrderController extends TransactionBaseController implements Us
 		LOGGER.debug("Query order history with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
 		InternalPagination pagination = ipb.setSortFieldName("update_date").setAsc(ascBoolean).createInternalPagination();
-		getUserOrderService().queryOrderPage(currentUser.getId().intValue(), pagination);
+		getUserOrderService().queryOrderPage(currentUser.getId().intValue(), status, pagination);
 		ModelAndView mav = new ModelAndView("/my-account/order-history");
 		mav.addObject(CartConstant.ORDER_HISTORY, pagination);
 		return mav;
@@ -70,7 +71,8 @@ public class UserOrderController extends TransactionBaseController implements Us
 			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
 			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
 			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc) {
+			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
+			@RequestParam(value = "status", required = false, defaultValue = "0") int status) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -86,7 +88,7 @@ public class UserOrderController extends TransactionBaseController implements Us
 		LOGGER.debug("Query order history with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
 		InternalPagination pagination = ipb.setSortFieldName("update_date").setAsc(ascBoolean).createInternalPagination();
-		getUserOrderService().queryOrderPage(currentUser.getId().intValue(), pagination);
+		getUserOrderService().queryOrderPage(currentUser.getId().intValue(), status, pagination);
 		rb.setSuccess(true).setData(pagination);
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}

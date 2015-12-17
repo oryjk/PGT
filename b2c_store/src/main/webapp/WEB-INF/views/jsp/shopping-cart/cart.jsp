@@ -47,7 +47,7 @@
                     <table>
                         <thead>
                         <tr>
-                            <td><input type="checkbox" /><label for="">全选</label></td>
+                            <td><input type="checkbox" /><label for=""><a >全选</a></label></td>
                             <td></td>
                             <td class="product-name">商品信息</td>
                             <td>成色</td>

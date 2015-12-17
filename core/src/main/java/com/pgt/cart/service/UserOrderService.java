@@ -22,12 +22,12 @@ public class UserOrderService {
 	@Resource(name = "userOrderDao")
 	private UserOrderDao mUserOrderDao;
 
-	public List<Order> queryOrderPage(final int pUserId, final InternalPagination pPagination) {
-		long count = getUserOrderDao().queryOrderCount(pUserId, pPagination);
-		LOGGER.debug("Get order count: {} with keyword: {}", count, pPagination.getKeyword());
+	public List<Order> queryOrderPage(final int pUserId, final int pOrderStatus, final InternalPagination pPagination) {
+		long count = getUserOrderDao().queryOrderCount(pUserId, pOrderStatus, pPagination);
+		LOGGER.debug("Get order count: {} with status: {}, keyword: {}", count, pOrderStatus, pPagination.getKeyword());
 		pPagination.setCount(count);
 		if (count > 0) {
-			List<Order> orders = getUserOrderDao().queryOrderPage(pUserId, pPagination);
+			List<Order> orders = getUserOrderDao().queryOrderPage(pUserId, pOrderStatus, pPagination);
 			pPagination.setResult(orders);
 		} else {
 			pPagination.setResult(Collections.EMPTY_LIST);

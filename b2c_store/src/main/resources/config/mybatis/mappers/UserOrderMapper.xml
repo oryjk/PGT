@@ -43,6 +43,9 @@
 		SELECT COUNT(o.order_id)
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
+		<if test="orderStatus &gt; 0">
+			AND o.status = #{orderStatus}
+		</if>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
 			AND o.order_id IN (
 			SELECT DISTINCT order_id
@@ -55,6 +58,9 @@
 		SELECT o.*
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
+		<if test="orderStatus &gt; 0">
+			AND o.status = #{orderStatus}
+		</if>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
 			AND o.order_id IN (
 			SELECT DISTINCT order_id
