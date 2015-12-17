@@ -69,7 +69,7 @@
             </ul>
         </li>
         <li>
-            <a class="menu-level-1" href="#">帮助中心</a>
+            <a class="menu-level-1" href="<spring:url value="/helpcenter/query"/>">帮助中心</a>
         </li>
     </ul>
 </div>
