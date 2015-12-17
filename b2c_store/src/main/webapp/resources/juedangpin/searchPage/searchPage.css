@@ -576,10 +576,10 @@ span {
     width: 280px;
     height: 100px; }
     .head-box .logo-box h1 {
-      margin: 15px 0;
+      margin: 0;
       width: 100%;
       height: 70px;
-      background: url("../core/images/header/logo.png") 0 0 no-repeat; }
+      background: url("../core/images/header/logo.jpg") 0 0 no-repeat; }
     .head-box .logo-box a {
       display: block;
       width: 100%;

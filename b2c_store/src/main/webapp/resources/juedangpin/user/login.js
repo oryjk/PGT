@@ -54,42 +54,9 @@ require(['jquery', 'product'], function($, Prd) {
         }
     });
 
-    $(document).on('click', '#loginCode', function() {
-        $(this).attr('src','');
-        $(this).attr('src', Prd.baseUrl + '/code/login');
-        //$('#authBox').html(' ')
-        //    .html('<input id="authNum" name="authNum" type="text"/> <img id="loginCode" src="'+Prd.baseUrl+'/code/login" alt=""/> <a href="#">看不清楚？</a>')
+    //
+    $('#loginCode').on('click', function() {
+        $(this).attr('src', Prd.baseUrl + '/code/login?'+Math.ceil(Math.random()*100000000000000));
     });
-    //
-    ////登陆提交
-    //function login() {
-    //
-    //    $({
-    //        type: 'post',
-    //        url: 'login',
-    //        data: $('form').serialize(),
-    //        success: function(param) {
-    //            if (param.message == 1) {
-    //                alert('登陆成功');
-    //                window.location = '../index/index.html';
-    //            } else if (param.message == 0) {
-    //                alert('登陆失败');
-    //                $(this).parent().addClass('password-wrong');
-    //                $('#loginPrompt').text('账号或密码错误！');
-    //            }
-    //
-    //        }
-    //    })
-    //}
-    //
-    ////获取验证码
-    //function getAuthNumber() {
-    //    $({
-    //        type: 'get',
-    //        url: '/getAuthNumber',
-    //        success: function(param) {
-    //            //...
-    //        }
-    //    })
-    //}
+
 });
