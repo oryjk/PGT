@@ -4278,7 +4278,7 @@
               },
               {
                 "title": "",
-                "path": "/image/description/CC0715_main_01.jpg",
+                "path": "/image/description/cc0715_mian_01.jpg",
                 "index": "",
                 "type": "main"
               }],
@@ -6087,6 +6087,12 @@
             "mainMedias": [
               {
                 "title": "",
+                "path": "/image/description/CXJL0022_mian_00.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
                 "path": "/image/description/CXJL0022_main_01.jpg",
                 "index": "",
                 "type": "main"
@@ -6261,6 +6267,12 @@
             "mainMedias": [
               {
                 "title": "",
+                "path": "/image/description/CXJL0024_mian_00.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
                 "path": "/image/description/CXJL0024_main_01.jpg",
                 "index": "",
                 "type": "main"
@@ -6362,7 +6374,7 @@
                 "type": "main"
               }, {
                 "title": "",
-                "path": "/image/description/PT0022FZ_main_02.jpg",
+                "path": "/image/description/PT0022FZ_mian_02.jpg",
                 "index": "",
                 "type": "main"
               }],
