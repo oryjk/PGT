@@ -11,6 +11,8 @@ import java.util.*;
  */
 public class Order {
 
+	private static final String PATTERN_AMOUNT = "%.2f";
+
 	private int mId;
 	private int mUserId;
 	private int mStatus = OrderStatus.INITIAL;
@@ -143,11 +145,11 @@ public class Order {
 	}
 
 	public String getTotalDisplay() {
-		return String.format("%.2f", getTotal());
+		return String.format(PATTERN_AMOUNT, getTotal());
 	}
 
 	public String getSubtotalDisplay() {
-		return String.format("%.2f", getSubtotal());
+		return String.format(PATTERN_AMOUNT, getSubtotal());
 	}
 
 	public int getId() {

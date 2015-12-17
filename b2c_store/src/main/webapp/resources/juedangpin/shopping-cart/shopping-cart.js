@@ -85,7 +85,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                         $(".order-total").text(param.data.totalDisplay);
                     }
                 }
-            })
+            });
         }
         //移入收藏
         function cartToFavourite(event) {
@@ -106,8 +106,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                         $(".order-total").text(param.data.totalDisplay);
                     }
                 }
-            })
+            });
         }
-
     });
 });
