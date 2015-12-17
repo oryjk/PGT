@@ -1,0 +1,82 @@
+[
+  {
+    "id": "",
+    "name": "玉石类",
+    "code": "",
+    "children": [
+      {
+        "id": "",
+        "name": "翡翠",
+        "code": "",
+        "type":"HIERARCHY"
+      },
+      {
+        "id": "",
+        "name": "寿山石",
+        "code": "",
+        "type":"HIERARCHY"
+      },
+      {
+        "id": "",
+        "name": "和田碧玉",
+        "code": "",
+        "type":"HIERARCHY"
+      },
+      {
+        "id": "",
+        "name": "和田白玉",
+        "code": "",
+        "type":"HIERARCHY"
+      },
+      {
+        "id": "",
+        "name": "独山玉",
+        "code": "",
+        "type":"HIERARCHY"
+      }
+      ],
+    "status": "",
+    "frontMedia":
+      {
+        "title": "",
+        "ferenceId":"",
+        "path": "/image/description/",
+        "type": "front"
+      },
+    "color": "",
+    "sort": "",
+    "description":"",
+    "type": "ROOT"
+  },
+  {
+    "id": "",
+    "name": "蜜蜡琥珀",
+    "code": "",
+    "children": [
+      {
+        "id": "",
+        "name": "琥珀",
+        "code": "",
+        "type":"HIERARCHY"
+      },
+      {
+        "id": "",
+        "name": "蜜蜡",
+        "code": "",
+        "type":"HIERARCHY"
+      }
+      ],
+    "status": "",
+    "frontMedia":
+      {
+        "title": "",
+        "ferenceId":"",
+        "path": "/image/description/",
+        "type": "front"
+      },
+    "color": "",
+    "sort": "",
+    "description":"",
+    "type": "ROOT"
+  }
+]

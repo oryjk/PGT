@@ -119,7 +119,6 @@ public class ESSearchController {
 					if(sortOrder.endsWith(SortOrder.ASC.toString())){
 						esSort.setSortOrder(SortOrder.ASC);
 						modelAndView.addObject("sortOrder","desc");
-						System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+SortOrder.ASC.toString());
 					}else {
 						modelAndView.addObject("sortOrder", "asc");
 					}
@@ -226,9 +225,6 @@ public class ESSearchController {
 
 			}
 
-			List<Category> parentCategoryList= categoryService.queryAllParentCategories();
-
-			modelAndView.addObject("parentCategoryList",parentCategoryList);
 
 			hits = searchResponse.getHits();
 

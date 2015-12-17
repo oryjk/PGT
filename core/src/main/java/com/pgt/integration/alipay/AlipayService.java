@@ -42,7 +42,7 @@ public class AlipayService {
 	public Map<String, String> buildRequestMap(Order order) {
 		Map<String, String> paramMap = buildParamMap(order);
 		paramMap.put(AlipayConstants.SIGN, sign(paramMap, alipayConfig.getKey(), alipayConfig.getInputCharset()));
-		paramMap.put(AlipayConstants.SIGN_TYPE, alipayConfig.getSignTtype());
+		paramMap.put(AlipayConstants.SIGN_TYPE, alipayConfig.getSignType());
 		return paramMap;
 	};
 
@@ -56,7 +56,7 @@ public class AlipayService {
 		paramMap.put(AlipayConstants.NOTIFY_URL, alipayConfig.getNotifyUrl());
 		paramMap.put(AlipayConstants.SELLER_ID, alipayConfig.getPartner());
 		paramMap.put(AlipayConstants.SERVICE, alipayConfig.getService());
-		paramMap.put(AlipayConstants.SUBJECT, "itemName1");
+		paramMap.put(AlipayConstants.SUBJECT, "绝当品编号:" + order.getId());
 		paramMap.put(AlipayConstants.TOTAL_FEE, String.valueOf(order.getTotal()));
 		return paramMap;
 	}
@@ -167,7 +167,7 @@ public class AlipayService {
 		AlipayResult alipayResult = new AlipayResult();
 		try {
 			alipayResult.setOrderId(Integer.parseInt(request.getParameter(AlipayConstants.OUT_TRADE_NO)));
-//			alipayResult.setOrderId(0);
+			// alipayResult.setOrderId(0);
 			alipayResult.setBuyerId(request.getParameter(AlipayConstants.BUYER_ID));
 			alipayResult.setBuyerAccount(request.getParameter(AlipayConstants.BUYER_ACCOUNT));
 			alipayResult.setCreationDate(new Date());

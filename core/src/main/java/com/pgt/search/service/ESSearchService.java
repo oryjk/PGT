@@ -512,28 +512,29 @@ public class ESSearchService {
 
     public SearchResponse findCategories(List<ESTerm> esTerms, ESSort esSort) {
         SearchResponse response = null;
-        if (!ObjectUtils.isEmpty(esTerms)) {
-            try {
-                SearchRequestBuilder searchRequestBuilder = getSearchClient().prepareSearch(Constants.SITE_INDEX_NAME).setTypes(Constants
-                        .CATEGORY_INDEX_TYPE)
-                        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
-                BoolQueryBuilder qb = boolQuery();
-                searchRequestBuilder.setQuery(qb);
+
+        try {
+            SearchRequestBuilder searchRequestBuilder = getSearchClient().prepareSearch(Constants.SITE_INDEX_NAME).setTypes(Constants
+                    .CATEGORY_INDEX_TYPE)
+                    .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
+            BoolQueryBuilder qb = boolQuery();
+            searchRequestBuilder.setQuery(qb);
+            if (!ObjectUtils.isEmpty(esTerms)) {
                 esTerms.stream().forEach(esTerm ->
                                 qb.should(matchQuery(esTerm.getPropertyName(), esTerm.getTermValue()))
                 );
-
-                if (!ObjectUtils.isEmpty(esSort)) {
-                    searchRequestBuilder.addSort(esSort.getPropertyName(), esSort.getSortOrder());
-                }
-                searchRequestBuilder.setTerminateAfter(Integer.MAX_VALUE);
-                response = searchRequestBuilder.execute()
-                        .actionGet();
-                return response;
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            if (!ObjectUtils.isEmpty(esSort)) {
+                searchRequestBuilder.addSort(esSort.getPropertyName(), esSort.getSortOrder());
+            }
+            searchRequestBuilder.setTerminateAfter(Integer.MAX_VALUE);
+            response = searchRequestBuilder.execute()
+                    .actionGet();
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return response;
     }
 
