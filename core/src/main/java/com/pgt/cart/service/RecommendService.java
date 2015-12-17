@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -148,8 +149,11 @@ public class RecommendService {
 				recommendRandomly(recommendProductIds, recommendedCategoryIds);
 			}
 		}
-		List<Product> supposeProducts = getProductDao().queryProductByIds(recommendProductIds);
-		return supposeProducts;
+		List<Product> recommendProducts = Collections.EMPTY_LIST;
+		if (CollectionUtils.isNotEmpty(recommendProducts)) {
+			recommendProducts = getProductDao().queryProductByIds(recommendProductIds);
+		}
+		return recommendProducts;
 	}
 
 	public void recommendRandomly(List<Integer> pRecommendProducts, List<String> pRecommendedCategoryIds) {
