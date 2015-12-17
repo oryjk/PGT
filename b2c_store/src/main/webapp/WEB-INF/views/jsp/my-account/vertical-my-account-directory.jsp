@@ -52,7 +52,7 @@
             </ul>
         </li>
         <li>
-            <a class="menu-level-1" href="">支付绑定</a>
+            <a class="menu-level-1" href="<spring:url value="/user/yeepayAccountInfo"/>">支付绑定</a>
         </li>
         <li>
             <a class="menu-level-1" href="#">个人中心</a>
