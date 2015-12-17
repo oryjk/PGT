@@ -48,7 +48,10 @@
 </div>
 <div class="head-box">
     <div class="logo-box">
-        <h1><a href="<spring:url value="${urlConfiguration.homePage}"/>">点金子绝当品——欢迎登陆</a></h1>
+        <h1><a href="<spring:url value="${urlConfiguration.homePage}"/>">点金子绝当品——欢迎登陆
+            <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/logo-t-pig_01.jpg"/>" alt=""/>
+            <div class="light"></div>
+        </a></h1>
     </div>
     <div class="search-box">
         <form action="${pageContext.request.contextPath}/essearch">
