@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.pgt.cart.service.UserOrderService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,8 @@ import com.pgt.user.bean.User;
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
 	@Resource(name = "transactionLogService")
 	private TransactionLogService transactionLogService;
@@ -128,12 +132,12 @@ public class PaymentController {
 	public ModelAndView complete(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 		if (null == user) {
-			// TODO: REDIRECT TO LOGIN
+			LOGGER.debug("no user in session redrict to login page.");
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
 		String orderIdStr = pRequest.getParameter("orderId");
-		// TODO: LOG
+		LOGGER.debug("orderIdStr: " + orderIdStr);
 		if (StringUtils.isBlank(orderIdStr)) {
 			throw new IllegalArgumentException("orderId is blank");
 		}
@@ -143,15 +147,15 @@ public class PaymentController {
 		} catch (Exception e) {
 			throw new IllegalArgumentException("orderId is not integer.");
 		}
-		// TODO: LOG
+		LOGGER.debug("orderId: " + orderId);
 		Order order = getUserOrderService().loadOrderHistory(orderId);
 		if (null == order) {
-			// TODO: LOG
+			LOGGER.debug("no order found by id: " + orderId + " redirect to shopping cart page");
 			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
 			return modelAndView;
 		}
 		if (order.getUserId() != user.getId().intValue()) {
-			// TODO: LOG
+			LOGGER.debug("user on order not match user in session redriect to shopping cart. user on order: " + order.getUserId() + " user in session" + user.getId().intValue() );
 			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
 			return modelAndView;
 		}

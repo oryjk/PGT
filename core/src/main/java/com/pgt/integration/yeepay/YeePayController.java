@@ -217,7 +217,7 @@ public class YeePayController {
 		try {
 			jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_SUCCESS_JSP);
 			if (YeePayConstants.SERVICE_NAME_TOCPTRANSACTION.equals(serviceName)) {
-				jspPath += "?orderId=" + transactionLog.getId();
+				jspPath += "?orderId=" + transactionLog.getOrderId();
 			}
 			mav = new ModelAndView(jspPath);
 			notificationHandler.handleCallback(inboundParam, transactionLog);
