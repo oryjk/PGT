@@ -364,12 +364,12 @@ public class YeePayController {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/completeTransactionNotify", method = RequestMethod.POST)
 	public ResponseEntity handleCompleteTransactionNotify(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		String inboundXML = pRequest.getParameter(YeePayConstants.PARAM_NAME_NOTIFY);
 		String inboundSign = pRequest.getParameter(YeePayConstants.PARAM_NAME_SIGN);
-		
+
 		boolean pass = SignUtil.verifySign(inboundXML, inboundSign, "yeepay.com");
 		if (!pass) {
 			return new ResponseEntity(HttpStatus.OK);
@@ -384,7 +384,7 @@ public class YeePayController {
 		transactionLog.setInbound(inboundBuilder.toString());
 		transactionLog.setInboundTime(new Date());
 		getTransactionLogService().updateTransactionLog(transactionLog);
-		
+
 		if (null == getConfig().getNotificationHandler()) {
 			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler");
 			return new ResponseEntity(HttpStatus.OK);
@@ -416,13 +416,13 @@ public class YeePayController {
 				LOGGER.error("no paymentGroup found(id=" + transactionLog.getPaymentGroupId() + ")");
 				return new ResponseEntity(HttpStatus.OK);
 			}
-			
+
 			Transaction transaction = null;
 			transaction = getPaymentService().findTransactionByTrackingNumber(requestNoStr);
 			if (null == transaction) {
 				LOGGER.error("no transaction found(trackingNo=" + requestNoStr + ")");
 				return new ResponseEntity(HttpStatus.OK);
-			} 
+			}
 			Order order = null;
 			if (null == transactionLog.getOrderId()) {
 				LOGGER.error("no orderId for transactionLog(id=" + transactionLog.getId() + ")");
@@ -441,7 +441,7 @@ public class YeePayController {
 		} finally {
 			getCompleteTransactionNotificationHandler().commit();
 		}
-	
+
 	}
 
 	private Map<String, Object> getPaymentParamMap(Order order, TransactionLog transactionLog,
@@ -472,7 +472,7 @@ public class YeePayController {
 		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
 
 		String callBackUrl = getConfig().getCallbackUrl() + "?servieName="
-				+ YeePayConstants.SERVICE_NAME_TOCPTRANSACTION + ";jsessionid=" + pRequest.getSession().getId();
+				+ YeePayConstants.SERVICE_NAME_TOCPTRANSACTION + "&orderId=" + order.getId() + ";jsessionid=" + pRequest.getSession().getId();
 		paramMap.put(YeePayConstants.PARAM_NAME_CALLBACK_URL, callBackUrl);
 
 		String notifyUrl = getConfig().getNotifyUrl();
