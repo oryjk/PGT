@@ -64,7 +64,7 @@
                     <a class="menu-level-end" href="#">修改密码</a>
                 </li>
                 <li>
-                    <a class="menu-level-end" href="#">地址管理</a>
+                    <a class="menu-level-end ${param.step eq 'address' ? 'current-page' : '' }" href="<spring:url value="/my-account/person-info/address"/>">地址管理</a>
                 </li>
             </ul>
         </li>
