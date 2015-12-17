@@ -15,9 +15,9 @@ import java.util.List;
 @Repository(value = "userOrderDao")
 public interface UserOrderDao extends SqlMapper {
 
-	long queryOrderCount(@Param("userId") int pUserId, @Param("orderStatus") int pOrderStatus, @Param("pagination") InternalPagination pPagination);
+	long querySubmittedOrderCount(@Param("userId") int pUserId, @Param("orderStatus") int pOrderStatus, @Param("pagination") InternalPagination pPagination);
 
-	List<Order> queryOrderPage(@Param("userId") int pUserId, @Param("orderStatus") int pOrderStatus, @Param("pagination") InternalPagination pPagination);
+	List<Order> querySubmittedOrderPage(@Param("userId") int pUserId, @Param("orderStatus") int pOrderStatus, @Param("pagination") InternalPagination pPagination);
 
 	Order loadOrderHistory(@Param("orderId") int pOrderId);
 

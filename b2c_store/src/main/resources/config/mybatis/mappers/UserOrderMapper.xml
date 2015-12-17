@@ -39,13 +39,18 @@
 		<result column="update_date" property="updateDate" />
 	</resultMap>
 
-	<select id="queryOrderCount" resultType="long">
+	<select id="querySubmittedOrderCount" resultType="long">
 		SELECT COUNT(o.order_id)
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
-		<if test="orderStatus &gt; 0">
-			AND o.status = #{orderStatus}
-		</if>
+		<choose>
+			<when test="orderStatus &gt; 0">
+				AND o.status = #{orderStatus}
+			</when>
+			<otherwise>
+				AND o.status != 10
+			</otherwise>
+		</choose>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
 			AND o.order_id IN (
 			SELECT DISTINCT order_id
@@ -54,13 +59,18 @@
 		</if>
 	</select>
 
-	<select id="queryOrderPage" resultMap="orderWithCommerceItem">
+	<select id="querySubmittedOrderPage" resultMap="orderWithCommerceItem">
 		SELECT o.*
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
-		<if test="orderStatus &gt; 0">
-			AND o.status = #{orderStatus}
-		</if>
+		<choose>
+			<when test="orderStatus &gt; 0">
+				AND o.status = #{orderStatus}
+			</when>
+			<otherwise>
+				AND o.status != 10
+			</otherwise>
+		</choose>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
 			AND o.order_id IN (
 			SELECT DISTINCT order_id
