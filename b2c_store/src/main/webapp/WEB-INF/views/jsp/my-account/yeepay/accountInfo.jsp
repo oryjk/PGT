@@ -25,52 +25,7 @@
         <div class="content">
 
             <!-- 侧边栏-->
-            <div class="aside">
-                <h2>精品推荐</h2>
-                <ul>
-                    <li><a class="menu-level-1" href="">我的订单</a></li>
-                    <li>
-                        <a class="menu-level-1" href="">收藏夹</a>
-                        <ul>
-                            <li><a class="menu-level-end" href="#">我的收藏</a></li>
-                            <li><a class="menu-level-end" href="#">最近浏览</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="menu-level-1" href="">支付绑定</a></li>
-                    <li>
-                        <a class="menu-level-1" href="#">个人中心</a>
-                        <ul>
-                            <li><a class="menu-level-end" href="#">个人信息</a></li>
-                            <li><a class="menu-level-end" href="#">修改密码</a></li>
-                            <li><a class="menu-level-end" href="#">地址管理</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="menu-level-1" href="#">帮助中心</a>
-                        <ul>
-                            <li>
-                                <a class="menu-level-2" href="#">购物与支付</a>
-                                <ul>
-                                    <li><a class="menu-level-end" href="#">购物流程</a></li>
-                                    <li><a class="menu-level-end" href="#">支付方式</a></li>
-                                    <li><a class="menu-level-end" href="#">发票制度</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="menu-level-2" href="#">配送说明</a>
-                                <ul></ul>
-                            </li>
-                            <li>
-                                <a class="menu-level-2" href="#">关于我们</a>
-                                <ul>
-                                </ul>
-                            </li>
-                            <li><a class="menu-level-2" href="#">售后服务</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
+            <jsp:include page="../vertical-my-account-directory.jsp"/>
             <!-- 详细内容列表-->
             <div id="main" class="main-box">
 
