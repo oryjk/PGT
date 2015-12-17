@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pgt.cart.service.UserOrderService;
 import com.pgt.internal.controller.InternalUserController;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -63,6 +64,9 @@ public class YeePayController {
 	
 	@Resource(name = "completeTransactionNotificationHandler")
 	private CompleteTransactionNotificationHandler completeTransactionNotificationHandler;
+
+	@Resource(name = "userOrderService")
+	private UserOrderService userOrderService;
 
 	@RequestMapping(value = "/getSgin", method = RequestMethod.POST)
 	@ResponseBody
@@ -286,21 +290,37 @@ public class YeePayController {
 			ModelAndView modelAndView = new ModelAndView("redirect:" +getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
-		Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
+		String orderIdStr = pRequest.getParameter("orderId");
+		// TODO: LOG
+		if (StringUtils.isBlank(orderIdStr)) {
+			throw new IllegalArgumentException("orderId is blank");
+		}
+		int orderId = 0;
+		try {
+			orderId = Integer.valueOf(orderIdStr);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("orderId is not integer.");
+		}
+		// TODO: LOG
+		Order order = getUserOrderService().loadOrderHistory(orderId);
 		if (null == order) {
+			// TODO: LOG
 			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
 			return modelAndView;
 		}
-		
-		
+		if (order.getUserId() != user.getId().intValue()) {
+			// TODO: LOG
+			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+			return modelAndView;
+		}
+
 		String jspPath = null;
 		ModelAndView mav = null;
 		try {
 			getPaymentService().ensureTransaction();
 			PaymentGroup paymentGroup = new PaymentGroup();
 			Date now = new Date();
-			Long orderId = Long.valueOf(order.getId());
-			paymentGroup.setOrderId(orderId);
+			paymentGroup.setOrderId(Long.valueOf(order.getId()));
 			paymentGroup.setAmount(order.getTotal());
 			paymentGroup.setCreateDate(now);
 			paymentGroup.setUpdateDate(now);
@@ -312,7 +332,7 @@ public class YeePayController {
 			transaction.setAmount(order.getTotal());
 			transaction.setCreationDate(now);
 			transaction.setUpdateDate(now);
-			transaction.setOrderId(orderId);
+			transaction.setOrderId(Long.valueOf(order.getId()));
 			transaction.setPaymentGroupId(paymentGroup.getId());
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
 			getPaymentService().createTransaction(transaction);
@@ -595,4 +615,11 @@ public class YeePayController {
 		this.completeTransactionNotificationHandler = completeTransactionNotificationHandler;
 	}
 
+	public UserOrderService getUserOrderService() {
+		return userOrderService;
+	}
+
+	public void setUserOrderService(UserOrderService userOrderService) {
+		this.userOrderService = userOrderService;
+	}
 }
