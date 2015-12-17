@@ -15,6 +15,7 @@ public class URLConfiguration {
 	private String	shippingPage;
 	private String	pdpPage;
 	private String	plpPage;
+	private String helpCenterPage;
 
 	public String getCategoryPage() {
 		return categoryPage;
@@ -102,5 +103,13 @@ public class URLConfiguration {
 
 	public void setPlpPage(String plpPage) {
 		this.plpPage = plpPage;
+	}
+
+	public String getHelpCenterPage() {
+		return helpCenterPage;
+	}
+
+	public void setHelpCenterPage(String helpCenterPage) {
+		this.helpCenterPage = helpCenterPage;
 	}
 }
