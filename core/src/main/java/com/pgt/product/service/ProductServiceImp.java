@@ -98,13 +98,13 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                 });
             }
             if (!ObjectUtils.isEmpty(product.getMainMedias())) {
-                product.getHeroMedias().stream().forEach(productMedia -> {
+                product.getMainMedias().stream().forEach(productMedia -> {
                     productMedia.setReferenceId(productId);
                     mediaMapper.createMedia(productMedia);
                 });
             }
             if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
-                product.getHeroMedias().stream().forEach(productMedia -> {
+                product.getThumbnailMedias().stream().forEach(productMedia -> {
                     productMedia.setReferenceId(productId);
                     mediaMapper.createMedia(productMedia);
                 });
