@@ -111,7 +111,7 @@
     <select id="queryProductAdvertisementMedia" parameterType="int" resultMap="productMedia">
         SELECT *
         FROM MEDIA
-        WHERE reference_id = #{productId} AND TYPE='ad'
+        WHERE reference_id = #{productId} AND TYPE='advertisement'
         ORDER BY 'index'
         asc
     </select>

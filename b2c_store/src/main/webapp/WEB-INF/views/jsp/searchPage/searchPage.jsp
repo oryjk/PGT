@@ -74,23 +74,23 @@
 						<ul>
 
 
-							<li><a <c:if test="${priceStart='0'&&priceEnd='500'}">class="filter-selection-focus"</c:if>
+							<li><a <c:if test="${priceStart=='0'&&priceEnd=='500'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=0&priceEnd=500">0-500</a>
 							</li>
 
-							<li><a <c:if test="${priceStart='500'&&priceEnd='1000'}">class="filter-selection-focus"</c:if>
+							<li><a <c:if test="${priceStart=='500'&&priceEnd=='1000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=500&priceEnd=1000">500-1000</a>
 							</li>
 
-							<li><a <c:if test="${priceStart='1000'&&priceEnd='2000'}">class="filter-selection-focus"</c:if>
+							<li><a <c:if test="${priceStart=='1000'&&priceEnd=='2000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=1000&priceEnd=2000">1000-2000</a>
 							</li>
 
-							<li><a <c:if test="${priceStart='2000'&&priceEnd='5000'}">class="filter-selection-focus"</c:if>
+							<li><a <c:if test="${priceStart=='2000'&&priceEnd=='5000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=2000&priceEnd=5000">2000-5000</a>
 							</li>
 
-							<li><a <c:if test="${priceStart='5000'&&priceEnd='100000000'}">class="filter-selection-focus"</c:if>
+							<li><a <c:if test="${priceStart=='5000'&&priceEnd=='100000000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=5000">5000以上</a>
 							</li>
 

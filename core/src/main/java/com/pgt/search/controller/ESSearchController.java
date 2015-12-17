@@ -227,8 +227,9 @@ public class ESSearchController {
 			}
 
 			ESSort parentSort = new ESSort();
-			esSort.setPropertyName(Constants.SORT);
-			esSort.setSortOrder(SortOrder.ASC);
+			parentSort.setPropertyName("id");
+			parentSort.setSortOrder(SortOrder.ASC);
+
 			SearchResponse parentCategoryResponse= esSearchService.findCategories(null, parentSort);
 			modelAndView.addObject("parentCategoryList",parentCategoryResponse.getHits().getHits());
 
