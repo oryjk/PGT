@@ -289,7 +289,7 @@ define(function() {
      *     capacity: 5
      * };
      */
-    var page = function(productLIst, previousPage, nextPage, pageCount, pageWhich, pageSub, pages, baseUrl, pageObj, callbackFunction) {
+    var page = function(productLIst, previousPage, nextPage, pageCount, pageWhich, pageSub, pages, url, pageObj, callbackFunction) {
         var maxIndex = -1;
 
         //载入时
@@ -336,7 +336,7 @@ define(function() {
         function getPage(pageObj) {
             $.ajax({
                 type: 'get',
-                url: baseUrl + '/myAccount/ajaxFavourites',
+                url: url,
                 data: {
                     currentIndex: pageObj.currentIndex
                 },

@@ -15,7 +15,7 @@
 </div>
 
 <div class="content-box">
-    <div class="content">
+    <div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/login-bg.jpg"/>') center 0 no-repeat;">
         <form:form commandName="user" method="post" action="login" id="login">
             <div class="login-head">
                 <a href="register">

@@ -150,45 +150,17 @@
                 <!-- 分页-->
                 <div class="page-box">
                     <ul>
-                        <li>
-                            <a href="#">上页</a>
-                        </li>
+                        <li><a id="previousPage" href="#">上页</a></li>
                         <li class="page-list">
-                            <ol>
-                                <li>
-                                    <a class="page-focus" href="#">1</a>
-                                </li>
-                                <li>
-                                    <a href="#">2</a>
-                                </li>
-                                <li>
-                                    <a href="#">3</a>
-                                </li>
-                                <li>
-                                    <a href="#">4</a>
-                                </li>
-                                <li>
-                                    <a href="#">5</a>
-                                </li>
-                                <li>
-                                    <a href="#">6</a>
-                                </li>
+                            <ol id="pages">
+                                <li><a class="page-focus" href="#">1</a></li>
+                                <li><a href="#">2</a></li>
                             </ol>
                         </li>
-                        <li>
-                            <a href="#">下页</a>
-                        </li>
-                        <li class="page-count">共
-                            <span>6</span>
-                            页
-                        </li>
-                        <li class="page-which">跳转到第
-                            <input type="text">
-                            页
-                        </li>
-                        <li>
-                            <input class="d-btn" type="button" value="确认">
-                        </li>
+                        <li><a id="nextPage" href="#">下页</a></li>
+                        <li class="page-count">共<span id="pageCount">6</span>页</li>
+                        <li class="page-which">跳转到第<input id="pageWhich" type="text"/>页</li>
+                        <li><input class="d-btn" id="pageSub"  type="button" value="确认"/></li>
                     </ul>
                 </div>
             </div>

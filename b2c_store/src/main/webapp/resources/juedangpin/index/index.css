@@ -1471,7 +1471,6 @@ span {
 .content-box {
   overflow: hidden;
   *zoom: 1;
-  background: #faf4f6 url("../core/images/index/background.png");
   padding: 0 0 20px; }
 
 .content {
@@ -1577,7 +1576,11 @@ small {
       top: 80%;
       overflow: hidden;
       color: #666666;
-      font-size: 14px; }
+      width: 260px;
+      height: 17px;
+      font-size: 14px;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
     .products-list-cardinal a .product-cost {
       position: absolute;
       left: 0%;
@@ -1651,7 +1654,11 @@ small {
       top: 80%;
       overflow: hidden;
       color: #666666;
-      font-size: 14px; }
+      width: 260px;
+      height: 17px;
+      font-size: 14px;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
     .products-list-even a .product-cost {
       position: absolute;
       left: 0%;

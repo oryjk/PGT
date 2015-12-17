@@ -3,11 +3,12 @@
  */
 require.config({
     paths: {
-        jquery: '../core/js/jquery.min'
+        jquery: '../core/js/jquery.min',
+        product: '../core/js/module/product'
     }
 });
 
-require(['jquery'], function($) {
+require(['jquery', 'product'], function($, Prd) {
     //登陆信息
     var loginInfo = {
         times: $('#loginCount').val(),
@@ -53,11 +54,11 @@ require(['jquery'], function($) {
         }
     });
 
-    $('#loginCode').live('click',function() {
-        $('#loginCode').attr('src','');
-        $('#loginCode').attr('src','/dianjinzi/code');
-        $('#authBox').html('')
-            .html('<input id="authNum" name="authNum" type="text"/><img id="loginCode" src="/dianjinzi/code" alt=""/><a href="#">看不清楚？</a>')
+    $(document).on('click', '#loginCode', function() {
+        $(this).attr('src','');
+        $(this).attr('src', Prd.baseUrl + '/code/login');
+        //$('#authBox').html(' ')
+        //    .html('<input id="authNum" name="authNum" type="text"/> <img id="loginCode" src="'+Prd.baseUrl+'/code/login" alt=""/> <a href="#">看不清楚？</a>')
     });
     //
     ////登陆提交

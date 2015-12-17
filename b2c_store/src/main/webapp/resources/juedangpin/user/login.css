@@ -429,15 +429,14 @@ span {
     color: #666666; }
 
 .content-box {
-  background: #ed2842; }
+  background: #eaeaea; }
 
 .content {
   overflow: hidden;
   *zoom: 1;
   margin: 0 auto;
   width: 1060px;
-  height: 475px;
-  background: url("../core/images/user/content-test.jpg") center 0 no-repeat; }
+  height: 475px; }
 
 form {
   float: right;

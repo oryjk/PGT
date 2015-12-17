@@ -31,6 +31,9 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             height: 800,
             time: 200
         });
+
+        //显示购物车数量
+        Prd.getOrderItemCount($('#asideCartCount, #fixedCartCount, #cartCount'));
         
         //content部分点击事件委托
         $('#content').click(function(event) {

@@ -1886,10 +1886,10 @@ span {
     position: absolute;
     top: 0;
     right: 0;
-    width: 70px;
-    height: 70px;
+    width: 73px;
+    height: 73px;
     background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
-    opacity: 1; }
+    opacity: .7; }
   .aside .product-message {
     display: none;
     position: absolute;
@@ -2010,10 +2010,10 @@ span {
     position: absolute;
     top: 0;
     right: 0;
-    width: 70px;
-    height: 70px;
+    width: 73px;
+    height: 73px;
     background: url("../core/images/productList/out-of-stock.png") no-repeat right top;
-    opacity: 1; }
+    opacity: .7; }
   .list-box .product-message {
     display: none;
     position: absolute;
@@ -2197,10 +2197,10 @@ span {
     position: absolute;
     top: 0;
     right: 0;
-    width: 70px;
-    height: 70px;
+    width: 73px;
+    height: 73px;
     background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
-    opacity: 1; }
+    opacity: .7; }
   .similar-box .product-message {
     display: none;
     position: absolute;
