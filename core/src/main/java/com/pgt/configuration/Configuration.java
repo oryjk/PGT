@@ -17,6 +17,7 @@ public class Configuration {
 	private Boolean useES = false;
 	private Integer plpCapacity;
 	private String resourcePath;
+	private String initialDataPath;
 
 	public Integer getPlpCapacity() {
 		return plpCapacity;
@@ -130,5 +131,13 @@ public class Configuration {
 
 	public void setResourcePath(String resourcePath) {
 		this.resourcePath = resourcePath;
+	}
+
+	public String getInitialDataPath() {
+		return initialDataPath;
+	}
+
+	public void setInitialDataPath(String initialDataPath) {
+		this.initialDataPath = initialDataPath;
 	}
 }

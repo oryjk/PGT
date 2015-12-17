@@ -7,7 +7,13 @@ import java.util.List;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
+import com.pgt.configuration.Configuration;
 import com.pgt.data.ImportDataService;
+
+import org.flywaydb.core.internal.util.Location;
+import org.flywaydb.core.internal.util.Locations;
+import org.flywaydb.core.internal.util.scanner.Resource;
+import org.flywaydb.core.internal.util.scanner.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import com.pgt.product.service.ProductServiceImp;
+import org.springframework.util.ObjectUtils;
 
 @Component
 public class JsonUtil {
@@ -26,29 +33,30 @@ public class JsonUtil {
 	@Autowired
 	private CategoryService categoryService;
 
+
 	public String fileToJson(String path) throws Exception{
-		FileReader fr = new FileReader(path);
-		StringBuffer str = new StringBuffer();
-		try {
-			int i = 0;
-			while ((i = fr.read()) != -1) {
-				str.append((char) i);
-			}
-		} finally {
-			fr.close();
+		Scanner scanner = new Scanner(this.getClass().getClassLoader());
+		Location location =new Location(path);
+		LOGGER.debug("The file path is {}.",location.getPath());
+		Resource[] resources = scanner.scanForResources(location, "",".json");
+		if(!ObjectUtils.isEmpty(resources)){
+			return resources[0].loadAsString("UTF-8");
 		}
-		return str.toString();
+		return null;
 	}
 
 	public void categoriesCreate(String path){
 		try{
+			LOGGER.debug("The initial data path is {},",path);
 			LOGGER.debug(fileToJson(path));
 			List<Category> categorys=JSONObject.parseArray(fileToJson(path), Category.class);
 			for(int i = 0 ; i < categorys.size(); i++){
 				importDataService.createCatalogData(categorys.get(i));
 			}
+
+			LOGGER.debug("End initial data.");
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Some error occured when initial data,the error message is {}.",e.getMessage());
 		}
 	}
 

@@ -1,12 +1,15 @@
 package com.pgt.data;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.search.service.ESSearchService;
+import com.pgt.utils.JsonUtil;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
@@ -18,6 +21,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 public class MigrateData implements ApplicationListener<ContextRefreshedEvent> {
 
 
+    @Autowired
+    private Configuration configuration;
     public ESConfiguration getEsConfiguration() {
         return esConfiguration;
     }
@@ -49,11 +54,19 @@ public class MigrateData implements ApplicationListener<ContextRefreshedEvent> {
 
     private ComboPooledDataSource dataSource;
 
+    @Autowired
+    private JsonUtil jsonUtil;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (event.getApplicationContext().getParent() == null) {//root application context 没有parent，他就是老大.
-            migrate();
-            createIndex();
+            try{
+                migrate();
+                createIndex();
+                jsonUtil.categoriesCreate(configuration.getInitialDataPath());
+            }catch(Exception e){
+                LOGGER.error("Some error occured when migration data.The error message is {}.",e.getMessage());
+            }
         }
     }
 
@@ -97,4 +110,6 @@ public class MigrateData implements ApplicationListener<ContextRefreshedEvent> {
         }
 
     }
+
+
 }

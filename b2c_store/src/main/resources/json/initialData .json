@@ -2629,95 +2629,95 @@
         "type":"HIERARCHY",
         "products":[
           {
-          "name": "龙之子",
-          "serialNumber": "SSYZ001",
-          "salePrice": "1433",
-          "listPrice": "860",
-          "status": "1",
-          "description": "",
-          "shippingFee": "",
-          "stock": "1",
-          "mainMedias": [
-            {
+            "name": "龙之子",
+            "serialNumber": "SSYZ001",
+            "salePrice": "1433",
+            "listPrice": "860",
+            "status": "1",
+            "description": "",
+            "shippingFee": "",
+            "stock": "1",
+            "mainMedias": [
+              {
+                "title": "",
+                "path": "/image/description/SSYZ001_main_00.jpg",
+                "index": "",
+                "type": "main"
+              }, {
+                "title": "",
+                "path": "/image/description/SSYZ001_main_01.jpg",
+                "index": "",
+                "type": "main"
+              }, {
+                "title": "",
+                "path": "/image/description/SSYZ001_main_02.jpg",
+                "index": "",
+                "type": "main"
+              }, {
+                "title": "",
+                "path": "/image/description/SSYZ001_main_03.jpg",
+                "index": "",
+                "type": "main"
+              }
+            ],
+            "heroMedias": [
+              {
+                "title": "",
+                "path": "/image/description/SSYZ001_hero_00.jpg",
+                "index": "",
+                "type": "hero"
+              }, {
+                "title": "",
+                "path": "/image/description/SSYZ001_hero_01.jpg",
+                "index": "",
+                "type": "hero"
+              }, {
+                "title": "",
+                "path": "/image/description/SSYZ001_hero_02.jpg",
+                "index": "",
+                "type": "hero"
+              }, {
+                "title": "",
+                "path": "/image/description/SSYZ001_hero_03.jpg",
+                "index": "",
+                "type": "hero"
+              }, {
+                "title": "",
+                "path": "/image/description/SSYZ001_hero_04.jpg",
+                "index": "",
+                "type": "hero"
+              }
+            ],
+            "thumbnailMedias": [
+              {
+                "title": "",
+                "path": "/image/description/SSYZ001_thumbnail_00.jpg",
+                "index": "",
+                "type": "thumbnail"
+              }
+            ],
+            "advertisementMedia": {
               "title": "",
-              "path": "/image/description/SSYZ001_main_00.jpg",
+              "path": "/image/description/SSYZ001_advertisement_00.jpg",
               "index": "",
-              "type": "main"
-            }, {
+              "type": "advertisement"
+            },
+            "frontMedia": {
               "title": "",
-              "path": "/image/description/SSYZ001_main_01.jpg",
+              "path": "/image/description/SSYZ001_front_00.jpg",
               "index": "",
-              "type": "main"
-            }, {
+              "type": "front"
+            },
+            "expertMedia": {
               "title": "",
-              "path": "/image/description/SSYZ001_main_02.jpg",
+              "path": "/image/description/SSYZ001_expert_00.jpg",
               "index": "",
-              "type": "main"
-            }, {
-              "title": "",
-              "path": "/image/description/SSYZ001_main_03.jpg",
-              "index": "",
-              "type": "main"
-            }
-          ],
-          "heroMedias": [
-            {
-              "title": "",
-              "path": "/image/description/SSYZ001_hero_00.jpg",
-              "index": "",
-              "type": "hero"
-            }, {
-              "title": "",
-              "path": "/image/description/SSYZ001_hero_01.jpg",
-              "index": "",
-              "type": "hero"
-            }, {
-              "title": "",
-              "path": "/image/description/SSYZ001_hero_02.jpg",
-              "index": "",
-              "type": "hero"
-            }, {
-              "title": "",
-              "path": "/image/description/SSYZ001_hero_03.jpg",
-              "index": "",
-              "type": "hero"
-            }, {
-              "title": "",
-              "path": "/image/description/SSYZ001_hero_04.jpg",
-              "index": "",
-              "type": "hero"
-            }
-          ],
-          "thumbnailMedias": [
-            {
-              "title": "",
-              "path": "/image/description/SSYZ001_thumbnail_00.jpg",
-              "index": "",
-              "type": "thumbnail"
-            }
-          ],
-          "advertisementMedia": {
-            "title": "",
-            "path": "/image/description/SSYZ001_advertisement_00.jpg",
-            "index": "",
-            "type": "advertisement"
+              "type": "expert"
+            },
+            "title": "寿山石印章——龙之子",
+            "shortDescription": "辟邪 天禄 赶走邪气 带来好运",
+            "isNew": "全新"
           },
-          "frontMedia": {
-            "title": "",
-            "path": "/image/description/SSYZ001_front_00.jpg",
-            "index": "",
-            "type": "front"
-          },
-          "expertMedia": {
-            "title": "",
-            "path": "/image/description/SSYZ001_expert_00.jpg",
-            "index": "",
-            "type": "expert"
-          },
-          "title": "寿山石印章——龙之子",
-          "shortDescription": "辟邪 天禄 赶走邪气 带来好运",
-          "isNew": "全新"
-        },
           {
             "name": "子母狮",
             "serialNumber": "SSYZ002",
@@ -2828,15 +2828,15 @@
         "code": "",
         "type":"HIERARCHY"
       }
-      ],
+    ],
     "status": "",
     "frontMedia":
-      {
-        "title": "",
-        "ferenceId":"",
-        "path": "/image/description/category翡翠玉石.jpg",
-        "type": "front"
-      },
+    {
+      "title": "",
+      "ferenceId":"",
+      "path": "/image/description/category翡翠玉石.jpg",
+      "type": "front"
+    },
     "color": "",
     "sort": "",
     "description":"",
@@ -4343,15 +4343,15 @@
           }
         ]
       }
-      ],
+    ],
     "status": "",
     "frontMedia":
-      {
-        "title": "",
-        "ferenceId":"",
-        "path": "/image/description/category琥珀蜜蜡.jpg",
-        "type": "front"
-      },
+    {
+      "title": "",
+      "ferenceId":"",
+      "path": "/image/description/category琥珀蜜蜡.jpg",
+      "type": "front"
+    },
     "color": "",
     "sort": "",
     "description":"",

@@ -1,5 +1,6 @@
 package util;
 
+import com.pgt.configuration.Configuration;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,10 +18,14 @@ public class JsonUtilTest {
 	@Autowired
 	private JsonUtil jsonUtil;
 
+	@Autowired
+	private Configuration configuration;
+
 	@Test
 	public void categoriesCreate(){
 		try{
-			jsonUtil.categoriesCreate("src/main/resources/json/category1.json");
+			//jsonUtil.categoriesCreate("src/main/resources/json/initialData .json");
+			jsonUtil.categoriesCreate(configuration.getInitialDataPath());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
