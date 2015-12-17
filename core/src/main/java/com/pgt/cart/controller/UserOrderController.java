@@ -1,6 +1,5 @@
 package com.pgt.cart.controller;
 
-import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.ResponseBean;
 import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.constant.CartConstant;
@@ -93,26 +92,16 @@ public class UserOrderController extends TransactionBaseController implements Us
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/orderHistoryDetails")//, method = RequestMethod.GET)
-	public ModelAndView loadOrderHistoryDetails(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "orderId") String orderId) {
+	@RequestMapping(value = "/browsedProducts")//, method = RequestMethod.GET)
+	public ModelAndView RecentlyBrowsedProducts(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
 		if (currentUser == null) {
-			LOGGER.debug("Current session user has not sign, skip load order history details.");
+			LOGGER.debug("Current session user has not sign, skip load recent browsed products.");
 			return new ModelAndView("redirect:/user/login");
 		}
-		int orderIdInt = RepositoryUtils.safeParseId(orderId);
-		if (!RepositoryUtils.idIsValid(orderIdInt)) {
-			LOGGER.debug("Cannot load order with an invalid order id: {}", orderId);
-			return new ModelAndView("redirect:/user/login");
-		}
-		Order order = getUserOrderService().loadOrderHistory(orderIdInt);
-		ModelAndView mav = new ModelAndView("/my-account/order-history-detail");
-		mav.addObject(CartConstant.ORDER_HISTORY_DETAIL, order);
-		return mav;
+		return new ModelAndView("/my-account/browsed-products");
 	}
-
 
 	public UserOrderService getUserOrderService() {
 		return mUserOrderService;

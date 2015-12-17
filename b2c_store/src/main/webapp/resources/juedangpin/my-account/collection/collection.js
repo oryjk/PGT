@@ -53,7 +53,9 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         };
         var getFavouriteLIstUrl = Prd.baseUrl + '/myAccount/ajaxFavourites';
 
-        Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getFavouriteLIstUrl, pageObj, rendering);
+        if($("#favourite_page").length > 0) {
+            Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getFavouriteLIstUrl, pageObj, rendering);
+        }
 
         //事件委托:加入购物车, 添加收藏, 取消收藏
         $(document).on('click', '.addCart', addCart);

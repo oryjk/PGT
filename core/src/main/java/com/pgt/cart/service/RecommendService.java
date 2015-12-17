@@ -44,7 +44,7 @@ public class RecommendService {
 
 	private boolean mRecommendOutOfStockProduct = false;
 
-	private String[] mRecommendURLs = new String[] {"/myAccount/favourites", "/myAccount/orderHistory", "/404"};
+	private String[] mRecommendURLs = new String[] {"/myAccount/favourites", "/myAccount/orderHistory", "/myAccount/browsedProducts", "/404"};
 
 	private static final String SUFFIX_JS = ".js";
 	private static final String SUFFIX_CSS = ".css";
@@ -156,7 +156,7 @@ public class RecommendService {
 		List<Integer> randomRecommendCategoryIds = getRecommendDao().queryCategoryIdsExclude(pRecommendedCategoryIds);
 		for (Integer categoryId : randomRecommendCategoryIds) {
 			List<Integer> categoryProductIds = getRecommendDao().queryAvailableProductIds(categoryId, isRecommendOutOfStockProduct());
-			if(CollectionUtils.isEmpty(categoryProductIds)) {
+			if (CollectionUtils.isEmpty(categoryProductIds)) {
 				continue;
 			}
 			for (int i = RandomUtils.nextInt(0, categoryProductIds.size()); pRecommendProducts.size() < getRecommendCount(); i++) {
