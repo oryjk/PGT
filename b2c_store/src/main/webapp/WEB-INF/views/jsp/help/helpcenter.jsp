@@ -26,7 +26,7 @@
             <div class="aside1"><h2>帮助中心</h2></div>
         <ul>
             <c:forEach items="${helpCategorVoList}" var="categoryVo">
-                <li><a class="menu-level-1" href="">${categoryVo.category.name}</a></li>
+                <li><a class="menu-level-1" >${categoryVo.category.name}</a></li>
                 <li>
                     <ul>
                         <c:forEach items="${categoryVo.helpCenterList}" var="helpcenter">
@@ -48,7 +48,7 @@
                     <p>
                         <a href="#">帮助中心</a>
                         >
-                        <a href="#">购物与支付</a>
+                        <a href="#">${helpCenter.category.name}</a>
                         >
                         <a href="#">${helpCenter.title}</a>
                     </p>
