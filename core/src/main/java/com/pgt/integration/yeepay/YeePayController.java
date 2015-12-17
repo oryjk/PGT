@@ -212,6 +212,9 @@ public class YeePayController {
 		ModelAndView mav = null;
 		try {
 			jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_SUCCESS_JSP);
+			if (YeePayConstants.SERVICE_NAME_TOCPTRANSACTION.equals(serviceName)) {
+				jspPath += "?orderId=" + transactionLog.getId();
+			}
 			mav = new ModelAndView(jspPath);
 			notificationHandler.handleCallback(inboundParam, transactionLog);
 		} catch (YeePayException e) {
@@ -472,7 +475,7 @@ public class YeePayController {
 		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
 
 		String callBackUrl = getConfig().getCallbackUrl() + "?servieName="
-				+ YeePayConstants.SERVICE_NAME_TOCPTRANSACTION + "&orderId=" + order.getId() + ";jsessionid=" + pRequest.getSession().getId();
+				+ YeePayConstants.SERVICE_NAME_TOCPTRANSACTION  + ";jsessionid=" + pRequest.getSession().getId();
 		paramMap.put(YeePayConstants.PARAM_NAME_CALLBACK_URL, callBackUrl);
 
 		String notifyUrl = getConfig().getNotifyUrl();

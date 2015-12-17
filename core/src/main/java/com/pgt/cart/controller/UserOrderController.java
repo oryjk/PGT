@@ -59,7 +59,7 @@ public class UserOrderController extends TransactionBaseController implements Us
 		LOGGER.debug("Query order history with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
 		InternalPagination pagination = ipb.setSortFieldName("update_date").setAsc(ascBoolean).createInternalPagination();
-		getUserOrderService().queryOrderPage(currentUser.getId().intValue(), status, pagination);
+		getUserOrderService().querySubmittedOrderPage(currentUser.getId().intValue(), status, pagination);
 		ModelAndView mav = new ModelAndView("/my-account/order-history");
 		mav.addObject(CartConstant.ORDER_HISTORY, pagination);
 		return mav;
@@ -88,7 +88,7 @@ public class UserOrderController extends TransactionBaseController implements Us
 		LOGGER.debug("Query order history with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
 		InternalPagination pagination = ipb.setSortFieldName("update_date").setAsc(ascBoolean).createInternalPagination();
-		getUserOrderService().queryOrderPage(currentUser.getId().intValue(), status, pagination);
+		getUserOrderService().querySubmittedOrderPage(currentUser.getId().intValue(), status, pagination);
 		rb.setSuccess(true).setData(pagination);
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
