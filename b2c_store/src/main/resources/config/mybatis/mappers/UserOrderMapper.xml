@@ -27,6 +27,7 @@
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 		<result column="submit_Date" property="submitDate" />
+		<association column="order_id" property="shippingVO" select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
 		<collection column="order_id" property="commerceItems" select="loadCommerceItemsFromOrder" />
 	</resultMap>
 
@@ -37,7 +38,6 @@
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 	</resultMap>
-
 
 	<select id="queryOrderCount" resultType="long">
 		SELECT COUNT(o.order_id)
@@ -110,4 +110,5 @@
 			WHERE id = #{item}
 		</foreach>
 	</update>
+
 </mapper>
