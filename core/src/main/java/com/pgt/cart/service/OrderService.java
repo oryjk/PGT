@@ -18,6 +18,18 @@ public class OrderService {
 		return getOrderMapper().loadOrder(orderId);
 	}
 
+	public Order loadEasyBuyOrderByUserId(String userId) {
+		return getOrderMapper().loadEasyBuyOrderByUserId(userId);
+	}
+
+	public boolean updateOrder(Order order) {
+		if (order == null) {
+			return false;
+		}
+		getOrderMapper().updateOrder(order);
+		return true;
+	}
+
 	public OrderMapper getOrderMapper() {
 		return orderMapper;
 	}

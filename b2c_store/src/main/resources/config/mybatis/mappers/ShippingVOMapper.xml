@@ -34,7 +34,7 @@
     </select>
     
     <update id="saveShippingToOrder" parameterType="com.pgt.cart.bean.Order">
-        UPDATE ORDER SET shipping_id = #{shippingVO.id} WHERE order_id=#{id}
+        UPDATE `ORDER` SET shipping_id = #{shippingVO.id} WHERE order_id=#{id}
     </update>
     
     <update id="deleteLinkAddressId" parameterType="int">

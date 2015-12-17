@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pgt.cart.bean.Order;
-import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.configuration.URLConfiguration;
@@ -43,9 +43,10 @@ public class AlipayController {
 	private PaymentService paymentService;
 
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
-	public ModelAndView requestAlipay(HttpSession session) {
+	public ModelAndView requestAlipay(HttpServletRequest request,HttpSession session) {
 		ModelAndView model = null;
-		Order order = (Order) session.getAttribute(CartConstant.CURRENT_ORDER);
+		String orderId = request.getParameter("orderId");
+		Order order = getOrderService().loadOrder(Integer.parseInt(orderId));
 		if (order == null || order.getCommerceItemCount() == 0) {
 			model = new ModelAndView("redirect:/payment/gateway");
 			return model;
@@ -54,7 +55,7 @@ public class AlipayController {
 			getPaymentService().ensureTransaction();
 			PaymentGroup paymentGroup = getPaymentService().maintainPaymentGroup(order, PaymentConstants.METHOD_ALIPAY);
 			Map<String, String> paramsMap = getAlipayService().buildRequestMap(order);
-			getAlipayService().createAlipayTransactionLog(session, paymentGroup, paramsMap);
+			getAlipayService().createAlipayTransactionLog(session,order, paymentGroup, paramsMap);
 
 			LOGGER.debug("Collected all required parameters and submit form to alipay payment gateway.");
 			model = new ModelAndView("checkout/alipayForm");
@@ -123,7 +124,7 @@ public class AlipayController {
 		paymentGroup.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
 		getPaymentService().updatePaymentGroup(paymentGroup);
 		if (order != null) {
-			order.setStatus(3);
+			order.setStatus(OrderStatus.PAID);
 			getShoppingCartService().updateOrder(order);
 		}
 		LOGGER.info("Successed to call alipay for order {}.", orderId);
