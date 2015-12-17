@@ -1,19 +1,15 @@
 package com.pgt.cart.controller;
 
-import com.pgt.cart.bean.CommerceItem;
-import com.pgt.cart.bean.Order;
-import com.pgt.cart.bean.ResponseBean;
-import com.pgt.cart.bean.ResponseBuilder;
-import com.pgt.cart.constant.CartConstant;
-import com.pgt.cart.exception.OrderPersistentException;
-import com.pgt.cart.exception.PriceOrderException;
-import com.pgt.cart.service.PriceOrderService;
-import com.pgt.cart.service.ResponseBuilderFactory;
-import com.pgt.cart.service.ShoppingCartService;
-import com.pgt.internal.util.RepositoryUtils;
-import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
-import com.pgt.utils.URLMapping;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -23,13 +19,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.ResponseBean;
+import com.pgt.cart.bean.ResponseBuilder;
+import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.exception.OrderPersistentException;
+import com.pgt.cart.exception.PriceOrderException;
+import com.pgt.cart.service.OrderService;
+import com.pgt.cart.service.PriceOrderService;
+import com.pgt.cart.service.ResponseBuilderFactory;
+import com.pgt.cart.service.ShoppingCartService;
+import com.pgt.internal.util.RepositoryUtils;
+import com.pgt.product.bean.Product;
+import com.pgt.product.service.ProductService;
+import com.pgt.user.bean.User;
+import com.pgt.utils.URLMapping;
 
 /**
  * Created by Yove on 10/28/2015.
@@ -48,6 +60,9 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@Autowired
 	private ProductService mProductService;
+	
+	@Autowired
+	private OrderService orderService;
 
 	@Resource(name = "responseBuilderFactory")
 	private ResponseBuilderFactory mResponseBuilderFactory;
@@ -69,10 +84,6 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			@RequestParam(value = "productId", required = true) int productId,
 			@RequestParam(value = "easyBuy", required = false, defaultValue = "0") int easyBuy) {
 		ModelAndView mav = new ModelAndView(getRedirectView(getURLMapping().getPDPUrl(String.valueOf(productId))));
-		if (easyBuy > 0) {
-			// TODO add shipping view name here!!
-			mav.setViewName(getRedirectView(""));
-		}
 		// check product
 		Product product = getProductService().queryProduct(productId);
 		if (!mShoppingCartService.checkProductValidity(product)) {
@@ -80,8 +91,13 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_NOT_AVAILABLE, StringUtils.EMPTY));
 			return mav;
 		}
-		// check and generate order
-		Order order = getCurrentOrder(pRequest, true);
+		Order order = null;
+		if (easyBuy > 0) {
+			order = getEasyBuyOrder(pRequest);
+		} else {
+			// check and generate order
+			order = getCurrentOrder(pRequest, true);
+		}
 		synchronized (order) {
 			if (!getShoppingCartService().purchaseProduct(order, product)) {
 				LOGGER.debug("Stop add item to cart for product: {} out of stock", productId);
@@ -477,6 +493,23 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		return new ResponseEntity(rb.setData(order).createResponse(), HttpStatus.OK);
 	}
 
+	protected Order getEasyBuyOrder(HttpServletRequest pRequest) {
+		User currentUser = getCurrentUser(pRequest);
+		if (currentUser == null) {
+			LOGGER.error("Cannot get current user, please login firstly.");
+			return null;
+		}
+		Order order = getOrderService().loadEasyBuyOrderByUserId(String.valueOf(currentUser.getId()));
+		if (order == null) {
+			LOGGER.debug("Get empty esay buy order by user id.");
+			order = new Order();
+			order.setEasyBuy(true);
+			order.setUserId(currentUser.getId().intValue());
+		}
+		pRequest.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX+order.getId(), order);
+		return order;
+	}
+	
 	public ShoppingCartService getShoppingCartService() {
 		return mShoppingCartService;
 	}
@@ -515,6 +548,14 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	public void setResponseBuilderFactory(ResponseBuilderFactory pResponseBuilderFactory) {
 		mResponseBuilderFactory = pResponseBuilderFactory;
+	}
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
 	}
 
 }

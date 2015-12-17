@@ -20,4 +20,6 @@ public interface CartConstant {
 	String RECOMMEND_PRODUCTS = "recommendProducts";
 
 	String BROWSED_PRODUCTS = "browsedProducts";
+	
+	String ORDER_KEY_PREFIX = "orderId";
 }
