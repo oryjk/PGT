@@ -230,6 +230,14 @@ td {
       background: $lightGray;
     }
 
+    .product-hidden {
+      width: 20px;
+    }
+
+    .product-level {
+      width: 100px;
+    }
+
     .level {
       color: $viceColor;
     }
@@ -262,7 +270,7 @@ td {
 
   .product-name {
     text-align: left;
-    width: 600px;
+    width: 550px;
   }
 }
 
