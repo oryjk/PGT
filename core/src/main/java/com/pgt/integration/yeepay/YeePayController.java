@@ -10,7 +10,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pgt.internal.controller.InternalUserController;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +43,8 @@ import com.yeepay.g3.utils.security.cfca.SignUtil;
 @RestController
 @RequestMapping("/yeepay")
 public class YeePayController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(InternalUserController.class);
 
 	@Resource(name = "yeePayConfig")
 	private YeePayConfig config;
@@ -121,7 +126,7 @@ public class YeePayController {
 			outBoundBuilder.append(sign);
 			transactionLog.setOutbound(outBoundBuilder.toString());
 			transactionLog.setOutboundTime(new Date());
-			// TODO: LOG
+			LOGGER.info(outBoundBuilder.toString());
 			getTransactionLogService().updateTransactionLog(transactionLog);
 
 			responseContent.put("status", "200");
@@ -131,7 +136,7 @@ public class YeePayController {
 			return new ResponseEntity(responseContent, HttpStatus.OK);
 
 		} catch (Exception e) {
-			// TODO log error
+			LOGGER.error("Ajax get sign failed",e);
 			String error = e.getMessage();
 			Map<String, String> responseContent = new HashMap<String, String>();
 			responseContent.put("status", "200");
@@ -145,18 +150,16 @@ public class YeePayController {
 
 		String serviceName = pRequest.getParameter(YeePayConstants.PARAM_SERVICE_NAME);
 		if (StringUtils.isBlank(serviceName)) {
-			// TODO:
+			throw new IllegalArgumentException("serviceName is blank");
 		}
 		if (null == getConfig().getServiceJspPath()) {
-			// TODO:
+			throw new IllegalArgumentException("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=serviceJspPath ");
 		}
 		String jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_FORM_JSP);
 		if (StringUtils.isBlank(jspPath)) {
-			// TODO:
+			throw new IllegalArgumentException("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=serviceJspPath, key=" + serviceName );
 		}
 		ModelAndView mav = new ModelAndView(jspPath);
-
-		// TODO: precondition check.
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 		if (null != user) {
 			mav.addObject(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
@@ -190,20 +193,17 @@ public class YeePayController {
 		getTransactionLogService().updateTransactionLog(transactionLog);
 
 		if (null == getConfig().getNotificationHandler()) {
-			// TODO:
 			new IllegalArgumentException("NotificationHandle not config.");
 		}
 
 		String serviceName = transactionLog.getServiceName();
 		if (StringUtils.isBlank(serviceName)) {
-			// TODO:
 			new IllegalArgumentException("serviceName is blank");
 		}
 
 		// use service name to get handler from config. and call handler.
 		YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
 		if (null == notificationHandler) {
-			// TODO:
 			new IllegalArgumentException("no notificationHandler for serviceName: "  + serviceName);
 		}
 
@@ -215,7 +215,6 @@ public class YeePayController {
 			mav = new ModelAndView(jspPath);
 			notificationHandler.handleCallback(inboundParam, transactionLog);
 		} catch (YeePayException e) {
-			// TODO: show error message in error jsp
 			jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_ERROR_JSP);
 			mav = new ModelAndView(jspPath);
 			mav.addObject(YeePayConstants.PARAM_NAME_ERROR, e);
@@ -250,20 +249,20 @@ public class YeePayController {
 		getTransactionLogService().updateTransactionLog(transactionLog);
 
 		if (null == getConfig().getNotificationHandler()) {
-			// TODO log
+			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler");
 			return new ResponseEntity(HttpStatus.OK);
 		}
 
 		String serviceName = transactionLog.getServiceName();
 		if (StringUtils.isBlank(serviceName)) {
-			// TODO log
+			LOGGER.error("serviceName is blank");
 			return new ResponseEntity(HttpStatus.OK);
 		}
 
 		// use service name to get handler from config. and call handler.
 		YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
 		if (null == notificationHandler) {
-			// TODO log
+			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler, key=" + serviceName);
 			return new ResponseEntity(HttpStatus.OK);
 		}
 
@@ -281,7 +280,6 @@ public class YeePayController {
 	public ModelAndView b2cPay(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 		if (null == user) {
-			// TODO: REDIRECT TO LOGIN
 			ModelAndView modelAndView = new ModelAndView("redirect:" +getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
@@ -314,12 +312,7 @@ public class YeePayController {
 			transaction.setOrderId(orderId);
 			transaction.setPaymentGroupId(paymentGroup.getId());
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
-			
 			getPaymentService().createTransaction(transaction);
-
-			// TODO: maintain payment group
-
-			// TODO: maintain transaction
 
 			TransactionLog transactionLog = new TransactionLog();
 			transactionLog.setUserId(Long.valueOf(order.getUserId()));
@@ -393,20 +386,20 @@ public class YeePayController {
 		getTransactionLogService().updateTransactionLog(transactionLog);
 		
 		if (null == getConfig().getNotificationHandler()) {
-			// TODO log
+			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler");
 			return new ResponseEntity(HttpStatus.OK);
 		}
 
 		String serviceName = transactionLog.getServiceName();
 		if (StringUtils.isBlank(serviceName)) {
-			// TODO log
+			LOGGER.error("serviceName is blank.");
 			return new ResponseEntity(HttpStatus.OK);
 		}
 
 		// use service name to get handler from config. and call handler.
 		YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
 		if (null == notificationHandler) {
-			// TODO log
+			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler, key=" + serviceName);
 			return new ResponseEntity(HttpStatus.OK);
 		}
 
@@ -415,29 +408,29 @@ public class YeePayController {
 		try {
 			PaymentGroup paymentGroup = null;
 			if (null == transactionLog.getPaymentGroupId()) {
-				// TODO LOG
+				LOGGER.error("no paymentGroupId for transactionlog(id=" + transactionLog.getId() + ")");
 				return new ResponseEntity(HttpStatus.OK);
 			}
 			paymentGroup = getPaymentService().findPaymentGroupById(transactionLog.getPaymentGroupId());
 			if (null == paymentGroup) {
-				// TODO LOG
+				LOGGER.error("no paymentGroup found(id=" + transactionLog.getPaymentGroupId() + ")");
 				return new ResponseEntity(HttpStatus.OK);
 			}
 			
 			Transaction transaction = null;
 			transaction = getPaymentService().findTransactionByTrackingNumber(requestNoStr);
 			if (null == transaction) {
-				// TODO LOG
+				LOGGER.error("no transaction found(trackingNo=" + requestNoStr + ")");
 				return new ResponseEntity(HttpStatus.OK);
 			} 
 			Order order = null;
 			if (null == transactionLog.getOrderId()) {
-				// TODO LOG
+				LOGGER.error("no orderId for transactionLog(id=" + transactionLog.getId() + ")");
 				return new ResponseEntity(HttpStatus.OK);
 			}
 			order = getCompleteTransactionNotificationHandler().getUserOrderDao().loadOrderHistory(transactionLog.getOrderId().intValue());
 			if (null == order) {
-				// TODO LOG
+				LOGGER.error("no order found(id=" + transactionLog.getOrderId() + ")");
 				return new ResponseEntity(HttpStatus.OK);
 			}
 			getCompleteTransactionNotificationHandler().handleResult(paymentGroup, requestNoStr, inboundParam, transaction, new Date(), order);

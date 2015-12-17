@@ -3,6 +3,7 @@ package com.pgt.integration.yeepay.notification.service;
 import java.util.Date;
 import java.util.Map;
 
+import com.pgt.integration.yeepay.YeePayException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pgt.integration.yeepay.YeePayConstants;
@@ -16,16 +17,14 @@ public class RegisterNotificationHandler extends Transactionable implements Yeep
 	private UserMapper userMapper;
 	
 	@Override
-	public void handleCallback(Map<String, String> inboundParams, TransactionLog transactionLog) {
+	public void handleCallback(Map<String, String> inboundParams, TransactionLog transactionLog) throws YeePayException {
 		Long userId = transactionLog.getUserId();
 		// check user is registored or not
 
 		ensureTransaction();
 		try {
 			User user = getUserMapper().selectUser(userId.intValue());
-			if (user.getYeepayStatus() != YeePayConstants.REGISTOR_STATUS_NOT_REGIST) {
-				
-				// TODO REPLACE TO THROW EXCEPTION
+			if (user.getYeepayStatus() == YeePayConstants.REGISTOR_STATUS_SUCCESS) {
 				return;
 			}
 			String code = inboundParams.get(YeePayConstants.PARAM_NAME_CODE);
@@ -38,7 +37,7 @@ public class RegisterNotificationHandler extends Transactionable implements Yeep
 			getUserMapper().update(user);
 		} catch (Exception e) {
 			setAsRollback();
-			// TODO THROW WRAPPED EXCEPTOIN
+			throw new YeePayException(e);
 		} finally {
 			commit();
 		}
@@ -47,7 +46,7 @@ public class RegisterNotificationHandler extends Transactionable implements Yeep
 	
 
 	@Override
-	public void handleNotify(Map<String, String> inboundParams, TransactionLog transactionLog) {
+	public void handleNotify(Map<String, String> inboundParams, TransactionLog transactionLog) throws YeePayException {
 		handleCallback(inboundParams, transactionLog);
 	}
 

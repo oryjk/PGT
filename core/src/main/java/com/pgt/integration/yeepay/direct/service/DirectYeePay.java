@@ -11,6 +11,8 @@ import com.pgt.integration.yeepay.YeePayConstants;
 import com.pgt.integration.yeepay.YeePayHelper;
 import com.pgt.payment.bean.TransactionLog;
 import com.pgt.payment.service.TransactionLogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DirectYeePay {
 
@@ -21,7 +23,8 @@ public class DirectYeePay {
 	private ParamValidateor paramValidateor;
 	
 	private boolean requireRequestNo;
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DirectYeePay.class);
 
 	public Map<String, String> invok(Map<String, Object> params) throws IOException {
 
@@ -67,7 +70,7 @@ public class DirectYeePay {
 		outBoundBuilder.append(requestSign);
 		transactionLog.setOutbound(outBoundBuilder.toString());
 		transactionLog.setOutboundTime(new Date());
-		// TODO: LOG
+		LOGGER.info(outBoundBuilder.toString());
 		getTransactionLogService().updateTransactionLog(transactionLog);
 		String response = YeePayHelper.directCall(getConfig(), getServiceName(), requestXML, requestSign);
 		transactionLog.setInbound(response);

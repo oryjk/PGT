@@ -1,12 +1,6 @@
 package com.pgt.integration.yeepay;
 
-import java.io.IOException;
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.yeepay.g3.utils.security.cfca.SignUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -22,12 +16,19 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.yeepay.g3.utils.security.cfca.SignUtil;
+import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class YeePayHelper {
 
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(YeePayHelper.class);
 	public static String generateRequestXml(YeePayConfig config, Map<String, Object> params) {
 		Document document = DocumentHelper.createDocument();
 		Element request = document.addElement("request");
@@ -89,7 +90,7 @@ public class YeePayHelper {
 			}
 			return result;
 		} catch (DocumentException e) {
-			//TODO:
+			LOGGER.error("parse yeepay response error", e);
 		}
 
 		return null;
