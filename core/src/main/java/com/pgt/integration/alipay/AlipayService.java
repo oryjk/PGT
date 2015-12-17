@@ -56,7 +56,7 @@ public class AlipayService {
 		paramMap.put(AlipayConstants.SELLER_ID, alipayConfig.getPartner());
 		paramMap.put(AlipayConstants.SERVICE, alipayConfig.getService());
 		paramMap.put(AlipayConstants.SUBJECT, "绝当品编号:" + order.getId());
-		paramMap.put(AlipayConstants.TOTAL_FEE, String.valueOf(0.01));
+		paramMap.put(AlipayConstants.TOTAL_FEE, String.valueOf(order.getTotal()));
 		return paramMap;
 	}
 
