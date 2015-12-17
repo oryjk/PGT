@@ -101,9 +101,9 @@
                         </div>
                         <div class="left">
                             <p>
-                                <a class="link-btn" href="#">清空购物车</a>
-                                <a class="link-btn" href="#">删除选中商品</a>
+                                <a class="link-btn" href="<spring:url value="/shoppingCart/emptyCart"/>">清空购物车</a>
                                 <%--
+                                <a class="link-btn" href="#">删除选中商品</a>
                                 <a class="link-btn" href="#">移入收藏</a>
                                 --%>
                             </p>

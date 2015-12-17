@@ -125,18 +125,18 @@
                                             </td>
                                             <td class="col7" rowspan="100">
                                                 <c:choose>
-                                                    <c:when test="${order.status eq 2}">
+                                                    <c:when test="${order.status eq 20}">
                                                         <span>待付款</span>
                                                         <a class="link-btn" href="#">付款</a>
                                                     </c:when>
-                                                    <c:when test="${order.status eq 3}">
-                                                        <span>已付款</span>
+                                                    <c:when test="${order.status eq 30}">
+                                                        <span>待收货</span>
                                                     </c:when>
-                                                    <c:when test="${order.status eq 4}">
-                                                        <span>待确认完成</span>
-                                                    </c:when>
-                                                    <c:when test="${order.status eq 5}">
+                                                    <c:when test="${order.status eq 100}">
                                                         <span>已完成</span>
+                                                    </c:when>
+                                                    <c:when test="${order.status eq -10}">
+                                                        <span>已取消</span>
                                                     </c:when>
                                                 </c:choose>
                                             </td>

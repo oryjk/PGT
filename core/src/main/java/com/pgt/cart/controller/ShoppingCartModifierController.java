@@ -388,8 +388,52 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	}
 
 	@RequestMapping(value = "/emptyCart", method = RequestMethod.GET)
+	public ModelAndView emptyCart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		ModelAndView mav = new ModelAndView(getRedirectView(CART));
+		// check and generate order
+		Order order = getCurrentOrder(pRequest, true);
+		if (order == null || order.emptyOrder()) {
+			LOGGER.debug("No need to empty items for empty order.");
+			return mav;
+		}
+		synchronized (order) {
+			LOGGER.debug("Synchronized order to price and update order");
+			// remove all commerce items in order
+			order.emptyCommerceItems();
+			TransactionStatus status = ensureTransaction();
+			try {
+				getPriceOrderService().priceOrder(order);
+				// anonymous user could only add item to cart but not persisted
+				if (RepositoryUtils.idIsValid(order.getUserId())) {
+					getShoppingCartService().deleteAllCommerceItems(order.getId());
+					boolean result = getShoppingCartService().persistInitialOrder(order);
+					LOGGER.debug("Persist order with result: {}", result ? "success" : "failed");
+					if (!result) {
+						status.setRollbackOnly();
+					}
+				}
+			} catch (PriceOrderException e) {
+				LOGGER.error("Empty order failed for price order exception.", e);
+				status.setRollbackOnly();
+			} catch (OrderPersistentException e) {
+				LOGGER.error("Empty order failed for persist order exception.", e);
+				status.setRollbackOnly();
+			} catch (Exception e) {
+				LOGGER.error("Empty order failed.", e);
+				status.setRollbackOnly();
+			} finally {
+				if (status.isRollbackOnly()) {
+					LOGGER.debug("Transaction had been set as roll back during empty order");
+				}
+				getTransactionManager().commit(status);
+			}
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/ajaxEmptyCart", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity emptyCart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ResponseEntity ajaxEmptyCart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean();
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
