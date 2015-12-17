@@ -15,7 +15,9 @@
                     <img id="middlePic"
                         src="${pageContext.request.contextPath}/resources${product['heroMedias'][0]['path']}"   
                         alt="1" />
+                    <c:if test="${product.stock<1}">
                     <div class="out-of-stock"></div>
+                    </c:if>
                     <div id="glass" class="glass"></div>   
                 </div>
                 <ul id="smallPic" class="small-pic">
@@ -31,15 +33,15 @@
                 <h2>${product.title}</h2>
                 <div class="other-description"></div>
                 <div class="cost">
-                    <c:if test="${!empty product['salePrice']}">
+                    <c:if test="${!empty product['listPrice']}">
                         <p>
-                            <span>市场价:</span> ¥ <span class="old-cost">${product['salePrice']}</span>
+                            <span>市场价:</span> ¥ <span class="old-cost">${product['listPrice']}</span>
                         </p>
                     </c:if>
                     <p>
                         <span>绝当价:</span> <span class="our-cost">
-                            ¥${product['listPrice']}</span> (<span><fmt:formatNumber
-                                type="number" value="${product['listPrice']/product['salePrice']*10}"
+                            ¥${product['salePrice']}</span> (<span><fmt:formatNumber
+                                type="number" value="${product['salePrice']/product['listPrice']*10}"
                                 maxFractionDigits="0" /></span>折)
                     </p>
                 </div>
@@ -107,7 +109,11 @@
                         <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                     </div>
                     <div class="product-message">添加成功</div>
+
+                        <c:if test="${product.stock<1}">
                     <div class="out-of-stock"></div>
+                        </c:if>
+
                     </li>
                 </c:forEach>
                 </ul>

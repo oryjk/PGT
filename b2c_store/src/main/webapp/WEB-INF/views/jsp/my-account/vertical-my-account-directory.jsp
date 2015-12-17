@@ -40,7 +40,14 @@
                     </c:choose>
                 </li>
                 <li>
-                    <a class="menu-level-end" href="<spring:url value="/myAccount/favourites"/>">最近浏览</a>
+                    <c:choose>
+                        <c:when test="${fn:contains(param.step, 'browsed')}">
+                            <a class="menu-level-end current-page" href="<spring:url value="/myAccount/browsedProducts"/>">最近浏览</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="menu-level-end" href="<spring:url value="/myAccount/browsedProducts"/>">最近浏览</a>
+                        </c:otherwise>
+                    </c:choose>
                 </li>
             </ul>
         </li>
@@ -62,7 +69,7 @@
             </ul>
         </li>
         <li>
-            <a class="menu-level-1" href="#">帮助中心</a>
+            <a class="menu-level-1" href="<spring:url value="/helpcenter/query"/>">帮助中心</a>
         </li>
     </ul>
 </div>

@@ -109,11 +109,11 @@ public class PaymentController {
 		String method = pRequest.getParameter("method");
 		if (PaymentConstants.METHOD_YEEPAY.equals(method)) {
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("redirect:/yeepay/yeepayB2cPay");
+			modelAndView.setViewName("redirect:/yeepay/yeepayB2cPay?orderId=" + order.getId());
 			return modelAndView;
 		} else if (PaymentConstants.METHOD_ALIPAY.equals(method)) {
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("redirect:/alipay/request");
+			modelAndView.setViewName("redirect:/alipay/request?orderId=" + order.getId());
 			return modelAndView;
 		}
 
@@ -133,17 +133,29 @@ public class PaymentController {
 			return modelAndView;
 		}
 		String orderIdStr = pRequest.getParameter("orderId");
+		// TODO: LOG
 		if (StringUtils.isBlank(orderIdStr)) {
-			throw new Ax
+			throw new IllegalArgumentException("orderId is blank");
 		}
-		getUserOrderService().loadOrderHistory()
 		int orderId = 0;
-
-		Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
+		try {
+			orderId = Integer.valueOf(orderIdStr);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("orderId is not integer.");
+		}
+		// TODO: LOG
+		Order order = getUserOrderService().loadOrderHistory(orderId);
 		if (null == order) {
+			// TODO: LOG
 			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
 			return modelAndView;
 		}
+		if (order.getUserId() != user.getId().intValue()) {
+			// TODO: LOG
+			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+			return modelAndView;
+		}
+
 		// check the order is paid
 		ModelAndView modelAndView = null;
 		PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(order.getId());
@@ -152,7 +164,6 @@ public class PaymentController {
 			double total = order.getTotal();
 			modelAndView.addObject("orderId", orderId);
 			modelAndView.addObject("orderTotal", total);
-			//TODO: switch order
 			pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, null);
 		} else {
 			modelAndView = new ModelAndView("redirect:/shoppingCart/cart");

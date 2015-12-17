@@ -71,15 +71,18 @@ public class AlipayController {
 
 	@RequestMapping(value = "/return", method = RequestMethod.GET)
 	public ModelAndView handleAlipayReturn(HttpServletRequest request, HttpSession session) {
-		Order order = (Order) session.getAttribute(CartConstant.CURRENT_ORDER);
+		String orderId = request.getParameter(AlipayConstants.OUT_TRADE_NO);
+		Order order = getOrderService().loadOrder(Integer.parseInt(orderId));
 		boolean success = getAlipayService().verifyResult(request);
+		ModelAndView mav = new ModelAndView();
 		if (success) {
 			handleSuccessfulAlipayNotify(request, order);
+			mav.setViewName("redirect:/payment/complete?orderId=" + orderId);
+			return mav;
 		} else {
-			String orderId = request.getParameter(AlipayConstants.OUT_TRADE_NO);
 			LOGGER.error("Method handleAlipayReturn(): Failed to pay the order-{} by alipay.", orderId);
 		}
-		ModelAndView mav = new ModelAndView("redirect:/payment/gateway");
+		mav = new ModelAndView("redirect:/payment/gateway");
 		mav.addObject("order", order);
 		return mav;
 	}

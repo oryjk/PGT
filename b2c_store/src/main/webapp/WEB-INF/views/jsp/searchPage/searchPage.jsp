@@ -142,7 +142,7 @@
 							</li>
 
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
-<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=listPrice<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">价格</a>
+<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=salePrice<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">价格</a>
 
 								<c:if test="${sortKey eq 'listPrice'}">
 								<c:if test="${not empty sortOrder}">

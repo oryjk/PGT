@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pgt.cart.service.UserOrderService;
 import com.pgt.internal.controller.InternalUserController;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -63,6 +64,9 @@ public class YeePayController {
 	
 	@Resource(name = "completeTransactionNotificationHandler")
 	private CompleteTransactionNotificationHandler completeTransactionNotificationHandler;
+
+	@Resource(name = "userOrderService")
+	private UserOrderService userOrderService;
 
 	@RequestMapping(value = "/getSgin", method = RequestMethod.POST)
 	@ResponseBody
@@ -212,6 +216,9 @@ public class YeePayController {
 		ModelAndView mav = null;
 		try {
 			jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_SUCCESS_JSP);
+			if (YeePayConstants.SERVICE_NAME_TOCPTRANSACTION.equals(serviceName)) {
+				jspPath += "?orderId=" + transactionLog.getId();
+			}
 			mav = new ModelAndView(jspPath);
 			notificationHandler.handleCallback(inboundParam, transactionLog);
 		} catch (YeePayException e) {
@@ -283,21 +290,37 @@ public class YeePayController {
 			ModelAndView modelAndView = new ModelAndView("redirect:" +getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
-		Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
+		String orderIdStr = pRequest.getParameter("orderId");
+		// TODO: LOG
+		if (StringUtils.isBlank(orderIdStr)) {
+			throw new IllegalArgumentException("orderId is blank");
+		}
+		int orderId = 0;
+		try {
+			orderId = Integer.valueOf(orderIdStr);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("orderId is not integer.");
+		}
+		// TODO: LOG
+		Order order = getUserOrderService().loadOrderHistory(orderId);
 		if (null == order) {
+			// TODO: LOG
 			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
 			return modelAndView;
 		}
-		
-		
+		if (order.getUserId() != user.getId().intValue()) {
+			// TODO: LOG
+			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+			return modelAndView;
+		}
+
 		String jspPath = null;
 		ModelAndView mav = null;
 		try {
 			getPaymentService().ensureTransaction();
 			PaymentGroup paymentGroup = new PaymentGroup();
 			Date now = new Date();
-			Long orderId = Long.valueOf(order.getId());
-			paymentGroup.setOrderId(orderId);
+			paymentGroup.setOrderId(Long.valueOf(order.getId()));
 			paymentGroup.setAmount(order.getTotal());
 			paymentGroup.setCreateDate(now);
 			paymentGroup.setUpdateDate(now);
@@ -309,7 +332,7 @@ public class YeePayController {
 			transaction.setAmount(order.getTotal());
 			transaction.setCreationDate(now);
 			transaction.setUpdateDate(now);
-			transaction.setOrderId(orderId);
+			transaction.setOrderId(Long.valueOf(order.getId()));
 			transaction.setPaymentGroupId(paymentGroup.getId());
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
 			getPaymentService().createTransaction(transaction);
@@ -364,12 +387,12 @@ public class YeePayController {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/completeTransactionNotify", method = RequestMethod.POST)
 	public ResponseEntity handleCompleteTransactionNotify(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		String inboundXML = pRequest.getParameter(YeePayConstants.PARAM_NAME_NOTIFY);
 		String inboundSign = pRequest.getParameter(YeePayConstants.PARAM_NAME_SIGN);
-		
+
 		boolean pass = SignUtil.verifySign(inboundXML, inboundSign, "yeepay.com");
 		if (!pass) {
 			return new ResponseEntity(HttpStatus.OK);
@@ -384,7 +407,7 @@ public class YeePayController {
 		transactionLog.setInbound(inboundBuilder.toString());
 		transactionLog.setInboundTime(new Date());
 		getTransactionLogService().updateTransactionLog(transactionLog);
-		
+
 		if (null == getConfig().getNotificationHandler()) {
 			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler");
 			return new ResponseEntity(HttpStatus.OK);
@@ -416,13 +439,13 @@ public class YeePayController {
 				LOGGER.error("no paymentGroup found(id=" + transactionLog.getPaymentGroupId() + ")");
 				return new ResponseEntity(HttpStatus.OK);
 			}
-			
+
 			Transaction transaction = null;
 			transaction = getPaymentService().findTransactionByTrackingNumber(requestNoStr);
 			if (null == transaction) {
 				LOGGER.error("no transaction found(trackingNo=" + requestNoStr + ")");
 				return new ResponseEntity(HttpStatus.OK);
-			} 
+			}
 			Order order = null;
 			if (null == transactionLog.getOrderId()) {
 				LOGGER.error("no orderId for transactionLog(id=" + transactionLog.getId() + ")");
@@ -441,7 +464,7 @@ public class YeePayController {
 		} finally {
 			getCompleteTransactionNotificationHandler().commit();
 		}
-	
+
 	}
 
 	private Map<String, Object> getPaymentParamMap(Order order, TransactionLog transactionLog,
@@ -472,7 +495,7 @@ public class YeePayController {
 		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
 
 		String callBackUrl = getConfig().getCallbackUrl() + "?servieName="
-				+ YeePayConstants.SERVICE_NAME_TOCPTRANSACTION + ";jsessionid=" + pRequest.getSession().getId();
+				+ YeePayConstants.SERVICE_NAME_TOCPTRANSACTION  + ";jsessionid=" + pRequest.getSession().getId();
 		paramMap.put(YeePayConstants.PARAM_NAME_CALLBACK_URL, callBackUrl);
 
 		String notifyUrl = getConfig().getNotifyUrl();
@@ -592,4 +615,11 @@ public class YeePayController {
 		this.completeTransactionNotificationHandler = completeTransactionNotificationHandler;
 	}
 
+	public UserOrderService getUserOrderService() {
+		return userOrderService;
+	}
+
+	public void setUserOrderService(UserOrderService userOrderService) {
+		this.userOrderService = userOrderService;
+	}
 }
