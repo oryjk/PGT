@@ -82,6 +82,7 @@
         <property name="shippingPage" value="/checkout/shipping"/>
         <property name="pdpPage" value="/product"/>
         <property name="plpPage" value="/category"/>
+        <property name="helpCenterPage" value="/helpcenter/query"/>
     </bean>
     <bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
         <property name="host" value="localhost"/>
