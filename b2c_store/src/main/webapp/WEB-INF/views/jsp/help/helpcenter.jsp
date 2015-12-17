@@ -29,8 +29,17 @@
                 <li><a class="menu-level-1" >${categoryVo.category.name}</a></li>
                 <li>
                     <ul>
-                        <c:forEach items="${categoryVo.helpCenterList}" var="helpcenter">
-                        <li><a  class="menu-level-end" href="${pageContext.request.contextPath}/helpcenter/${helpcenter.id}">${helpcenter.title}</a></li>
+                        <c:forEach items="${categoryVo.helpCenterList}" var="helpVo">
+
+                            <c:if test="${helpVo.id == helpCenter.id}">
+                                <li><a    class="menu-level-end current-page" href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</></li>
+
+                            </c:if>
+
+                            <c:if test="${helpVo.id != helpCenter.id}">
+                                <li><a  class="menu-level-end"   href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</></li>
+                            </c:if>
+
                         </c:forEach>
                     </ul>
                 </li>

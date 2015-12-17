@@ -1,23 +1,17 @@
 /**
- * Created by supersoup on 15/12/14.
+ * Created by supersoup on 15/12/17.
  */
+
 require.config({
     paths: {
-        jquery: '../../core/js/jquery.min',
-        component: '../../core/js/module/component',
-        product: '../../core/js/module/product'
+        jquery: '../core/js/jquery.min',
+        component: '../core/js/module/component',
+        product: '../core/js/module/product'
     }
 });
 
 require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
-
     $(document).ready(function() {
-        //固定头部
-        Cpn.fixedHead({
-            head: $('#fixedHead'),
-            height: 200,
-            time: 200
-        });
 
         //tab切换
         Cpn.tab({
@@ -70,18 +64,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         }
 
 
-        //分页
-        var pageObj = {
-            currentIndex: 0,
-            capacity: 5
-        };
-        var getOrderListUrl = Prd.baseUrl + '/myAccount/ajaxOrderHistory';
-
-        Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, rendering);
-
-        function rendering($arr, list) {
-            console.log($arr)
-        }
 
     });
 });

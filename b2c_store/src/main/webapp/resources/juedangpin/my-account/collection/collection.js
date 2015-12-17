@@ -49,9 +49,11 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         //分页
         var pageObj = {
             currentIndex: 0,
-            capacity: 5
+            capacity: 20
         };
-        Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), Prd.baseUrl, pageObj, dataInPage);
+        var getFavouriteLIstUrl = Prd.baseUrl + '/myAccount/ajaxFavourites';
+
+        Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getFavouriteLIstUrl, pageObj, rendering);
 
         //事件委托:加入购物车, 添加收藏, 取消收藏
         $(document).on('click', '.addCart', addCart);
@@ -92,7 +94,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         }
 
         //渲染页面
-        function dataInPage(data, list) {
+        function rendering(data, list) {
             var favouriteStr = '';
             $.each(data, function() {
                 favouriteStr +=
@@ -113,10 +115,14 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                     +'<div class="product-handle">'
                     +'    <a class="disLike" data-favourite-id="'+this.id+'" href="#"><i class="foundicon-heart"></i>取消</a>'
                     +' <a class="addEnjoy" data-value="'+this.productId+'" href="#"><i class="foundicon-heart"></i>收藏</a>'
-                    +' <a class="addCart" data-vaule="'+this.productId+'" href="#"><i class="foundicon-cart"></i>购物车</a>'
-                    +'</div>'
-                    +'<div class="out-of-stock"></div>'
-                    +'<div class="product-message">添加成功</div>'
+                    +' <a class="addCart" data-value="'+this.productId+'" href="#"><i class="foundicon-cart"></i>购物车</a>'
+                    +'</div>';
+
+                    if (this.productStock < 1 || this.productStock == '0') {
+                        favouriteStr += '<div class="out-of-stock"></div>';
+                    }
+
+                    favouriteStr +='<div class="product-message">添加成功</div>'
                     +'</div>'
                     +'</div>';
             });

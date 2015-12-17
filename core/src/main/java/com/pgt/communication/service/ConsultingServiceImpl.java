@@ -63,68 +63,46 @@ public class ConsultingServiceImpl implements ConsultingService {
 
 	@Override
 	public List<Consulting> queryAllConsultingByProduct(Integer productId, ConsultingCustom consultingCustom) {
-
 		if (consultingCustom == null) {
-
 			return null;
 		}
-
 		Product product = productMapper.queryProduct(productId);
-
 		if (product == null) {
 			return null;
 		}
-
 		consultingCustom.setProduct(product);
-
 		return consultingMapper.queryAllConsultingByProduct(consultingCustom);
 	}
 
 	@Override
 	public Integer queryAllConsultingByProductCount(Integer productId, ConsultingCustom consultingCustom) {
-
 		if (consultingCustom == null) {
-
 			return null;
 		}
-
 		Product product = productMapper.queryProduct(productId);
-
 		if (product == null) {
 			return null;
 		}
-
 		consultingCustom.setProduct(product);
-
 		return consultingMapper.queryAllConsultingByProductCount(consultingCustom);
 
 	}
 
 	public Integer createConsulting(Consulting consulting) {
-
 		// 创建时间
 		Date date = new Date();
-
 		consulting.setCreateDate(date);
-
 		return consultingMapper.createConsulting(consulting);
-
 	}
 
 	@Override
 	public void updateIsShow(Boolean isShow, Integer id) {
-
 		if (isShow != null && id != null) {
-
 			Consulting consulting = new Consulting();
-
 			consulting.setIsShow(isShow);
 			consulting.setId(id);
-
 			consultingMapper.updateIsShow(consulting);
-
 		}
-
 	}
 
 	@Override
@@ -147,32 +125,23 @@ public class ConsultingServiceImpl implements ConsultingService {
 
 	@Override
 	public void replyConsulting(Consulting consulting, Consulting replyConsulting) {
-
 		if (consulting == null || replyConsulting == null) {
 			return;
 		}
-
 		consulting.setIsShow(true);
-
 		// 修改咨询现实的状态
 		consultingMapper.updateIsShow(consulting);
-
 		replyConsulting.setCreateDate(new Date());
 		replyConsulting.setIsShow(true);
-
 		replyConsulting.setProduct(consulting.getProduct());
-
 		replyConsulting.setParent(consulting);
-
 		// 保存回复的信息
 		consultingMapper.createConsulting(replyConsulting);
 	}
 
 	@Override
 	public void deleteConsultingByKes(Integer[] ids) {
-
 		consultingMapper.deleteConsultingByKes(ids);
-
 	}
 
 }

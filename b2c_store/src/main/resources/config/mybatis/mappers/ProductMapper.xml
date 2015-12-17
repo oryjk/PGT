@@ -59,9 +59,18 @@
     <resultMap type="com.pgt.hot.bean.HotSearch" id="hotSearch">
         <id column="HOT_SEARCH_ID" property="hotSearchId"/>
         <result column="TERM" property="term"/>
-        <association property="frontMedia" column="MEDIA_ID"
-                     select="queryProductFrontMedia"/>
+        <association property="frontMedia" column="HOT_SEARCH_ID"
+                     select="queryHotProductFrontMedia"/>
     </resultMap>
+
+    <select id="queryHotProductFrontMedia" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{HOT_SEARCH_ID} AND TYPE='hot'
+        ORDER BY 'index'
+        asc
+    </select>
+
 
     <resultMap id="ProductCategoryResult" type="com.pgt.product.bean.ProductCategoryRelation">
         <id column="ID" property="productCategoryRelationId"/>
@@ -84,6 +93,7 @@
         ORDER BY 'index'
         asc
     </select>
+
     <select id="queryProductMainMedias" parameterType="int" resultMap="productMedia">
         SELECT *
         FROM MEDIA

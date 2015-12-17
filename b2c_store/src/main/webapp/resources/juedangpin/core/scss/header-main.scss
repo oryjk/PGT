@@ -93,9 +93,9 @@
 
 
     h1 {
-      margin: 15px 0;
+      margin: 0;
       @include wh(100%, 70px);
-      background: url("../core/images/header/logo.png") 0 0 no-repeat;
+      background: url("../core/images/header/logo.jpg") 0 0 no-repeat;
     }
 
     a {
