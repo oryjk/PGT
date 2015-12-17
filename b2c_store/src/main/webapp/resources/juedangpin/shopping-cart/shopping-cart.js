@@ -62,5 +62,49 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
             Prd.addItemToFavourite(productId, productMessage);
         }
+
+        $(document).on('click', '.removeCart', removeCart);
+        $(document).on('click', '.cartToFavourite', cartToFavourite);
+
+        //删除该条
+        function removeCart(event) {
+            event.preventDefault();
+            var that = $(this);
+            var tr = that.parents('tr');
+
+            $.ajax({
+                type: 'get',
+                url: Prd.baseUrl + '/shoppingCart/ajaxRemoveItemFromOrder',
+                data: {
+                    productId: tr.attr('data-value')
+                },
+                success: function(param) {
+                    if (param.success == 1) {
+                        tr.fadeOut(200).remove();
+                    }
+                }
+            })
+        }
+        //移入收藏
+        function cartToFavourite(event) {
+            event.preventDefault();
+            var that = $(this);
+            var tr = that.parents('tr');
+
+            $.ajax({
+                type: 'get',
+                url: Prd.baseUrl + '/shoppingCart/favouriteItemFromCart',
+                data: {
+                    productId: tr.attr('data-value')
+                },
+                success: function(param) {
+                    if (param.success == 1) {
+                        tr.fadeOut(200).remove();
+                    }
+                }
+            })
+        }
+
+
     });
 });

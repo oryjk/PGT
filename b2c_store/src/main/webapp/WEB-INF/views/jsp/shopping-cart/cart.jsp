@@ -79,8 +79,8 @@
                                     ¥<span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span>
                                 </td>
                                 <td>
-                                    <p><a class="link-btn" href="#">移入收藏</a></p>
-                                    <p><a class="link-btn" href="#">删除</a></p>
+                                    <p><a class="link-btn cartToFavourite" href="#">移入收藏</a></p>
+                                    <p><a class="link-btn removeCart" href="#">删除</a></p>
                                 </td>
                             </tr>
                         </c:forEach>
