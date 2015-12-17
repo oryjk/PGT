@@ -65,7 +65,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         $(document).on('click', '.removeCart', removeCart);
         $(document).on('click', '.cartToFavourite', cartToFavourite);
-        $(document).on('click', '.emptyCart', emptyCart);
 
         //删除该条
         function removeCart(event) {
