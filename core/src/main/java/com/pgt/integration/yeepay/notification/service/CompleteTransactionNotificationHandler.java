@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.dao.ShoppingCartDao;
 import com.pgt.cart.dao.UserOrderDao;
 import com.pgt.integration.yeepay.YeePayConfig;
@@ -19,6 +20,8 @@ import com.pgt.payment.bean.Transaction;
 import com.pgt.payment.bean.TransactionLog;
 import com.pgt.payment.service.PaymentService;
 import com.pgt.utils.Transactionable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CompleteTransactionNotificationHandler extends Transactionable implements YeepayNotificationHandler {
 
@@ -31,11 +34,12 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 	private ShoppingCartDao shoppingCartDao;
 	
 	private UserOrderDao userOrderDao;
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CompleteTransactionNotificationHandler.class);
 	@Override
 	public void handleCallback(Map<String, String> inboundParams, TransactionLog transactionLog)
 			throws YeePayException {
-		
+
 		Long paymentGroupId = transactionLog.getPaymentGroupId();
 		Long orderId = transactionLog.getOrderId();
 		
@@ -63,12 +67,12 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			
 			Order order = null;
 			if (null == orderId) {
-				// TODO LOG
+				LOGGER.warn("skip load order cause orderId is null");
 			} else {
 				order = getUserOrderDao().loadOrderHistory(orderId.intValue());
 			}
 			if (null == order) {
-				// TODO LOG
+				LOGGER.warn("order is null, orderId:" + orderId);
 			}
 			
 			handleResult(paymentGroup, trackingNo, result, transaction, now, order);
@@ -85,7 +89,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 		if (YeePayConstants.CODE_SUCCESS.equals(result.get(YeePayConstants.PARAM_NAME_CODE))) {
 			// UPDATE ORDER STATUS
 			if (null != order) {
-				order.setStatus(3);
+				order.setStatus(OrderStatus.PAID);
 				order.setUpdateDate(now);
 				getShoppingCartDao().updateOrder(order);
 			}
