@@ -60,7 +60,7 @@
                         <c:forEach var="commerceItem" items="${order.commerceItems}">
                             <tr data-value="${commerceItem.referenceId}">
                                 <td>
-                                    <input type="checkbox" data-item-id="${commerceItem.id}" data-prod-id="${commerceItem.referenceId}" />
+                                    <input type="checkbox" data-item-id="${commerceItem.id}" />
                                 </td>
                                 <td>
                                     <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
@@ -90,7 +90,7 @@
                         <div class="right">
                             <p>
                                 <span class="settlement-name">商品总金额:</span>
-                                <span class="cost">¥<span><fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></span></span>
+                                <span class="cost">¥<span class="order-sub-total"><fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></span></span>
                             </p>
 
                             <p>
@@ -110,7 +110,7 @@
                             </p>
                         </div>
                         <div class="bottom">
-                            <span>账面应付金额 <span class="cost">¥<span><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span></span></span>
+                            <span>账面应付金额 <span class="cost">¥<span class="order-total"><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span></span></span>
                             <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}'"/>
                         </div>
                     </div>
