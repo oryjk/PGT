@@ -58,7 +58,7 @@
                         </thead>
                         <tbody>
                         <c:forEach var="commerceItem" items="${order.commerceItems}">
-                            <tr>
+                            <tr data-value="${commerceItem.referenceId}">
                                 <td>
                                     <input type="checkbox" data-item-id="${commerceItem.id}" data-prod-id="${commerceItem.referenceId}" />
                                 </td>
