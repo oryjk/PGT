@@ -9,6 +9,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,46 +50,47 @@
                         <a href="<spring:url value="/myAccount/favourites"/>" id="favourite_page">我的收藏</a>
                     </p>
                 </div>
-
-                <div class="product-list">
-                    <c:forEach var="fav" items="${favourites.result}">
-                        <div class="list-product">
-                            <div class="inner">
-                                <a class="list-img-box" href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>">
-                                    <img src="${pageContext.request.contextPath}/resources${fav['snapshotMedia']['path']}"
-                                         alt="${empty fav['snapshotMedia']['title'] ? fav.name : fav['snapshotMedia']['title']}"/></a>
-                                <div class="list-price-box"><span>¥</span><span><fmt:formatNumber value="${fav.finalPrice}" pattern="0.00" type="number" /></span></div>
-                                <p class="product-link"><a href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>" data-favourite-id="${fav.id}">${fav.name}</a></p>
-                                <p><span>${fav.discussCount}</span> 评价</p>
-                                <div class="product-handle">
-                                    <a class="disLike" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i>取消</a>
-                                    <a class="addEnjoy" data-value="${fav.productId}" href="#"><i class="foundicon-heart"></i>收藏</a>
-                                    <a class="addCart" data-vaule="${fav.productId}" href="#"><i class="foundicon-cart"></i>购物车</a>
+                <c:if test="${fn:length(favourites.result) gt 0}">
+                    <div class="product-list">
+                        <c:forEach var="fav" items="${favourites.result}">
+                            <div class="list-product">
+                                <div class="inner">
+                                    <a class="list-img-box" href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>">
+                                        <img src="${pageContext.request.contextPath}/resources${fav['snapshotMedia']['path']}"
+                                             alt="${empty fav['snapshotMedia']['title'] ? fav.name : fav['snapshotMedia']['title']}"/></a>
+                                    <div class="list-price-box"><span>¥</span><span><fmt:formatNumber value="${fav.finalPrice}" pattern="0.00" type="number" /></span></div>
+                                    <p class="product-link"><a href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>" data-favourite-id="${fav.id}">${fav.name}</a></p>
+                                    <p><span>${fav.discussCount}</span> 评价</p>
+                                    <div class="product-handle">
+                                        <a class="disLike" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i>取消</a>
+                                        <a class="addEnjoy" data-value="${fav.productId}" href="#"><i class="foundicon-heart"></i>收藏</a>
+                                        <a class="addCart" data-vaule="${fav.productId}" href="#"><i class="foundicon-cart"></i>购物车</a>
+                                    </div>
+                                    <c:if test="${fav['productStock'] ne -1 and fav['productStock'] lt 1}">
+                                        <div class="out-of-stock"></div>
+                                    </c:if>
+                                    <div class="product-message">添加成功</div>
                                 </div>
-                                <c:if test="${fav['productStock'] ne -1 and fav['productStock'] lt 1}">
-                                    <div class="out-of-stock"></div>
-                                </c:if>
-                                <div class="product-message">添加成功</div>
                             </div>
-                        </div>
-                    </c:forEach>
-                </div>
+                        </c:forEach>
+                    </div>
 
-                <div class="page-box">
-                    <ul>
-                        <li><a id="previousPage" href="#">上页</a></li>
-                        <li class="page-list">
-                            <ol id="pages">
-                                <li><a class="page-focus" href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                            </ol>
-                        </li>
-                        <li><a id="nextPage" href="#">下页</a></li>
-                        <li class="page-count">共<span id="pageCount">6</span>页</li>
-                        <li class="page-which">跳转到第<input id="pageWhich" type="text"/>页</li>
-                        <li><input class="d-btn" id="pageSub"  type="button" value="确认"/></li>
-                    </ul>
-                </div>
+                    <div class="page-box">
+                        <ul>
+                            <li><a id="previousPage" href="#">上页</a></li>
+                            <li class="page-list">
+                                <ol id="pages">
+                                    <li><a class="page-focus" href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                </ol>
+                            </li>
+                            <li><a id="nextPage" href="#">下页</a></li>
+                            <li class="page-count">共<span id="pageCount">6</span>页</li>
+                            <li class="page-which">跳转到第<input id="pageWhich" type="text"/>页</li>
+                            <li><input class="d-btn" id="pageSub"  type="button" value="确认"/></li>
+                        </ul>
+                    </div>
+                </c:if>
             </div>
 
             <jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp">
