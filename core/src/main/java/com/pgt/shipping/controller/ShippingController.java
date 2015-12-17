@@ -24,7 +24,9 @@ import com.pgt.address.bean.AddressInfo;
 import com.pgt.address.bean.Store;
 import com.pgt.address.service.AddressInfoService;
 import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.city.bean.Province;
 import com.pgt.city.service.CityService;
 import com.pgt.configuration.URLConfiguration;
@@ -49,6 +51,8 @@ public class ShippingController {
 	private AddressInfoService	addressInfoService;
 	@Autowired
 	private ShippingService		shippingService;
+	@Autowired
+	private ShoppingCartService	shoppingCartService;
 	@Autowired
 	private CityService			cityService;
 
@@ -159,6 +163,9 @@ public class ShippingController {
 		if (!hasShippingOnOrder(order)) {
 			mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
 			return mav;
+		} else {
+			order.setStatus(OrderStatus.FILLED_SHIPPING);
+			getShoppingCartService().updateOrder(order);
 		}
 		mav.setViewName("redirect:/payment/gateway");
 		return mav;
@@ -202,6 +209,14 @@ public class ShippingController {
 
 	public void setCityService(CityService cityService) {
 		this.cityService = cityService;
+	}
+
+	public ShoppingCartService getShoppingCartService() {
+		return shoppingCartService;
+	}
+
+	public void setShoppingCartService(ShoppingCartService shoppingCartService) {
+		this.shoppingCartService = shoppingCartService;
 	}
 
 }
