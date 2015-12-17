@@ -407,7 +407,7 @@ span {
   .logo-box .logo {
     float: left;
     width: 200px;
-    background: url("../core/images/header/logo.png") 0 center no-repeat; }
+    background: url("../core/images/header/logo.jpg") 0 center no-repeat; }
   .logo-box a {
     display: block;
     text-indent: -5000px;
@@ -429,15 +429,14 @@ span {
     color: #666666; }
 
 .content-box {
-  background: #ed2842; }
+  background: #eaeaea; }
 
 .content {
   overflow: hidden;
   *zoom: 1;
   margin: 0 auto;
   width: 1060px;
-  height: 475px;
-  background: url("../core/images/user/content-test.jpg") center 0 no-repeat; }
+  height: 475px; }
 
 form {
   float: right;

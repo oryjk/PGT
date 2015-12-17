@@ -691,6 +691,6 @@
 <!--主脚部-->
 <jsp:include page="../core/footer-main.jsp"></jsp:include>
 </body>
-<script src="${staticPath}/core/js/require.js" defer async="true" data-main="${staticPath}/shopping-cart/cart"></script>
+<script src="${staticPath}/core/js/require.js" defer async="true" data-main="${staticPath}/shopping-cart/shipping.js"></script>
 
 </html>

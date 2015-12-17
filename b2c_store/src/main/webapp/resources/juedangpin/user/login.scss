@@ -4,19 +4,14 @@
 @import '../core/scss/fontGeneral';
 @import '../core/scss/header-simple';
 @import '../core/scss/footer-simple';
-h1 {
-
-
-}
 
 .content-box {
-  background: #ed2842;
+  background: #eaeaea;
 }
 .content {
   @include bfc;
   margin: 0 auto;
   @include wh(1060px, 475px);
-  background: url("../core/images/user/content-test.jpg") center 0 no-repeat;
 }
 form {
   float: right;

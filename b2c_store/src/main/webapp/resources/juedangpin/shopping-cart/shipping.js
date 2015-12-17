@@ -224,7 +224,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
     	var form = $('#addAddressToOrder'),
 		action = form.attr('action'),
 		data = form.serialize();
-    	$.post(action,data).done(function(result){//
+    	$.post(action,data).done(function(result){
     		if(result.success == 'true'){
 				window.location.reload();
 			}else{

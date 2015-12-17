@@ -25,17 +25,5 @@ public class JsonUtilTest {
 			e.printStackTrace();
 		}
 	}
-
-	@Test
-	public void productCreate(){
-		try{
-			jsonUtil.productCreate("src/main/resources/json/product.json");
-			for(int i = 1;i < 6;i++){
-				jsonUtil.productCreate("src/main/resources/json/product" + i + ".json");
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
 	
 }

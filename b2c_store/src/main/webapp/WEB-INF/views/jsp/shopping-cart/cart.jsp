@@ -126,5 +126,5 @@
 </body>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/shopping-cart/cart.js"/>"></script>
+        data-main="<spring:url value="${juedangpinStaticPath}/shopping-cart/shopping-cart.js"/>"></script>
 </html>

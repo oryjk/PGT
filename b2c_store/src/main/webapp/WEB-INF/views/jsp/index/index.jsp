@@ -23,7 +23,7 @@
 
 <!--正文-->
 
-<div id="content" class="content-box">
+<div id="content" class="content-box" style="background: #faf4f6 url('<spring:url value="${juedangpinStaticPath}/core/images/index/background.png"/>') repeat">
 
     <c:if test="${ES==true}">
 

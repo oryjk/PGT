@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
+import com.pgt.data.ImportDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import com.pgt.product.service.ProductServiceImp;
 public class JsonUtil {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtil.class);
 	@Autowired
-	private ProductService productService;
+	private ImportDataService importDataService;
 	@Autowired
 	private CategoryService categoryService;
 
@@ -44,22 +45,7 @@ public class JsonUtil {
 			LOGGER.debug(fileToJson(path));
 			List<Category> categorys=JSONObject.parseArray(fileToJson(path), Category.class);
 			for(int i = 0 ; i < categorys.size(); i++){
-				LOGGER.debug(categorys.get(i).getName());
-				categoryService.createCategory(categorys.get(i));
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void productCreate(String path){
-		try{
-			LOGGER.debug(fileToJson(path));
-			List<Product> products = JSONObject.parseArray(fileToJson(path), Product.class);
-			for(int i = 0 ; i < products.size(); i++){
-				LOGGER.debug(products.get(i).getName());
-				Integer reLatedCategoryId=Integer.parseInt(products.get(i).getRelatedCategoryId());
-				productService.createProduct(reLatedCategoryId, products.get(i));
+				importDataService.createCatalogData(categorys.get(i));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
