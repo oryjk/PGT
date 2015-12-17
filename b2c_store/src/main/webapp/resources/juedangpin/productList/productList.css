@@ -478,6 +478,152 @@ span {
 
 /*color*/
 /*col*/
+/*color*/
+/*col*/
+/*color*/
+/*col*/
+body {
+  font-family: "宋体", "Microsoft YaHei", Verdana, Arial, sans-serif;
+  font-size: 12px; }
+
+/*headline*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.67em 0;
+  font-family: "Microsoft YaHei", "黑体", Verdana, Arial, sans-serif; }
+
+h2 {
+  font-size: 25px; }
+
+/*paragraph*/
+p {
+  margin: 0.67em 0; }
+
+.about-us p, .approve-box p {
+  color: #cccccc; }
+
+/*link*/
+a {
+  cursor: pointer; }
+
+.top-status a, .head-box .hot-words a {
+  color: #666666;
+  text-decoration: none; }
+  .top-status a:hover, .head-box .hot-words a:hover {
+    color: #ffaa00; }
+
+.menu-head span, .menu-list a {
+  color: #f8f8f8;
+  text-decoration: none;
+  font-size: 18px; }
+
+.nav a {
+  color: #666666;
+  text-decoration: none;
+  font-size: 18px; }
+  .nav a:hover {
+    color: #ffaa00;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #ffaa00; }
+
+.bread-nav a {
+  color: #666666;
+  font-size: 14px;
+  text-decoration: none; }
+  .bread-nav a:hover {
+    color: #ffaa00; }
+
+.about-us a {
+  color: #cccccc;
+  text-decoration: none; }
+  .about-us a:hover {
+    color: white; }
+
+.aside .aside-product p a, .list-box .list-product p a {
+  color: #666666;
+  font-size: 14px;
+  text-decoration: none; }
+  .aside .aside-product p a:hover, .list-box .list-product p a:hover {
+    color: #ffaa00; }
+
+.filter-box .filter-selection-focus {
+  padding: 3px;
+  font-size: 14px;
+  color: #ffaa00;
+  border-bottom: 2px solid #ffaa00; }
+
+.filter-box a {
+  color: #666666;
+  font-size: 14px;
+  text-decoration: none; }
+  .filter-box a:hover {
+    color: #ffaa00; }
+
+.page-box .page-focus {
+  padding: 5px;
+  border: 1px solid #ffaa00;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  background: #ffaa00; }
+
+.page-box li, .page-box span, .page-box a {
+  padding: 5px;
+  color: #666666;
+  font-size: 16px;
+  text-decoration: none; }
+
+/*btn*/
+input:focus {
+  outline: none; }
+
+/*span*/
+span {
+  color: #666666; }
+
+.aside .aside-product .aside-product-priceh {
+  font-size: 15px; }
+
+.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span {
+  font-size: 18px;
+  color: #c20008; }
+
+.list-box .list-product .list-price-box span {
+  font-size: 22px;
+  color: #c20008; }
+
+/*商品详情绝当价*/
+.clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+/*主列表
+****************************************************/
+/*纵向商品列表
+****************************************************/
+/*横向商品列表
+****************************************************/
+/*tab切换
+****************************************************/
+/*页码部件
+****************************************************/
+/*小搜索框
+****************************************************/
+/*弹出框
+****************************************************/
+/*侧边栏样式1
+****************************************************/
+/*发光
+****************************************************/
+/*仿控件
+****************************************************/
+/*checkbox*/
+/*file*/
+/*select*/
 /*all style
 ************************************************/
 .header {
@@ -542,6 +688,52 @@ span {
 
 /*head-box
 ************************************************/
+@-webkit-keyframes mylogo {
+  0% { }
+  10% {
+    top: -7px; }
+  20% {
+    top: 12px; }
+  30% {
+    top: -2px; }
+  40% {
+    top: 11px; }
+  50% {
+    top: 0; }
+  60% {
+    top: 10px; }
+  70% {
+    top: 4px; }
+  80% {
+    top: 10px; }
+  90% {
+    top: 8px; }
+  100% {
+    top: 10px; } }
+
+@keyframes mylogo {
+  0% { }
+  10% {
+    top: -7px; }
+  20% {
+    top: 12px; }
+  30% {
+    top: -2px; }
+  40% {
+    top: 11px; }
+  50% {
+    top: 0; }
+  60% {
+    top: 10px; }
+  70% {
+    top: 4px; }
+  80% {
+    top: 10px; }
+  90% {
+    top: 8px; }
+  100% {
+    top: 10px; } }
+
 .head-box {
   margin: 15px auto 0;
   width: 1180px;
@@ -552,15 +744,38 @@ span {
     width: 280px;
     height: 100px; }
     .head-box .logo-box h1 {
-      margin: 15px 0;
+      margin: 0;
       width: 100%;
-      height: 70px;
-      background: url("../core/images/header/logo.png") 0 0 no-repeat; }
+      height: 90px;
+      background: url("../core/images/header/images/logo-t-pig_02.png") no-repeat 68px 10px; }
     .head-box .logo-box a {
       display: block;
+      padding-top: 15px;
       width: 100%;
-      height: 100%;
-      text-indent: -5000px; }
+      height: 70px;
+      text-indent: -5000px;
+      position: relative;
+      overflow: hidden; }
+      .head-box .logo-box a .light {
+        cursor: pointer;
+        position: absolute;
+        left: -420px;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-image: -moz-linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+        background-image: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+        transform: skewx(-30deg); }
+      .head-box .logo-box a:hover .light {
+        left: 420px;
+        transition: left 0.9s; }
+      .head-box .logo-box a img {
+        position: absolute;
+        top: 10px;
+        left: 0; }
+      .head-box .logo-box a:hover img {
+        -webkit-animation: mylogo 1s .5s;
+        animation: mylogo 1s .5s; }
   .head-box .search-box {
     float: left;
     margin-left: 20px;
@@ -1771,10 +1986,10 @@ span {
     position: absolute;
     top: 0;
     right: 0;
-    width: 70px;
-    height: 70px;
+    width: 73px;
+    height: 73px;
     background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
-    opacity: 1; }
+    opacity: .7; }
   .aside .product-message {
     display: none;
     position: absolute;
@@ -1875,10 +2090,10 @@ span {
     position: absolute;
     top: 0;
     right: 0;
-    width: 70px;
-    height: 70px;
+    width: 73px;
+    height: 73px;
     background: url("../core/images/productList/out-of-stock.png") no-repeat right top;
-    opacity: 1; }
+    opacity: .7; }
   .list-box .product-message {
     display: none;
     position: absolute;

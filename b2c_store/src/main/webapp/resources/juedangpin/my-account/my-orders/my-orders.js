@@ -43,28 +43,45 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             right: $('#moveLeft3')
         });
 
-        //加入购物车和移除收藏
-        $('.addCart').click(function(event) {
+        //事件委托:加入购物车, 添加收藏
+        $(document).on('click', '.addCart', addCart);
+        $(document).on('click', '.addEnjoy', addEnjoy);
+
+        //加入购物车
+        function addCart(event) {
             var that = $(this);
             var productId = that.attr('data-value');
-            var url = that.attr('data-url');
             var productMessage = that.parent().siblings().filter('.product-message');
 
             event.preventDefault();
 
-            Prd.addItemToOrder(url, productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
-        });
+            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
+        }
 
-        $('.disLike').click(function(event) {
+        //添加收藏
+        function addEnjoy(event) {
             var that = $(this);
-            var favouriteId = that.attr('data-value');
-            var url = that.attr('data-url');
+            var productId = that.attr('data-value');
             var productMessage = that.parent().siblings().filter('.product-message');
 
             event.preventDefault();
 
-            Prd.removeFavourite(favouriteId, productMessage,that);
-        });
+            Prd.addItemToFavourite(productId, productMessage);
+        }
+
+
+        //分页
+        var pageObj = {
+            currentIndex: 0,
+            capacity: 5
+        };
+        var getOrderListUrl = Prd.baseUrl + '/myAccount/ajaxOrderHistory';
+
+        Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, rendering);
+
+        function rendering($arr, list) {
+            console.log($arr)
+        }
 
     });
 });

@@ -48,27 +48,18 @@ public class ConsultingController {
 	@RequestMapping(value = "/query/{currentIndex}/{productId}", method = RequestMethod.GET)
 	public ModelAndView queryAllConsultingByProduct(@PathVariable("productId") Integer productId,
 			ModelAndView modelAndView, @PathVariable("currentIndex") Long currentIndex) {
-
 		if (productId == null) {
 			LOGGER.warn("The product id is empty.");
 			return null;
 		}
-
 		ConsultingCustom consultingCustom = new ConsultingCustom();
-
 		int total = consultingService.queryAllConsultingByProductCount(productId, consultingCustom);
-
 		if (currentIndex == null) {
-
 			currentIndex = 0L;
-
 		}
-
 		CommPaginationBean paginationBean = new CommPaginationBean(configuration.getCommunicationCapacity(),
 				currentIndex, total);
-
 		consultingCustom.setPaginationBean(paginationBean);
-
 		// 查询某个商品咨询列表 productId
 		List<Consulting> consultings = consultingService.queryAllConsultingByProduct(productId, consultingCustom);
 
@@ -76,7 +67,6 @@ public class ConsultingController {
 		// 带回分页的条件
 		modelAndView.addObject("conPaginationBean", paginationBean);
 		modelAndView.setViewName(Constants.CONSULTING_PAGE);
-
 		return modelAndView;
 	}
 
@@ -84,70 +74,43 @@ public class ConsultingController {
 	@RequestMapping(value = "/createconsulting", method = RequestMethod.POST)
 	public void createConsulting(Integer productId, Consulting consulting, HttpServletRequest request,
 			HttpSession session, HttpServletResponse response) {
-
 		JSONObject jo = new JSONObject();
-
 		if (productId == null) {
-
 			LOGGER.warn("The product id is empty.");
-
 			return;
 		}
-
 		Product product = productService.queryProduct(productId);
-
 		// 获取ip 用户信息 商品id
 		String ip = request.getRemoteAddr();
-
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
-
 		if (user == null) {
-
 			LOGGER.debug("user is null ,Redirect home page.");
-
 			jo.put("logincheck", "no");
-
 			ResponseUtils.renderJson(response, jo.toString());
-
 			return;
 		}
 
 		consulting.setUser(user);
 		consulting.setProduct(product);
-
 		if (user != null) {
-
 			consulting.setUser(user);
-
 		}
-
 		consulting.setIp(ip);
-
 		try {
-
 			// 保存咨询的内容
 			consultingService.createConsulting(consulting);
-
 		} catch (Exception e) {
-
 			LOGGER.warn("The save consulitng is error");
-
 		}
-
 		jo.put("message", "successful");
-		
 		ResponseUtils.renderJson(response, jo.toString());
 	}
 
 	// 6.进入会员中心所有的咨询记录页面
 	public String queryAllConsultingByUserUI(HttpSession session) {
-
 		User user = (User) session.getAttribute("user");
-
 		Long userId = user.getId();
-
 		consultingService.queryUserAllConsulting(userId);
-
 		return "";
 	}
 

@@ -35,13 +35,30 @@
 						<h3 class="filter-name">分类</h3>
 						<ul>
 
-							<c:forEach items="${categoryHists}" var="searchHit">
-								<li><a
-									href="${pageContext.request.contextPath}/essearch?parentCategoryId=${searchHit.source['id']}">${searchHit.source['name']}</a>
+
+
+							<c:forEach items="${parentCategoryList}" var="category">
+							<li>
+
+                                 <c:if test="${breadCrumb[0] eq category.source.name}">
+
+									 <a class="filter-selection-focus" href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.source.id}">${category.source.name}</a>
+									</c:if>
+
+									<c:if test="${breadCrumb[0] != category.source.name}">
+									<a  href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.source.id}">${category.source.name}</a>
+									</c:if>
+
+                                   </li>
 							</c:forEach>
+
+
 
 						</ul>
 					</div>
+
+
+
 					<div class="filter-keyword">
 						<h3 class="filter-name">关键词</h3>
 						<ul>
@@ -55,21 +72,29 @@
 					<div class="filter-price">
 						<h3 class="filter-name">价格区间</h3>
 						<ul>
-							<li><a
+
+
+							<li><a <c:if test="${priceStart=='0'&&priceEnd=='500'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=0&priceEnd=500">0-500</a>
 							</li>
-							<li><a
+
+							<li><a <c:if test="${priceStart=='500'&&priceEnd=='1000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=500&priceEnd=1000">500-1000</a>
 							</li>
-							<li><a
+
+							<li><a <c:if test="${priceStart=='1000'&&priceEnd=='2000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=1000&priceEnd=2000">1000-2000</a>
 							</li>
-							<li><a
+
+							<li><a <c:if test="${priceStart=='2000'&&priceEnd=='5000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=2000&priceEnd=5000">2000-5000</a>
 							</li>
-							<li><a
+
+							<li><a <c:if test="${priceStart=='5000'&&priceEnd=='100000000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=5000">5000以上</a>
 							</li>
+
+
 							<li class="filter-foruser">
 								<form action="${pageContext.request.contextPath}/essearch"
 									method="get">
@@ -98,16 +123,42 @@
 						<ul>
 							<li><span>排序方式</span></li>
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
-<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=creationDate">上架时间</a><a href="#" class="orderby-choose">
-							<i class="foundicon-up-arrow"></i></a><a href="#"><i
-									class="foundicon-down-arrow"></i></a></li>
-							<li>
-								<form:>
 
-								<a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
-<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=listPrice">价格</a><a href="#" class="orderby-choose"><i
-									class="foundicon-up-arrow"></i></a><a href="#"><i
-									class="foundicon-down-arrow"></i></a></li>
+<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=creationDate<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">上架时间</a>
+
+								<c:if test="${sortKey eq 'creationDate'}">
+								<c:if test="${not empty sortOrder}">
+									<c:if test="${sortOrder eq 'asc'}">
+									<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+									</c:if>
+
+									<c:if test="${sortOrder eq 'desc'}">
+								<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
+								    </c:if>
+								</c:if>
+								</c:if>
+
+
+							</li>
+
+							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
+<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=listPrice<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">价格</a>
+
+								<c:if test="${sortKey eq 'listPrice'}">
+								<c:if test="${not empty sortOrder}">
+									<c:if test="${sortOrder eq 'asc'}">
+										<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+									</c:if>
+
+									<c:if test="${sortOrder eq 'desc'}">
+										<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
+									</c:if>
+								</c:if>
+								</c:if>
+
+
+							</li>
+
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=productId">综合排序</a>
 
@@ -143,8 +194,10 @@
 									<div class="product-message">添加成功</div>
 
 									<div class="list-price-box">
-										<span>¥</span><span>${searchHit.source['salePrice']}</span>
+										¥ <span><fmt:formatNumber value="${searchHit.source['salePrice']}" pattern="0.00"
+																  type="number"/></span>
 									</div>
+
 									<p>
 										<a href="#">${searchHit.source['name']}</a>
 									</p>
@@ -263,6 +316,7 @@
 			</div>
 
 			<div class="clear"></div>
+
 	</div>
 	</div>
 			<jsp:include page="../core/helpSide.jsp"/>

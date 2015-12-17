@@ -26,7 +26,11 @@
       @include be-position(absolute, 0%, 80%);
       overflow: hidden;
       color: $middleGray;
+      width: 260px;
+      height: 17px;
       font-size: 14px;
+      white-space:nowrap;
+      text-overflow: ellipsis;
     }
     .product-cost {
       @include be-position(absolute, 0%, 88%);
@@ -91,7 +95,6 @@
 
 .content-box {
   @include bfc;
-  background: #faf4f6 url("../core/images/index/background.png");
   padding: 0 0 $colSpace;
 }
 

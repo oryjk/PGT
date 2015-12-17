@@ -156,6 +156,9 @@ public class RecommendService {
 		List<Integer> randomRecommendCategoryIds = getRecommendDao().queryCategoryIdsExclude(pRecommendedCategoryIds);
 		for (Integer categoryId : randomRecommendCategoryIds) {
 			List<Integer> categoryProductIds = getRecommendDao().queryAvailableProductIds(categoryId, isRecommendOutOfStockProduct());
+			if(CollectionUtils.isEmpty(categoryProductIds)) {
+				continue;
+			}
 			for (int i = RandomUtils.nextInt(0, categoryProductIds.size()); pRecommendProducts.size() < getRecommendCount(); i++) {
 				pRecommendProducts.add(categoryProductIds.get(i));
 				// restart loop at the begin of list

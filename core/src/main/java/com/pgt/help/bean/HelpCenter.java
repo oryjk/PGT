@@ -3,6 +3,7 @@ package com.pgt.help.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import com.pgt.category.bean.Category;
 import com.pgt.common.bean.Media;
 
 /**
@@ -15,11 +16,19 @@ public class HelpCenter implements Serializable {
 	private Integer id;
 	private String title;
 	private String content;
-	private Integer relatedCategoryId;
+	private Category category;
 	private Media frontMedia;
 	private String type;
-	private List<HelpCenter> childrens;
 	private HelpCenter parent;
+
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	public HelpCenter getParent() {
 		return parent;
@@ -29,13 +38,6 @@ public class HelpCenter implements Serializable {
 		this.parent = parent;
 	}
 
-	public List<HelpCenter> getChildrens() {
-		return childrens;
-	}
-
-	public void setChildrens(List<HelpCenter> childrens) {
-		this.childrens = childrens;
-	}
 
 	public Integer getId() {
 		return id;
@@ -43,14 +45,6 @@ public class HelpCenter implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getRelatedCategoryId() {
-		return relatedCategoryId;
-	}
-
-	public void setRelatedCategoryId(Integer relatedCategoryId) {
-		this.relatedCategoryId = relatedCategoryId;
 	}
 
 	public Media getFrontMedia() {

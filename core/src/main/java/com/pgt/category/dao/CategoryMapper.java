@@ -15,19 +15,21 @@ import java.util.List;
 @Component
 public interface CategoryMapper extends SqlMapper {
 
-	Integer createCategory(Category category);
+    Integer createCategory(Category category);
 
-	void updateCategory(Category category);
+    void updateCategory(Category category);
 
-	void deleteCategory(Integer categoryId);
+    void deleteCategory(Integer categoryId);
 
-	Category queryCategory(Integer categoryId);
+    Category queryCategory(Integer categoryId);
 
-	Category queryParentCategoryByProductId(Integer productId);
+    Integer queryCategoryByCode(String code);
 
-	List<Category> queryAllCategories();
+    Category queryParentCategoryByProductId(Integer productId);
 
-	List<Category> queryCategories(@Param("category") Category category,
-								   @Param("paginationBean") PaginationBean paginationBean);
+    List<Category> queryAllParentCategories();
+
+    List<Category> queryCategories(@Param("category") Category category,
+                                   @Param("paginationBean") PaginationBean paginationBean);
 
 }

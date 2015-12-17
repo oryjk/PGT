@@ -47,7 +47,7 @@
                     <table>
                         <thead>
                         <tr>
-                            <td><input type="checkbox" /><label for="">全选</label></td>
+                            <td><input type="checkbox" /><label for=""><a >全选</a></label></td>
                             <td></td>
                             <td class="product-name">商品信息</td>
                             <td>成色</td>
@@ -58,7 +58,7 @@
                         </thead>
                         <tbody>
                         <c:forEach var="commerceItem" items="${order.commerceItems}">
-                            <tr>
+                            <tr data-value="${commerceItem.referenceId}">
                                 <td>
                                     <input type="checkbox" data-item-id="${commerceItem.id}" data-prod-id="${commerceItem.referenceId}" />
                                 </td>
@@ -79,8 +79,8 @@
                                     ¥<span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span>
                                 </td>
                                 <td>
-                                    <p><a class="link-btn" href="#">移入收藏</a></p>
-                                    <p><a class="link-btn" href="#">删除</a></p>
+                                    <p><a class="link-btn cartToFavourite" href="#">移入收藏</a></p>
+                                    <p><a class="link-btn removeCart" href="#">删除</a></p>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -126,5 +126,5 @@
 </body>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/shopping-cart/cart.js"/>"></script>
+        data-main="<spring:url value="${juedangpinStaticPath}/shopping-cart/shopping-cart.js"/>"></script>
 </html>

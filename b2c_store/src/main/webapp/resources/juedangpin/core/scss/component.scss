@@ -115,9 +115,9 @@
     position: absolute;
     top: 0;
     right: 0;
-    @include wh(70px, 70px);
+    @include wh(73px, 73px);
     background: url("../core/images/productList/out-of-stock.png") no-repeat right top;
-    opacity: 1;
+    opacity: .7;
   }
 
   .product-message {
@@ -298,9 +298,9 @@
     position: absolute;
     top: 0;
     right: 0;
-    @include wh(70px, 70px);
+    @include wh(73px, 73px);
     background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
-    opacity: 1;
+    opacity: .7;
   }
 
   .product-message {
@@ -491,9 +491,9 @@
     position: absolute;
     top: 0;
     right: 0;
-    @include wh(70px, 70px);
+    @include wh(73px, 73px);
     background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
-    opacity: 1;
+    opacity: .7;
   }
 
   .product-message {

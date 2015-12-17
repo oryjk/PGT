@@ -1234,7 +1234,7 @@ span {
     margin: 0;
     width: 240px;
     height: 160px;
-    background: url("../core/images/header/logo.png") no-repeat 0 center; }
+    background: url("../core/images/header/logo.jpg") no-repeat 0 center; }
     .logo-box h1 a {
       display: block;
       width: 100%;
@@ -1793,10 +1793,10 @@ td img {
       position: absolute;
       top: 0;
       right: 0;
-      width: 70px;
-      height: 70px;
+      width: 73px;
+      height: 73px;
       background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
-      opacity: 1; }
+      opacity: .7; }
     .recommend .similar-box .product-message {
       display: none;
       position: absolute;

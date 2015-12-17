@@ -26,11 +26,20 @@
             <div class="aside1"><h2>帮助中心</h2></div>
         <ul>
             <c:forEach items="${helpCategorVoList}" var="categoryVo">
-                <li><a class="menu-level-1" href="">${categoryVo.category.name}</a></li>
+                <li><a class="menu-level-1" >${categoryVo.category.name}</a></li>
                 <li>
                     <ul>
-                        <c:forEach items="${categoryVo.helpCenterList}" var="helpcenter">
-                        <li><a  class="menu-level-end" href="${pageContext.request.contextPath}/helpcenter/${helpcenter.id}">${helpcenter.title}</a></li>
+                        <c:forEach items="${categoryVo.helpCenterList}" var="helpVo">
+
+                            <c:if test="${helpVo.id == helpCenter.id}">
+                                <li><a    class="menu-level-end current-page" href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</></li>
+
+                            </c:if>
+
+                            <c:if test="${helpVo.id != helpCenter.id}">
+                                <li><a  class="menu-level-end"   href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</></li>
+                            </c:if>
+
                         </c:forEach>
                     </ul>
                 </li>
@@ -48,7 +57,7 @@
                     <p>
                         <a href="#">帮助中心</a>
                         >
-                        <a href="#">购物与支付</a>
+                        <a href="#">${helpCenter.category.name}</a>
                         >
                         <a href="#">${helpCenter.title}</a>
                     </p>

@@ -43,7 +43,7 @@ public class HelpCenterController {
 	@RequestMapping(value = "/{helpCenterId}",method = RequestMethod.GET)
 	public ModelAndView queryHelpCenterById(ModelAndView modelAndView, @PathVariable("helpCenterId") String helpCenterId){
 		if(helpCenterId==null){
-			return modelAndView;
+            helpCenterId="1";
 		}
 		List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
 		modelAndView.addObject("helpCategorVoList", HelpCategorVoList);
@@ -51,7 +51,6 @@ public class HelpCenterController {
 
 		HelpCenter helpCenter= helpCenterService.findHelpCenterById(Integer.parseInt(helpCenterId));
 		modelAndView.addObject("helpCenter",helpCenter);
-
 
 		return modelAndView;
 	}

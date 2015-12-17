@@ -27,6 +27,7 @@
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 		<result column="submit_Date" property="submitDate" />
+		<association column="order_id" property="shippingVO" select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
 		<collection column="order_id" property="commerceItems" select="loadCommerceItemsFromOrder" />
 	</resultMap>
 
@@ -42,6 +43,9 @@
 		SELECT COUNT(o.order_id)
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
+		<if test="orderStatus &gt; 0">
+			AND o.status = #{orderStatus}
+		</if>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
 			AND o.order_id IN (
 			SELECT DISTINCT order_id
@@ -54,6 +58,9 @@
 		SELECT o.*
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
+		<if test="orderStatus &gt; 0">
+			AND o.status = #{orderStatus}
+		</if>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
 			AND o.order_id IN (
 			SELECT DISTINCT order_id
@@ -109,4 +116,5 @@
 			WHERE id = #{item}
 		</foreach>
 	</update>
+
 </mapper>

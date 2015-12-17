@@ -9,7 +9,7 @@
 		<property name="key" value="31gaccf9qfq9ntnkvefs1hb35b58oee4" />
 		<property name="service" value="create_direct_pay_by_user" />
 		<property name="inputCharset" value="utf-8" />
-		<property name="signTtype" value="MD5" />
+		<property name="signType" value="MD5" />
 		<property name="paymentType" value="1" />
 		<property name="returnUrl" value="http://localhost:8080/b2c_store/alipay/return" />
 		<property name="notifyUrl" value="http://localhost:8080/b2c_store/alipay/notify" />

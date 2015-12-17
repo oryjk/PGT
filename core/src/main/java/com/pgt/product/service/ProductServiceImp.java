@@ -74,7 +74,8 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public void createProduct(Integer categoryId, Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
-            Integer productId = productMapper.createProduct(product);
+            productMapper.createProduct(product);
+            Integer productId = product.getProductId();
             if (!ObjectUtils.isEmpty(product.getExpertMedia())) {
                 product.getExpertMedia().setReferenceId(productId);
             }
@@ -82,7 +83,7 @@ public class ProductServiceImp extends TransactionService implements ProductServ
 
                 product.getAdvertisementMedia().setReferenceId(productId);
             }
-            if (!ObjectUtils.isEmpty(product.getFrontMedia())){
+            if (!ObjectUtils.isEmpty(product.getFrontMedia())) {
                 product.getFrontMedia().setReferenceId(productId);
 
             }
@@ -97,13 +98,13 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                 });
             }
             if (!ObjectUtils.isEmpty(product.getMainMedias())) {
-                product.getHeroMedias().stream().forEach(productMedia -> {
+                product.getMainMedias().stream().forEach(productMedia -> {
                     productMedia.setReferenceId(productId);
                     mediaMapper.createMedia(productMedia);
                 });
             }
             if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
-                product.getHeroMedias().stream().forEach(productMedia -> {
+                product.getThumbnailMedias().stream().forEach(productMedia -> {
                     productMedia.setReferenceId(productId);
                     mediaMapper.createMedia(productMedia);
                 });

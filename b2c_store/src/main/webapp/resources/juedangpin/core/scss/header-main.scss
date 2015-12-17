@@ -1,5 +1,6 @@
 @import "commonMixin";
 @import "globleVariable";
+@import "component";
 
 /*all style
 ************************************************/
@@ -82,6 +83,73 @@
 
 /*head-box
 ************************************************/
+@-webkit-keyframes mylogo {
+  0%{}
+  10% {
+    top: -7px;
+  }
+  20% {
+    top: 12px;
+  }
+  30% {
+    top: -2px
+  }
+  40% {
+    top: 11px
+  }
+  50% {
+    top: 0
+  }
+  60% {
+    top: 10px
+  }
+  70% {
+    top: 4px
+  }
+  80% {
+    top: 10px
+  }
+  90% {
+    top: 8px
+  }
+  100% {
+    top: 10px
+  }
+}
+@keyframes mylogo {
+  0%{}
+  10% {
+    top: -7px;
+  }
+  20% {
+    top: 12px;
+  }
+  30% {
+    top: -2px
+  }
+  40% {
+    top: 11px
+  }
+  50% {
+    top: 0
+  }
+  60% {
+    top: 10px
+  }
+  70% {
+    top: 4px
+  }
+  80% {
+    top: 10px
+  }
+  90% {
+    top: 8px
+  }
+  100% {
+    top: 10px
+  }
+}
+
 .head-box {
   margin: 15px auto 0;
   width: $mainWidth;
@@ -93,15 +161,31 @@
 
 
     h1 {
-      margin: 15px 0;
-      @include wh(100%, 70px);
-      background: url("../core/images/header/logo.png") 0 0 no-repeat;
+      margin: 0;
+      @include wh(100%, 90px);
+      background: url("../core/images/header/images/logo-t-pig_02.png")  no-repeat 68px 10px;
     }
 
     a {
       display: block;
-      @include wh(100%, 100%);
+      padding-top: 15px;
+      @include wh(100%, 70px);
       text-indent: -5000px;
+
+      @include light-hover(280px, .3s);
+
+      img {
+        position: absolute;
+        top: 10px;
+        left: 0;
+      }
+
+      &:hover {
+        img {
+          -webkit-animation: mylogo 1s .5s;
+          animation: mylogo 1s .5s;
+        }
+      }
 
     }
   }

@@ -1,10 +1,12 @@
 package com.pgt.search.controller;
 
 import com.pgt.category.bean.Category;
+import com.pgt.category.service.CategoryHelper;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.BreadBuilder;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
+import com.pgt.constant.Constants;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESSort;
@@ -19,6 +21,7 @@ import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.sort.SortOrder;
+import org.hibernate.event.service.internal.EventListenerServiceInitiator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +57,15 @@ public class ESSearchController {
 	@Autowired
 	private BreadBuilder breadBuilder;
 
+
+
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView get(@RequestParam(value = "term", required = false) String term,
 			@RequestParam(value = "rootCategoryId", required = false) String rootCategoryId,
 			@RequestParam(value = "parentCategoryId", required = false) String parentCategoryId,
 			@RequestParam(value = "sortKey", required = false) String sortKey,
-			@RequestParam(value = "sortValue", required = false) SortOrder sortOrder,
+			@RequestParam(value = "sortOrder", required = false) String sortOrder,
 			@RequestParam(value = "priceStart", required = false) String priceStart,
 			@RequestParam(value = "priceEnd", required = false) String priceEnd,
 			@RequestParam(value = "currentIndex", required = false) String currentIndex, ModelAndView modelAndView) {
@@ -108,11 +114,26 @@ public class ESSearchController {
 				esSort.setPropertyName(sortKey);
 				// set default value first.
 				esSort.setSortOrder(SortOrder.DESC);
+
 				if (sortOrder != null) {
-					esSort.setSortOrder(sortOrder);
+
+					if(sortOrder.endsWith(SortOrder.ASC.toString())){
+						esSort.setSortOrder(SortOrder.ASC);
+						modelAndView.addObject("sortOrder","desc");
+					}else {
+						modelAndView.addObject("sortOrder", "asc");
+					}
+
+				}else{
+					modelAndView.addObject("sortOrder","asc");
 				}
+
+
 				modelAndView.addObject("sortKey", sortKey);
 				LOGGER.debug("add sortKey to modelAndView", sortKey);
+
+
+
 			}
 
 			if (!StringUtils.isEmpty(rootCategoryId)) {
@@ -205,6 +226,13 @@ public class ESSearchController {
 
 			}
 
+			ESSort parentSort = new ESSort();
+			parentSort.setPropertyName("id");
+			parentSort.setSortOrder(SortOrder.ASC);
+
+			SearchResponse parentCategoryResponse= esSearchService.findCategories(null, parentSort);
+			modelAndView.addObject("parentCategoryList",parentCategoryResponse.getHits().getHits());
+
 			hits = searchResponse.getHits();
 
 			Long total = hits.getTotalHits();
@@ -255,6 +283,9 @@ public class ESSearchController {
 		}
 		return modelAndView;
 	}
+
+
+
 
 	public BreadBuilder getBreadBuilder() {
 		return breadBuilder;
