@@ -53,7 +53,7 @@ public class ProductBrowseTrackService {
 
 	private int mCookieExpiredTime = 604800;//60s * 60m * 24h * 7d
 
-	private int mBrowsedProductCount = 5;
+	private int mBrowsedProductCount = 20;
 
 	private boolean mInitialized;
 
