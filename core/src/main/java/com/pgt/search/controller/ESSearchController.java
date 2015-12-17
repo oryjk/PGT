@@ -6,6 +6,7 @@ import com.pgt.category.service.CategoryService;
 import com.pgt.common.BreadBuilder;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
+import com.pgt.constant.Constants;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESSort;
@@ -119,7 +120,6 @@ public class ESSearchController {
 					if(sortOrder.endsWith(SortOrder.ASC.toString())){
 						esSort.setSortOrder(SortOrder.ASC);
 						modelAndView.addObject("sortOrder","desc");
-						System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+SortOrder.ASC.toString());
 					}else {
 						modelAndView.addObject("sortOrder", "asc");
 					}
@@ -226,9 +226,12 @@ public class ESSearchController {
 
 			}
 
-			List<Category> parentCategoryList= categoryService.queryAllParentCategories();
+			ESSort parentSort = new ESSort();
+			parentSort.setPropertyName("id");
+			parentSort.setSortOrder(SortOrder.ASC);
 
-			modelAndView.addObject("parentCategoryList",parentCategoryList);
+			SearchResponse parentCategoryResponse= esSearchService.findCategories(null, parentSort);
+			modelAndView.addObject("parentCategoryList",parentCategoryResponse.getHits().getHits());
 
 			hits = searchResponse.getHits();
 
@@ -280,6 +283,9 @@ public class ESSearchController {
 		}
 		return modelAndView;
 	}
+
+
+
 
 	public BreadBuilder getBreadBuilder() {
 		return breadBuilder;

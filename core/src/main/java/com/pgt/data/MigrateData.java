@@ -62,8 +62,8 @@ public class MigrateData implements ApplicationListener<ContextRefreshedEvent> {
         if (event.getApplicationContext().getParent() == null) {//root application context 没有parent，他就是老大.
             try{
                 migrate();
-                createIndex();
                 jsonUtil.categoriesCreate(configuration.getInitialDataPath());
+                createIndex();
             }catch(Exception e){
                 LOGGER.error("Some error occured when migration data.The error message is {}.",e.getMessage());
             }
