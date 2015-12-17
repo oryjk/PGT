@@ -8,7 +8,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -58,10 +58,10 @@
                     <a href=""><i class="foundicon-search"></i></a>
                 </div>
                 <ul id="tab" class="tab">
-                    <li class="choose"><h2 data-tab="0">全部订单</h2></li>
-                    <li><h2 data-tab="1">待付款</h2></li>
-                    <li><h2 data-tab="1">待收货</h2></li>
-                    <li><h2 data-tab="1">已完成</h2></li>
+                    <li class="${empty param.status ? 'choose' : ''}"><h2 data-tab="0"><a href="<spring:url value="/myAccount/orderHistory"/>">全部订单</a></h2></li>
+                    <li class="${param.status eq 20 ? 'choose' : ''}"><h2 data-tab="20"><a href="<spring:url value="/myAccount/orderHistory?status=20"/>">待付款</a></h2></li>
+                    <li class="${param.status eq 30 ? 'choose' : ''}"><h2 data-tab="30"><a href="<spring:url value="/myAccount/orderHistory?status=30"/>">待收货</a></h2></li>
+                    <li class="${param.status eq 100 ? 'choose' : ''}"><h2 data-tab="100"><a href="<spring:url value="/myAccount/orderHistory?status=100"/>">已完成</a></h2></li>
                 </ul>
                 <div></div>
             </div>
@@ -161,8 +161,8 @@
                         </li>
                         <li><a id="nextPage" href="#">下页</a></li>
                         <li class="page-count">共<span id="pageCount">6</span>页</li>
-                        <li class="page-which">跳转到第<input id="pageWhich" type="text"/>页</li>
-                        <li><input class="d-btn" id="pageSub"  type="button" value="确认"/></li>
+                        <li class="page-which">跳转到第<input id="pageWhich" type="text" />页</li>
+                        <li><input class="d-btn" id="pageSub" type="button" value="确认" /></li>
                     </ul>
                 </div>
             </c:if>
