@@ -15,7 +15,7 @@ public class Order {
 	private int mUserId;
 	private int mStatus = OrderStatus.INITIAL;
 	private List<CommerceItem> mCommerceItems = new ArrayList<>();
-	private ShippingVO shippingVO;
+	private ShippingVO mShippingVO;
 	private double mShippingFee;
 	private double mSubtotal;
 	private double mTotal;
@@ -174,11 +174,11 @@ public class Order {
 	}
 
 	public ShippingVO getShippingVO() {
-		return shippingVO;
+		return mShippingVO;
 	}
 
 	public void setShippingVO(ShippingVO shippingVO) {
-		this.shippingVO = shippingVO;
+		this.mShippingVO = shippingVO;
 	}
 
 	public double getShippingFee() {
