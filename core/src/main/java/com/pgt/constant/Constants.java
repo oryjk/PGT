@@ -57,7 +57,7 @@ public class Constants {
     public static final String DELIVERY = "DELIVERY";
     public static final String PICKUP = "PICKUP";
 
-
+    public static final String HIERARCHY = "HIERARCHY";
     public static final String ROOT = "ROOT";
     public static final String PRODUCT_ID = "productId";
     public static final String ROOT_CATEGORIES = "rootHomeCategories";

@@ -40,13 +40,13 @@
 							<c:forEach items="${parentCategoryList}" var="category">
 							<li>
 
-                                 <c:if test="${breadCrumb[0] eq category.name}">
+                                 <c:if test="${breadCrumb[0] eq category.source.name}">
 
-									 <a class="filter-selection-focus" href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.id}">${category.name}</a>
+									 <a class="filter-selection-focus" href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.source.id}">${category.source.name}</a>
 									</c:if>
 
-									<c:if test="${breadCrumb[0] != category.name}">
-									<a  href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.id}">${category.name}</a>
+									<c:if test="${breadCrumb[0] != category.source.name}">
+									<a  href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.source.id}">${category.source.name}</a>
 									</c:if>
 
                                    </li>
@@ -72,21 +72,29 @@
 					<div class="filter-price">
 						<h3 class="filter-name">价格区间</h3>
 						<ul>
-							<li><a
+
+
+							<li><a <c:if test="${priceStart=='0'&&priceEnd=='500'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=0&priceEnd=500">0-500</a>
 							</li>
-							<li><a
+
+							<li><a <c:if test="${priceStart=='500'&&priceEnd=='1000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=500&priceEnd=1000">500-1000</a>
 							</li>
-							<li><a
+
+							<li><a <c:if test="${priceStart=='1000'&&priceEnd=='2000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=1000&priceEnd=2000">1000-2000</a>
 							</li>
-							<li><a
+
+							<li><a <c:if test="${priceStart=='2000'&&priceEnd=='5000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=2000&priceEnd=5000">2000-5000</a>
 							</li>
-							<li><a
+
+							<li><a <c:if test="${priceStart=='5000'&&priceEnd=='100000000'}">class="filter-selection-focus"</c:if>
 								href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>&priceStart=5000">5000以上</a>
 							</li>
+
+
 							<li class="filter-foruser">
 								<form action="${pageContext.request.contextPath}/essearch"
 									method="get">

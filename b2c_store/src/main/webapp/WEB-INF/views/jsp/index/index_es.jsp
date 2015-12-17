@@ -78,7 +78,8 @@
 						</h2>
 						<div class="products">
 
-							<a class="product-main" href="#"> <img
+							<a class="product-main" href="#">
+								<img
 								src="${pageContext.request.contextPath}/resources${homeCategory['source']['category']['frontMedia']['path']}" alt="${homeCategory['source']['category']['name']}" />
 								<div class="light"></div>
 							</a>
@@ -88,8 +89,9 @@
 
 								<c:if test="${st.index<6}">
 
-									<a href="product/${product['productId']}"> <img
-										src="${pageContext.request.contextPath}/resources${product['medias'][0]['path']}"
+									<a href="product/${product['productId']}">
+										<img
+										src="${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}"
 										alt="${product['name']}" />
 
 										<p class="product-name">${product['name']}</p>
@@ -148,7 +150,7 @@
 
 								<c:if test="${st.index<6}">
 									<a href="product/${product['productId']}"> <img
-										src="${pageContext.request.contextPath}/resources${product['frontMedia']['path']}"
+										src="${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}"
 										alt="${product['name']}" />
 
 										<p class="product-name">${product['name']}</p>
