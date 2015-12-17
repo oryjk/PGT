@@ -15,7 +15,9 @@
                     <img id="middlePic"
                         src="${pageContext.request.contextPath}/resources${product['heroMedias'][0]['path']}"   
                         alt="1" />
+                    <c:if test="${product.stock<1}">
                     <div class="out-of-stock"></div>
+                    </c:if>
                     <div id="glass" class="glass"></div>   
                 </div>
                 <ul id="smallPic" class="small-pic">
@@ -107,7 +109,11 @@
                         <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
                     </div>
                     <div class="product-message">添加成功</div>
+
+                        <c:if test="${product.stock<1}">
                     <div class="out-of-stock"></div>
+                        </c:if>
+
                     </li>
                 </c:forEach>
                 </ul>
