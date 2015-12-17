@@ -94,9 +94,9 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         }
 
         //渲染页面
-        function rendering(data, list) {
+        function rendering(param, list) {
             var favouriteStr = '';
-            $.each(data, function() {
+            $.each($(param.data.result), function() {
                 favouriteStr +=
                     '<div class="list-product">'
                     +'    <div class="inner">'

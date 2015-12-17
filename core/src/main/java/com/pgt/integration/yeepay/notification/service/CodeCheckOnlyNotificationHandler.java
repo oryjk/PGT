@@ -16,7 +16,7 @@ public class CodeCheckOnlyNotificationHandler implements YeepayNotificationHandl
 			return;
 		}
 
-		// TODO THROW EXCEPTION
+		throw new YeePayException("yeepay error code: " + code);
 	}
 
 	@Override

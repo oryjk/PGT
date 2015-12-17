@@ -369,7 +369,7 @@ define(function() {
                         pages.children().children('a').eq(pageObj.currentIndex).addClass('page-focus');
 
                         //渲染数据
-                        callbackFunction($(param.data.result), productLIst);
+                        callbackFunction(param, productLIst);
                     }
                 }
             })

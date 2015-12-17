@@ -79,8 +79,39 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, rendering);
 
-        function rendering($arr, list) {
-            console.log($arr)
+        function rendering(param, list) {
+            var orderArr = param.data.result;
+            var str = '';
+            for (var i = 0; i < p.length; i ++) {
+                str += '<div class="each-order"> <div class="order-info"> <div class="operate"> </div> 下单时间: <span class="order-time">'
+                    + orderArr.submitDate
+                    + '</span> 订单号: <span class="order-number">'
+                    + orderArr.id
+                    + '</span> 物流: < span>'
+                    + orderArr.status
+                    + '</span> <a class="link-btn" href="#"></a> </div>';
+
+                    str += '<table> <tr> <td class="col1"> <img src="'
+                    + ../../core/images/cart/product-small-0.jpg
+                    +'" alt=""/> </td> <td class=" col2"> <a class=" product - name" href="#">'
+                    + swarovski施华洛世奇水晶时尚水晶结婚礼品 高端大气上档次 低调奢华有内涵 啪啪啪啪啪啪啪啪啪啪啪啪
+                    + '</a> </td> <td class="col3"> <span>'
+                    + 九五成新
+                    + '</span> <span>宝蓝色</span> </td> <td class="col4"> <a class="link-btn" href="#">申请退换货</a> </td>';
+
+                if ( i == 0) {
+                str += '<td class="col5" rowspan="100">'
+                    + 关羽
+                    + '</td> <td class="col6" rowspan="100"><span>¥<span>'
+                    +2000.00
+                    + '</span></span></td> <td class="col7" rowspan="100"> <span>'
+                    + 正在出库
+                    + '</span> </td>';
+                }
+
+                    str +='</tr> < /table> </div>';
+            }
+
         }
 
     });

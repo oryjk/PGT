@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pgt.cart.service.UserOrderService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +38,9 @@ public class PaymentController {
 
 	@Resource(name = "paymentService")
 	private PaymentService paymentService;
+
+	@Resource(name = "userOrderService")
+	private UserOrderService userOrderService;
 
 	@RequestMapping(value = "/gateway", method = RequestMethod.GET)
 	public ModelAndView gatewayPage(HttpServletRequest pRequest, HttpServletResponse pResponse) {
@@ -93,6 +98,7 @@ public class PaymentController {
 			return modelAndView;
 		}
 
+		pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, null);
 		// check the order is paid
 		PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(order.getId());
 		if (null != paymentGroup && PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
@@ -126,21 +132,38 @@ public class PaymentController {
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
-		Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
+		String orderIdStr = pRequest.getParameter("orderId");
+		// TODO: LOG
+		if (StringUtils.isBlank(orderIdStr)) {
+			throw new IllegalArgumentException("orderId is blank");
+		}
+		int orderId = 0;
+		try {
+			orderId = Integer.valueOf(orderIdStr);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("orderId is not integer.");
+		}
+		// TODO: LOG
+		Order order = getUserOrderService().loadOrderHistory(orderId);
 		if (null == order) {
+			// TODO: LOG
 			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
 			return modelAndView;
 		}
+		if (order.getUserId() != user.getId().intValue()) {
+			// TODO: LOG
+			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+			return modelAndView;
+		}
+
 		// check the order is paid
 		ModelAndView modelAndView = null;
 		PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(order.getId());
 		if (null != paymentGroup && PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
 			modelAndView = new ModelAndView("/payment/complete");
-			int orderId = order.getId();
 			double total = order.getTotal();
 			modelAndView.addObject("orderId", orderId);
 			modelAndView.addObject("orderTotal", total);
-			//TODO: switch order
 			pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, null);
 		} else {
 			modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
@@ -173,4 +196,11 @@ public class PaymentController {
 		this.urlConfiguration = urlConfiguration;
 	}
 
+	public UserOrderService getUserOrderService() {
+		return userOrderService;
+	}
+
+	public void setUserOrderService(UserOrderService userOrderService) {
+		this.userOrderService = userOrderService;
+	}
 }

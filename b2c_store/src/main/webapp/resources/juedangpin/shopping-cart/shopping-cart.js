@@ -81,6 +81,8 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                 success: function(param) {
                     if (param.success == 1) {
                         tr.fadeOut(200).remove();
+                        $(".order-sub-total").text(param.data.subtotalDisplay);
+                        $(".order-total").text(param.data.totalDisplay);
                     }
                 }
             })
@@ -93,18 +95,19 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
             $.ajax({
                 type: 'get',
-                url: Prd.baseUrl + '/shoppingCart/favouriteItemFromCart',
+                url: Prd.baseUrl + '/myAccount/favouriteItemFromCart',
                 data: {
                     productId: tr.attr('data-value')
                 },
                 success: function(param) {
                     if (param.success == 1) {
                         tr.fadeOut(200).remove();
+                        $(".order-sub-total").text(param.data.subtotalDisplay);
+                        $(".order-total").text(param.data.totalDisplay);
                     }
                 }
             })
         }
-
 
     });
 });

@@ -125,20 +125,29 @@ public class Order {
 	}
 
 	@Override
-	@Deprecated
 	public String toString() {
 		return "Order{" +
 				"mId=" + mId +
 				", mUserId=" + mUserId +
 				", mStatus=" + mStatus +
 				", mCommerceItems=" + mCommerceItems +
+				", mShippingVO=" + mShippingVO +
 				", mShippingFee=" + mShippingFee +
 				", mSubtotal=" + mSubtotal +
 				", mTotal=" + mTotal +
 				", mUserComments='" + mUserComments + '\'' +
 				", mCreationDate=" + mCreationDate +
 				", mUpdateDate=" + mUpdateDate +
+				", mSubmitDate=" + mSubmitDate +
 				'}';
+	}
+
+	public String getTotalDisplay() {
+		return String.format("%.2f", getTotal());
+	}
+
+	public String getSubtotalDisplay() {
+		return String.format("%.2f", getSubtotal());
 	}
 
 	public int getId() {

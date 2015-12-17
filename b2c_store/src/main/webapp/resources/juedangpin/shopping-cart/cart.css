@@ -1448,6 +1448,12 @@ td img {
   height: 100px;
   background: #f8f8f8; }
 
+.content-1 tbody .product-hidden {
+  width: 20px; }
+
+.content-1 tbody .product-level {
+  width: 100px; }
+
 .content-1 tbody .level {
   color: #ffaa00; }
 
@@ -1469,7 +1475,7 @@ td img {
 
 .content-1 .product-name {
   text-align: left;
-  width: 600px; }
+  width: 550px; }
 
 .settlement {
   border: 1px solid #cccccc; }

@@ -47,10 +47,10 @@
                     <table>
                         <thead>
                         <tr>
-                            <td><input type="checkbox" /><label for="">全选</label></td>
-                            <td></td>
-                            <td class="product-name">商品信息</td>
-                            <td>成色</td>
+                            <td class="product-hidden"></td>
+                            <td>商品信息</td>
+                            <td class="product-name"></td>
+                            <td class="product-level">成色</td>
                             <td>市场价</td>
                             <td>绝当价</td>
                             <td>操作</td>
@@ -58,9 +58,9 @@
                         </thead>
                         <tbody>
                         <c:forEach var="commerceItem" items="${order.commerceItems}">
-                            <tr>
-                                <td>
-                                    <input type="checkbox" data-item-id="${commerceItem.id}" data-prod-id="${commerceItem.referenceId}" />
+                            <tr data-value="${commerceItem.referenceId}">
+                                <td class="product-hidden">
+                                    <input type="hidden" data-item-id="${commerceItem.id}" />
                                 </td>
                                 <td>
                                     <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
@@ -69,7 +69,7 @@
                                 <td class="product-name">
                                     <a href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">${commerceItem.name}</a>
                                 </td>
-                                <td>
+                                <td class="product-level">
                                     <span class="level">${commerceItem.quality}</span>
                                 </td>
                                 <td class="product-old-cost">
@@ -90,7 +90,7 @@
                         <div class="right">
                             <p>
                                 <span class="settlement-name">商品总金额:</span>
-                                <span class="cost">¥<span><fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></span></span>
+                                <span class="cost">¥<span class="order-sub-total"><fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></span></span>
                             </p>
 
                             <p>
@@ -101,7 +101,6 @@
                         </div>
                         <div class="left">
                             <p>
-                                <input type="checkbox" /><label for="">全选</label>
                                 <a class="link-btn" href="#">清空购物车</a>
                                 <a class="link-btn" href="#">删除选中商品</a>
                                 <%--
@@ -110,7 +109,7 @@
                             </p>
                         </div>
                         <div class="bottom">
-                            <span>账面应付金额 <span class="cost">¥<span><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span></span></span>
+                            <span>账面应付金额 <span class="cost">¥<span class="order-total"><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span></span></span>
                             <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}'"/>
                         </div>
                     </div>
