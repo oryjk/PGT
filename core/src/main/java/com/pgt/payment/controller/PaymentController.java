@@ -109,11 +109,11 @@ public class PaymentController {
 		String method = pRequest.getParameter("method");
 		if (PaymentConstants.METHOD_YEEPAY.equals(method)) {
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("redirect:/yeepay/yeepayB2cPay");
+			modelAndView.setViewName("redirect:/yeepay/yeepayB2cPay?orderId=" + order.getId());
 			return modelAndView;
 		} else if (PaymentConstants.METHOD_ALIPAY.equals(method)) {
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("redirect:/alipay/request");
+			modelAndView.setViewName("redirect:/alipay/request?orderId=" + order.getId());
 			return modelAndView;
 		}
 
