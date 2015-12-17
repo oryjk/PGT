@@ -43,6 +43,9 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             right: $('#moveLeft3')
         });
 
+        //菜单折叠
+        Cpn.foldToggle($('.menu-level-1'));
+
         //事件委托:加入购物车, 添加收藏
         $(document).on('click', '.addCart', addCart);
         $(document).on('click', '.addEnjoy', addEnjoy);
@@ -77,41 +80,46 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         };
         var getOrderListUrl = Prd.baseUrl + '/myAccount/ajaxOrderHistory';
 
-        Cpn.page($('.product-list'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, rendering);
+        Cpn.page($('#orderList'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, rendering);
 
         function rendering(param, list) {
             var orderArr = param.data.result;
             var str = '';
-            for (var i = 0; i < p.length; i ++) {
+            for (var i = 0; i < orderArr.length; i ++) {
+                var productArr = orderArr[i].commerceItems;
+
                 str += '<div class="each-order"> <div class="order-info"> <div class="operate"> </div> 下单时间: <span class="order-time">'
-                    + orderArr.submitDate
+                    + orderArr[i].submitDate
                     + '</span> 订单号: <span class="order-number">'
-                    + orderArr.id
-                    + '</span> 物流: < span>'
-                    + orderArr.status
-                    + '</span> <a class="link-btn" href="#"></a> </div>';
+                    + orderArr[i].id
+                    + '</span> 物流: <span>'
+                    + orderArr[i].status
+                    + '</span> <a class="link-btn" href="#"></a></div><table> ';
 
-                    str += '<table> <tr> <td class="col1"> <img src="'
-                    + ../../core/images/cart/product-small-0.jpg
-                    +'" alt=""/> </td> <td class=" col2"> <a class=" product - name" href="#">'
-                    + swarovski施华洛世奇水晶时尚水晶结婚礼品 高端大气上档次 低调奢华有内涵 啪啪啪啪啪啪啪啪啪啪啪啪
-                    + '</a> </td> <td class="col3"> <span>'
-                    + 九五成新
-                    + '</span> <span>宝蓝色</span> </td> <td class="col4"> <a class="link-btn" href="#">申请退换货</a> </td>';
+                for (var j = 0; j < productArr.length; j ++) {
+                    str += '<tr> <td class="col1"><img src="'
+                        + Prd.baseUrl + productArr[j].snapshotMedia.path
+                        + '" alt="#"/> </td> <td class="col2"> <a class="product-name" href="#">'
+                        + productArr[j].name
+                        + '</a> </td> <td class="col3"> <span>'
+                        + productArr[j].quality
+                        + '</span></td> <td class="col4"> <a class="link-btn" href="#">申请退换货</a> </td>';
 
-                if ( i == 0) {
-                str += '<td class="col5" rowspan="100">'
-                    + 关羽
-                    + '</td> <td class="col6" rowspan="100"><span>¥<span>'
-                    +2000.00
-                    + '</span></span></td> <td class="col7" rowspan="100"> <span>'
-                    + 正在出库
-                    + '</span> </td>';
+                    if ( j == 0) {
+                        str += '<td class="col5" rowspan="100">'
+                            + '?关羽'
+                            + '</td> <td class="col6" rowspan="100"><span>¥<span>'
+                            + orderArr[i].subtotal
+                            + '</span></span></td> <td class="col7" rowspan="100"> <span>'
+                            + orderArr[i].status
+                            + '</span> </td>';
+                    }
                 }
 
-                    str +='</tr> < /table> </div>';
+                str +='</tr> </table> </div>';
             }
 
+            list.html(str);
         }
 
     });
