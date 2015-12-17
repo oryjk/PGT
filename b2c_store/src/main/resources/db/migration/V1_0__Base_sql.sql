@@ -4304,7 +4304,3 @@ INSERT INTO `MEDIA` VALUES ('774', '13', null, '/image/media/tuihuanhuozhnegce_1
 INSERT INTO `MEDIA` VALUES ('775', '14', null, '/image/media/tuikuanshuoming_14.png', 'help', null);
 INSERT INTO `MEDIA` VALUES ('776', '1', null, '/image/media/gouwuliucheng1.png', 'help', null);
 INSERT INTO `MEDIA` VALUES ('777', '2', null, '/image/media/dingdanchaxun2.png', 'help', null);
-INSERT INTO `MEDIA` VALUES ('778', '23', '', '/image/description/category翡翠玉石.jpg', 'category', null);
-INSERT INTO `MEDIA` VALUES ('1223', '29', '', '/image/description/category琥珀蜜蜡.jpg', 'category', null);
-INSERT INTO `MEDIA` VALUES ('1500', '32', '', '/image/description/category文玩杂项.jpg', 'category', null);
-INSERT INTO `MEDIA` VALUES ('1669', '36', '', '/image/description/category木制品.jpg', 'category', null);
