@@ -267,8 +267,9 @@ define(function() {
     var foldToggle = function(menu) {
         menu.click(function(event) {
             var that = $(this);
-            event.preventDefault();
-            if (that.siblings('ul')) {
+
+            if (that.siblings('ul').size() > 0) {
+                event.preventDefault();
                 that.siblings('ul').slideToggle(200);
             }
         })
