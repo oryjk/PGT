@@ -281,7 +281,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 					rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_GENERAL_FAVOURITE_FROM_CART_FAILED);
 				} else {
 					rb.setSuccess(true);
-					rb.setData(favourite);
+					rb.setData(order);
 				}
 				getTransactionManager().commit(status);
 			}

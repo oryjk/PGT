@@ -178,7 +178,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 							productId);
 					rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_ITEM_PURCHASE_FAILED);
 				} else {
-					rb.setSuccess(true);
+					rb.setSuccess(true).setData(order);
 				}
 				getTransactionManager().commit(status);
 			}
@@ -300,7 +300,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 				getTransactionManager().commit(status);
 			}
 		}
-		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+		return new ResponseEntity(rb.setData(order).createResponse(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/ajaxRemoveItemsFromOrder")//, method = RequestMethod.POST)
@@ -363,6 +363,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 								+ Arrays.toString(productIds));
 						rb.setSuccess(false).addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_ITEM_REMOVE_FAILED);
 					}
+					rb.setData(order);
 					getTransactionManager().commit(status);
 				}
 			}
