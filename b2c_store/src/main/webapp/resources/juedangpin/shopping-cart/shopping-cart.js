@@ -36,6 +36,75 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             left: $('#moveRight3'),
             right: $('#moveLeft3')
         });
-    });
 
+        //事件委托:加入购物车, 添加收藏
+        $(document).on('click', '.addCart', addCart);
+        $(document).on('click', '.addEnjoy', addEnjoy);
+
+        //加入购物车
+        function addCart(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+            var productMessage = that.parent().siblings().filter('.product-message');
+
+            event.preventDefault();
+
+            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
+        }
+
+        //添加收藏
+        function addEnjoy(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+            var productMessage = that.parent().siblings().filter('.product-message');
+
+            event.preventDefault();
+
+            Prd.addItemToFavourite(productId, productMessage);
+        }
+
+        $(document).on('click', '.removeCart', removeCart);
+        $(document).on('click', '.cartToFavourite', cartToFavourite);
+
+        //删除该条
+        function removeCart(event) {
+            event.preventDefault();
+            var that = $(this);
+            var tr = that.parents('tr');
+
+            $.ajax({
+                type: 'get',
+                url: Prd.baseUrl + '/shoppingCart/ajaxRemoveItemFromOrder',
+                data: {
+                    productId: tr.attr('data-value')
+                },
+                success: function(param) {
+                    if (param.success == 1) {
+                        tr.fadeOut(200).remove();
+                    }
+                }
+            })
+        }
+        //移入收藏
+        function cartToFavourite(event) {
+            event.preventDefault();
+            var that = $(this);
+            var tr = that.parents('tr');
+
+            $.ajax({
+                type: 'get',
+                url: Prd.baseUrl + '/shoppingCart/favouriteItemFromCart',
+                data: {
+                    productId: tr.attr('data-value')
+                },
+                success: function(param) {
+                    if (param.success == 1) {
+                        tr.fadeOut(200).remove();
+                    }
+                }
+            })
+        }
+
+
+    });
 });

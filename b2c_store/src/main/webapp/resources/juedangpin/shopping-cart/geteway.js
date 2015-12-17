@@ -36,6 +36,34 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             left: $('#moveRight3'),
             right: $('#moveLeft3')
         });
-    });
 
+        //事件委托:加入购物车, 添加收藏
+        $(document).on('click', '.addCart', addCart);
+        $(document).on('click', '.addEnjoy', addEnjoy);
+
+        //加入购物车
+        function addCart(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+            var productMessage = that.parent().siblings().filter('.product-message');
+
+            event.preventDefault();
+
+            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
+        }
+
+        //添加收藏
+        function addEnjoy(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+            var productMessage = that.parent().siblings().filter('.product-message');
+
+            event.preventDefault();
+
+            Prd.addItemToFavourite(productId, productMessage);
+        }
+
+
+
+    });
 });

@@ -66,6 +66,7 @@
         <property name="plpCapacity" value="20"></property>
         <property name="useES" value="true"></property>
         <property name="resourcePath" value="/resources"></property>
+        <property name="initialDataPath" value="/json"></property>
 
 
     </bean>
@@ -109,8 +110,8 @@
                 <value>sort</value>
             </list>
         </property>
-        <property name="needIndex" value="false"/>
-        <property name="clearIndex" value="false"/>
+        <property name="needIndex" value="true"/>
+        <property name="clearIndex" value="true"/>
     </bean>
 
     <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">

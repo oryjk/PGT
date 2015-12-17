@@ -56,33 +56,21 @@ public class DiscussController {
 	@RequestMapping(value = "/query/{currentIndex}/{productId}", method = RequestMethod.GET)
 	public ModelAndView queryDiscussByProductId(@PathVariable("productId") Integer productId, ModelAndView modelAndView,
 			@PathVariable("currentIndex") Long currentIndex) {
-
 		if (productId == null) {
 			LOGGER.warn("The product id is empty.");
 			return null;
 		}
-
 		DiscussCustom discussCustom = new DiscussCustom();
-
 		int total = discussService.queryProductAllDiscussCount(productId);
-
 		if (currentIndex == null) {
-
 			currentIndex = 0L;
-
 		}
-
 		CommPaginationBean paginationBean = new CommPaginationBean(configuration.getCommunicationCapacity(),
 				currentIndex, total);
-
 		if (currentIndex != null) {
-
 			paginationBean.setCurrentIndex(currentIndex);
-
 		}
-
 		discussCustom.setPaginationBean(paginationBean);
-
 		// 查询某个商品讨论列表 productId
 		List<Discuss> discussList = discussService.queryProductAllDiscuss(productId, discussCustom);
 
@@ -90,9 +78,7 @@ public class DiscussController {
 		// 带回分页的条件
 		modelAndView.addObject("disPaginationBean", paginationBean);
 		modelAndView.setViewName(Constants.DISCUSS_PAGE);
-
 		return modelAndView;
-
 	}
 
 	// 进入创建页面
@@ -105,58 +91,34 @@ public class DiscussController {
 	@RequestMapping(value = "/createDiscuss", method = RequestMethod.POST)
 	public void createdDiscuss(ModelAndView modelAndView, Integer productId, Discuss discuss,
 			HttpServletRequest request, HttpSession session, HttpServletResponse response) {
-
 		JSONObject jo = new JSONObject();
-
 		if (ObjectUtils.isEmpty(productId)) {
-
 			LOGGER.warn("The product id is empty.");
 			return;
 		}
-
 		Product product = productService.queryProduct(productId);
-
 		// 获取ip
 		String ip = request.getRemoteAddr();
-
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
-
 		if (user == null) {
-
 			LOGGER.debug("user is null ,Redirect home page.");
-
 			jo.put("logincheck", "no");
-			
 			ResponseUtils.renderJson(response, jo.toString());
-		
 			return;
 		}
-
 		discuss.setUser(user);
-
 		discuss.setProduct(product);
-
 		if (ObjectUtils.isEmpty(user)) {
-
 			discuss.setUser(user);
-
 		}
-
 		discuss.setIp(ip);
-
 		try {
-
 			// 保存咨询的内容
 			discussService.createDiscuss(discuss);
-
 		} catch (Exception e) {
-
 			LOGGER.warn("The save discuss is error");
-
 		}
-
 		jo.put("message", "successful");
-
 		ResponseUtils.renderJson(response, jo.toString());
 	}
 

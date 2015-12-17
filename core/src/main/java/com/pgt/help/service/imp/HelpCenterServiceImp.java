@@ -74,6 +74,9 @@ public class HelpCenterServiceImp implements HelpCenterService {
 
 	@Override
 	public HelpCenter findHelpCenterById(Integer helpCenterId) {
-		return helpCenterMapper.findHelpCenterById(helpCenterId);
+
+			return helpCenterMapper.findHelpCenterById(helpCenterId);
+
+
 	}
 }
