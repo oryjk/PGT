@@ -101,5 +101,8 @@
                 pc.PRODUCT_ID=#{productId} where
                 c.CATEGORY_ID=pc.CATEGORY_ID
     </select>
-    
+    <select id="queryCategoryByCode" parameterType="string" resultType="int">
+        SELECT c.id FROM CATEGORIES c WHERE c.CODE=${code}
+    </select>
+
 </mapper>

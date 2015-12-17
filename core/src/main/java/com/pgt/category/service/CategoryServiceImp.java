@@ -69,6 +69,11 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
+    public Integer queryCategoryByCode(String code) {
+        return categoryMapper.queryCategoryByCode(code);
+    }
+
+    @Override
     public Category queryParentCategoryByProductId(Integer productId) {
         return categoryMapper.queryParentCategoryByProductId(productId);
     }

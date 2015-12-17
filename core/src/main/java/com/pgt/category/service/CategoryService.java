@@ -18,6 +18,7 @@ public interface CategoryService {
     Integer deleteCategory(Integer categoryId);
 
     Category queryCategory(Integer categoryId);
+    Integer queryCategoryByCode(String code);
 
     Category queryParentCategoryByProductId(Integer productId);
 
