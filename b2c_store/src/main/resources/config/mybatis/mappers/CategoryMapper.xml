@@ -13,7 +13,7 @@
         <result column="TYPE" property="type"></result>
         <result column="STATUS" property="status"></result>
         <result column="COLOR" property="color"/>
-        <association property="frontMedia" column="MEDIA_ID"
+        <association property="frontMedia" column="CATEGORY_ID"
                      select="queryCategoryMedia"/>
         <association property="parent" column="PARENT_CATEGORY_ID"
                      javaType="com.pgt.category.bean.Category" select="queryCategory"/>
@@ -117,7 +117,7 @@
     <select id="queryCategoryMedia" parameterType="int" resultMap="productMedia">
         SELECT *
         FROM MEDIA
-        WHERE reference_id = #{productId} AND TYPE='category'
+        WHERE reference_id = #{categoryId} AND TYPE='category'
         ORDER BY 'index'
         asc
     </select>
