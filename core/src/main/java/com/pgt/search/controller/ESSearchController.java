@@ -170,7 +170,7 @@ public class ESSearchController {
 				priceStart = priceStart.trim();
 				priceEnd = priceEnd.trim();
 				esRange = new ESRange();
-				esRange.setPropertyName("listPrice");
+				esRange.setPropertyName("salePrice");
 				esRange.setFrom(Integer.parseInt(priceStart));
 				esRange.setTo(Integer.parseInt(priceEnd));
 				modelAndView.addObject("priceStart", priceStart);
