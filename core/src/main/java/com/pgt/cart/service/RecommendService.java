@@ -150,7 +150,7 @@ public class RecommendService {
 			}
 		}
 		List<Product> recommendProducts = Collections.EMPTY_LIST;
-		if (CollectionUtils.isNotEmpty(recommendProducts)) {
+		if (CollectionUtils.isNotEmpty(recommendProductIds)) {
 			recommendProducts = getProductDao().queryProductByIds(recommendProductIds);
 		}
 		return recommendProducts;
