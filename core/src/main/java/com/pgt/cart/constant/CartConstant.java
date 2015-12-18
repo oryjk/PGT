@@ -8,6 +8,8 @@ public interface CartConstant {
 	String ERROR_MSG = "error_message";
 
 	String CURRENT_ORDER = "order";
+	
+	String ORDER_ID = "orderId";
 
 	String CURRENT_ORDER_ITEM_COUNT = "itemCount";
 

@@ -111,7 +111,7 @@
                         </div>
                         <div class="bottom">
                             <span>账面应付金额 <span class="cost">¥<span class="order-total"><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span></span></span>
-                            <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}'"/>
+                            <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'"/>
                         </div>
                     </div>
                 </div>

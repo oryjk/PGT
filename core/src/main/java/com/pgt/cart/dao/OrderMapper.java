@@ -17,5 +17,7 @@ public interface OrderMapper extends SqlMapper {
 
 	List<CommerceItem> selectCommerceItemByOrderId(Integer orderId);
 
+	void deleteAllCommerceItems(Integer orderId);
+
 	void updateOrder(Order pOrder);
 }

@@ -57,8 +57,10 @@
                     <span>成色:</span> <span>${product['isNew']}</span>
                 </p>
                 <div class="buy">
-                    <a class="buy-now" href="#"> <span>立即购买</span>
-                    </a> <a class="join-cart" href="#" data-value="${product.productId}" data-url="<spring:url value="/shoppingCart/ajaxAddItemToOrder"/>" > <span>加入购物车</span>
+                	<c:if test="${not empty currentUser}">
+                    	<a class="buy-now" href="<spring:url value="/shoppingCart/addItemToOrder?productId=${product.productId}&easyBuy=1"/>"> <span>立即购买</span></a>
+                	</c:if>
+                     <a class="join-cart" href="#" data-value="${product.productId}" data-url="<spring:url value="/shoppingCart/ajaxAddItemToOrder"/>" > <span>加入购物车</span>
                     </a> <a class="collect" href="#"> <span>添加收藏</span>
                     </a>
                 </div>

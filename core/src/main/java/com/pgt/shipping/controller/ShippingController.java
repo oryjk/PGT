@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +27,7 @@ import com.pgt.address.service.AddressInfoService;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.city.bean.Province;
 import com.pgt.city.service.CityService;
@@ -54,10 +56,12 @@ public class ShippingController {
 	@Autowired
 	private ShoppingCartService	shoppingCartService;
 	@Autowired
+	private OrderService		orderService;
+	@Autowired
 	private CityService			cityService;
 
 	@RequestMapping(value = "/shipping", method = { RequestMethod.GET })
-	public ModelAndView shipping(HttpSession session) {
+	public ModelAndView shipping(HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
 		if (user == null) {
@@ -68,8 +72,8 @@ public class ShippingController {
 			mav.addObject(user);
 			return mav;
 		}
-		Order order = (Order) session.getAttribute(CartConstant.CURRENT_ORDER);
-		if (order == null || order.getCommerceItemCount() == 0) {
+		Order order = getOrderService().getSessionOrder(request);
+		if (getOrderService().isInvalidOrder(user, order)) {
 			String redirectUrl = "redirect:" + urlConfiguration.getShoppingCartPage();
 			mav.setViewName(redirectUrl);
 			return mav;
@@ -217,6 +221,14 @@ public class ShippingController {
 
 	public void setShoppingCartService(ShoppingCartService shoppingCartService) {
 		this.shoppingCartService = shoppingCartService;
+	}
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
 	}
 
 }
