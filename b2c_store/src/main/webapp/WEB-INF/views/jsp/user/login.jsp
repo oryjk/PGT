@@ -18,7 +18,11 @@
     <div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/login-bg.jpg"/>') center 0 no-repeat;">
         <form:form commandName="user" method="post" action="login" id="login">
             <div class="login-head">
-                <a href="register">
+                <c:set var="registerUrl" value="register"/>
+                <c:if test="${param.redirect!=null}">
+                    <c:set var="registerUrl" value="register?redirect=${param.redirect}"/>
+                </c:if>
+                <a href="${registerUrl}">
                     免费注册
                 </a>
 
