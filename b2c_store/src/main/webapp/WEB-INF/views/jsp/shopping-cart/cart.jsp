@@ -79,8 +79,10 @@
                                     ¥<span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span>
                                 </td>
                                 <td>
-                                    <p><a class="link-btn cartToFavourite" href="#">移入收藏</a></p>
-                                    <p><a class="link-btn removeCart" href="#">删除</a></p>
+                                    <c:if test="${not empty currentUser}">
+                                        <p><a class="link-btn" href="<spring:url value="//myAccount/favouriteItemFromCart?productId=${commerceItem.referenceId}"/>">移入收藏</a></p>
+                                    </c:if>
+                                    <p><a class="link-btn" href="<spring:url value="/shoppingCart/removeItemFromOrder?productId=${commerceItem.referenceId}"/>">删除</a></p>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -92,12 +94,11 @@
                                 <span class="settlement-name">商品总金额:</span>
                                 <span class="cost">¥<span class="order-sub-total"><fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></span></span>
                             </p>
-
-                            <p>
+                            <%--<p>
                                 <span class="settlement-name">已选商品:</span>
                                 <span>${commerceItem.count}</span>
                                 <span>件</span>
-                            </p>
+                            </p>--%>
                         </div>
                         <div class="left">
                             <p>
