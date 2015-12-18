@@ -13,5 +13,9 @@ public interface OrderMapper extends SqlMapper {
 
 	Order loadOrder(Integer orderId);
 
+	Order loadEasyBuyOrderByUserId(String userId);
+
 	List<CommerceItem> selectCommerceItemByOrderId(Integer orderId);
+
+	void updateOrder(Order pOrder);
 }

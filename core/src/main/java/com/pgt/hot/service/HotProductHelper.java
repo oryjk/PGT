@@ -3,11 +3,9 @@ package com.pgt.hot.service;
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryHelper;
-import com.pgt.category.service.CategoryService;
 import com.pgt.configuration.Configuration;
 import com.pgt.product.bean.Product;
 import com.pgt.product.dao.ProductMapper;
-import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.SearchPaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +33,7 @@ public class HotProductHelper {
 
     @Autowired
     private ProductMapper productMapper;
-    private Integer hotAmount=6;
+    private Integer hotAmount = 6;
 
     public List<Product> findHomePageHotProducts() {
         List<Product> products = hotProductService.queryProductCategoryRelationProducts(CategoryType.HOME_PAGE_HOT);
@@ -58,26 +56,28 @@ public class HotProductHelper {
         return hotProductService.queryProductCategoryRelationProducts(CategoryType.ORDER_CONFIRMATION_HOT);
     }
 
-    public List<Product> findCategoryHotProduct(Integer categoryId) {
+    public List<Product> findCategoryHotProduct(Integer categoryId, boolean autoComplete) {
 
         List<Product> hotProducts = hotProductService.queryHotProductByCategoryId(categoryId);
 
         if (ObjectUtils.isEmpty(hotProducts)) {
             hotProducts = new ArrayList<>();
         }
-        if (hotProducts.size() < hotAmount) {
-            SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
-            searchPaginationBean.setCategoryId(String.valueOf(categoryId));
-            searchPaginationBean.setStock(-1);
-            searchPaginationBean.setCapacity(hotAmount*2);
-            List<Product> products = productMapper.queryProducts(searchPaginationBean);
-            hotProducts.addAll(products);
-        }
-        if(hotProducts.size() < hotAmount){
+
+        if (autoComplete) {
+            if (hotProducts.size() < hotAmount) {
+                SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
+                searchPaginationBean.setCategoryId(String.valueOf(categoryId));
+                searchPaginationBean.setStock(-1);
+                searchPaginationBean.setCapacity(hotAmount * 2);
+                List<Product> products = productMapper.queryProducts(searchPaginationBean);
+                hotProducts.addAll(products);
+            }
             return hotProducts;
+
         }
 
-        return hotProducts.subList(0, hotAmount);
+        return hotProducts;
     }
 
     public List<Product> findCategoryHotProductByRootCategoryId(Integer rootCategoryId) {
@@ -89,10 +89,8 @@ public class HotProductHelper {
         }
         List<Product> products = new ArrayList<>();
         categories.stream().forEach(category1 -> {
-            List<Product> productList = findCategoryHotProduct(category1.getId());
-            if (ObjectUtils.isEmpty(products)) {
-                products.addAll(productList);
-            }
+            List<Product> productList = findCategoryHotProduct(category1.getId(), true);
+            products.addAll(productList);
         });
         return products;
     }

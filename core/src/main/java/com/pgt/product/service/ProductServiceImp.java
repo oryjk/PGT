@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,6 +75,13 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public void createProduct(Integer categoryId, Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
+            if(ObjectUtils.isEmpty(product.getCreationDate())){
+                product.setCreationDate(new Date());
+
+            }
+            if(ObjectUtils.isEmpty(product.getUpdateDate())){
+                product.setUpdateDate(new Date());
+            }
             productMapper.createProduct(product);
             Integer productId = product.getProductId();
             if (!ObjectUtils.isEmpty(product.getExpertMedia())) {

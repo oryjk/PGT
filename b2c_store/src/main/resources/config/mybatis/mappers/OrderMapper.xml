@@ -37,7 +37,20 @@
         SELECT * FROM `order` WHERE order_id = #{orderId} 
     </select>
     
+     <select id="loadEasyBuyOrderByUserId" parameterType="string" resultMap="order">
+        SELECT * FROM `order` WHERE user_id = #{userId} AND easy_buy = 1 and status &lt;30 ORDER BY order_id DESC LIMIT 1
+    </select>
+    
     <select id="selectCommerceItemByOrderId" parameterType="int" resultMap="commerceItem">
         SELECT * FROM commerce_item WHERE order_id = #{orderId}
     </select>
+    
+    <update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
+		UPDATE `ORDER`
+		<set>
+			status = #{status}, shipping_fee = #{shippingFee}, subtotal = #{subtotal}, total = #{total}, user_comments = #{userComments},
+			submit_date = #{submitDate}, update_date = now()
+		</set>
+		WHERE order_id = #{id}
+	</update>
 </mapper>

@@ -1,10 +1,17 @@
 package com.pgt.cart.bean;
 
-import com.pgt.internal.util.RepositoryUtils;
-import com.pgt.shipping.bean.ShippingVO;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import com.pgt.internal.util.RepositoryUtils;
+import com.pgt.shipping.bean.ShippingVO;
 
 /**
  * Created by Yove on 10/26/2015.
@@ -25,6 +32,7 @@ public class Order {
 	private Date mCreationDate = new Date();
 	private Date mUpdateDate;
 	private Date mSubmitDate;
+	private boolean mEasyBuy;
 
 	public boolean emptyOrder() {
 		return CollectionUtils.isEmpty(mCommerceItems);
@@ -248,5 +256,12 @@ public class Order {
 		mUserComments = pUserComments;
 	}
 
+	public boolean isEasyBuy() {
+		return mEasyBuy;
+	}
+
+	public void setEasyBuy(boolean pEasyBuy) {
+		mEasyBuy = pEasyBuy;
+	}
 
 }
