@@ -2,6 +2,7 @@ package com.pgt.user.service.imp;
 
 import java.util.List;
 
+import com.pgt.user.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +37,9 @@ public class UserInformationImpl implements UserInformationService {
 	}
 
 	@Override
-	public UserInformation queryUserInformation() {
+	public UserInformation queryUserInformation(User user) {
 
-		return userInformationMapper.queryUserInformation();
+		return userInformationMapper.queryUserInformation(user);
 	}
 
 	@Override

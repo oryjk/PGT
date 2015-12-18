@@ -58,7 +58,7 @@
             <a class="menu-level-1" href="#">个人中心</a>
             <ul>
                 <li>
-                    <a class="menu-level-end" href="#">个人信息</a>
+                    <a class="menu-level-end" href="<spring:url value="/userinformation/query"/>">个人信息</a>
                 </li>
                 <li>
                     <a class="menu-level-end" href="#">修改密码</a>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pgt.utils.ResponseUtils;
@@ -22,10 +23,11 @@ import liquibase.util.file.FilenameUtils;
 /**
  * 公共上传图片 异步上传 Created by ddjunshi 2015年11月24日
  */
-
+@RequestMapping("/upload")
+@RestController
 public class UploadController {
 
-	@RequestMapping(value = "/upload/uploadPic")
+	@RequestMapping(value = "/uploadPic")
 	public void uploadPic(@RequestParam(required = false) MultipartFile uploadPic, HttpServletResponse response,
 			HttpServletRequest request) throws Exception {
 
@@ -44,7 +46,7 @@ public class UploadController {
 		String originalFilename = uploadPic.getOriginalFilename();
 		String ext = FilenameUtils.getExtension(originalFilename);
 
-		String basePath = request.getRealPath("/resources/image");
+		String basePath = request.getRealPath("/resources/image/upload/user/");
 
 		// 相对路径
 		String path = picName + "." + ext;
@@ -57,6 +59,8 @@ public class UploadController {
 
 		// 将内存中的文件写入磁盘
 		uploadPic.transferTo(file);
+
+		url= url.substring(url.indexOf("image"),url.length());
 
 		JSONObject jo = new JSONObject();
 		jo.put("url", url);

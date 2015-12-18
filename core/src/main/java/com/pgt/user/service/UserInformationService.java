@@ -2,6 +2,7 @@ package com.pgt.user.service;
 
 import java.util.List;
 
+import com.pgt.user.bean.User;
 import com.pgt.user.bean.UserInformation;
 
 public interface UserInformationService {
@@ -12,7 +13,7 @@ public interface UserInformationService {
 
 	void deleteUserInformationById(Integer id);
 
-	UserInformation queryUserInformation();
+	UserInformation queryUserInformation(User user);
 
 	List<UserInformation> queryAllUserInformations();
 

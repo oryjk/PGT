@@ -25,7 +25,7 @@ public class UserInformation implements Serializable {
 	private User user;
 
 	@NotEmpty(message = "{NotNull.user.nickname}", groups = { AddUserInformationGroup.class })
-	@Size(min=3,max=12,message="{}")
+	@Size(min=3,max=12,message="{Error.userInformation.nickname.invalid}")
 	private String nickname;
 
 	@Pattern(regexp = "[0-9]{11}", message = "{Pattern.user.phoneNumber}", groups = { AddUserInformationGroup.class })
@@ -39,28 +39,27 @@ public class UserInformation implements Serializable {
 	@NotEmpty(message = "{NotEmpty.userInformation.idCard}", groups = { AddUserInformationGroup.class })
 	private String idCard;
 
-	private String merrage;
+	private String marrage;
 
 	private String industry;// 行业
 
-	
 	private String income;
 
-	private Media frontMedia;// 图片
+	private String path;
 
 	private String payBinding;// 支付绑定
 
 	@Email(message="{Error.internalUser.email.invalid}",groups={AddUserInformationGroup.class})
-	private String psersonEmail;// 个人邮箱
+	private String personEmail;// 个人邮箱
 
 	private String type;
 
-	public String getMerrage() {
-		return merrage;
+	public String getMarrage() {
+		return marrage;
 	}
 
-	public void setMerrage(String merrage) {
-		this.merrage = merrage;
+	public void setMarrage(String marrage) {
+		this.marrage = marrage;
 	}
 
 	public Integer getId() {
@@ -135,12 +134,12 @@ public class UserInformation implements Serializable {
 		this.payBinding = payBinding;
 	}
 
-	public String getPsersonEmail() {
-		return psersonEmail;
+	public String getPersonEmail() {
+		return personEmail;
 	}
 
-	public void setPsersonEmail(String psersonEmail) {
-		this.psersonEmail = psersonEmail;
+	public void setPersonEmail(String personEmail) {
+		this.personEmail = personEmail;
 	}
 
 	public String getType() {
@@ -151,12 +150,13 @@ public class UserInformation implements Serializable {
 		this.type = type;
 	}
 
-	public Media getFrontMedia() {
-		return frontMedia;
+	public String getPath() {
+		return path;
 	}
 
-	public void setFrontMedia(Media frontMedia) {
-		this.frontMedia = frontMedia;
+	public void setPath(String path) {
+		this.path = path;
 	}
+
 
 }

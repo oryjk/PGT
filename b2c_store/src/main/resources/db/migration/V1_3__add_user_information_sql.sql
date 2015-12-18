@@ -1,0 +1,21 @@
+
+-- ----------------------------
+-- Table structure for USER_INFORMATION
+-- ----------------------------
+DROP TABLE IF EXISTS `USER_INFORMATION`;
+CREATE TABLE `USER_INFORMATION` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NICKNAME` varchar(255) NOT NULL,
+  `PHONE_NUMBER` varchar(100) DEFAULT NULL,
+  `GENDER` varchar(5) DEFAULT NULL,
+  `INDUSTRY` varchar(45) DEFAULT NULL,
+  `INCOME` varchar(100) DEFAULT NULL,
+  `PERSON_EMAIL` varchar(255) DEFAULT NULL,
+  `TYPE` varchar(45) DEFAULT NULL,
+  `PATH` varchar(200) DEFAULT NULL,
+  `USER_ID` int(11) DEFAULT NULL,
+  `ID_CARD` varchar(255) DEFAULT NULL,
+  `MARRAGE` varchar(45) DEFAULT NULL,
+  `PAY_BINDING` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
