@@ -92,25 +92,25 @@
                 <h2>类似商品</h2>
                 <ul class="similar" id="rowList">
 
-                <c:forEach items="${recommendProducts}" var="product">
+                <c:forEach items="${similarProducts}" var="product">
                     <li><a class="similar-pic-box"
-                        href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>"><img
-                        src="${pageContext.request.contextPath}/resources${product.frontMedia.path}"
-                        alt="${empty product.frontMedia.title ? product.name : product.frontMedia.title}"/></a>
-                    <a class="similar-name" href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>">
-                        ${product.name} ${product.serialNumber} </a>
+                        href="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>"><img
+                        src="${pageContext.request.contextPath}/resources${product.source.frontMedia.path}"
+                        alt="${empty product.source.frontMedia.source.title ? product.source.name : product.source.frontMedia.title}"/></a>
+                    <a class="similar-name" href="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>">
+                        ${product.source.name} ${product.source.serialNumber} </a>
 
                     <p class="similar-cost">
-                        ¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="0.00"
+                        ¥ <span><fmt:formatNumber value="${product.source.salePrice}" pattern="0.00"
                                               type="number"/></span>
                     </p>
                     <div class="product-handle">
-                        <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
-                        <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
+                        <a class="addEnjoy"  href="#" data-value="${product.source.productId}"><i class="foundicon-heart"></i></a>
+                        <a class="addCart" href="#" data-value="${product.source.productId}"><i class="foundicon-cart"></i></a>
                     </div>
                     <div class="product-message">添加成功</div>
 
-                        <c:if test="${product.stock<1}">
+                        <c:if test="${product.source.stock<1}">
                     <div class="out-of-stock"></div>
                         </c:if>
 
