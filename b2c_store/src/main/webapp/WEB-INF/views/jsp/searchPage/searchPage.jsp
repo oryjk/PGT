@@ -273,51 +273,10 @@
 			</p>
 			</div>
 
-			<div class="clear"></div>
-
-			<!-- 最近浏览-->
-			<div class="similar-box">
-			<h2>最近浏览</h2>
-
-				<ul class="similar" id="rowList">
-
-					<c:forEach items="${recommendProducts}" var="product">
-						<li><a class="similar-pic-box"
-							   href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>"><img
-								src="${pageContext.request.contextPath}/resources${product.frontMedia.path}"
-								alt="${empty product.frontMedia.title ? product.name : product.frontMedia.title}"/></a>
-							<a class="similar-name" href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>">
-							${product.name} ${product.serialNumber} </a>
-
-							<p class="similar-cost">
-								¥ <span><fmt:formatNumber value="${product.salePrice}" pattern="0.00"
-														  type="number"/></span>
-							</p>
-							<div class="product-handle">
-								<a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
-								<a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
-							</div>
-							<div class="product-message">添加成功</div>
-
-							<c:if test="${product.stock<1}">
-							<div class="out-of-stock"></div>
-						    </c:if>
-
-						</li>
-					</c:forEach>
-				</ul>
-
-			<div class="move-left-box">
-			<a href="#" id="moveLeft"><</a>
-			</div>
-			<div class="move-right-box">
-			<a href="#" id="moveRight">></a>
-			</div>
-			</div>
-
-			<div class="clear"></div>
-
-	</div>
+			<jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp">
+				<jsp:param name="excludeRecommend" value="1" />
+			</jsp:include>
+		</div>
 	</div>
 			<jsp:include page="../core/helpSide.jsp"/>
 			<jsp:include page="../core/footer-main.jsp" />

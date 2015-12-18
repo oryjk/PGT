@@ -16,12 +16,23 @@
 
 <div id="recommend" class="recommend">
     <ul id="tab" class="tab">
-        <li class="choose"><h2 data-tab="0">类似商品</h2></li>
+        <c:if test="${empty param.excludeRecommend}">
+            <li class="choose"><h2 data-tab="0">类似商品</h2></li>
+            <c:set var="chosen" value="0" />
+        </c:if>
         <c:if test="${fn:length(browsedProducts) gt 0 and empty param.excludeBrowsed}">
-            <li><h2 data-tab="1">最近浏览</h2></li>
+            <c:choose>
+                <c:when test="${not empty chosen}">
+                    <li><h2 data-tab="1">最近浏览</h2></li>
+                </c:when>
+                <c:otherwise>
+                    <li><h2 class="choose" data-tab="1">最近浏览</h2></li>
+                    <c:set var="chosen" value="1" />
+                </c:otherwise>
+            </c:choose>
         </c:if>
         <c:if test="${not empty currentUser and fn:length(favourites.result) gt 0 and empty param.excludeFavourites}">
-            <li><h2 data-tab="2">我的收藏</h2></li>
+            <li ${empty chosen ? 'class="choose"' : ''}><h2 data-tab="2">我的收藏</h2></li>
         </c:if>
     </ul>
     <div class="similar-box">

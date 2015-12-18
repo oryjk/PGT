@@ -14,6 +14,8 @@ import com.pgt.internal.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import com.pgt.user.bean.User;
+import com.pgt.utils.URLMapping;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,9 @@ public class UserFavouriteController extends TransactionBaseController implement
 
 	@Autowired
 	private ProductService mProductService;
+
+	@Autowired
+	private URLMapping mURLMapping;
 
 	@Resource(name = "responseBuilderFactory")
 	private ResponseBuilderFactory mResponseBuilderFactory;
@@ -198,8 +203,96 @@ public class UserFavouriteController extends TransactionBaseController implement
 	}
 
 	@RequestMapping(value = "/favouriteItemFromCart")
+	public ModelAndView favouriteItemFromCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "productId", required = true) int productId) {
+		ModelAndView mav = new ModelAndView(getRedirectView(ShoppingCartModifierController.CART));
+		// check user login state
+		User currentUser = getCurrentUser(pRequest);
+		if (currentUser == null) {
+			LOGGER.debug("Current session user has not sign, skip favourite item from cart.");
+			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_USER_LOGIN_REQUIRED, StringUtils.EMPTY));
+			return mav;
+		}
+		// query product
+		Product product = getProductService().queryProduct(productId);
+		if (product == null || !RepositoryUtils.idIsValid(product.getProductId())) {
+			LOGGER.debug("Favourite item from cart failed for cannot find product with id: {}", productId);
+			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_INVALID, StringUtils.EMPTY));
+			return mav;
+		}
+		// check user has already add this item as favourite
+		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId);
+		if (favourite != null && RepositoryUtils.idIsValid(favourite.getId())) {
+			LOGGER.debug("User had added product: {} as favourite: {}", productId, favourite.getId());
+			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(WARN_FAVOURITE_DUPLICATE, StringUtils.EMPTY));
+			return mav;
+		}
+		// create favourite
+		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product);
+		// check and generate order
+		Order order = getCurrentOrder(pRequest, true);
+		synchronized (order) {
+			LOGGER.debug("Synchronized order to add favourite and update order");
+			// check order contains commerce item
+			CommerceItem purchasedCommerceItem = order.getCommerceItemByProduct(productId);
+			if (purchasedCommerceItem == null) {
+				LOGGER.debug("Cannot find commerce item with product id: {}", productId);
+				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_COMMERCE_ITEM_INVALID, StringUtils.EMPTY));
+				return mav;
+			}
+			// remove commerce item
+			purchasedCommerceItem = order.removeCommerceItemByProduct(productId);
+			// persist changes to database
+			TransactionStatus status = ensureTransaction();
+			try {
+				boolean result = true;
+				getPriceOrderService().priceOrder(order);
+				// anonymous user could only add item to cart but not persisted
+				if (RepositoryUtils.idIsValid(order.getUserId())) {
+					if (purchasedCommerceItem != null && RepositoryUtils.idIsValid(purchasedCommerceItem.getId())) {
+						result = getShoppingCartService().deleteCommerceItem(purchasedCommerceItem.getId());
+					}
+					if (result) {
+						result = getShoppingCartService().persistInitialOrder(order);
+						LOGGER.debug("Persist order with result: {}", result ? "success" : "failed");
+						if (!result) {
+							status.setRollbackOnly();
+							throw new OrderPersistentException("Persist order failed, stop favourite item from cart.");
+						}
+					}
+				}
+				// persist favourite
+				result = getUserFavouriteService().createFavouriteItem(favourite);
+				if (!result) {
+					LOGGER.debug("Persist favourite with result: {}", result ? "success" : "failed");
+					status.setRollbackOnly();
+				}
+			} catch (PriceOrderException e) {
+				LOGGER.error(String.format("Favourite item from cart with product id: %d failed for price order exception.",
+						productId), e);
+				status.setRollbackOnly();
+			} catch (OrderPersistentException e) {
+				LOGGER.error(String.format("Favourite item from with product id: %d failed for persist order exception.",
+						productId), e);
+				status.setRollbackOnly();
+			} catch (Exception e) {
+				LOGGER.error(String.format("Favourite item from with product id: %d failed.", productId), e);
+				status.setRollbackOnly();
+			} finally {
+				if (status.isRollbackOnly()) {
+					LOGGER.debug("Transaction had been set as roll back during Favourite item from cart for product: {}",
+							productId);
+					mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_GENERAL_FAVOURITE_FROM_CART_FAILED, StringUtils.EMPTY));
+				}
+				getTransactionManager().commit(status);
+			}
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/ajaxFavouriteItemFromCart")
 	@ResponseBody
-	public ResponseEntity favouriteItemFromCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
+	public ResponseEntity ajaxFavouriteItemFromCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "productId", required = true) int productId) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
@@ -411,5 +504,13 @@ public class UserFavouriteController extends TransactionBaseController implement
 
 	public void setResponseBuilderFactory(final ResponseBuilderFactory pResponseBuilderFactory) {
 		mResponseBuilderFactory = pResponseBuilderFactory;
+	}
+
+	public URLMapping getURLMapping() {
+		return mURLMapping;
+	}
+
+	public void setURLMapping(final URLMapping pURLMapping) {
+		mURLMapping = pURLMapping;
 	}
 }
