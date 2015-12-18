@@ -14,7 +14,13 @@
     <div class="header" id="header">
     <div class="head-box">
         <div class="logo-box">
-            <h1><a href="<spring:url value="/"/>">点金子绝当品——欢迎登录</a></h1>
+            <h1>
+                <a href="<spring:url value="/"/>">点金子绝当品——欢迎登录
+                    <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
+                    <div class="golds"></div>
+                    <div class="light"></div>
+                </a>
+            </h1>
         </div>
         <div class="found">
             找回密码

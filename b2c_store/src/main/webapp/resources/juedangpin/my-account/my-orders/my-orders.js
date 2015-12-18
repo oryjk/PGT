@@ -98,8 +98,12 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
                 for (var j = 0; j < productArr.length; j ++) {
                     str += '<tr> <td class="col1"><img src="'
-                        + Prd.baseUrl + productArr[j].snapshotMedia.path
-                        + '" alt="#"/> </td> <td class="col2"> <a class="product-name" href="#">'
+                        + Prd.baseUrl + '/resources' + productArr[j].snapshotMedia.path
+                        + '" alt="'
+                        + productArr[j].name
+                        + '"/> </td> <td class="col2"><a class="product-name" href="'
+                        + Prd.baseUrl + '/product/' + productArr[j].referenceId
+                        +'">'
                         + productArr[j].name
                         + '</a> </td> <td class="col3"> <span>'
                         + productArr[j].quality
@@ -110,9 +114,19 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                             + '?关羽'
                             + '</td> <td class="col6" rowspan="100"><span>¥<span>'
                             + orderArr[i].subtotal
-                            + '</span></span></td> <td class="col7" rowspan="100"> <span>'
-                            + orderArr[i].status
-                            + '</span> </td>';
+                            + '</span></span></td> <td class="col7" rowspan="100"> <span>';
+
+                        if (orderArr[i].status == 1) {
+                            str += '待结算</span><a class="link-btn" href="#">结算</a> </td>';
+                        } else if (orderArr[i].status == 2) {
+                            str += '待付款</span><a class="link-btn" href="#">付款</a> </td>';
+                        } else if (orderArr[i].status == 3) {
+                            str += '已付款</span> </td>';
+                        } else if (orderArr[i].status == 4) {
+                            str += '待确认完成</span> </td>';
+                        } else if (orderArr[i].status == 5) {
+                            str += '已完成</span> </td>';
+                        }
                     }
                 }
 

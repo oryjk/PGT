@@ -460,6 +460,10 @@ span {
   clear: both;
   margin-bottom: 20px; }
 
+.clear-float {
+  clear: both;
+  margin-bottom: 20px; }
+
 /*color*/
 /*col*/
 /*color*/
@@ -564,6 +568,10 @@ span {
 
 /*商品详情绝当价*/
 .clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
   clear: both;
   margin-bottom: 20px; }
 
@@ -676,6 +684,7 @@ span {
     border-bottom: none;
     margin: 0;
     padding: 10px 0 10px 10px;
+    background: white;
     overflow: hidden;
     *zoom: 1; }
     .recommend .tab li {
@@ -867,6 +876,7 @@ span {
 .tab {
   margin: 0;
   padding: 10px 0 10px 10px;
+  background: white;
   overflow: hidden;
   *zoom: 1;
   padding: 0;
@@ -887,8 +897,13 @@ span {
   .tab h2 {
     margin: 0;
     padding: 0; }
+  .tab .choose a {
+    color: #ffaa00; }
   .tab h2 {
     font-size: 18px; }
+    .tab h2 a {
+      text-decoration: none;
+      color: black; }
 
 .content-search {
   vertical-align: middle;

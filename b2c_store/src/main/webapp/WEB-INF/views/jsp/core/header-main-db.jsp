@@ -52,7 +52,14 @@
 </div>
 <div class="head-box">
     <div class="logo-box">
-        <h1><a href="<spring:url value="${urlConfiguration.homePage}"/>">点金子绝当品——欢迎登录</a></h1>
+        <h1>
+            <a href="<spring:url value="${urlConfiguration.homePage}"/>">
+            点金子绝当品——欢迎登录
+            <img src="../core/images/header/images/big-logo_pig.jpg" alt="#"/>
+            <div class="golds"></div>
+            <div class="light"></div>
+            </a>
+    </h1>
     </div>
     <div class="search-box">
         <form action="${pageContext.request.contextPath}/essearch">

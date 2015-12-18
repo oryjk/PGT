@@ -425,11 +425,11 @@ a {
   .aside .aside-product p a:hover, .list-box .list-product p a:hover {
     color: #ffaa00; }
 
-.similar-box .similar-name {
+.recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
-  .similar-box .similar-name:hover {
+  .recommend .similar-box .similar-name:hover {
     color: #ffaa00; }
 
 .orderby-box a {
@@ -487,7 +487,7 @@ span {
 .aside .aside-product .aside-product-priceh {
   font-size: 15px; }
 
-.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span, .similar-box .similar-cost, .similar-box .similar-cost span {
+.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span, .recommend .similar-box .similar-cost, .recommend .similar-box .similar-cost span {
   font-size: 18px;
   color: #c20008; }
 
@@ -497,6 +497,10 @@ span {
 
 /*商品详情绝当价*/
 .clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
   clear: both;
   margin-bottom: 20px; }
 
@@ -574,11 +578,11 @@ a {
   .aside .aside-product p a:hover, .list-box .list-product p a:hover {
     color: #ffaa00; }
 
-.similar-box .similar-name {
+.recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
-  .similar-box .similar-name:hover {
+  .recommend .similar-box .similar-name:hover {
     color: #ffaa00; }
 
 .orderby-box a {
@@ -636,7 +640,7 @@ span {
 .aside .aside-product .aside-product-priceh {
   font-size: 15px; }
 
-.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span, .similar-box .similar-cost, .similar-box .similar-cost span {
+.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span, .recommend .similar-box .similar-cost, .recommend .similar-box .similar-cost span {
   font-size: 18px;
   color: #c20008; }
 
@@ -646,6 +650,10 @@ span {
 
 /*商品详情绝当价*/
 .clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
   clear: both;
   margin-bottom: 20px; }
 
@@ -739,68 +747,69 @@ span {
 @-webkit-keyframes mylogo {
   0% { }
   10% {
-    top: -7px; }
+    top: -9px; }
   20% {
-    top: 12px; }
+    top: 18px; }
   30% {
-    top: -2px; }
+    top: -5px; }
   40% {
-    top: 11px; }
+    top: 17px; }
   50% {
     top: 0; }
   60% {
-    top: 10px; }
+    top: 16px; }
   70% {
     top: 4px; }
   80% {
-    top: 10px; }
+    top: 15px; }
   90% {
     top: 8px; }
   100% {
-    top: 10px; } }
+    top: 15px; } }
 
 @keyframes mylogo {
   0% { }
   10% {
-    top: -7px; }
+    top: -9px; }
   20% {
-    top: 12px; }
+    top: 18px; }
   30% {
-    top: -2px; }
+    top: -5px; }
   40% {
-    top: 11px; }
+    top: 17px; }
   50% {
     top: 0; }
   60% {
-    top: 10px; }
+    top: 16px; }
   70% {
     top: 4px; }
   80% {
-    top: 10px; }
+    top: 15px; }
   90% {
     top: 8px; }
   100% {
-    top: 10px; } }
+    top: 15px; } }
 
 .head-box {
-  margin: 15px auto 0;
+  margin: 0 auto;
+  padding-top: 25px;
   width: 1180px;
   overflow: hidden;
   *zoom: 1; }
   .head-box .logo-box {
     float: left;
+    margin-top: -25px;
     width: 280px;
-    height: 100px; }
+    height: 115px; }
     .head-box .logo-box h1 {
       margin: 0;
       width: 100%;
-      height: 90px;
-      background: url("../core/images/header/images/logo-t-pig_02.png") no-repeat 68px 10px; }
+      height: 115px;
+      background: url("../core/images/header/images/big-logo_text.jpg") no-repeat 91px 10px; }
     .head-box .logo-box a {
       display: block;
-      padding-top: 15px;
       width: 100%;
-      height: 70px;
+      height: 115px;
       text-indent: -5000px;
       position: relative;
       overflow: hidden; }
@@ -817,10 +826,20 @@ span {
       .head-box .logo-box a:hover .light {
         left: 420px;
         transition: left 0.9s; }
+      .head-box .logo-box a:hover .golds {
+        background-position: 0 60px;
+        transition: background-position 5s linear 1.3s; }
       .head-box .logo-box a img {
         position: absolute;
-        top: 10px;
+        top: 15px;
         left: 0; }
+      .head-box .logo-box a .golds {
+        position: absolute;
+        top: 0;
+        left: 30px;
+        width: 50px;
+        height: 60px;
+        background: url("../core/images/header/golds.png") no-repeat 0 -500px; }
       .head-box .logo-box a:hover img {
         -webkit-animation: mylogo 1s .5s;
         animation: mylogo 1s .5s; }
@@ -1142,11 +1161,11 @@ a {
   .aside .aside-product p a:hover, .list-box .list-product p a:hover {
     color: #ffaa00; }
 
-.similar-box .similar-name {
+.recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
-  .similar-box .similar-name:hover {
+  .recommend .similar-box .similar-name:hover {
     color: #ffaa00; }
 
 .orderby-box a {
@@ -1204,7 +1223,7 @@ span {
 .aside .aside-product .aside-product-priceh {
   font-size: 15px; }
 
-.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span, .similar-box .similar-cost, .similar-box .similar-cost span {
+.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span, .recommend .similar-box .similar-cost, .recommend .similar-box .similar-cost span {
   font-size: 18px;
   color: #c20008; }
 
@@ -1214,6 +1233,10 @@ span {
 
 /*商品详情绝当价*/
 .clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
   clear: both;
   margin-bottom: 20px; }
 
@@ -1502,11 +1525,11 @@ a {
   .aside .aside-product p a:hover, .list-box .list-product p a:hover {
     color: #ffaa00; }
 
-.similar-box .similar-name {
+.recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
-  .similar-box .similar-name:hover {
+  .recommend .similar-box .similar-name:hover {
     color: #ffaa00; }
 
 .orderby-box a {
@@ -1564,7 +1587,7 @@ span {
 .aside .aside-product .aside-product-priceh {
   font-size: 15px; }
 
-.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span, .similar-box .similar-cost, .similar-box .similar-cost span {
+.aside .aside-product .aside-product-price, .aside .aside-product .aside-product-price span, .recommend .similar-box .similar-cost, .recommend .similar-box .similar-cost span {
   font-size: 18px;
   color: #c20008; }
 
@@ -1574,6 +1597,10 @@ span {
 
 /*商品详情绝当价*/
 .clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
   clear: both;
   margin-bottom: 20px; }
 
@@ -1981,8 +2008,7 @@ span {
 .content-box {
   overflow: hidden;
   *zoom: 1;
-  background: #faf4f6 url("../core/images/index/background.png");
-  padding: 0 0 20px; }
+  background: #faf4f6 url("../core/images/index/background.png"); }
 
 .content {
   margin: 0 auto;
@@ -2322,135 +2348,165 @@ span {
 
 /*similar-box
 ****************************************************/
-.similar-box {
-  position: relative;
+.recommend {
+  margin: 20px auto;
+  width: 1180px;
   overflow: hidden;
-  *zoom: 1;
-  border: 1px solid #cccccc;
-  padding: 0 30px;
-  background: white;
-  margin-top: 20px; }
-  .similar-box:hover .move-right-box a,
-  .similar-box:hover .move-left-box a {
-    opacity: .7; }
-  .similar-box h2 {
-    position: relative;
-    z-index: 1;
-    margin: 0 -20px;
-    padding: 15px 30px 10px;
-    border-bottom: 1px solid #ffaa00; }
-  .similar-box .move-left-box,
-  .similar-box .move-right-box {
-    position: absolute;
-    top: 0;
-    width: 30px;
-    height: 100%;
-    background: white; }
-    .similar-box .move-left-box a,
-    .similar-box .move-right-box a {
-      position: absolute;
-      top: 50%;
-      margin-top: -25px;
-      width: 26px;
-      height: 48px;
-      border: 2px solid #ffaa00;
-      color: #ffaa00;
-      text-align: center;
-      text-decoration: none;
-      font-size: 20px;
-      line-height: 48px;
-      font-weight: 400; }
-      .similar-box .move-left-box a:hover,
-      .similar-box .move-right-box a:hover {
-        background: #ffaa00;
-        color: white; }
-  .similar-box .move-left-box {
-    left: 0; }
-  .similar-box .move-right-box {
-    right: 0; }
-  .similar-box .move-left-box a,
-  .similar-box .move-right-box a {
-    opacity: .1; }
-  .similar-box ul {
+  *zoom: 1; }
+  .recommend .tab {
+    border: 1px solid #cccccc;
+    border-bottom: none;
     margin: 0;
-    padding: 10px 5px;
+    padding: 10px 0 10px 10px;
+    background: white;
     overflow: hidden;
+    *zoom: 1; }
+    .recommend .tab li {
+      border-top: 3px solid transparent;
+      float: left;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin-right: 20px;
+      cursor: pointer; }
+    .recommend .tab .choose {
+      cursor: auto;
+      border-color: #ffaa00; }
+      .recommend .tab .choose h2 {
+        color: #ffaa00; }
+    .recommend .tab h2 {
+      margin: 0;
+      padding: 0; }
+    .recommend .tab h2 {
+      font-size: 20px; }
+  .recommend .similar-box {
     position: relative;
-    z-index: 0;
-    width: 10000%; }
-  .similar-box li {
-    position: relative;
-    float: left;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin: 0 11.2px;
-    padding-top: 5px;
-    width: 201.6px; }
-    .similar-box li:hover {
-      box-shadow: 0 0 2px 2px #cccccc; }
-      .similar-box li:hover .product-handle {
-        opacity: 1;
-        top: 91%;
-        transition: all .4s linear; }
-    .similar-box li img {
-      width: 192px;
-      height: 192px; }
-  .similar-box .similar-pic-box {
-    display: block;
-    margin: 0 auto;
-    width: 95%; }
-  .similar-box img {
-    display: block;
-    width: 100%; }
-  .similar-box .similar-name {
-    display: block;
-    margin-top: 15px;
-    height: 60px; }
-  .similar-box .similar-cost {
-    margin: 5px 0;
-    text-align: left; }
-  .similar-box .product-handle {
-    position: absolute;
-    opacity: 0;
-    right: 5%;
-    top: 93%; }
-    .similar-box .product-handle a {
-      display: inline;
-      font-size: 18px;
-      padding: 3px;
-      color: #ffaa00;
-      text-decoration: none;
-      vertical-align: top; }
-      .similar-box .product-handle a:hover {
-        color: #ce8221; }
-    .similar-box .product-handle .disLike {
-      color: #666666; }
-      .similar-box .product-handle .disLike:hover {
-        color: #3f3f3f; }
-    .similar-box .product-handle .addEnjoy {
-      color: #3ec564; }
-      .similar-box .product-handle .addEnjoy:hover {
-        color: #1a9846; }
-  .similar-box .out-of-stock {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 73px;
-    height: 73px;
-    background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
-    opacity: .7; }
-  .similar-box .product-message {
-    display: none;
-    position: absolute;
-    top: 30%;
-    height: 40px;
-    width: 100%;
-    background: linear-gradient(to right, rgba(100, 100, 100, 0.2) 0%, rgba(100, 100, 100, 0.9) 50%, rgba(100, 100, 100, 0.2) 100%);
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    font-size: 16px; }
+    overflow: hidden;
+    *zoom: 1;
+    border: 1px solid #cccccc;
+    padding: 0 30px;
+    background: white; }
+    .recommend .similar-box:hover .move-right-box a,
+    .recommend .similar-box:hover .move-left-box a {
+      opacity: .7; }
+    .recommend .similar-box h2 {
+      position: relative;
+      z-index: 1;
+      margin: 0 -20px;
+      padding: 15px 30px 10px;
+      border-bottom: 1px solid #ffaa00; }
+    .recommend .similar-box .move-left-box,
+    .recommend .similar-box .move-right-box {
+      position: absolute;
+      top: 0;
+      width: 30px;
+      height: 100%;
+      background: white; }
+      .recommend .similar-box .move-left-box a,
+      .recommend .similar-box .move-right-box a {
+        position: absolute;
+        top: 50%;
+        margin-top: -25px;
+        width: 26px;
+        height: 48px;
+        border: 2px solid #ffaa00;
+        color: #ffaa00;
+        text-align: center;
+        text-decoration: none;
+        font-size: 20px;
+        line-height: 48px;
+        font-weight: 400; }
+        .recommend .similar-box .move-left-box a:hover,
+        .recommend .similar-box .move-right-box a:hover {
+          background: #ffaa00;
+          color: white; }
+    .recommend .similar-box .move-left-box {
+      left: 0; }
+    .recommend .similar-box .move-right-box {
+      right: 0; }
+    .recommend .similar-box .move-left-box a,
+    .recommend .similar-box .move-right-box a {
+      opacity: .1; }
+    .recommend .similar-box ul {
+      margin: 0;
+      padding: 10px 5px;
+      overflow: hidden;
+      position: relative;
+      z-index: 0;
+      width: 10000%; }
+    .recommend .similar-box li {
+      position: relative;
+      float: left;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin: 0 11.18px;
+      padding-top: 5px;
+      width: 201.24px; }
+      .recommend .similar-box li:hover {
+        box-shadow: 0 0 2px 2px #cccccc; }
+        .recommend .similar-box li:hover .product-handle {
+          opacity: 1;
+          top: 91%;
+          transition: all .4s linear; }
+      .recommend .similar-box li img {
+        width: 192px;
+        height: 192px; }
+    .recommend .similar-box .similar-pic-box {
+      display: block;
+      margin: 0 auto;
+      width: 95%; }
+    .recommend .similar-box img {
+      display: block;
+      width: 100%; }
+    .recommend .similar-box .similar-name {
+      display: block;
+      margin-top: 15px;
+      height: 60px; }
+    .recommend .similar-box .similar-cost {
+      margin: 5px 0;
+      text-align: left; }
+    .recommend .similar-box .product-handle {
+      position: absolute;
+      opacity: 0;
+      right: 5%;
+      top: 93%; }
+      .recommend .similar-box .product-handle a {
+        display: inline;
+        font-size: 18px;
+        padding: 3px;
+        color: #ffaa00;
+        text-decoration: none;
+        vertical-align: top; }
+        .recommend .similar-box .product-handle a:hover {
+          color: #ce8221; }
+      .recommend .similar-box .product-handle .disLike {
+        color: #666666; }
+        .recommend .similar-box .product-handle .disLike:hover {
+          color: #3f3f3f; }
+      .recommend .similar-box .product-handle .addEnjoy {
+        color: #3ec564; }
+        .recommend .similar-box .product-handle .addEnjoy:hover {
+          color: #1a9846; }
+    .recommend .similar-box .out-of-stock {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 73px;
+      height: 73px;
+      background: url("../core/images/productList/out-of-stock-s.png") no-repeat right top;
+      opacity: .7; }
+    .recommend .similar-box .product-message {
+      display: none;
+      position: absolute;
+      top: 30%;
+      height: 40px;
+      width: 100%;
+      background: linear-gradient(to right, rgba(100, 100, 100, 0.2) 0%, rgba(100, 100, 100, 0.9) 50%, rgba(100, 100, 100, 0.2) 100%);
+      color: white;
+      text-align: center;
+      line-height: 40px;
+      font-size: 16px; }
 
 /*for js
 ****************************************************/

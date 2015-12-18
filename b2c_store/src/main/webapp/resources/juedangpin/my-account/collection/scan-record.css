@@ -450,6 +450,10 @@ span {
   clear: both;
   margin-bottom: 20px; }
 
+.clear-float {
+  clear: both;
+  margin-bottom: 20px; }
+
 /*color*/
 /*col*/
 /*color*/
@@ -544,6 +548,10 @@ span {
 
 /*商品详情绝当价*/
 .clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
   clear: both;
   margin-bottom: 20px; }
 
@@ -656,6 +664,7 @@ span {
     border-bottom: none;
     margin: 0;
     padding: 10px 0 10px 10px;
+    background: white;
     overflow: hidden;
     *zoom: 1; }
     .recommend .tab li {
