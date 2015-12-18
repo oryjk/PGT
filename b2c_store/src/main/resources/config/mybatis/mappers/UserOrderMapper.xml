@@ -52,10 +52,11 @@
 			</otherwise>
 		</choose>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
-			AND o.order_id IN (
+			AND (o.order_id = #{pagination.keyword}
+			OR o.order_id IN (
 			SELECT DISTINCT order_id
 			FROM COMMERCE_ITEM ci
-			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%'))
+			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%')))
 		</if>
 	</select>
 
@@ -72,10 +73,11 @@
 			</otherwise>
 		</choose>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
-			AND o.order_id IN (
+			AND (o.order_id = #{pagination.keyword}
+			OR o.order_id IN (
 			SELECT DISTINCT order_id
 			FROM COMMERCE_ITEM ci
-			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%'))
+			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%')))
 		</if>
 		<include refid="limit-split-page" />
 	</select>

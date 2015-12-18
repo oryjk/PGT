@@ -49,6 +49,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         //事件委托:加入购物车, 添加收藏
         $(document).on('click', '.addCart', addCart);
         $(document).on('click', '.addEnjoy', addEnjoy);
+        $(document).on('click', '.order-history-search', orderSearch);
 
         //加入购物车
         function addCart(event) {
@@ -111,7 +112,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
                     if ( j == 0) {
                         str += '<td class="col5" rowspan="100">'
-                            + '?关羽'
+                            + orderArr[i].shippingVO.shippingAddress.name
                             + '</td> <td class="col6" rowspan="100"><span>¥<span>'
                             + orderArr[i].subtotal
                             + '</span></span></td> <td class="col7" rowspan="100"> <span>';
@@ -136,5 +137,12 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             list.html(str);
         }
 
+        // search order with order id or keyword
+        function orderSearch(event) {
+            var that = $(this);
+            var redirectURL = that.attr('data-url');
+            var keyword = $(":text.content-search").val();
+            window.location.href = redirectURL + keyword;
+        }
     });
 });
