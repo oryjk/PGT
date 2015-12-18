@@ -102,7 +102,7 @@
                             </div>
                             <div class="input-text4">
                                 <input type="radio" class="" name="marrage" value="已婚"  <c:if test="${userInformation.marrage eq '已婚'}">checked=""</c:if>>已婚
-                                <input type="radio" name="marrage" value="保密"  <c:if test="${userInformation.marrage eq '未婚'}">checked=""</c:if>>未婚
+                                <input type="radio" name="marrage" value="未婚"  <c:if test="${userInformation.marrage eq '未婚'}">checked=""</c:if>>未婚
                                 <input type="radio" name="marrage" value="保密"  <c:if test="${userInformation.marrage eq '保密'}">checked=""</c:if>>保密
                             </div>
                         </div>
