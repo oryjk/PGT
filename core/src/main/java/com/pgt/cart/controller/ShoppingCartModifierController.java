@@ -138,6 +138,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 					// reset redirect url to shopping car
 					mav.setViewName(getRedirectView(CART));
 					if (easyBuy > 0) {
+						pRequest.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
 						mav.setViewName(getRedirectView("/checkout/shipping"));
 						mav.addObject(CartConstant.ORDER_ID,order.getId());
 					}
@@ -510,7 +511,6 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			order.setEasyBuy(true);
 			order.setUserId(currentUser.getId().intValue());
 		}
-		pRequest.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX+order.getId(), order);
 		return order;
 	}
 	

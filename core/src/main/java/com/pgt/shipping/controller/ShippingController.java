@@ -96,17 +96,19 @@ public class ShippingController {
 		mav.addObject("provinceList", provinceList);
 		mav.setViewName(urlConfiguration.getShippingPage());
 		mav.addObject("addressInfoList", addressInfoList);
+		mav.addObject("checkoutOrder", order);
 		return mav;
 	}
 
 	@RequestMapping(value = "/addAddressToOrder", method = { RequestMethod.POST })
 	@ResponseBody
 	public Map<String, Object> addAddressToOrder(@RequestParam("addressInfoId") String addressInfoId,
-			HttpSession session) {
+			HttpServletRequest request, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		Order order = (Order) session.getAttribute(CartConstant.CURRENT_ORDER);
-		if (order == null) {
-			LOGGER.error("Need create a order for current user firslty when add shipping address.");
+		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		Order order = getOrderService().getSessionOrder(request);
+		if (getOrderService().isInvalidOrder(user, order)) {
+			LOGGER.error("Falied to add address to order-{}.", request.getParameter(CartConstant.ORDER_ID));
 			map.put("redirectUrl", urlConfiguration.getShoppingCartPage());
 			map.put("success", "false");
 			return map;
@@ -130,12 +132,13 @@ public class ShippingController {
 	@RequestMapping(value = "/addPickup", method = { RequestMethod.POST })
 	@ResponseBody
 	public Map<String, Object> addPickup(@Validated ShippingMethod shippingMethod, BindingResult bindingResult,
-			HttpSession session) {
+			HttpServletRequest request, HttpSession session) {
 		LOGGER.debug("Starting to add a pick up shipping.");
 		Map<String, Object> map = new HashMap<String, Object>();
-		Order order = (Order) session.getAttribute(CartConstant.CURRENT_ORDER);
-		if (order == null) {
-			LOGGER.error("Need create a order for current user firslty when adding pick up shipping.");
+		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		Order order = getOrderService().getSessionOrder(request);
+		if (getOrderService().isInvalidOrder(user, order)) {
+			LOGGER.error("Falied to add pickup shipping to order-{}.", request.getParameter(CartConstant.ORDER_ID));
 			map.put("redirectUrl", urlConfiguration.getShoppingCartPage());
 			map.put("success", "false");
 			return map;
@@ -156,22 +159,25 @@ public class ShippingController {
 	}
 
 	@RequestMapping(value = "/redirectToPayment", method = RequestMethod.GET)
-	public ModelAndView redirectToPayment(HttpSession session) {
+	public ModelAndView redirectToPayment(HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		Order order = (Order) session.getAttribute(CartConstant.CURRENT_ORDER);
-		if (order == null) {
-			LOGGER.error("Need create a order for current user firslty when add shipping address.");
+		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		Order order = getOrderService().getSessionOrder(request);
+		if (getOrderService().isInvalidOrder(user, order)) {
+			LOGGER.error("Current order is invalid and will redirect to shopping cart.");
 			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage());
 			return mav;
 		}
 		if (!hasShippingOnOrder(order)) {
 			mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
+			mav.addObject(CartConstant.ORDER_ID, order.getId());
 			return mav;
 		} else {
 			order.setStatus(OrderStatus.FILLED_SHIPPING);
-			getShoppingCartService().updateOrder(order);
+			getOrderService().updateOrder(order);
 		}
 		mav.setViewName("redirect:/payment/gateway");
+		mav.addObject(CartConstant.ORDER_ID, order.getId());
 		return mav;
 	}
 

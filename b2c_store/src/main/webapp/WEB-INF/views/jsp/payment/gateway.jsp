@@ -105,6 +105,7 @@
                     <label class="zhifubao" for="">
                         <input type="radio" name="method" value="alipay"/>
                     </label>
+                    <input type="hidden" name="orderId" value="${order.id}"/>
                     <input class="d-btn" type="submit" value="确认支付"/>
                 </div>
 

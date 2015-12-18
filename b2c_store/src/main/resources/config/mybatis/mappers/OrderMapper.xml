@@ -39,7 +39,7 @@
     </select>
     
      <select id="loadEasyBuyOrderByUserId" parameterType="string" resultMap="order">
-        SELECT * FROM `order` WHERE user_id = #{userId} AND easy_buy = 1 and status &lt;30 ORDER BY order_id DESC LIMIT 1
+        SELECT * FROM `order` WHERE user_id = #{userId} AND easy_buy = 1 and status =10 ORDER BY order_id DESC LIMIT 1
     </select>
     
     <select id="selectCommerceItemByOrderId" parameterType="int" resultMap="commerceItem">
