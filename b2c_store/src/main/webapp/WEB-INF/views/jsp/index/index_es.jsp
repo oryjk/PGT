@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
@@ -97,7 +98,7 @@
 										<p class="product-name">${product['name']}</p>
 
 										<p class="product-cost">
-											￥<span>${product['salePrice']}</span>
+											￥<span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number"/></span>
 										</p>
 
                                     <c:if test="${product['stock']<1}">
@@ -156,7 +157,7 @@
 										<p class="product-name">${product['name']}</p>
 
 										<p class="product-cost">
-											￥<span>${product['salePrice']}</span>
+											￥<span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number"/></span>
 										</p>
 
 									  <c:if test="${product['stock']<1}">

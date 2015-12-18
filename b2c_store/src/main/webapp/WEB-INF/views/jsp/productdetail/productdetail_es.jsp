@@ -35,12 +35,12 @@
                 <div class="cost">
                     <c:if test="${!empty product['listPrice']}">
                         <p>
-                            <span>市场价:</span> ¥ <span class="old-cost">${product['listPrice']}</span>
+                            <span>市场价:</span> ¥ <span class="old-cost"><fmt:formatNumber value="${product.listPrice}" pattern="0.00" type="number" /></span>
                         </p>
                     </c:if>
                     <p>
                         <span>绝当价:</span> <span class="our-cost">
-                            ¥${product['salePrice']}</span> (<span><fmt:formatNumber
+                            ¥<fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number" /></span> (<span><fmt:formatNumber
                                 type="number" value="${product['salePrice']/product['listPrice']*10}"
                                 maxFractionDigits="0" /></span>折)
                     </p>
