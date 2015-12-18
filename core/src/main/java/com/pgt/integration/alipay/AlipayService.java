@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pgt.cart.bean.Order;
-import com.pgt.cart.constant.CartConstant;
 import com.pgt.constant.UserConstant;
 import com.pgt.integration.alipay.bean.AlipayResult;
 import com.pgt.integration.alipay.dao.AlipayResultMapper;
@@ -134,7 +133,7 @@ public class AlipayService {
 		return inputLine.toString();
 	}
 
-	public void createAlipayTransactionLog(HttpSession session, PaymentGroup paymentGroup,
+	public void createAlipayTransactionLog(HttpSession session, Order order, PaymentGroup paymentGroup,
 			Map<String, String> paramsMap) {
 		TransactionLog transactionLog = new TransactionLog();
 		transactionLog.setPaymentType(AlipayConstants.TYPE);
@@ -142,7 +141,6 @@ public class AlipayService {
 		if (user != null) {
 			transactionLog.setUserId(user.getId());
 		}
-		Order order = (Order) session.getAttribute(CartConstant.CURRENT_ORDER);
 		if (order != null) {
 			transactionLog.setOrderId((long) order.getId());
 			transactionLog.setTransactionId((long) order.getId());
