@@ -35,34 +35,36 @@
             <li ${empty chosen ? 'class="choose"' : ''}><h2 data-tab="2">我的收藏</h2></li>
         </c:if>
     </ul>
-    <div class="similar-box">
-        <ul class="similar" id="rowList1">
-            <c:forEach var="product" items="${recommendProducts}">
-                <li>
-                    <a class="similar-pic-box" href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>">
-                        <img src="${pageContext.request.contextPath}/resources${product.frontMedia.path}"
-                             alt="${empty product.frontMedia.title ? product.name : product.frontMedia.title}" /></a>
-                    <a class="similar-name" href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>">
-                       ${product.name} ${product.serialNumber}
-                    </a>
-                    <p class="similar-cost">
-                        ¥<span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number" /></span>
-                    </p>
-                    <div class="product-handle">
-                        <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
-                        <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
-                    </div>
-                    <div class="product-message">添加成功</div>
-                </li>
-            </c:forEach>
-        </ul>
-        <div class="move-left-box">
-            <a href="#" id="moveLeft1"><</a>
+    <c:if test="${empty param.excludeRecommend}">
+        <div class="similar-box">
+            <ul class="similar" id="rowList1">
+                <c:forEach var="product" items="${recommendProducts}">
+                    <li>
+                        <a class="similar-pic-box" href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>">
+                            <img src="${pageContext.request.contextPath}/resources${product.frontMedia.path}"
+                                 alt="${empty product.frontMedia.title ? product.name : product.frontMedia.title}" /></a>
+                        <a class="similar-name" href="<spring:url value="${urlConfiguration.pdpPage}/${product.productId}"/>">
+                           ${product.name} ${product.serialNumber}
+                        </a>
+                        <p class="similar-cost">
+                            ¥<span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number" /></span>
+                        </p>
+                        <div class="product-handle">
+                            <a class="addEnjoy"  href="#" data-value="${product.productId}"><i class="foundicon-heart"></i></a>
+                            <a class="addCart" href="#" data-value="${product.productId}"><i class="foundicon-cart"></i></a>
+                        </div>
+                        <div class="product-message">添加成功</div>
+                    </li>
+                </c:forEach>
+            </ul>
+            <div class="move-left-box">
+                <a href="#" id="moveLeft1"><</a>
+            </div>
+            <div class="move-right-box">
+                <a href="#" id="moveRight1">></a>
+            </div>
         </div>
-        <div class="move-right-box">
-            <a href="#" id="moveRight1">></a>
-        </div>
-    </div>
+    </c:if>
     <c:if test="${fn:length(browsedProducts) gt 0 and empty param.excludeBrowsed}">
         <div class="similar-box" style="display: none">
             <ul class="similar" id="rowList2">
