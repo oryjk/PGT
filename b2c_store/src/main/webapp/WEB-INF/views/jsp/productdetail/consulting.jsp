@@ -93,7 +93,7 @@
 	<p>
 		<!--  
 		<input type="submit" value="匿名咨询" /> 
-		<input type="submit" value="会员登陆" />
+		<input type="submit" value="会员登录" />
 -->
 		<input type="button" value="咨询" onclick="createConsulitng()" />
 	</p>

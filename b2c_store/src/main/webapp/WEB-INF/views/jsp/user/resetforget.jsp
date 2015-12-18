@@ -14,7 +14,7 @@
     <div class="header" id="header">
     <div class="head-box">
         <div class="logo-box">
-            <h1><a href="<spring:url value="/"/>">点金子绝当品——欢迎登陆</a></h1>
+            <h1><a href="<spring:url value="/"/>">点金子绝当品——欢迎登录</a></h1>
         </div>
         <div class="found">
             找回密码
@@ -125,7 +125,7 @@
         <form class="forget"
             action="${pageContext.request.contextPath}/user/resetPassword" method="post">
             <div class="admin">
-                新登陆密码：<input  name="password" type="password" class="text" placeholder="6位以上数字或字母">
+                新登录密码：<input  name="password" type="password" class="text" placeholder="6位以上数字或字母">
                 <span class="tips">密码格式不正确</span>
             </div>
             <div class="validate">
@@ -160,7 +160,7 @@
                 </div>
                 <div class="forget-font1">恭喜你，重置密码成功</div>
                 <div class="forget-font2">
-                    请牢记您设置的密码。<a class="link-btn" href="${pageContext.request.contextPath}/user/login">立即登陆</a>
+                    请牢记您设置的密码。<a class="link-btn" href="${pageContext.request.contextPath}/user/login">立即登录</a>
                 </div>
             </div>
         </form>   

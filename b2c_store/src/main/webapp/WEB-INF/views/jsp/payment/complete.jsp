@@ -24,13 +24,13 @@
                     <li><a href="#">网站导航</a></li>
                 </ul>
                 <ul class="will-login">
-                    <li><a href="../user/login.html"> 立即登陆</a></li>
+                    <li><a href="../user/login.html"> 立即登录</a></li>
                     <li><a href="../user/regist.html">免费注册</a></li>
                 </ul>
                 <ul class="have-login">
                     <li><a href="../user/regist.html"><span> 欢迎您：</span><span>游客</span></a></li>
                     <li><a href="#">账户管理</a></li>
-                    <li><a href="#">退出登陆</a></li>
+                    <li><a href="#">退出登录</a></li>
                 </ul>
             </div>
         </div>

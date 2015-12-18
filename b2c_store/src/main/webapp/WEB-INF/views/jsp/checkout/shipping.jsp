@@ -33,7 +33,7 @@
                         <a href="<spring:url value="${urlConfiguration.myAccountPage}"/>"><span> 欢迎您：</span><span>${currentUser.username}</span></a>
                     </li>
                     <li><a href="<spring:url value="${urlConfiguration.myAccountPage}"/>">账户管理</a></li>
-                    <li><a href="<spring:url value="${urlConfiguration.logoutPage}"/>">退出登陆</a></li>
+                    <li><a href="<spring:url value="${urlConfiguration.logoutPage}"/>">退出登录</a></li>
                 </ul>
             </div>
         </div>
