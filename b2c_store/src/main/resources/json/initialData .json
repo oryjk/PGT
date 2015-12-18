@@ -443,6 +443,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
@@ -1666,6 +1667,7 @@
             "status": "1",
             "description": "",
             "shippingFee": "",
+            "isHot":1,
             "stock": "1",
             "mainMedias": [
               {
@@ -2429,6 +2431,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
@@ -2526,6 +2529,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
@@ -2612,6 +2616,651 @@
             },
             "title": "",
             "shortDescription": "天然A货 精工抛 无瑕疵",
+            "isNew": "全新"
+          },
+          {
+            "name": "福鹿",
+            "serialNumber": "LYJ001",
+            "listPrice": "13000",
+            "salePrice": "7800",
+            "status": "1",
+            "description": "",
+            "shippingFee": "",
+            "stock": "1",
+            "isHot":1,
+            "mainMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_main_00.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_main_01.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_main_02.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_main_03.jpg",
+                "index": "",
+                "type": "main"
+              }
+            ],
+            "heroMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_hero_00.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_hero_01.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_hero_02.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_hero_03.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_hero_04.jpg",
+                "index": "",
+                "type": "hero"
+              }
+            ],
+            "thumbnailMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ001_hero_04.jpg",
+                "index": "",
+                "type": "thumbnail"
+              }
+            ],
+            "advertisementMedia": {
+              "title": "",
+              "path": "/image/description/LYJ001_advertisement_00.jpg",
+              "index": "",
+              "type": "advertisement"
+            },
+            "frontMedia": {
+              "title": "",
+              "path": "/image/description/LYJ001_front_00.jpg",
+              "index": "",
+              "type": "front"
+            },
+            "expertMedia": {
+              "title": "",
+              "path": "/image/description/LYJ001_expert_00.jpg",
+              "index": "",
+              "type": "expert"
+            },
+            "title": "",
+            "shortDescription": "天然A货 手工雕刻 选料上乘",
+            "isNew": "全新"
+          },
+          {
+            "name": "雄鸡",
+            "serialNumber": "LYJ003",
+            "listPrice": "8000",
+            "salePrice": "4800",
+            "status": "1",
+            "description": "",
+            "shippingFee": "",
+            "stock": "1",
+            "mainMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_main_00.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_main_01.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_main_02.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_main_03.jpg",
+                "index": "",
+                "type": "main"
+              }
+            ],
+            "heroMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_hero_00.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_hero_01.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_hero_02.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_hero_03.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_hero_04.jpg",
+                "index": "",
+                "type": "hero"
+              }
+            ],
+            "thumbnailMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ003_thumbnail_00.jpg",
+                "index": "",
+                "type": "thumbnail"
+              }
+            ],
+            "advertisementMedia": {
+              "title": "",
+              "path": "/image/description/LYJ003_advertisement_00.jpg",
+              "index": "",
+              "type": "advertisement"
+            },
+            "frontMedia": {
+              "title": "",
+              "path": "/image/description/LYJ003_front_00.jpg",
+              "index": "",
+              "type": "front"
+            },
+            "expertMedia": {
+              "title": "",
+              "path": "/image/description/LYJ003_expert_00.jpg",
+              "index": "",
+              "type": "expert"
+            },
+            "title": "",
+            "shortDescription": "天然A货 透细种地 透亮水润",
+            "isNew": "全新"
+          },
+          {
+            "name": "粉地手镯",
+            "serialNumber": "LYJ004",
+            "listPrice": "3000",
+            "salePrice": "1800",
+            "status": "1",
+            "description": "",
+            "shippingFee": "",
+            "stock": "1",
+            "mainMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ004_main_00.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ004_main_01.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ004_main_02.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ004_main_03.jpg",
+                "index": "",
+                "type": "main"
+              }
+            ],
+            "heroMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ004_hero_00.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ004_hero_01.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ004_hero_02.jpg",
+                "index": "",
+                "type": "hero"
+              }
+            ],
+            "thumbnailMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ004_thumbnail_00.jpg",
+                "index": "",
+                "type": "thumbnail"
+              }
+            ],
+            "advertisementMedia": {
+              "title": "",
+              "path": "/image/description/LYJ004_advertisement_00.jpg",
+              "index": "",
+              "type": "advertisement"
+            },
+            "frontMedia": {
+              "title": "",
+              "path": "/image/description/LYJ004_front_00.jpg",
+              "index": "",
+              "type": "front"
+            },
+            "expertMedia": {
+              "title": "",
+              "path": "/image/description/LYJ004_expert_00.jpg",
+              "index": "",
+              "type": "expert"
+            },
+            "title": "",
+            "shortDescription": "天然A货 高亮 手工抛光",
+            "isNew": "全新"
+          },
+          {
+            "name": "粉地手镯",
+            "serialNumber": "LYJ005",
+            "listPrice": "3000",
+            "salePrice": "1800",
+            "status": "1",
+            "description": "",
+            "shippingFee": "",
+            "stock": "1",
+            "mainMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ005_main_00.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ005_main_01.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ005_main_02.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ005_main_03.jpg",
+                "index": "",
+                "type": "main"
+              }
+            ],
+            "heroMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ005_hero_00.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ005_hero_01.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ005_hero_02.jpg",
+                "index": "",
+                "type": "hero"
+              }
+            ],
+            "thumbnailMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ005_thumbnail_00.jpg",
+                "index": "",
+                "type": "thumbnail"
+              }
+            ],
+            "advertisementMedia": {
+              "title": "",
+              "path": "/image/description/LYJ005_advertisement_00.jpg",
+              "index": "",
+              "type": "advertisement"
+            },
+            "frontMedia": {
+              "title": "",
+              "path": "/image/description/LYJ005_front_00.jpg",
+              "index": "",
+              "type": "front"
+            },
+            "expertMedia": {
+              "title": "",
+              "path": "/image/description/LYJ005_expert_00.jpg",
+              "index": "",
+              "type": "expert"
+            },
+            "title": "",
+            "shortDescription": "天然A货 冰透润度极佳",
+            "isNew": "全新"
+          },
+          {
+            "name": "粉地手镯",
+            "serialNumber": "LYJ007",
+            "listPrice": "4000",
+            "salePrice": "2400",
+            "status": "1",
+            "description": "",
+            "shippingFee": "",
+            "stock": "1",
+            "isHot":1,
+            "mainMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_main_0.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_main_00.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_main_02.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_main_03.jpg",
+                "index": "",
+                "type": "main"
+              }
+            ],
+            "heroMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_hero_00.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_hero_01.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_hero_02.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_hero_03.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_hero_04.jpg",
+                "index": "",
+                "type": "hero"
+              }
+            ],
+            "thumbnailMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ007_thumbnail_00.jpg",
+                "index": "",
+                "type": "thumbnail"
+              }
+            ],
+            "advertisementMedia": {
+              "title": "",
+              "path": "/image/description/LYJ007_advertisement_00.jpg",
+              "index": "",
+              "type": "advertisement"
+            },
+            "frontMedia": {
+              "title": "",
+              "path": "/image/description/LYJ007_front_00.jpg",
+              "index": "",
+              "type": "front"
+            },
+            "expertMedia": {
+              "title": "",
+              "path": "/image/description/LYJ007_expert_00.jpg",
+              "index": "",
+              "type": "expert"
+            },
+            "title": "",
+            "shortDescription": "天然A货 冰润细腻",
+            "isNew": "全新"
+          },
+          {
+            "name": "粉地手镯",
+            "serialNumber": "LYJ012",
+            "listPrice": "3000",
+            "salePrice": "1800",
+            "status": "1",
+            "description": "",
+            "shippingFee": "",
+            "stock": "1",
+            "mainMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_main_0.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_main_01.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_main_02.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_main_03.jpg",
+                "index": "",
+                "type": "main"
+              }
+            ],
+            "heroMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_hero_00.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_hero_01.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_hero_02.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_hero_03.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_hero_04.jpg",
+                "index": "",
+                "type": "hero"
+              }
+            ],
+            "thumbnailMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ012_thumbnail_00.jpg",
+                "index": "",
+                "type": "thumbnail"
+              }
+            ],
+            "advertisementMedia": {
+              "title": "",
+              "path": "/image/description/LYJ012_advertisement_00.jpg",
+              "index": "",
+              "type": "advertisement"
+            },
+            "frontMedia": {
+              "title": "",
+              "path": "/image/description/LYJ012_front_00.jpg",
+              "index": "",
+              "type": "front"
+            },
+            "expertMedia": {
+              "title": "",
+              "path": "/image/description/LYJ012_expert_00.jpg",
+              "index": "",
+              "type": "expert"
+            },
+            "title": "",
+            "shortDescription": "天然A货 玉质细腻饱满 通透水润",
+            "isNew": "全新"
+          },
+          {
+            "name": "飘花手镯",
+            "serialNumber": "LYJ015",
+            "listPrice": "1500",
+            "salePrice": "900",
+            "status": "1",
+            "description": "",
+            "shippingFee": "",
+            "stock": "1",
+            "mainMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ015_main_00.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ015_main_01.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ015_main_02.jpg",
+                "index": "",
+                "type": "main"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ015_main_03.jpg",
+                "index": "",
+                "type": "main"
+              }
+            ],
+            "heroMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ015_hero_00.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ015_hero_01.jpg",
+                "index": "",
+                "type": "hero"
+              },
+              {
+                "title": "",
+                "path": "/image/description/LYJ015_hero_02.jpg",
+                "index": "",
+                "type": "hero"
+              }
+            ],
+            "thumbnailMedias": [
+              {
+                "title": "",
+                "path": "/image/description/LYJ015_thumbnail_00.jpg",
+                "index": "",
+                "type": "thumbnail"
+              }
+            ],
+            "advertisementMedia": {
+              "title": "",
+              "path": "/image/description/LYJ015_advertisement_00.jpg",
+              "index": "",
+              "type": "advertisement"
+            },
+            "frontMedia": {
+              "title": "",
+              "path": "/image/description/LYJ015_front_00.jpg",
+              "index": "",
+              "type": "front"
+            },
+            "expertMedia": {
+              "title": "",
+              "path": "/image/description/LYJ015_expert_00.jpg",
+              "index": "",
+              "type": "expert"
+            },
+            "title": "",
+            "shortDescription": "天然A货 飘绿花 高亮手工抛光",
             "isNew": "全新"
           }
         ]
@@ -3259,6 +3908,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -3608,6 +4258,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -3810,6 +4461,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -3901,6 +4553,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -3998,6 +4651,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -4179,6 +4833,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -4374,6 +5029,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -4562,6 +5218,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -4647,6 +5304,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -4744,6 +5402,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -4835,6 +5494,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -5094,6 +5754,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot": 1,
             "mainMedias": [
               {
                 "title": "",
@@ -5233,7 +5894,7 @@
             "thumbnailMedias": [
               {
                 "title": "",
-                "path": "/image/description/MN037_thumbnail_00.jpg",
+                "path": "/image/description/MN037_thumnail_00.jpg",
                 "index": "",
                 "type": "thumbnail"
               }
@@ -5387,6 +6048,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
@@ -5461,6 +6123,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
@@ -5553,6 +6216,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
@@ -5735,6 +6399,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
@@ -6355,6 +7020,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
@@ -6435,6 +7101,7 @@
             "description": "",
             "shippingFee": "",
             "stock": "1",
+            "isHot":1,
             "mainMedias": [
               {
                 "title": "",
