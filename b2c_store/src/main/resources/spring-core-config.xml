@@ -96,6 +96,7 @@
                 <value>isNew</value>
                 <value>title</value>
                 <value>shortDescription</value>
+                <value>keyWord</value>
             </list>
         </property>
 

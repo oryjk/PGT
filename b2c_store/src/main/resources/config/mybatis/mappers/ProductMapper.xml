@@ -26,6 +26,7 @@
         <result column="IS_NEW" property="isNew"/>
         <result column="SHORT_DESCRIPYION" property="shortDescription"/>
         <result column="TITLE" property="title"/>
+        <result column="KEY_WORD" property="keyWord"/>
 
         <association property="shippingAddress" column="PRODUCT_ID"
                      select="com.pgt.shipping.dao.ShippingAddressMapper.queryAddressByProduct"/>

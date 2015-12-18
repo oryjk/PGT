@@ -40,6 +40,7 @@ public class Product implements Serializable {
     private String shortDescription;
     private ShippingAddress shippingAddress;
     private boolean isHot;
+    private String keyWord;
 
     public List<ProductMedia> getMainMedias() {
         return mainMedias;
@@ -240,5 +241,13 @@ public class Product implements Serializable {
 
     public void setIsHot(boolean isHot) {
         this.isHot = isHot;
+    }
+
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
     }
 }
