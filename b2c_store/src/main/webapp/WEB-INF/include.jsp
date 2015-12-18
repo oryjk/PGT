@@ -26,13 +26,13 @@
                     <li><a href="#">网站导航</a></li>
                 </ul>
                 <ul class="will-login">
-                    <li><a href="../user/login.html"></i> 立即登陆</a></li>
+                    <li><a href="../user/login.html"></i> 立即登录</a></li>
                     <li><a href="../user/regist.html">免费注册</a></li>
                 </ul>
                 <ul class="have-login">
                     <li><a href="../user/regist.html"><span> 欢迎您：</span><span>游客</span></a></li>
                     <li><a href="#">账户管理</a></li>
-                    <li><a href="#">退出登陆</a></li>
+                    <li><a href="#">退出登录</a></li>
                 </ul>
             </div>
         </div>
@@ -44,7 +44,7 @@
     </div>
     <div class="head-box">
         <div class="logo-box">
-            <h1><a href="../index/index.html">点金子绝当品——欢迎登陆</a></h1>
+            <h1><a href="../index/index.html">点金子绝当品——欢迎登录</a></h1>
         </div>
         <div class="search-box">
             <form action="/search">
