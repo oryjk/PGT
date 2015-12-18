@@ -57,7 +57,7 @@ public class UserInformationController {
 		}
 		userInformation.setUser(user);
 		UserInformation olduserInformation = userInformationService.queryUserInformation(user);
-		if(!ObjectUtils.isEmpty(olduserInformation.getId())){
+		if(!ObjectUtils.isEmpty(olduserInformation)){
 			userInformation.setId(olduserInformation.getId());
 			userInformationService.updateUserInformation(userInformation);
 		}else{
