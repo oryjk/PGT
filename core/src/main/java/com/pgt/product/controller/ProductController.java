@@ -104,7 +104,7 @@ public class ProductController {
 		ESTerm productEsterm = new ESTerm();
 		productEsterm.setPropertyName("productId");
 		productEsterm.setTermValue(productId);
-		SearchResponse searchProduct = esSearchService.findProducts(productEsterm, null, null, null, null, null, null, null);
+		SearchResponse searchProduct = esSearchService.findProducts(productEsterm, null, null, null, null, null, null);
 		SearchHits productHits = searchProduct.getHits();
 		SearchHit[] products = productHits.getHits();
 		Map product = products[0].getSource();
@@ -150,7 +150,7 @@ public class ProductController {
 			ESTerm esterm = new ESTerm();
 			esterm.setPropertyName("parentCategoryId");
 			esterm.setTermValue(parentCategoryId);
-			SearchResponse searchResponse = esSearchService.findProducts(esterm, null, null, null, null, null, null, null);
+			SearchResponse searchResponse = esSearchService.findProducts(esterm, null, null, null, null, null, null);
 			// 建立新的结果集，除去当前商品
 			SearchHits similarHits = searchResponse.getHits();
 			SearchHit[] oldSimilarProducts = similarHits.getHits();

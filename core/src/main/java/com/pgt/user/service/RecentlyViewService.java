@@ -40,7 +40,7 @@ public class RecentlyViewService {
 			ESTerm esTerm = new ESTerm();
 			esTerm.setTermValue(String.valueOf(integer));
 			esTerm.setPropertyName(Constants.PRODUCT_ID);
-			SearchResponse searchResponse = mESSearchService.findProducts(esTerm, null, null, null, null, null, null, null);
+			SearchResponse searchResponse = mESSearchService.findProducts(esTerm, null, null, null, null, null, null);
 			SearchHits searchHits = searchResponse.getHits();
 			if (!ObjectUtils.isEmpty(searchHits)) {
 				if (!ObjectUtils.isEmpty(searchHits.getHits())) {

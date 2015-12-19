@@ -1,12 +1,10 @@
 package com.pgt.search.controller;
 
 import com.pgt.category.bean.Category;
-import com.pgt.category.service.CategoryHelper;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.BreadBuilder;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
-import com.pgt.constant.Constants;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESSort;
@@ -21,7 +19,6 @@ import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.sort.SortOrder;
-import org.hibernate.event.service.internal.EventListenerServiceInitiator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -188,17 +185,17 @@ public class ESSearchController {
 
 			// 如果分类不为空，则调用分类的查询方法
 			if (!StringUtils.isEmpty(parentCategoryId)) {
-				searchResponse = esSearchService.findProductsByCategoryId(parentCategoryId, esMatch, esRange, esSort,
+				searchResponse = esSearchService.findProductsByCategoryId(parentCategoryId, esMatch, esRange,
 						paginationBean, esAggregation);
 
 			} else if (!StringUtils.isEmpty(rootCategoryId)) {
-				searchResponse = esSearchService.findProductsByCategoryId(rootCategoryId, esMatch, esRange, esSort,
+				searchResponse = esSearchService.findProductsByCategoryId(rootCategoryId, esMatch, esRange,
 						paginationBean, esAggregation);
 
 			} else {
 
 				// 查找出所有的商品普通方法
-				searchResponse = esSearchService.findProducts(esterm, esMatch, esRange, esSort, null, paginationBean,
+				searchResponse = esSearchService.findProducts(esterm, esMatch, esRange, null, paginationBean,
 						esAggregation, null);
 
 			}

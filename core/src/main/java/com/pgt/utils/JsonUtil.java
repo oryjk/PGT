@@ -1,29 +1,20 @@
 package com.pgt.utils;
 
 
-import java.io.*;
-
-import java.util.List;
-
+import com.alibaba.fastjson.JSONObject;
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
-import com.pgt.configuration.Configuration;
 import com.pgt.data.ImportDataService;
-
 import org.flywaydb.core.internal.util.Location;
-import org.flywaydb.core.internal.util.Locations;
 import org.flywaydb.core.internal.util.scanner.Resource;
 import org.flywaydb.core.internal.util.scanner.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.alibaba.fastjson.JSONObject;
-import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
-import com.pgt.product.service.ProductServiceImp;
 import org.springframework.util.ObjectUtils;
+
+import java.util.List;
 
 @Component
 public class JsonUtil {
