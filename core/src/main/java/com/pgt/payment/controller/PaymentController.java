@@ -1,13 +1,9 @@
 package com.pgt.payment.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.pgt.cart.service.UserOrderService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.service.OrderService;
+import com.pgt.cart.service.UserOrderService;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
 import com.pgt.payment.PaymentConstants;
@@ -45,6 +42,9 @@ public class PaymentController {
 
 	@Resource(name = "userOrderService")
 	private UserOrderService userOrderService;
+	
+	@Autowired
+	private OrderService orderService;
 
 	@RequestMapping(value = "/gateway", method = RequestMethod.GET)
 	public ModelAndView gatewayPage(HttpServletRequest pRequest, HttpServletResponse pResponse) {
@@ -69,9 +69,9 @@ public class PaymentController {
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
-		Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
-		if (null == order) {
-			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+		Order order = getOrderService().getSessionOrder(pRequest);
+		if (getOrderService().isInvalidOrder(user, order)) {
+			ModelAndView modelAndView = new ModelAndView("redirect:"+getUrlConfiguration().getShoppingCartPage());
 			return modelAndView;
 		}
 		// check the order is paid
@@ -96,13 +96,20 @@ public class PaymentController {
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
-		Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
-		if (null == order) {
-			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+		
+		Order order = getOrderService().getSessionOrder(pRequest);
+		if (getOrderService().isInvalidOrder(user, order)) {
+			ModelAndView modelAndView = new ModelAndView("redirect:"+getUrlConfiguration().getShoppingCartPage());
 			return modelAndView;
 		}
-
-		pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, null);
+		String method = pRequest.getParameter("method");
+		if(!PaymentConstants.METHOD_YEEPAY.equals(method) && !PaymentConstants.METHOD_ALIPAY.equals(method) ){
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.setViewName("redirect:/payment/gateway");
+			modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
+			return modelAndView;
+		}
+		getOrderService().removeOrderFromSession(String.valueOf(order.getId()), pRequest);
 		// check the order is paid
 		PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(order.getId());
 		if (null != paymentGroup && PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
@@ -110,7 +117,7 @@ public class PaymentController {
 			return modelAndView;
 		}
 
-		String method = pRequest.getParameter("method");
+	
 		if (PaymentConstants.METHOD_YEEPAY.equals(method)) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/yeepay/yeepayB2cPay?orderId=" + order.getId());
@@ -207,4 +214,13 @@ public class PaymentController {
 	public void setUserOrderService(UserOrderService userOrderService) {
 		this.userOrderService = userOrderService;
 	}
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+	
 }

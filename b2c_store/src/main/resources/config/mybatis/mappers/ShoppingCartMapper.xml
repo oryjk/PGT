@@ -13,6 +13,7 @@
 		<result column="user_comments" property="userComments" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
+		<result column="easy_buy" property="easyBuy" />
 	</resultMap>
 
 	<resultMap id="commerceItem" type="com.pgt.cart.bean.CommerceItem">
@@ -46,8 +47,8 @@
 	</select>
 
 	<insert id="createOrder" parameterType="com.pgt.cart.bean.Order" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO `ORDER` (user_id, status, shipping_fee, subtotal, total, creation_date, update_date, user_comments)
-		VALUES (#{userId}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{userComments})
+		INSERT INTO `ORDER` (user_id, status, shipping_fee, subtotal, total, creation_date, update_date, easy_buy, user_comments)
+		VALUES (#{userId}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments})
 	</insert>
 
 	<update id="updateOrder" parameterType="com.pgt.cart.bean.Order">

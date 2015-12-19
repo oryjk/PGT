@@ -41,7 +41,7 @@
 			<li class="page-which">跳转到第<input type="text"
 				id="pageInputNum">页
 			</li>
-			<li><input type="button" value="确认" onclick="gotoPageNum()"></li>
+			<li><input class="d-btn" type="button" value="确认" onclick="gotoPageNum()"></li>
 		</ul>
 	</c:if>
 

@@ -26,6 +26,23 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             right: $('#moveLeft')
         });
 
+        //三个rowList的水平移动
+        Cpn.rowList({
+            list: $('#rowList1'),
+            left: $('#moveRight1'),
+            right: $('#moveLeft1')
+        });
+        Cpn.rowList({
+            list: $('#rowList2'),
+            left: $('#moveRight2'),
+            right: $('#moveLeft2')
+        });
+        Cpn.rowList({
+            list: $('#rowList3'),
+            left: $('#moveRight3'),
+            right: $('#moveLeft3')
+        });
+
         //纵向列表高度和右边内容一致
         $('#verticalList').parent().css({
             maxHeight: $('#main').outerHeight(true) - 124 + 'px'

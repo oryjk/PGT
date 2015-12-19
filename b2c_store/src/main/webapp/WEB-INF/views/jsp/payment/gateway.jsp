@@ -42,6 +42,9 @@
         <h1>
             <a href="<spring:url value="${urlConfiguration.homePage}"/>">
                 购物车
+                <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
+                <div class="golds"></div>
+                <div class="light"></div>
             </a>
         </h1>
         <ul id="step" class="step3">
@@ -102,6 +105,7 @@
                     <label class="zhifubao" for="">
                         <input type="radio" name="method" value="alipay"/>
                     </label>
+                    <input type="hidden" name="orderId" value="${order.id}"/>
                     <input class="d-btn" type="submit" value="确认支付"/>
                 </div>
 

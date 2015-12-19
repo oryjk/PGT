@@ -55,7 +55,7 @@
             <div class="filter-box">
                 <div class="content-search">
                     <input class="content-search" type="text" placeholder="订单号或商品名" />
-                    <a href=""><i class="foundicon-search"></i></a>
+                    <a href="#" class="order-history-search" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>
                 </div>
                 <ul id="tab" class="tab">
                     <li class="${empty param.status ? 'choose' : ''}"><h2 data-tab="0"><a href="<spring:url value="/myAccount/orderHistory"/>">全部订单</a></h2></li>
@@ -88,12 +88,12 @@
                                             <a class="link-btn" href="#">取消订单</a>
                                         </c:if>
                                     </div>
-                                    下单时间:<span class="order-time">${order.submitDate}</span>
-                                    订单号:<span class="order-number">${order.id}</span>
+                                    下单时间: <span class="order-time">${order.submitDate}</span>
+                                    订单号: <span class="order-number">${order.id}</span>
                                     物流:
                                     <c:choose>
                                         <c:when test="${order.status gt 3}">
-                                            <span>已经送达</span>
+                                            <span>已送达</span>
                                             <a class="link-btn" href="#"></a>
                                         </c:when>
                                         <c:otherwise>

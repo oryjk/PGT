@@ -69,6 +69,10 @@ span {
   clear: both;
   margin-bottom: 20px; }
 
+.clear-float {
+  clear: both;
+  margin-bottom: 20px; }
+
 /*color*/
 /*col*/
 /*color*/
@@ -139,6 +143,10 @@ span {
 
 /*商品详情绝当价*/
 .clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
   clear: both;
   margin-bottom: 20px; }
 
@@ -232,68 +240,69 @@ span {
 @-webkit-keyframes mylogo {
   0% { }
   10% {
-    top: -7px; }
+    top: -9px; }
   20% {
-    top: 12px; }
+    top: 18px; }
   30% {
-    top: -2px; }
+    top: -5px; }
   40% {
-    top: 11px; }
+    top: 17px; }
   50% {
     top: 0; }
   60% {
-    top: 10px; }
+    top: 16px; }
   70% {
     top: 4px; }
   80% {
-    top: 10px; }
+    top: 15px; }
   90% {
     top: 8px; }
   100% {
-    top: 10px; } }
+    top: 15px; } }
 
 @keyframes mylogo {
   0% { }
   10% {
-    top: -7px; }
+    top: -9px; }
   20% {
-    top: 12px; }
+    top: 18px; }
   30% {
-    top: -2px; }
+    top: -5px; }
   40% {
-    top: 11px; }
+    top: 17px; }
   50% {
     top: 0; }
   60% {
-    top: 10px; }
+    top: 16px; }
   70% {
     top: 4px; }
   80% {
-    top: 10px; }
+    top: 15px; }
   90% {
     top: 8px; }
   100% {
-    top: 10px; } }
+    top: 15px; } }
 
 .head-box {
-  margin: 15px auto 0;
+  margin: 0 auto;
+  padding-top: 25px;
   width: 1180px;
   overflow: hidden;
   *zoom: 1; }
   .head-box .logo-box {
     float: left;
+    margin-top: -25px;
     width: 280px;
-    height: 100px; }
+    height: 115px; }
     .head-box .logo-box h1 {
       margin: 0;
       width: 100%;
-      height: 90px;
-      background: url("../core/images/header/images/logo-t-pig_02.png") no-repeat 68px 10px; }
+      height: 115px;
+      background: url("../core/images/header/images/big-logo_text.jpg") no-repeat 91px 10px; }
     .head-box .logo-box a {
       display: block;
-      padding-top: 15px;
       width: 100%;
-      height: 70px;
+      height: 115px;
       text-indent: -5000px;
       position: relative;
       overflow: hidden; }
@@ -310,10 +319,20 @@ span {
       .head-box .logo-box a:hover .light {
         left: 420px;
         transition: left 0.9s; }
+      .head-box .logo-box a:hover .golds {
+        background-position: 0 60px;
+        transition: background-position 5s linear 1.3s; }
       .head-box .logo-box a img {
         position: absolute;
-        top: 10px;
+        top: 15px;
         left: 0; }
+      .head-box .logo-box a .golds {
+        position: absolute;
+        top: 0;
+        left: 30px;
+        width: 50px;
+        height: 60px;
+        background: url("../core/images/header/golds.png") no-repeat 0 -500px; }
       .head-box .logo-box a:hover img {
         -webkit-animation: mylogo 1s .5s;
         animation: mylogo 1s .5s; }
@@ -631,6 +650,10 @@ span {
 
 /*商品详情绝当价*/
 .clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
   clear: both;
   margin-bottom: 20px; }
 

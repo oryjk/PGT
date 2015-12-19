@@ -13,6 +13,7 @@
 		<result column="user_comments" property="userComments" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
+		<result column="easy_buy" property="easyBuy" />
 		<association property="shippingVO" column="shipping_id" 
             select="com.pgt.shipping.dao.ShippingVOMapper.findShipping"/>
 		<collection property="commerceItems" column="order_id" select="selectCommerceItemByOrderId"/>
@@ -38,7 +39,7 @@
     </select>
     
      <select id="loadEasyBuyOrderByUserId" parameterType="string" resultMap="order">
-        SELECT * FROM `order` WHERE user_id = #{userId} AND easy_buy = 1 and status &lt;30 ORDER BY order_id DESC LIMIT 1
+        SELECT * FROM `order` WHERE user_id = #{userId} AND easy_buy = 1 and status =10 ORDER BY order_id DESC LIMIT 1
     </select>
     
     <select id="selectCommerceItemByOrderId" parameterType="int" resultMap="commerceItem">
@@ -53,4 +54,8 @@
 		</set>
 		WHERE order_id = #{id}
 	</update>
+	
+    <delete id="deleteAllCommerceItems" parameterType="int">
+		DELETE FROM COMMERCE_ITEM WHERE ORDER_ID = #{orderId}
+	</delete>
 </mapper>

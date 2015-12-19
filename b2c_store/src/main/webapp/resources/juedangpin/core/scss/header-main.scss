@@ -86,98 +86,153 @@
 @-webkit-keyframes mylogo {
   0%{}
   10% {
-    top: -7px;
+    top: -9px;
   }
   20% {
-    top: 12px;
+    top: 18px;
   }
   30% {
-    top: -2px
+    top: -5px
   }
   40% {
-    top: 11px
+    top: 17px
   }
   50% {
     top: 0
   }
   60% {
-    top: 10px
+    top: 16px
   }
   70% {
     top: 4px
   }
   80% {
-    top: 10px
+    top: 15px
   }
   90% {
     top: 8px
   }
   100% {
-    top: 10px
+    top: 15px
   }
 }
 @keyframes mylogo {
   0%{}
   10% {
-    top: -7px;
+    top: -9px;
   }
   20% {
-    top: 12px;
+    top: 18px;
   }
   30% {
-    top: -2px
+    top: -5px
   }
   40% {
-    top: 11px
+    top: 17px
   }
   50% {
     top: 0
   }
   60% {
-    top: 10px
+    top: 16px
   }
   70% {
     top: 4px
   }
   80% {
-    top: 10px
+    top: 15px
   }
   90% {
     top: 8px
   }
   100% {
-    top: 10px
+    top: 15px
   }
 }
 
 .head-box {
-  margin: 15px auto 0;
+  margin: 0 auto;
+  padding-top: 25px;
   width: $mainWidth;
   @include bfc;
 
   .logo-box {
     float: left;
-    @include wh($c3, 100px);
+    margin-top: -25px;
+    @include wh($c3, 115px);
 
 
     h1 {
       margin: 0;
-      @include wh(100%, 90px);
-      background: url("../core/images/header/images/logo-t-pig_02.png")  no-repeat 68px 10px;
+      @include wh(100%, 115px);
+      background: url("../core/images/header/images/big-logo_text.jpg")  no-repeat 91px 10px;
     }
+
+    //a {
+    //  display: block;
+    //  padding-top: 15px;
+    //  @include wh(100%, 85px);
+    //  text-indent: -5000px;
+    //
+    //  @include light-hover(280px, .3s);
+    //
+    //  &:hover {
+    //
+    //    .golds {
+    //      background-position: 0 140px;
+    //      transition: background-position 5s linear 1.3s;
+    //    }
+    //  }
+    //
+    //  img {
+    //    position: absolute;
+    //    top: 10px;
+    //    left: 0;
+    //  }
+    //
+    //  .golds {
+    //    position: absolute;
+    //    top: 0;
+    //    left: 22px;
+    //    @include wh(40px, 45px);
+    //    background: url("../core/images/header/golds.png") no-repeat 0 -200px;
+    //  }
+    //
+    //  &:hover {
+    //    img {
+    //      -webkit-animation: mylogo 1s .5s;
+    //      animation: mylogo 1s .5s;
+    //    }
+    //  }
+    //}
 
     a {
       display: block;
-      padding-top: 15px;
-      @include wh(100%, 70px);
+      @include wh(100%, 115px);
       text-indent: -5000px;
 
       @include light-hover(280px, .3s);
 
+      &:hover {
+
+        .golds {
+          background-position: 0 60px;
+          transition: background-position 5s linear 1.3s;
+        }
+      }
+
       img {
         position: absolute;
-        top: 10px;
+        top: 15px;
         left: 0;
+      }
+
+      .golds {
+        position: absolute;
+        top: 0;
+        left: 30px;
+        @include wh(50px, 60px);
+        background: url("../core/images/header/golds.png") no-repeat 0 -500px;
       }
 
       &:hover {
@@ -186,7 +241,6 @@
           animation: mylogo 1s .5s;
         }
       }
-
     }
   }
 

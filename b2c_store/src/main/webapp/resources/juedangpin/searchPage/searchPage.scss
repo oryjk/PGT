@@ -71,7 +71,6 @@
 .content-box {
   @include bfc;
   background: #faf4f6 url("../core/images/index/background.png");
-  padding: 0 0 $colSpace;
 }
 
 .content {
@@ -216,9 +215,29 @@
 
 /*similar-box
 ****************************************************/
-.similar-box {
-  @include row-list($mainWidth - 60px);
-  margin-top: $colSpace;
+//.similar-box {
+//  @include row-list($mainWidth - 60px);
+//  margin-top: $colSpace;
+//}
+.recommend {
+  margin: $colSpace auto;
+  width: $mainWidth;
+  @include bfc;
+
+  .tab {
+    border: 1px solid $ashGray;
+    border-bottom: none;
+    @include tab;
+
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+
+  .similar-box {
+    @include row-list(1118px);
+  }
 }
 
 /*for js

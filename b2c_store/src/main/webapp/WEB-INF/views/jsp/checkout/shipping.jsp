@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <spring:url value="${juedangpinStaticPath}" var="staticPath"/>
-<c:set var="isDelivery" value="${'PICKUP' ne order.shippingVO.shippingType}"></c:set>
-<c:set var="selectedAddress" value="${order.shippingVO.shippingAddress}"></c:set>
-<c:set var="selectedPickup" value="${order.shippingVO.shippingMethod}"></c:set>
+<c:set var="isDelivery" value="${'PICKUP' ne checkoutOrder.shippingVO.shippingType}"></c:set>
+<c:set var="selectedAddress" value="${checkoutOrder.shippingVO.shippingAddress}"></c:set>
+<c:set var="selectedPickup" value="${checkoutOrder.shippingVO.shippingMethod}"></c:set>
 <c:set var="currentAddress" value="${empty selectedAddress? defaultAddress: selectedAddress}"/>
 <c:set var="hasStores" value="${not empty storeList}"/>
 <!DOCTYPE html>
@@ -47,6 +47,9 @@
         <h1>
             <a href="..${urlConfiguration.shoppingCartPage}">
                 购物车
+                <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
+                <div class="golds"></div>
+                <div class="light"></div>
             </a>
         </h1>
         <ul id="step" class="step2">
@@ -104,7 +107,7 @@
                    	<span>  
                     	<c:forEach items="${storeList}" var="store">
                     		<c:if test="${store.id eq selectedPickup.locationId }">
-                    			${store.address } ${store.phone } ${order.shippingVO.shippingMethod.locationId }
+                    			${store.address } ${store.phone } ${checkoutOrder.shippingVO.shippingMethod.locationId }
                     		</c:if>
                     	</c:forEach>
                     </span>
@@ -150,6 +153,7 @@
                             </c:forEach>
                         </div>
                         <div class="row">
+                            <input type="hidden" name="orderId" value="${checkoutOrder.id }"/>
                             <input id="js-add-pickup" class="d-btn" type="button" value="确定"/>
                             <input class="l-btn" type="button" value="取消"/>
                         </div>
@@ -265,6 +269,7 @@
 
         </form>
 		<form id="addAddressToOrder" action="addAddressToOrder" method="post" style="display:none">
+			<input type="hidden" name="orderId" value="${checkoutOrder.id }"/>
 			<input id="addressInfoId" name="addressInfoId" value="">
 			<input id="js-add-address-to-order" type="button"/>
 		</form>
@@ -274,7 +279,7 @@
             <fieldset>
                 <table>
                     <tbody>
-	                    <c:forEach var="commerceItem" items="${order.commerceItems}">
+	                    <c:forEach var="commerceItem" items="${checkoutOrder.commerceItems}">
 		                    <tr>
 		                        <td>
 		                           <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
@@ -301,6 +306,7 @@
         </form>
         <form action="redirectToPayment" method="get">
 	        <div class="sub-box">
+	        	<input type="hidden" name="orderId" value="${checkoutOrder.id }"/>
 	            <input class="d-btn" type="submit" value="提交订单"/>
 	            <input class="l-btn" type="button" value="返回我的购物车" onclick="javascript:window.location.href='..${urlConfiguration.shoppingCartPage}'"/>
 	        </div>

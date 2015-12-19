@@ -401,27 +401,185 @@ span {
   clear: both;
   margin-bottom: 20px; }
 
+.clear-float {
+  clear: both;
+  margin-bottom: 20px; }
+
 /*color*/
 /*col*/
+/*color*/
+/*col*/
+/*color*/
+/*col*/
+body {
+  font-family: "宋体", "Microsoft YaHei", Verdana, Arial, sans-serif;
+  font-size: 12px; }
+
+/*headline*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.67em 0;
+  font-family: "Microsoft YaHei", "黑体", Verdana, Arial, sans-serif; }
+
+h2 {
+  font-size: 25px; }
+
+/*paragraph*/
+p {
+  margin: 0.67em 0; }
+
+/*link*/
+a {
+  cursor: pointer; }
+
+/*btn*/
+input:focus {
+  outline: none; }
+
+.regist-protocol {
+  text-decoration: none;
+  color: #0286ce; }
+  .regist-protocol:hover {
+    color: #ffaa00; }
+
+/*span*/
+span {
+  color: #666666; }
+
+/*商品详情绝当价*/
+.clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
+  clear: both;
+  margin-bottom: 20px; }
+
+/*主列表
+****************************************************/
+/*纵向商品列表
+****************************************************/
+/*横向商品列表
+****************************************************/
+/*tab切换
+****************************************************/
+/*页码部件
+****************************************************/
+/*小搜索框
+****************************************************/
+/*弹出框
+****************************************************/
+/*侧边栏样式1
+****************************************************/
+/*发光
+****************************************************/
+/*仿控件
+****************************************************/
+/*checkbox*/
+/*file*/
+/*select*/
 .header {
-  height: 100px; }
+  height: 115px; }
+
+@-webkit-keyframes mylogo {
+  0% { }
+  10% {
+    top: -9px; }
+  20% {
+    top: 18px; }
+  30% {
+    top: -5px; }
+  40% {
+    top: 17px; }
+  50% {
+    top: 0; }
+  60% {
+    top: 16px; }
+  70% {
+    top: 4px; }
+  80% {
+    top: 15px; }
+  90% {
+    top: 8px; }
+  100% {
+    top: 15px; } }
+
+@keyframes mylogo {
+  0% { }
+  10% {
+    top: -9px; }
+  20% {
+    top: 18px; }
+  30% {
+    top: -5px; }
+  40% {
+    top: 17px; }
+  50% {
+    top: 0; }
+  60% {
+    top: 16px; }
+  70% {
+    top: 4px; }
+  80% {
+    top: 15px; }
+  90% {
+    top: 8px; }
+  100% {
+    top: 15px; } }
 
 .logo-box {
   margin: 0 auto;
   width: 1180px;
-  height: 100%; }
+  height: 115px; }
   .logo-box .logo {
     float: left;
-    width: 200px;
-    background: url("../core/images/header/logo.jpg") 0 center no-repeat; }
+    width: 280px;
+    background: url("../core/images/header/images/big-logo_text.jpg") no-repeat 91px 10px; }
   .logo-box a {
     display: block;
+    width: 100%;
+    height: 115px;
     text-indent: -5000px;
-    width: 100%; }
+    position: relative;
+    overflow: hidden; }
+    .logo-box a .light {
+      cursor: pointer;
+      position: absolute;
+      left: -420px;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-image: -moz-linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+      background-image: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+      transform: skewx(-30deg); }
+    .logo-box a:hover .light {
+      left: 420px;
+      transition: left 0.9s; }
+    .logo-box a:hover .golds {
+      background-position: 0 60px;
+      transition: background-position 5s linear 1.3s; }
+    .logo-box a img {
+      position: absolute;
+      top: 15px;
+      left: 0; }
+    .logo-box a .golds {
+      position: absolute;
+      top: 0;
+      left: 30px;
+      width: 50px;
+      height: 60px;
+      background: url("../core/images/header/golds.png") no-repeat 0 -500px; }
+    .logo-box a:hover img {
+      -webkit-animation: mylogo 1s .5s;
+      animation: mylogo 1s .5s; }
   .logo-box h1 {
     padding: 0;
     margin: 0;
-    line-height: 100px; }
+    line-height: 115px; }
 
 /*color*/
 /*col*/

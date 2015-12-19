@@ -6,22 +6,18 @@
 
 	<!-- userInformation map -->
 	<resultMap id="UserInformationResult" type="com.pgt.user.bean.UserInformation">
-
 		<id column="ID" property="id" />
-		<result column="NICKNAME" property=""></result>
+		<result column="NICKNAME" property="nickname"></result>
 		<result column="PHONE_NUMBER" property="phoneNumber" />
 		<result column="GENDER" property="gender" />
 		<result column="ID_CARD" property="idCard" />
 		<result column="MARRAGE" property="marrage" />
-		<result column="GENDER" property="gender" />
 		<result column="INDUSTRY" property="industry" />
 		<result column="INCOME" property="income" />
-		<result column="PAY_NUMBER" property="payNumber" />
+		<result column="PAY_BINDING" property="payBinding" />
 		<result column="PERSON_EMAIL" property="personEmail" />
 		<result column="TYPE" property="type" />
-
-		<association property="frontMedia" column="MEDIA_ID"
-			select="com.pgt.common.dao.MediaMapper.queryFrontMedia" />
+		<result column="PATH" property="path"></result>
 
 		<association property="user" column="USER_ID" select="selectUser">
 		</association>
@@ -63,13 +59,13 @@
 		INSERT INTO USER_INFORMATION (
 		USER_ID,
 		NICKNAME,
-		PHENONE_NUMBER,
+		PHONE_NUMBER,
 		GENDER,
 		ID_CARD,
 		MARRAGE,
 		INDUSTRY,
 		INCOME,
-		MEDIA_ID,
+		PATH,
 		PAY_BINDING,
 		PERSON_EMAIL,
 		TYPE
@@ -84,7 +80,7 @@
 		#{marrage},
 		#{industry},
 		#{income},
-		#{frontMedia.id},
+		#{path},
 		#{payBinding},
 		#{personEmail},
 		#{type})
@@ -95,17 +91,17 @@
 		keyProperty="id" useGeneratedKeys="true">
 		UPDATE USER_INFORMATION
 		SET
-		USER_ID=#{user.id},
 		NICKNAME=#{nickname},
-		PHONE_NUMBER=#{phnoneNumber},
+		PHONE_NUMBER=#{phoneNumber},
 		GENDER=#{gender},
 		ID_CARD=#{idCard},
 		MARRAGE=#{marrage},
 		INDUSTRY=#{industry},
-		MEDIA_ID=#{frontMedia.id},
+		PATH=#{path},
 		PAY_BINDING=#{payBinding},
-		PSERSON_EMAIL=#{personEmail},
-		TYPE=#{type}
+		PERSON_EMAIL=#{personEmail},
+		TYPE=#{type},
+		INCOME=#{income}
 		WHERE id=#{id}
 	</update>
 
@@ -116,12 +112,12 @@
 		id=#{id}
 	</delete>
 
-	<select id="queryUserInformation" resultMap="UserInformationResult">
+	<select id="queryUserInformation"  parameterType="com.pgt.user.bean.User"  resultMap="UserInformationResult">
 		SELECT
 		*
 		FROM
 		USER_INFORMATION WHERE
-		id=#{id}
+		USER_ID=#{id}
 	</select>
 
 	<select id="queryAllUserInformations" resultMap="UserInformationResult">

@@ -28,8 +28,19 @@
   @include tab;
   @include o;
 
+  .choose {
+    a {
+      color: $viceColor;
+    }
+  }
+
   h2 {
     font-size: 18px;
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
 }
 
