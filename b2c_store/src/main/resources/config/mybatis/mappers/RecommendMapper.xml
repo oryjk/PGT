@@ -30,7 +30,7 @@
 		SELECT category_id
 		FROM CATEGORIES
 		WHERE TYPE = 'HIERARCHY'
-		<if test="list != null">
+		<if test="@Ognl@isNotEmptyCollection(list)">
 			AND category_id NOT IN
 			<foreach collection="list" item="item" open="(" close=")" separator=", ">
 				#{item}
