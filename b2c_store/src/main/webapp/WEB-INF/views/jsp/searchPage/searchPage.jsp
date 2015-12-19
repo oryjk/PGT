@@ -272,7 +272,6 @@
 			抱歉,没有找到 "<span>${message}</span>" 的搜索结果
 			</p>
 			</div>
-
 			<jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp">
 				<jsp:param name="excludeRecommend" value="1" />
 			</jsp:include>

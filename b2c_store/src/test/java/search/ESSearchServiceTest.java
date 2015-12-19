@@ -80,7 +80,7 @@ public class ESSearchServiceTest {
         esRange.setFrom(200);
         esRange.setTo(2000);
 
-        SearchResponse searchResponse = eSSearchService.findProducts(esterm2, esterm, esRange, esSort, null, null, null, null);
+        SearchResponse searchResponse = eSSearchService.findProducts(esterm2, esterm, esRange, null, null, null, null);
 
         SearchHits hits = searchResponse.getHits();
 

@@ -60,7 +60,7 @@ public class IndexTest {
         PaginationBean paginationBean = new PaginationBean();
         paginationBean.setCapacity(2);
         paginationBean.setCurrentIndex(0);
-        SearchResponse response = esSearchService.findProducts(esTerm, esMatch, esRange, null, null, paginationBean, null, null);
+        SearchResponse response = esSearchService.findProducts(esTerm, esMatch, esRange, null, paginationBean, null, null);
         SearchHits searchHits = response.getHits();
         SearchHit[] searchHits1 = searchHits.getHits();
         List<SearchHit> searchHitList = Arrays.asList(searchHits1);
@@ -89,7 +89,7 @@ public class IndexTest {
         PaginationBean paginationBean = new PaginationBean();
         paginationBean.setCapacity(10000);
         paginationBean.setCurrentIndex(0);
-        SearchResponse response = esSearchService.findProductsByCategoryId(9 + "", null, null, null, paginationBean, null);
+        SearchResponse response = esSearchService.findProductsByCategoryId(9 + "", null, null, paginationBean, null);
         Assert.assertNotNull(response);
         Assert.assertNotNull(response.getHits());
         Assert.assertNotNull(response.getHits().getHits());
