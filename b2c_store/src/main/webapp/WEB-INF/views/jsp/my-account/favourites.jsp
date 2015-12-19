@@ -40,7 +40,7 @@
             <div id="main" class="main-box">
                 <div class="content-search">
                     <input class="content-search" type="text" placeholder="商品搜索"/>
-                    <a href=""><i class="foundicon-search"></i></a>
+                    <a href="#" class="favourite-search" data-url="<spring:url value="/myAccount/favourites?keyword="/>" ><i class="foundicon-search"></i></a>
                 </div>
                 <!--面包屑-->
                 <div class="bread-nav">
