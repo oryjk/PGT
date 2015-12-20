@@ -55,6 +55,7 @@
                 <input id="loginSub" type="submit" value="登录"/>
             </div>
             <form:input id="loginCount" type="hidden" path="count" value=""/>
+            <input type="hidden" name="redirect" value="${param.redirect }"/>
         </form:form>
     </div>
 </div>

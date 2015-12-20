@@ -37,6 +37,8 @@ import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.PriceOrderService;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.service.ShoppingCartService;
+import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.UserConstant;
 import com.pgt.internal.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
@@ -63,6 +65,8 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private URLConfiguration urlConfiguration;
 
 	@Resource(name = "responseBuilderFactory")
 	private ResponseBuilderFactory mResponseBuilderFactory;
@@ -93,6 +97,13 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		}
 		Order order = null;
 		if (easyBuy > 0) {
+			User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
+			if (user == null) {
+				String redirectUrl = getUrlConfiguration().getLoginPage() + "?redirect="
+						+ getUrlConfiguration().getPdpPage() + "/" + productId;
+				mav.setViewName("redirect:" + redirectUrl);
+				return mav;
+			}
 			order = getEasyBuyOrder(pRequest);
 		} else {
 			// check and generate order
@@ -560,6 +571,14 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
+	}
+
+	public URLConfiguration getUrlConfiguration() {
+		return urlConfiguration;
+	}
+
+	public void setUrlConfiguration(URLConfiguration urlConfiguration) {
+		this.urlConfiguration = urlConfiguration;
 	}
 
 }
