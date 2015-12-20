@@ -33,7 +33,6 @@ import com.pgt.city.bean.Province;
 import com.pgt.city.service.CityService;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
-import com.pgt.shipping.bean.ShippingAddress;
 import com.pgt.shipping.bean.ShippingMethod;
 import com.pgt.shipping.bean.ShippingVO;
 import com.pgt.shipping.service.ShippingService;
@@ -84,8 +83,12 @@ public class ShippingController {
 		}
 		List<AddressInfo> addressInfoList = getAddressInfoService().queryAddressByUserId(user.getId().intValue());
 		if (user.getDefaultAddressId() != null) {
+			addressInfoList = getAddressInfoService().sortAddress(user.getDefaultAddressId(), addressInfoList);
 			AddressInfo defaultAddress = getAddressInfoService().findAddress(user.getDefaultAddressId());
 			mav.addObject("defaultAddress", defaultAddress);
+			if(order.getShippingVO() == null){
+				getShippingService().addAddress(user.getDefaultAddressId(), order);
+			}
 		}
 		List<Integer> productIds = getShippingService().getProductIdsFromOrder(order);
 		if (productIds != null && !productIds.isEmpty()) {
@@ -118,9 +121,7 @@ public class ShippingController {
 			map.put("success", "false");
 			return map;
 		}
-		AddressInfo addressInfo = getAddressInfoService().findAddress(Integer.parseInt(addressInfoId));
-		ShippingAddress address = getShippingService().copyAddress(addressInfo);
-		getShippingService().addAddress(address, order);
+		getShippingService().addAddress(Integer.parseInt(addressInfoId), order);
 		map.put("success", "true");
 		// map.put("savedAddress", address.getProvince() + address.getCity() +
 		// address.getDistrict() + " "

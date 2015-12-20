@@ -1523,6 +1523,12 @@ td img {
       .invoice-title li:hover a {
         color: white; }
 
+.error {
+  padding: 10px 40px; }
+  .error span {
+    font-size: 16px;
+    color: #c20008; }
+
 /*content-1
 *************************************************************************************/
 .content-1 h2 {

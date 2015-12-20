@@ -995,8 +995,9 @@ span {
 .content-search {
   margin-top: 18px;
   float: right;
+  position: relative;
   vertical-align: middle; }
-  .content-search input {
+  .content-search .content-search {
     margin: 0;
     padding: 2px;
     border: 1px solid #666666;
@@ -1004,9 +1005,9 @@ span {
     height: 20px;
     vertical-align: middle;
     outline: none; }
-    .content-search input:focus {
+    .content-search .content-search:focus {
       border-color: #ffaa00; }
-      .content-search input:focus + a {
+      .content-search .content-search:focus + a {
         background: #ffaa00;
         border-color: #ffaa00; }
   .content-search a {
@@ -1023,3 +1024,16 @@ span {
     vertical-align: middle;
     background: #666666;
     color: white; }
+  .content-search .clear-search {
+    padding: 0;
+    border: none;
+    background: transparent;
+    position: absolute;
+    top: 5px;
+    right: 4px; }
+
+.no-collect-text {
+  font-size: 18px;
+  text-align: center; }
+  .no-collect-text a {
+    font-size: 16px; }

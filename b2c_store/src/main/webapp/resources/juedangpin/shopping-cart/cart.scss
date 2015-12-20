@@ -308,6 +308,13 @@ td {
   @include like-select(100px, 25px, 14px);
 }
 
+.error {
+  padding: 10px 40px;
+  span {
+    font-size: 16px;
+    color: $emColor;
+  }
+}
 
 /*content-1
 *************************************************************************************/
