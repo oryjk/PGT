@@ -427,7 +427,7 @@
   .cart-box {
     float: left;
     margin-left: $colSpace;
-    @include wh($c3, 100px);
+    @include wh($c3, 60px);
 
     span {
       color: white;

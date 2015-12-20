@@ -880,7 +880,8 @@ span {
   overflow: hidden;
   *zoom: 1;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  background: transparent; }
   .tab li {
     border-top: 3px solid transparent;
     float: left;
@@ -907,6 +908,7 @@ span {
 
 .content-search {
   vertical-align: middle;
+  margin-top: 0;
   float: right; }
   .content-search input {
     margin: 0;
@@ -994,14 +996,12 @@ span {
       width: 60px;
       height: 60px; }
   .each-order .col2 {
-    width: 275px;
+    width: 390px;
     text-align: left; }
   .each-order .col3 {
     width: 85px; }
     .each-order .col3 span {
       display: block; }
-  .each-order .col4 {
-    width: 105px; }
   .each-order .col5,
   .each-order .col6,
   .each-order .col7 {

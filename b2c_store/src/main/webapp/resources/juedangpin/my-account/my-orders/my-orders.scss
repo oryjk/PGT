@@ -27,6 +27,7 @@
 .tab {
   @include tab;
   @include o;
+  background: transparent;
 
   .choose {
     a {
@@ -46,6 +47,7 @@
 
 .content-search {
   @include search($middleGray);
+  margin-top: 0;
   float: right;
 }
 
@@ -134,7 +136,7 @@
     }
   }
   .col2 {
-    width: 275px;
+    width: 390px;
     text-align: left;
   }
   .col3 {
@@ -143,9 +145,6 @@
     span {
       display: block;
     }
-  }
-  .col4 {
-    width: 105px;
   }
 
   .col5,

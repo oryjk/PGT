@@ -78,76 +78,79 @@
                             <th class="col7">订单状态</th>
                         </tr>
                     </table>
-                    <c:forEach var="order" items="${historyOrders.result}">
-                        <div class="each-order">
+                    <div id="orderList">
+                        <c:forEach var="order" items="${historyOrders.result}">
+                            <div class="each-order">
                             <c:if test="${order.status gt 1}">
                                 <div class="order-info">
-                                    <div class="operate">
-                                        <c:if test="${order.status lt 3}">
-                                            <!-- 取消订单链接只有在未付款状态才显示-->
-                                            <a class="link-btn" href="#">取消订单</a>
-                                        </c:if>
-                                    </div>
-                                    下单时间: <span class="order-time">${order.submitDate}</span>
-                                    订单号: <span class="order-number">${order.id}</span>
-                                    物流:
-                                    <c:choose>
-                                        <c:when test="${order.status gt 3}">
-                                            <span>已送达</span>
-                                            <a class="link-btn" href="#"></a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span>尚未出库</span>
-                                        </c:otherwise>
-                                    </c:choose>
+                                <div class="operate">
+                                <c:if test="${order.status lt 3}">
+                                    <!-- 取消订单链接只有在未付款状态才显示-->
+                                    <a class="link-btn" href="#">取消订单</a>
+                                </c:if>
+                                </div>
+                                下单时间: <span class="order-time">${order.submitDate}</span>
+                                订单号: <span class="order-number">${order.id}</span>
+                                物流:
+                                <c:choose>
+                                    <c:when test="${order.status gt 3}">
+                                        <span>已送达</span>
+                                        <a class="link-btn" href="#"></a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span>尚未出库</span>
+                                    </c:otherwise>
+                                </c:choose>
                                 </div>
                             </c:if>
                             <table>
-                                <c:forEach var="commerceItem" items="${order.commerceItems}" varStatus="ci_index">
-                                    <tr>
-                                        <td class="col1">
-                                            <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
-                                                 alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
-                                        </td>
-                                        <td class="col2">
-                                            <a class="product-name" href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">${commerceItem.name}</a>
-                                        </td>
-                                        <td class="col3">
-                                            <span>${commerceItem.quality}</span>
-                                        </td>
-                                        <td class="col4">
-                                                <%--
-                                                <a class="link-btn" href="#">申请退换货</a>
-                                                --%>
-                                        </td>
-                                        <c:if test="${ci_index.index eq 0}">
-                                            <td class="col5" rowspan="100">${order.shippingVO.shippingAddress.name}</td>
-                                            <td class="col6" rowspan="100">
-                                                <span>¥</span><span><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span>
-                                            </td>
-                                            <td class="col7" rowspan="100">
-                                                <c:choose>
-                                                    <c:when test="${order.status eq 20}">
-                                                        <span>待付款</span>
-                                                        <a class="link-btn" href="#">付款</a>
-                                                    </c:when>
-                                                    <c:when test="${order.status eq 30}">
-                                                        <span>待收货</span>
-                                                    </c:when>
-                                                    <c:when test="${order.status eq 100}">
-                                                        <span>已完成</span>
-                                                    </c:when>
-                                                    <c:when test="${order.status eq -10}">
-                                                        <span>已取消</span>
-                                                    </c:when>
-                                                </c:choose>
-                                            </td>
-                                        </c:if>
-                                    </tr>
-                                </c:forEach>
+                            <c:forEach var="commerceItem" items="${order.commerceItems}" varStatus="ci_index">
+                                <tr>
+                                <td class="col1">
+                                <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
+                                alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
+                                </td>
+                                <td class="col2">
+                                <a class="product-name" href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">${commerceItem.name}</a>
+                                </td>
+                                <td class="col3">
+                                <span>${commerceItem.quality}</span>
+                                </td>
+                                <td class="col4">
+                                <%--
+                                <a class="link-btn" href="#">申请退换货</a>
+                                --%>
+                                </td>
+                                <c:if test="${ci_index.index eq 0}">
+                                    <td class="col5" rowspan="100">${order.shippingVO.shippingAddress.name}</td>
+                                    <td class="col6" rowspan="100">
+                                    <span>¥</span><span><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span>
+                                    </td>
+                                    <td class="col7" rowspan="100">
+                                    <c:choose>
+                                        <c:when test="${order.status eq 20}">
+                                            <span>待付款</span>
+                                            <a class="link-btn" href="#">付款</a>
+                                        </c:when>
+                                        <c:when test="${order.status eq 30}">
+                                            <span>待收货</span>
+                                        </c:when>
+                                        <c:when test="${order.status eq 100}">
+                                            <span>已完成</span>
+                                        </c:when>
+                                        <c:when test="${order.status eq -10}">
+                                            <span>已取消</span>
+                                        </c:when>
+                                    </c:choose>
+                                    </td>
+                                </c:if>
+                                </tr>
+                            </c:forEach>
                             </table>
-                        </div>
-                    </c:forEach>
+                            </div>
+                        </c:forEach>
+                    </div>
+
                 </div>
                 <!-- 分页-->
                 <div class="page-box">

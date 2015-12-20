@@ -89,13 +89,21 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             for (var i = 0; i < orderArr.length; i ++) {
                 var productArr = orderArr[i].commerceItems;
 
-                str += '<div class="each-order"> <div class="order-info"> <div class="operate"> </div> 下单时间: <span class="order-time">'
-                    + orderArr[i].submitDate
-                    + '</span> 订单号: <span class="order-number">'
+                str += '<div class="each-order"> <div class="order-info"> <div class="operate"> </div> 下单时间: <span class="order-time">';
+                if (orderArr[i].submitDate) {
+                    str +=orderArr[i].submitDate;
+                }
+                str += '</span> 订单号: <span class="order-number">'
                     + orderArr[i].id
-                    + '</span> 物流: <span>'
-                    + orderArr[i].status
-                    + '</span> <a class="link-btn" href="#"></a></div><table> ';
+                    + '</span> 物流: <span>';
+                if (orderArr[i].status == 20) {
+                    str += '待付款';
+                } else if (orderArr[i].status == 30) {
+                    str += '待收货';
+                } else if (orderArr[i].status == 100) {
+                    str += '已完成';
+                }
+                str += '</span> <a class="link-btn" href="#"></a></div><table> ';
 
                 for (var j = 0; j < productArr.length; j ++) {
                     str += '<tr> <td class="col1"><img src="'
@@ -108,7 +116,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                         + productArr[j].name
                         + '</a> </td> <td class="col3"> <span>'
                         + productArr[j].quality
-                        + '</span></td> <td class="col4"> <a class="link-btn" href="#">申请退换货</a> </td>';
+                        + '</span></td>';
 
                     if ( j == 0) {
                         str += '<td class="col5" rowspan="100">'
@@ -117,15 +125,22 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                             + orderArr[i].subtotal
                             + '</span></span></td> <td class="col7" rowspan="100"> <span>';
 
-                        if (orderArr[i].status == 1) {
-                            str += '待结算</span><a class="link-btn" href="#">结算</a> </td>';
-                        } else if (orderArr[i].status == 2) {
+                        //if (orderArr[i].status == 1) {
+                        //    str += '待结算</span><a class="link-btn" href="#">结算</a> </td>';
+                        //} else if (orderArr[i].status == 2) {
+                        //    str += '待付款</span><a class="link-btn" href="#">付款</a> </td>';
+                        //} else if (orderArr[i].status == 3) {
+                        //    str += '已付款</span> </td>';
+                        //} else if (orderArr[i].status == 4) {
+                        //    str += '待确认完成</span> </td>';
+                        //} else if (orderArr[i].status == 5) {
+                        //    str += '已完成</span> </td>';
+                        //}
+                        if (orderArr[i].status == 20) {
                             str += '待付款</span><a class="link-btn" href="#">付款</a> </td>';
-                        } else if (orderArr[i].status == 3) {
-                            str += '已付款</span> </td>';
-                        } else if (orderArr[i].status == 4) {
-                            str += '待确认完成</span> </td>';
-                        } else if (orderArr[i].status == 5) {
+                        } else if (orderArr[i].status == 30) {
+                            str += '待收货</span> </td>';
+                        } else if (orderArr[i].status == 100) {
                             str += '已完成</span> </td>';
                         }
                     }
@@ -133,7 +148,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
                 str +='</tr> </table> </div>';
             }
-
+            console.log(str);
             list.html(str);
         }
 
