@@ -69,6 +69,9 @@
         <div class="content-title">
             <h2>支付成功</h2>
         </div>
+
+        <div class="error"></div>
+
         <form>
             <fieldset class="success-box">
                 <p class="look-order">

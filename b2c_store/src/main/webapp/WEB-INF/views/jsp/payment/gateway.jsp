@@ -70,6 +70,9 @@
         <div class="content-title">
             <h2>收银台</h2>
         </div>
+
+        <div class="error"></div>
+
         <form action="<c:url value="/payment/gateway"/>" method="post" >
             <fieldset class="success-box">
                 <p class="look-order">

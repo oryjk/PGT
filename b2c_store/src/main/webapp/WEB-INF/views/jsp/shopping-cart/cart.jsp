@@ -36,6 +36,9 @@
                 </a>
             </div>
         </div>
+
+        <div class="error"></div>
+
         <c:choose>
             <c:when test="${empty order or order.commerceItemCount eq 0}">
                 <div class="none-product">

@@ -270,7 +270,7 @@ define(function() {
 
             if (that.siblings('ul').size() > 0) {
                 event.preventDefault();
-                that.siblings('ul').slideToggle(200);从mpo
+                that.siblings('ul').slideToggle(200);
             }
         })
     };
@@ -290,11 +290,12 @@ define(function() {
      *     capacity: 5
      * };
      */
-    var page = function(productLIst, previousPage, nextPage, pageCount, pageWhich, pageSub, pages, url, pageObj, callbackFunction, load) {
+    var page = function(productLIst, previousPage, nextPage, pageCount, pageWhich, pageSub, pages, url, pageObj, loadBolean, callbackFunction) {
         var maxIndex = -1;
-
+        console.log(loadBolean);
+        console.log(arguments)
         //载入时
-        if (load) {
+        if (loadBolean) {
             getPage(pageObj);
         }
 

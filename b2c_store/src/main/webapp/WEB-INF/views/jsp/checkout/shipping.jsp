@@ -81,6 +81,8 @@
             </div>
         </div>
 
+        <div class="error"></div>
+
         <form id="addPickup" class="post-way" action="addPickup">
             <h3>配送方式</h3>
             <fieldset>

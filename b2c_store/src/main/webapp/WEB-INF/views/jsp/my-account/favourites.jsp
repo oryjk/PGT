@@ -38,10 +38,15 @@
 
             <!-- 详细内容列表-->
             <div id="main" class="main-box">
-                <div class="content-search">
-                    <input class="content-search" type="text" placeholder="商品搜索"/>
+                <%--<div class="content-search">--%>
+                    <%--<input class="content-search" type="text" placeholder="商品搜索"/>--%>
+                    <%--<a href="#" class="favourite-search" data-url="<spring:url value="/myAccount/favourites?keyword="/>" ><i class="foundicon-search"></i></a>--%>
+                <%--</div>--%>
+                <form action="<spring:url value="/myAccount/favourites"/>" class="content-search">
+                    <input class="content-search" type="text" name="keyword" placeholder="商品搜索"/>
                     <a href="#" class="favourite-search" data-url="<spring:url value="/myAccount/favourites?keyword="/>" ><i class="foundicon-search"></i></a>
-                </div>
+                    <input type="reset" class="clear-search link-btn" value="清除">
+                </form>
                 <!--面包屑-->
                 <div class="bread-nav">
                     <p>
@@ -51,7 +56,7 @@
                     </p>
                 </div>
                 <c:if test="${fn:length(favourites.result) gt 0}">
-                    <div class="product-list">
+                    <div class="product-list have-collect">
                         <c:forEach var="fav" items="${favourites.result}">
                             <div class="list-product">
                                 <div class="inner">
@@ -91,6 +96,11 @@
                         </ul>
                     </div>
                 </c:if>
+
+                <div class="no-collect" style="display: none">
+                    <p class="no-collect-text">您暂时没有收藏  <a class="link-btn" href="#">回到首页</a></p>
+                </div>
+
             </div>
 
             <jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp">

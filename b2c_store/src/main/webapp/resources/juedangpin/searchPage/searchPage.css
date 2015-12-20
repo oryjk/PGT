@@ -1974,8 +1974,9 @@ span {
   .bread-nav .content-search {
     float: left;
     margin: -6px 0 0 20px;
+    position: relative;
     vertical-align: middle; }
-    .bread-nav .content-search input {
+    .bread-nav .content-search .content-search {
       margin: 0;
       padding: 2px;
       border: 1px solid #666666;
@@ -1983,9 +1984,9 @@ span {
       height: 20px;
       vertical-align: middle;
       outline: none; }
-      .bread-nav .content-search input:focus {
+      .bread-nav .content-search .content-search:focus {
         border-color: #ffaa00; }
-        .bread-nav .content-search input:focus + a {
+        .bread-nav .content-search .content-search:focus + a {
           background: #ffaa00;
           border-color: #ffaa00; }
     .bread-nav .content-search a {
@@ -2002,6 +2003,13 @@ span {
       vertical-align: middle;
       background: #666666;
       color: white; }
+    .bread-nav .content-search .clear-search {
+      padding: 0;
+      border: none;
+      background: transparent;
+      position: absolute;
+      top: 5px;
+      right: 4px; }
 
 /*content
 ****************************************************/

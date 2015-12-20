@@ -608,8 +608,10 @@
 /*小搜索框
 ****************************************************/
 @mixin search($color) {
+  position: relative;
+
   vertical-align: middle;
-  input {
+  .content-search {
     margin: 0;
     padding: 2px;
     border: 1px solid $color;
@@ -639,6 +641,15 @@
     vertical-align: middle;
     background: $color;
     color: white;
+  }
+
+  .clear-search {
+    padding: 0;
+    border: none;
+    background: transparent;
+    position: absolute;
+    top: 5px;
+    right: 4px;
   }
 }
 
