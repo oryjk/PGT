@@ -12,6 +12,7 @@ import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.Constants;
 import com.pgt.home.bean.HotSale;
 import com.pgt.hot.service.HotProductHelper;
+import com.pgt.product.bean.InventoryType;
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
 import com.pgt.search.bean.*;
@@ -250,7 +251,7 @@ public class ESSearchService {
      * @param productIds
      * @return
      */
-    public boolean reduceProductInventory(List<Integer> productIds) {
+    public boolean modifyProductInventory(List<Integer> productIds, InventoryType inventoryType) {
         LOGGER.debug("Begin to reduce the product inventory.");
         BulkResponse bulkResponse;
 
@@ -262,6 +263,10 @@ public class ESSearchService {
                 Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
                 Category rootCategory = categoryService.queryRootCategoryByProductId(product.getProductId());
                 product.setStock(0);
+                if (inventoryType == InventoryType.ADD) {
+                    product.setStock(1);
+                }
+
                 ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
                 ObjectMapper mapper = new ObjectMapper();
                 try {
