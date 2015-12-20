@@ -54,7 +54,7 @@
             <!-- 筛选-->
             <div class="filter-box">
                 <div class="content-search">
-                    <input class="content-search" type="text" placeholder="订单号或商品名" />
+                    <input class="content-search" type="text" placeholder="订单号或商品名" value="${param.keyword}" />
                     <a href="#" class="order-history-search" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>
                 </div>
                 <ul id="tab" class="tab">
