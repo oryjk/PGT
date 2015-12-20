@@ -1,12 +1,15 @@
 package com.pgt.internal.bean.pagination;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Yove on 10/24/2015.
  */
 public class InternalPagination {
+
+	private static final int PAGE_NUMBER_OFFSET = 3;
 
 	private long mCapacity;
 	private long mCurrentIndex;// start from 0;
@@ -59,6 +62,26 @@ public class InternalPagination {
 	@Override
 	public String toString() {
 		return new StringBuilder().append("InternalPagination{").append("mCapacity=").append(mCapacity).append(", mCurrentIndex=").append(mCurrentIndex).append(", mCount=").append(mCount).append(", mKeyword='").append(mKeyword).append('\'').append(", mSortFieldName='").append(mSortFieldName).append('\'').append(", mAsc=").append(mAsc).append(", mInvalidPagination=").append(mInvalidPagination).append(", mResult=").append(mResult).append('}').toString();
+	}
+
+	public List<Long> getPageNumbers() {
+		long startPage = getCurrentIndex() - PAGE_NUMBER_OFFSET;
+		if (startPage < 0l) {
+			startPage = 0l;
+		}
+		long endPage = getCurrentIndex() + PAGE_NUMBER_OFFSET;
+		if (endPage > getMaxIndex()) {
+			endPage = getMaxIndex();
+		}
+		int maxPageCount = PAGE_NUMBER_OFFSET * 2 + 1;
+		List<Long> pageNumbers = new ArrayList<>(maxPageCount);
+		for (int i = new Long(startPage).intValue(); i <= endPage; i++) {
+			if (pageNumbers.size() == maxPageCount) {
+				break;
+			}
+			pageNumbers.add(i + startPage);
+		}
+		return pageNumbers;
 	}
 
 	public long getMaxIndex() {

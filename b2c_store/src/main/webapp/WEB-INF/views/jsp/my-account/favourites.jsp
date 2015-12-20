@@ -77,15 +77,16 @@
 
                     <div class="page-box">
                         <ul>
-                            <li><a id="previousPage" href="#">上页</a></li>
+                            <li><a id="previousPage" href="#" style="${favourites.currentIndex le 0 ? 'display: none;' : ''}">上页</a></li>
                             <li class="page-list">
                                 <ol id="pages">
-                                    <li><a class="page-focus" href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
+                                    <c:forEach var="pageNum" items="${favourites.pageNumbers}">
+                                        <li><a ${pageNum eq favourites.currentIndex ? 'class="page-focus"' : ''} href="#">${pageNum + 1}</a></li>
+                                    </c:forEach>
                                 </ol>
                             </li>
-                            <li><a id="nextPage" href="#">下页</a></li>
-                            <li class="page-count">共<span id="pageCount">6</span>页</li>
+                            <li><a id="nextPage" href="#" style="${favourites.currentIndex ge favourites.maxIndex ? 'display: none;' : ''}">下页</a></li>
+                            <li class="page-count">共<span id="pageCount">${favourites.maxIndex + 1}</span>页</li>
                             <li class="page-which">跳转到第<input id="pageWhich" type="text"/>页</li>
                             <li><input class="d-btn" id="pageSub"  type="button" value="确认"/></li>
                         </ul>
