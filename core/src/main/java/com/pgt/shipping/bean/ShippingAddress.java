@@ -20,6 +20,7 @@ public class ShippingAddress implements Serializable {
 	private String				address;
 	private String				email;
 	private Integer				status;
+	private Integer				addressInfoId;
 
 	public Integer getId() {
 		return id;
@@ -99,6 +100,14 @@ public class ShippingAddress implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Integer getAddressInfoId() {
+		return addressInfoId;
+	}
+
+	public void setAddressInfoId(Integer addressInfoId) {
+		this.addressInfoId = addressInfoId;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ public class AlipayConfig {
 	private String	returnUrl;
 	private String	notifyUrl;
 	private String	alipayUrl;
+	private String	orderIdPrefix	= "";
 
 	public String getPartner() {
 		return partner;
@@ -92,4 +93,11 @@ public class AlipayConfig {
 		this.alipayUrl = alipayUrl;
 	}
 
+	public String getOrderIdPrefix() {
+		return orderIdPrefix;
+	}
+
+	public void setOrderIdPrefix(String orderIdPrefix) {
+		this.orderIdPrefix = orderIdPrefix;
+	}
 }
