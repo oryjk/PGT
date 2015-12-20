@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pgt.address.bean.AddressInfo;
 import com.pgt.address.bean.Store;
 import com.pgt.address.dao.StoreMapper;
+import com.pgt.address.service.AddressInfoService;
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.constant.Constants;
@@ -23,13 +24,15 @@ import com.pgt.shipping.dao.ShippingVOMapper;
 @Service
 public class ShippingService {
 	@Autowired
-	ShippingVOMapper		shippingVOMapper;
+	ShippingVOMapper			shippingVOMapper;
 	@Autowired
-	ShippingAddressMapper	addressMapper;
+	ShippingAddressMapper		addressMapper;
 	@Autowired
-	StoreMapper				storeMapper;
+	StoreMapper					storeMapper;
 	@Autowired
-	ShippingMethodMapper	shippingMethodMapper;
+	private AddressInfoService	addressInfoService;
+	@Autowired
+	ShippingMethodMapper		shippingMethodMapper;
 
 	public boolean addAddress(ShippingAddress address, Order order) {
 		if (order == null) {
@@ -57,6 +60,18 @@ public class ShippingService {
 		}
 		return true;
 
+	}
+
+	public boolean addAddress(Integer addressInfoId, Order order) {
+		if (addressInfoId == null || order == null) {
+			return false;
+		}
+		AddressInfo addressInfo = getAddressInfoService().findAddress(addressInfoId);
+		ShippingAddress address = copyAddress(addressInfo);
+		if (addAddress(address, order)) {
+			return true;
+		}
+		return false;
 	}
 
 	public void saveShippingToOrder(Order order) {
@@ -136,24 +151,26 @@ public class ShippingService {
 		dest.setProvince(addressInfo.getProvince());
 		dest.setStatus(0);
 		dest.setAddress(addressInfo.getAddress());
+		dest.setAddressInfoId(addressInfo.getId());
 		return dest;
 	}
 
-	public List<Integer> getProductIdsFromOrder(Order order){
-		if(order == null){
+	public List<Integer> getProductIdsFromOrder(Order order) {
+		if (order == null) {
 			return null;
 		}
 		List<CommerceItem> ciList = order.getCommerceItems();
-		if(ciList ==null || ciList.isEmpty()){
+		if (ciList == null || ciList.isEmpty()) {
 			return null;
 		}
 		List<Integer> productIds = new ArrayList<Integer>();
-		for(CommerceItem ci: ciList){
+		for (CommerceItem ci : ciList) {
 			productIds.add(ci.getReferenceId());
 		}
 		return productIds;
-		
+
 	}
+
 	public List<Store> findStoreByProductIds(List<Integer> productIds) {
 		return getStoreMapper().findStoreByProductIds(productIds);
 	}
@@ -188,6 +205,14 @@ public class ShippingService {
 
 	public void setShippingMethodMapper(ShippingMethodMapper shippingMethodMapper) {
 		this.shippingMethodMapper = shippingMethodMapper;
+	}
+
+	public AddressInfoService getAddressInfoService() {
+		return addressInfoService;
+	}
+
+	public void setAddressInfoService(AddressInfoService addressInfoService) {
+		this.addressInfoService = addressInfoService;
 	}
 
 }

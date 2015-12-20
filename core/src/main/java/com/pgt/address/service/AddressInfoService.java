@@ -1,5 +1,6 @@
 package com.pgt.address.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,16 @@ public class AddressInfoService {
 		return addressInfoMapper.queryAddressByUserId(userId);
 	}
 
+	public List<AddressInfo> sortAddress(Integer defaultAddressId, List<AddressInfo> addressList) {
+		List<AddressInfo> sortedAddressList = new ArrayList<AddressInfo>();
+		sortedAddressList.add(null);
+		for (AddressInfo address : addressList) {
+			if (defaultAddressId.equals(address.getId())) {
+				sortedAddressList.set(0, address);
+			} else {
+				sortedAddressList.add(address);
+			}
+		}
+		return sortedAddressList;
+	}
 }
