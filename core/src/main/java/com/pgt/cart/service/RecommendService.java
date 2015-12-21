@@ -2,7 +2,7 @@ package com.pgt.cart.service;
 
 import com.pgt.cart.dao.RecommendDao;
 import com.pgt.configuration.URLConfiguration;
-import com.pgt.internal.util.RepositoryUtils;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.product.dao.ProductMapper;
 import org.apache.commons.collections.CollectionUtils;
@@ -45,7 +45,8 @@ public class RecommendService {
 
 	private boolean mRecommendOutOfStockProduct = false;
 
-	private String[] mRecommendURLs = new String[] {"/myAccount/favourites", "/myAccount/orderHistory", "/myAccount/browsedProducts", "/404"};
+	private String[] mRecommendURLs = new String[] {"/myAccount/favourites", "/user/updatePassword", "/userinformation/query", "/myAccount/orderHistory",
+			"/myAccount/browsedProducts", "/404", "/checkout/shipping", "/payment/gateway", "/payment/complete"};
 
 	private static final String SUFFIX_JS = ".js";
 	private static final String SUFFIX_CSS = ".css";

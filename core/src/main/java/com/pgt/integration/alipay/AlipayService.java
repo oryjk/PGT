@@ -48,7 +48,7 @@ public class AlipayService {
 	public Map<String, String> buildParamMap(Order order) {
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put(AlipayConstants.INPUT_CHARSET, alipayConfig.getInputCharset());
-		paramMap.put(AlipayConstants.OUT_TRADE_NO, String.valueOf(order.getId()));
+		paramMap.put(AlipayConstants.OUT_TRADE_NO, alipayConfig.getOrderIdPrefix() + order.getId());
 		paramMap.put(AlipayConstants.PARTNER, alipayConfig.getPartner());
 		paramMap.put(AlipayConstants.PAYMENT_TYPE, alipayConfig.getPaymentType());
 		paramMap.put(AlipayConstants.RETURN_URL, alipayConfig.getReturnUrl());

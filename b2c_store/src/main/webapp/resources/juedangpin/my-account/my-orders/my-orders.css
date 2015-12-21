@@ -907,10 +907,11 @@ span {
       color: black; }
 
 .content-search {
+  position: relative;
   vertical-align: middle;
   margin-top: 0;
   float: right; }
-  .content-search input {
+  .content-search .content-search {
     margin: 0;
     padding: 2px;
     border: 1px solid #666666;
@@ -918,9 +919,9 @@ span {
     height: 20px;
     vertical-align: middle;
     outline: none; }
-    .content-search input:focus {
+    .content-search .content-search:focus {
       border-color: #ffaa00; }
-      .content-search input:focus + a {
+      .content-search .content-search:focus + a {
         background: #ffaa00;
         border-color: #ffaa00; }
   .content-search a {
@@ -937,6 +938,13 @@ span {
     vertical-align: middle;
     background: #666666;
     color: white; }
+  .content-search .clear-search {
+    padding: 0;
+    border: none;
+    background: transparent;
+    position: absolute;
+    top: 5px;
+    right: 4px; }
 
 /*order-list
 ****************************************************/
@@ -1015,6 +1023,12 @@ span {
     .each-order .col7 a,
     .each-order .col7 span {
       display: block; }
+
+.no-order-text {
+  font-size: 18px;
+  text-align: center; }
+  .no-order-text a {
+    font-size: 16px; }
 
 /*page-box
 ****************************************************/

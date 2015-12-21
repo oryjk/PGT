@@ -3,6 +3,7 @@ package com.pgt.product.controller;
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.BreadBuilder;
+import com.pgt.common.bean.BreadCrumb;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.communication.bean.Consulting;
 import com.pgt.communication.bean.ConsultingCustom;
@@ -168,7 +169,7 @@ public class ProductController {
 			modelAndView.addObject("similarProducts", newSimilarProducts);
 		}
 
-		List<String> breadCrumb = breadBuilder.buildPdpBreadCrumb(productId);
+		List<BreadCrumb> breadCrumb = breadBuilder.buildPdpBreadCrumb(productId);
 		modelAndView.addObject("product", product);
 		modelAndView.addObject("consultings", consultings);
 		modelAndView.addObject("conPaginationBean", conPaginationBean);
@@ -219,7 +220,7 @@ public class ProductController {
 		discussCustom.setPaginationBean(disPaginationBean);
 		List<Discuss> discuss = discussService.queryProductAllDiscuss(Integer.valueOf(productId), discussCustom);
 
-		List<String> breadCrumb = breadBuilder.buildPdpBreadCrumb(productId);
+		List<BreadCrumb> breadCrumb = breadBuilder.buildPdpBreadCrumb(productId);
 		modelAndView.addObject("product", product);
 		modelAndView.addObject("consultings", consultings);
 		modelAndView.addObject("conPaginationBean", conPaginationBean);

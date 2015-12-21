@@ -18,6 +18,7 @@ public class ESConfiguration {
     private List<String> hotSaleAnalyzerFields = new ArrayList<>();
     private boolean clearIndex=true;
     private boolean needIndex=true;
+    private List<String> useToSearch=new ArrayList<>();
 
     private Map<String, Integer> priceAggrs = new HashMap<String, Integer>() {
         {
@@ -109,5 +110,13 @@ public class ESConfiguration {
 
     public void setHotSaleAnalyzerFields(List<String> hotSaleAnalyzerFields) {
         this.hotSaleAnalyzerFields = hotSaleAnalyzerFields;
+    }
+
+    public List<String> getUseToSearch() {
+        return useToSearch;
+    }
+
+    public void setUseToSearch(List<String> useToSearch) {
+        this.useToSearch = useToSearch;
     }
 }

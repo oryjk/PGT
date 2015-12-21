@@ -237,10 +237,11 @@
 
         <!-- 详细内容列表-->
         <div id="main" class="main-box">
-            <div class="content-search">
+            <form class="content-search">
                 <input class="content-search" type="text" placeholder="商品搜索"/>
                 <a href=""><i class="foundicon-search"></i></a>
-            </div>
+                <input type="reset" class="clear-search link-btn" value="清除">
+            </form>
             <!--面包屑-->
             <div class="bread-nav">
                 <p>
@@ -250,7 +251,7 @@
                 </p>
             </div>
 
-            <div class="product-list">
+            <div class="product-list have-collect" style="display: block">
                 <div class="list-product">
                     <div class="inner">
                         <a class="list-img-box" href="#"><img src="../../core/images/productList/list1.jpg" alt=""/></a>
@@ -373,6 +374,10 @@
                     </div>
                 </div>
 
+            </div>
+
+            <div class="no-collect" style="display: none">
+                <p class="no-collect-text">您暂时没有收藏  <a class="link-btn" href="#">回到首页</a></p>
             </div>
 
             <div class="page-box">

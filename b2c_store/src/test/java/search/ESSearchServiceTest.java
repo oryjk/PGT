@@ -31,16 +31,16 @@ import com.pgt.search.service.ESSearchService;
 public class ESSearchServiceTest {
 
     @Autowired
-    private ESSearchService eSSearchService;
+    private ESSearchService esSearchService;
 
     // 建立商品的索引
     @Test
     public void productIndex() {
 
-        eSSearchService.initialIndex(true);
-        eSSearchService.categoryIndex();
-        BulkResponse responses = eSSearchService.productIndex();
-        eSSearchService.hotProductIndex();
+        esSearchService.initialIndex(true);
+        esSearchService.categoryIndex();
+        BulkResponse responses = esSearchService.productIndex();
+        esSearchService.hotProductIndex();
         Assert.assertFalse(responses.hasFailures());
 
     }
@@ -51,7 +51,7 @@ public class ESSearchServiceTest {
         ESSort esSort = new ESSort();
         esSort.setPropertyName(Constants.SORT);
         esSort.setSortOrder(SortOrder.ASC);
-        SearchResponse response = eSSearchService.findHotSales(esSort);
+        SearchResponse response = esSearchService.findHotSales(esSort);
         Assert.assertNotNull(response);
     }
 
@@ -63,6 +63,8 @@ public class ESSearchServiceTest {
 
         esterm.setPropertyName("name");
         esterm.setTermValue("血珀手串");
+        List<ESTerm> matchs = new ArrayList<>();
+        matchs.add(esterm);
 
         ESSort esSort = new ESSort();
         esSort.setPropertyName("productId");
@@ -80,7 +82,7 @@ public class ESSearchServiceTest {
         esRange.setFrom(200);
         esRange.setTo(2000);
 
-        SearchResponse searchResponse = eSSearchService.findProducts(esterm2, esterm, esRange, null, null, null, null);
+        SearchResponse searchResponse = esSearchService.findProducts(esterm2, matchs, esRange, null, null, null, null);
 
         SearchHits hits = searchResponse.getHits();
 

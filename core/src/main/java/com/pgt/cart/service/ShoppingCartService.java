@@ -7,7 +7,7 @@ import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.dao.ShoppingCartDao;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.common.bean.Media;
-import com.pgt.internal.util.RepositoryUtils;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import org.slf4j.Logger;

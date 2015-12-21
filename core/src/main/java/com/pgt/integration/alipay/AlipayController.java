@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class AlipayController {
 	private PaymentService paymentService;
 
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
-	public ModelAndView requestAlipay(HttpServletRequest request,HttpSession session) {
+	public ModelAndView requestAlipay(HttpServletRequest request, HttpSession session) {
 		ModelAndView model = null;
 		String orderId = request.getParameter("orderId");
 		Order order = getOrderService().loadOrder(Integer.parseInt(orderId));
@@ -56,7 +57,7 @@ public class AlipayController {
 			getPaymentService().ensureTransaction();
 			PaymentGroup paymentGroup = getPaymentService().maintainPaymentGroup(order, PaymentConstants.METHOD_ALIPAY);
 			Map<String, String> paramsMap = getAlipayService().buildRequestMap(order);
-			getAlipayService().createAlipayTransactionLog(session,order, paymentGroup, paramsMap);
+			getAlipayService().createAlipayTransactionLog(session, order, paymentGroup, paramsMap);
 
 			LOGGER.debug("Collected all required parameters and submit form to alipay payment gateway.");
 			model = new ModelAndView("checkout/alipayForm");
@@ -74,6 +75,10 @@ public class AlipayController {
 	@RequestMapping(value = "/return", method = RequestMethod.GET)
 	public ModelAndView handleAlipayReturn(HttpServletRequest request, HttpSession session) {
 		String orderId = request.getParameter(AlipayConstants.OUT_TRADE_NO);
+		String orderIdPrefix = getAlipayService().getAlipayConfig().getOrderIdPrefix();
+		if (StringUtils.isNotBlank(orderIdPrefix)) {
+			orderId = orderId.replaceAll(orderIdPrefix, "");
+		}
 		Order order = getOrderService().loadOrder(Integer.parseInt(orderId));
 		boolean success = getAlipayService().verifyResult(request);
 		ModelAndView mav = new ModelAndView();
@@ -92,6 +97,10 @@ public class AlipayController {
 	@RequestMapping(value = "/notify", method = RequestMethod.POST)
 	public void handleAlipayNotify(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String orderId = request.getParameter(AlipayConstants.OUT_TRADE_NO);
+		String orderIdPrefix = getAlipayService().getAlipayConfig().getOrderIdPrefix();
+		if (StringUtils.isNotBlank(orderIdPrefix)) {
+			orderId = orderId.replaceAll(orderIdPrefix, "");
+		}
 		Order order = getOrderService().loadOrder(Integer.parseInt(orderId));
 		boolean success = getAlipayService().verifyResult(request);
 		if (success) {

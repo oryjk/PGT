@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="d1"></div>
+
+<div class='chose1'>
+    <div class='d1'></div>
+    <div class='d2'><p class='d2-name'>古玩</p>
+
+        <p class='d2-money'>￥20.00</p></div>
+    <div class='d3'><img src='img/interestPoint/icon_add@2x.png' onclick='addInteres(20.00,'古玩')' alt='1'/></div>
+</div>
+</body>
+<script>
+    var str = "<div class='chose1'><div class='d1'></div><div class='d2'><p class='d2-name'>古玩</p><p class='d2-money'>￥20.00</p></div><div class='d3'><img src='img/interestPoint/icon_add@2x.png' onclick='addInteres(20.00,"+ "\"" +"古玩" + "\"" +")' alt='1'/></div></div>"
+    console.log(str)
+    var obj = document.getElementById('d1')
+    console.log(obj)
+    obj.innerHTML = str;
+</script>
+</html>

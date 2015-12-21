@@ -10,7 +10,7 @@ import java.util.Set;
 
 import org.springframework.util.CollectionUtils;
 
-import com.pgt.internal.util.RepositoryUtils;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.shipping.bean.ShippingVO;
 
 /**

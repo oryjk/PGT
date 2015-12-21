@@ -7,7 +7,7 @@ import com.pgt.cart.constant.CookieConstant;
 import com.pgt.cart.dao.UserOrderDao;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
-import com.pgt.internal.util.RepositoryUtils;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.user.bean.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;

@@ -55,6 +55,7 @@ public class UserInformationController {
 			modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
 			return modelAndView;
 		}
+		userInformation.setPhoneNumber(user.getPhoneNumber());
 		userInformation.setUser(user);
 		UserInformation olduserInformation = userInformationService.queryUserInformation(user);
 		if(!ObjectUtils.isEmpty(olduserInformation)){

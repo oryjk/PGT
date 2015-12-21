@@ -53,10 +53,15 @@
             </div>
             <!-- 筛选-->
             <div class="filter-box">
-                <div class="content-search">
-                    <input class="content-search" type="text" placeholder="订单号或商品名" value="${param.keyword}" />
-                    <a href="#" class="order-history-search" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>
-                </div>
+                <%--<div class="content-search">--%>
+                    <%--<input class="content-search" type="text" placeholder="订单号或商品名" value="${param.keyword}" />--%>
+                    <%--<a href="#" class="order-history-search" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>--%>
+                <%--</div>--%>
+                <form action="<spring:url value="/myAccount/orderHistory"/>" class="content-search">
+                    <input class="content-search" type="text" name="keyword" placeholder="商品搜索"/>
+                    <a href="#" class="favourite-search" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>
+                    <input type="reset" class="clear-search link-btn" value="清除">
+                </form>
                 <ul id="tab" class="tab">
                     <li class="${empty param.status ? 'choose' : ''}"><h2 data-tab="0"><a href="<spring:url value="/myAccount/orderHistory"/>">全部订单</a></h2></li>
                     <li class="${param.status eq 20 ? 'choose' : ''}"><h2 data-tab="20"><a href="<spring:url value="/myAccount/orderHistory?status=20"/>">待付款</a></h2></li>
@@ -78,7 +83,9 @@
                             <th class="col7">订单状态</th>
                         </tr>
                     </table>
-                    <div id="orderList">
+
+                <%--有订单时显示为.have-order 为display为block,否则为none--%>
+                    <div class="have-order" id="orderList" style="display: block">
                         <c:forEach var="order" items="${historyOrders.result}">
                             <div class="each-order">
                             <c:if test="${order.status gt 1}">
@@ -149,8 +156,11 @@
                             </table>
                             </div>
                         </c:forEach>
-                    </div>
+                    </div >
 
+                    <div class="no-order" style="display: none">
+                        <p class="no-order-text">没有订单 <a class="link-btn" href="#">去购物车结算</a> <a class="link-btn" href="#">回到首页</a></p>
+                    </div>
                 </div>
                 <!-- 分页-->
                 <div class="page-box">

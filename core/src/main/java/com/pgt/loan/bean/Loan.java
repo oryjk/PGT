@@ -1,7 +1,6 @@
 package com.pgt.loan.bean;
 
 import com.pgt.category.bean.Category;
-import com.pgt.internal.bean.InternalUser;
 import com.pgt.user.bean.User;
 
 import java.math.BigDecimal;
@@ -26,7 +25,7 @@ public class Loan {
 	private BigDecimal investAmountMin;
 	private BigDecimal investAmountMax;
 	private int counterPurchase;
-	private InternalUser publisher;
+//	private InternalUser publisher;
 	private int status;
 	private BigDecimal refundAmount;
 	private Date createionDate;
@@ -132,13 +131,13 @@ public class Loan {
 		this.counterPurchase = counterPurchase;
 	}
 
-	public InternalUser getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(InternalUser publisher) {
-		this.publisher = publisher;
-	}
+//	public InternalUser getPublisher() {
+//		return publisher;
+//	}
+//
+//	public void setPublisher(InternalUser publisher) {
+//		this.publisher = publisher;
+//	}
 
 	public int getStatus() {
 		return status;

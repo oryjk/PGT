@@ -131,6 +131,39 @@ form {
   }
 }
 
+/*success
+*********************************************************************/
+.success-box {
+  margin-top: 50px;
+  border-radius: 5px;
+  float: right;
+  width: 270px;
+  padding: 100px;
+  background: white;
+
+
+  p {
+    @include o;
+  }
+
+  .success-message {
+    font-size: 30px;
+  }
+
+  .to-home-page {
+    padding-top: 50px;
+    font-size: 16px;
+  }
+
+  .to-myaccount-page {
+    padding-top: 50px;
+    font-size: 16px;
+  }
+
+  .link-btn {
+    @extend %link-btn;
+  }
+}
 
 
 /*for js
@@ -179,3 +212,5 @@ form {
 .hide {
   display: none;
 }
+
+

@@ -27,7 +27,7 @@ public class Configuration {
 		this.plpCapacity = plpCapacity;
 	}
 
-	private boolean smsMock = true;
+	private boolean smsMock = false;
 
 	public Integer getCommunicationCapacity() {
 		return communicationCapacity;

@@ -233,12 +233,12 @@ public class UserController {
         cookie.setMaxAge(UserConstant.OVERDUE);
         response.addCookie(cookie);
         user.setCount(0);
+        modelAndView.setViewName("/user/successLogin");
+        modelAndView.addObject("redirect","/");
         if (!StringUtils.isEmpty(redirect)) {
             LOGGER.debug("Need redirect to {}.", redirect);
-            modelAndView.setViewName("redirect:" + redirect);
-            return modelAndView;
+            modelAndView.addObject("redirect",redirect);
         }
-        modelAndView.setViewName("redirect:/");
 
         return modelAndView;
     }
@@ -276,7 +276,7 @@ public class UserController {
             String authCode = user.getAuthCode();
             if (!code.equalsIgnoreCase(authCode)) {
                 bindingResult.addError(
-                        new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.authCode", null, null)));
+                        new FieldError("user", "authCode", ErrorMsgUtil.getMsg("Error.authCode", null, null)));
                 modelAndView.addObject("user", user);
                 return modelAndView;
             }
@@ -288,7 +288,7 @@ public class UserController {
                 String phoneCode = (String) request.getSession().getAttribute(Constants.REGISTER_SESSION_PHONE_CODE);
                 if (!smsCode.equals(phoneCode)) {
                     bindingResult.addError(
-                            new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.user.smsCode", null, null)));
+                            new FieldError("user", "smsCode", ErrorMsgUtil.getMsg("Error.user.smsCode", null, null)));
                     modelAndView.addObject("user", user);
                     return modelAndView;
                 }
@@ -307,9 +307,9 @@ public class UserController {
             return modelAndView;
         }
         userServiceImp.saveUser(user);
-        modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_PHONE_CODE);
+        modelAndView.setViewName("/user/successRegister");
         return modelAndView;
     }
 
@@ -364,6 +364,55 @@ public class UserController {
         return modelAndView;
 
     }
+
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.GET)
+    public ModelAndView updatePassword(ModelAndView modelAndView,HttpSession session){
+
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        if (user == null) {
+            modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
+            return modelAndView;
+        }
+        modelAndView.setViewName("my-account/person-info/update-password");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/updatePasswordSubmit", method = RequestMethod.POST)
+    public ModelAndView updatePasswordSubmit(User newUserPassword,BindingResult bindingResult,ModelAndView modelAndView,HttpSession session,String oldpassword){
+
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        if (user == null) {
+            modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
+            return modelAndView;
+        }
+
+        //旧密码为空
+        if(ObjectUtils.isEmpty(oldpassword)){
+            bindingResult.addError(
+                    new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
+             return modelAndView;
+        }
+
+        String oldMd5Password = DigestUtils.md5Hex(oldpassword+ user.getSalt());
+        //旧密码输入不正确
+        if(!oldMd5Password.endsWith(user.getPassword())){
+            bindingResult.addError(
+                    new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("Error.internalUser.password.notMatch", null, null)));
+            return modelAndView;
+        }
+        //修改密码
+        if (newUserPassword.getPassword().equals(newUserPassword.getPassword2())) {
+                user.setPassword(newUserPassword.getPassword());
+                user.setPassword2(newUserPassword.getPassword2());
+                userServiceImp.updateUserPassword(user);
+        }
+
+        modelAndView.setViewName("redirect:/user/logout");
+        return modelAndView;
+    }
+
+
+
 
     private ModelAndView checkResetPasswordPhoneCode(User user, BindingResult bindingResult, ModelAndView modelAndView, HttpServletRequest request) {
         if (user.getSmsCode().equalsIgnoreCase((String) request.getSession().getAttribute(Constants.RESET_PASSWOR_SESSION_PHONE_CODE))) {

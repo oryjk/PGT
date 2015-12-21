@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <spring:url value="${juedangpinStaticPath}" var="staticPath"/>
 <c:set var="isDelivery" value="${'PICKUP' ne checkoutOrder.shippingVO.shippingType}"></c:set>
@@ -80,6 +81,8 @@
                 </a>
             </div>
         </div>
+
+        <div class="error"></div>
 
         <form id="addPickup" class="post-way" action="addPickup">
             <h3>配送方式</h3>
@@ -295,7 +298,7 @@
 		                            有货
 		                        </td>
 		                        <td class="product-now-cost">
-		                            ¥<span>${commerceItem.salePrice}</span>
+		                            ¥<span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span>
 		                        </td>
 		                    </tr>
 	                    </c:forEach>

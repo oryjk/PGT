@@ -142,6 +142,8 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                             str += '待收货</span> </td>';
                         } else if (orderArr[i].status == 100) {
                             str += '已完成</span> </td>';
+                        } else if (orderArr[i].status == -10) {
+                            str += '已取消</span> </td>';
                         }
                     }
                 }
