@@ -69,7 +69,7 @@ public class InventoryService extends Transactionable {
                 }
                 InventoryLock newLock = new InventoryLock();
                 newLock.setOrderId(Long.valueOf(order.getId()));
-                newLock.setProdudctId(Long.valueOf(productId));
+                newLock.setProductId(Long.valueOf(productId));
                 newLock.setQuantity(quantityRequire);
                 newLock.setCreationDate(now);
                 newLock.setUpdateDate(now);

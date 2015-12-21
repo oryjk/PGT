@@ -2,6 +2,7 @@ package com.pgt.inventory.dao;
 
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.inventory.bean.InventoryLock;
+import com.pgt.product.bean.Product;
 
 import java.util.List;
 
@@ -20,6 +21,6 @@ public interface InventoryLockMapper extends SqlMapper {
 
     int queryInventoryQuantity(final int productId);
 
-    void updateInventoryQuantity(final int productId, int newQuantity);
+    void updateInventoryQuantity(Product product);
 
 }

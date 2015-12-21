@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class InventoryLock {
     private Long orderId;
-    private Long produdctId;
+    private Long productId;
     private int quantity;
     private Date expiredDate;
     private Date creationDate;
@@ -21,12 +21,12 @@ public class InventoryLock {
         this.orderId = orderId;
     }
 
-    public Long getProdudctId() {
-        return produdctId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProdudctId(Long produdctId) {
-        this.produdctId = produdctId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {
