@@ -1,6 +1,7 @@
 package index;
 
 import com.google.common.collect.Lists;
+import com.pgt.product.bean.InventoryType;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESTerm;
@@ -96,6 +97,13 @@ public class IndexTest {
         Assert.assertNotNull(response.getHits().getHits());
     }
 
+
+    @Test
+    public void updateInventory(){
+        List<Integer> ids=new ArrayList<>();
+        ids.add(131);
+        esSearchService.modifyProductInventory(ids, InventoryType.DEDUCT);
+    }
     public ESSearchService getEsSearchService() {
         return esSearchService;
     }

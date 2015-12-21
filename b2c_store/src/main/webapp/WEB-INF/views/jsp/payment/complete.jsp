@@ -17,20 +17,18 @@
         <div class="top-status">
             <div class="status-box">
                 <ul class="top-nav">
-                    <li>
+                    <!--<li>
                         <a href="#">手机绝当品</a>
-                    </li>
-                    <li><a href="#">帮助中心</a></li>
-                    <li><a href="#">网站导航</a></li>
-                </ul>
-                <ul class="will-login">
-                    <li><a href="../user/login.html"> 立即登录</a></li>
-                    <li><a href="../user/regist.html">免费注册</a></li>
+                    </li>-->
+                    <li><a href="<spring:url value="/helpcenter/query"/>">帮助中心</a></li>
+                    <!--<li><a href="#">网站导航</a></li>-->
                 </ul>
                 <ul class="have-login">
-                    <li><a href="../user/regist.html"><span> 欢迎您：</span><span>游客</span></a></li>
-                    <li><a href="#">账户管理</a></li>
-                    <li><a href="#">退出登录</a></li>
+                    <li>
+                        <a href="<spring:url value="${urlConfiguration.myAccountPage}"/>"><span> 欢迎您：</span><span>${currentUser.username}</span></a>
+                    </li>
+                    <li><a href="<spring:url value="${urlConfiguration.myAccountPage}"/>">账户管理</a></li>
+                    <li><a href="<spring:url value="${urlConfiguration.logoutPage}"/>">退出登录</a></li>
                 </ul>
             </div>
         </div>
@@ -75,7 +73,7 @@
         <form>
             <fieldset class="success-box">
                 <p class="look-order">
-                    <a class="link-btn" href="#">查看我的订单</a>
+                    <a class="link-btn" href="<c:url value="/myAccount/orderHistory"/>">查看我的订单</a>
                 </p>
                 <div class="row">
                     <h3>支付已成功</h3>

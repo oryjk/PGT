@@ -74,17 +74,17 @@
 	                <div class="row1">
 	                    <span class="row-title">身份证号 :</span>
 	                    <span class="row-text"><input type="text" name="idCardNo"/></span>
-	                    <span class="row-tips">身份证格式不正确</span>
+	                    <!--<span class="row-tips">身份证格式不正确</span>-->
 	                </div>
 	                <div class="row1">
 	                    <span class="row-title">手机号 :</span>
 	                    <span class="row-text"><input type="text" name="mobile" /></span>
-	                    <span class="row-tips">手机格式不正确</span>
+	                    <!--<span class="row-tips">手机格式不正确</span>-->
 	                </div>
 	                <div class="row1">
 	                    <span class="row-title">邮箱 :</span>
 	                    <span class="row-text"><input type="text" name="email" /></span>
-	                    <span class="row-tips">邮箱格式不正确</span>
+	                    <!--<span class="row-tips">邮箱格式不正确</span>-->
 	                </div>
 	                <div class=row2>
 	                    <input class="yeepay-btn" type="submit" value="提交"/>

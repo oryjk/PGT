@@ -292,8 +292,7 @@ define(function() {
      */
     var page = function(productLIst, previousPage, nextPage, pageCount, pageWhich, pageSub, pages, url, pageObj, loadBolean, callbackFunction) {
         var maxIndex = -1;
-        console.log(loadBolean);
-        console.log(arguments)
+
         //载入时
         if (loadBolean) {
             getPage(pageObj);

@@ -49,7 +49,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         //事件委托:加入购物车, 添加收藏
         $(document).on('click', '.addCart', addCart);
         $(document).on('click', '.addEnjoy', addEnjoy);
-        $(document).on('click', '.order-history-search', orderSearch);
+        $('.search-link-btn').on('click', orderSearch);
 
         //加入购物车
         function addCart(event) {
@@ -81,7 +81,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         };
         var getOrderListUrl = Prd.baseUrl + '/myAccount/ajaxOrderHistory';
 
-        Cpn.page($('#orderList'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, rendering);
+        Cpn.page($('#orderList'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, false, rendering);
 
         function rendering(param, list) {
             var orderArr = param.data.result;
@@ -156,6 +156,8 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         // search order with order id or keyword
         function orderSearch(event) {
+            event.preventDefault();
+
             var that = $(this);
             var redirectURL = that.attr('data-url');
             var keyword = $(":text.content-search").val();
