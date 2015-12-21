@@ -5,7 +5,5 @@ package com.pgt.cart.constant;
  */
 public interface SessionConstant {
 
-	String INTERNAL_USER = "currentUser";
-
 	String RECENT_PRODUCT_IDS = "recentProductIds";
 }

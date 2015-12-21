@@ -2,18 +2,17 @@ package com.pgt.internal.controller;
 
 import com.pgt.cart.bean.ResponseBean;
 import com.pgt.cart.bean.ResponseBuilder;
+import com.pgt.cart.bean.pagination.InternalPagination;
+import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
 import com.pgt.cart.service.ResponseBuilderFactory;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.internal.bean.InternalUser;
 import com.pgt.internal.bean.InternalUserBuilder;
 import com.pgt.internal.bean.InternalUserInvestType;
 import com.pgt.internal.bean.Role;
-import com.pgt.cart.bean.pagination.InternalPagination;
-import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
 import com.pgt.internal.constant.ResponseConstant;
-import com.pgt.cart.constant.SessionConstant;
 import com.pgt.internal.service.InternalUserService;
 import com.pgt.internal.service.InternalUserValidationService;
-import com.pgt.cart.util.RepositoryUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +54,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	@RequestMapping(value = "/login")//, method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView("/internal/login");
-		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(SessionConstant.INTERNAL_USER);
+		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(INTERNAL_USER);
 		if (iu != null && RepositoryUtils.idIsValid(iu.getId()) && iu.isAvailable()) {
 			// internal user has already login
 			LOGGER.debug("Internal user: {} already stay in login state, no need to login again", iu.getLogin());
@@ -69,7 +68,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	@RequestMapping(value = "/signup")//, method = RequestMethod.GET)
 	public ModelAndView signup(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView("/internal/register");
-		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(SessionConstant.INTERNAL_USER);
+		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(INTERNAL_USER);
 		if (iu != null && RepositoryUtils.idIsValid(iu.getId()) && iu.isAvailable()) {
 			// internal user has already login
 			LOGGER.debug("Internal user: {} already stay in login state, logout before try to register.", iu.getLogin());
@@ -159,7 +158,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 			piu.setIp(captureIpAddress(pRequest));
 			getInternalUserService().updateLastLogin(piu.getId(), piu.getIp());
 			// set internal user into session
-			pRequest.getSession().setAttribute(SessionConstant.INTERNAL_USER, piu);
+			pRequest.getSession().setAttribute(INTERNAL_USER, piu);
 			//TODO set cookies to mark as remember me status
 			rb.setSuccess(true).setData(piu);
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
@@ -257,7 +256,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 			LOGGER.debug("Create internal user with login: {} has result: {}", login, result ? "success" : "failed");
 			if (result) {
 				// set internal user into session to auto login
-				pRequest.getSession().setAttribute(SessionConstant.INTERNAL_USER, iu);
+				pRequest.getSession().setAttribute(INTERNAL_USER, iu);
 				rb.setSuccess(true).setData(iu);
 				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 			}
