@@ -3,6 +3,7 @@ package com.pgt.search.controller;
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.BreadBuilder;
+import com.pgt.common.bean.BreadCrumb;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
@@ -228,7 +229,7 @@ public class ESSearchController {
 
                 Category rootCategory = (Category) modelAndView.getModel().get("rootCategory");
                 Category category = (Category) modelAndView.getModel().get("parentCategory");
-                List<String> breadCrumb = breadBuilder.buildSeachPageBreadCrumb(
+                List<BreadCrumb> breadCrumb = breadBuilder.buildSearchPageBreadCrumb(
                         rootCategory == null ? null : rootCategory.getName(),
                         category == null ? null : category.getName(), term);
 

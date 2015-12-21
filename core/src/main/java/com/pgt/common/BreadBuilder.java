@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryHelper;
 import com.pgt.category.service.CategoryService;
+import com.pgt.common.bean.BreadCrumb;
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -30,22 +31,30 @@ public class BreadBuilder {
     @Autowired
     private ProductHelper productHelper;
 
-    public List<String> buildSeachPageBreadCrumb(String rootCategory, String category, String searchTerm) {
-        List<String> breadCrumb = new ArrayList<>();
+    public List<BreadCrumb> buildSearchPageBreadCrumb(String rootCategory, String category, String searchTerm) {
+        List<BreadCrumb> breadCrumb = new ArrayList<>();
         if (!StringUtils.isBlank(rootCategory)) {
-            breadCrumb.add(rootCategory);
+            BreadCrumb rootBreadCrumb=new BreadCrumb();
+            rootBreadCrumb.setBreadName(rootCategory);
+            breadCrumb.add(rootBreadCrumb);
         }
         if (!StringUtils.isBlank(category)) {
-            breadCrumb.add(category);
+            BreadCrumb categoryBreadCrumb=new BreadCrumb();
+            categoryBreadCrumb.setBreadName(category);
+            breadCrumb.add(categoryBreadCrumb);
         }
         if (!StringUtils.isBlank(searchTerm)) {
-            breadCrumb.add(searchTerm);
+            BreadCrumb searchBreadCrumb=new BreadCrumb();
+            searchBreadCrumb.setBreadName(searchTerm);
+            breadCrumb.add(searchBreadCrumb);
         }
         return breadCrumb;
     }
 
-    public List<String> buildPdpBreadCrumb(String productId) {
-        List<String> breadCrumb = new ArrayList<>();
+
+
+    public List<BreadCrumb> buildPdpBreadCrumb(String productId) {
+        List<BreadCrumb> breadCrumb = new ArrayList<>();
 
         List<Product> products = productHelper.findProductsByIds(Lists.newArrayList(Integer.valueOf(productId)));
         if (ObjectUtils.isEmpty(products)) {
@@ -57,10 +66,21 @@ public class BreadBuilder {
             LOGGER.debug("Can not find the parent category with product is {}.", productId);
             return breadCrumb;
         }
-        breadCrumb.add(category.getParent().getName());
+        BreadCrumb rootBreadCrumb = new BreadCrumb();
+        rootBreadCrumb.setBreadUrl("/essearch?rootCategoryId=" + category.getParent().getId());
+        rootBreadCrumb.setBreadName(category.getParent().getName());
+        breadCrumb.add(rootBreadCrumb);
 
-        breadCrumb.add(category.getName());
-        breadCrumb.add(products.get(0).getName());
+        BreadCrumb categoryBreadCrumb = new BreadCrumb();
+        categoryBreadCrumb.setBreadUrl("/essearch?parentCategoryId=" + category.getId());
+        categoryBreadCrumb.setBreadName(category.getName());
+        breadCrumb.add(categoryBreadCrumb);
+
+        BreadCrumb productBreadCrumb = new BreadCrumb();
+        productBreadCrumb.setBreadUrl("/product/" + products.get(0).getProductId());
+        productBreadCrumb.setBreadName(products.get(0).getName());
+
+        breadCrumb.add(productBreadCrumb);
         return breadCrumb;
     }
 
