@@ -4,12 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pgt.payment.dao.PaymentMapper">
 
-    <insert id="createInventoryLock" parameterType="com.pgt.inventory.bean.InventoryLock" keyColumn="id" useGeneratedKeys="true">
+    <insert id="createInventoryLock" parameterType="com.pgt.inventory.bean.InventoryLock" >
         INSERT INTO INVENTORY_LOCK (PRODUCT_ID, ORDER_ID, QUANTITY, EXPIRE_DATE, CREATION_DATE, UPDATE_DATE)
         VALUES (#{productId}, #{orderId}, #{quantity}, #{expiredDate},now(), now())
-        <selectKey resultType="long" order="AFTER" keyProperty="id">
-            SELECT LAST_INSERT_ID() as id
-        </selectKey>
     </insert>
 
     <update id="updateInventoryLock" parameterType="com.pgt.inventory.bean.InventoryLock">
