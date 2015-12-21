@@ -75,7 +75,7 @@ public class InventoryService extends Transactionable {
                 // TODO: set expire Date base on order status
                 // newLock.setExpiredDate();
                 createInventoryLock(newLock);
-                changeInventory(productId, quantityRequire, InventoryType.CUT_DOWN);
+                changeInventory(productId, quantityRequire, InventoryType.DEDUCT);
 
                 continue;
             }
@@ -96,7 +96,7 @@ public class InventoryService extends Transactionable {
                 // TODO: set expire Date base on order status
                 // existLock.setExpiredDate();
                 updateInventoryLock(existLock);
-                changeInventory(productId, quantityLocked - quantityRequire, InventoryType.ADD);
+                changeInventory(productId, quantityLocked - quantityRequire, InventoryType.INCREASE);
                 continue;
             }
             if (quantityLeft < (quantityRequire - quantityLocked)) {
@@ -109,7 +109,7 @@ public class InventoryService extends Transactionable {
             // TODO: set expire Date base on order status
             // existLock.setExpiredDate();
             updateInventoryLock(existLock);
-            changeInventory(productId, quantityRequire - quantityLocked, InventoryType.CUT_DOWN);
+            changeInventory(productId, quantityRequire - quantityLocked, InventoryType.DEDUCT);
         }
         if (!allLocked) {
             // TODO throw check exception (InventoryException)
@@ -137,7 +137,7 @@ public class InventoryService extends Transactionable {
                 }
                 int quantity = nonExistLock.getQuantity();
                 deleteInventoryLog(nonExistLock);
-                changeInventory(productId, quantity, InventoryType.ADD);
+                changeInventory(productId, quantity, InventoryType.INCREASE);
 
             }
         }
