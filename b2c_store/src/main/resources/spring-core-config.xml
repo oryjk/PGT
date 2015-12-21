@@ -99,6 +99,13 @@
                 <value>keyWord</value>
             </list>
         </property>
+        <property name="useToSearch">
+            <list value-type="java.lang.String">
+                <value>name</value>
+                <value>shortDescription</value>
+                <value>keyWord</value>
+            </list>
+        </property>
 
         <property name="categoryAnalyzerFields">
             <list value-type="java.lang.String">
