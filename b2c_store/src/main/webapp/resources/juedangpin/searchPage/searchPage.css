@@ -1989,7 +1989,7 @@ span {
         .bread-nav .content-search .content-search:focus + a {
           background: #ffaa00;
           border-color: #ffaa00; }
-    .bread-nav .content-search a {
+    .bread-nav .content-search .search-link-btn {
       display: inline-block;
       padding: 2px;
       border: 1px solid #666666;

@@ -61,7 +61,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         $(document).on('click', '.addCart', addCart);
         $(document).on('click', '.addEnjoy', addEnjoy);
         $(document).on('click', '.disLike', disLike);
-        $(document).on('click', '.favourite-search', favouriteSearch);
+        $('.search-link-btn').on('click', favouriteSearch);
 
         //加入购物车
         function addCart(event) {
@@ -135,6 +135,8 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         // search order with keyword
         function favouriteSearch(event) {
+            event.preventDefault();
+
             var that = $(this);
             var redirectURL = that.attr('data-url');
             var keyword = $(":text.content-search").val();

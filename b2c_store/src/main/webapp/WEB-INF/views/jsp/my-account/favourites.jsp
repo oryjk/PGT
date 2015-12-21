@@ -44,8 +44,8 @@
                 <%--</div>--%>
                 <form action="<spring:url value="/myAccount/favourites"/>" class="content-search">
                     <input class="content-search" type="text" name="keyword" placeholder="商品搜索"/>
-                    <a href="#" class="favourite-search" data-url="<spring:url value="/myAccount/favourites?keyword="/>" ><i class="foundicon-search"></i></a>
-                    <input type="reset" class="clear-search link-btn" value="清除">
+                    <a href="#" class="search-link-btn" data-url="<spring:url value="/myAccount/favourites?keyword="/>" ><i class="foundicon-search"></i></a>
+                    <a class="clear-search link-btn" href="<spring:url value="/myAccount/favourites"/>" >清除</a>
                 </form>
                 <!--面包屑-->
                 <div class="bread-nav">
