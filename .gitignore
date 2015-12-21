@@ -155,3 +155,4 @@ server/
 /classes/artifacts/core/exploded/core-1.0-SNAPSHOT.war/META-INF/MANIFEST.MF
 /classes/artifacts/mobile/exploded/mobile-1.0.war/META-INF/MANIFEST.MF
 /classes/artifacts/p2p_store/exploded/p2p_store-1.0-SNAPSHOT.war/META-INF/MANIFEST.MF
+/classes/
