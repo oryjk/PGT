@@ -137,7 +137,7 @@
                                     <c:choose>
                                         <c:when test="${order.status eq 20}">
                                             <span>待付款</span>
-                                            <a class="link-btn" href="#">付款</a>
+                                            <a class="link-btn" href="<spring:url value="/payment/gateway?orderId=${order.id}"/>">付款</a>
                                         </c:when>
                                         <c:when test="${order.status eq 30}">
                                             <span>待收货</span>
