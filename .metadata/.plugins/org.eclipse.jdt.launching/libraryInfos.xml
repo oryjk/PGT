@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="/home/xiaodong/Projects/jdk-8u65-sun" version="1.8.0_65">
+<bootpath>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/resources.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/rt.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/sunrsasign.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/jsse.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/jce.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/charsets.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/jfr.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/ext"/>
+<entry path="/usr/java/packages/lib/ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="/home/xiaodong/Projects/jdk-8u65-sun/jre" version="1.8.0_65">
+<bootpath>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/resources.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/rt.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/sunrsasign.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/jsse.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/jce.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/charsets.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/jfr.jar"/>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/ext"/>
+<entry path="/usr/java/packages/lib/ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="/home/xiaodong/Projects/jdk-8u65-sun/jre/lib/endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+</libraryInfos>
