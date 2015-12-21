@@ -16,7 +16,7 @@
                 <a href="<spring:url value="/"/>">主页</a>
                 <c:forEach items="${breadCrumb}" var="item">
                     >
-                    <a href="#">${item}</a>
+                    <a href="<spring:url value="${item.breadUrl}"/>">${item.breadName}</a>
                 </c:forEach>
 
             </p>
