@@ -386,10 +386,10 @@ a {
 input:focus {
   outline: none; }
 
-.regist-protocol {
+.regist-protocol, .link-btn {
   text-decoration: none;
   color: #0286ce; }
-  .regist-protocol:hover {
+  .regist-protocol:hover, .link-btn:hover {
     color: #ffaa00; }
 
 /*span*/
@@ -440,10 +440,10 @@ a {
 input:focus {
   outline: none; }
 
-.regist-protocol {
+.regist-protocol, .link-btn {
   text-decoration: none;
   color: #0286ce; }
-  .regist-protocol:hover {
+  .regist-protocol:hover, .link-btn:hover {
     color: #ffaa00; }
 
 /*span*/
@@ -592,6 +592,81 @@ span {
     padding-left: 20px;
     color: #666666; }
 
+/*color*/
+/*col*/
+/*color*/
+/*col*/
+body {
+  font-family: "宋体", "Microsoft YaHei", Verdana, Arial, sans-serif;
+  font-size: 12px; }
+
+/*headline*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.67em 0;
+  font-family: "Microsoft YaHei", "黑体", Verdana, Arial, sans-serif; }
+
+h2 {
+  font-size: 25px; }
+
+/*paragraph*/
+p {
+  margin: 0.67em 0; }
+
+/*link*/
+a {
+  cursor: pointer; }
+
+/*btn*/
+input:focus {
+  outline: none; }
+
+.regist-protocol, .link-btn {
+  text-decoration: none;
+  color: #0286ce; }
+  .regist-protocol:hover, .link-btn:hover {
+    color: #ffaa00; }
+
+/*span*/
+span {
+  color: #666666; }
+
+/*商品详情绝当价*/
+.clear {
+  clear: both;
+  margin-bottom: 20px; }
+
+.clear-float {
+  clear: both;
+  margin-bottom: 20px; }
+
+/*主列表
+****************************************************/
+/*纵向商品列表
+****************************************************/
+/*横向商品列表
+****************************************************/
+/*tab切换
+****************************************************/
+/*页码部件
+****************************************************/
+/*小搜索框
+****************************************************/
+/*弹出框
+****************************************************/
+/*侧边栏样式1
+****************************************************/
+/*发光
+****************************************************/
+/*仿控件
+****************************************************/
+/*checkbox*/
+/*file*/
+/*select*/
 .content-box {
   background: #ed2842; }
 
@@ -667,6 +742,25 @@ input[type=password] {
   text-decoration: none; }
   .toLogin:hover {
     text-decoration: underline; }
+
+/*success
+******************************************************************/
+.success-box {
+  border-radius: 5px;
+  width: 300px;
+  padding: 150px;
+  background: white; }
+  .success-box p {
+    padding: 0;
+    margin: 0; }
+  .success-box .success-message {
+    font-size: 30px; }
+  .success-box .to-login-page {
+    padding-top: 50px;
+    font-size: 16px; }
+  .success-box .to-home-page {
+    padding-top: 50px;
+    font-size: 16px; }
 
 /*for js
 ******************************************************************/

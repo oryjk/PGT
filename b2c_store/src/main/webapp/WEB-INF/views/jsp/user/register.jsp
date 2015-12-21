@@ -34,7 +34,7 @@
 
 <!--表格内容区-->
 <div class="content-box">
-    <div class="content" style="  background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/regist-bg.jpg"/>') right center no-repeat;">
+    <div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/regist-bg.jpg"/>') right center no-repeat;">
         <form:form commandName="user" id="regist" method="post" action="register">
             <table>
                 <tr>
