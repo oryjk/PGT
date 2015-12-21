@@ -28,8 +28,7 @@ public class UserInformation implements Serializable {
 	@Size(min=3,max=12,message="{Error.userInformation.nickname.invalid}")
 	private String nickname;
 
-	@Pattern(regexp = "[0-9]{11}", message = "{Pattern.user.phoneNumber}", groups = { AddUserInformationGroup.class })
-	@NotEmpty(message = "{NotNull.user.phoneNumber}", groups = { AddUserInformationGroup.class })
+
 	private String phoneNumber;
 
 	private String gender;

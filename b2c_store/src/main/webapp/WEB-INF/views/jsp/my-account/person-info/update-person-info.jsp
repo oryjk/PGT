@@ -75,7 +75,7 @@
                         </div>
                         <div class="text2">
                             <span style="color: red"> *</span>手机
-                            <input type="text" class="input-text1" name="phoneNumber" value="${userInformation.phoneNumber}">
+                            <span type="hidden" class="input-text1" >${currentUser.phoneNumber}</span>
                         </div>
                         <div class="text2">
                             <div class="input-text5">
@@ -140,8 +140,7 @@
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.min.js"/>"></script>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.form.js"/>"></script>
-<script
-        src= "<spring:url value="${juedangpinStaticPath}/core/js/require.js" />" ></script>
+
 
 <script type="text/javascript">
     $("#upload").change(function(){
