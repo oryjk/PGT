@@ -365,6 +365,55 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.GET)
+    public ModelAndView updatePassword(ModelAndView modelAndView,HttpSession session){
+
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        if (user == null) {
+            modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
+            return modelAndView;
+        }
+        modelAndView.setViewName("my-account/person-info/update-password");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/updatePasswordSubmit", method = RequestMethod.POST)
+    public ModelAndView updatePasswordSubmit(User newUserPassword,BindingResult bindingResult,ModelAndView modelAndView,HttpSession session,String oldpassword){
+
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        if (user == null) {
+            modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
+            return modelAndView;
+        }
+
+        //旧密码为空
+        if(ObjectUtils.isEmpty(oldpassword)){
+            bindingResult.addError(
+                    new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
+             return modelAndView;
+        }
+
+        String oldMd5Password = DigestUtils.md5Hex(oldpassword+ user.getSalt());
+        //旧密码输入不正确
+        if(!oldMd5Password.endsWith(user.getPassword())){
+            bindingResult.addError(
+                    new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("Error.internalUser.password.notMatch", null, null)));
+            return modelAndView;
+        }
+        //修改密码
+        if (newUserPassword.getPassword().equals(newUserPassword.getPassword2())) {
+                user.setPassword(newUserPassword.getPassword());
+                user.setPassword2(newUserPassword.getPassword2());
+                userServiceImp.updateUserPassword(user);
+        }
+
+        modelAndView.setViewName("redirect:/user/logout");
+        return modelAndView;
+    }
+
+
+
+
     private ModelAndView checkResetPasswordPhoneCode(User user, BindingResult bindingResult, ModelAndView modelAndView, HttpServletRequest request) {
         if (user.getSmsCode().equalsIgnoreCase((String) request.getSession().getAttribute(Constants.RESET_PASSWOR_SESSION_PHONE_CODE))) {
             request.getSession().setAttribute(Constants.STEP, ResetPasswordStep.SET_NEW_PASSWORD);

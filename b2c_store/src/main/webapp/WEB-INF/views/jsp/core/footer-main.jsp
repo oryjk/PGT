@@ -66,39 +66,18 @@
 </div>
 
 <div class="about-us">
+
+
+  <c:forEach items="${helpCenterList}" var="helpcategory">
   <ul>
-    <li><h3>购物与支付</h3></li>
-    <li><a href="">购物流程</a></li>
-    <li><a href="">订单查询</a></li>
-    <li><a href="">支付方式</a></li>
-    <li><a href="">发票领取</a></li>
+    <li><h3>${helpcategory.category.name}</h3></li>
+
+    <c:forEach items="${helpcategory.helpCenterList}" var="helpVo">
+    <li><a href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</a></li>
+    </c:forEach>
   </ul>
-  <ul>
-    <li><h3>配送说明</h3></li>
-    <li><a href="">配送方式和时间</a></li>
-    <li><a href="">配送费用和签收</a></li>
-    <li><a href=""></a></li>
-  </ul>
-  <ul>
-    <li><h3>关于我们</h3></li>
-    <li><a href="">点金子</a></li>
-    <li><a href="">点金子绝当品</a></li>
-    <li><a href="">联系我们</a></li>
-    <li><a href="">招贤纳士</a></li>
-    <li><a href="">业务范围</a></li>
-    <li><a href="">隐私声明</a></li>
-  </ul>
-  <ul>
-    <li><h3>售后服务</h3></li>
-    <li><a href="">退换货政策</a></li>
-    <li><a href="">退款说明</a></li>
-  </ul>
-  <ul>
-    <li><h3>会员中心</h3></li>
-    <li><a href="">会员等级</a></li>
-    <li><a href="">账号管理</a></li>
-    <li><a href="">投诉建议</a></li>
-  </ul>
+  </c:forEach>
+
   <div class="us">
     <div class="our-app">
       <a class="apple-dimension" href="#">
