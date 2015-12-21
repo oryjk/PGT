@@ -24,8 +24,8 @@ public class Constants {
     public static final String CONSULTING_PAGE = "/productdetail/consulting";
     public static final String DISCUSS_PAGE = "/productdetail/discuss";
     public static final String RESET_PASSWORD = "/user/resetforget";
-    public static final String HELP_CENTER="/help/helpcenter";
-    
+    public static final String HELP_CENTER = "/help/helpcenter";
+
     //user
     public static final String USER = "user";
 
@@ -53,7 +53,7 @@ public class Constants {
 
     //user workflow
     public static final String STEP = "step";
-    
+
     public static final String DELIVERY = "DELIVERY";
     public static final String PICKUP = "PICKUP";
 
@@ -64,4 +64,5 @@ public class Constants {
     public static final String NAVIFATION_CATEGORIES = "navigationCategories";
     public static final String HOT_PRODUCTS = "hotProducts";
     public static final String HOT_SEARCH_LIST = "hotSearchList";
+    public static final String ERROR = "error";
 }

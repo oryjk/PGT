@@ -233,12 +233,12 @@ public class UserController {
         cookie.setMaxAge(UserConstant.OVERDUE);
         response.addCookie(cookie);
         user.setCount(0);
+        modelAndView.setViewName("/user/successLogin");
+        modelAndView.addObject("redirect","/");
         if (!StringUtils.isEmpty(redirect)) {
             LOGGER.debug("Need redirect to {}.", redirect);
-            modelAndView.setViewName("redirect:" + redirect);
-            return modelAndView;
+            modelAndView.addObject("redirect",redirect);
         }
-        modelAndView.setViewName("redirect:/");
 
         return modelAndView;
     }
@@ -276,7 +276,7 @@ public class UserController {
             String authCode = user.getAuthCode();
             if (!code.equalsIgnoreCase(authCode)) {
                 bindingResult.addError(
-                        new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.authCode", null, null)));
+                        new FieldError("user", "authCode", ErrorMsgUtil.getMsg("Error.authCode", null, null)));
                 modelAndView.addObject("user", user);
                 return modelAndView;
             }
@@ -307,9 +307,9 @@ public class UserController {
             return modelAndView;
         }
         userServiceImp.saveUser(user);
-        modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_PHONE_CODE);
+        modelAndView.setViewName("/user/successRegister");
         return modelAndView;
     }
 
