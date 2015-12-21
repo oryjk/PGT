@@ -261,7 +261,7 @@ public class ESSearchService {
             List<Product> products = productHelper.findProductsByIds(productIds);
             products.stream().forEach(product -> {
                 Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
-                Category rootCategory = categoryService.queryRootCategoryByProductId(product.getProductId());
+                Category rootCategory =parentCategory.getParent();
                 product.setStock(0);
                 if (inventoryType == InventoryType.ADD) {
                     product.setStock(1);
@@ -273,7 +273,7 @@ public class ESSearchService {
                     byte[] bytes = mapper.writeValueAsBytes(esProduct);
                     LOGGER.debug("Product id is {}.", esProduct.getProductId());
                     UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
-                            .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setSource(bytes);
+                            .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
                     bulkRequest.add(updateRequestBuilder);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
