@@ -59,8 +59,8 @@
                 <%--</div>--%>
                 <form action="<spring:url value="/myAccount/orderHistory"/>" class="content-search">
                     <input class="content-search" type="text" name="keyword" placeholder="商品搜索"/>
-                    <a href="#" class="favourite-search" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>
-                    <input type="reset" class="clear-search link-btn" value="清除">
+                    <a href="#" class="search-link-btn" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>
+                    <a class="clear-search link-btn" href="<spring:url value="/myAccount/orderHistory"/>" >清除</a>
                 </form>
                 <ul id="tab" class="tab">
                     <li class="${empty param.status ? 'choose' : ''}"><h2 data-tab="0"><a href="<spring:url value="/myAccount/orderHistory"/>">全部订单</a></h2></li>
@@ -137,7 +137,7 @@
                                     <c:choose>
                                         <c:when test="${order.status eq 20}">
                                             <span>待付款</span>
-                                            <a class="link-btn" href="#">付款</a>
+                                            <a class="link-btn" href="<spring:url value="/payment/gateway?orderId=${order.id}"/>">付款</a>
                                         </c:when>
                                         <c:when test="${order.status eq 30}">
                                             <span>待收货</span>

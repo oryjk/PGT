@@ -263,7 +263,7 @@ public class ESSearchService {
                 Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
                 Category rootCategory =parentCategory.getParent();
                 product.setStock(0);
-                if (inventoryType == InventoryType.ADD) {
+                if (inventoryType == InventoryType.INCREASE) {
                     product.setStock(1);
                 }
 
