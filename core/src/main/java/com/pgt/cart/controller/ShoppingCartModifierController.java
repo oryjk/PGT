@@ -1,31 +1,5 @@
 package com.pgt.cart.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.ResponseBean;
@@ -37,13 +11,29 @@ import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.PriceOrderService;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.service.ShoppingCartService;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
-import com.pgt.internal.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import com.pgt.user.bean.User;
 import com.pgt.utils.URLMapping;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /**
  * Created by Yove on 10/28/2015.

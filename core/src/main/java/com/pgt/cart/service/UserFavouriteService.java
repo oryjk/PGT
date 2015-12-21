@@ -3,7 +3,7 @@ package com.pgt.cart.service;
 import com.pgt.cart.bean.Favourite;
 import com.pgt.cart.bean.FavouriteBuilder;
 import com.pgt.cart.dao.UserFavouriteDao;
-import com.pgt.internal.bean.pagination.InternalPagination;
+import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.product.bean.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

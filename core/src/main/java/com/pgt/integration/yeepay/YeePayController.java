@@ -1,32 +1,7 @@
 package com.pgt.integration.yeepay;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.pgt.cart.service.UserOrderService;
-import com.pgt.internal.controller.InternalUserController;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.pgt.cart.bean.Order;
-import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.service.UserOrderService;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
 import com.pgt.integration.yeepay.notification.service.CompleteTransactionNotificationHandler;
@@ -40,12 +15,29 @@ import com.pgt.payment.service.TransactionLogService;
 import com.pgt.user.bean.User;
 import com.pgt.user.service.UserService;
 import com.yeepay.g3.utils.security.cfca.SignUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 @RestController
 @RequestMapping("/yeepay")
 public class YeePayController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(InternalUserController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(YeePayController.class);
 
 	@Resource(name = "yeePayConfig")
 	private YeePayConfig config;

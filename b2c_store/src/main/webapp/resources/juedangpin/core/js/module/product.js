@@ -3,7 +3,11 @@
  */
 
 define(function() {
-    var baseUrl = '/b2c_store';
+    var baseUrl = '';
+    if (location.hostname == 'localhost') {
+        //测试用
+        baseUrl = '/b2c_store';
+    }
 
     //重新请求购物车数量 cartCount:购物车数字的jq
     var getOrderItemCount = function(cartCount) {

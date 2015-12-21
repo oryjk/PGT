@@ -28,6 +28,10 @@ require(['jquery'], function($) {
         code: ''
     };
 
+    var success = {
+        time: 5
+    };
+
     testAgree();
     //$('#username').on('blur', testUsername);
     $('#userPhone').on('blur', testUserPhone);
@@ -140,22 +144,33 @@ require(['jquery'], function($) {
                 phoneNumber: $('#userPhone').val()
             },
             success: function() {
-                setTimeout(numDown, 1000);
+                setTimeout(numDown60, 1000);
             }
         });
     }
 
-    function numDown() {
+    function numDown60() {
         registInfo.num--;
         $('#getPhoneCom').val(registInfo.num + '秒');
         if (registInfo.num > 0) {
-            setTimeout(numDown, 1000);
+            setTimeout(numDown60, 1000);
         } else {
             //结束循环.
             registInfo.num = 60;
             $('#getPhoneCom').val('获取')
                 .removeClass('disable')
                 .prop('disabled', false);
+        }
+    }
+
+    function numDown5() {
+        success.time--;
+        $('#popTime').val(success.time);
+        if (success.time > 0) {
+            setTimeout(numDown60, 1000);
+        } else {
+            //结束循环.
+            window.location = ''
         }
     }
 
