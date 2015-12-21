@@ -308,14 +308,14 @@ public class ESSearchService {
      * Find product when have only one term.
      *
      * @param esTerm
-     * @param esMatch
+     * @param esMatches
      * @param esRange
      * @param esSortList
      * @param paginationBean
      * @param categoryIdAggregation
      * @param rangeQueryBuilderList @return
      */
-    public SearchResponse findProducts(ESTerm esTerm, ESTerm esMatch, ESRange esRange, List<ESSort> esSortList,
+    public SearchResponse findProducts(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
                                        PaginationBean paginationBean,
                                        ESAggregation categoryIdAggregation, List<RangeQueryBuilder> rangeQueryBuilderList) {
         SearchResponse response = null;
@@ -327,7 +327,7 @@ public class ESSearchService {
                 //operator will add to configuration or from request
                 qb.must(termQuery(esTerm.getPropertyName(), esTerm.getTermValue()));
             }
-            buildQueryBuilder(esMatch, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
+            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
             response = searchRequestBuilder.execute()
                     .actionGet();
             return response;
@@ -373,13 +373,13 @@ public class ESSearchService {
      * Find the product when have more than one term.
      *
      * @param esTerms
-     * @param esMatch
+     * @param esMatches
      * @param esRange
      * @param esSortList
      * @param paginationBean
      * @param esAggregation  @return
      */
-    public SearchResponse findProducts(List<ESTerm> esTerms, ESTerm esMatch, ESRange esRange, List<ESSort> esSortList,
+    public SearchResponse findProducts(List<ESTerm> esTerms, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
                                        PaginationBean paginationBean,
                                        ESAggregation esAggregation) {
         SearchResponse response = null;
@@ -394,7 +394,7 @@ public class ESSearchService {
                 //operator will add to configuration or from request
 
             }
-            buildQueryBuilder(esMatch, esRange, esSortList, paginationBean, esAggregation, searchRequestBuilder, qb);
+            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, esAggregation, searchRequestBuilder, qb);
             response = searchRequestBuilder.execute()
                     .actionGet();
             return response;
@@ -436,11 +436,14 @@ public class ESSearchService {
     }
 
 
-    private void buildQueryBuilder(ESTerm esMatch, ESRange esRange, List<ESSort> esSortList, PaginationBean paginationBean,
+    private void buildQueryBuilder(List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList, PaginationBean paginationBean,
                                    ESAggregation esAggregation,
                                    SearchRequestBuilder searchRequestBuilder, BoolQueryBuilder qb) {
-        if (!ObjectUtils.isEmpty(esMatch)) {
-            qb.must(matchQuery(esMatch.getPropertyName(), esMatch.getTermValue()));
+        if (!ObjectUtils.isEmpty(esMatches)) {
+            esMatches.stream().forEach(esTerm ->
+                            qb.should(matchQuery(esTerm.getPropertyName(), esTerm.getTermValue()))
+            );
+
         }
         if (!ObjectUtils.isEmpty(esSortList)) {
             esSortList.stream().forEach(esSort1 ->
@@ -469,10 +472,11 @@ public class ESSearchService {
      * This method can find all products to category with this category id.Either root category or HIERARCHY category.
      *
      * @param categoryId
+     * @param esMatches
      * @return
      */
 
-    public SearchResponse findProductsByCategoryId(String categoryId, ESTerm esMatch, ESRange esRange, PaginationBean paginationBean,
+    public SearchResponse findProductsByCategoryId(String categoryId, List<ESTerm> esMatches, ESRange esRange, PaginationBean paginationBean,
                                                    ESAggregation esAggregation) {
         SearchResponse response = null;
         if (!StringUtils.isBlank(categoryId)) {
@@ -504,11 +508,11 @@ public class ESSearchService {
                         LOGGER.debug("Can not find the child categories.");
                         return response;
                     }
-                    return findProducts(esTerms, esMatch, esRange, null, paginationBean, esAggregation);
+                    return findProducts(esTerms, esMatches, esRange, null, paginationBean, esAggregation);
                 }
                 LOGGER.debug("This category id is not belong to ROOT category.");
 
-                return findProducts(getCategoryEsTerm(Constants.PARENT_CATEGORY_ID, categoryId), esMatch, esRange, null, paginationBean,
+                return findProducts(getCategoryEsTerm(Constants.PARENT_CATEGORY_ID, categoryId), esMatches, esRange, null, paginationBean,
                         esAggregation, null);
 
             }

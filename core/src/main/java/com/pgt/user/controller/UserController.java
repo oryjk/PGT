@@ -288,7 +288,7 @@ public class UserController {
                 String phoneCode = (String) request.getSession().getAttribute(Constants.REGISTER_SESSION_PHONE_CODE);
                 if (!smsCode.equals(phoneCode)) {
                     bindingResult.addError(
-                            new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.user.smsCode", null, null)));
+                            new FieldError("user", "smsCode", ErrorMsgUtil.getMsg("Error.user.smsCode", null, null)));
                     modelAndView.addObject("user", user);
                     return modelAndView;
                 }

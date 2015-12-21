@@ -58,6 +58,8 @@ public class User implements Serializable {
     private Integer defaultAddressId;
     private String yeepayUserName;
     private String yeepayUserId;
+    private String authCodeError;
+    private String smsError;
 
     public Date getCreateDate() {
         return createDate;
@@ -251,4 +253,19 @@ public class User implements Serializable {
 		this.yeepayUserId = yeepayUserId;
 	}
 
+    public String getAuthCodeError() {
+        return authCodeError;
+    }
+
+    public void setAuthCodeError(String authCodeError) {
+        this.authCodeError = authCodeError;
+    }
+
+    public String getSmsError() {
+        return smsError;
+    }
+
+    public void setSmsError(String smsError) {
+        this.smsError = smsError;
+    }
 }

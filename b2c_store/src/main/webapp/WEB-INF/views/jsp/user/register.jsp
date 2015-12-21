@@ -41,25 +41,25 @@
                     <td><label>登录帐号</label></td>
                     <td class="input-texts" colspan="2">
                         <form:input id="username" path="username" type="text" placeholder="6-20位数字或字母"/></td>
-                    <td class="prompt" id="usernamePrompt"><form:errors path="userExist"/></td>
+                    <td class="prompt" id="usernamePrompt"><form:errors path="userExist"/><form:errors path="username"/></td>
                 </tr>
                 <tr>
                     <td><label>手机号码</label></td>
                     <td colspan="2"><form:input id="userPhone" path="phoneNumber" type="text"
                                                 placeholder="用于密码保护"/></td>
-                    <td class="prompt" id="userPhonePrompt"></td>
+                    <td class="prompt" id="userPhonePrompt"><form:errors path="phoneNumber"/></td>
                 </tr>
                 <tr>
                     <td><label>登录密码</label></td>
                     <td colspan="2"><form:input id="password" path="password" type="password"
                                                 placeholder="6-20为数字或字母"/></td>
-                    <td class="prompt" id="passwordPrompt"></td>
+                    <td class="prompt" id="passwordPrompt"><form:errors path="password"/></td>
                 </tr>
                 <tr>
                     <td><label>确认密码</label></td>
                     <td colspan="2"><form:input id="confirm" path="password2" type="password"
                                                 placeholder="再次确认密码"/></td>
-                    <td class="prompt" id="confirmPrompt"></td>
+                    <td class="prompt" id="confirmPrompt"><<form:errors path="password2"/>/td>
                 </tr>
 
                 <tr class="security-code-box">
@@ -67,7 +67,7 @@
                     <td><label>验证码</label></td>
                     <td><form:input class="security-code" path="authCode" type="text" placeholder="不区分大小写"/></td>
                     <td><img id="loginCode" src="<spring:url value="/code/register"/>" alt="#"/></td>
-                    <td class="prompt" id="securityCodePrompt"></td>
+                    <td class="prompt" id="securityCodePrompt"><form:errors path="authCode"/></td>
                 </tr>
                 <tr>
                     <td><label>手机验证码</label></td>
@@ -75,7 +75,7 @@
                                     placeholder="手机验证码"/>
                     </td>
                     <td><input class="getPhoneCom" id="getPhoneCom" type="button" value="获取"/></td>
-                    <td class="prompt" id="getPhoneComPrompt"></td>
+                    <td class="prompt" id="getPhoneComPrompt"><form:errors path="smsCode"/></td>
                 </tr>
                 <tr>
                     <td>
