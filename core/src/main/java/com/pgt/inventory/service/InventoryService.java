@@ -3,7 +3,9 @@ package com.pgt.inventory.service;
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.inventory.bean.InventoryLock;
+import com.pgt.inventory.dao.InventoryLockMapper;
 import com.pgt.product.bean.InventoryType;
+import com.pgt.product.bean.Product;
 import com.pgt.utils.Transactionable;
 
 import java.util.*;
@@ -13,7 +15,7 @@ import java.util.*;
  */
 public class InventoryService extends Transactionable {
 
-
+    private InventoryLockMapper inventoryLockMapper;
 
     public void lockInventory(final Order order) {
         if (null == order) {
@@ -144,26 +146,37 @@ public class InventoryService extends Transactionable {
     }
 
     private void updateInventoryLock(InventoryLock existLock) {
+        getInventoryLockMapper().updateInventoryLock(existLock);
     }
 
     private void createInventoryLock(InventoryLock newLock) {
-
+        getInventoryLockMapper().createInventoryLock(newLock);
     }
 
     private void deleteInventoryLock(InventoryLock nonExistLock) {
-
+        getInventoryLockMapper().deleteInventoryLock(nonExistLock);
     }
 
     private int queryInventoryQuantity(final int productId) {
-        // TODO: implement
-        return 0;
+
+        return getInventoryLockMapper().queryInventoryQuantity(productId);
     }
 
 
 
-    private void changeInventory(Integer productId, int quantity, InventoryType add) {
-        // TODO increase inventory in DB
-
+    private void changeInventory(Integer productId, int quantity, InventoryType action) {
+        // increase inventory in DB
+        int quantityLeft = queryInventoryQuantity(productId);
+        if (InventoryType.DEDUCT == action) {
+            quantityLeft -= quantity;
+        }
+        if (InventoryType.INCREASE == action) {
+            quantityLeft += quantity;
+        }
+        Product product = new Product();
+        product.setProductId(productId);
+        product.setStock(quantityLeft);
+        getInventoryLockMapper().updateInventoryQuantity(product);
         // TODO increase inventory in index
     }
 
@@ -173,12 +186,27 @@ public class InventoryService extends Transactionable {
      * @return
      */
     private Map<Integer, InventoryLock> findExistLock(final int orderId) {
-        // TODO: implement
-        return null;
+        List<InventoryLock> existLocks = getInventoryLockMapper().findInventoryLockByOrderId(orderId);
+        if (null == existLocks || existLocks.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        Map<Integer, InventoryLock> result = new HashMap<Integer, InventoryLock> ();
+        for (InventoryLock existLock : existLocks) {
+            result.put(existLock.getProductId().intValue(), existLock);
+        }
+        return result;
     }
 
 
     private void acquireRowLock(final List<Integer> productIds) {
         // TODO: implement
+    }
+
+    public InventoryLockMapper getInventoryLockMapper() {
+        return inventoryLockMapper;
+    }
+
+    public void setInventoryLockMapper(InventoryLockMapper inventoryLockMapper) {
+        this.inventoryLockMapper = inventoryLockMapper;
     }
 }
