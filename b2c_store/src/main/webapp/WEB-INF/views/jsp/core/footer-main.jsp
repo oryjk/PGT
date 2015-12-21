@@ -124,7 +124,7 @@
     </div>
     <div class="our-info">
       <h3>点金子总部地址</h3>
-      <p>成都市武侯区某某某某某某某某</p>
+      <p>成都市武侯区下一站都市A座302室</p>
       <p>咨询热线：028-85033350</p>
       <p>企业邮箱：zxhl998@163.com</p>
     </div>
@@ -133,21 +133,9 @@
 
 <div class="approve-box">
   <div class="approve">
-    <a href="#">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/approve-0.png"/>" alt=""/>
-    </a>
-    <a href="#">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/approve-1.jpg"/>" alt=""/>
-    </a>
-    <a href="#">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/approve-2.png"/>" alt=""/>
-    </a>
-    <a href="#">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/approve-3.png"/>" alt=""/>
-    </a>
-    <a href="#">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/approve-4.jpg"/>" alt=""/>
-    </a>
+
+    <a href="http://webscan.360.cn/index/checkwebsite/url/mp.dianjinzi.com">
+      <img border="0" src="http://img.webscan.360.cn/status/pai/hash/4ee18cbbbfc36755fd8f96837e2f700f"/></a>
   </div>
   <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
 </div>
