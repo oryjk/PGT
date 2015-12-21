@@ -1,5 +1,6 @@
 package index;
 
+import com.google.common.collect.Lists;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESTerm;
@@ -60,7 +61,7 @@ public class IndexTest {
         PaginationBean paginationBean = new PaginationBean();
         paginationBean.setCapacity(2);
         paginationBean.setCurrentIndex(0);
-        SearchResponse response = esSearchService.findProducts(esTerm, esMatch, esRange, null, paginationBean, null, null);
+        SearchResponse response = esSearchService.findProducts(esTerm, Lists.newArrayList(esMatch), esRange, null, paginationBean, null, null);
         SearchHits searchHits = response.getHits();
         SearchHit[] searchHits1 = searchHits.getHits();
         List<SearchHit> searchHitList = Arrays.asList(searchHits1);
