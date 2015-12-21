@@ -1,7 +1,8 @@
-package com.pgt.inventory;
+package com.pgt.inventory.service;
 
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
+import com.pgt.inventory.bean.InventoryLock;
 import com.pgt.product.bean.InventoryType;
 import com.pgt.utils.Transactionable;
 
@@ -56,7 +57,7 @@ public class InventoryService extends Transactionable {
         Set<Integer> oosProductIds = new HashSet<Integer>();
         for (CommerceItem commerceItem : order.getCommerceItems()) {
             Integer productId = Integer.valueOf(commerceItem.getReferenceId());
-            int quantityLeft = queryInventoryQuantiry(productId);
+            int quantityLeft = queryInventoryQuantity(productId);
             int quantityRequire = commerceItem.getQuantity();
 
             if (null == existLocks || null == existLocks.get(productId)) {
@@ -76,7 +77,6 @@ public class InventoryService extends Transactionable {
                 // newLock.setExpiredDate();
                 createInventoryLock(newLock);
                 changeInventory(productId, quantityRequire, InventoryType.DEDUCT);
-
                 continue;
             }
 
@@ -136,7 +136,7 @@ public class InventoryService extends Transactionable {
                     continue;
                 }
                 int quantity = nonExistLock.getQuantity();
-                deleteInventoryLog(nonExistLock);
+                deleteInventoryLock(nonExistLock);
                 changeInventory(productId, quantity, InventoryType.INCREASE);
 
             }
@@ -150,14 +150,16 @@ public class InventoryService extends Transactionable {
 
     }
 
-    private int queryInventoryQuantiry(final int productId) {
+    private void deleteInventoryLock(InventoryLock nonExistLock) {
+
+    }
+
+    private int queryInventoryQuantity(final int productId) {
         // TODO: implement
         return 0;
     }
 
-    private void deleteInventoryLog(InventoryLock nonExistLock) {
-        
-    }
+
 
     private void changeInventory(Integer productId, int quantity, InventoryType add) {
         // TODO increase inventory in DB

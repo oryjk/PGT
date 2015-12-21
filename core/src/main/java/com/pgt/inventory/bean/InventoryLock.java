@@ -1,4 +1,4 @@
-package com.pgt.inventory;
+package com.pgt.inventory.bean;
 
 import java.util.Date;
 
