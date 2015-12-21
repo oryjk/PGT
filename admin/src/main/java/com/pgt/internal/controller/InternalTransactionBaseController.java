@@ -1,6 +1,6 @@
 package com.pgt.internal.controller;
 
-import com.pgt.cart.constant.SessionConstant;
+import com.pgt.internal.constant.AdminSessionConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by Yove on 10/20/2015.
  */
-public abstract class InternalTransactionBaseController {
+public abstract class InternalTransactionBaseController implements AdminSessionConstant {
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
@@ -28,9 +28,8 @@ public abstract class InternalTransactionBaseController {
 		return status;
 	}
 
-
 	protected InternalUserController getCurrentInternalUser(HttpServletRequest pRequest) {
-		return (InternalUserController) pRequest.getSession().getAttribute(SessionConstant.INTERNAL_USER);
+		return (InternalUserController) pRequest.getSession().getAttribute(INTERNAL_USER);
 	}
 
 	public DataSourceTransactionManager getTransactionManager() {
