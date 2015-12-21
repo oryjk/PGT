@@ -1,7 +1,7 @@
 package com.pgt.user.service;
 
 import com.pgt.constant.Constants;
-import com.pgt.internal.constant.SessionConstant;
+import com.pgt.cart.constant.SessionConstant;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
 import org.elasticsearch.action.search.SearchResponse;

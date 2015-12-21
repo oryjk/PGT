@@ -35,20 +35,20 @@
         <property name="markerInterface" value="com.pgt.base.mapper.SqlMapper"/>
     </bean>
 
-    <bean id="passwordRegexValidator" class="com.pgt.internal.util.FieldsRegexValidator">
+    <bean id="passwordRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
         <!-- at least a char lower case, upper case and a number within 6 - 20
             length -->
         <property name="regexPattern" value="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$"/>
     </bean>
-    <bean id="loginRegexValidator" class="com.pgt.internal.util.FieldsRegexValidator">
+    <bean id="loginRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
         <!-- allows number, lower case and upper case within 5 - 12 length -->
         <property name="regexPattern" value="^[a-z0-9_]{5,12}$"/>
     </bean>
-    <bean id="phoneRegexValidator" class="com.pgt.internal.util.FieldsRegexValidator">
+    <bean id="phoneRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
         <property name="regexPattern"
                   value="^(((13[0-9])|(15([0-9]))|(17([0-9]))|(18[0-9]))\d{8})|(0\d{2}-\d{8})|(0\d{3}-\d{7})$"/>
     </bean>
-    <bean id="emailRegexValidator" class="com.pgt.internal.util.FieldsRegexValidator">
+    <bean id="emailRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
         <property name="regexPattern"
                   value="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;"/>
     </bean>

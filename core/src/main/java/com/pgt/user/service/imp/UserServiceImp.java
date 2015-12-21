@@ -1,6 +1,6 @@
 package com.pgt.user.service.imp;
 
-import com.pgt.internal.util.FieldsRegexValidator;
+import com.pgt.cart.util.FieldsRegexValidator;
 import com.pgt.user.bean.User;
 import com.pgt.user.dao.UserMapper;
 import com.pgt.user.service.UserService;

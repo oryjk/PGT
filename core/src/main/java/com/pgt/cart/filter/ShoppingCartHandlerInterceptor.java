@@ -5,7 +5,7 @@ import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.service.PriceOrderService;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.constant.UserConstant;
-import com.pgt.internal.util.RepositoryUtils;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.user.bean.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

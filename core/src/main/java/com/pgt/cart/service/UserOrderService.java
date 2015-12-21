@@ -2,7 +2,7 @@ package com.pgt.cart.service;
 
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.dao.UserOrderDao;
-import com.pgt.internal.bean.pagination.InternalPagination;
+import com.pgt.cart.bean.pagination.InternalPagination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

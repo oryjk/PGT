@@ -2,7 +2,7 @@ package com.pgt.cart.service;
 
 import com.pgt.cart.dao.RecommendDao;
 import com.pgt.configuration.URLConfiguration;
-import com.pgt.internal.util.RepositoryUtils;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.product.dao.ProductMapper;
 import org.apache.commons.collections.CollectionUtils;

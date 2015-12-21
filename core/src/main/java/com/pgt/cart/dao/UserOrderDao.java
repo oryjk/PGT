@@ -3,7 +3,7 @@ package com.pgt.cart.dao;
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.cart.bean.BrowsedProductVO;
 import com.pgt.cart.bean.Order;
-import com.pgt.internal.bean.pagination.InternalPagination;
+import com.pgt.cart.bean.pagination.InternalPagination;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
