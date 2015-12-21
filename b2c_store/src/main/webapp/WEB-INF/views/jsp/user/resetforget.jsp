@@ -111,8 +111,10 @@
                     class="l-btn" type="reset" value="取消" />
         	</div>
         	<input type="hidden" id="smsPath" value="<spring:url value="/sms/resetPassword?phoneNumber=${userResult.phoneNumber}"/>">
-    	</form>
+    	</div>
+        </form>
     </div>
+
     <!--reset password-->
     <div class="main3" style="display:<c:choose>
         <c:when test="${step=='SET_NEW_PASSWORD'}"> 
