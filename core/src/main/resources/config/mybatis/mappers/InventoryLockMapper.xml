@@ -50,5 +50,13 @@
         FROM PRODUCT WHERE PRODUCT_ID = #{id} FOR UPDATE
     </select>
 
+    <select id="findExpiredOrders" resultType="int">
+        SELECT DISTINCT(ORDER_ID) FROM INVENTORY_LOCK WHERE EXPIRE_DATE > now()
+    </select>
+
+    <select id="findExpiredInventoryLock" resultMap="inventoryLock" parameterType="int">
+        SELECT * FROM INVENTORY_LOCK WHERE EXPIRE_DATE > now() and ORDER_ID = #{id}
+    </select>
+
 
 </mapper>

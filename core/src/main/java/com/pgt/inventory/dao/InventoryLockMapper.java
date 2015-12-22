@@ -25,4 +25,7 @@ public interface InventoryLockMapper extends SqlMapper {
 
     int acquireRowLock(final int productId);
 
+    List<Integer> findExpiredOrders();
+
+    List<InventoryLock> findExpiredInventoryLock(Integer orderId);
 }
