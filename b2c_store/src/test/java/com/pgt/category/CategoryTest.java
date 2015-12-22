@@ -1,4 +1,4 @@
-package category;
+package com.pgt.category;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;

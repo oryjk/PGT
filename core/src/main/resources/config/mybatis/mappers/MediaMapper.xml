@@ -40,8 +40,13 @@
 	</select>
 
     <insert id="createMedia" parameterMap="paramMedia">
-        INSERT INTO MEDIA(REFERENCE_ID,TITLE,PATH,TYPE) VALUES (#{referenceId},#{title},#{path},#{type})
+        INSERT INTO MEDIA(REFERENCE_ID,TITLE,PATH,TYPE,INDEX) VALUES (#{referenceId},#{title},#{path},#{type},#{index})
     </insert>
+    <update id="updateMedia" parameterMap="paramMedia">
+        UPDATE MEDIA SET
+		REFERENCE_ID=#{referenceId},TITLE=#{title},PATH=#{path},TYPE=#{type},INDEX=#{index}
+		WHERE MEDIA_ID=#{id}
+    </update>
 
 
 </mapper>

@@ -51,9 +51,10 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public String updateCategory(Category category) {
-        categoryMapper.updateCategory(category);
-        return category.getName();
+    public Integer updateCategory(Category category) {
+        Integer count = categoryMapper.updateCategory(category);
+        mediaMapper.updateMedia(category.getFrontMedia());
+        return count;
     }
 
     @Override

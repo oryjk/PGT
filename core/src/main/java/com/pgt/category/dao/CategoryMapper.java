@@ -17,9 +17,9 @@ public interface CategoryMapper extends SqlMapper {
 
     Integer createCategory(Category category);
 
-    void updateCategory(Category category);
+    Integer updateCategory(Category category);
 
-    void deleteCategory(Integer categoryId);
+    Integer deleteCategory(Integer categoryId);
 
     Category queryCategory(Integer categoryId);
 
