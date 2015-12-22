@@ -20,4 +20,6 @@ public interface MediaMapper extends SqlMapper {
 
     Integer createMedia(Media media);
     Integer updateMedia(Media media);
+    void deleteProductMedia(@Param("mediaType")MediaType mediaType,@Param("productId")Integer productId);
+    void deleteAllProductMedia(@Param("productId")Integer productId);
 }

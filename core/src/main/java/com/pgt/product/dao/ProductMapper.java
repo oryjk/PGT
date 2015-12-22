@@ -60,6 +60,9 @@ public interface ProductMapper extends SqlMapper {
 
     void deleteProductCategoryRelation(ProductCategoryRelation productCategoryRelation);
 
+    void deleteProductCategoryRelationByProductId(@Param(value = "productId") Integer productId);
+
+
     List<HotSearch> queryAllHotsearch();
 
     List<Product> queryProductByIds(List<Integer> pSupposeProductIds);

@@ -60,7 +60,7 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public Integer createProduct(Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
-            Integer productId = productMapper.createProduct(product);
+            productMapper.createProduct(product);
             getTransactionManager().commit(transactionStatus);
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
@@ -75,11 +75,11 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public void createProduct(Integer categoryId, Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
-            if(ObjectUtils.isEmpty(product.getCreationDate())){
+            if (ObjectUtils.isEmpty(product.getCreationDate())) {
                 product.setCreationDate(new Date());
 
             }
-            if(ObjectUtils.isEmpty(product.getUpdateDate())){
+            if (ObjectUtils.isEmpty(product.getUpdateDate())) {
                 product.setUpdateDate(new Date());
             }
             productMapper.createProduct(product);
@@ -134,6 +134,25 @@ public class ProductServiceImp extends TransactionService implements ProductServ
         TransactionStatus transactionStatus = ensureTransaction();
         try {
             productMapper.updateProduct(product);
+            mediaMapper.deleteAllProductMedia(product.getProductId());
+            mediaMapper.createMedia(product.getExpertMedia());
+            mediaMapper.createMedia(product.getAdvertisementMedia());
+            mediaMapper.createMedia(product.getFrontMedia());
+            if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
+                product.getHeroMedias().stream().forEach(productMedia -> {
+                    mediaMapper.createMedia(productMedia);
+                });
+            }
+            if (!ObjectUtils.isEmpty(product.getMainMedias())) {
+                product.getMainMedias().stream().forEach(productMedia -> {
+                    mediaMapper.createMedia(productMedia);
+                });
+            }
+            if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
+                product.getThumbnailMedias().stream().forEach(productMedia -> {
+                    mediaMapper.createMedia(productMedia);
+                });
+            }
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when update a product with product is is {productId}",
                     product.getProductId());
@@ -147,6 +166,8 @@ public class ProductServiceImp extends TransactionService implements ProductServ
         TransactionStatus transactionStatus = ensureTransaction();
         try {
             productMapper.deleteProduct(productId);
+            productMapper.deleteProductCategoryRelationByProductId(Integer.valueOf(productId));
+
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when delete a product with product is is {productId}", productId);
             getTransactionManager().rollback(transactionStatus);

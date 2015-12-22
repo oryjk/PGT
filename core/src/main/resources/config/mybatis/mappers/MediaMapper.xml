@@ -48,5 +48,8 @@
 		WHERE MEDIA_ID=#{id}
     </update>
 
+    <delete id="deleteAllProductMedia" parameterType="int">
+        DELETE FROM MEDIA WHERE REFERENCE_ID=#{productId} AND TYPE !='category'
+    </delete>
 
 </mapper>
