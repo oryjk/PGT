@@ -45,4 +45,10 @@
         FROM INVENTORY_LOCK where ORDER_ID = #{id}
     </select>
 
+    <select id="acquireRowLock" resultType="int" parameterType="int">
+        SELECT PRODUCT_ID
+        FROM PRODUCT WHERE PRODUCT_ID = #{id} FOR UPDATE
+    </select>
+
+
 </mapper>

@@ -199,7 +199,9 @@ public class InventoryService extends Transactionable {
 
 
     private void acquireRowLock(final List<Integer> productIds) {
-        // TODO: implement
+        for (Integer productId : productIds) {
+            getInventoryLockMapper().acquireRowLock(productId);
+        }
     }
 
     public InventoryLockMapper getInventoryLockMapper() {
