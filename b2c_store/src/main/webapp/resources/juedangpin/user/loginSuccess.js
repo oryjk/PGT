@@ -14,7 +14,7 @@ require(['jquery'], function($) {
     //注册状态对象
 
     var success = {
-        time: 5
+        time: 500000
     };
 
     numDown5();
