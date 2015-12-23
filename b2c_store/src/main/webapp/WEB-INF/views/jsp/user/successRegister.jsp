@@ -18,7 +18,7 @@
 <body>
 <div class="header" id="header">
   <jsp:include page="../core/header-simple.jsp"/>
-</div>惹gist
+</div>
 
 <div class="content-box">
   <div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/regist-bg.jpg"/>') right center no-repeat;">
@@ -37,5 +37,5 @@
 </div>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-  data-main="<spring:url value="${juedangpinStaticPath}/user/requireSuccess.js"/>"></script>
+  data-main="<spring:url value="${juedangpinStaticPath}/user/registSuccess"/>"></script>
 </html>

@@ -8,7 +8,7 @@ require.config({
 });
 
 require(['jquery'], function($) {
-    
+
 
     //注册状态对象
 
