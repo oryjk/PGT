@@ -37,12 +37,13 @@ public class B2COrderController extends InternalTransactionBaseController {
 	) {
 		long ciLong = RepositoryUtils.safeParse2Long(currentIndex);
 		long caLong = RepositoryUtils.safeParse2Long(capacity);
-//		LOGGER.debug("Query internal users with index: {}, capacity: {} and keyword: {}", ciLong, caLong, keyword);
-//		InternalPaginationBuilder ipb = new InternalPaginationBuilder();
-//		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword).createInternalPagination();
-//		getInternalUserService().queryInternalUserPage(pagination);
+		LOGGER.debug("Query orders with index: {}, capacity: {}", ciLong, caLong);
+
+		// InternalPaginationBuilder ipb = new InternalPaginationBuilder();
+		// InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword).createInternalPagination();
+		// getInternalUserService().queryInternalUserPage(pagination);
 		ModelAndView mav = new ModelAndView("/internal/iu-list");
-//		mav.addObject(ResponseConstant.INTERNAL_USER_PAGE, pagination);
+		// mav.addObject(ResponseConstant.INTERNAL_USER_PAGE, pagination);
 		return mav;
 	}
 
