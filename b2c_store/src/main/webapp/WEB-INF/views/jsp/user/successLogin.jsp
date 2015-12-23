@@ -17,8 +17,8 @@
 	<div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/login-bg.jpg"/>') center 0 no-repeat;">
 		<div class="success-box">
 			<p class="success-message">登陆成功!</p>
-			<p class="to-home-page">正在为您跳转 等待 <span id="waitTime">5</span> 秒 <a class="link-btn" href="#">去首页</a></p>
-			<p class="to-myaccount-page">管理我的账户 <a class="link-btn" href="#">去用户中心</a></p>
+			<p class="to-home-page">正在为您跳转 等待 <span id="waitTime">5</span> 秒 <a class="link-btn" href="<spring:url value="/"/>">去首页</a></p>
+			<p class="to-myaccount-page">管理我的账户 <a class="link-btn" href="<spring:url value="/userinformation/query"/>">去用户中心</a></p>
 		</div>
 	</div>
 </div>
