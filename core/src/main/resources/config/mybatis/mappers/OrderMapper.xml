@@ -58,4 +58,9 @@
     <delete id="deleteAllCommerceItems" parameterType="int">
 		DELETE FROM COMMERCE_ITEM WHERE ORDER_ID = #{orderId}
 	</delete>
+
+	<update id="updateOrderStatus" parameterType="com.pgt.cart.bean.Order">
+		UPDATE `ORDER` SET status = #{status} WHERE order_id = #{id}
+	</update>
+
 </mapper>

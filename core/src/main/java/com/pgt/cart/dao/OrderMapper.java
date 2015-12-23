@@ -20,4 +20,6 @@ public interface OrderMapper extends SqlMapper {
 	void deleteAllCommerceItems(Integer orderId);
 
 	void updateOrder(Order pOrder);
+
+	void updateOrderStatus(Order order);
 }

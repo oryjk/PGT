@@ -2,20 +2,26 @@ package com.pgt.inventory.service;
 
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.dao.OrderMapper;
 import com.pgt.inventory.bean.InventoryLock;
 import com.pgt.inventory.dao.InventoryLockMapper;
 import com.pgt.product.bean.InventoryType;
 import com.pgt.product.bean.Product;
 import com.pgt.utils.Transactionable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
 
 import java.util.*;
 
 /**
  * Created by samli on 2015/12/20.
  */
+@Service(value="inventoryService")
 public class InventoryService extends Transactionable {
 
     private InventoryLockMapper inventoryLockMapper;
+    private OrderMapper orderMapper;
 
     public void lockInventory(final Order order) {
         if (null == order) {
@@ -44,6 +50,62 @@ public class InventoryService extends Transactionable {
         } finally {
             commit();
         }
+    }
+
+    public void releaseInventories() {
+        List<Integer> orderIds = findExpiredOrders();
+        if (null == orderIds || orderIds.isEmpty()) {
+            // TODO LOG
+            return;
+        }
+        for (Integer orderId : orderIds) {
+            releaseInventory(orderId);
+        }
+    }
+
+    private void releaseInventory(Integer orderId) {
+        List<InventoryLock> expiredLocks = findExpiredInventoryLock(orderId);
+        if (null == expiredLocks || expiredLocks.isEmpty()) {
+            // TODO LOG
+            return;
+        }
+        List<Integer> productIds = new ArrayList<Integer>();
+        for (InventoryLock expiredLock : expiredLocks) {
+            productIds.add(expiredLock.getProductId().intValue());
+        }
+        Collections.sort(productIds);
+        ensureTransaction(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        try {
+            acquireRowLock(productIds);
+            for (InventoryLock expiredLock : expiredLocks) {
+                int productId = expiredLock.getProductId().intValue();
+                int quantity = expiredLock.getQuantity();
+                deleteInventoryLock(expiredLock);
+                changeInventory(productId, quantity,InventoryType.INCREASE);
+                cancelOrder(expiredLock.getOrderId().intValue());
+            }
+        } catch (Exception e) {
+            setAsRollback();
+            // TODO LOG
+        } finally {
+            commit();
+        }
+
+    }
+
+    private void cancelOrder(int orderId) {
+        Order order = new Order();
+        order.setId(orderId);
+        order.setStatus(OrderStatus.CANCEL);
+        getOrderMapper().updateOrderStatus(order);
+    }
+
+    private List<InventoryLock> findExpiredInventoryLock(Integer orderId) {
+        return getInventoryLockMapper().findExpiredInventoryLock(orderId);
+    }
+
+    private List<Integer> findExpiredOrders() {
+        return getInventoryLockMapper().findExpiredOrders();
     }
 
     /**
@@ -199,7 +261,9 @@ public class InventoryService extends Transactionable {
 
 
     private void acquireRowLock(final List<Integer> productIds) {
-        // TODO: implement
+        for (Integer productId : productIds) {
+            getInventoryLockMapper().acquireRowLock(productId);
+        }
     }
 
     public InventoryLockMapper getInventoryLockMapper() {
@@ -208,5 +272,13 @@ public class InventoryService extends Transactionable {
 
     public void setInventoryLockMapper(InventoryLockMapper inventoryLockMapper) {
         this.inventoryLockMapper = inventoryLockMapper;
+    }
+
+    public OrderMapper getOrderMapper() {
+        return orderMapper;
+    }
+
+    public void setOrderMapper(OrderMapper orderMapper) {
+        this.orderMapper = orderMapper;
     }
 }

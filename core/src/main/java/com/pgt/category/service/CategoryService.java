@@ -13,7 +13,7 @@ public interface CategoryService {
 
     String createCategory(Category category);
 
-    String updateCategory(Category category);
+    Integer updateCategory(Category category);
 
     Integer deleteCategory(Integer categoryId);
 

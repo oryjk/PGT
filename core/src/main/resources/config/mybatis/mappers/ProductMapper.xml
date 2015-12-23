@@ -282,6 +282,10 @@
 		FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId} AND
 		CATEGORY_ID=#{categoryId}
 	</delete>
+    <delete id="deleteProductCategoryRelationByProductId" parameterType="int">
+		DELETE
+		FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId}
+	</delete>
 
     <!-- hotSearch -->
     <insert id="createHotSearch" parameterType="com.pgt.hot.bean.HotSearch"

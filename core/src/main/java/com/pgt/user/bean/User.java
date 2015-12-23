@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.pgt.user.validation.group.LoginGroup;
@@ -18,6 +19,7 @@ public class User implements Serializable {
 
     private Long id;
     @NotEmpty(message = "{NotEmpty.user.username}", groups = {LoginGroup.class, RegistrationGroup.class})
+    @Length(min = 6, message = "{Length.user.username}", groups = RegistrationGroup.class)
     private String username;
 
     @Pattern(regexp = "[0-9a-zA-Z]{6,32}", message = "{Pattern.user.password}", groups = {RegistrationGroup.class})
@@ -229,29 +231,29 @@ public class User implements Serializable {
         this.headPortrait = headPortrait;
     }
 
-	public Integer getDefaultAddressId() {
-		return defaultAddressId;
-	}
+    public Integer getDefaultAddressId() {
+        return defaultAddressId;
+    }
 
-	public void setDefaultAddressId(Integer defaultAddressId) {
-		this.defaultAddressId = defaultAddressId;
-	}
+    public void setDefaultAddressId(Integer defaultAddressId) {
+        this.defaultAddressId = defaultAddressId;
+    }
 
-	public String getYeepayUserName() {
-		return yeepayUserName;
-	}
+    public String getYeepayUserName() {
+        return yeepayUserName;
+    }
 
-	public void setYeepayUserName(String yeepayUserName) {
-		this.yeepayUserName = yeepayUserName;
-	}
+    public void setYeepayUserName(String yeepayUserName) {
+        this.yeepayUserName = yeepayUserName;
+    }
 
-	public String getYeepayUserId() {
-		return yeepayUserId;
-	}
+    public String getYeepayUserId() {
+        return yeepayUserId;
+    }
 
-	public void setYeepayUserId(String yeepayUserId) {
-		this.yeepayUserId = yeepayUserId;
-	}
+    public void setYeepayUserId(String yeepayUserId) {
+        this.yeepayUserId = yeepayUserId;
+    }
 
     public String getAuthCodeError() {
         return authCodeError;

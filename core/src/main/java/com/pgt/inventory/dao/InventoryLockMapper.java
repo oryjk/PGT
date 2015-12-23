@@ -11,16 +11,21 @@ import java.util.List;
  */
 public interface InventoryLockMapper extends SqlMapper {
 
-    void createInventoryLock(InventoryLock newLock);
+    void createInventoryLock(final InventoryLock newLock);
 
-    void updateInventoryLock(InventoryLock existLock);
+    void updateInventoryLock(final InventoryLock existLock);
 
-    void deleteInventoryLock(InventoryLock nonExistLock);
+    void deleteInventoryLock(final InventoryLock nonExistLock);
 
-    List<InventoryLock> findInventoryLockByOrderId(int orderId);
+    List<InventoryLock> findInventoryLockByOrderId(final int orderId);
 
     int queryInventoryQuantity(final int productId);
 
     void updateInventoryQuantity(Product product);
 
+    int acquireRowLock(final int productId);
+
+    List<Integer> findExpiredOrders();
+
+    List<InventoryLock> findExpiredInventoryLock(Integer orderId);
 }
