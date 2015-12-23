@@ -1,6 +1,4 @@
-/**
-* Created by carlwang on 12/21/15.
-*/
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,6 +6,7 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/user/login.css"/>"/>
 </head>
 <body>
 <div class="header" id="header">
