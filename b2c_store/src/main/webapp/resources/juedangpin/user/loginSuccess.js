@@ -8,8 +8,7 @@ require.config({
 });
 
 require(['jquery'], function($) {
-
-    $('#registSub').addClass('disable');
+    
 
     //注册状态对象
 

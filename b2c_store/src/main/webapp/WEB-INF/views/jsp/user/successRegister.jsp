@@ -18,7 +18,7 @@
 <body>
 <div class="header" id="header">
   <jsp:include page="../core/header-simple.jsp"/>
-</div>
+</div>惹gist
 
 <div class="content-box">
   <div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/regist-bg.jpg"/>') right center no-repeat;">
