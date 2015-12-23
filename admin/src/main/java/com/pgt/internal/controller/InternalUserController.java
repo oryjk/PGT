@@ -84,8 +84,8 @@ public class InternalUserController extends InternalTransactionBaseController im
 			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
 			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
 			@RequestParam(value = "keyword", required = false) String keyword) {
-		long ciLong = RepositoryUtils.safeParse2Long(currentIndex);
-		long caLong = RepositoryUtils.safeParse2Long(capacity);
+		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
+		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		LOGGER.debug("Query internal users with index: {}, capacity: {} and keyword: {}", ciLong, caLong, keyword);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder();
 		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword).createInternalPagination();
@@ -276,8 +276,8 @@ public class InternalUserController extends InternalTransactionBaseController im
 			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
 			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
 			@RequestParam(value = "keyword", required = false) String keyword) {
-		long ciLong = RepositoryUtils.safeParse2Long(currentIndex);
-		long caLong = RepositoryUtils.safeParse2Long(capacity);
+		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
+		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		LOGGER.debug("Query internal users with index: {}, capacity: {} and keyword: {}", ciLong, caLong, keyword);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder();
 		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword).createInternalPagination();

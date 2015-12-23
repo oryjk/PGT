@@ -52,8 +52,8 @@ public class UserOrderController extends TransactionBaseController implements Us
 			return new ModelAndView("redirect:/user/login");
 		}
 		LOGGER.debug("Query order history of user: {}", currentUser.getId());
-		long ciLong = RepositoryUtils.safeParse2Long(currentIndex);
-		long caLong = RepositoryUtils.safeParse2Long(capacity);
+		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
+		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		boolean ascBoolean = Boolean.valueOf(asc);
 		LOGGER.debug("Query order history with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
@@ -81,8 +81,8 @@ public class UserOrderController extends TransactionBaseController implements Us
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		LOGGER.debug("Query order history of user: {}", currentUser.getId());
-		long ciLong = RepositoryUtils.safeParse2Long(currentIndex);
-		long caLong = RepositoryUtils.safeParse2Long(capacity);
+		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
+		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		boolean ascBoolean = Boolean.valueOf(asc);
 		LOGGER.debug("Query order history with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
