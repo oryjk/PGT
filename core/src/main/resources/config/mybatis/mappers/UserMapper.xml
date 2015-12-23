@@ -35,6 +35,7 @@
     <select id="selectUser" parameterType="int" resultMap="user">
         SELECT * FROM USERS WHERE user_id = #{id}
     </select>
+
     <update id="update" parameterMap="paramUser">
         UPDATE USERS SET login = #{username},password = #{password},salt = #{salt},phone_number=#{phoneNumber},
         email = #{email},creation_date = #{createDate},update_date = #{updateDate},available
@@ -58,7 +59,7 @@
     </select>
 
 
-    <update id="updateLastLogin" parameterType="int">
+    <update id="updateLastLogin" parameterType="Long">
         UPDATE USERS
         SET update_date = now()
         WHERE user_id = #{id}
