@@ -42,6 +42,8 @@ public class UserAddressController {
 			return new ModelAndView(redirectUrl);
 		}
 		ModelAndView mav = new ModelAndView(urlConfiguration.getAddressBookPage());
+		List<Province> provinceList = getCityService().getAllProvince();
+		mav.addObject("provinceList", provinceList);
 		List<AddressInfo> addressList = getAddressInfoService().queryAddressByUserId(currentUser.getId().intValue());
 		if (CollectionUtils.isEmpty(addressList) || addressList.size() == 1) {
 			mav.addObject("addressList", addressList);
@@ -58,8 +60,6 @@ public class UserAddressController {
 			}
 		}
 		mav.addObject("addressList", sortedAddressList);
-		List<Province> provinceList = getCityService().getAllProvince();
-		mav.addObject("provinceList", provinceList);
 		return mav;
 	}
 

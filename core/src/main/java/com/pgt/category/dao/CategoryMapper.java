@@ -1,13 +1,13 @@
 package com.pgt.category.dao;
 
-import com.pgt.base.mapper.SqlMapper;
-import com.pgt.category.bean.Category;
-import com.pgt.category.bean.CategoryType;
-import com.pgt.utils.PaginationBean;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.pgt.base.mapper.SqlMapper;
+import com.pgt.category.bean.Category;
+import com.pgt.utils.PaginationBean;
 
 /**
  * Created by carlwang on 11/13/15.

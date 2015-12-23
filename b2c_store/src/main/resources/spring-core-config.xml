@@ -119,8 +119,8 @@
                 <value>sort</value>
             </list>
         </property>
-        <property name="needIndex" value="true"/>
-        <property name="clearIndex" value="true"/>
+        <property name="needIndex" value="false"/>
+        <property name="clearIndex" value="false"/>
     </bean>
 
     <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
@@ -140,4 +140,27 @@
     </bean>
 
     <bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
+    
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.mxhichina.com"/>
+      <property name="username" value="service@dianjinzi.com"/>
+      <property name="password" value="Zxhl123456"/>
+      <property name="javaMailProperties">  
+           <props>  
+               <prop key="mail.smtp.auth">true</prop>  
+               <prop key="mail.smtp.timeout">25000</prop>  
+           </props>  
+       </property>
+   </bean>
+
+   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/" />
+      <property name="velocityProperties">
+            <props>
+               <prop key="default.contentType">text/html; charset=utf-8</prop>
+               <prop key="output.encoding">utf-8</prop>
+               <prop key="input.encoding">utf-8</prop>
+           </props>
+      </property>
+   </bean>
 </beans>

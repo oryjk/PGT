@@ -1,21 +1,17 @@
 package com.pgt.user.controller;
 
-import com.pgt.cart.constant.CartConstant;
-import com.pgt.cart.service.ProductBrowseTrackService;
-import com.pgt.configuration.Configuration;
-import com.pgt.configuration.URLConfiguration;
-import com.pgt.constant.Constants;
-import com.pgt.constant.UserConstant;
-import com.pgt.integration.yeepay.YeePayConstants;
-import com.pgt.integration.yeepay.YeePayHelper;
-import com.pgt.integration.yeepay.direct.service.DirectYeePay;
-import com.pgt.user.bean.ResetPasswordStep;
-import com.pgt.user.bean.User;
-import com.pgt.user.service.imp.UserServiceImp;
-import com.pgt.user.validation.group.LoginGroup;
-import com.pgt.user.validation.group.RegistrationGroup;
-import com.pgt.utils.CookieUtils;
-import com.pgt.utils.ErrorMsgUtil;
+import static com.pgt.user.bean.ResetPasswordStep.CHECK_USER_EXIST;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,16 +33,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.pgt.user.bean.ResetPasswordStep.CHECK_USER_EXIST;
+import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.service.ProductBrowseTrackService;
+import com.pgt.configuration.Configuration;
+import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.Constants;
+import com.pgt.constant.UserConstant;
+import com.pgt.integration.yeepay.YeePayConstants;
+import com.pgt.integration.yeepay.YeePayHelper;
+import com.pgt.integration.yeepay.direct.service.DirectYeePay;
+import com.pgt.mail.MailConstants;
+import com.pgt.mail.service.MailService;
+import com.pgt.user.bean.ResetPasswordStep;
+import com.pgt.user.bean.User;
+import com.pgt.user.service.imp.UserServiceImp;
+import com.pgt.user.validation.group.LoginGroup;
+import com.pgt.user.validation.group.RegistrationGroup;
+import com.pgt.utils.CookieUtils;
+import com.pgt.utils.ErrorMsgUtil;
 
 /**
  * Created by cwang7 on 10/17/15.
@@ -69,7 +73,10 @@ public class UserController {
 
     @Autowired
     private SimpleCacheManager cacheManager;
-
+    
+    @Autowired
+	private MailService			mailService;
+    
     @Autowired
     private Configuration configuration;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -307,6 +314,10 @@ public class UserController {
             return modelAndView;
         }
         userServiceImp.saveUser(user);
+        Map<String,Object> params = new HashMap<String,Object>(); 
+        params.put("user", params);
+		getMailService().sendEmail(MailConstants.SUBJECT_REGISTRATION, params, MailConstants.TEMPLATE_REGISTRATION,
+				user.getEmail());
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_PHONE_CODE);
         modelAndView.setViewName("/user/successRegister");
@@ -571,4 +582,15 @@ public class UserController {
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
     }
+
+
+	public MailService getMailService() {
+		return mailService;
+	}
+
+
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
+	}
+    
 }
