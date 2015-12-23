@@ -52,6 +52,9 @@ public class DiscussController {
 
 	/************************** 前台 ************************/
 
+
+
+
 	// 展示一个商品下面的讨论
 	@RequestMapping(value = "/query/{currentIndex}/{productId}", method = RequestMethod.GET)
 	public ModelAndView queryDiscussByProductId(@PathVariable("productId") Integer productId, ModelAndView modelAndView,

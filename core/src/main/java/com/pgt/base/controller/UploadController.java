@@ -30,42 +30,32 @@ public class UploadController {
 	@RequestMapping(value = "/uploadPic")
 	public void uploadPic(@RequestParam(required = false) MultipartFile uploadPic, HttpServletResponse response,
 			HttpServletRequest request) throws Exception {
-
 		// 精确到毫秒
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-
 		String picName = df.format(new Date());
-
 		Random r = new Random();
-
 		for (int i = 0; i < 3; i++) {
 			picName += r.nextInt(10);
 		}
-
 		// 获取扩展名
 		String originalFilename = uploadPic.getOriginalFilename();
 		String ext = FilenameUtils.getExtension(originalFilename);
-
 		String basePath = request.getRealPath("/resources/image/upload/user/");
-
 		// 相对路径
 		String path = picName + "." + ext;
-
 		// 全路径
 		String url = basePath + path;
-
 		// 新图片
 		File file = new File(url);
-
+		if(!file.exists()){
+			file.mkdirs();
+		}
 		// 将内存中的文件写入磁盘
 		uploadPic.transferTo(file);
-
 		url= url.substring(url.indexOf("image"),url.length());
-
 		JSONObject jo = new JSONObject();
 		jo.put("url", url);
 		jo.put("path", path);
-
 		ResponseUtils.renderJson(response, jo.toString());
 
 	}

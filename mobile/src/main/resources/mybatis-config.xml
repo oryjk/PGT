@@ -1,0 +1,3 @@
+<mappers>
+    <mapper resource="com/pgt/user/dao/UserMapper.xml" /> <!-- Mapper文件可以和interface不在相同路径下！ -->
+</mappers>

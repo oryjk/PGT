@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title></title>
+    <title>点金子手机服务器</title>
   </head>
   <body>
+
+             点金子手机服务器启动
 
   </body>
 </html>
