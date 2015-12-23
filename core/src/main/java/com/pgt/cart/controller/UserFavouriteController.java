@@ -164,8 +164,8 @@ public class UserFavouriteController extends TransactionBaseController implement
 			return new ModelAndView("redirect:/user/login");
 		}
 		LOGGER.debug("Query favourite items of user: {}", currentUser.getId());
-		long ciLong = RepositoryUtils.safeParse2Long(currentIndex);
-		long caLong = RepositoryUtils.safeParse2Long(capacity);
+		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
+		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		boolean ascBoolean = Boolean.valueOf(asc);
 		LOGGER.debug("Query favourite items with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
@@ -191,8 +191,8 @@ public class UserFavouriteController extends TransactionBaseController implement
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		LOGGER.debug("Query favourite items of user: {}", currentUser.getId());
-		long ciLong = RepositoryUtils.safeParse2Long(currentIndex);
-		long caLong = RepositoryUtils.safeParse2Long(capacity);
+		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
+		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		boolean ascBoolean = Boolean.valueOf(asc);
 		LOGGER.debug("Query favourite items with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);

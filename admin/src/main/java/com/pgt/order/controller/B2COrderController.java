@@ -35,8 +35,8 @@ public class B2COrderController extends InternalTransactionBaseController {
 			@RequestParam(value = "submitTimeBeg", required = false) String submitTimeBeg,
 			@RequestParam(value = "submitTimeEnd", required = false) String submitTimeEnd
 	) {
-		long ciLong = RepositoryUtils.safeParse2Long(currentIndex);
-		long caLong = RepositoryUtils.safeParse2Long(capacity);
+		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
+		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		LOGGER.debug("Query orders with index: {}, capacity: {}", ciLong, caLong);
 
 		// InternalPaginationBuilder ipb = new InternalPaginationBuilder();

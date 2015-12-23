@@ -1,6 +1,7 @@
 package com.pgt.cart.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ObjectUtils;
 
@@ -9,7 +10,7 @@ import org.springframework.util.ObjectUtils;
  */
 public class RepositoryUtils {
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(RepositoryUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryUtils.class);
 
 	public static boolean idIsValid(final int pId) {
 		return pId > 0;
@@ -37,7 +38,7 @@ public class RepositoryUtils {
 		return id;
 	}
 
-	public static long safeParse2Long(String pLongString) {
+	public static long safeParse2LongId(String pLongString) {
 		long longValue = -1L;
 		if (StringUtils.isBlank(pLongString)) {
 			return longValue;
