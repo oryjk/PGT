@@ -1,0 +1,142 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd ">
+
+    <import resource="yeepay-config.xml"/>
+    <import resource="alipay-config.xml"/>
+    <context:component-scan base-package="com.*"/>
+
+
+    <import resource="persistence3-db.xml"/>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:config/mybatis/mappers/*Mapper.xml"/>
+        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/> -->
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!-- Mapper interface scanner -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.*"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="markerInterface" value="com.pgt.base.mapper.SqlMapper"/>
+    </bean>
+
+    <bean id="passwordRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
+        <!-- at least a char lower case, upper case and a number within 6 - 20
+            length -->
+        <property name="regexPattern" value="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$"/>
+    </bean>
+    <bean id="loginRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
+        <!-- allows number, lower case and upper case within 5 - 12 length -->
+        <property name="regexPattern" value="^[a-z0-9_]{5,12}$"/>
+    </bean>
+    <bean id="phoneRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
+        <property name="regexPattern"
+                  value="^(((13[0-9])|(15([0-9]))|(17([0-9]))|(18[0-9]))\d{8})|(0\d{2}-\d{8})|(0\d{3}-\d{7})$"/>
+    </bean>
+    <bean id="emailRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
+        <property name="regexPattern"
+                  value="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:customValidationMessages"></property>
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="cacheSeconds" value="120"></property>
+    </bean>
+    <bean id="configuration" class="com.pgt.configuration.Configuration">
+        <property name="homeHotProductCount" value="5"/>
+        <property name="onlyShowInStock" value="false"/>
+        <property name="productListPageCapacity" value="20"/>
+        <property name="communicationCapacity" value="3"/>
+        <property name="plpCapacity" value="20"></property>
+        <property name="useES" value="true"></property>
+        <property name="resourcePath" value="/resources"></property>
+        <property name="initialDataPath" value="/json"></property>
+
+
+    </bean>
+    <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
+        <property name="categoryPage" value="/category"/>
+        <property name="homePage" value="/"/>
+        <property name="loginPage" value="/user/login"/>
+        <property name="logoutPage" value="/user/logout"/>
+        <property name="registerPage" value="/user/register"/>
+        <property name="addressBookPage" value="/my-account/person-info/address"/>
+        <property name="shoppingCartPage" value="/shoppingCart/cart"/>
+        <property name="myAccountPage" value="/myAccount/orderHistory"/>
+        <property name="shippingPage" value="/checkout/shipping"/>
+        <property name="pdpPage" value="/product"/>
+        <property name="plpPage" value="/category"/>
+        <property name="helpCenterPage" value="/helpcenter/query"/>
+    </bean>
+    <bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
+        <property name="host" value="localhost"/>
+        <property name="indexPort" value="9300"/>
+        <property name="searchPort" value="9300"/>
+        <property name="productAnalyzerFields">
+            <list value-type="java.lang.String">
+                <value>name</value>
+                <value>rootCategoryName</value>
+                <value>parentCategoryName</value>
+                <value>isNew</value>
+                <value>title</value>
+                <value>shortDescription</value>
+                <value>keyWord</value>
+            </list>
+        </property>
+        <property name="useToSearch">
+            <list value-type="java.lang.String">
+                <value>name</value>
+                <value>shortDescription</value>
+                <value>keyWord</value>
+            </list>
+        </property>
+
+        <property name="categoryAnalyzerFields">
+            <list value-type="java.lang.String">
+                <value>name</value>
+                <value>sort</value>
+            </list>
+        </property>
+        <property name="hotSaleAnalyzerFields">
+            <list value-type="java.lang.String">
+                <value>name</value>
+                <value>sort</value>
+            </list>
+        </property>
+        <property name="needIndex" value="true"/>
+        <property name="clearIndex" value="true"/>
+    </bean>
+
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <set>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+                    <property name="name" value="phoneCode"/>
+                </bean>
+            </set>
+        </property>
+    </bean>
+
+    <bean class="com.pgt.data.MigrateData">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="esConfiguration" ref="esConfiguration"/>
+        <property name="esSearchService" ref="esSearchService"/>
+    </bean>
+    <bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
+</beans>

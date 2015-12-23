@@ -27,7 +27,7 @@
 
       <p class="to-login-page">正在为您跳转 等待 <span id="waitTime">5</span> 秒 <a class="link-btn" href="<spring:url value="/user/login"/>">马上登陆</a></p>
 
-      <p class="to-home-page">暂时不登陆? <a class="link-btn" href="<spring:url value=""/>">去首页</a></p>
+      <p class="to-home-page">暂时不登陆? <a class="link-btn" href="<spring:url value="/"/>">去首页</a></p>
     </div>
   </div>
 </div>
