@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pgt.inventory.LockInventoryException;
+import com.pgt.inventory.service.InventoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,9 @@ public class PaymentController {
 
 	@Resource(name = "userOrderService")
 	private UserOrderService userOrderService;
+
+	@Resource(name = "inventoryService")
+	private InventoryService inventoryService;
 	
 	@Autowired
 	private OrderService orderService;
@@ -102,6 +107,16 @@ public class PaymentController {
 			ModelAndView modelAndView = new ModelAndView("redirect:"+getUrlConfiguration().getShoppingCartPage());
 			return modelAndView;
 		}
+		try {
+			getInventoryService().lockInventory(order);
+
+		} catch (LockInventoryException e) {
+			// todo SHOW REMOVE ITEM ERROR.
+		} catch (Exception e) {
+			// TODO SHOW RETRY ERROR
+		}
+
+
 		String method = pRequest.getParameter("method");
 		if(!PaymentConstants.METHOD_YEEPAY.equals(method) && !PaymentConstants.METHOD_ALIPAY.equals(method) ){
 			ModelAndView modelAndView = new ModelAndView();
@@ -222,5 +237,12 @@ public class PaymentController {
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
 	}
-	
+
+	public InventoryService getInventoryService() {
+		return inventoryService;
+	}
+
+	public void setInventoryService(InventoryService inventoryService) {
+		this.inventoryService = inventoryService;
+	}
 }

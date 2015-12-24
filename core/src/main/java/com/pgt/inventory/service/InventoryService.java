@@ -4,11 +4,16 @@ import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.dao.OrderMapper;
+import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.bean.InventoryLock;
 import com.pgt.inventory.dao.InventoryLockMapper;
 import com.pgt.product.bean.InventoryType;
 import com.pgt.product.bean.Product;
 import com.pgt.utils.Transactionable;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 
@@ -20,33 +25,50 @@ import java.util.*;
 @Service(value="inventoryService")
 public class InventoryService extends Transactionable {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(InventoryService.class);
+
+    @Autowired
     private InventoryLockMapper inventoryLockMapper;
+
+    @Autowired
     private OrderMapper orderMapper;
 
-    public void lockInventory(final Order order) {
+    public void lockInventory(final Order order) throws LockInventoryException {
+
         if (null == order) {
+            LOGGER.debug("Order is null return.s");
             throw new IllegalArgumentException("order is null");
         }
-
+        int orderId = order.getId();
+        LOGGER.debug("-------------------- Lock Inventory for Order(id=" + orderId + ") --------------------");
         List<CommerceItem> commerceItems = order.getCommerceItems();
         if (null == commerceItems || commerceItems.isEmpty()) {
+            LOGGER.debug("Lock Inventory for Order(id=" + orderId + ") No commerce Item return;");
             return;
         }
-        List<Integer> productIds = new ArrayList<Integer>();
+        Set<Integer> productIdsOnOrder = new HashSet<Integer>();
         for (CommerceItem commerceItem : commerceItems) {
-            productIds.add(commerceItem.getReferenceId());
+            productIdsOnOrder.add(commerceItem.getReferenceId());
         }
-        Collections.sort(productIds);
+        LOGGER.debug("Lock Inventory for Order(id=" + orderId + ") productIdsOnOrder: "
+                + StringUtils.join(productIdsOnOrder, ","));
+        Set<Integer> needLockIdsSet = new HashSet<Integer>(productIdsOnOrder);
+        Map<Integer, InventoryLock> existLocks = findExistLock(orderId);
+        if (null != existLocks && !existLocks.isEmpty()) {
+            needLockIdsSet.addAll(existLocks.keySet());
+        }
+        List<Integer> needLockIds = new ArrayList<>(needLockIdsSet);
+        Collections.sort(needLockIds);
+        LOGGER.debug("Lock Inventory for Order(id=" + orderId + ") productIds: " + StringUtils.join(needLockIds, ","));
         Date now = new Date();
         ensureTransaction();
         try {
-            acquireRowLock(productIds);
-            Map<Integer, InventoryLock> existLocks = findExistLock(order.getId());
-            removeNonExistLock(existLocks, productIds);
+            acquireRowLock(needLockIds, orderId);
+            removeNonExistLock(existLocks, productIdsOnOrder, orderId);
             lockInventory(order, existLocks, now);
         } catch (Exception e) {
             setAsRollback();
-            // TODO: THROW WRAPPED EXCEPTION
+            throw e;
         } finally {
             commit();
         }
@@ -76,12 +98,13 @@ public class InventoryService extends Transactionable {
         Collections.sort(productIds);
         ensureTransaction(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         try {
-            acquireRowLock(productIds);
+            acquireRowLock(productIds, orderId);
             for (InventoryLock expiredLock : expiredLocks) {
                 int productId = expiredLock.getProductId().intValue();
                 int quantity = expiredLock.getQuantity();
                 deleteInventoryLock(expiredLock);
-                changeInventory(productId, quantity,InventoryType.INCREASE);
+                changeInventory(productId, quantity,InventoryType.INCREASE, orderId);
+                // TODO check order is repeat update.s
                 cancelOrder(expiredLock.getOrderId().intValue());
             }
         } catch (Exception e) {
@@ -116,19 +139,30 @@ public class InventoryService extends Transactionable {
      * @param existLocks
      * @param now
      */
-    private void lockInventory(final Order order, final Map<Integer, InventoryLock> existLocks, final Date now) {
+    private void lockInventory(final Order order, final Map<Integer, InventoryLock> existLocks, final Date now) throws LockInventoryException {
+        LOGGER.debug("Lock Inventory for Order(id=" + order.getId() + "). getting Inventory lock");
+        Date inventoryLockExpireDate = null;
+        // TODO: set expire Date base on order status
+
         boolean allLocked = true;
         Set<Integer> oosProductIds = new HashSet<Integer>();
         for (CommerceItem commerceItem : order.getCommerceItems()) {
             Integer productId = Integer.valueOf(commerceItem.getReferenceId());
             int quantityLeft = queryInventoryQuantity(productId);
             int quantityRequire = commerceItem.getQuantity();
+            LOGGER.debug("Lock Inventory for Order(id=" + order.getId() + "). Get Inventory lock. productId="
+                    + productId +"; quantityLeft=" + quantityLeft + "; quantityRequire=" + quantityRequire +".");
 
             if (null == existLocks || null == existLocks.get(productId)) {
+                LOGGER.debug("Lock Inventory for Order(id=" + order.getId() + "). No Inventory lock. for product(id="
+                        + productId + ")");
                 // create a new inventory lock
                 if (quantityLeft < quantityRequire) {
                     allLocked = false;
                     oosProductIds.add(productId);
+                    LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
+                            + "). Get Inventory lock failed for product(id=" + productId
+                            + "), cause not enough quantity left.");
                     continue;
                 }
                 InventoryLock newLock = new InventoryLock();
@@ -137,46 +171,62 @@ public class InventoryService extends Transactionable {
                 newLock.setQuantity(quantityRequire);
                 newLock.setCreationDate(now);
                 newLock.setUpdateDate(now);
-                // TODO: set expire Date base on order status
-                // newLock.setExpiredDate();
+                newLock.setExpiredDate(inventoryLockExpireDate);
                 createInventoryLock(newLock);
-                changeInventory(productId, quantityRequire, InventoryType.DEDUCT);
+                changeInventory(productId, quantityRequire, InventoryType.DEDUCT, order.getId());
+                LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
+                        + "). Create Inventory lock success. Inventory lock info(productId=" + productId + "; quantity="
+                        + quantityRequire + "; expiredDate= " + inventoryLockExpireDate + ")");
                 continue;
             }
 
             InventoryLock existLock = existLocks.get(Integer.valueOf(productId));
-
             int quantityLocked = existLock.getQuantity();
-
+            LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
+                    + "). Exist Inventory lock(productId=" + productId+ "; quantity" + quantityLocked + ")");
             if (quantityLocked == quantityRequire) {
-                // TODO: set expire Date base on order status
-                // existLock.setExpiredDate();
-                updateInventoryLock(existLock);
+                existLock.setExpiredDate(inventoryLockExpireDate);
+                updateInventoryLock(existLock, order.getId());
+                LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
+                        + "). quantityRequire equals exist lock quantity just update expire date to "
+                        + inventoryLockExpireDate);
                 continue;
             }
             if (quantityLocked > quantityRequire) {
                 // release from lock and increase inventory
                 existLock.setQuantity(quantityRequire);
-                // TODO: set expire Date base on order status
-                // existLock.setExpiredDate();
-                updateInventoryLock(existLock);
-                changeInventory(productId, quantityLocked - quantityRequire, InventoryType.INCREASE);
+                existLock.setExpiredDate(inventoryLockExpireDate);
+                updateInventoryLock(existLock, order.getId());
+                changeInventory(productId, quantityLocked - quantityRequire, InventoryType.INCREASE, order.getId());
+                LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
+                        + "). update Inventory lock success. Inventory lock info(productId=" + productId + "; quantity="
+                        + quantityRequire + "; expiredDate= " + inventoryLockExpireDate + ")");
                 continue;
             }
             if (quantityLeft < (quantityRequire - quantityLocked)) {
                 allLocked = false;
                 oosProductIds.add(productId);
+                LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
+                        + "). Get Inventory lock failed for product(id=" + productId
+                        + "), cause not enough quantity left.");
+
                 continue;
             }
             // deduct inventory
             existLock.setQuantity(quantityRequire);
-            // TODO: set expire Date base on order status
-            // existLock.setExpiredDate();
-            updateInventoryLock(existLock);
-            changeInventory(productId, quantityRequire - quantityLocked, InventoryType.DEDUCT);
+            existLock.setExpiredDate(inventoryLockExpireDate);
+            updateInventoryLock(existLock, order.getId());
+            changeInventory(productId, quantityRequire - quantityLocked, InventoryType.DEDUCT, order.getId());
+            LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
+                    + "). update Inventory lock success. Inventory lock info(productId=" + productId + "; quantity="
+                    + quantityRequire + "; expiredDate= " + inventoryLockExpireDate + ")");
         }
         if (!allLocked) {
-            // TODO throw check exception (InventoryException)
+            LOGGER.error("Lock Inventory for Order(id=" + order.getId() +
+                    ") failed. Cause can't lock inventory for these products: " + StringUtils.join(oosProductIds, ","));
+            LockInventoryException exception = new LockInventoryException("Lock Inventory Failed");
+            exception.setOosProductIds(oosProductIds);
+            throw exception;
         }
 
     }
@@ -184,30 +234,37 @@ public class InventoryService extends Transactionable {
     /**
      *  1. remove non-exist commerce item inventory lock
      *  2. increase inventory quantity.
-     *
-     * @param existLocks
+     *  @param existLocks
      * @param productIds
+     * @param orderId
      */
-    private void removeNonExistLock(final Map<Integer, InventoryLock> existLocks, final List<Integer> productIds) {
+    private void removeNonExistLock(final Map<Integer, InventoryLock> existLocks, final Collection<Integer> productIds,
+                                    int orderId) {
         if (null == existLocks || existLocks.isEmpty()) {
+            LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). No exist locks");
             return ;
         }
 
         for (Integer productId : existLocks.keySet()) {
             if (!productIds.contains(productId)) {
+                LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). Need release Inventory Lock for product(id="
+                        + productIds + ")");
                 InventoryLock nonExistLock = existLocks.get(productId);
                 if (null == nonExistLock) {
                     continue;
                 }
                 int quantity = nonExistLock.getQuantity();
                 deleteInventoryLock(nonExistLock);
-                changeInventory(productId, quantity, InventoryType.INCREASE);
+                changeInventory(productId, quantity, InventoryType.INCREASE, orderId);
 
             }
         }
     }
 
-    private void updateInventoryLock(InventoryLock existLock) {
+    private void updateInventoryLock(InventoryLock existLock, int orderId) {
+        LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). Inventory Info (productId="
+                + existLock.getProductId() + "; quantity=" + existLock.getQuantity() + "); expireDate= "
+                + existLock.getExpiredDate());
         getInventoryLockMapper().updateInventoryLock(existLock);
     }
 
@@ -216,6 +273,10 @@ public class InventoryService extends Transactionable {
     }
 
     private void deleteInventoryLock(InventoryLock nonExistLock) {
+        Long orderId = nonExistLock.getOrderId();
+        Long productId = nonExistLock.getProductId();
+        LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). Remove Inventory Lock(orderId=" + orderId
+                + ", productId=" + productId + ")");
         getInventoryLockMapper().deleteInventoryLock(nonExistLock);
     }
 
@@ -226,20 +287,25 @@ public class InventoryService extends Transactionable {
 
 
 
-    private void changeInventory(Integer productId, int quantity, InventoryType action) {
+    private void changeInventory(Integer productId, int quantity, InventoryType action, int orderId) {
         // increase inventory in DB
+
         int quantityLeft = queryInventoryQuantity(productId);
+        LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). Inventory Info (productId=" + productId +
+                "), quantity=" + quantityLeft + "). " + " Action: " + action + ". quantity: " + quantity);
         if (InventoryType.DEDUCT == action) {
             quantityLeft -= quantity;
         }
         if (InventoryType.INCREASE == action) {
             quantityLeft += quantity;
         }
+        LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). " + action + " Inventory (productId=" + productId
+                + "), to quantity=" + quantityLeft + ")");
         Product product = new Product();
         product.setProductId(productId);
         product.setStock(quantityLeft);
         getInventoryLockMapper().updateInventoryQuantity(product);
-        // TODO increase inventory in index
+        // TODO change inventory in index
     }
 
     /**
@@ -248,21 +314,27 @@ public class InventoryService extends Transactionable {
      * @return
      */
     private Map<Integer, InventoryLock> findExistLock(final int orderId) {
+        LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). find exist lock for order(id=" + orderId +")");
         List<InventoryLock> existLocks = getInventoryLockMapper().findInventoryLockByOrderId(orderId);
         if (null == existLocks || existLocks.isEmpty()) {
+            LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). No exist lock for order(id=" + orderId +")");
             return Collections.emptyMap();
         }
         Map<Integer, InventoryLock> result = new HashMap<Integer, InventoryLock> ();
         for (InventoryLock existLock : existLocks) {
             result.put(existLock.getProductId().intValue(), existLock);
         }
+        LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). exist locks for order(id=" + orderId
+                +") products: (" + StringUtils.join(result.keySet(), ",") + ")"  );
         return result;
     }
 
 
-    private void acquireRowLock(final List<Integer> productIds) {
+    private void acquireRowLock(final List<Integer> productIds, int orderId) {
         for (Integer productId : productIds) {
+            LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). locking product(id=" + productId +")");
             getInventoryLockMapper().acquireRowLock(productId);
+            LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). product(id=" + productId + ") locked.");
         }
     }
 
