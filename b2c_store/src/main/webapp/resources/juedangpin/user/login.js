@@ -21,6 +21,7 @@ require(['jquery', 'product'], function($, Prd) {
     }
 
 
+
     //username获得、失去焦点
     $('#username')
         .focus(function() {
