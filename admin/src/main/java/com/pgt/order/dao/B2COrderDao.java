@@ -18,4 +18,8 @@ public interface B2COrderDao extends SqlMapper {
 	long queryB2COrderCount(@Param("vo") B2COrderSearchVO pB2COrderSearchVO, @Param("pagination") InternalPagination pPagination);
 
 	List<Order> queryB2COrderPage(@Param("vo") B2COrderSearchVO pB2COrderSearchVO, @Param("pagination") InternalPagination pPagination);
+
+	Order loadOrder(int pOrderId);
+
+	int updateOrder2Status(@Param("orderId") int pOrderId, @Param("status") int pStatus);
 }

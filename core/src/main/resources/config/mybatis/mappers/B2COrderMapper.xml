@@ -52,4 +52,18 @@
 		<include refid="query-order-condition" />
 		<include refid="limit-split-page" />
 	</select>
+
+	<select id="loadOrder" parameterType="int" resultMap="com.pgt.cart.dao.UserOrderDao.orderWithCommerceItem">
+		SELECT *
+		FROM `ORDER` o
+		WHERE o.order_id = #{orderId}
+	</select>
+
+	<update id="updateOrder2Status" parameterType="com.pgt.cart.bean.Order">
+		UPDATE `ORDER`
+		<set>
+			`status` = #{status}
+		</set>
+		WHERE order_id = #{orderId}
+	</update>
 </mapper>

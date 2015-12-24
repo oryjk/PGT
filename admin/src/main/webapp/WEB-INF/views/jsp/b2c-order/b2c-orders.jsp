@@ -15,7 +15,7 @@
     <title></title>
 </head>
 <body>
-<form action="<spring:url value="/order/order-list"/>" accept-charset="">
+<form action="<spring:url value="/order/order-list"/>">
     <ul>
         <li><label>currentIndex </label> <input type="text" name="currentIndex"  value="${param.currentIndex}" /></li>
         <li><label>capacity     </label> <input type="text" name="capacity"      value="${param.capacity}" /></li>
@@ -37,5 +37,16 @@
     <li>${order}</li>
     </c:forEach>
 </ul>
+<br />
+<hr />
+<br />
+<form action="<spring:url value="/order/change-order-status"/>">
+    <p>${error_message}</p>
+    <ul>
+        <li><label>id           </label> <input type="text" name="id"            value="${param.id}" /></li>
+        <li><label>status       </label> <input type="text" name="status"        value="${param.status}" /></li>
+    </ul>
+    <input type="submit" value="Change" />
+</form>
 </body>
 </html>
