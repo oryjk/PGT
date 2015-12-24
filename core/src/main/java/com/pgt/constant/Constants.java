@@ -9,6 +9,8 @@ public class Constants {
     public static final String REGISTER_SESSION_SECURITY_CODE = "registerSessionSecCode";
     public static final String RESET_PASSWORD_SESSION_SECURITY_CODE = "resetPasswordSessionSecCode";
     public static final String JUEDANGPIN_STATIC_PATH_VALUE = "/resources/juedangpin";
+    public static final String ADMIN_STATIC_PATH_VALUE = "/resources";
+    public static final String ADMIN_STATIC_PATH_KEY = "adminStaticPath";
     public static final String JUEDANGPIN_STATIC_PATH_KEY = "juedangpinStaticPath";
     public static final String IN_STOCK = "1";
     public static final String NOT_IN_STOCK = "0";

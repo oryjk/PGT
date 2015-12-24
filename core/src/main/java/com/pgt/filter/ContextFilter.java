@@ -18,6 +18,9 @@ public class ContextFilter implements Filter {
         if (StringUtils.isBlank((CharSequence) servletContext.getAttribute(Constants.JUEDANGPIN_STATIC_PATH_KEY))) {
             servletContext.setAttribute(Constants.JUEDANGPIN_STATIC_PATH_KEY, Constants.JUEDANGPIN_STATIC_PATH_VALUE);
         }
+        if (StringUtils.isBlank((CharSequence) servletContext.getAttribute(Constants.ADMIN_STATIC_PATH_KEY))) {
+            servletContext.setAttribute(Constants.ADMIN_STATIC_PATH_KEY, Constants.ADMIN_STATIC_PATH_VALUE);
+        }
     }
 
     @Override

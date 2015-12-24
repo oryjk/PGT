@@ -54,7 +54,7 @@ dependencies {
     compile 'javax:javaee-web-api:7.0'
     compile 'org.apache.velocity:velocity:1.7'
     compile 'javax.mail:mail:1.5.0-b01'
-    compile 'org.springframework:spring-context-support:4.2.0.RELEASE'
+    compile 'org.springframework:spring-context-support:4.1.6.RELEASE'
     
     compile "javax.servlet:javax.servlet-api:3.1.0"
     compile "javax.servlet.jsp:jsp-api:2.2.1-b03"

@@ -158,3 +158,4 @@ server/
 /classes/artifacts/p2p_store/exploded/p2p_store-1.0-SNAPSHOT.war/META-INF/MANIFEST.MF
 /classes/
 .metadata/
+admin/src/main/webapp/resources/image/upload

@@ -1,5 +1,4 @@
 group 'pgt'
-version '1.0-SNAPSHOT'
 archivesBaseName = 'b2c_store'
 
 dependencies {
