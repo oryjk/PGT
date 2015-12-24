@@ -55,6 +55,11 @@ public class BannerServiceImpl implements BannerService {
 		return banners;
 	}
 
+	@Override
+	public List<Banner> queryBannerByType(String type) {
+		return bannerMapper.queryBannerByType(type);
+	}
+
 	public BannerMapper getBannerMapper() {
 		return bannerMapper;
 	}

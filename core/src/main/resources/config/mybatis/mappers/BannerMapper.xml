@@ -44,6 +44,14 @@
 		BANNER_ID=#{bannerId}
 	</select>
 
+	<select id="queryBannerByType" parameterType="string" resultMap="BannerResult">
+		 SELECT
+		*
+		FROM BANNER WHERE
+		TYPE=#{type}
+	</select>
+
+
 	<select id="queryAllBanners" resultMap="BannerResult">
 		SELECT * FROM BANNER
 	</select>

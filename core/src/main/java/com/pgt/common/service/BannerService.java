@@ -16,5 +16,7 @@ public interface BannerService {
     Banner queryBanner(Integer bannerId);
 
     List<Banner> queryAllBanner();
+
+    List<Banner> queryBannerByType(String type);
 	
 }

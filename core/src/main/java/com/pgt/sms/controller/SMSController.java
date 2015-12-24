@@ -64,7 +64,7 @@ public class SMSController {
     private void savePhoneCode(HttpServletRequest request, String phoneCode, String codeKey, String phoneId) {
         if (!StringUtils.isBlank(phoneId)) {
             Cache cache = cacheManager.getCache(Constants.PHONE_CODE);
-            cache.put(phoneId, codeKey);
+            cache.put(phoneId, phoneCode);
             return;
         }
         HttpSession session = request.getSession();
