@@ -316,8 +316,8 @@ public class UserController {
         userServiceImp.saveUser(user);
         Map<String,Object> params = new HashMap<String,Object>(); 
         params.put("user", params);
-		getMailService().sendEmail(MailConstants.SUBJECT_REGISTRATION, params, MailConstants.TEMPLATE_REGISTRATION,
-				user.getEmail());
+//		getMailService().sendEmail(MailConstants.SUBJECT_REGISTRATION, params, MailConstants.TEMPLATE_REGISTRATION,
+//				user.getEmail());
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_PHONE_CODE);
         modelAndView.setViewName("/user/successRegister");
