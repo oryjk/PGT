@@ -14,7 +14,7 @@
 		<property name="socketTimeout" value="15000" />
 		<!-- need change when go live -->
 		<property name="platformUserNoPrefix" value="pgt"></property>
-		<property name="requestNoPrefix" value="pgttestt"/>
+		<property name="requestNoPrefix" value="pgttesttt"/>
 		<property name="directRequestUrl" value="https://member.yeepay.com/member/bhaexter/bhaController" />
 		<property name="callbackUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayCallback" />
 		<property name="notifyUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayNotify"/>
