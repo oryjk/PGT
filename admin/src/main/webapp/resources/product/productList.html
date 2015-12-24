@@ -124,6 +124,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <ul class="dropdown-menu pull-right">
                                         <li>
                                             <a href="javascript:;">
+                                                改为待售 </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                改为正售 </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                改为下架 </a>
+                                        </li>
+                                        <li class="divider">
+                                        <li>
+                                            <a href="javascript:;">
                                                 删除所选项 </a>
                                         </li>
                                         <li class="divider">
@@ -131,10 +144,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <li>
                                             <a href="javascript:;">
                                                 打印所选项 </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">
-                                                导出为excel </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -154,21 +163,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <option value="20">20</option>
                                                     <option value="-1">所有</option>
                                                 </select> 条</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-sm-2">
-                                        <div class="dataTables_filter">
-                                            <label>分类:
-                                                <select name="sample_3_length" aria-controls="sample_3"
-                                                        class="form-control input-small input-inline select2-offscreen"
-                                                        tabindex="-1" title="">
-                                                    <option value="5">钻石彩宝</option>
-                                                    <option value="15">名表</option>
-                                                    <option value="20">翡翠玉石</option>
-                                                    <option value="-1">黄铂金</option>
-                                                    <option value="-1">所有</option>
-                                                </select></label>
-                                            </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-sm-2">
@@ -205,7 +199,47 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                                 aria-label=" Email : activate to sort column ascending">
-                                                分类
+                                                <div class="btn-group">
+                                                    <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                        分类 <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                分类1 </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                分类2 </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                分类3 </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                                aria-label=" Email : activate to sort column ascending">
+                                                <div class="btn-group">
+                                                    <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                        子分类 <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                子分类1 </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                子分类2 </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                子分类3 </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                                 aria-label=" Email : activate to sort column ascending">
@@ -247,7 +281,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </li>
                                                         <li>
                                                             <a href="javascript:;">
-                                                                售罄 </a>
+                                                                下架 </a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -267,9 +301,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 0000000000001
                                             </td>
                                             <td>
-                                                <button class="btn btn-xs blue">
                                                     钻石彩宝
-                                                </button>
+                                            </td>
+                                            <td>
+                                                钻石
                                             </td>
                                             <td>
                                                 <a class="link-name" href="#">
@@ -309,7 +344,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </li>
                                                         <li>
                                                             <a href="javascript:;">
-                                                                售罄 </a>
+                                                                下架 </a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -327,15 +362,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 0000000000001
                                             </td>
                                             <td>
-                                                <button class="btn btn-xs red">
                                                     名表
-                                                </button>
                                             </td>
                                             <td>
-                                                鑫鑫珠宝行
+                                                钻石彩宝
                                             </td>
                                             <td>
-                                                小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                <a class="link-name" href="#">
+                                                    鑫鑫珠宝行
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="link-name" href="#">
+                                                    小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                </a>
                                             </td>
                                             <td>
                                                 12000.00
@@ -365,7 +405,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </li>
                                                         <li>
                                                             <a href="javascript:;">
-                                                                售罄 </a>
+                                                                下架 </a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -383,15 +423,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 0000000000001
                                             </td>
                                             <td>
-                                                <button class="btn btn-xs green">
                                                     翡翠玉石
-                                                </button>
                                             </td>
                                             <td>
-                                                鑫鑫珠宝行
+                                                钻石彩宝
                                             </td>
                                             <td>
-                                                小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                <a class="link-name" href="#">
+                                                    鑫鑫珠宝行
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="link-name" href="#">
+                                                    小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                </a>
                                             </td>
                                             <td>
                                                 12000.00
@@ -421,7 +466,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </li>
                                                         <li>
                                                             <a href="javascript:;">
-                                                                售罄 </a>
+                                                                下架 </a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -439,15 +484,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 0000000000001
                                             </td>
                                             <td>
-                                                <button class="btn btn-xs yellow">
                                                     黄铂金
-                                                </button>
                                             </td>
                                             <td>
-                                                鑫鑫珠宝行
+                                                钻石彩宝
                                             </td>
                                             <td>
-                                                小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                <a class="link-name" href="#">
+                                                    鑫鑫珠宝行
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="link-name" href="#">
+                                                    小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                </a>
                                             </td>
                                             <td>
                                                 12000.00
@@ -464,7 +514,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs red btn-circle" href="javascript:;" data-toggle="dropdown">
-                                                        售罄 <i class="fa fa-angle-down"></i>
+                                                        下架 <i class="fa fa-angle-down"></i>
                                                     </a>
                                                     <ul class="dropdown-menu pull-right">
                                                         <li>
@@ -477,7 +527,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </li>
                                                         <li>
                                                             <a href="javascript:;">
-                                                                售罄 </a>
+                                                                下架 </a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -495,15 +545,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 0000000000001
                                             </td>
                                             <td>
-                                                <button class="btn btn-xs blue">
                                                     钻石彩宝
-                                                </button>
                                             </td>
                                             <td>
-                                                鑫鑫珠宝行
+                                                钻石彩宝
                                             </td>
                                             <td>
-                                                小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                <a class="link-name" href="#">
+                                                    鑫鑫珠宝行
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="link-name" href="#">
+                                                    小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                </a>
                                             </td>
                                             <td>
                                                 12000.00
@@ -533,7 +588,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </li>
                                                         <li>
                                                             <a href="javascript:;">
-                                                                售罄 </a>
+                                                                下架 </a>
                                                         </li>
                                                     </ul>
                                                 </div>

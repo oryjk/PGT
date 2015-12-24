@@ -1,13 +1,13 @@
 require.config({
-	baseUrl: jsRoot + "/resources/juedangpin",
+	baseUrl: "../../juedangpin",
     paths: {
-        jquery: 'core/js/jquery.min',
-        jqueryForm: 'core/js/jquery.form',
-        component: 'core/js/module/component'
+        jquery: './core/js/jquery.min',
+        jqueryForm: './core/js/jquery.form',
+        component: './core/js/module/component'
     },
     shim: {
         'jqueryForm': ['jquery']
-    },
+    }
 });
 
 
@@ -19,9 +19,9 @@ define(["jquery", "jqueryForm", 'component'], function($,jqForm,Cpn) {
 			if (data.error) {
 				alert(data.error);
 			} else {
-				var requestXML = data.requestXML
-				var sign = data.sign
-				var requestURL = data.requestURL
+				var requestXML = data.requestXML;
+				var sign = data.sign;
+				var requestURL = data.requestURL;
 				$("#req").val(requestXML);
 				$("#sign").val(sign);
 				$("#yeepayGatewayForm").attr("action", requestURL);
