@@ -13,6 +13,7 @@ import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
@@ -72,7 +73,7 @@ public class ESSearchController {
 
         PaginationBean paginationBean = new PaginationBean();
 
-        StringBuffer message = new StringBuffer();
+        StringBuilder message = new StringBuilder();
 
         if (StringUtils.isEmpty(currentIndex)) {
             paginationBean.setCurrentIndex(0);
@@ -172,7 +173,7 @@ public class ESSearchController {
             StringTerms gradeTerms = (StringTerms) aggMap.get("aggr");
             List<Bucket> categories = gradeTerms.getBuckets();
 
-            if (categories.size() != 0) {
+            if (CollectionUtils.isEmpty(categories)) {
 
                 List<ESTerm> esTermList = new ArrayList<>();
 
@@ -279,7 +280,7 @@ public class ESSearchController {
         }
     }
 
-    private String buildESMatch(@RequestParam(value = "term", required = false) String term, ModelAndView modelAndView, StringBuffer message,
+    private String buildESMatch(@RequestParam(value = "term", required = false) String term, ModelAndView modelAndView, StringBuilder message,
                                 List<ESTerm> esMatches) {
         if (!StringUtils.isEmpty(term)) {
             term = term.trim();
