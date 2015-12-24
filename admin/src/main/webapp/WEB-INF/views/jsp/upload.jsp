@@ -30,7 +30,7 @@
 			dataType: 'json',
 			type: 'POST',
 			success: function (responseBody) {
-				alert(responseBody);
+				$('.imageShow').attr('src',responseBody.imagePath);
 			}
 		})
 	})
