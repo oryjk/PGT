@@ -2,6 +2,7 @@ package com.pgt.category.service;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
+import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.utils.PaginationBean;
 
 import java.util.List;
@@ -28,4 +29,5 @@ public interface CategoryService {
 
     List<Category> queryCategories(Category category, PaginationBean paginationBean);
 
+    CategoryHierarchy queryCategoryHierarchy(Integer categoryId);
 }
