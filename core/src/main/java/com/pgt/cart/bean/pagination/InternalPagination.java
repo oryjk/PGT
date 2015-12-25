@@ -61,7 +61,7 @@ public class InternalPagination {
 
 	@Override
 	public String toString() {
-		return new StringBuilder().append("InternalPagination{").append("mCapacity=").append(mCapacity).append(", mCurrentIndex=").append(mCurrentIndex).append(", mCount=").append(mCount).append(", mKeyword='").append(mKeyword).append('\'').append(", mSortFieldName='").append(mSortFieldName).append('\'').append(", mAsc=").append(mAsc).append(", mInvalidPagination=").append(mInvalidPagination).append(", mResult=").append(mResult).append('}').toString();
+		return new StringBuilder().append("InternalPagination{").append("mCapacity=").append(mCapacity).append(", mCurrentIndex=").append(mCurrentIndex).append(", mCount=").append(mCount).append(", mKeyword='").append(mKeyword).append('\'').append(", mSortFieldName='").append(mSortFieldName).append('\'').append(", mAsc=").append(mAsc).append(", mInvalidPagination=").append(mInvalidPagination).append('}').toString();
 	}
 
 	public List<Long> getPageNumbers() {

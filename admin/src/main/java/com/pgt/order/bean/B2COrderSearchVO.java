@@ -25,6 +25,26 @@ public class B2COrderSearchVO {
 	private Date mSubmitTimeBeg;
 	private Date mSubmitTimeEnd;
 
+	public static B2COrderSearchVO getInstance() {
+		return new B2COrderSearchVO();
+	}
+
+	private B2COrderSearchVO() {
+
+	}
+
+	@Override
+	public String toString() {
+		return "B2COrderSearchVO{" +
+				"mOrderId=" + mOrderId +
+				", mUserName='" + mUserName + '\'' +
+				", mPriceBeg=" + mPriceBeg +
+				", mPriceEnd=" + mPriceEnd +
+				", mSubmitTimeBeg=" + mSubmitTimeBeg +
+				", mSubmitTimeEnd=" + mSubmitTimeEnd +
+				'}';
+	}
+
 	public int getOrderId() {
 		return mOrderId;
 	}
