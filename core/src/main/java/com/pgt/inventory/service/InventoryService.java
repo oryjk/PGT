@@ -80,9 +80,8 @@ public class InventoryService extends Transactionable {
             LOGGER.debug("--------------------  End lock Inventory for Order(id=" + orderId + ") --------------------");
         }
         if (!isRollbackOnly()) {
-
+            getEsSearchService().modifyProductInventory(inventoryStatistic);
         }
-        // TODO inventoryStatistic
     }
 
     public void releaseInventories() {
@@ -136,10 +135,8 @@ public class InventoryService extends Transactionable {
             commit();
         }
         if (!isRollbackOnly()) {
-
+            getEsSearchService().modifyProductInventory(inventoryStatistic);
         }
-        // TODO inventoryStatistic
-
     }
 
     private void cancelOrder(int orderId) {
