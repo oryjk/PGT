@@ -9,8 +9,10 @@ import com.pgt.inventory.bean.InventoryLock;
 import com.pgt.inventory.dao.InventoryLockMapper;
 import com.pgt.product.bean.InventoryType;
 import com.pgt.product.bean.Product;
+import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.Transactionable;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ import java.util.*;
 public class InventoryService extends Transactionable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryService.class);
+
+    private ESSearchService esSearchService;
 
     @Autowired
     private InventoryLockMapper inventoryLockMapper;
@@ -43,7 +47,8 @@ public class InventoryService extends Transactionable {
         LOGGER.debug("-------------------- Lock Inventory for Order(id=" + orderId + ") --------------------");
         List<CommerceItem> commerceItems = order.getCommerceItems();
         if (null == commerceItems || commerceItems.isEmpty()) {
-            LOGGER.debug("Lock Inventory for Order(id=" + orderId + ") No commerce Item return;");
+            LOGGER.debug("--------------------  End lock Inventory for Order(id=" + orderId +
+                    ") No commerce Item return; -------------------- ");
             return;
         }
         Set<Integer> productIdsOnOrder = new HashSet<Integer>();
@@ -61,34 +66,44 @@ public class InventoryService extends Transactionable {
         Collections.sort(needLockIds);
         LOGGER.debug("Lock Inventory for Order(id=" + orderId + ") productIds: " + StringUtils.join(needLockIds, ","));
         Date now = new Date();
+        List<Pair<Integer, Integer>> inventoryStatistic =  new ArrayList<Pair<Integer, Integer>>();
         ensureTransaction();
         try {
             acquireRowLock(needLockIds, orderId);
-            removeNonExistLock(existLocks, productIdsOnOrder, orderId);
-            lockInventory(order, existLocks, now);
+            removeNonExistLock(existLocks, productIdsOnOrder, orderId, inventoryStatistic);
+            lockInventory(order, existLocks, now, inventoryStatistic);
         } catch (Exception e) {
             setAsRollback();
             throw e;
         } finally {
             commit();
+            LOGGER.debug("--------------------  End lock Inventory for Order(id=" + orderId + ") --------------------");
         }
+        if (!isRollbackOnly()) {
+
+        }
+        // TODO inventoryStatistic
     }
 
     public void releaseInventories() {
+        LOGGER.debug("-------------------- start release inventories --------------------");
         List<Integer> orderIds = findExpiredOrders();
         if (null == orderIds || orderIds.isEmpty()) {
-            // TODO LOG
+            LOGGER.debug("-------------------- end release inventories --------------------");
             return;
         }
+        LOGGER.debug("Inventory Lock need release for orders: " + StringUtils.join(orderIds, ",") );
         for (Integer orderId : orderIds) {
             releaseInventory(orderId);
         }
+        LOGGER.debug("-------------------- end release inventories --------------------");
     }
 
     private void releaseInventory(Integer orderId) {
+        LOGGER.debug("Release inventories for order(id= " + orderId + ")");
         List<InventoryLock> expiredLocks = findExpiredInventoryLock(orderId);
         if (null == expiredLocks || expiredLocks.isEmpty()) {
-            // TODO LOG
+            LOGGER.debug("no inventories need release for order(id=" + orderId + ")");
             return;
         }
         List<Integer> productIds = new ArrayList<Integer>();
@@ -96,27 +111,39 @@ public class InventoryService extends Transactionable {
             productIds.add(expiredLock.getProductId().intValue());
         }
         Collections.sort(productIds);
+        LOGGER.debug("Release inventories for order(id= " + orderId + ") products:" + StringUtils.join(productIds, ","));
+        List<Pair<Integer, Integer>> inventoryStatistic = new ArrayList<Pair<Integer, Integer>>();
         ensureTransaction(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        boolean orderCancelled = false;
         try {
             acquireRowLock(productIds, orderId);
             for (InventoryLock expiredLock : expiredLocks) {
                 int productId = expiredLock.getProductId().intValue();
                 int quantity = expiredLock.getQuantity();
+                LOGGER.debug("Release inventory lock(orderId=" + orderId + "; productId=" + productId +  "; quantity="
+                        + quantity+")");
                 deleteInventoryLock(expiredLock);
-                changeInventory(productId, quantity,InventoryType.INCREASE, orderId);
-                // TODO check order is repeat update.s
-                cancelOrder(expiredLock.getOrderId().intValue());
+                changeInventory(productId, quantity,InventoryType.INCREASE, orderId,inventoryStatistic);
+                if (!orderCancelled) {
+                    cancelOrder(expiredLock.getOrderId().intValue());
+                }
+                orderCancelled = true;
             }
         } catch (Exception e) {
             setAsRollback();
-            // TODO LOG
+            LOGGER.error("Failed release lock for order(id="  + orderId  + ") ", e);
         } finally {
             commit();
         }
+        if (!isRollbackOnly()) {
+
+        }
+        // TODO inventoryStatistic
 
     }
 
     private void cancelOrder(int orderId) {
+        LOGGER.debug("Update order status to cancel. order(id= " + orderId + ")");
         Order order = new Order();
         order.setId(orderId);
         order.setStatus(OrderStatus.CANCEL);
@@ -139,7 +166,7 @@ public class InventoryService extends Transactionable {
      * @param existLocks
      * @param now
      */
-    private void lockInventory(final Order order, final Map<Integer, InventoryLock> existLocks, final Date now) throws LockInventoryException {
+    private void lockInventory(final Order order, final Map<Integer, InventoryLock> existLocks, final Date now, List<Pair<Integer, Integer>> inventoryStatistic) throws LockInventoryException {
         LOGGER.debug("Lock Inventory for Order(id=" + order.getId() + "). getting Inventory lock");
         Date inventoryLockExpireDate = null;
         // TODO: set expire Date base on order status
@@ -173,7 +200,7 @@ public class InventoryService extends Transactionable {
                 newLock.setUpdateDate(now);
                 newLock.setExpiredDate(inventoryLockExpireDate);
                 createInventoryLock(newLock);
-                changeInventory(productId, quantityRequire, InventoryType.DEDUCT, order.getId());
+                changeInventory(productId, quantityRequire, InventoryType.DEDUCT, order.getId(), inventoryStatistic);
                 LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
                         + "). Create Inventory lock success. Inventory lock info(productId=" + productId + "; quantity="
                         + quantityRequire + "; expiredDate= " + inventoryLockExpireDate + ")");
@@ -197,7 +224,7 @@ public class InventoryService extends Transactionable {
                 existLock.setQuantity(quantityRequire);
                 existLock.setExpiredDate(inventoryLockExpireDate);
                 updateInventoryLock(existLock, order.getId());
-                changeInventory(productId, quantityLocked - quantityRequire, InventoryType.INCREASE, order.getId());
+                changeInventory(productId, quantityLocked - quantityRequire, InventoryType.INCREASE, order.getId(), inventoryStatistic);
                 LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
                         + "). update Inventory lock success. Inventory lock info(productId=" + productId + "; quantity="
                         + quantityRequire + "; expiredDate= " + inventoryLockExpireDate + ")");
@@ -216,7 +243,7 @@ public class InventoryService extends Transactionable {
             existLock.setQuantity(quantityRequire);
             existLock.setExpiredDate(inventoryLockExpireDate);
             updateInventoryLock(existLock, order.getId());
-            changeInventory(productId, quantityRequire - quantityLocked, InventoryType.DEDUCT, order.getId());
+            changeInventory(productId, quantityRequire - quantityLocked, InventoryType.DEDUCT, order.getId(), inventoryStatistic);
             LOGGER.debug("Lock Inventory for Order(id=" + order.getId()
                     + "). update Inventory lock success. Inventory lock info(productId=" + productId + "; quantity="
                     + quantityRequire + "; expiredDate= " + inventoryLockExpireDate + ")");
@@ -239,7 +266,7 @@ public class InventoryService extends Transactionable {
      * @param orderId
      */
     private void removeNonExistLock(final Map<Integer, InventoryLock> existLocks, final Collection<Integer> productIds,
-                                    int orderId) {
+                                    int orderId, List<Pair<Integer, Integer>> inventoryStatistic) {
         if (null == existLocks || existLocks.isEmpty()) {
             LOGGER.debug("Lock Inventory for Order(id=" + orderId + "). No exist locks");
             return ;
@@ -255,7 +282,7 @@ public class InventoryService extends Transactionable {
                 }
                 int quantity = nonExistLock.getQuantity();
                 deleteInventoryLock(nonExistLock);
-                changeInventory(productId, quantity, InventoryType.INCREASE, orderId);
+                changeInventory(productId, quantity, InventoryType.INCREASE, orderId, inventoryStatistic);
 
             }
         }
@@ -287,7 +314,7 @@ public class InventoryService extends Transactionable {
 
 
 
-    private void changeInventory(Integer productId, int quantity, InventoryType action, int orderId) {
+    private void changeInventory(Integer productId, int quantity, InventoryType action, int orderId, List<Pair<Integer, Integer>> inventoryStatistic) {
         // increase inventory in DB
 
         int quantityLeft = queryInventoryQuantity(productId);
@@ -305,7 +332,7 @@ public class InventoryService extends Transactionable {
         product.setProductId(productId);
         product.setStock(quantityLeft);
         getInventoryLockMapper().updateInventoryQuantity(product);
-        // TODO change inventory in index
+        inventoryStatistic.add(Pair.of(productId, quantityLeft));
     }
 
     /**
@@ -352,5 +379,13 @@ public class InventoryService extends Transactionable {
 
     public void setOrderMapper(OrderMapper orderMapper) {
         this.orderMapper = orderMapper;
+    }
+
+    public ESSearchService getEsSearchService() {
+        return esSearchService;
+    }
+
+    public void setEsSearchService(ESSearchService esSearchService) {
+        this.esSearchService = esSearchService;
     }
 }
