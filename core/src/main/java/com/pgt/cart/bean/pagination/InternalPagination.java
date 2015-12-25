@@ -59,6 +59,28 @@ public class InternalPagination {
 		return mCurrentIndex - 1;
 	}
 
+	public long getFirstRecordIndex() {
+		if (0 >= mCapacity) {
+			throw new InvalidParameterException("mCapacity must greater than zero.");
+		}
+		long first = mCurrentIndex * mCapacity + 1;
+		if (first > mCount) {
+			return mCount;
+		}
+		return first;
+	}
+
+	public long getLastRecordIndex() {
+		if (0 >= mCapacity) {
+			throw new InvalidParameterException("mCapacity must greater than zero.");
+		}
+		long last = (mCurrentIndex + 1) * mCapacity + 1;
+		if (last > getMaxIndex()) {
+			return getMaxIndex();
+		}
+		return last;
+	}
+
 	@Override
 	public String toString() {
 		return new StringBuilder().append("InternalPagination{").append("mCapacity=").append(mCapacity).append(", mCurrentIndex=").append(mCurrentIndex).append(", mCount=").append(mCount).append(", mKeyword='").append(mKeyword).append('\'').append(", mSortFieldName='").append(mSortFieldName).append('\'').append(", mAsc=").append(mAsc).append(", mInvalidPagination=").append(mInvalidPagination).append('}').toString();

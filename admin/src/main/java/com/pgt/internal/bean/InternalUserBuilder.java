@@ -1,5 +1,7 @@
 package com.pgt.internal.bean;
 
+import com.pgt.cart.util.RepositoryUtils;
+
 import java.util.Date;
 
 public class InternalUserBuilder implements Trimable {
@@ -60,6 +62,10 @@ public class InternalUserBuilder implements Trimable {
 
 	public InternalUserBuilder setAvailable(final boolean pAvailable) {
 		mAvailable = pAvailable;
+		return this;
+	}
+	public InternalUserBuilder setAvailable(final String pAvailable) {
+		mAvailable = RepositoryUtils.idIsValid(pAvailable);
 		return this;
 	}
 
