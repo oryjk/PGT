@@ -2,11 +2,9 @@ package com.pgt.help.controller;
 
 import java.util.List;
 
-import com.pgt.help.bean.HelpCenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pgt.constant.Constants;
 import com.pgt.help.bean.HelpCategoryVo;
+import com.pgt.help.bean.HelpCenter;
 import com.pgt.help.service.HelpCenterService;
 
 @RestController
@@ -71,20 +70,36 @@ public class HelpCenterController {
 		modelAndView.setViewName("");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "update/{helpCenterId}",method = RequestMethod.GET)
+	public ModelAndView updateHelpCenter(ModelAndView modelAndView, @PathVariable("helpCenterId") String helpCenterId){
+		if(helpCenterId==null){
+            helpCenterId="1";
+		}
+		List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
+		modelAndView.addObject("helpCategorVoList", HelpCategorVoList);
+		modelAndView.setViewName("/help/editHelpcenter");
 
+		HelpCenter helpCenter= helpCenterService.findHelpCenterById(Integer.parseInt(helpCenterId));
+		modelAndView.addObject("helpCenter",helpCenter);
 
-	//修改一个帮助信息
-	public ModelAndView updateHlepCenter(ModelAndView modelAndView,HelpCenter helpCenter){
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/update",method = RequestMethod.POST)
+	public ModelAndView updateHlepCenter(HelpCenter helpCenter){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:update/"+helpCenter.getId());
 		if(ObjectUtils.isEmpty(helpCenter.getContent())){
 			LOGGER.debug("helpcenter content is null");
-			return modelAndView;
+			return mav;
 		}
 		if(ObjectUtils.isEmpty(helpCenter.getTitle())){
 			LOGGER.debug("Title title is null");
-			return modelAndView;
+			return mav;
 		}
 		helpCenterService.updateHelpCenter(helpCenter);
-		return modelAndView;
+		return mav;
 	}
 
 
