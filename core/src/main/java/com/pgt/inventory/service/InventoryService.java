@@ -29,6 +29,7 @@ public class InventoryService extends Transactionable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryService.class);
 
+    @Autowired
     private ESSearchService esSearchService;
 
     @Autowired
@@ -36,6 +37,10 @@ public class InventoryService extends Transactionable {
 
     @Autowired
     private OrderMapper orderMapper;
+
+    private static final int INVENTORY_LOCK_MIN_COMMIT_ORDER = 1;
+
+    private static final int INVENTORY_LOCK_MIN_START_PAYMENT = 2;
 
     public void lockInventory(final Order order) throws LockInventoryException {
 
@@ -67,20 +72,24 @@ public class InventoryService extends Transactionable {
         LOGGER.debug("Lock Inventory for Order(id=" + orderId + ") productIds: " + StringUtils.join(needLockIds, ","));
         Date now = new Date();
         List<Pair<Integer, Integer>> inventoryStatistic =  new ArrayList<Pair<Integer, Integer>>();
+        boolean isRollbackOnly = false;
         ensureTransaction();
+
         try {
             acquireRowLock(needLockIds, orderId);
             removeNonExistLock(existLocks, productIdsOnOrder, orderId, inventoryStatistic);
             lockInventory(order, existLocks, now, inventoryStatistic);
         } catch (Exception e) {
             setAsRollback();
+            LOGGER.error("lock inventory failed", e);
             throw e;
         } finally {
+            isRollbackOnly = isRollbackOnly();
             commit();
             LOGGER.debug("--------------------  End lock Inventory for Order(id=" + orderId + ") --------------------");
-        }
-        if (!isRollbackOnly()) {
-            getEsSearchService().modifyProductInventory(inventoryStatistic);
+            if (!isRollbackOnly) {
+                getEsSearchService().modifyProductInventory(inventoryStatistic);
+            }
         }
     }
 
@@ -114,6 +123,7 @@ public class InventoryService extends Transactionable {
         List<Pair<Integer, Integer>> inventoryStatistic = new ArrayList<Pair<Integer, Integer>>();
         ensureTransaction(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         boolean orderCancelled = false;
+        boolean isRollbackOnly = false;
         try {
             acquireRowLock(productIds, orderId);
             for (InventoryLock expiredLock : expiredLocks) {
@@ -132,11 +142,13 @@ public class InventoryService extends Transactionable {
             setAsRollback();
             LOGGER.error("Failed release lock for order(id="  + orderId  + ") ", e);
         } finally {
+            isRollbackOnly = isRollbackOnly();
             commit();
+            if (!isRollbackOnly) {
+                getEsSearchService().modifyProductInventory(inventoryStatistic);
+            }
         }
-        if (!isRollbackOnly()) {
-            getEsSearchService().modifyProductInventory(inventoryStatistic);
-        }
+
     }
 
     private void cancelOrder(int orderId) {
@@ -165,8 +177,14 @@ public class InventoryService extends Transactionable {
      */
     private void lockInventory(final Order order, final Map<Integer, InventoryLock> existLocks, final Date now, List<Pair<Integer, Integer>> inventoryStatistic) throws LockInventoryException {
         LOGGER.debug("Lock Inventory for Order(id=" + order.getId() + "). getting Inventory lock");
-        Date inventoryLockExpireDate = null;
-        // TODO: set expire Date base on order status
+        int lockExpireMin = INVENTORY_LOCK_MIN_COMMIT_ORDER;
+        if (OrderStatus.START_PAY == order.getStatus()) {
+            lockExpireMin = INVENTORY_LOCK_MIN_START_PAYMENT;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.MINUTE, lockExpireMin);
+        Date inventoryLockExpireDate = calendar.getTime();
 
         boolean allLocked = true;
         Set<Integer> oosProductIds = new HashSet<Integer>();

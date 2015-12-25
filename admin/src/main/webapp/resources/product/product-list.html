@@ -71,6 +71,29 @@ License: You must have a valid license purchased only from themeforest(the above
         .link-name {
             color: black;
         }
+        .pgt-time-divide {
+            line-height: 33px;
+        }
+        .pgt-time-divide span {
+            padding-left: 10px;
+            font-size: 14px;
+        }
+        .pgt-time-tittle {
+            line-height: 33px;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .pgt-time-tittle span {
+            margin-right: -20px;
+        }
+
+        .pgt-page-count {
+            padding-top: 17px;
+        }
+        .pgt-each-page {
+            padding-top: 10px;
+        }
 
     </style>
 </head>
@@ -152,17 +175,31 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="portlet-body">
                             <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                                 <div class="row">
-                                    <div class="col-md-2 col-sm-2">
-                                        <div class="dataTables_length" id="sample_3_length">
-                                            <label>每页显示
+                                    <div class="col-xs-2">
+                                        <div class="dataTables_length">
+                                            <label>主分类
                                                 <select name="sample_3_length" aria-controls="sample_3"
-                                                        class="form-control input-xsmall input-inline select2-offscreen"
+                                                        class="form-control input-small input-inline select2-offscreen"
                                                         tabindex="-1" title="">
-                                                    <option value="5">5</option>
-                                                    <option value="15">15</option>
-                                                    <option value="20">20</option>
+                                                    <option value="5">文玩杂项</option>
+                                                    <option value="15">玉石</option>
+                                                    <option value="20">琥珀蜜蜡</option>
+                                                    <option value="20">木制品</option>
                                                     <option value="-1">所有</option>
-                                                </select> 条</label>
+                                                </select></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <div class="dataTables_length">
+                                            <label>次分类
+                                                <select name="sample_3_length" aria-controls="sample_3"
+                                                        class="form-control input-small input-inline select2-offscreen"
+                                                        tabindex="-1" title="">
+                                                    <option value="5">橄榄核雕</option>
+                                                    <option value="15">牦牛角</option>
+                                                    <option value="20">骆驼骨头</option>
+                                                    <option value="-1">所有</option>
+                                                </select> </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-sm-2">
@@ -187,11 +224,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="table-scrollable productlist-box">
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                           id="sample_3" role="grid" aria-describedby="sample_3_info">
+                                           id="list" role="grid" aria-describedby="sample_3_info">
                                         <thead>
                                         <tr role="row">
                                             <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="">
-                                                <input type="checkbox">
+                                                <input id="checkAll" type="checkbox">
                                             </th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
                                                 colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
@@ -199,47 +236,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                                 aria-label=" Email : activate to sort column ascending">
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
-                                                        分类 <i class="fa fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                分类1 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                分类2 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                分类3 </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                主分类
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                                 aria-label=" Email : activate to sort column ascending">
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
-                                                        子分类 <i class="fa fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                子分类1 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                子分类2 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                子分类3 </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                次分类
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                                 aria-label=" Email : activate to sort column ascending">
@@ -267,20 +268,24 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                    <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
                                                         状态 <i class="fa fa-angle-down"></i>
                                                     </a>
                                                     <ul class="dropdown-menu pull-right">
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="2"  data-pgt-dropdown="status-option">
+                                                                全部 </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;" data-pgt-value="0"  data-pgt-dropdown="status-option">
                                                                 待售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
                                                                 正售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="-1"   data-pgt-dropdown="status-option">
                                                                 下架 </a>
                                                         </li>
                                                     </ul>
@@ -330,20 +335,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
                                                         待售 <i class="fa fa-angle-down"></i>
                                                     </a>
                                                     <ul class="dropdown-menu pull-right">
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
                                                                 待售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
                                                                 正售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="-1"  data-pgt-dropdown="status-option">
                                                                 下架 </a>
                                                         </li>
                                                     </ul>
@@ -391,20 +396,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
                                                         待售 <i class="fa fa-angle-down"></i>
                                                     </a>
                                                     <ul class="dropdown-menu pull-right">
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
                                                                 待售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
                                                                 正售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="-1"  data-pgt-dropdown="status-option">
                                                                 下架 </a>
                                                         </li>
                                                     </ul>
@@ -452,20 +457,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs yellow btn-circle" href="javascript:;" data-toggle="dropdown">
-                                                        正售 <i class="fa fa-angle-down"></i>
+                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
+                                                        待售 <i class="fa fa-angle-down"></i>
                                                     </a>
                                                     <ul class="dropdown-menu pull-right">
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
                                                                 待售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
                                                                 正售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="-1"  data-pgt-dropdown="status-option">
                                                                 下架 </a>
                                                         </li>
                                                     </ul>
@@ -513,20 +518,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs red btn-circle" href="javascript:;" data-toggle="dropdown">
-                                                        下架 <i class="fa fa-angle-down"></i>
+                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
+                                                        待售 <i class="fa fa-angle-down"></i>
                                                     </a>
                                                     <ul class="dropdown-menu pull-right">
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
                                                                 待售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
                                                                 正售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="-1"  data-pgt-dropdown="status-option">
                                                                 下架 </a>
                                                         </li>
                                                     </ul>
@@ -574,20 +579,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
                                                         待售 <i class="fa fa-angle-down"></i>
                                                     </a>
                                                     <ul class="dropdown-menu pull-right">
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
                                                                 待售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
                                                                 正售 </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;">
+                                                            <a href="javascript:;" data-pgt-value="-1"  data-pgt-dropdown="status-option">
                                                                 下架 </a>
                                                         </li>
                                                     </ul>
@@ -603,8 +608,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </table>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-5 col-sm-5">
-                                        <div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">
+                                    <div class="col-xs-2">
+                                        <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
                                             第
                                             <span>1</span>
                                             条 到 第
@@ -614,8 +619,21 @@ License: You must have a valid license purchased only from themeforest(the above
                                             条
                                         </div>
                                     </div>
+                                    <div class="col-xs-2">
+                                        <div class="dataTables_length pgt-each-page">
+                                            <label>每页显示
+                                                <select name="sample_3_length" aria-controls="sample_3"
+                                                        class="form-control input-xsmall input-inline select2-offscreen"
+                                                        tabindex="-1" title="">
+                                                    <option value="5">5</option>
+                                                    <option value="15">15</option>
+                                                    <option value="20">20</option>
+                                                    <option value="-1">所有</option>
+                                                </select> 条</label>
+                                        </div>
+                                    </div>
                                     <div class="col-md-7 col-sm-7">
-                                        <div class="dataTables_paginate paging_simple_numbers" id="sample_3_paginate">
+                                        <div class="dataTables_paginate paging_simple_numbers pgt-page-box" id="sample_3_paginate">
                                             <ul class="pagination">
                                                 <li class="paginate_button previous disabled" aria-controls="sample_3"
                                                     tabindex="0" id="sample_3_previous"><a href="#"><i
@@ -625,13 +643,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <li class="paginate_button " aria-controls="sample_3" tabindex="0"><a
                                                         href="#">2</a></li>
                                                 <li class="paginate_button " aria-controls="sample_3" tabindex="0"><a
-                                                        href="#">3</a></li>
+                                                        href="#">...</a></li>
+                                                <li class="paginate_button " aria-controls="sample_3" tabindex="0"><a
+                                                        href="#">6</a></li>
+                                                <li class="paginate_button " aria-controls="sample_3" tabindex="0"><a
+                                                        href="#">7</a></li>
                                                 <li class="paginate_button next" aria-controls="sample_3" tabindex="0"
                                                     id="sample_3_next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -673,39 +696,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="../assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
-<!-- IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support -->
-<script src="../assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
-<script src="../assets/admin/layout2/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="../assets/admin/layout3/scripts/demo.js" type="text/javascript"></script>
-<script src="../assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
-<script src="../assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<script>
-    jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core componets
-        Layout.init(); // init layout
-        Demo.init(); // init demo(theme settings page)
-        QuickSidebar.init(); // init quick sidebar
-        Index.init(); // init index page
-        Tasks.initDashboardWidget(); // init tash dashboard widget
-    });
-</script>
 
-<script src="backUserList.js"></script>
+
+<script src="product-list.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

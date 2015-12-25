@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.pgt.inventory.LockInventoryException;
+import com.pgt.inventory.service.InventoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +61,9 @@ public class ShippingController {
 	private OrderService		orderService;
 	@Autowired
 	private CityService			cityService;
+
+	@Resource(name = "inventoryService")
+	private InventoryService inventoryService;
 
 	@RequestMapping(value = "/shipping", method = { RequestMethod.GET })
 	public ModelAndView shipping(HttpServletRequest request, HttpSession session) {
@@ -177,6 +183,22 @@ public class ShippingController {
 			order.setStatus(OrderStatus.FILLED_SHIPPING);
 			getOrderService().updateOrder(order);
 		}
+
+		try {
+			getInventoryService().lockInventory(order);
+		} catch (LockInventoryException e) {
+			String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
+			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
+
+			return mav;
+		} catch (Exception e) {
+			String message = "INV.CHECK.FAILD";
+			LOGGER.error("lock inventory failed", e);
+			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
+			return mav;
+		}
+
+
 		mav.setViewName("redirect:/payment/gateway");
 		mav.addObject(CartConstant.ORDER_ID, order.getId());
 		return mav;
@@ -238,4 +260,11 @@ public class ShippingController {
 		this.orderService = orderService;
 	}
 
+	public InventoryService getInventoryService() {
+		return inventoryService;
+	}
+
+	public void setInventoryService(InventoryService inventoryService) {
+		this.inventoryService = inventoryService;
+	}
 }
