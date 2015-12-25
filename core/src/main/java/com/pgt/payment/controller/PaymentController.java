@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pgt.cart.bean.OrderStatus;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
 import org.apache.commons.lang3.StringUtils;
@@ -107,6 +108,7 @@ public class PaymentController {
 			ModelAndView modelAndView = new ModelAndView("redirect:"+getUrlConfiguration().getShoppingCartPage());
 			return modelAndView;
 		}
+		order.setStatus(OrderStatus.START_PAY);
 		try {
 			getInventoryService().lockInventory(order);
 

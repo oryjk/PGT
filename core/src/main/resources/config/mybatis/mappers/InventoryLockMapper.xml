@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pgt.payment.dao.PaymentMapper">
+<mapper namespace="com.pgt.inventory.dao.InventoryLockMapper">
 
     <insert id="createInventoryLock" parameterType="com.pgt.inventory.bean.InventoryLock" >
         INSERT INTO INVENTORY_LOCK (PRODUCT_ID, ORDER_ID, QUANTITY, EXPIRE_DATE, CREATION_DATE, UPDATE_DATE)
@@ -25,7 +25,7 @@
     </select>
 
     <update id="updateInventoryQuantity" parameterType="com.pgt.product.bean.Product">
-        UPDATE PRODUCT  SET STOCK = #{stock}  WHERE PRODUCT_ID = #{id}
+        UPDATE PRODUCT  SET STOCK = #{stock}  WHERE PRODUCT_ID = #{productId}
     </update>
 
 
