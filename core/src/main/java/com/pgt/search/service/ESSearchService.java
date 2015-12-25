@@ -15,9 +15,11 @@ import com.pgt.hot.service.HotProductHelper;
 import com.pgt.product.bean.InventoryType;
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
+import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
@@ -75,6 +77,8 @@ public class ESSearchService {
     @Autowired
     private CategoryHelper categoryHelper;
 
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private HotProductHelper hotProductHelper;
@@ -248,37 +252,40 @@ public class ESSearchService {
     /**
      * Do product update
      *
-     * @param productIds
+     * @param productPairs
      * @return
      */
-    public boolean modifyProductInventory(List<Integer> productIds, InventoryType inventoryType) {
+    public boolean modifyProductInventory(List<Pair<Integer, Integer>> productPairs) {
         LOGGER.debug("Begin to reduce the product inventory.");
         BulkResponse bulkResponse;
 
         try {
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Product> products = productHelper.findProductsByIds(productIds);
-            products.stream().forEach(product -> {
-                Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
-                Category rootCategory =parentCategory.getParent();
-                product.setStock(0);
-                if (inventoryType == InventoryType.INCREASE) {
-                    product.setStock(1);
-                }
+            List<Integer> productList = new ArrayList<>();
+            productPairs.stream().forEach(pair -> {
+                productList.add(pair.getKey());
+            });
 
-                ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
-                ObjectMapper mapper = new ObjectMapper();
-                try {
-                    byte[] bytes = mapper.writeValueAsBytes(esProduct);
-                    LOGGER.debug("Product id is {}.", esProduct.getProductId());
-                    UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
-                            .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
-                    bulkRequest.add(updateRequestBuilder);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+            productPairs.stream().forEach(integerIntegerPair -> {
+                Product product = productService.queryProduct(integerIntegerPair.getKey());
+                if (!ObjectUtils.isEmpty(product)) {
+                    Category parentCategory = categoryService.queryParentCategoryByProductId(integerIntegerPair.getKey());
+                    Category rootCategory = parentCategory.getParent();
+                    product.setStock(integerIntegerPair.getValue());
+                    ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        byte[] bytes = mapper.writeValueAsBytes(esProduct);
+                        LOGGER.debug("Product id is {}.", esProduct.getProductId());
+                        UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
+                                .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
+                        bulkRequest.add(updateRequestBuilder);
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
             });

@@ -102,7 +102,7 @@ public class IndexTest {
     public void updateInventory(){
         List<Integer> ids=new ArrayList<>();
         ids.add(131);
-        esSearchService.modifyProductInventory(ids, InventoryType.DEDUCT);
+//        esSearchService.modifyProductInventory(ids, InventoryType.DEDUCT);
     }
     public ESSearchService getEsSearchService() {
         return esSearchService;
