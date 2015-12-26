@@ -29,6 +29,7 @@ $(document).on('click', '[data-pgt-btn="deleteChecked"]', function() {
     $('#confirmModal').modal('show');
     $('#confirmText').text('确定要删除所选项?')
 });
+
 $('#checkAll').change(function() {
     var that = $(this);
     var allCheck = $('#list input[type="checkbox"]');
@@ -37,4 +38,4 @@ $('#checkAll').change(function() {
     } else {
         allCheck.prop('checked', false);
     }
-})
+});

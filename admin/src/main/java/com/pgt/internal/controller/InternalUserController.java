@@ -21,10 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -172,7 +169,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/register")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity register(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "login", required = true) String login,
@@ -180,9 +177,9 @@ public class InternalUserController extends InternalTransactionBaseController im
 			@RequestParam(value = "passwordConfirm", required = true) String passwordConfirm,
 			@RequestParam(value = "role", required = true) Role role,
 			@RequestParam(value = "investType", required = false) InternalUserInvestType investType,
-			String name, String phone, String email, boolean available) {
+			String name, String phone, String email, String available) {
 		InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
-		iub.setName(name).setPhone(phone).setEmail(email);
+		iub.setName(name).setPhone(phone).setEmail(email).setAvailable(available);
 		// set default success as false
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check fields
