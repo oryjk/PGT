@@ -16,6 +16,7 @@ import com.pgt.user.bean.User;
 import com.pgt.user.service.UserService;
 import com.yeepay.g3.utils.security.cfca.SignUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -471,6 +472,12 @@ public class YeePayController {
 		paramMap.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO, platformUserNo);
 		paramMap.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
 		paramMap.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.MINUTE, getConfig().getTransactionExpiredMin());
+		paramMap.put(YeePayConstants.PARAM_NAME_EXPIRED, DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd HH:mm:ss"));
+
 
 		Map<String, Object> detailsMap = new HashMap<String, Object>();
 		List<Map<String, Object>> detailsList = new ArrayList<>();
