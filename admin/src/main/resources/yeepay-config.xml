@@ -12,6 +12,7 @@
 		<property name="password" value="tmd123456" />
 		<property name="connectionTimeout" value="5000" />
 		<property name="socketTimeout" value="15000" />
+		<property name="transactionExpiredMin" value="30"/>
 		<!-- need change when go live -->
 		<property name="platformUserNoPrefix" value="pgt"></property>
 		<property name="requestNoPrefix" value="pgttestt"/>

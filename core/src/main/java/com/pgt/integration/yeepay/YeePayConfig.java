@@ -43,6 +43,8 @@ public class YeePayConfig {
 	
 	private String completeTransactionNotifyUrl;
 
+	private int transactionExpiredMin;
+
 	public String getPlatformNo() {
 		return platformNo;
 	}
@@ -187,4 +189,11 @@ public class YeePayConfig {
 		this.completeTransactionNotifyUrl = completeTransactionNotifyUrl;
 	}
 
+	public int getTransactionExpiredMin() {
+		return transactionExpiredMin;
+	}
+
+	public void setTransactionExpiredMin(int transactionExpiredMin) {
+		this.transactionExpiredMin = transactionExpiredMin;
+	}
 }
