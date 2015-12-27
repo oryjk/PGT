@@ -369,7 +369,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 				rb.addErrorMessage(PROP_PHONE, ERROR_PHONE_INVALID);
 				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 			}
-			if (!getInternalUserValidationService().checkPhoneUniqueness(internalUser.getPhone(), null)) {
+			if (!getInternalUserValidationService().checkPhoneUniqueness(internalUser.getPhone(), internalUser.getId())) {
 				LOGGER.debug("Update internal user with id: {} but duplicate phone: {}", internalUser.getId(), internalUser.getPhone());
 				rb.addErrorMessage(PROP_PHONE, ERROR_PHONE_DUPLICATE);
 				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);

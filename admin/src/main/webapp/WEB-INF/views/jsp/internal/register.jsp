@@ -79,7 +79,7 @@
                                 <div class="col-md-4">
                                     <div class="input-icon">
                                         <i class="glyphicon glyphicon-envelope"></i>
-                                        <input type="email" phone="email" class="form-control" placeholder="Email">
+                                        <input type="email" name="email" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
                             </div>

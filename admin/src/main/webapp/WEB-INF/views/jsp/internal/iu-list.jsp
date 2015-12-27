@@ -153,7 +153,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
-                                        <td><button class="btn btn-xs blue btn-circle">修改</button>
+                                        <td><a href="<spring:url value="/internal/iu-modify?uid=${iu.id}" />"><button class="btn btn-xs blue btn-circle">修改</button></a>
                                             <button class="btn btn-xs yellow btn-circle">删除</button></td>
                                     </tr>
                                 </c:forEach>
