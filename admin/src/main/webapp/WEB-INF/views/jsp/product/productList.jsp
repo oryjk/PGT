@@ -9,6 +9,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList">
 	productList:${productList}
@@ -216,312 +217,64 @@
 								</tr>
 								</thead>
 								<tbody>
-								<tr class="gradeX odd" role="row">
-									<td>
-										<input type="checkbox">
-									</td>
-									<td class="sorting_1">
-										0000000000001
-									</td>
-									<td>
-										钻石彩宝
-									</td>
-									<td>
-										钻石
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											鑫鑫珠宝行
-										</a>
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
-										</a>
-									</td>
-									<td>
-										12000.00
-									</td>
-									<td>
-										6988.00
-									</td>
-									<td class="productlist-face-box">
-										<img src="" alt=""/>
-									</td>
-									<td>
-										1
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
-												待售 <i class="fa fa-angle-down"></i>
+								<c:forEach items="${productList}" var="product">
+									<tr class="gradeX odd" role="row">
+										<td>
+											<input type="checkbox">
+										</td>
+										<td class="sorting_1">
+											${product.productId}
+										</td>
+										<td>
+											${categoryHierarchy.parentCategory.name}
+										</td>
+										<td>
+											${categoryHierarchy.name}
+										</td>
+										<td>
+											<a class="link-name" href="#">
+												鑫鑫珠宝行
 											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;">
-														待售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														正售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														下架 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">修改</button>
-										<button class="btn btn-xs red btn-circle">删除</button>
-									</td>
-								</tr>
-								<tr class="gradeX odd" role="row">
-									<td>
-										<input type="checkbox">
-									</td>
-									<td class="sorting_1">
-										0000000000001
-									</td>
-									<td>
-										名表
-									</td>
-									<td>
-										钻石彩宝
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											鑫鑫珠宝行
-										</a>
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
-										</a>
-									</td>
-									<td>
-										12000.00
-									</td>
-									<td>
-										6988.00
-									</td>
-									<td class="productlist-face-box">
-										<img src="" alt=""/>
-									</td>
-									<td>
-										1
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
-												待售 <i class="fa fa-angle-down"></i>
+										</td>
+										<td>
+											<a class="link-name" href="#">
+												${product.name}
 											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;">
-														待售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														正售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														下架 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green-haze btn-circle">修改</button>
-										<button class="btn btn-xs red-haze btn-circle">删除</button>
-									</td>
-								</tr>
-								<tr class="gradeX odd" role="row">
-									<td>
-										<input type="checkbox">
-									</td>
-									<td class="sorting_1">
-										0000000000001
-									</td>
-									<td>
-										翡翠玉石
-									</td>
-									<td>
-										钻石彩宝
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											鑫鑫珠宝行
-										</a>
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
-										</a>
-									</td>
-									<td>
-										12000.00
-									</td>
-									<td>
-										6988.00
-									</td>
-									<td class="productlist-face-box">
-										<img src="" alt=""/>
-									</td>
-									<td>
-										1
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs yellow btn-circle" href="javascript:;" data-toggle="dropdown">
-												正售 <i class="fa fa-angle-down"></i>
-											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;">
-														待售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														正售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														下架 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green-haze btn-circle">修改</button>
-										<button class="btn btn-xs red-haze btn-circle">删除</button>
-									</td>
-								</tr>
-								<tr class="gradeX odd" role="row">
-									<td>
-										<input type="checkbox">
-									</td>
-									<td class="sorting_1">
-										0000000000001
-									</td>
-									<td>
-										黄铂金
-									</td>
-									<td>
-										钻石彩宝
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											鑫鑫珠宝行
-										</a>
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
-										</a>
-									</td>
-									<td>
-										12000.00
-									</td>
-									<td>
-										6988.00
-									</td>
-									<td class="productlist-face-box">
-										<img src="" alt=""/>
-									</td>
-									<td>
-										1
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs red btn-circle" href="javascript:;" data-toggle="dropdown">
-												下架 <i class="fa fa-angle-down"></i>
-											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;">
-														待售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														正售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														下架 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green-haze btn-circle">修改</button>
-										<button class="btn btn-xs red-haze btn-circle">删除</button>
-									</td>
-								</tr>
-								<tr class="gradeX odd" role="row">
-									<td>
-										<input type="checkbox">
-									</td>
-									<td class="sorting_1">
-										0000000000001
-									</td>
-									<td>
-										钻石彩宝
-									</td>
-									<td>
-										钻石彩宝
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											鑫鑫珠宝行
-										</a>
-									</td>
-									<td>
-										<a class="link-name" href="#">
-											小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
-										</a>
-									</td>
-									<td>
-										12000.00
-									</td>
-									<td>
-										6988.00
-									</td>
-									<td class="productlist-face-box">
-										<img src="" alt=""/>
-									</td>
-									<td>
-										1
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
-												待售 <i class="fa fa-angle-down"></i>
-											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;">
-														待售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														正售 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														下架 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green-haze btn-circle">修改</button>
-										<button class="btn btn-xs red-haze btn-circle">删除</button>
-									</td>
-								</tr>
+										</td>
+										<td>
+											${product.listPrice}
+										</td>
+										<td>
+											${product.salePrice}
+										</td>
+										<td class="productlist-face-box">
+											<img src="${product.thumbnailMedias[0].path}" alt=""/>
+										</td>
+										<td>
+											1
+										</td>
+										<td>
+											<div class="btn-group">
+												<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
+													<c:choose>
+														<c:when test="${product.status==1}">
+															正售
+														</c:when>
+														<c:otherwise>
+															下架
+														</c:otherwise>
+													</c:choose>
+													<i class="fa fa-angle-down"></i>
+												</a>
 
+											</div>
+										</td>
+										<td>
+											<button class="btn btn-xs green btn-circle">修改</button>
+											<button class="btn btn-xs red btn-circle">删除</button>
+										</td>
+									</tr>
+								</c:forEach>
 								</tbody>
 							</table>
 						</div>

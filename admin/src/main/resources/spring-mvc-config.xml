@@ -20,12 +20,6 @@
 
     <mvc:interceptors>
 
-        <!--Initial global config-->
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.pgt.global.interceptor.GlobalConfigInterceptor"></bean>
-
-        </mvc:interceptor>
 
         <!-- find user in cookie -->
         <mvc:interceptor>
