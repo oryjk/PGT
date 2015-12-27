@@ -37,6 +37,8 @@ import java.util.Date;
 @RequestMapping("/internal")
 public class InternalUserController extends InternalTransactionBaseController implements InternalUserMessages, InternalUserProperties {
 
+	private static final String REDIRECT_DASHBOARD = "redirect:/internal/dashboard";
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(InternalUserController.class);
 
 	@Resource(name = "internalUserService")
@@ -48,6 +50,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	@Resource(name = "responseBuilderFactory")
 	private ResponseBuilderFactory mResponseBuilderFactory;
 
+
 	@RequestMapping(value = "/login")//, method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView("/internal/login");
@@ -55,7 +58,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		if (iu != null && RepositoryUtils.idIsValid(iu.getId()) && iu.isAvailable()) {
 			// internal user has already login
 			LOGGER.debug("Internal user: {} already stay in login state, no need to login again", iu.getLogin());
-			mav.setViewName("redirect:/internal/dashboard");
+			mav.setViewName(REDIRECT_DASHBOARD);
 			return mav;
 		}
 		//TODO check recognized user in cookies
@@ -69,7 +72,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		if (iu != null && RepositoryUtils.idIsValid(iu.getId()) && iu.isAvailable()) {
 			// internal user has already login
 			LOGGER.debug("Internal user: {} already stay in login state, logout before try to register.", iu.getLogin());
-			mav.setViewName("redirect:/internal/dashboard");
+			mav.setViewName(REDIRECT_DASHBOARD);
 			return mav;
 		}
 		//TODO check recognized user in cookies
@@ -111,9 +114,65 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return mav;
 	}
 
-	@RequestMapping(value = "/authorize")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/authorize", method = RequestMethod.GET)
+	public ModelAndView authorize(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "login", required = true) String login,
+			@RequestParam(value = "password", required = true) String password) {
+		// trim login
+		login = login.trim();
+		ModelAndView mav = new ModelAndView("redirect:/internal/dashboard");
+		// check internal user exist
+		InternalUser iu = new InternalUserBuilder().setLogin(login).setPassword(password).createInternalUser();
+		TransactionStatus status = ensureTransaction();
+		try {
+			InternalUser piu = getInternalUserService().findInternalUser(login);
+			if (piu == null) {
+				LOGGER.debug("Cannot find internal user by login: {}", login);
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_LOGIN_NOT_EXIST));
+				return mav;
+			}
+			// check password
+			String encryptedPassword = DigestUtils.md5Hex(password + piu.getSalt());
+			LOGGER.debug("Login internal user: {} by password: {} with salt: {}", login, password, piu.getSalt());
+			if (!piu.getPassword().equals(encryptedPassword)) {
+				LOGGER.debug("Login internal user: {} by encrypted password: {} doesn't match persist password", login, encryptedPassword);
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PASSWORD_NOT_MATCH));
+				return mav;
+			}
+			// clean important fields
+			piu.setPassword(null);
+			piu.setSalt(null);
+			LOGGER.debug("Login internal user: {} with correct password", login);
+			// check available
+			if (!piu.isAvailable()) {
+				LOGGER.debug("Login internal user: {}, but user was set as forbidden. ", login);
+				iu.setAvailable(false);
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(WARN_USER_STATUS_INVALID));
+				return mav;
+			}
+			LOGGER.debug("Login internal user: {} success", login);
+			// update last login date
+			piu.setLastLoginDate(new Date());
+			piu.setIp(captureIpAddress(pRequest));
+			getInternalUserService().updateLastLogin(piu.getId(), piu.getIp());
+			// set internal user into session
+			pRequest.getSession().setAttribute(INTERNAL_USER, piu);
+			//TODO set cookies to mark as remember me status
+			mav.setViewName(REDIRECT_DASHBOARD);
+			return mav;
+		} catch (Exception e) {
+			status.setRollbackOnly();
+			LOGGER.error("Login internal user: {} occurs exception: ", login, e);
+		} finally {
+			getTransactionManager().commit(status);
+		}
+		mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_GENERAL_LOGIN_FAILED));
+		return mav;
+	}
+
+	@RequestMapping(value = "/ajaxAuthorize", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity authorize(HttpServletRequest pRequest, HttpServletResponse pResponse,
+	public ResponseEntity ajaxAuthorize(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "login", required = true) String login,
 			@RequestParam(value = "password", required = true) String password) {
 		// trim login
@@ -170,8 +229,105 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView register(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "login", required = true) String login,
+			@RequestParam(value = "password", required = true) String password,
+			@RequestParam(value = "passwordConfirm", required = true) String passwordConfirm,
+			@RequestParam(value = "role", required = true) Role role,
+			@RequestParam(value = "investType", required = false) InternalUserInvestType investType,
+			String name, String phone, String email, String available) {
+		InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
+		iub.setName(name).setPhone(phone).setEmail(email).setAvailable(available);
+		ModelAndView mav = new ModelAndView("redirect:/internal/signup");
+		// set default success as false
+		// check fields
+		if (!getInternalUserValidationService().getLoginRegexValidator().match(login)) {
+			LOGGER.debug("Register internal user with invalid login: {}", login);
+			mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_LOGIN_INVALID));
+			return mav;
+		}
+		if (!getInternalUserValidationService().getPasswordRegexValidator().match(password)) {
+			LOGGER.debug("Register internal user with login: {} but password: {} is invalid", login, password);
+			mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PASSWORD_INVALID));
+			return mav;
+		}
+		if (!StringUtils.equals(password, passwordConfirm)) {
+			LOGGER.debug("Register internal user with login: {} but password: {} dose not equals confirmed password: {}", login,
+					password, passwordConfirm);
+			mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PASSWORD_CONFIRM_INVALID));
+			return mav;
+		}
+		if (!getInternalUserValidationService().checkLoginUniqueness(login, null)) {
+			LOGGER.debug("Register internal user with duplicate login: {}", login);
+			mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_LOGIN_DUPLICATE));
+			return mav;
+		}
+		if (StringUtils.isNotBlank(name)) {
+			if (!getInternalUserValidationService().checkNameUniqueness(name, null)) {
+				LOGGER.debug("Register internal user with login: {} but duplicate name: {}", login, name);
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_NAME_DUPLICATE));
+				return mav;
+			}
+		}
+		if (StringUtils.isNotBlank(email)) {
+			if (!getInternalUserValidationService().getEmailRegexValidator().match(email)) {
+				LOGGER.debug("Register internal user with login: {} but invalid email: {}", login, email);
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_EMAIL_INVALID));
+				return mav;
+			}
+			if (!getInternalUserValidationService().checkEmailUniqueness(email, null)) {
+				LOGGER.debug("Register internal user with login: {} but duplicate email: {}", login, email);
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_EMAIL_DUPLICATE));
+				return mav;
+			}
+		}
+		if (StringUtils.isNotBlank(phone)) {
+			if (!getInternalUserValidationService().getPhoneRegexValidator().match(phone)) {
+				LOGGER.debug("Register internal user with login: {} but invalid phone: {}", login, phone);
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PHONE_INVALID));
+				return mav;
+			}
+			if (!getInternalUserValidationService().checkPhoneUniqueness(phone, null)) {
+				LOGGER.debug("Register internal user with login: {} but duplicate phone: {}", login, phone);
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PHONE_DUPLICATE));
+				return mav;
+			}
+		}
+
+		TransactionStatus status = ensureTransaction();
+		try {
+			LOGGER.debug("Register internal user with login: {} passed fields validation", login);
+			// generate salt and encrypted password
+			String salt = String.valueOf(System.currentTimeMillis());
+			String encryptedPassword = DigestUtils.md5Hex(password + salt);
+			String ipAddress = captureIpAddress(pRequest);
+			iub.setSalt(salt).setPassword(encryptedPassword).setIp(ipAddress).setRole(role).setInvestType(investType);
+			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.DEVELOPER)) {
+				iub.setInvestType(InternalUserInvestType.NONEED);
+			}
+			InternalUser iu = iub.createInternalUser();
+			LOGGER.debug("Create internal user: {}", iu);
+			boolean result = getInternalUserService().createInternalUser(iu);
+			LOGGER.debug("Create internal user with login: {} has result: {}", login, result ? "success" : "failed");
+			if (result) {
+				// set internal user into session to auto login
+				pRequest.getSession().setAttribute(INTERNAL_USER, iu);
+				mav.setViewName(REDIRECT_DASHBOARD);
+				return mav;
+			}
+		} catch (Exception e) {
+			status.setRollbackOnly();
+			LOGGER.error("Register internal user: {} occurs exception: ", login, e);
+		} finally {
+			getTransactionManager().commit(status);
+		}
+		mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_GENERAL_REGISTER_FAILED));
+		return mav;
+	}
+
+	@RequestMapping(value = "/ajaxRegister", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity register(HttpServletRequest pRequest, HttpServletResponse pResponse,
+	public ResponseEntity ajaxRegister(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "login", required = true) String login,
 			@RequestParam(value = "password", required = true) String password,
 			@RequestParam(value = "passwordConfirm", required = true) String passwordConfirm,
