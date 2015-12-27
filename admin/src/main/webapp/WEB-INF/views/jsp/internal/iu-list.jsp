@@ -37,10 +37,6 @@
                                     <a href="javascript:;">
                                         禁用所选项 </a>
                                 </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        删除所选项 </a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -153,8 +149,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
-                                        <td><a href="<spring:url value="/internal/iu-modify?uid=${iu.id}" />"><button class="btn btn-xs blue btn-circle">修改</button></a>
-                                            <button class="btn btn-xs yellow btn-circle">删除</button></td>
+                                        <td><a href="<spring:url value="/internal/iu-modify?uid=${iu.id}" />"><button class="btn btn-xs blue btn-circle">修改</button></a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
