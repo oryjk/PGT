@@ -43,7 +43,7 @@
 		SELECT *
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
-		AND o.status = 1
+		AND o.status = 10
 	</select>
 
 	<insert id="createOrder" parameterType="com.pgt.cart.bean.Order" keyProperty="id" useGeneratedKeys="true">
