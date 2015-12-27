@@ -42,7 +42,6 @@ import com.pgt.constant.UserConstant;
 import com.pgt.integration.yeepay.YeePayConstants;
 import com.pgt.integration.yeepay.YeePayHelper;
 import com.pgt.integration.yeepay.direct.service.DirectYeePay;
-import com.pgt.mail.MailConstants;
 import com.pgt.mail.service.MailService;
 import com.pgt.user.bean.ResetPasswordStep;
 import com.pgt.user.bean.User;
@@ -314,10 +313,6 @@ public class UserController {
             return modelAndView;
         }
         userServiceImp.saveUser(user);
-        Map<String,Object> params = new HashMap<String,Object>(); 
-        params.put("user", params);
-//		getMailService().sendEmail(MailConstants.SUBJECT_REGISTRATION, params, MailConstants.TEMPLATE_REGISTRATION,
-//				user.getEmail());
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_PHONE_CODE);
         modelAndView.setViewName("/user/successRegister");

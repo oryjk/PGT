@@ -12,7 +12,6 @@ import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.Constants;
 import com.pgt.home.bean.HotSale;
 import com.pgt.hot.service.HotProductHelper;
-import com.pgt.product.bean.InventoryType;
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
 import com.pgt.product.service.ProductService;
@@ -29,7 +28,6 @@ import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.Requests;
 import org.elasticsearch.client.transport.TransportClient;
@@ -269,23 +267,8 @@ public class ESSearchService {
 
             productPairs.stream().forEach(integerIntegerPair -> {
                 Product product = productService.queryProduct(integerIntegerPair.getKey());
-                if (!ObjectUtils.isEmpty(product)) {
-                    Category parentCategory = categoryService.queryParentCategoryByProductId(integerIntegerPair.getKey());
-                    Category rootCategory = parentCategory.getParent();
-                    product.setStock(integerIntegerPair.getValue());
-                    ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
-                    ObjectMapper mapper = new ObjectMapper();
-                    try {
-                        byte[] bytes = mapper.writeValueAsBytes(esProduct);
-                        LOGGER.debug("Product id is {}.", esProduct.getProductId());
-                        UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
-                                .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
-                        bulkRequest.add(updateRequestBuilder);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                if(!ObjectUtils.isEmpty(product)){
+
                 }
 
             });

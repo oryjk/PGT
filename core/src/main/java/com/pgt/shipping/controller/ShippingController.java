@@ -1,5 +1,6 @@
 package com.pgt.shipping.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +9,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.pgt.inventory.LockInventoryException;
-import com.pgt.inventory.service.InventoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +35,8 @@ import com.pgt.city.bean.Province;
 import com.pgt.city.service.CityService;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
+import com.pgt.inventory.LockInventoryException;
+import com.pgt.inventory.service.InventoryService;
 import com.pgt.shipping.bean.ShippingMethod;
 import com.pgt.shipping.bean.ShippingVO;
 import com.pgt.shipping.service.ShippingService;
@@ -181,6 +182,7 @@ public class ShippingController {
 			return mav;
 		} else {
 			order.setStatus(OrderStatus.FILLED_SHIPPING);
+			order.setSubmitDate(new Date());
 			getOrderService().updateOrder(order);
 		}
 

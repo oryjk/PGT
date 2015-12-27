@@ -27,6 +27,7 @@
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
                     <form action="<spring:url value="/internal/register" />" class="form-horizontal" method="post">
+                        <input type="hidden" name="investType" value="NONEED">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">登陆账号</label>
@@ -78,7 +79,7 @@
                                 <div class="col-md-4">
                                     <div class="input-icon">
                                         <i class="glyphicon glyphicon-envelope"></i>
-                                        <input type="email" phone="email" class="form-control" placeholder="Email">
+                                        <input type="email" name="email" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
                             </div>

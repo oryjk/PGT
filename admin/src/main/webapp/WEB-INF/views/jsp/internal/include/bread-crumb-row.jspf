@@ -33,9 +33,10 @@
             </li>
             <c:choose>
                 <c:when test="${param.step eq 'signup'}">
-                    <li>
-                        <a href="<spring:url value="/internal/signup" />">新增管理员</a>
-                    </li>
+                    <li>新增管理员</li>
+                </c:when>
+                <c:when test="${param.step eq 'iu-modify'}">
+                    <li>修改管理员</li>
                 </c:when>
             </c:choose>
         </ul>

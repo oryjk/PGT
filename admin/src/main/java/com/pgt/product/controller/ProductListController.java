@@ -38,7 +38,7 @@ public class ProductListController {
     public ModelAndView get(@PathVariable(value = "categoryId") Integer categoryId, @RequestParam(value = "stock", required = false) Integer stock,
                             @RequestParam(value = "term", required = false) String term,
                             @RequestParam(value = "sortProperty", required = false) String sortProperty,
-                            @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue, ModelAndView modelAndView) {
+                            @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue,@RequestParam("") ModelAndView modelAndView) {
         LOGGER.debug("The category is {}.", categoryId);
         SearchPaginationBean searchPaginationBean = buildSearchPagination(categoryId, stock, term, sortProperty, sortValue);
         List<Product> productList = productService.queryProducts(searchPaginationBean);
@@ -62,10 +62,10 @@ public class ProductListController {
                                                        @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue) {
         SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
         searchPaginationBean.setCategoryId(String.valueOf(categoryId));
-        if (!ObjectUtils.isEmpty(stock)) {
-            searchPaginationBean.setStock(stock);
-
+        if (ObjectUtils.isEmpty(stock)) {
+            stock = -1;
         }
+        searchPaginationBean.setStock(stock);
         if (!StringUtils.isBlank(term)) {
             searchPaginationBean.setTerm(term);
         }
