@@ -52,15 +52,17 @@
 
     <select id="findExpiredOrders" resultType="int">
         <![CDATA[
-        SELECT DISTINCT(ORDER_ID)
-        FROM INVENTORY_LOCK AS lock
-        INNER JOIN `ORDER` AS o ON o.order_id = lock.ORDER_ID
-        WHERE lock.EXPIRE_DATE > now() and (o.status <> 100 or o.status <> 30)
+        SELECT DISTINCT(o.ORDER_ID)
+        FROM INVENTORY_LOCK AS l
+        INNER JOIN `ORDER` AS o ON o.order_id = l.ORDER_ID
+        WHERE l.EXPIRE_DATE < now() and (o.status <> 100 or o.status <> 30)
         ]]>
     </select>
 
     <select id="findExpiredInventoryLock" resultMap="inventoryLock" parameterType="int">
-        SELECT * FROM INVENTORY_LOCK WHERE EXPIRE_DATE > now() and ORDER_ID = #{id}
+        <![CDATA[
+        SELECT * FROM INVENTORY_LOCK WHERE EXPIRE_DATE < now() and ORDER_ID = #{id}
+        ]]>
     </select>
 
 

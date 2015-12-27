@@ -71,7 +71,6 @@ public class PaymentController {
 		
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 		if (null == user) {
-			// TODO: REDIRECT TO LOGIN
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
@@ -92,20 +91,19 @@ public class PaymentController {
 		return modelAndView;
 	}
 
-	// TODO CHANGE TO POST
 	@RequestMapping(value = "/gateway", method = RequestMethod.POST)
 	public ModelAndView gateway(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 		if (null == user) {
-			// TODO: REDIRECT TO LOGIN
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
 		
 		Order order = getOrderService().getSessionOrder(pRequest);
+		ModelAndView modelAndView = new ModelAndView();
 		if (getOrderService().isInvalidOrder(user, order)) {
-			ModelAndView modelAndView = new ModelAndView("redirect:"+getUrlConfiguration().getShoppingCartPage());
+			modelAndView.setViewName("redirect:" + getUrlConfiguration().getShoppingCartPage());
 			return modelAndView;
 		}
 		order.setStatus(OrderStatus.START_PAY);
@@ -113,15 +111,19 @@ public class PaymentController {
 			getInventoryService().lockInventory(order);
 
 		} catch (LockInventoryException e) {
-			// todo SHOW REMOVE ITEM ERROR.
+			String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
+			modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
+			return modelAndView;
 		} catch (Exception e) {
-			// TODO SHOW RETRY ERROR
+			String message = "INV.CHECK.FAILD";
+			LOGGER.error("lock inventory failed", e);
+			modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
+			return modelAndView;
 		}
 
 
 		String method = pRequest.getParameter("method");
 		if(!PaymentConstants.METHOD_YEEPAY.equals(method) && !PaymentConstants.METHOD_ALIPAY.equals(method) ){
-			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/payment/gateway");
 			modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
 			return modelAndView;
@@ -130,17 +132,15 @@ public class PaymentController {
 		// check the order is paid
 		PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(order.getId());
 		if (null != paymentGroup && PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
-			ModelAndView modelAndView = new ModelAndView("redirect:/payment/complete");
+			modelAndView.setViewName("redirect:/payment/complete");
 			return modelAndView;
 		}
 
 	
 		if (PaymentConstants.METHOD_YEEPAY.equals(method)) {
-			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/yeepay/yeepayB2cPay?orderId=" + order.getId());
 			return modelAndView;
 		} else if (PaymentConstants.METHOD_ALIPAY.equals(method)) {
-			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/alipay/request?orderId=" + order.getId());
 			return modelAndView;
 		}
