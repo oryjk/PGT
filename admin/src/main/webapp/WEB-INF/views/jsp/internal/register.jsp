@@ -27,6 +27,7 @@
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
                     <form action="<spring:url value="/internal/register" />" class="form-horizontal" method="post">
+                        <input type="hidden" name="investType" value="NONEED">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">登陆账号</label>

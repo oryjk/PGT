@@ -20,10 +20,10 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-cogs font-green-sharp"></i>
-                        <span class="caption-subject font-green-sharp bold uppercase">表格</span>
+                        <span class="caption-subject font-green-sharp bold uppercase">管理员列表</span>
                     </div>
                     <div class="actions btn-set">
-                        <button class="btn green-haze btn-circle"><i class="fa fa-plus"></i> 新增</button>
+                        <button class="btn green-haze btn-circle"><a href="<spring:url value="/internal/signup" />"><i class="fa fa-plus"></i> 新增</a></button>
                         <div class="btn-group">
                             <a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
                                 <i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>
@@ -61,20 +61,20 @@
                                         </select> 条</label>
                                 </div>
                             </div>
-                            <div class="col-md-2 col-sm-2 col-xs-push-4">
-                                <div class="dataTables_filter">
-                                    <label>
-                                        <input type="search" class="form-control input-small input-inline"
-                                               placeholder="" aria-controls="sample_3">
+                            <form action="<spring:url value="/internal/iu-list" />" method="get">
+                                <div class="col-md-2 col-sm-2 col-xs-push-4">
+                                    <div class="dataTables_filter">
+                                        <label>
+                                            <input type="search" class="form-control input-small input-inline" name="keyword"
+                                                   value="${param.keyword}" placeholder="" aria-controls="sample_3">
 
-                                    </label>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-2 col-xs-push-4">
-                                <button class="btn blue">
-                                    搜索
-                                </button>
-                            </div>
+                                <div class="col-xs-2 col-xs-push-4">
+                                    <input type="submit" class="btn blue" value="搜索" />
+                                </div>
+                            </form>
                         </div>
                         <div class="table-scrollable productlist-box">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
@@ -106,11 +106,19 @@
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                         aria-label="Status : activate to sort column ascending">
+                                        注册时间
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                        aria-label="Status : activate to sort column ascending">
                                         最后登陆时间
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                         aria-label="Status : activate to sort column ascending">
                                         最后登陆ip
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                        aria-label="Status : activate to sort column ascending">
+                                        最后更新时间
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                         aria-label="Status : activate to sort column ascending">
@@ -131,9 +139,20 @@
                                         <td><a class="link-name" href="#">${iu.name}</a></td>
                                         <td><a class="link-name" href="#">${iu.login}</a></td>
                                         <td>${iu.phone}</td>
-                                        <td>${iu.lastLoginDate}</td>
+                                        <td><fmt:formatDate value="${iu.creationDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
+                                        <td><fmt:formatDate value="${iu.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
                                         <td>${iu.ip}</td>
-                                        <td><button class="btn btn-xs gray btn-circle">${iu.available}</button></td>
+                                        <td><fmt:formatDate value="${iu.updateDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${iu.available}">
+                                                    <button class="btn btn-xs blue btn-circle">启用</button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button class="btn btn-xs gray btn-circle">禁用</button>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                         <td><button class="btn btn-xs blue btn-circle">修改</button>
                                             <button class="btn btn-xs yellow btn-circle">删除</button></td>
                                     </tr>
