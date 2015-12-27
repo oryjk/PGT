@@ -183,7 +183,7 @@ public class YeePayController {
 		int requestNo = YeePayHelper.parseRequestId(getConfig(), requestNoStr);
 		TransactionLog transactionLog = getTransactionLogService().findById(requestNo);
 		StringBuilder inboundBuilder = new StringBuilder();
-		inboundBuilder.append("inboundXML: \n").append(inboundXML).append("\ninboudSign: \n").append(inboundSign);
+		inboundBuilder.append("inboundXML: \n").append(inboundXML).append("\ninboundSign: \n").append(inboundSign);
 		transactionLog.setInbound(inboundBuilder.toString());
 		transactionLog.setInboundTime(new Date());
 		getTransactionLogService().updateTransactionLog(transactionLog);

@@ -115,7 +115,7 @@ public class PaymentController {
 			modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
 			return modelAndView;
 		} catch (Exception e) {
-			String message = "INV.CHECK.FAILD";
+			String message = "INV.CHECK.FAILED";
 			LOGGER.error("lock inventory failed", e);
 			modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
 			return modelAndView;

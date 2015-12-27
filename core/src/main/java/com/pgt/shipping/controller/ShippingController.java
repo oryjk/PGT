@@ -192,7 +192,7 @@ public class ShippingController {
 
 			return mav;
 		} catch (Exception e) {
-			String message = "INV.CHECK.FAILD";
+			String message = "INV.CHECK.FAILED";
 			LOGGER.error("lock inventory failed", e);
 			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
 			return mav;

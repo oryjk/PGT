@@ -69,6 +69,39 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView redirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView modelAndView = new ModelAndView("shopping-cart/cart");
+		String oosProdId = pRequest.getParameter("oosProdId");
+		try {
+			if (StringUtils.isNotBlank(oosProdId)) {
+				String[] prodIds = oosProdId.split("_");
+				String productName = "";
+				int count = 0;
+				for (String prodId : prodIds) {
+					count++;
+					Product product = getProductService().queryProduct(Integer.valueOf(prodId));
+					if (null == product) {
+						continue;
+					}
+					productName += product.getName();
+					if (count != prodIds.length) {
+						productName += ",";
+					}
+				}
+				if (StringUtils.isNotBlank(productName)) {
+					modelAndView.addObject("error", productName + "没有库存，请移除。");
+				}
+			}
+
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		String error = pRequest.getParameter("error");
+		if ("INV.CHECK.FAILED".equals(error)) {
+			error = "库存检查异常，请重试。";
+		}
+		if (StringUtils.isNotBlank(error)) {
+			modelAndView.addObject("error", error);
+		}
+
 		return modelAndView;
 	}
 
