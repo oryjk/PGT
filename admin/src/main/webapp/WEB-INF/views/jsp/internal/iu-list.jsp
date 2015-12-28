@@ -44,21 +44,8 @@
                 <div class="portlet-body">
                     <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
-                            <div class="col-md-2 col-sm-2">
-                                <div class="dataTables_length" id="sample_3_length">
-                                    <label>每页显示
-                                        <select name="sample_3_length" aria-controls="sample_3"
-                                                class="form-control input-xsmall input-inline select2-offscreen"
-                                                tabindex="-1" title="">
-                                            <option value="10">10</option>
-                                            <option value="30">30</option>
-                                            <option value="100">100</option>
-                                            <option value="-1">所有</option>
-                                        </select> 条</label>
-                                </div>
-                            </div>
                             <form action="<spring:url value="/internal/iu-list" />" method="get">
-                                <div class="col-md-2 col-sm-2 col-xs-push-4">
+                                <div class="col-md-2 col-sm-2">
                                     <div class="dataTables_filter">
                                         <label>
                                             <input type="search" class="form-control input-small input-inline" name="keyword"
@@ -67,7 +54,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-xs-2 col-xs-push-4">
+                                <div class="col-xs-2">
                                     <input type="submit" class="btn blue" value="搜索" />
                                 </div>
                             </form>
@@ -131,7 +118,7 @@
                                     <tr class="gradeX odd" role="row">
                                         <td><input type="checkbox"></td>
                                         <td class="sorting_1">${iu.id}</td>
-                                        <td><button class="btn btn-xs blue">${iu.role}</button></td>
+                                        <td><button class="btn btn-xs blue">${roles[iu.role]}</button></td>
                                         <td><a class="link-name" href="#">${iu.name}</a></td>
                                         <td><a class="link-name" href="#">${iu.login}</a></td>
                                         <td>${iu.phone}</td>
@@ -156,7 +143,7 @@
                             </table>
                         </div>
                         <div class="row">
-                            <div class="col-xs-3 col-sm-3">
+                            <div class="col-xs-2">
                                 <div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">
                                     第
                                     <span>${internalUserPage.firstRecordIndex}</span>
@@ -167,28 +154,40 @@
                                     条
                                 </div>
                             </div>
-                            <div class="col-xs-3">
-                                <label>跳转到第
-                                    <input type="search" class="form-control input-small input-inline"
-                                           placeholder="" aria-controls="sample_3">
-                                    页
-                                </label>
+                            <div class="col-xs-2">
+                                <div class="dataTables_length pgt-each-page">
+                                    <label>每页显示
+                                        <select name="sample_3_length" aria-controls="sample_3"
+                                                class="form-control input-xsmall input-inline select2-offscreen"
+                                                tabindex="-1" title="">
+                                            <option value="5">5</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="-1">所有</option>
+                                        </select> 条</label>
+                                </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6">
-                                <div class="dataTables_paginate paging_simple_numbers" id="sample_3_paginate">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
                                     <ul class="pagination">
-                                        <c:if test="${internalUserPage.currentIndex gt 0}">
-                                            <li class="paginate_button previous disabled" aria-controls="sample_3" tabindex="0" id="sample_3_previous"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        </c:if>
+                                        <li class="paginate_button previous ${internalUserPage.currentIndex gt 0 ? '' : 'disabled'}" aria-controls="sample_3" tabindex="0"
+                                            id="sample_3_previous"><a href="#"><i class="fa fa-angle-left"></i></a></li>
                                         <c:forEach var="pageNum" items="${internalUserPage.pageNumbers}">
                                             <li class="paginate_button ${pageNum eq internalUserPage.currentIndex ? 'active' : ''}"
                                                 aria-controls="sample_3" tabindex="0"><a href="#">${pageNum + 1}</a></li>
                                         </c:forEach>
-                                        <c:if test="${internalUserPage.currentIndex lt internalUserPage.maxIndex}">
-                                            <li class="paginate_button next" aria-controls="sample_3" tabindex="0" id="sample_3_next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                        </c:if>
+                                        <li class="paginate_button next ${internalUserPage.currentIndex lt internalUserPage.maxIndex ? '' : 'disabled'}" aria-controls="sample_3"
+                                            tabindex="0" id="sample_3_next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <form class="dataTables_filter pgt-goto-page">
+                                    <label>
+                                        <input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
+                                        <input type="submit" class="btn blue" value="跳转">
+                                    </label>
+                                </form>
                             </div>
                         </div>
                     </div>

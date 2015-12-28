@@ -93,6 +93,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		getInternalUserService().queryInternalUserPage(pagination);
 		ModelAndView mav = new ModelAndView("/internal/iu-list");
 		mav.addObject(ResponseConstant.INTERNAL_USER_PAGE, pagination);
+		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
 		return mav;
 	}
 
