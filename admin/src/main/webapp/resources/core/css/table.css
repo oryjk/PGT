@@ -1,0 +1,21 @@
+#main td {
+    vertical-align: middle;
+}
+#main .list-box {
+    overflow: visible;
+}
+#main .face-box-th {
+    padding: 8px 8px;
+}
+#main .face-box {
+    text-align: center;
+    padding: 2px 8px;
+}
+#main .face-box img {
+    width: 40px;
+    height: 40px;
+}
+#main .table-scrollable {
+    overflow-x: visible;
+    overflow-y: visible;
+}

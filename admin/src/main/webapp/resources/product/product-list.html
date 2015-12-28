@@ -49,53 +49,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="../assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
     <!-- END THEME STYLES -->
     <!--<link rel="shortcut icon" href="favicon.ico">-->
-    <style>
-        #productlist td {
-            vertical-align: middle;
-        }
-        #productlist .productlist-box {
-            overflow: visible;
-        }
-        #productlist .product-face-box-th {
-            padding: 8px 8px;
-        }
-        #productlist .productlist-face-box {
-            text-align: center;
-            padding: 2px 8px;
-        }
-        #productlist .productlist-face-box img {
-            width: 40px;
-            height: 40px;
-
-        }
-        .link-name {
-            color: black;
-        }
-        .pgt-time-divide {
-            line-height: 33px;
-        }
-        .pgt-time-divide span {
-            padding-left: 10px;
-            font-size: 14px;
-        }
-        .pgt-time-tittle {
-            line-height: 33px;
-            text-align: right;
-            font-size: 14px;
-        }
-
-        .pgt-time-tittle span {
-            margin-right: -20px;
-        }
-
-        .pgt-page-count {
-            padding-top: 17px;
-        }
-        .pgt-each-page {
-            padding-top: 10px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="../core/css/table.css"/>
+    <link rel="stylesheet" href="../core/css/page.css"/>
 </head>
 <!-- END HEAD -->
 
@@ -110,7 +65,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 <!-- BEGIN PAGE CONTAINER -->
-<div class="page-container" id="productlist">
+<div class="page-container" id="main">
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -222,7 +177,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </button>
                                     </div>
                                 </div>
-                                <div class="table-scrollable productlist-box">
+                                <div class="table-scrollable list-box">
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                            id="list" role="grid" aria-describedby="sample_3_info">
                                         <thead>
@@ -258,7 +213,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 aria-label="Status : activate to sort column ascending">
                                                 绝当价(元)
                                             </th>
-                                            <th class="sorting product-face-box-th" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                            <th class="sorting face-box-th" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                                 aria-label="Status : activate to sort column ascending">
                                                 略缩图
                                             </th>
@@ -327,7 +282,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <td>
                                                 6988.00
                                             </td>
-                                            <td class="productlist-face-box">
+                                            <td class="face-box">
                                                 <img src="" alt=""/>
                                             </td>
                                             <td>
@@ -388,7 +343,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <td>
                                                 6988.00
                                             </td>
-                                            <td class="productlist-face-box">
+                                            <td class="face-box">
                                                 <img src="" alt=""/>
                                             </td>
                                             <td>
@@ -449,7 +404,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <td>
                                                 6988.00
                                             </td>
-                                            <td class="productlist-face-box">
+                                            <td class="face-box">
                                                 <img src="" alt=""/>
                                             </td>
                                             <td>
@@ -510,7 +465,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <td>
                                                 6988.00
                                             </td>
-                                            <td class="productlist-face-box">
+                                            <td class="face-box">
                                                 <img src="" alt=""/>
                                             </td>
                                             <td>
@@ -571,7 +526,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <td>
                                                 6988.00
                                             </td>
-                                            <td class="productlist-face-box">
+                                            <td class="face-box">
                                                 <img src="" alt=""/>
                                             </td>
                                             <td>
@@ -608,6 +563,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </table>
                                 </div>
                                 <div class="row">
+                                    <link rel="stylesheet" href="../core/css/page.css"/>
                                     <div class="col-xs-2">
                                         <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
                                             第
@@ -632,26 +588,41 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </select> 条</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-7 col-sm-7">
-                                        <div class="dataTables_paginate paging_simple_numbers pgt-page-box" id="sample_3_paginate">
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
+                                            <!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
                                             <ul class="pagination">
-                                                <li class="paginate_button previous disabled" aria-controls="sample_3"
-                                                    tabindex="0" id="sample_3_previous"><a href="#"><i
+                                                <li class="paginate_button previous disabled"><a href="#"><i
                                                         class="fa fa-angle-left"></i></a></li>
-                                                <li class="paginate_button active" aria-controls="sample_3" tabindex="0"><a
-                                                        href="#">1</a></li>
-                                                <li class="paginate_button " aria-controls="sample_3" tabindex="0"><a
-                                                        href="#">2</a></li>
-                                                <li class="paginate_button " aria-controls="sample_3" tabindex="0"><a
-                                                        href="#">...</a></li>
-                                                <li class="paginate_button " aria-controls="sample_3" tabindex="0"><a
+                                                <li class="paginate_button"><a
+                                                        href="#">首页</a></li>
+                                                <li class="paginate_button disabled"><a
+                                                        href="javascript:;">...</a></li>
+                                                <li class="paginate_button "><a
+                                                        href="#">3</a></li>
+                                                <li class="paginate_button "><a
+                                                        href="#">4</a></li>
+                                                <li class="paginate_button active"><a
+                                                        href="#">5</a></li>
+                                                <li class="paginate_button"><a
                                                         href="#">6</a></li>
-                                                <li class="paginate_button " aria-controls="sample_3" tabindex="0"><a
+                                                <li class="paginate_button"><a
                                                         href="#">7</a></li>
-                                                <li class="paginate_button next" aria-controls="sample_3" tabindex="0"
-                                                    id="sample_3_next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                                <li class="paginate_button disabled"><a
+                                                        href="javascript:;">...</a></li>
+                                                <li class="paginate_button"><a
+                                                        href="#">末页</a></li>
+                                                <li class="paginate_button next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
                                             </ul>
                                         </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <form class="dataTables_filter pgt-goto-page">
+                                            <label>
+                                                <input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
+                                                <input type="submit" class="btn blue" value="跳转">
+                                            </label>
+                                        </form>
                                     </div>
                                 </div>
 

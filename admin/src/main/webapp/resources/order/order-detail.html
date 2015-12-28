@@ -188,6 +188,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">下单时间</label>
+                                                        <div class="col-md-8">
+                                                            <p class="form-control-static">
+                                                                2015-12-12 13:00
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -217,10 +227,25 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 略缩图
                                                             </th>
                                                             <th>
-                                                                所属商家
+                                                                商家
+                                                            </th>
+                                                            <th>
+                                                                发货人
+                                                            </th>
+                                                            <th>
+                                                                发货时间
+                                                            </th>
+                                                            <th>
+                                                                物流公司
                                                             </th>
                                                             <th>
                                                                 物流单号
+                                                            </th>
+                                                            <th>
+                                                                发货
+                                                            </th>
+                                                            <th>
+                                                                收货
                                                             </th>
                                                         </tr>
                                                         </thead>
@@ -242,7 +267,24 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 鑫鑫珠宝行
                                                             </td>
                                                             <td>
+                                                                关羽
+                                                            </td>
+                                                            <td>
+                                                                2015-12-12 14:00
+                                                            </td>
+                                                            <td>
+                                                                顺丰快递
+                                                            </td>
+                                                            <td>
                                                                 123456789012345678
+                                                            </td>
+                                                            <td>
+                                                                <!-- 有修改和发货两种按钮,根据是否已经有发货数据显示-->
+                                                                <button class="btn btn-xs green btn-circle" data-pgt-btn="send">修改</button>
+                                                            </td>
+                                                            <td>
+                                                                <!-- 有已收货文本和收货按钮两种,根据item状态显示-->
+                                                                已收货
                                                             </td>
                                                         </tr>
                                                         <tr class="gradeX odd" role="row">
@@ -262,10 +304,59 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 鑫鑫珠宝行
                                                             </td>
                                                             <td>
+                                                                关羽
+                                                            </td>
+                                                            <td>
+                                                                2015-12-12 14:00
+                                                            </td>
+                                                            <td>
+                                                                顺丰快递
+                                                            </td>
+                                                            <td>
                                                                 123456789012345678
                                                             </td>
+                                                            <td>
+                                                                <button class="btn btn-xs green btn-circle" data-pgt-btn="modify">修改</button>
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-xs yellow btn-circle" data-pgt-btn="receipt">收货</button>
+                                                            </td>
                                                         </tr>
-
+                                                        <tr class="gradeX odd" role="row">
+                                                            <td>
+                                                                000000001
+                                                            </td>
+                                                            <td>
+                                                                小蛮妖珠宝 韩版时尚小天鹅单钻吊坠项链女款意大利9K玫瑰金白金短款锁骨链
+                                                            </td>
+                                                            <td>
+                                                                6000.00
+                                                            </td>
+                                                            <td class="productlist-face-box">
+                                                                <img src="" alt=""/>
+                                                            </td>
+                                                            <td>
+                                                                鑫鑫珠宝行
+                                                            </td>
+                                                            <td>
+                                                                关羽
+                                                            </td>
+                                                            <td>
+                                                                2015-12-12 14:00
+                                                            </td>
+                                                            <td>
+                                                                顺丰快递
+                                                            </td>
+                                                            <td>
+                                                                123456789012345678
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-xs blue btn-circle" data-pgt-btn="send">发货</button>
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-xs yellow btn-circle" data-pgt-btn="receipt">收货</button>
+                                                            </td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -415,36 +506,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                     <!-- 状态纪录-->
                                     <div>
-                                        <h3 class="form-section">状态变更纪录</h3>
+                                        <h3 class="form-section">付款信息</h3>
                                         <div>
                                             <div class="row">
                                                 <div class="col-xs-12">
-                                                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                                           role="grid" aria-describedby="sample_3_info">
-                                                        <thead>
-                                                        <tr role="row">
-                                                            <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
-                                                                colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
-                                                                下单时间
-                                                            </th>
-                                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                                aria-label=" Email : activate to sort column ascending">
-                                                                ip地址
-                                                            </th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX odd" role="row">
-                                                            <td class="sorting_1">
-                                                                2015-12-12 13:00
-                                                            </td>
-                                                            <td>
-                                                                192.168.0.1
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-
                                                     <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                                            role="grid" aria-describedby="sample_3_info">
                                                         <thead>
@@ -484,100 +549,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </tr>
                                                         </tbody>
                                                     </table>
-
-                                                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                                           role="grid" aria-describedby="sample_3_info">
-                                                        <thead>
-                                                        <tr role="row">
-                                                            <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
-                                                                colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
-                                                                出库时间
-                                                            </th>
-                                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                                aria-label=" Email : activate to sort column ascending">
-                                                                物流方式
-                                                            </th>
-                                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                                aria-label=" Email : activate to sort column ascending">
-                                                                物流单号
-                                                            </th>
-                                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                                aria-label=" Email : activate to sort column ascending">
-                                                                发货方
-                                                            </th>
-                                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                                aria-label=" Email : activate to sort column ascending">
-                                                                发货人
-                                                            </th>
-                                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                                aria-label=" Email : activate to sort column ascending">
-                                                                发货地址
-                                                            </th>
-                                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                                aria-label=" Email : activate to sort column ascending">
-                                                                收货时间
-                                                            </th>
-                                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                                aria-label=" Email : activate to sort column ascending">
-                                                                备注
-                                                            </th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX odd" role="row">
-                                                            <td class="sorting_1">
-                                                                2015-12-12 14:00
-                                                            </td>
-                                                            <td>
-                                                                顺丰快递
-                                                            </td>
-                                                            <td>
-                                                                12345678901234567890
-                                                            </td>
-                                                            <td>
-                                                                鑫鑫珠宝行
-                                                            </td>
-                                                            <td>
-                                                                关羽
-                                                            </td>
-                                                            <td>
-                                                                四川省成都市武侯区佳灵路12号鑫鑫珠宝行
-                                                            </td>
-                                                            <td class="sorting_1">
-                                                                2015-12-12 14:00
-                                                            </td>
-                                                            <td class="sorting_1">
-                                                                本人签收
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="gradeX odd" role="row">
-                                                            <td class="sorting_1">
-                                                                2015-12-12 14:00
-                                                            </td>
-                                                            <td>
-                                                                圆通快递
-                                                            </td>
-                                                            <td>
-                                                                12345678901234567890
-                                                            </td>
-                                                            <td>
-                                                                牛哥珠宝行
-                                                            </td>
-                                                            <td>
-                                                                张飞
-                                                            </td>
-                                                            <td>
-                                                                四川省成都市武侯区佳灵路5号鑫鑫珠宝行旁边小卖部
-                                                            </td>
-                                                            <td class="sorting_1">
-
-                                                            </td>
-                                                            <td class="sorting_1">
-                                                                地址错误,已退回
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -594,8 +565,31 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
         </div>
     </div>
-
 </div>
+
+<!--modal-->
+<div class="modal fade bs-modal-sm" id="confirmModal" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">确认</h4>
+            </div>
+            <form action="#" class="form-horizontal">
+                <div class="modal-body" id="confirmText">
+                    确认你的操作
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn blue">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+    <!-- /.modal-dialog -->
+</div>
+
 <!-- END PAGE CONTAINER -->
 
 <!-- BEGIN JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
@@ -632,6 +626,12 @@ License: You must have a valid license purchased only from themeforest(the above
         that.parent().siblings('.pgt-scan').toggle();
         that.parent().siblings('.pgt-modify').toggle();
     });
+
+    $(document).on('click', '[data-pgt-btn="receipt"]', function() {
+        $('#confirmModal').modal('show');
+        $('#confirmText').text('确认收货?')
+    });
+
 </script>
 
 <!--&lt;!&ndash; END JAVASCRIPTS &ndash;&gt;-->
