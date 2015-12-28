@@ -49,62 +49,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="../assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
     <!-- END THEME STYLES -->
     <!--<link rel="shortcut icon" href="favicon.ico">-->
-
-    <style>
-        img {
-            width: 100px;
-        }
-
-        .pgt-thumbnail-img {
-            height: 60px;
-        }
-
-        .pgt-advertisement-img {
-            height: 150px;
-        }
-
-        .pgt-front-img {
-            height: 150px;
-        }
-
-        .pgt-hero-img {
-            height: 150px;
-        }
-
-        .pgt-main-img {
-            height: 200px;
-        }
-        .pgt-expert-img {
-            height: 150px;
-        }
-        .pgt-each-img {
-            float: left;
-            position: relative;
-            margin-right: 10px;
-        }
-        .pgt-handle-box {
-            position: absolute;
-            display: none;
-        }
-        .pgt-each-img:hover .pgt-handle-box {
-            display: block;
-        }
-
-        .pgt-each-img p {
-            max-width: 200px;
-        }
-        .pgt-file-box {
-            position: relative;
-        }
-        .pgt-file-btn {
-            position: absolute;
-            width: 84px;
-            height: 34px;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-    </style>
+    <link rel="stylesheet" href="product-add-and-mofify.css"/>
 </head>
 <!-- END HEAD -->
 
@@ -162,6 +107,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!-- BEGIN FORM-->
                                 <form action="javascript:;" class="form-horizontal">
                                 <div class="form-body">
+                                    <!-- 只有在修改时才显示id行-->
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">id</label>
                                             <div class="col-md-4">
@@ -190,7 +136,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">所属大类</label>
+                                            <label class="control-label col-md-3">所属子类</label>
                                             <div class="col-md-9">
                                                 <div class="radio-list">
                                                     <select class="form-control input-medium">
