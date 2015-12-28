@@ -17,6 +17,8 @@ import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.service.ESSearchService;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -77,7 +79,7 @@ public class HomeController {
             SearchHits searchHits = searchResponse.getHits();
             SearchHit[] hotProducts = searchHits.getHits();
             Banner banner = bannerService.queryBanner(1);
-            if (hotProducts.length != 0) {
+            if (!ArrayUtils.isEmpty(hotProducts)) {
                 modelAndView.addObject("hotProducts", hotProducts);
             }
             // get hot search

@@ -5,17 +5,20 @@ import com.pgt.communication.bean.Consulting;
 import com.pgt.communication.bean.ConsultingCustom;
 import com.pgt.communication.service.ConsultingService;
 import com.pgt.configuration.Configuration;
-import com.pgt.constant.UserConstant;
 import com.pgt.mobile.base.constans.MobileConstans;
+import com.pgt.mobile.base.controller.BaseMobileController;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import com.pgt.user.bean.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.support.SimpleCacheManager;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +30,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/mConsulting")
-public class ConsultingMobileController {
+public class ConsultingMobileController extends BaseMobileController{
 
 	@Autowired
 	private ConsultingService consultingService;
@@ -38,18 +41,19 @@ public class ConsultingMobileController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private SimpleCacheManager cacheManager;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultingMobileController.class);
 
 
 	// 1.查看某个商品下的咨询列表
 	@RequestMapping(value = "/query", method = RequestMethod.POST)
-	public  @ResponseBody Map<String,Object> queryAllConsultingByProduct(Integer productId, Long currentIndex) {
+	public  Map<String,Object> queryAllConsultingByProduct(Integer productId, Long currentIndex) {
 		Map<String,Object> responseMap= new HashMap<String,Object>();
 		if (productId == null) {
 			LOGGER.warn("The product id is empty.");
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"Product.empty");
-			return responseMap;
+			return responseMobileFail(responseMap, "Product.empty");
 		}
 		ConsultingCustom consultingCustom = new ConsultingCustom();
 		int total = consultingService.queryAllConsultingByProductCount(productId, consultingCustom);
@@ -69,24 +73,27 @@ public class ConsultingMobileController {
 
 	// 2.提交咨询的内容
 	@RequestMapping(value = "/createconsulting", method = RequestMethod.POST)
-	public @ResponseBody Map<String,Object> createConsulting(Integer productId, Consulting consulting, HttpServletRequest request,
+	public  Map<String,Object> createConsulting(Integer productId, String phoneId,Consulting consulting, HttpServletRequest request,
 			HttpSession session, HttpServletResponse response) {
+
 		Map<String,Object> responseMap= new HashMap<String,Object>();
 		if (productId == null) {
 			LOGGER.warn("The product id is empty");
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"Product.empty");
-			return responseMap;
+			return responseMobileFail(responseMap, "Product.empty");
 		}
 		Product product = productService.queryProduct(productId);
 		// 获取ip 用户信息 商品id
 		String ip = request.getRemoteAddr();
-		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
-		if (user == null) {
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"User.empty");
-			return responseMap;
+
+		if(StringUtils.isEmpty(phoneId)){
+			return responseMobileFail(responseMap, "PhoneId.empty");
 		}
+		Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
+		Cache.ValueWrapper valueWrapper = cache.get(phoneId);
+		if (ObjectUtils.isEmpty(valueWrapper)) {
+			return responseMobileFail(responseMap, "User.empty");
+		}
+		User user= (User) valueWrapper.get();
 		consulting.setUser(user);
 		consulting.setProduct(product);
 		if (user != null) {
@@ -98,9 +105,7 @@ public class ConsultingMobileController {
 			consultingService.createConsulting(consulting);
 		} catch (Exception e) {
 			LOGGER.warn("The save consulitng is error");
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"save.error");
-			return responseMap;
+			return responseMobileFail(responseMap, "save.error");
 		}
 		responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
         return responseMap;

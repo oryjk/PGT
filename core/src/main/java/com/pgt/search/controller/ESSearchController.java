@@ -101,31 +101,18 @@ public class ESSearchController {
 
             term = buildESMatch(term, modelAndView, message, esMatches);
 
-
             buildESSort(sortKey, sortOrder, modelAndView);
 
             if (!StringUtils.isEmpty(rootCategoryId)) {
                 rootCategoryId = rootCategoryId.trim();
-                esterm = new ESTerm();
-                esterm.setPropertyName("rootCategoryId");
-                esterm.setTermValue(rootCategoryId);
-                Category category = categoryService.queryCategory(Integer.valueOf(rootCategoryId));
-                modelAndView.addObject("rootCategory", category);
-                LOGGER.debug("add rootCategoryId to modelAndView", rootCategoryId);
-                message.append("分类:" + category.getName());
+                LOGGER.debug("add rootCategoryId to modelAndView{}", rootCategoryId);
+                message.append("分类");
             }
-
             if (!StringUtils.isEmpty(parentCategoryId)) {
                 parentCategoryId = parentCategoryId.trim();
-                esterm = new ESTerm();
-                esterm.setPropertyName("parentCategoryId");
-                esterm.setTermValue(parentCategoryId);
-                Category category = categoryService.queryCategory(Integer.valueOf(parentCategoryId));
-                modelAndView.addObject("parentCategory", category);
-                LOGGER.debug("add parentCategoryId to modelAndView", rootCategoryId);
-                message.append("分类" + category.getName() + ":");
+                LOGGER.debug("add parentCategoryId to modelAndView{}", rootCategoryId);
+                message.append("分类");
             }
-
 
             if (!StringUtils.isEmpty(priceStart) || !StringUtils.isEmpty(priceEnd)) {
                 if (StringUtils.isEmpty(priceStart)) {
@@ -147,26 +134,19 @@ public class ESSearchController {
                 message.append("指定价格");
             }
 
-
             SearchHits hits = null;
-
             SearchResponse searchResponse = null;
-
             // 如果分类不为空，则调用分类的查询方法
             if (!StringUtils.isEmpty(parentCategoryId)) {
                 searchResponse = esSearchService.findProductsByCategoryId(parentCategoryId, esMatches, esRange,
                         paginationBean, esAggregation);
-
             } else if (!StringUtils.isEmpty(rootCategoryId)) {
                 searchResponse = esSearchService.findProductsByCategoryId(rootCategoryId, esMatches, esRange,
                         paginationBean, esAggregation);
-
             } else {
-
                 // 查找出所有的商品普通方法
                 searchResponse = esSearchService.findProducts(esterm, esMatches, esRange, null, paginationBean,
                         esAggregation, null);
-
             }
             // 获取categoryId的聚合信息,出现的次数，以及id
             Map<String, Aggregation> aggMap = searchResponse.getAggregations().asMap();
@@ -174,9 +154,7 @@ public class ESSearchController {
             List<Bucket> categories = gradeTerms.getBuckets();
 
             if (CollectionUtils.isEmpty(categories)) {
-
                 List<ESTerm> esTermList = new ArrayList<>();
-
                 for (Bucket bucket : categories) {
                     ESTerm categoryTerm = new ESTerm();
                     categoryTerm.setPropertyName("id");
@@ -189,7 +167,6 @@ public class ESSearchController {
                 cateHits = categoryResponse.getHits();
                 SearchHit[] categoryHists = cateHits.getHits();
                 modelAndView.addObject("categoryHists", categoryHists);
-
             }
 
             ESSort parentSort = new ESSort();
