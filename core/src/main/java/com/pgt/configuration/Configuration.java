@@ -19,6 +19,7 @@ public class Configuration {
 	private String resourcePath;
 	private String initialDataPath;
 	private String imagePath="src/main/webapp/resources/image/upload/";
+	private Integer adminPlpCapacity;
 
 	public Integer getPlpCapacity() {
 		return plpCapacity;
@@ -148,5 +149,13 @@ public class Configuration {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public Integer getAdminPlpCapacity() {
+		return adminPlpCapacity;
+	}
+
+	public void setAdminPlpCapacity(Integer adminPlpCapacity) {
+		this.adminPlpCapacity = adminPlpCapacity;
 	}
 }
