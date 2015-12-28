@@ -1,0 +1,20 @@
+.pgt-confirm-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.pgt-confirm-box .col-xs-4 {
+    padding-top: 10px;
+}
+
+.pgt-confirm-code {
+    display: block;
+    height: 45px;
+    width: 100%;
+}
+
+.pgt-confirm-code img {
+    display: block;
+    height: 45px;
+    width: 100%;
+}
