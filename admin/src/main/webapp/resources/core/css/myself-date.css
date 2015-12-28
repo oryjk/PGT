@@ -1,0 +1,16 @@
+.pgt-time-divide {
+    line-height: 33px;
+}
+.pgt-time-divide span {
+    padding-left: 10px;
+    font-size: 14px;
+}
+.pgt-time-tittle {
+    line-height: 33px;
+    text-align: right;
+    font-size: 14px;
+}
+
+.pgt-time-tittle span {
+    margin-right: -20px;
+}
