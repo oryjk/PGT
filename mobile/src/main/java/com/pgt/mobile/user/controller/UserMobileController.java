@@ -187,7 +187,7 @@ public class UserMobileController extends BaseMobileController {
 
 
     @RequestMapping(value = "/resetPassword",method=RequestMethod.POST)
-    public  Map<String,Object> resetPassword(User resetUser,HttpSession session,HttpServletRequest request){
+    public  Map<String,Object> resetPassword(User resetUser,HttpServletRequest request){
 
         Map<String,Object> responseMap = new HashMap<String,Object>();
         if(StringUtils.isEmpty(resetUser.getPhoneId())) {

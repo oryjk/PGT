@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/my-account/person-info")
+@RequestMapping("/mPersonInfo")
 public class AddressInfoMobileController extends BaseMobileController{
 	private static final Logger	LOGGER	= LoggerFactory.getLogger(AddressInfoMobileController.class);
 
