@@ -65,7 +65,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return mav;
 	}
 
-	@RequestMapping(value = "/signup")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView signup(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView("/internal/register");
 		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(INTERNAL_USER);
@@ -75,6 +75,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 			mav.setViewName(REDIRECT_DASHBOARD);
 			return mav;
 		}
+		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
 		//TODO check recognized user in cookies
 		return mav;
 	}
@@ -100,6 +101,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	public ModelAndView internalUserModify(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "uid", required = true) String uid) {
 		ModelAndView mav = new ModelAndView("/internal/iu-modify");
+		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
 		LOGGER.debug("Load internal user with id: {} to modify", uid);
 		int idInt = RepositoryUtils.safeParseId(uid);
 		if (idInt > 0) {
@@ -120,7 +122,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 			@RequestParam(value = "password", required = true) String password) {
 		// trim login
 		login = login.trim();
-		ModelAndView mav = new ModelAndView("redirect:/internal/dashboard");
+		ModelAndView mav = new ModelAndView(REDIRECT_DASHBOARD);
 		// check internal user exist
 		InternalUser iu = new InternalUserBuilder().setLogin(login).setPassword(password).createInternalUser();
 		TransactionStatus status = ensureTransaction();
@@ -238,7 +240,8 @@ public class InternalUserController extends InternalTransactionBaseController im
 			String name, String phone, String email, String available) {
 		InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
 		iub.setName(name).setPhone(phone).setEmail(email).setAvailable(available);
-		ModelAndView mav = new ModelAndView("redirect:/internal/signup");
+		ModelAndView mav = new ModelAndView("/internal/register");
+		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
 		// set default success as false
 		// check fields
 		if (!getInternalUserValidationService().getLoginRegexValidator().match(login)) {
@@ -302,7 +305,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 			String encryptedPassword = DigestUtils.md5Hex(password + salt);
 			String ipAddress = captureIpAddress(pRequest);
 			iub.setSalt(salt).setPassword(encryptedPassword).setIp(ipAddress).setRole(role).setInvestType(investType);
-			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.DEVELOPER)) {
+			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.ORDER_MANAGER)) {
 				iub.setInvestType(InternalUserInvestType.NONEED);
 			}
 			InternalUser iu = iub.createInternalUser();
@@ -400,7 +403,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 			String encryptedPassword = DigestUtils.md5Hex(password + salt);
 			String ipAddress = captureIpAddress(pRequest);
 			iub.setSalt(salt).setPassword(encryptedPassword).setIp(ipAddress).setRole(role).setInvestType(investType);
-			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.DEVELOPER)) {
+			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.ORDER_MANAGER)) {
 				iub.setInvestType(InternalUserInvestType.NONEED);
 			}
 			InternalUser iu = iub.createInternalUser();
@@ -470,9 +473,96 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/iu-update")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/iu-modify", method = RequestMethod.POST)
+	public ModelAndView internalUserUpdate(HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
+			@RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
+		ModelAndView mav = new ModelAndView("/internal/iu-modify");
+		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
+		mav.addObject(ResponseConstant.INTERNAL_USER, internalUser);
+		if (internalUser == null || !RepositoryUtils.idIsValid(internalUser.getId())) {
+			LOGGER.debug("Cannot update internal user information for invalid id");
+			mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_USER_ID_INVALID));
+			return mav;
+		}
+		// trim fields
+		internalUser.trimFields();
+		// password is empty mean do not update password
+		if (StringUtils.isNotBlank(internalUser.getPassword())) {
+			if (!getInternalUserValidationService().getPasswordRegexValidator().match(internalUser.getPassword())) {
+				LOGGER.debug("Update internal user with id: {} but password: {} is invalid", internalUser.getId(), internalUser.getPassword());
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PASSWORD_INVALID));
+				return mav;
+			}
+		}
+		// password confirmation should be empty too
+		if (!StringUtils.equals(internalUser.getPassword(), passwordConfirm)) {
+			LOGGER.debug("Update internal user with id: {} but password: {} dose not equals confirmed password: {}", internalUser.getId(),
+					internalUser.getPassword(), passwordConfirm);
+			mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PASSWORD_CONFIRM_INVALID));
+			return mav;
+		}
+		// allow multiple empty name internal user
+		if (StringUtils.isNotBlank(internalUser.getName())) {
+			if (!getInternalUserValidationService().checkNameUniqueness(internalUser.getName(), internalUser.getId())) {
+				LOGGER.debug("Update internal user with id: {} but duplicate name: {}", internalUser.getId(), internalUser.getName());
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_NAME_DUPLICATE));
+				return mav;
+			}
+		}
+		// allow multiple email name internal user
+		if (StringUtils.isNotBlank(internalUser.getEmail())) {
+			if (!getInternalUserValidationService().getEmailRegexValidator().match(internalUser.getEmail())) {
+				LOGGER.debug("Update internal user with id: {} but invalid email: {}", internalUser.getId(), internalUser.getEmail());
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_EMAIL_INVALID));
+				return mav;
+			}
+			if (!getInternalUserValidationService().checkEmailUniqueness(internalUser.getEmail(), internalUser.getId())) {
+				LOGGER.debug("Update internal user with id: {} but duplicate email: {}", internalUser.getId(), internalUser.getEmail());
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_EMAIL_DUPLICATE));
+				return mav;
+			}
+		}
+		if (StringUtils.isNotBlank(internalUser.getPhone())) {
+			if (!getInternalUserValidationService().getPhoneRegexValidator().match(internalUser.getPhone())) {
+				LOGGER.debug("Update internal user with id: {} but invalid phone: {}", internalUser.getId(), internalUser.getPhone());
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PHONE_INVALID));
+				return mav;
+			}
+			if (!getInternalUserValidationService().checkPhoneUniqueness(internalUser.getPhone(), internalUser.getId())) {
+				LOGGER.debug("Update internal user with id: {} but duplicate phone: {}", internalUser.getId(), internalUser.getPhone());
+				mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_PHONE_DUPLICATE));
+				return mav;
+			}
+		}
+
+		TransactionStatus status = ensureTransaction();
+		try {
+			if (StringUtils.isNotBlank(internalUser.getPassword())) {
+				// re-generate salt and encrypted password
+				String salt = String.valueOf(System.currentTimeMillis());
+				String encryptedPassword = DigestUtils.md5Hex(internalUser.getPassword() + salt);
+				internalUser.setPassword(encryptedPassword);
+				internalUser.setSalt(salt);
+			}
+			boolean result = getInternalUserService().updateInternalUser(internalUser);
+			LOGGER.debug("Update internal user with id: {} has result: {}", internalUser.getId(), result ? "success" : "failed");
+			if (result) {
+				return mav;
+			}
+			status.setRollbackOnly();
+		} catch (Exception e) {
+			status.setRollbackOnly();
+			LOGGER.error("Update internal user with id: {} occurs exception: ", internalUser.getId(), e);
+		} finally {
+			getTransactionManager().commit(status);
+		}
+		mav.addObject(ResponseConstant.ERROR_MSG, getMessageValue(ERROR_GENERAL_UPDATE_USER_FAILED));
+		return mav;
+	}
+
+	@RequestMapping(value = "/ajax-iu-modify", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity internalUserUpdate(HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
+	public ResponseEntity ajaxInternalUserUpdate(HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
 			@RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
 		// set default success as false
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
