@@ -49,25 +49,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="../assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
     <!-- END THEME STYLES -->
     <!--<link rel="shortcut icon" href="favicon.ico">-->
-    <style>
-        #content td {
-            vertical-align: middle;
-        }
-        #content .productlist-box {
-            overflow: visible;
-        }
-        #content .productlist-face-box {
-            padding: 2px;
-        }
-        #content .productlist-face-box img {
-            width: 100px;
-            height: 40px;
-        }
-        .link-name {
-            color: black;
-        }
 
-    </style>
 </head>
 <!-- END HEAD -->
 
@@ -108,6 +90,16 @@ License: You must have a valid license purchased only from themeforest(the above
                             <a href="#">新增管理员</a>
                         </li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
+            <div class="row" style="display: block">
+                <div class="col-xs-12">
+                    <div class="Metronic-alerts alert alert-danger fade in">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                        <p>错误信息</p>
+                    </div>
                 </div>
             </div>
 
