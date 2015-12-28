@@ -49,6 +49,12 @@ public class Transactionable {
 		TransactionStatus current = getCurrent();
 		current.setRollbackOnly();
 	}
+
+	public boolean isRollbackOnly() {
+		TransactionStatus current = getCurrent();
+		return current.isRollbackOnly();
+	}
+
 	
 	public void commit() {
 		TransactionStatus current = getTransactionStatusStack().pop();

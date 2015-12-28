@@ -46,6 +46,16 @@
         <result column="index" property="index"></result>
     </resultMap>
 
+
+    <resultMap id="CategoryHierarchyResult" type="com.pgt.product.bean.CategoryHierarchy">
+        <id column="CATEGORY_ID" property="categoryId"/>
+        <result column="NAME" property="name"></result>
+        <result column="TYPE" property="categoryType"></result>
+        <association property="parentCategory" column="PARENT_CATEGORY_ID"
+                     select="queryCategoryHierarchy"/>
+    </resultMap>
+
+
     <!--insert a hot product bean -->
     <insert id="createCategory" parameterType="com.pgt.category.bean.Category"
             keyProperty="id" useGeneratedKeys="true">
@@ -121,6 +131,10 @@
         WHERE reference_id = #{categoryId} AND TYPE='category'
         ORDER BY 'index'
         asc
+    </select>
+
+    <select id="queryCategoryHierarchy" parameterType="int" resultMap="CategoryHierarchyResult">
+        SELECT CATEGORY_ID,NAME,TYPE FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
     </select>
 
 </mapper>

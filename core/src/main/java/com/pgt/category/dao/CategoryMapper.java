@@ -2,6 +2,7 @@ package com.pgt.category.dao;
 
 import java.util.List;
 
+import com.pgt.product.bean.CategoryHierarchy;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -32,4 +33,5 @@ public interface CategoryMapper extends SqlMapper {
     List<Category> queryCategories(@Param("category") Category category,
                                    @Param("paginationBean") PaginationBean paginationBean);
 
+    CategoryHierarchy queryCategoryHierarchy(@Param("categoryId")Integer categoryId);
 }

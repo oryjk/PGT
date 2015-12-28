@@ -1,6 +1,5 @@
 package com.pgt.integration.yeepay.notification.service;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +13,7 @@ import com.pgt.integration.yeepay.YeePayConstants;
 import com.pgt.integration.yeepay.YeePayException;
 import com.pgt.integration.yeepay.YeePayHelper;
 import com.pgt.integration.yeepay.direct.service.DirectYeePay;
+import com.pgt.inventory.service.InventoryService;
 import com.pgt.payment.PaymentConstants;
 import com.pgt.payment.bean.PaymentGroup;
 import com.pgt.payment.bean.Transaction;
@@ -35,7 +35,10 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 	
 	private UserOrderDao userOrderDao;
 
+	private InventoryService inventoryService;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(CompleteTransactionNotificationHandler.class);
+
 	@Override
 	public void handleCallback(Map<String, String> inboundParams, TransactionLog transactionLog)
 			throws YeePayException {
@@ -50,7 +53,21 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			if (null != paymentGroup && PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
 				return;
 			}
-			
+			Order order = null;
+			if (null == orderId) {
+				LOGGER.warn("skip load order cause orderId is null");
+			} else {
+				order = getUserOrderDao().loadOrderHistory(orderId.intValue());
+			}
+			if (null == order) {
+				LOGGER.warn("order is null, orderId:" + orderId);
+			}
+			if (null == order) {
+				throw new IllegalArgumentException("order is null");
+			}
+			getInventoryService().lockInventory(order);
+			// If not pass inventory check will occur exception, the following code will not execute.
+
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put(YeePayConstants.PARAM_NAME_USER_ID, transactionLog.getUserId());
 			params.put(YeePayConstants.PARAM_NAME_ORDER_ID, transactionLog.getOrderId());
@@ -65,21 +82,13 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			Transaction transaction = getPaymentService().findTransactionByTrackingNumber(trackingNo);
 			Date now = new Date();
 			
-			Order order = null;
-			if (null == orderId) {
-				LOGGER.warn("skip load order cause orderId is null");
-			} else {
-				order = getUserOrderDao().loadOrderHistory(orderId.intValue());
-			}
-			if (null == order) {
-				LOGGER.warn("order is null, orderId:" + orderId);
-			}
+
 			
 			handleResult(paymentGroup, trackingNo, result, transaction, now, order);
-		} catch (IOException e) {
+		} catch(Exception e) {
 			getPaymentService().setAsRollback();
 			throw new YeePayException(e);
-		} finally {
+		}finally {
 			getPaymentService().commit();
 		}
 	}
@@ -164,4 +173,11 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 		this.userOrderDao = userOrderDao;
 	}
 
+	public InventoryService getInventoryService() {
+		return inventoryService;
+	}
+
+	public void setInventoryService(InventoryService inventoryService) {
+		this.inventoryService = inventoryService;
+	}
 }

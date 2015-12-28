@@ -5,6 +5,7 @@ import com.pgt.category.dao.CategoryMapper;
 import com.pgt.common.bean.Media;
 import com.pgt.common.dao.MediaMapper;
 import com.pgt.media.bean.MediaType;
+import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,6 +95,13 @@ public class CategoryServiceImp implements CategoryService {
     public List<Category> queryCategories(Category category, PaginationBean paginationBean) {
         List<Category> categories = categoryMapper.queryCategories(category, paginationBean);
         return categories;
+    }
+
+    @Override
+    public CategoryHierarchy queryCategoryHierarchy(Integer categoryId) {
+        LOGGER.debug("The category is {}.", categoryId);
+        return categoryMapper.queryCategoryHierarchy(categoryId);
+
     }
 
     public CategoryMapper getCategoryMapper() {

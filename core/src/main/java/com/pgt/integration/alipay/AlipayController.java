@@ -2,7 +2,6 @@ package com.pgt.integration.alipay;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -135,7 +134,6 @@ public class AlipayController {
 		getPaymentService().updatePaymentGroup(paymentGroup);
 		if (order != null) {
 			order.setStatus(OrderStatus.PAID);
-			order.setSubmitDate(new Date());
 			getShoppingCartService().updateOrder(order);
 		}
 		LOGGER.info("Successed to pay order-{} by alipay.", orderId);

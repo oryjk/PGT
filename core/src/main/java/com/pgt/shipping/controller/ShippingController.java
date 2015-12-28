@@ -1,9 +1,11 @@
 package com.pgt.shipping.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -33,6 +35,8 @@ import com.pgt.city.bean.Province;
 import com.pgt.city.service.CityService;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
+import com.pgt.inventory.LockInventoryException;
+import com.pgt.inventory.service.InventoryService;
 import com.pgt.shipping.bean.ShippingMethod;
 import com.pgt.shipping.bean.ShippingVO;
 import com.pgt.shipping.service.ShippingService;
@@ -58,6 +62,9 @@ public class ShippingController {
 	private OrderService		orderService;
 	@Autowired
 	private CityService			cityService;
+
+	@Resource(name = "inventoryService")
+	private InventoryService inventoryService;
 
 	@RequestMapping(value = "/shipping", method = { RequestMethod.GET })
 	public ModelAndView shipping(HttpServletRequest request, HttpSession session) {
@@ -175,8 +182,25 @@ public class ShippingController {
 			return mav;
 		} else {
 			order.setStatus(OrderStatus.FILLED_SHIPPING);
+			order.setSubmitDate(new Date());
 			getOrderService().updateOrder(order);
 		}
+
+		try {
+			getInventoryService().lockInventory(order);
+		} catch (LockInventoryException e) {
+			String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
+			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
+
+			return mav;
+		} catch (Exception e) {
+			String message = "INV.CHECK.FAILED";
+			LOGGER.error("lock inventory failed", e);
+			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
+			return mav;
+		}
+
+
 		mav.setViewName("redirect:/payment/gateway");
 		mav.addObject(CartConstant.ORDER_ID, order.getId());
 		return mav;
@@ -238,4 +262,11 @@ public class ShippingController {
 		this.orderService = orderService;
 	}
 
+	public InventoryService getInventoryService() {
+		return inventoryService;
+	}
+
+	public void setInventoryService(InventoryService inventoryService) {
+		this.inventoryService = inventoryService;
+	}
 }

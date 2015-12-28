@@ -68,6 +68,8 @@ public class YeePayConstants {
 	
 	public static final String PARAM_NAME_NOTIFY = "notify";
 
+	public static final String PARAM_NAME_EXPIRED = "expired";
+
 	// ------------ VALUES -----------------------
 
 	public static final String PAYMENT_TYPE = "yeepay";

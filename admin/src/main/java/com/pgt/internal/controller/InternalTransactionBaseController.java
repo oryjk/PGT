@@ -1,13 +1,16 @@
 package com.pgt.internal.controller;
 
 import com.pgt.internal.constant.AdminSessionConstant;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 /**
  * Created by Yove on 10/20/2015.
@@ -16,6 +19,9 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
+
+	@Autowired
+	private ReloadableResourceBundleMessageSource mMessageSource;
 
 	protected TransactionStatus ensureTransaction() {
 		return ensureTransaction(TransactionDefinition.PROPAGATION_REQUIRED);
@@ -28,6 +34,18 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 		return status;
 	}
 
+	protected String getMessageValue(String pKey) {
+		return getMessageValue(pKey, StringUtils.EMPTY);
+	}
+
+	protected String getMessageValue(String pKey, String pDefaultMessage) {
+		if (StringUtils.isNotBlank(pKey)) {
+			return mMessageSource.getMessage(pKey, null, pDefaultMessage, Locale.getDefault());
+		} else {
+			return StringUtils.EMPTY;
+		}
+	}
+
 	protected InternalUserController getCurrentInternalUser(HttpServletRequest pRequest) {
 		return (InternalUserController) pRequest.getSession().getAttribute(INTERNAL_USER);
 	}
@@ -38,5 +56,13 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 
 	public void setTransactionManager(final DataSourceTransactionManager pTransactionManager) {
 		mTransactionManager = pTransactionManager;
+	}
+
+	public ReloadableResourceBundleMessageSource getMessageSource() {
+		return mMessageSource;
+	}
+
+	public void setMessageSource(final ReloadableResourceBundleMessageSource pMessageSource) {
+		mMessageSource = pMessageSource;
 	}
 }

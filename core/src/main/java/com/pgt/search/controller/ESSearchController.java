@@ -1,5 +1,4 @@
 package com.pgt.search.controller;
-
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.BreadBuilder;
@@ -31,36 +30,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 /**
  * Created by ddjunshi 2015年12月1日
  */
 @RestController
 @RequestMapping("/essearch")
 public class ESSearchController {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(ESSearchController.class);
-
     @Autowired
     private ESSearchService esSearchService;
-
     @Autowired
     private Configuration configuration;
-
     @Autowired
     private CategoryService categoryService;
-
     @Autowired
     private BreadBuilder breadBuilder;
-
     @Autowired
     private ESConfiguration esConfiguration;
-
-
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView get(@RequestParam(value = "term", required = false) String term,
                             @RequestParam(value = "rootCategoryId", required = false) String rootCategoryId,
@@ -70,50 +59,50 @@ public class ESSearchController {
                             @RequestParam(value = "priceStart", required = false) String priceStart,
                             @RequestParam(value = "priceEnd", required = false) String priceEnd,
                             @RequestParam(value = "currentIndex", required = false) String currentIndex, ModelAndView modelAndView) {
-
         PaginationBean paginationBean = new PaginationBean();
-
         StringBuilder message = new StringBuilder();
-
         if (StringUtils.isEmpty(currentIndex)) {
             paginationBean.setCurrentIndex(0);
             currentIndex = "0";
         }
         paginationBean.setCapacity(configuration.getPlpCapacity());
-
         ESSort esSort = null;
         ESRange esRange = null;
         ESTerm esterm = null;
         List<ESTerm> esMatches = new ArrayList<>();
         String result[] = new String[2]; // 是否搜索到结果
-
         try {
             ESAggregation esAggregation = new ESAggregation();
             modelAndView.setViewName("/searchPage/searchPage");
             esAggregation.setAggregationName("aggr");
             esAggregation.setPropertyName("parentCategoryId");
             paginationBean.setCurrentIndex(0);
-
             // 设置查询条件
             if (!ObjectUtils.isEmpty(currentIndex)) {
                 paginationBean.setCurrentIndex(Long.valueOf(currentIndex));
             }
-
             term = buildESMatch(term, modelAndView, message, esMatches);
-
             buildESSort(sortKey, sortOrder, modelAndView);
-
             if (!StringUtils.isEmpty(rootCategoryId)) {
                 rootCategoryId = rootCategoryId.trim();
-                LOGGER.debug("add rootCategoryId to modelAndView{}", rootCategoryId);
-                message.append("分类");
+                esterm = new ESTerm();
+                esterm.setPropertyName("rootCategoryId");
+                esterm.setTermValue(rootCategoryId);
+                Category category = categoryService.queryCategory(Integer.valueOf(rootCategoryId));
+                modelAndView.addObject("rootCategory", category);
+                LOGGER.debug("add rootCategoryId to modelAndView", rootCategoryId);
+                message.append("分类:" + category.getName());
             }
             if (!StringUtils.isEmpty(parentCategoryId)) {
                 parentCategoryId = parentCategoryId.trim();
-                LOGGER.debug("add parentCategoryId to modelAndView{}", rootCategoryId);
-                message.append("分类");
+                esterm = new ESTerm();
+                esterm.setPropertyName("parentCategoryId");
+                esterm.setTermValue(parentCategoryId);
+                Category category = categoryService.queryCategory(Integer.valueOf(parentCategoryId));
+                modelAndView.addObject("parentCategory", category);
+                LOGGER.debug("add parentCategoryId to modelAndView", rootCategoryId);
+                message.append("分类" + category.getName() + ":");
             }
-
             if (!StringUtils.isEmpty(priceStart) || !StringUtils.isEmpty(priceEnd)) {
                 if (StringUtils.isEmpty(priceStart)) {
                     priceStart = "0";
@@ -121,7 +110,6 @@ public class ESSearchController {
                 if (StringUtils.isEmpty(priceEnd)) {
                     priceEnd = "100000000";
                 }
-
                 priceStart = priceStart.trim();
                 priceEnd = priceEnd.trim();
                 esRange = new ESRange();
@@ -133,7 +121,6 @@ public class ESSearchController {
                 LOGGER.debug("add priceStart priceEnd to modelAndView", priceStart + ":" + priceEnd);
                 message.append("指定价格");
             }
-
             SearchHits hits = null;
             SearchResponse searchResponse = null;
             // 如果分类不为空，则调用分类的查询方法
@@ -152,7 +139,6 @@ public class ESSearchController {
             Map<String, Aggregation> aggMap = searchResponse.getAggregations().asMap();
             StringTerms gradeTerms = (StringTerms) aggMap.get("aggr");
             List<Bucket> categories = gradeTerms.getBuckets();
-
             if (CollectionUtils.isEmpty(categories)) {
                 List<ESTerm> esTermList = new ArrayList<>();
                 for (Bucket bucket : categories) {
@@ -168,24 +154,17 @@ public class ESSearchController {
                 SearchHit[] categoryHists = cateHits.getHits();
                 modelAndView.addObject("categoryHists", categoryHists);
             }
-
             ESSort parentSort = new ESSort();
             parentSort.setPropertyName("id");
             parentSort.setSortOrder(SortOrder.ASC);
-
             SearchResponse parentCategoryResponse = esSearchService.findCategories(null, parentSort);
             modelAndView.addObject("parentCategoryList", parentCategoryResponse.getHits().getHits());
-
             hits = searchResponse.getHits();
-
             Long total = hits.getTotalHits();
             CommPaginationBean commPaginationBean = new CommPaginationBean(configuration.getPlpCapacity(),
                     Long.parseLong(currentIndex), total);
-
             modelAndView.addObject("commPaginationBean", commPaginationBean);
-
             SearchHit[] searchHists = hits.getHits();
-
             //查找category
             SearchResponse rootSearchResponse = esSearchService.findRootCategory();
             if (!ObjectUtils.isEmpty(rootSearchResponse)) {
@@ -195,38 +174,31 @@ public class ESSearchController {
                     modelAndView.addObject("categoryArray", categoryArray);
                 }
             }
-
             // 根据搜索是否有结果，设置页面显示内容
             if (searchHists.length == 0) {
                 result[0] = "none";
                 result[1] = "block";
             } else {
-
                 result[0] = "block";
                 result[1] = "none";
-
                 Category rootCategory = (Category) modelAndView.getModel().get("rootCategory");
                 Category category = (Category) modelAndView.getModel().get("parentCategory");
                 List<BreadCrumb> breadCrumb = breadBuilder.buildSearchPageBreadCrumb(
                         rootCategory == null ? null : rootCategory.getName(),
                         category == null ? null : category.getName(), term);
-
                 modelAndView.addObject("breadCrumb", breadCrumb);
                 modelAndView.addObject("searchHists", searchHists);
             }
-
         } catch (Exception e) {
             LOGGER.debug("ESSsarch has some exception", e.getMessage());
             result[0] = "none";
             result[1] = "block";
-
         } finally {
             modelAndView.addObject("result", result);
             modelAndView.addObject("message", message.toString());
         }
         return modelAndView;
     }
-
     private void buildESSort(@RequestParam(value = "sortKey", required = false) String sortKey,
                              @RequestParam(value = "sortOrder", required = false) String sortOrder, ModelAndView modelAndView) {
         ESSort esSort;
@@ -235,28 +207,20 @@ public class ESSearchController {
             esSort.setPropertyName(sortKey);
             // set default value first.
             esSort.setSortOrder(SortOrder.DESC);
-
             if (sortOrder != null) {
-
                 if (sortOrder.endsWith(SortOrder.ASC.toString())) {
                     esSort.setSortOrder(SortOrder.ASC);
                     modelAndView.addObject("sortOrder", "desc");
                 } else {
                     modelAndView.addObject("sortOrder", "asc");
                 }
-
             } else {
                 modelAndView.addObject("sortOrder", "asc");
             }
-
-
             modelAndView.addObject("sortKey", sortKey);
             LOGGER.debug("add sortKey to modelAndView", sortKey);
-
-
         }
     }
-
     private String buildESMatch(@RequestParam(value = "term", required = false) String term, ModelAndView modelAndView, StringBuilder message,
                                 List<ESTerm> esMatches) {
         if (!StringUtils.isEmpty(term)) {
@@ -271,19 +235,15 @@ public class ESSearchController {
                     esMatches.add(esMatch);
                 });
             }
-
             modelAndView.addObject("term", term);
             LOGGER.debug("add term to modelAndView", term);
             message.append(term + ":");
         }
         return term;
     }
-
-
     public BreadBuilder getBreadBuilder() {
         return breadBuilder;
     }
-
     public void setBreadBuilder(BreadBuilder breadBuilder) {
         this.breadBuilder = breadBuilder;
     }
