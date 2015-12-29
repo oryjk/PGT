@@ -60,6 +60,10 @@ public class TransactionLogService extends Transactionable {
 		return getTransactionLogMapper().findById(id);
 	}
 
+	public TransactionLog findLastLogByOrderId(long orderId){
+		return getTransactionLogMapper().findLastLogByOrderId(orderId);
+	}
+	
 	public TransactionLogMapper getTransactionLogMapper() {
 		return transactionLogMapper;
 	}

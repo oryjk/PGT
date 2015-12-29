@@ -13,6 +13,7 @@
         <result column="TYPE" property="type"></result>
         <result column="STATUS" property="status"></result>
         <result column="COLOR" property="color"/>
+        <result column="CATEGORY_INDEX" property="categoryIndex"/>
         <association property="frontMedia" column="CATEGORY_ID"
                      select="queryCategoryMedia"/>
         <association property="parent" column="PARENT_CATEGORY_ID"

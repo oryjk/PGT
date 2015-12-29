@@ -47,4 +47,9 @@
 		FROM TRANSACTION_LOG WHERE OUTBOUND LIKE CONCAT('%',  #{id} ,'%') AND INBOUND IS NULL
 	</select>
 
+	<select id="findLastLogByOrderId" resultMap="transactionLog" parameterType="long">
+		SELECT *
+		FROM TRANSACTION_LOG where ORDER_ID = #{orderId} ORDER BY OUTBOUND_TIME DESC LIMIT 1;
+	</select>
+	
 </mapper>
