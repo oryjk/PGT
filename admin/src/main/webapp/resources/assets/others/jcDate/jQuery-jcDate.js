@@ -1,3 +1,4 @@
+
 /* jQuery - jcDate v1.0 */
 ;(function($){
 	$.fn.jcDate = function(options) {

@@ -16,6 +16,18 @@
     <jsp:include page="include/bread-crumb-row.jspf">
         <jsp:param name="step" value="signup" />
     </jsp:include>
+
+    <c:if test="${not empty errorMessage}">
+        <div class="row" style="display: block">
+            <div class="col-xs-12">
+                <div class="Metronic-alerts alert alert-danger fade in">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    <p>${errorMessage}</p>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="portlet box blue-hoki">
@@ -28,63 +40,72 @@
                     <!-- BEGIN FORM-->
                     <form action="<spring:url value="/internal/register" />" class="form-horizontal" method="post">
                         <input type="hidden" name="investType" value="NONEED">
+
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">登陆账号</label>
+
                                 <div class="col-md-4">
-                                    <input type="text" name="login" class="form-control" placeholder="5-12位的登陆账号">
+                                    <input type="text" name="login" value="${param.login}" class="form-control" placeholder="5-12位的登陆账号">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">昵称</label>
+
                                 <div class="col-md-4">
-                                    <input type="text" name="name" class="form-control" placeholder="用于称呼">
+                                    <input type="text" name="name" value="${param.name}" class="form-control" placeholder="用于称呼">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">密码</label>
+
                                 <div class="col-md-4">
                                     <input type="password" name="password" class="form-control" placeholder="6-12位的字母或数字, 至少有一个大写字母/小写字母/数字">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">密码确认</label>
+
                                 <div class="col-md-4">
                                     <input type="password" name="passwordConfirm" class="form-control" placeholder="再次输入密码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">角色</label>
+
                                 <div class="col-md-9">
                                     <div class="radio-list">
                                         <select name="role" class="form-control input-medium">
-                                            <option value="INVESTOR" selected="selected">投资管理员</option>
-                                            <option value="ADMINISTRATOR">后台管理员</option>
-                                            <option value="DEVELOPER">开发管理员</option>
+                                            <c:forEach var="role" items="${roles}">
+                                                <option value="${role.key}">${role.value}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">联系电话</label>
+
                                 <div class="col-md-4">
                                     <div class="input-icon">
                                         <i class="glyphicon glyphicon-phone "></i>
-                                        <input type="text" name="phone" class="form-control" placeholder="11位手机号码">
+                                        <input type="text" name="phone" value="${phone}" class="form-control" placeholder="11位手机号码">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">电子邮箱</label>
+
                                 <div class="col-md-4">
                                     <div class="input-icon">
                                         <i class="glyphicon glyphicon-envelope"></i>
-                                        <input type="email" name="email" class="form-control" placeholder="Email">
+                                        <input type="email" name="email" value="${email}" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">状态</label>
+
                                 <div class="col-md-9">
                                     <div class="radio-list">
                                         <select name="available" class="form-control input-medium">

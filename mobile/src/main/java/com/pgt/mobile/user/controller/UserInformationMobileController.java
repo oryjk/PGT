@@ -1,7 +1,7 @@
 package com.pgt.mobile.user.controller;
 
-import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
+import com.pgt.mobile.base.controller.BaseMobileController;
 import com.pgt.mobile.base.constans.MobileConstans;
 import com.pgt.user.bean.User;
 import com.pgt.user.bean.UserInformation;
@@ -9,12 +9,12 @@ import com.pgt.user.service.UserInformationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -27,42 +27,40 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/mUserinformation")
-public class UserInformationMobileController {
+public class UserInformationMobileController extends BaseMobileController {
 
 	@Autowired
 	private UserInformationService userInformationService;
 
 	@Autowired
-	private URLConfiguration urlConfiguration;
+	private SimpleCacheManager cacheManager;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserInformationMobileController.class);
 
 
 	// 创建或修改一个用户信息
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	private @ResponseBody Map<String,Object> createUserInformation(UserInformation userInformation,
-			BindingResult bindingResult, HttpSession session) {
+	public Map<String,Object> createUserInformation(UserInformation userInformation,String phoneId) {
          Map<String,Object> responseMap=new HashMap<String,Object>();
-		// 接收验证错误信息
-		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
-		if (ObjectUtils.isEmpty(user)) {
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"User.empty");
-			return responseMap;
+
+		if(StringUtils.isEmpty(phoneId)){
+			return responseMobileFail(responseMap, "PhoneId.empty");
 		}
+		Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
+		Cache.ValueWrapper valueWrapper = cache.get(phoneId);
+		if (ObjectUtils.isEmpty(valueWrapper)) {
+			return responseMobileFail(responseMap, "User.empty");
+		}
+		User user= (User) valueWrapper.get();
+
 		if(StringUtils.isEmpty(userInformation.getNickname())){
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"Error.empty.nickname");
-            return responseMap;
+            return responseMobileFail(responseMap, "Error.empty.nickname");
 		}
 		if(StringUtils.isEmpty(userInformation.getIdCard())){
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"Error.empty.IdCard");
-            return responseMap;
+			return responseMobileFail(responseMap, "Error.empty.IdCard");
 		}
 		if(StringUtils.isEmpty(userInformation.getPersonEmail())){
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"Error.empty.PersonEmail");
+			return responseMobileFail(responseMap, "Error.empty.PersonEmail");
 		}
 		userInformation.setPhoneNumber(user.getPhoneNumber());
 		userInformation.setUser(user);
@@ -79,19 +77,22 @@ public class UserInformationMobileController {
 
 	// 用户前台查看个人详细信息
 	@RequestMapping(value="/query",method=RequestMethod.POST)
-	public @ResponseBody  Map<String,Object> queryUserInformation(HttpSession session) {
+	public  Map<String,Object> queryUserInformation(HttpSession session,String phoneId) {
 		Map<String,Object> responseMap = new HashMap<String,Object>();
-		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
-		if (user == null) {
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"User.empty");
-			return responseMap;
+
+		if(StringUtils.isEmpty(phoneId)){
+			return responseMobileFail(responseMap, "PhoneId.empty");
 		}
+		Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
+		Cache.ValueWrapper valueWrapper = cache.get(phoneId);
+		if (ObjectUtils.isEmpty(valueWrapper)) {
+			return responseMobileFail(responseMap, "User.empty");
+		}
+		User user= (User) valueWrapper.get();
+
 	    UserInformation userInformation = userInformationService.queryUserInformation(user);
         if(ObjectUtils.isEmpty(userInformation)){
-			responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-			responseMap.put(MobileConstans.MOBILE_MESSAGE,"UserInformation.empty");
-			return responseMap;
+			return responseMobileFail(responseMap, "UserInformation.empty");
 		}
 		responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
 		responseMap.put("userInformation",userInformation);

@@ -5,7 +5,9 @@ package com.pgt.internal.constant;
  */
 public interface ResponseConstant {
 
-	String ERROR_MSG = "error_message";
+	String ERROR_MSG = "errorMessage";
+
+	String ROLES = "roles";
 
 	String INTERNAL_USER_PAGE = "internalUserPage";
 

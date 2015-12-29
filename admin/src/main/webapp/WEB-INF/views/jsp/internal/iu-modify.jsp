@@ -16,6 +16,18 @@
     <jsp:include page="include/bread-crumb-row.jspf">
         <jsp:param name="step" value="iu-modify" />
     </jsp:include>
+
+    <c:if test="${not empty errorMessage}">
+        <div class="row" style="display: block">
+            <div class="col-xs-12">
+                <div class="Metronic-alerts alert alert-danger fade in">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    <p>${errorMessage}</p>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="portlet box blue-hoki">
@@ -26,7 +38,7 @@
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form action="<spring:url value="/internal/iu-update" />" class="form-horizontal" method="post">
+                    <form action="<spring:url value="/internal/iu-modify" />" class="form-horizontal" method="post">
                         <input type="hidden" name="investType" value="NONEED">
                         <input type="hidden" name="id" value="${iu.id}">
                         <div class="form-body">
@@ -65,9 +77,9 @@
                                 <div class="col-md-9">
                                     <div class="radio-list">
                                         <select name="role" class="form-control input-medium">
-                                            <option ${iu.role eq 'INVESTOR' ? 'selected' : ''} value="INVESTOR">投资管理员</option>
-                                            <option ${iu.role eq 'ADMINISTRATOR' ? 'selected' : ''} value="ADMINISTRATOR">后台管理员</option>
-                                            <option ${iu.role eq 'DEVELOPER' ? 'selected' : ''} value="DEVELOPER">开发管理员</option>
+                                            <c:forEach var="role" items="${roles}">
+                                                <option value="${role.key}" ${iu.role eq role.key ? 'selected' : ''}>${role.value}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>

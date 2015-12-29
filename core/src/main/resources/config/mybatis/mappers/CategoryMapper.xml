@@ -51,7 +51,7 @@
         <id column="CATEGORY_ID" property="categoryId"/>
         <result column="NAME" property="name"></result>
         <result column="TYPE" property="categoryType"></result>
-        <association property="parentCategory" column="PARENT_CATEGORY_ID"
+        <association property="parentCategory" javaType="com.pgt.product.bean.CategoryHierarchy" column="PARENT_CATEGORY_ID"
                      select="queryCategoryHierarchy"/>
     </resultMap>
 
@@ -134,7 +134,7 @@
     </select>
 
     <select id="queryCategoryHierarchy" parameterType="int" resultMap="CategoryHierarchyResult">
-        SELECT CATEGORY_ID,NAME,TYPE FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
+        SELECT CATEGORY_ID,NAME,TYPE,PARENT_CATEGORY_ID FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
     </select>
 
 </mapper>
