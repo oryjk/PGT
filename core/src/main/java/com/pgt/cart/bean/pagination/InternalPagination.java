@@ -11,7 +11,7 @@ public class InternalPagination {
 
 	private static final int PAGE_NUMBER_OFFSET = 3;
 
-	private long[] mPaginationCapacities = new long[] { 1, 2, 3, 4, 5, 10, 20 };
+	private long[] mPaginationCapacities = new long[] { 5, 10, 20 };
 	private long mPaginationCapacityAll = -1l;
 
 	private long mCapacity;

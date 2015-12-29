@@ -11,9 +11,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%-- Required url which usually contains query conditions to generate page button link --%>
 <c:set var="paginationURL" value="${param.paginationURL}" />
 
-<link rel="stylesheet" href="../core/css/page.css" />
+<link rel="stylesheet" href="${ctx}/resources/core/css/page.css" />
 <div class="col-xs-2">
     <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
         第
