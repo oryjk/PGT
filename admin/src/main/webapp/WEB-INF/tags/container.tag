@@ -1096,7 +1096,7 @@
     <script src="${ctx}/resources/assets/others/jcDate/jQuery-jcDate.js"></script>
 </c:if>
 <c:if test="${not empty pageJsPath}">
-    <script src="${ctx}${pageJsPath}" />
+    <script src="${ctx}${pageJsPath}"></script>
 </c:if>
 <!-- END JAVASCRIPTS -->
 </body>
