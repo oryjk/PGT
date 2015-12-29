@@ -47,4 +47,97 @@
 		FROM TRANSACTION_LOG WHERE OUTBOUND LIKE CONCAT('%',  #{id} ,'%') AND INBOUND IS NULL
 	</select>
 
+	<select id="queryTransactionLog" resultMap="transactionLog" parameterType="com.pgt.payment.bean.TransactionLogQueryBean">
+		SELECT * FROM TRANSACTION_LOG
+		WHERE 1=1
+		<if test="orderId != null">
+			AND ORDER_ID = #{orderId}
+		</if>
+
+		<if test="userId != null">
+			AND USER_ID = #{userId}
+		</if>
+
+		<if test="paymentGroupId != null">
+			AND PAYMENT_GROUP_ID = #{paymentGroupId}
+		</if>
+
+		<if test="transactionId != null">
+			AND TRANSACTION_ID = #{transactionId}
+		</if>
+
+		<if test="type != null">
+			AND PAYMENT_TYPE = #{type}
+		</if>
+
+		<if test="serviceName != null">
+			AND SERVICE_NAME = #{serviceName}
+		</if>
+
+		<if test="startTime != null">
+			<![CDATA[
+			AND INBOUND_TIME > #{startTime}
+			]]>
+		</if>
+
+		<if test="endTime != null">
+			<![CDATA[
+			AND INBOUND_TIME < #{endTime}
+			]]>
+		</if>
+		<if test="paginationBean != null" >
+			<if test="paginationBean.sortFiledName != null">
+				order by #{paginationBean.sortFiledName}
+			</if>
+			<if test="paginationBean.sqlStartIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</select>
+
+	<select id="queryTransactionLogTotalAmount" resultType="int" parameterType="com.pgt.payment.bean.TransactionLogQueryBean">
+		SELECT count(*) FROM TRANSACTION_LOG
+		WHERE 1=1
+		<if test="orderId != null">
+			AND ORDER_ID = #{orderId}
+		</if>
+
+		<if test="userId != null">
+			AND USER_ID = #{userId}
+		</if>
+
+		<if test="paymentGroupId != null">
+			AND PAYMENT_GROUP_ID = #{paymentGroupId}
+		</if>
+
+		<if test="transactionId != null">
+			AND TRANSACTION_ID = #{transactionId}
+		</if>
+
+		<if test="type != null">
+			AND PAYMENT_TYPE = #{type}
+		</if>
+
+		<if test="serviceName != null">
+			AND SERVICE_NAME = #{serviceName}
+		</if>
+
+		<if test="startTime != null">
+			<![CDATA[
+			AND INBOUND_TIME > #{startTime}
+			]]>
+		</if>
+
+		<if test="endTime != null">
+			<![CDATA[
+			AND INBOUND_TIME < #{endTime}
+			]]>
+		</if>
+
+	</select>
+
+
+
 </mapper>

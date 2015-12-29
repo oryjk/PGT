@@ -1,7 +1,11 @@
 package com.pgt.payment.service;
 
 import java.util.Date;
+import java.util.List;
 
+import com.pgt.payment.bean.TransactionLogQueryBean;
+import com.pgt.payment.bean.TransactionQueryBean;
+import com.pgt.utils.PaginationBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +71,23 @@ public class PaymentService extends Transactionable {
 	public void updateTransaction(Transaction transaction) {
 		getPaymentMapper().updateTransaction(transaction);
 	}
+
+	public List<Transaction> queryTransaction(Integer orderId, String paymentType, Integer state, String trackNo,
+											  Date startTime, Date endTime, PaginationBean paginationBean) {
+		TransactionQueryBean queryBean = new TransactionQueryBean();
+		queryBean.setOrderId(orderId);
+		queryBean.setPaymentType(paymentType);
+		queryBean.setState(state);
+		queryBean.setTrackNo(trackNo);
+		queryBean.setStartTime(startTime);
+		queryBean.setEndTime(endTime);
+		queryBean.setPaginationBean(paginationBean);
+		int totalAmount = getPaymentMapper().queryTransactionTotalAmount(queryBean);
+		paginationBean.setTotalAmount(totalAmount);
+
+		return getPaymentMapper().queryTransaction(queryBean);
+	}
+
 
 	public PaymentGroup findPaymentGroupById(Long paymentGroupId) {
 		int id = paymentGroupId.intValue();

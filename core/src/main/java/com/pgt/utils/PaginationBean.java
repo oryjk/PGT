@@ -11,12 +11,15 @@ import java.util.Map;
  * Example:
  * Please refer main method.
  * 
- * first paget currentIndex is 0. 
+ * first page currentIndex is 0.
  * 
  * @author Samli
  *
  */
 public class PaginationBean implements Mapable {
+
+	public static final int DEFAULT_CAPACITY = 5;
+
 	private long capacity;
 	private long currentIndex;// start from 0;
 	private long totalAmount;
