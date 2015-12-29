@@ -74,9 +74,9 @@ public class InternalPagination {
         if (0 >= mCapacity) {
             throw new InvalidParameterException("mCapacity must greater than zero.");
         }
-        long last = (mCurrentIndex + 1) * mCapacity + 1;
-        if (last > getMaxIndex() + 1) {
-            return getMaxIndex() + 1;
+        long last = (mCurrentIndex + 1) * mCapacity;
+        if (last > getCount()) {
+            return getCount();
         }
         return last;
     }
