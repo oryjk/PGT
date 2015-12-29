@@ -69,20 +69,36 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-xs-4">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-10">
                                     <div class="dataTables_filter">
                                         <div class="row">
-                                            <div class="col-xs-2 pgt-time-tittle">
+                                            <div class="col-xs-1 pgt-time-tittle">
                                                 <span>时间: </span>
                                             </div>
-                                            <div class="col-xs-4" style="position: relative">
+                                            <div class="col-xs-2 pgt-begin-date" style="position: relative">
                                                 <input name="submitTimeBeg" value="${param.submitTimeBeg}" class="jcDate jcDateIco form-control input-small input-inline" />
+                                            </div>
+                                            <div class="col-xs-2 pgt-time" style="position: relative">
+                                                <input type="search" class="form-control input-mini input-inline"
+                                                       placeholder="时" aria-controls="sample_3">
+                                                :
+                                                <input type="search" class="form-control input-mini input-inline"
+                                                       placeholder="分" aria-controls="sample_3">
                                             </div>
                                             <div class="col-xs-1 pgt-time-divide">
                                                 <span>至</span>
                                             </div>
-                                            <div class="col-xs-4">
+                                            <div class="col-xs-2">
                                                 <input name="submitTimeEnd" value="${param.submitTimeEnd}" class="jcDate jcDateIco form-control input-small input-inline" />
+                                            </div>
+                                            <div class="col-xs-2 pgt-time">
+                                                <input type="search" class="form-control input-mini input-inline"
+                                                       placeholder="时" aria-controls="sample_3">
+                                                :
+                                                <input type="search" class="form-control input-mini input-inline"
+                                                       placeholder="分" aria-controls="sample_3">
                                             </div>
                                         </div>
                                     </div>
@@ -98,9 +114,6 @@
                                id="list" role="grid" aria-describedby="sample_3_info">
                             <thead>
                             <tr role="row">
-                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="">
-                                    <input id="checkAll" type="checkbox">
-                                </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
                                     colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
                                     订单号
@@ -163,9 +176,6 @@
                             <tbody>
                             <c:forEach var="order" items="${b2cOrderPage.result}">
                                 <tr class="gradeX odd" role="row">
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
                                     <td class="sorting_1">${order.id}</td>
                                     <td>${order.submitDate}</td>
                                     <td>${order.commerceItemCount}</td>

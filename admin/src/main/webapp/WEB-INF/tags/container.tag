@@ -1094,6 +1094,9 @@
         </div>
     </div>
     <script src="${ctx}/resources/assets/others/jcDate/jQuery-jcDate.js"></script>
+    <link rel="stylesheet" href="${ctx}/resources/assets/others/jcDate/jcDate.css"/>
+    <link rel="stylesheet" href="${ctx}/resources/core/css/myself-date.css"/>
+    <link rel="stylesheet" href="${ctx}/resources/core/css/table.css"/>
 </c:if>
 <c:if test="${not empty pageJsPath}">
     <script src="${ctx}${pageJsPath}"></script>
