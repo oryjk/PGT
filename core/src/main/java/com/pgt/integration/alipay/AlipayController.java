@@ -2,6 +2,7 @@ package com.pgt.integration.alipay;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.payment.PaymentConstants;
 import com.pgt.payment.bean.PaymentGroup;
+import com.pgt.payment.bean.Transaction;
 import com.pgt.payment.service.PaymentService;
 
 @Controller
@@ -56,7 +57,15 @@ public class AlipayController {
 			getPaymentService().ensureTransaction();
 			PaymentGroup paymentGroup = getPaymentService().maintainPaymentGroup(order, PaymentConstants.METHOD_ALIPAY);
 			Map<String, String> paramsMap = getAlipayService().buildRequestMap(order);
-			getAlipayService().createAlipayTransactionLog(session, order, paymentGroup, paramsMap);
+			Transaction transaction = new Transaction();
+			transaction.setAmount(order.getTotal());
+			transaction.setCreationDate(new Date());
+			transaction.setUpdateDate(new Date());
+			transaction.setOrderId(Long.valueOf(order.getId()));
+			transaction.setPaymentGroupId(paymentGroup.getId());
+			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
+			getPaymentService().createTransaction(transaction);
+			getAlipayService().createAlipayTransactionLog(transaction.getId(), session, order, paymentGroup, paramsMap);
 
 			LOGGER.debug("Collected all required parameters and submit form to alipay payment gateway.");
 			model = new ModelAndView("checkout/alipayForm");
@@ -73,12 +82,8 @@ public class AlipayController {
 
 	@RequestMapping(value = "/return", method = RequestMethod.GET)
 	public ModelAndView handleAlipayReturn(HttpServletRequest request, HttpSession session) {
-		String orderId = request.getParameter(AlipayConstants.OUT_TRADE_NO);
-		String orderIdPrefix = getAlipayService().getAlipayConfig().getOrderIdPrefix();
-		if (StringUtils.isNotBlank(orderIdPrefix)) {
-			orderId = orderId.replaceAll(orderIdPrefix, "");
-		}
-		Order order = getOrderService().loadOrder(Integer.parseInt(orderId));
+		Integer orderId = getAlipayService().getOrderIdFromNotify(request);
+		Order order = getOrderService().loadOrder(orderId);
 		boolean success = getAlipayService().verifyResult(request);
 		ModelAndView mav = new ModelAndView();
 		if (success) {
@@ -95,12 +100,8 @@ public class AlipayController {
 
 	@RequestMapping(value = "/notify", method = RequestMethod.POST)
 	public void handleAlipayNotify(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String orderId = request.getParameter(AlipayConstants.OUT_TRADE_NO);
-		String orderIdPrefix = getAlipayService().getAlipayConfig().getOrderIdPrefix();
-		if (StringUtils.isNotBlank(orderIdPrefix)) {
-			orderId = orderId.replaceAll(orderIdPrefix, "");
-		}
-		Order order = getOrderService().loadOrder(Integer.parseInt(orderId));
+		Integer orderId = getAlipayService().getOrderIdFromNotify(request);
+		Order order = getOrderService().loadOrder(orderId);
 		boolean success = getAlipayService().verifyResult(request);
 		if (success) {
 			try {
@@ -118,7 +119,7 @@ public class AlipayController {
 	}
 
 	public void handleSuccessfulAlipayNotify(HttpServletRequest request, Order order) {
-		Integer orderId = Integer.parseInt(request.getParameter(AlipayConstants.OUT_TRADE_NO));
+		Integer orderId = getAlipayService().getOrderIdFromNotify(request);
 		PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(orderId);
 		if (paymentGroup == null) {
 			LOGGER.error("Cannot get paymentgroup by order id-{} after successing to pay the order by alipay.",

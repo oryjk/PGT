@@ -15,5 +15,7 @@ public interface TransactionLogMapper extends SqlMapper {
 	public TransactionLog findById(final int id);
 
 	public TransactionLog findByTrackingNo(String trackingNo);
+	
+	public TransactionLog findLastLogByOrderId(long orderId);
 
 }

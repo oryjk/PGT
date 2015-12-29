@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,8 +134,8 @@ public class AlipayService {
 		return inputLine.toString();
 	}
 
-	public void createAlipayTransactionLog(HttpSession session, Order order, PaymentGroup paymentGroup,
-			Map<String, String> paramsMap) {
+	public void createAlipayTransactionLog(Long transactionId, HttpSession session, Order order,
+			PaymentGroup paymentGroup, Map<String, String> paramsMap) {
 		TransactionLog transactionLog = new TransactionLog();
 		transactionLog.setPaymentType(AlipayConstants.TYPE);
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
@@ -143,28 +144,29 @@ public class AlipayService {
 		}
 		if (order != null) {
 			transactionLog.setOrderId((long) order.getId());
-			transactionLog.setTransactionId((long) order.getId());
 		}
 		if (paymentGroup != null) {
 			transactionLog.setPaymentGroupId(paymentGroup.getId());
 		}
+		transactionLog.setTransactionId(transactionId);
 		transactionLog.setOutbound(paramsMap.toString());
 		transactionLog.setOutboundTime(new Date());
 		getTransactionLogService().createTransactionLog(transactionLog);
 	}
 
 	public void updateAlipayTransactionLog(HttpServletRequest request) {
-		TransactionLog transactionLog = new TransactionLog();
+		Long orderId = getOrderIdFromNotify(request).longValue();
+		TransactionLog transactionLog = getTransactionLogService().findLastLogByOrderId(orderId);
 		Map<String, String[]> requestParams = request.getParameterMap();
 		transactionLog.setInbound(requestParams.toString());
-		transactionLog.setOutboundTime(new Date());
+		transactionLog.setInboundTime(new Date());
 		getTransactionLogService().updateTransactionLog(transactionLog);
 	}
 
 	public void saveAlipayResult(HttpServletRequest request) {
 		AlipayResult alipayResult = new AlipayResult();
 		try {
-			alipayResult.setOrderId(Integer.parseInt(request.getParameter(AlipayConstants.OUT_TRADE_NO)));
+			alipayResult.setOrderId(getOrderIdFromNotify(request));
 			// alipayResult.setOrderId(0);
 			alipayResult.setBuyerId(request.getParameter(AlipayConstants.BUYER_ID));
 			alipayResult.setBuyerAccount(request.getParameter(AlipayConstants.BUYER_ACCOUNT));
@@ -175,6 +177,15 @@ public class AlipayService {
 					request.getParameter(AlipayConstants.OUT_TRADE_NO));
 		}
 		alipayResultMapper.createAlipayResult(alipayResult);
+	}
+
+	public Integer getOrderIdFromNotify(HttpServletRequest request) {
+		String orderId = request.getParameter(AlipayConstants.OUT_TRADE_NO);
+		String orderIdPrefix = getAlipayConfig().getOrderIdPrefix();
+		if (StringUtils.isNotBlank(orderIdPrefix)) {
+			orderId = orderId.replaceAll(orderIdPrefix, "");
+		}
+		return Integer.parseInt(orderId);
 	}
 
 	public AlipayConfig getAlipayConfig() {
