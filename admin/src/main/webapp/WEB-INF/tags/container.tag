@@ -1,6 +1,7 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="id" required="true" rtexprvalue="true" %>
 <%@ attribute name="extraPage" required="false" rtexprvalue="true" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 
@@ -296,7 +297,7 @@
 									购物车管理 </a>
 							</li>
 							<li>
-								<a href=":;">
+								<a href="<spring:url value="/order/order-list" />">
 									<i class="fa-angle-right"></i>
 									订单管理 </a>
 							</li>
@@ -371,7 +372,7 @@
 									管理员管理 </a>
 								<ul class="dropdown-menu">
 									<li class=" ">
-										<a href="table_basic.html">
+										<a href="<spring:url value="/internal/iu-list" />">
 											管理员列表</a>
 									</li>
 									<li class=" ">

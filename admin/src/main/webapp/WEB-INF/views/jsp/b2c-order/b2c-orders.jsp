@@ -11,9 +11,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="pagination" value="${b2cOrderPage}" scope="request" />
 
 <pgt:container id="content">
-
     <jsp:include page="include/bread-crumb-row.jspf" />
     <div class="row" style="display: block">
         <div class="col-xs-12">
@@ -36,6 +36,8 @@
                 </div>
                 <div class="portlet-body">
                     <form action="<spring:url value="/order/order-list"/>">
+                        <input type="hidden" name="currentIndex" value="${param.currentIndex}" />
+                        <input type="hidden" name="capacity" value="${param.capacity}" />
                         <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                             <div class="row">
                                 <div class="col-md-2 col-sm-2">
@@ -92,174 +94,133 @@
                         </div>
                     </form>
                     <div class="table-scrollable list-box">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="list" role="grid" aria-describedby="sample_3_info">
-                                <thead>
-                                <tr role="row">
-                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="">
-                                        <input id="checkAll" type="checkbox">
-                                    </th>
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
-                                        colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
-                                        订单号
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                        aria-label=" Email : activate to sort column ascending">
-                                        下单时间
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                        aria-label=" Email : activate to sort column ascending">
-                                        商品数量
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                        aria-label=" Email : activate to sort column ascending">
-                                        总金额
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                        aria-label="Status : activate to sort column ascending">
-                                        用户id
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                        aria-label="Status : activate to sort column ascending">
-                                        详细信息
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                               id="list" role="grid" aria-describedby="sample_3_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="">
+                                    <input id="checkAll" type="checkbox">
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
+                                    colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
+                                    订单号
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                    aria-label=" Email : activate to sort column ascending">
+                                    下单时间
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                    aria-label=" Email : activate to sort column ascending">
+                                    商品数量
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                    aria-label=" Email : activate to sort column ascending">
+                                    总金额
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                    aria-label="Status : activate to sort column ascending">
+                                    用户id
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                    aria-label="Status : activate to sort column ascending">
+                                    详细信息
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
+                                    <div class="btn-group">
+                                        <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
+                                            订单状态 <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li>
+                                                <a href="javascript:;">
+                                                    全部订单 </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    待付款 </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    待收获 </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    已完成 </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    已取消 </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                    aria-label="Status : activate to sort column ascending">
+                                    操作
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="order" items="${b2cOrderPage.result}">
+                                <tr class="gradeX odd" role="row">
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="sorting_1">${order.id}</td>
+                                    <td>${order.submitDate}</td>
+                                    <td>${order.commerceItemCount}</td>
+                                    <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></td>
+                                    <td>${order.userId}</td>
+                                    <td><a href="#" class="btn btn-xs btn-circle">查看</a></td>
+                                    <td>
+                                        <!--super: blue:待付款 yellow待收货 green已完成 red已取消-->
                                         <div class="btn-group">
-                                            <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
-                                                订单状态 <i class="fa fa-angle-down"></i>
+                                            <a class="btn btn-xs blue" href="javascript:;" data-toggle="dropdown">
+                                                待付款 <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu pull-right">
                                                 <li>
-                                                    <a href="javascript:;">
-                                                        全部订单 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
+                                                    <a href="javascript:;" data-pgt-btn="modify">
                                                         待付款 </a>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:;">
-                                                        待收获 </a>
+                                                    <a href="javascript:;" data-pgt-btn="modify">
+                                                        待收货 </a>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:;">
+                                                    <a href="javascript:;" data-pgt-btn="modify">
                                                         已完成 </a>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:;">
+                                                    <a href="javascript:;" data-pgt-btn="modify">
                                                         已取消 </a>
                                                 </li>
                                             </ul>
                                         </div>
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                        aria-label="Status : activate to sort column ascending">
-                                        操作
-                                    </th>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs red btn-circle" data-pgt-btn="delete">删除</button>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="order" items="${b2cOrderPage.result}">
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox">
-                                        </td>
-                                        <td class="sorting_1">${order.id}</td>
-                                        <td>${order.submitDate}</td>
-                                        <td>${order.commerceItemCount}</td>
-                                        <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></td>
-                                        <td>${order.userId}</td>
-                                        <td><a href="#" class="btn btn-xs btn-circle">查看</a></td>
-                                        <td>
-                                            <!--super: blue:待付款 yellow待收货 green已完成 red已取消-->
-                                            <div class="btn-group">
-                                                <a class="btn btn-xs blue" href="javascript:;" data-toggle="dropdown">
-                                                    待付款 <i class="fa fa-angle-down"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li>
-                                                        <a href="javascript:;" data-pgt-btn="modify">
-                                                            待付款 </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:;" data-pgt-btn="modify">
-                                                            待收货 </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:;" data-pgt-btn="modify">
-                                                            已完成 </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:;" data-pgt-btn="modify">
-                                                            已取消 </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-xs red btn-circle" data-pgt-btn="delete">删除</button>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    <div class="row">
-                            <link rel="stylesheet" href="../core/css/page.css" />
-                            <div class="col-xs-2">
-                                <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
-                                    第
-                                    <span>${b2cOrderPage.firstRecordIndex}</span>
-                                    条 到 第
-                                    <span>${b2cOrderPage.lastRecordIndex}</span>
-                                    条 共
-                                    <span>${b2cOrderPage.count}</span>
-                                    条
-                                </div>
-                            </div>
-                            <div class="col-xs-2">
-                                <div class="dataTables_length pgt-each-page">
-                                    <label>每页显示
-                                        <select name="sample_3_length" aria-controls="sample_3"
-                                                class="form-control input-xsmall input-inline select2-offscreen"
-                                                tabindex="-1" title="">
-                                            <option value="5">5</option>
-                                            <option value="15">15</option>
-                                            <option value="20">20</option>
-                                            <option value="-1">所有</option>
-                                        </select> 条</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-4">
-                                <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
-                                    <ul class="pagination">
-                                        <li class="paginate_button previous disabled"><a href="#"><i
-                                                class="fa fa-angle-left"></i></a></li>
-                                        <li class="paginate_button previous ${b2cOrderPage.currentIndex gt 0 ? '' : 'disabled'}" aria-controls="sample_3" tabindex="0"
-                                            id="sample_3_previous"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <li class="paginate_button"><a
-                                                href="#">首页</a></li>
-                                        <c:forEach var="pageNum" items="${b2cOrderPage.pageNumbers}">
-                                            <li class="paginate_button ${pageNum eq b2cOrderPage.currentIndex ? 'active' : ''}"
-                                                aria-controls="sample_3" tabindex="0"><a href="#">${pageNum + 1}</a></li>
-                                        </c:forEach>
-                                        <li class="paginate_button"><a
-                                                href="#">末页</a></li>
-                                        <li class="paginate_button next ${b2cOrderPage.currentIndex lt internalUserPage.maxIndex ? '' : 'disabled'}" aria-controls="sample_3"
-                                            tabindex="0" id="sample_3_next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xs-2">
-                                <form class="dataTables_filter pgt-goto-page">
-                                    <label>
-                                        <input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
-                                        <input type="submit" class="btn blue" value="跳转">
-                                    </label>
-                                </form>
-                            </div>
-                        </div>
+                            </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
+
+                    <%-- pagination row --%>
+                    <form action="<spring:url value="/order/order-list" />" method="get">
+                        <div class="row">
+                            <jsp:include page="include/pagination-capacity-selection.jsp">
+                                <jsp:param name="paginationURL" value="/order/order-list?id=${param.id}&userName=${param.userName}&priceBeg=${param.priceBeg}&priceEnd=${param.priceEnd}&submitTimeBeg=${param.submitTimeBeg}&submitTimeEnd=${param.submitTimeEnd}" />
+                            </jsp:include>
+                        </div>
+                        <input type="hidden" name="id" value="${param.id}" />
+                        <input type="hidden" name="userName" value="${param.userName}" />
+                        <input type="hidden" name="priceBeg" value="${param.priceBeg}" />
+                        <input type="hidden" name="priceEnd" value="${param.priceEnd}" />
+                        <input type="hidden" name="submitTimeBeg" value="${param.submitTimeBeg}" />
+                        <input type="hidden" name="submitTimeEnd" value="${param.submitTimeEnd}" />
+                    </form>
                 </div>
             </div>
         </div>

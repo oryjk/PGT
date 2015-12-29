@@ -11,6 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="pagination" value="${internalUserPage}" scope="request" />
 
 <pgt:container id="content">
     <jsp:include page="include/bread-crumb-row.jspf" />
@@ -45,12 +46,13 @@
                     <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
                             <form action="<spring:url value="/internal/iu-list" />" method="get">
+                                <input type="hidden" name="currentIndex" value="${param.currentIndex}" />
+                                <input type="hidden" name="capacity" value="${param.capacity}" />
                                 <div class="col-md-2 col-sm-2">
                                     <div class="dataTables_filter">
                                         <label>
                                             <input type="search" class="form-control input-small input-inline" name="keyword"
                                                    value="${param.keyword}" placeholder="" aria-controls="sample_3">
-
                                         </label>
                                     </div>
                                 </div>
@@ -142,54 +144,15 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-2">
-                                <div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">
-                                    第
-                                    <span>${internalUserPage.firstRecordIndex}</span>
-                                    条 到 第
-                                    <span>${internalUserPage.lastRecordIndex}</span>
-                                    条 共
-                                    <span>${internalUserPage.count}</span>
-                                    条
-                                </div>
+                        <%-- pagination row --%>
+                        <form action="<spring:url value="/internal/iu-list" />" method="get">
+                            <div class="row">
+                                <jsp:include page="../b2c-order/include/pagination-capacity-selection.jsp">
+                                    <jsp:param name="paginationURL" value="/internal/iu-list?keyword=${param.keyword}" />
+                                </jsp:include>
                             </div>
-                            <div class="col-xs-2">
-                                <div class="dataTables_length pgt-each-page">
-                                    <label>每页显示
-                                        <select name="sample_3_length" aria-controls="sample_3"
-                                                class="form-control input-xsmall input-inline select2-offscreen"
-                                                tabindex="-1" title="">
-                                            <option value="5">5</option>
-                                            <option value="15">15</option>
-                                            <option value="20">20</option>
-                                            <option value="-1">所有</option>
-                                        </select> 条</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-4">
-                                <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
-                                    <ul class="pagination">
-                                        <li class="paginate_button previous ${internalUserPage.currentIndex gt 0 ? '' : 'disabled'}" aria-controls="sample_3" tabindex="0"
-                                            id="sample_3_previous"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <c:forEach var="pageNum" items="${internalUserPage.pageNumbers}">
-                                            <li class="paginate_button ${pageNum eq internalUserPage.currentIndex ? 'active' : ''}"
-                                                aria-controls="sample_3" tabindex="0"><a href="#">${pageNum + 1}</a></li>
-                                        </c:forEach>
-                                        <li class="paginate_button next ${internalUserPage.currentIndex lt internalUserPage.maxIndex ? '' : 'disabled'}" aria-controls="sample_3"
-                                            tabindex="0" id="sample_3_next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xs-2">
-                                <form class="dataTables_filter pgt-goto-page">
-                                    <label>
-                                        <input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
-                                        <input type="submit" class="btn blue" value="跳转">
-                                    </label>
-                                </form>
-                            </div>
-                        </div>
+                            <input type="hidden" name="keyword" value="${param.keyword}" />
+                        </form>
                     </div>
                 </div>
             </div>
