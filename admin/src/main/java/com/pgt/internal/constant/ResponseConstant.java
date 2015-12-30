@@ -13,5 +13,6 @@ public interface ResponseConstant {
 
 	String INTERNAL_USER = "internalUser";
 
+	String B2C_ORDER = "b2cOrder";
 	String B2C_ORDER_PAGE = "b2cOrderPage";
 }
