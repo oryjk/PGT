@@ -41,9 +41,6 @@ public class PaymentController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
-	@Resource(name = "transactionLogService")
-	private TransactionLogService transactionLogService;
-
 	@Autowired
 	private URLConfiguration urlConfiguration;
 
@@ -205,82 +202,6 @@ public class PaymentController {
 		}
 		modelAndView.addObject("order", order);
 		return modelAndView;
-	}
-
-	@RequestMapping(value = "/queryTrans")
-	public ModelAndView queryTransaction(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		String orderIdStr = pRequest.getParameter("orderId");
-		String type  = pRequest.getParameter("type");
-		String stateStr = pRequest.getParameter("state");
-		String trackNo = pRequest.getParameter("trackNo");
-		String startTimeStr = pRequest.getParameter("startTime");
-		String endTimeStr = pRequest.getParameter("endTime");
-		String currentIndexStr = pRequest.getParameter("currentIndex");
-		String capacityStr = pRequest.getParameter("capacity");
-		Integer orderId = null;
-		if (StringUtils.isNotBlank(orderIdStr) && StringUtils.isNumeric(orderIdStr)) {
-			orderId = Integer.valueOf(orderIdStr);
-		}
-		Integer state = null;
-		if (StringUtils.isNotBlank(stateStr) && StringUtils.isNumeric(stateStr)) {
-			if (PaymentConstants.PAYMENT_STATUS_SUCCESS == Integer.valueOf(stateStr)) {
-				state = PaymentConstants.PAYMENT_STATUS_SUCCESS;
-			}
-			if (PaymentConstants.PAYMENT_STATUS_PROCCESSING == Integer.valueOf(stateStr)) {
-				state = PaymentConstants.PAYMENT_STATUS_PROCCESSING;
-			}
-			if (PaymentConstants.PAYMENT_STATUS_FAILED == Integer.valueOf(stateStr)) {
-				state = PaymentConstants.PAYMENT_STATUS_FAILED;
-			}
-		}
-
-		Date startTime = null;
-		Date endTime = null;
-		if (StringUtils.isNotBlank(startTimeStr)) {
-			try {
-				startTime = DateUtils.parseDate(startTimeStr, "yyyyMM-dd HH:mm:ss");
-			} catch (ParseException e) {
-				throw new IllegalArgumentException("Start time format is not correct (yyyyMM-dd HH:mm:ss)");
-			}
-		}
-		if (StringUtils.isNotBlank(endTimeStr)) {
-			try {
-				endTime = DateUtils.parseDate(endTimeStr, "yyyyMM-dd HH:mm:ss");
-			} catch (ParseException e) {
-				throw new IllegalArgumentException("Start time format is not correct (yyyyMM-dd HH:mm:ss)");
-			}
-		}
-		int currentIndex = 0;
-		if (StringUtils.isNotBlank(currentIndexStr)) {
-			if (StringUtils.isNumeric(currentIndexStr)) {
-				currentIndex = Integer.valueOf(currentIndexStr);
-			}
-		}
-		int capacity = PaginationBean.DEFAULT_CAPACITY;
-		if (StringUtils.isNotBlank(capacityStr)) {
-			if (StringUtils.isNumeric(capacityStr)) {
-				capacity = Integer.valueOf(capacityStr);
-			}
-		}
-		PaginationBean paginationBean = new PaginationBean();
-		paginationBean.setCurrentIndex(currentIndex);
-		paginationBean.setCapacity(capacity);
-		List<Transaction> result = getPaymentService().queryTransaction(orderId, type, state, trackNo, startTime, endTime, paginationBean);
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("");
-		modelAndView.addObject("result", result);
-		modelAndView.addObject("paginationBean", paginationBean);
-		return modelAndView;
-	}
-
-
-
-	public TransactionLogService getTransactionLogService() {
-		return transactionLogService;
-	}
-
-	public void setTransactionLogService(TransactionLogService transactionLogService) {
-		this.transactionLogService = transactionLogService;
 	}
 
 	public PaymentService getPaymentService() {
