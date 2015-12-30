@@ -14,8 +14,8 @@
 	
 	
 	<insert id="createTransaction" parameterType="com.pgt.payment.bean.Transaction" keyColumn="id" useGeneratedKeys="true">
-		INSERT INTO TRANSACTIONS (ORDER_ID, PAYMENT_GROUP_ID, AMOUNT, TRACKING_ID, TRANSACTION_TIME, STATUS, CREATION_DATE, UDPATE_DATE)
-		VALUES (#{orderId}, #{paymentGroupId}, #{amount}, #{trackingNo},#{transactionTime}, #{status}, #{creationDate}, #{updateDate})
+		INSERT INTO TRANSACTIONS (ORDER_ID, PAYMENT_GROUP_ID, AMOUNT, TRACKING_ID, TRANSACTION_TIME, STATUS, CREATION_DATE, UDPATE_DATE, PAYMENT_TYPE)
+		VALUES (#{orderId}, #{paymentGroupId}, #{amount}, #{trackingNo},#{transactionTime}, #{status}, #{creationDate}, #{updateDate}, #{paymentType})
 		<selectKey resultType="long" order="AFTER" keyProperty="id">
         	SELECT LAST_INSERT_ID() as id
     	</selectKey>
@@ -32,7 +32,8 @@
 	<update id="updateTransaction" parameterType="com.pgt.payment.bean.Transaction">
 		UPDATE TRANSACTIONS
 		SET ORDER_ID = #{orderId}, PAYMENT_GROUP_ID = #{paymentGroupId}, AMOUNT = #{amount}, TRACKING_ID = #{trackingNo}, 
-		TRANSACTION_TIME = #{transactionTime}, STATUS = #{status}, CREATION_DATE = #{creationDate}, UDPATE_DATE = #{updateDate}
+		TRANSACTION_TIME = #{transactionTime}, STATUS = #{status}, CREATION_DATE = #{creationDate}, UDPATE_DATE = #{updateDate},
+		PAYMENT_TYPE = #{paymentType}
 		WHERE TRANSACTION_ID = #{id}
 	</update>
 	
@@ -58,6 +59,7 @@
 		<result column="STATUS" property="status"/>
 		<result column="CREATION_DATE" property="creationDate"/>
 		<result column="UDPATE_DATE" property="updateDate"/>
+		<result column="PAYMENT_TYPE" property="paymentType"/>
 	</resultMap>
 	
 	
