@@ -67,4 +67,20 @@
 		SELECT * FROM HELPCENTER WHERE ID =#{ID}
 	</select>
 
+	 <select id="queryHelpCenters" parameterType="com.pgt.help.bean.HelpCenter"
+            resultMap="helpCenterResult">
+        SELECT * FROM HELPCENTER WHERE 1=1
+        <if test="helpCenter.category!=null">
+	        <if test="helpCenter.category.id!=null">
+	            AND REFERENCE_ID=${helpCenter.category.id}
+	        </if>
+        </if>
+        <if test="paginationBean!=null">
+            <if test="paginationBean.currentIndex != null">
+                <if test="paginationBean.capacity != null">
+                    limit #{paginationBean.currentIndex}, #{paginationBean.capacity}
+                </if>
+            </if>
+        </if>
+    </select>
 </mapper>
