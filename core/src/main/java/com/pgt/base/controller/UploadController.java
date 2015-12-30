@@ -1,8 +1,7 @@
 package com.pgt.base.controller;
 
-import java.io.File;
+import java.io.*;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,12 +66,13 @@ public class UploadController {
 	@RequestMapping(value = "/uploadPicByPhone")
 	public void uploadFck(HttpServletRequest request,HttpServletResponse response) {
 
-		//强转request  支持多个
+        //接收上传的文件
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest) request;
-		//获取值  支持多个
 		Map<String, MultipartFile> fileMap = mr.getFileMap();
-		//遍历Map
 		Set<Map.Entry<String, MultipartFile>> entrySet = fileMap.entrySet();
+
+		JSONObject jo = new JSONObject();
+
 		for (Map.Entry<String, MultipartFile> entry : entrySet) {
 
 			//上传上来的图片
@@ -95,20 +95,30 @@ public class UploadController {
 			if (!file.exists()) {
 				file.mkdirs();
 			}
-			// 将内存中的文件写入磁盘
 
+			try {
+				// 将内存中的文件写入磁盘
+				InputStream in = pic.getInputStream();
+				int len =0;
+				FileOutputStream out = new FileOutputStream(file);
+				byte[] buffer = new byte[1024];
+				while((len==in.read(buffer))){
+					out.write(buffer,0,len);
+				}
+				in.close();
+				out.close();
 
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 
-
-
-			//uploadPic.transferTo(file);
 			url = url.substring(url.indexOf("image"), url.length());
-			JSONObject jo = new JSONObject();
+
 			jo.put("url", url);
 			jo.put("path", path);
 
 		}
-
+		 ResponseUtils.renderJson(response, jo.toString());
 	}
 
 }

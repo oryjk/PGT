@@ -50,10 +50,7 @@
             <bean class="com.pgt.cart.filter.ProductBrowseTracker"></bean>
         </mvc:interceptor>
 
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.pgt.cart.filter.RecommendInterceptor"></bean>
-        </mvc:interceptor>
+
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>

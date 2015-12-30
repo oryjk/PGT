@@ -5,6 +5,7 @@ archivesBaseName = 'mobile'
 dependencies {
 
     compile project(":core")
+    compile project(":admin")
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
