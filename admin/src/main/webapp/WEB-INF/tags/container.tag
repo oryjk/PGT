@@ -1,5 +1,5 @@
 <%@ tag pageEncoding="UTF-8" %>
-<%@ attribute name="id" required="true" rtexprvalue="true" %>
+<%@ attribute name="id" required="false" rtexprvalue="true" %>
 <%@ attribute name="extraPage" required="false" rtexprvalue="true" %>
 
 <!DOCTYPE html>

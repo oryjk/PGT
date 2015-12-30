@@ -41,6 +41,7 @@ public class ProductController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView createProduct(ModelAndView modelAndView) {
         modelAndView.addObject("product", new Product());
+        modelAndView.setViewName("/product/addAndModifyProduct");
         return modelAndView;
     }
 

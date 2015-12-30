@@ -1,22 +1,22 @@
 package com.pgt.category;
 
 import com.pgt.category.bean.Category;
+import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
+import com.pgt.configuration.Configuration;
 import com.pgt.product.service.ProductService;
-import org.apache.commons.lang3.StringUtils;
+import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by carlwang on 12/17/15.
@@ -31,12 +31,38 @@ public class CategoryController {
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private Configuration configuration;
+
+    @RequestMapping(value = "/categoryList", method = RequestMethod.GET)
+    public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "type", required = false) CategoryType categoryType,
+                            @RequestParam(value = "currentIndex", required = false) Integer currentIndex) {
+        LOGGER.debug("Get all {} categories.", categoryType);
+        if (ObjectUtils.isEmpty(categoryType)) {
+            LOGGER.debug("The category type is empty,use default category type root.");
+            categoryType = CategoryType.ROOT;
+        }
+        Category categoryRequest = new Category();
+        PaginationBean paginationBean = new PaginationBean();
+        if (ObjectUtils.isEmpty(currentIndex)) {
+            currentIndex = 20;
+        }
+        paginationBean.setCurrentIndex(currentIndex);
+        paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
+        categoryRequest.setType(categoryType);
+
+        List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
+        modelAndView.addObject("categories", categories);
+        modelAndView.setViewName("category/categoryList");
+        return modelAndView;
+    }
 
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView create(ModelAndView modelAndView) {
         LOGGER.debug("create GET.");
         modelAndView.addObject("category", new Category());
+        modelAndView.setViewName("/");
         return modelAndView;
     }
 

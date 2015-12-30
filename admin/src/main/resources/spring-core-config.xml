@@ -68,6 +68,7 @@
         <property name="resourcePath" value="/resources"></property>
         <property name="initialDataPath" value="/json"></property>
         <property name="adminPlpCapacity" value="20"></property>
+        <property name="adminCategoryCapacity" value="20"></property>
 
 
     </bean>
