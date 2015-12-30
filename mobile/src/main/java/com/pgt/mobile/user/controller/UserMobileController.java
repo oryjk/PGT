@@ -69,6 +69,12 @@ public class UserMobileController extends BaseMobileController {
             return responseMobileFail(responseMap, "PhoneId.empty");
         }
         LOGGER.debug("The phone id is {}.", user.getPhoneId());
+        Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
+        Cache.ValueWrapper valueWrapper = cache.get(user.getPhoneId());
+        if (!ObjectUtils.isEmpty(valueWrapper)) {
+            return responseMobileFail(responseMap, "User.alreadyLogin");
+        }
+
         if (StringUtils.isEmpty(user.getUsername())) {
           return   responseMobileFail(responseMap, "Error.empty.username");
         }
@@ -90,8 +96,9 @@ public class UserMobileController extends BaseMobileController {
         responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
         responseMap.put("user", userResult);
 
-        Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
-        cache.put(user.getPhoneId(), userResult);
+        Cache cache2 = cacheManager.getCache(MobileConstans.PHONE_USER);
+
+        cache2.put(user.getPhoneId(), userResult);
         return responseMap;
     }
 
@@ -169,7 +176,7 @@ public class UserMobileController extends BaseMobileController {
 
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public  Map<String,Object> logout(HttpSession session,String phoneId) {
+    public  Map<String,Object> logout(String phoneId) {
         Map<String,Object> responseMap = new HashMap<String,Object>();
         if(StringUtils.isEmpty(phoneId)) {
             return responseMobileFail(responseMap, "PhoneId.empty");

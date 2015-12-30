@@ -67,6 +67,12 @@ public class TransactionLogService extends Transactionable {
 	}
 
 
+	public TransactionLog findLastLogByOrderId(long orderId){
+		return getTransactionLogMapper().findLastLogByOrderId(orderId);
+	}
+
+
+
 	public List<TransactionLog> queryTransactionLog(String orderId, String userId, String paymentGroupId,
 													 String transactionId, String type, String serviceName,
 													 Date startTime, Date endTime, PaginationBean paginationBean) {

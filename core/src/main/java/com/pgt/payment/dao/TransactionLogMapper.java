@@ -22,4 +22,6 @@ public interface TransactionLogMapper extends SqlMapper {
 	List<TransactionLog> queryTransactionLog(TransactionLogQueryBean bean);
 
 	int queryTransactionLogTotalAmount(TransactionLogQueryBean bean);
+
+	TransactionLog findLastLogByOrderId(long orderId);
 }

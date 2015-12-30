@@ -27,6 +27,7 @@ public class Category extends BaseBean {
     private String color;
     private Integer sort = 1;
     private String description;
+    private Integer categoryIndex;
 
     public ProductMedia getFrontMedia() {
         return frontMedia;
@@ -125,5 +126,13 @@ public class Category extends BaseBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getCategoryIndex() {
+        return categoryIndex;
+    }
+
+    public void setCategoryIndex(Integer categoryIndex) {
+        this.categoryIndex = categoryIndex;
     }
 }

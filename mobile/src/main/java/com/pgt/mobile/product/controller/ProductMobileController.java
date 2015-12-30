@@ -67,6 +67,7 @@ public class ProductMobileController extends BaseMobileController{
 		}
 		Map product = products[0].getSource();
 		LOGGER.debug("The product id is {}", productId);
+		responseMap.put("product",product);   
 		return responseMap;
 	}
 

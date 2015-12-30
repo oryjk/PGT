@@ -129,7 +129,7 @@ public class PaginationBean implements Mapable {
 		currentIndex = page.getNextIndex();
 		System.out.println(currentIndex + " -- " + page.getSqlStartIndex());
 		page.setCurrentIndex(currentIndex);
-		
+
 
 		System.out.println("------------------------");
 		page.setTotalAmount(15);
@@ -157,6 +157,11 @@ public class PaginationBean implements Mapable {
 			System.out.println(key + ": " + value.get(key));
 		}
 
+		System.out.println("------------------------------");
+		PaginationBean bean = new PaginationBean();
+		bean.setTotalAmount(50);
+		bean.setCapacity(7);
+		bean.setCurrentIndex(0);
 	}
 
 	public String getSortFiledName() {
