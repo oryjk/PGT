@@ -12,6 +12,7 @@ import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
 import com.pgt.hot.service.HotProductHelper;
 import com.pgt.media.MediaService;
+import com.pgt.mobile.base.controller.BaseMobileController;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.service.ESSearchService;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +39,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/mHome")
-public class HomeMobileController {
+public class HomeMobileController extends BaseMobileController{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeMobileController.class);
     @Autowired
@@ -69,14 +71,17 @@ public class HomeMobileController {
             esSort.setPropertyName(Constants.SORT);
             esSort.setSortOrder(SortOrder.ASC);
             SearchResponse searchResponse = esSearchService.findHotSales(esSort);
-            if (ObjectUtils.isEmpty(searchResponse)) {
-                responseMap.put("hotProducts",searchResponse.toString());
+            if (!ObjectUtils.isEmpty(searchResponse)) {
+                List hotProducts= searchConvertToList(searchResponse);
+                responseMap.put("hotProducts",hotProducts);
             }
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             responseMap.put("hotSearchList",hotSearchList);
             return responseMap;
     }
+
+
 
     public CategoryHelper getCategoryHelper() {
         return categoryHelper;

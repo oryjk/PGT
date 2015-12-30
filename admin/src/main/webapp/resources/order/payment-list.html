@@ -105,39 +105,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <span class="caption-subject font-green-sharp bold uppercase">表格</span>
                             </div>
                             <div class="actions btn-set">
-                                <div class="btn-group">
-                                    <a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
-                                        <i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:;" data-pgt-btn="modifyChecked">
-                                                所选项改为待收款 </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" data-pgt-btn="modifyChecked">
-                                                所选项改为待收货 </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" data-pgt-btn="modifyChecked">
-                                                所选项改为已完成 </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" data-pgt-btn="modifyChecked">
-                                                所选项改为取消 </a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="javascript:;"  data-pgt-btn="deleteChecked">
-                                                删除所选项 </a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="javascript:;">
-                                                打印所选项 </a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -164,7 +131,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-2">
                                         <div class="dataTables_filter">
                                             <label>状态:
                                                 <select name="sample_3_length" aria-controls="sample_3"
@@ -175,6 +142,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <option value="15">类型2</option>
                                                     <option value="20">类型3</option>
                                                 </select>
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="dataTables_filter">
+                                            <label>物流单号:<input type="search" class="form-control input-small input-inline"
+                                                               placeholder="订单id" aria-controls="sample_3">
 
                                             </label>
                                         </div>
@@ -225,174 +200,90 @@ License: You must have a valid license purchased only from themeforest(the above
                                            id="list" role="grid" aria-describedby="sample_3_info">
                                         <thead>
                                         <tr role="row">
-                                            <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="">
-                                                <input id="checkAll" type="checkbox">
-                                            </th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
-                                                colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
+                                            <th>
                                                 订单号
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                aria-label=" Email : activate to sort column ascending">
-                                                下单时间
+                                            <th>
+                                                交易类型
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                aria-label=" Email : activate to sort column ascending">
-                                                商品数量
+                                            <th>
+                                                金额
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                aria-label=" Email : activate to sort column ascending">
-                                                总金额
+                                            <th>
+                                                开始时间
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                aria-label="Status : activate to sort column ascending">
-                                                用户id
+                                            <th>
+                                                结束时间
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                aria-label="Status : activate to sort column ascending">
-                                                详细信息
+                                            <th>
+                                                物流单号
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
-                                                        订单状态 <i class="fa fa-angle-down"></i>
+                                                        状态 <i class="fa fa-angle-down"></i>
                                                     </a>
                                                     <ul class="dropdown-menu pull-right">
                                                         <li>
                                                             <a href="javascript:;">
-                                                                全部订单 </a>
+                                                                状态1 </a>
                                                         </li>
                                                         <li>
                                                             <a href="javascript:;">
-                                                                待付款 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                待收获 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                已完成 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                已取消 </a>
+                                                                状态2 </a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                aria-label="Status : activate to sort column ascending">
-                                                操作
                                             </th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr class="gradeX odd" role="row">
                                             <td>
-                                                <input type="checkbox">
-                                            </td>
-                                            <td class="sorting_1">
                                                 0000000000001
                                             </td>
                                             <td>
-                                                2015年12月12日
+                                                类型1
                                             </td>
                                             <td>
-                                                2
+                                                20100.00
                                             </td>
                                             <td>
-                                                3210.00
+                                                2015-12-28 12:23
                                             </td>
                                             <td>
-                                                123
+                                                2015-12-29 12:23
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-xs btn-circle">查看</a>
+                                                00000000000001
                                             </td>
                                             <td>
-                                                <!--super: blue:待付款 yellow待收货 green已完成 red已取消-->
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs blue" href="javascript:;" data-toggle="dropdown">
-                                                        待付款 <i class="fa fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li>
-                                                            <a href="javascript:;"  data-pgt-btn="modify">
-                                                                待付款 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;"  data-pgt-btn="modify">
-                                                                待收货 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;"  data-pgt-btn="modify">
-                                                                已完成 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;"  data-pgt-btn="modify">
-                                                                已取消 </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-xs red btn-circle" data-pgt-btn="delete">删除</button>
+                                                状态1
                                             </td>
                                         </tr>
                                         <tr class="gradeX odd" role="row">
                                             <td>
-                                                <input type="checkbox">
-                                            </td>
-                                            <td class="sorting_1">
                                                 0000000000001
                                             </td>
                                             <td>
-                                                2015年12月12日
+                                                类型1
                                             </td>
                                             <td>
-                                                2
+                                                20100.00
                                             </td>
                                             <td>
-                                                3210.00
+                                                2015-12-28 12:23
                                             </td>
                                             <td>
-                                                123
+                                                2015-12-29 12:23
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-xs btn-circle">查看</a>
+                                                00000000000001
                                             </td>
                                             <td>
-                                                <!--super: blue:待付款 yellow待收货 green已完成 red已取消-->
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs yellow " href="javascript:;" data-toggle="dropdown">
-                                                        待收货 <i class="fa fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li>
-                                                            <a href="javascript:;" data-pgt-btn="modify">
-                                                                待付款 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;"  data-pgt-btn="modify">
-                                                                待收货 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;"  data-pgt-btn="modify">
-                                                                已完成 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;"  data-pgt-btn="modify">
-                                                                已取消 </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-xs red btn-circle" data-pgt-btn="delete">删除</button>
+                                                状态1
                                             </td>
                                         </tr>
-
                                         </tbody>
                                     </table>
                                 </div>

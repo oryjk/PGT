@@ -95,9 +95,9 @@ public class ESSearchMobileController extends BaseMobileController{
                         esAggregation, null);
             }
 
-
             SearchResponse categoryResponse= getCategoryHists(searchResponse);
-            responseMap.put("categoryHists",categoryResponse.toString());
+            List categoryHists= searchConvertToList(categoryResponse);
+            responseMap.put("categoryHists",categoryHists);
 
             hits = searchResponse.getHits();
             Long total = hits.getTotalHits();
@@ -111,17 +111,16 @@ public class ESSearchMobileController extends BaseMobileController{
             parentSort.setPropertyName("id");
             parentSort.setSortOrder(SortOrder.ASC);
             SearchResponse parentCategoryResponse = esSearchService.findCategories(null, parentSort);
-            responseMap.put("parentCategoryList",parentCategoryResponse.toString());
+            List parentCategoryList= searchConvertToList(parentCategoryResponse);
+            responseMap.put("parentCategoryList",parentCategoryList);
 
 
             //查找category
             SearchResponse rootSearchResponse = esSearchService.findRootCategory();
             if (!ObjectUtils.isEmpty(rootSearchResponse)) {
                 SearchHits searchHits = rootSearchResponse.getHits();
-                if (!ObjectUtils.isEmpty(searchHits)) {
-                    SearchHit[] categoryArray = searchHits.getHits();
-                     responseMap.put("categoryArray",categoryArray);
-                }
+                List categoryList = searchConvertToList(rootSearchResponse);
+                responseMap.put("categoryList", categoryList);
             }
 
             // 根据搜索是否有结果，设置页面显示内容
@@ -130,7 +129,8 @@ public class ESSearchMobileController extends BaseMobileController{
                 responseMap.put(MobileConstans.MOBILE_MESSAGE,"ESSsearch.empty");
             } else {
                 responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
-                responseMap.put("products",searchResponse.toString());
+                List products= searchConvertToList(searchResponse);
+                responseMap.put("products",products);
             }
         } catch (Exception e) {
             LOGGER.debug("ESSsearch has some exception{}", e.getMessage());
