@@ -473,37 +473,37 @@
 <script src="${ctx}/resources/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="${ctx}/resources/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
-<!-- IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support -->
-<script src="${ctx}/resources/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="${ctx}/resources/assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/admin/layout2/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/admin/layout3/scripts/demo.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
-<script src="${ctx}/resources/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<%--<!-- BEGIN PAGE LEVEL PLUGINS -->--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>--%>
+<%--<!-- IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support -->--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>--%>
+<%--<!-- END PAGE LEVEL PLUGINS -->--%>
+<%--<!-- BEGIN PAGE LEVEL SCRIPTS -->--%>
+<%--<script src="${ctx}/resources/assets/global/scripts/metronic.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/admin/layout2/scripts/quick-sidebar.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/admin/layout3/scripts/demo.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>--%>
+<%--<script src="${ctx}/resources/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>--%>
 
-<!-- END PAGE LEVEL SCRIPTS -->
-<script>
-    jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core componets
-        Layout.init(); // init layout
-        Demo.init(); // init demo(theme settings page)
-        QuickSidebar.init(); // init quick sidebar
-        Index.init(); // init index page
-        Tasks.initDashboardWidget(); // init tash dashboard widget
-    });
-</script>
+<%--<!-- END PAGE LEVEL SCRIPTS -->--%>
+<%--<script>--%>
+    <%--jQuery(document).ready(function () {--%>
+        <%--Metronic.init(); // init metronic core componets--%>
+        <%--Layout.init(); // init layout--%>
+        <%--Demo.init(); // init demo(theme settings page)--%>
+        <%--QuickSidebar.init(); // init quick sidebar--%>
+        <%--Index.init(); // init index page--%>
+        <%--Tasks.initDashboardWidget(); // init tash dashboard widget--%>
+    <%--});--%>
+<%--</script>--%>
 
 <c:if test="${loadJsDateInput}">
     <!--日期插件框-->
@@ -1093,10 +1093,10 @@
             </div>
         </div>
     </div>
-    <script src="${ctx}/resources/assets/others/jcDate/jQuery-jcDate.js"></script>
     <link rel="stylesheet" href="${ctx}/resources/assets/others/jcDate/jcDate.css"/>
     <link rel="stylesheet" href="${ctx}/resources/core/css/myself-date.css"/>
     <link rel="stylesheet" href="${ctx}/resources/core/css/table.css"/>
+    <script src="${ctx}/resources/assets/others/jcDate/jQuery-jcDate.js"></script>
 </c:if>
 <c:if test="${not empty pageJsPath}">
     <script src="${ctx}${pageJsPath}"></script>
