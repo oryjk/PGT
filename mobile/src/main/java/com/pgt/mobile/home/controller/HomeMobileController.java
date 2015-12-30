@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,8 +60,8 @@ public class HomeMobileController {
     @Autowired
     private MediaService mediaService;
 
-    @RequestMapping(value ="value", method = RequestMethod.POST)
-    public Map<String,Object> index() {
+    @RequestMapping(method = RequestMethod.POST)
+    public  Map<String,Object> index() {
 
         Map<String,Object> responseMap = new HashMap<String,Object>();
 
@@ -68,11 +69,8 @@ public class HomeMobileController {
             esSort.setPropertyName(Constants.SORT);
             esSort.setSortOrder(SortOrder.ASC);
             SearchResponse searchResponse = esSearchService.findHotSales(esSort);
-            SearchHits searchHits = searchResponse.getHits();
-            SearchHit[] hotProducts = searchHits.getHits();
-
-            if (ArrayUtils.isEmpty(hotProducts)) {
-                responseMap.put("hotProducts",hotProducts);
+            if (ObjectUtils.isEmpty(searchResponse)) {
+                responseMap.put("hotProducts",searchResponse.toString());
             }
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();

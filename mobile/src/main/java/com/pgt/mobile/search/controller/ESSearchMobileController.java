@@ -96,8 +96,8 @@ public class ESSearchMobileController extends BaseMobileController{
             }
 
 
-            SearchHit[] categoryHists= getCategoryHists(searchResponse);
-            responseMap.put("categoryHists",categoryHists);
+            SearchResponse categoryResponse= getCategoryHists(searchResponse);
+            responseMap.put("categoryHists",categoryResponse.toString());
 
             hits = searchResponse.getHits();
             Long total = hits.getTotalHits();
@@ -111,7 +111,7 @@ public class ESSearchMobileController extends BaseMobileController{
             parentSort.setPropertyName("id");
             parentSort.setSortOrder(SortOrder.ASC);
             SearchResponse parentCategoryResponse = esSearchService.findCategories(null, parentSort);
-            responseMap.put("parentCategoryList",parentCategoryResponse.getHits().getHits());
+            responseMap.put("parentCategoryList",parentCategoryResponse.toString());
 
 
             //查找category
@@ -130,7 +130,7 @@ public class ESSearchMobileController extends BaseMobileController{
                 responseMap.put(MobileConstans.MOBILE_MESSAGE,"ESSsearch.empty");
             } else {
                 responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
-                responseMap.put("searchHists",searchHists);
+                responseMap.put("products",searchResponse.toString());
             }
         } catch (Exception e) {
             LOGGER.debug("ESSsearch has some exception{}", e.getMessage());
@@ -140,12 +140,12 @@ public class ESSearchMobileController extends BaseMobileController{
         return responseMap;
     }
 
-    private SearchHit[] getCategoryHists(SearchResponse searchResponse) {
+    private  SearchResponse getCategoryHists(SearchResponse searchResponse) {
         // 获取categoryId的聚合信息,出现的次数，以及id
         Map<String, Aggregation> aggMap = searchResponse.getAggregations().asMap();
         StringTerms gradeTerms = (StringTerms) aggMap.get("aggr");
         List<Bucket> categories = gradeTerms.getBuckets();
-        SearchHit[] categoryHists=null;
+        SearchResponse categoryResponse=null;
 
         if (CollectionUtils.isEmpty(categories)) {
             List<ESTerm> esTermList = new ArrayList<>();
@@ -156,12 +156,9 @@ public class ESSearchMobileController extends BaseMobileController{
                 esTermList.add(categoryTerm);
             }
             // 根据分类id获取相关分类
-            SearchResponse categoryResponse = esSearchService.findCategories(esTermList, null);
-            SearchHits cateHits = null;
-            cateHits = categoryResponse.getHits();
-            categoryHists = cateHits.getHits();
+             categoryResponse = esSearchService.findCategories(esTermList, null);
         }
-        return categoryHists;
+        return categoryResponse;
     }
 
     private ESRange buildEsRange(EssearchBean essearchBean, Map<String, Object> responseMap, ESRange esRange) {
