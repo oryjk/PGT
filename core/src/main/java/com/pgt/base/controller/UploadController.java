@@ -102,7 +102,7 @@ public class UploadController {
 				int len =0;
 				FileOutputStream out = new FileOutputStream(file);
 				byte[] buffer = new byte[1024];
-				while((len==in.read(buffer))){
+				while((len=in.read(buffer))>0){
 					out.write(buffer,0,len);
 				}
 				in.close();
