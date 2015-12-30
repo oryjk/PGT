@@ -87,7 +87,7 @@
                                                 <input type="search" class="form-control input-mini input-inline"
                                                        placeholder="分" aria-controls="sample_3">
                                             </div>
-                                            <div class="col-xs-1 pgt-time-divide">
+                                            <div class="col-xs-1 pgt-date-divide">
                                                 <span>至</span>
                                             </div>
                                             <div class="col-xs-2">
