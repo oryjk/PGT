@@ -328,6 +328,7 @@ public class YeePayController {
 			transaction.setOrderId(Long.valueOf(order.getId()));
 			transaction.setPaymentGroupId(paymentGroup.getId());
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
+			transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_YEEPAY);
 			getPaymentService().createTransaction(transaction);
 
 			TransactionLog transactionLog = new TransactionLog();

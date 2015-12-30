@@ -12,6 +12,15 @@ public class Transaction {
 	private int status;
 	private Date creationDate;
 	private Date updateDate;
+	private int paymentType;
+
+	public int getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(int paymentType) {
+		this.paymentType = paymentType;
+	}
 
 	public Long getId() {
 		return id;

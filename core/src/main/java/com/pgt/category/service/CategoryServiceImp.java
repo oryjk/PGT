@@ -1,5 +1,13 @@
 package com.pgt.category.service;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
 import com.pgt.category.bean.Category;
 import com.pgt.category.dao.CategoryMapper;
 import com.pgt.common.bean.Media;
@@ -7,13 +15,6 @@ import com.pgt.common.dao.MediaMapper;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.utils.PaginationBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-
-import java.util.List;
 
 /**
  * Created by carlwang on 11/13/15.
@@ -54,7 +55,9 @@ public class CategoryServiceImp implements CategoryService {
     @Override
     public Integer updateCategory(Category category) {
         Integer count = categoryMapper.updateCategory(category);
-        mediaMapper.updateMedia(category.getFrontMedia());
+		if (category.getFrontMedia() != null) {
+			mediaMapper.updateMedia(category.getFrontMedia());
+		}
         return count;
     }
 

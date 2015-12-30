@@ -11,12 +11,15 @@ import java.util.Map;
  * Example:
  * Please refer main method.
  * 
- * first paget currentIndex is 0. 
+ * first page currentIndex is 0.
  * 
  * @author Samli
  *
  */
 public class PaginationBean implements Mapable {
+
+	public static final int DEFAULT_CAPACITY = 5;
+
 	private long capacity;
 	private long currentIndex;// start from 0;
 	private long totalAmount;
@@ -126,7 +129,7 @@ public class PaginationBean implements Mapable {
 		currentIndex = page.getNextIndex();
 		System.out.println(currentIndex + " -- " + page.getSqlStartIndex());
 		page.setCurrentIndex(currentIndex);
-		
+
 
 		System.out.println("------------------------");
 		page.setTotalAmount(15);
@@ -154,6 +157,11 @@ public class PaginationBean implements Mapable {
 			System.out.println(key + ": " + value.get(key));
 		}
 
+		System.out.println("------------------------------");
+		PaginationBean bean = new PaginationBean();
+		bean.setTotalAmount(50);
+		bean.setCapacity(7);
+		bean.setCurrentIndex(0);
 	}
 
 	public String getSortFiledName() {
