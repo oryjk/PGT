@@ -2,10 +2,13 @@ package com.pgt.base.controller;
 
 import java.io.File;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pgt.utils.ResponseUtils;
 
 import liquibase.util.file.FilenameUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
  * 公共上传图片 异步上传 Created by ddjunshi 2015年11月24日
@@ -57,6 +61,53 @@ public class UploadController {
 		jo.put("url", url);
 		jo.put("path", path);
 		ResponseUtils.renderJson(response, jo.toString());
+
+	}
+
+	@RequestMapping(value = "/uploadPicByPhone")
+	public void uploadFck(HttpServletRequest request,HttpServletResponse response) {
+
+		//强转request  支持多个
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest) request;
+		//获取值  支持多个
+		Map<String, MultipartFile> fileMap = mr.getFileMap();
+		//遍历Map
+		Set<Map.Entry<String, MultipartFile>> entrySet = fileMap.entrySet();
+		for (Map.Entry<String, MultipartFile> entry : entrySet) {
+
+			//上传上来的图片
+			MultipartFile pic = entry.getValue();
+			//扩展名
+			String ext = FilenameUtils.getExtension(pic.getOriginalFilename());
+			DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+			String picName = df.format(new Date());
+			Random r = new Random();
+			for (int i = 0; i < 3; i++) {
+				picName += r.nextInt(10);
+			}
+			String basePath = request.getRealPath("/resources/image/upload/user/");
+			// 相对路径
+			String path = picName + "." + ext;
+			// 全路径
+			String url = basePath + path;
+			// 新图片
+			File file = new File(url);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			// 将内存中的文件写入磁盘
+
+
+
+
+
+			//uploadPic.transferTo(file);
+			url = url.substring(url.indexOf("image"), url.length());
+			JSONObject jo = new JSONObject();
+			jo.put("url", url);
+			jo.put("path", path);
+
+		}
 
 	}
 
