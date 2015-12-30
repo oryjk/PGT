@@ -16,9 +16,10 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:config/mybatis/mappers/*Mapper.xml"/>
+        <property name="mapperLocations" value="classpath*:config/mybatis/mappers/*Mapper.xml"/>
         <!--<property name="configLocation" value="classpath:mybatis-config.xml"/> -->
     </bean>
+
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -148,7 +149,7 @@
     </bean>
 
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/" />
+        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/"/>
         <property name="velocityProperties">
             <props>
                 <prop key="default.contentType">text/html; charset=utf-8</prop>
