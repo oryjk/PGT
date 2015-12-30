@@ -493,6 +493,8 @@
 <script src="${ctx}/resources/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
 <script src="${ctx}/resources/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 
+
+<script src="${ctx}/resources/core/js/jquery.form.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
     jQuery(document).ready(function () {
