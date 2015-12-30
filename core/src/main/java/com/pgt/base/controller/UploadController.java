@@ -86,15 +86,17 @@ public class UploadController {
 				picName += r.nextInt(10);
 			}
 			String basePath = request.getRealPath("/resources/image/upload/user/");
+			File filemkdir = new File(basePath);
+			if(!filemkdir.exists()){
+				filemkdir.mkdirs();
+			}
+
 			// 相对路径
 			String path = picName + "." + ext;
 			// 全路径
 			String url = basePath + path;
 			// 新图片
 			File file = new File(url);
-			if (!file.exists()) {
-				file.mkdirs();
-			}
 
 			try {
 				// 将内存中的文件写入磁盘

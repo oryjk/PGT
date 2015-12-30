@@ -14,6 +14,15 @@
     <mvc:annotation-driven
             conversion-service="conversionService"
             validator="validatorFactoryBean">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
     </mvc:annotation-driven>
     <!--Do not interceptor static files.-->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
