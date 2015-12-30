@@ -27,14 +27,14 @@
 		keyProperty="bannerId" useGeneratedKeys="true">
 		
 		INSERT INTO
-		HELPCENTER(TITLE,CONTENT,TYPE,PARENT_ID)VALUES(#{title},#{content},#{type},#{parent.id})
+		HELPCENTER(TITLE,CONTENT,TYPE,PARENT_ID,REFERENCE_ID)VALUES(#{title},#{content},#{type},#{parent.id},#{category.id})
 	</insert>
 
 	<!-- update a helpCenter bean -->
 	<update id="updateHelpCenter" parameterType="com.pgt.help.bean.HelpCenter">
 		
 		UPDATE HELPCENTER SET
-		TITLE=#{title},CONTENT=#{content},TYPE=#{type},PARENT_ID=#{parent.id}
+		TITLE=#{title},CONTENT=#{content},TYPE=#{type},PARENT_ID=#{parent.id},REFERENCE_ID=#{category.id}
 		WHERE ID=#{id}
 	
 	</update>
