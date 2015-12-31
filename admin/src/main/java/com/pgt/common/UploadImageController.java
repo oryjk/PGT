@@ -67,6 +67,7 @@ public class UploadImageController {
         Map<String, Object> body = responseEntity.getBody();
         body.put("imagePath", configuration.getImageFolder() + originalFilename);
         body.put("image", file);
+        body.put("mediaType", mediaType);
 
         return responseEntity;
     }

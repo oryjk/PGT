@@ -11,8 +11,10 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList" pageJsPath="/resources/product/product-add-and-modify.js">
-	product:${product}
 	<input type="hidden" value="${pageContext.request.contextPath}" id="contextPath"/>
+	<input type="hidden" value="http://www.pgt_admin.com/" id="staticServer"/>
+	<input type="hidden" value="${product.name}" id="productName"/>
+	<input type="hidden" value="${product.productId}" id="productId"/>
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
