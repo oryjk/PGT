@@ -70,6 +70,7 @@
         <property name="initialDataPath" value="/json"></property>
         <property name="adminPlpCapacity" value="20"></property>
         <property name="adminCategoryCapacity" value="20"></property>
+        <property name="imagePath" value="/Users/supersoup/Projects/new/PGT/b2c_store/src/main/webapp/resources/"></property>
 
 
     </bean>
