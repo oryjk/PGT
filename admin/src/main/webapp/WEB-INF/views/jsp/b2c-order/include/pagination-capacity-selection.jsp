@@ -81,9 +81,11 @@
     </div>
 </div>
 <div class="col-xs-2">
-    <label>
-        <input name="currentPage" type="search" class="form-control input-xsmall input-inline" placeholder="第几页"
-               value="${pagination.currentIndex + 1}">
-        <input type="submit" class="btn blue" value="跳转">
-    </label>
+    <form class="dataTables_filter pgt-goto-page">
+        <label>
+            <input name="currentPage" type="search" class="form-control input-xsmall input-inline" placeholder="第几页"
+                   value="${pagination.currentIndex + 1}">
+            <input type="submit" class="btn blue" value="跳转">
+        </label>
+    </form>
 </div>

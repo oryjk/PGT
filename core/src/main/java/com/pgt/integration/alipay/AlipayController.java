@@ -64,6 +64,7 @@ public class AlipayController {
 			transaction.setOrderId(Long.valueOf(order.getId()));
 			transaction.setPaymentGroupId(paymentGroup.getId());
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
+			transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_ALIPAY);
 			getPaymentService().createTransaction(transaction);
 			getAlipayService().createAlipayTransactionLog(transaction.getId(), session, order, paymentGroup, paramsMap);
 

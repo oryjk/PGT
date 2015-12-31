@@ -87,7 +87,7 @@
                                                 <input type="search" class="form-control input-mini input-inline"
                                                        placeholder="分" aria-controls="sample_3">
                                             </div>
-                                            <div class="col-xs-1 pgt-time-divide">
+                                            <div class="col-xs-1 pgt-date-divide">
                                                 <span>至</span>
                                             </div>
                                             <div class="col-xs-2">
@@ -181,7 +181,7 @@
                                     <td>${order.commerceItemCount}</td>
                                     <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></td>
                                     <td>${order.userId}</td>
-                                    <td><a href="#" class="btn btn-xs btn-circle">查看</a></td>
+                                    <td><a href="<spring:url value="/order/order-info?id=${order.id}" />" class="btn btn-xs btn-circle">查看</a></td>
                                     <td>
                                         <!--super: blue:待付款 yellow待收货 green已完成 red已取消-->
                                         <div class="btn-group">

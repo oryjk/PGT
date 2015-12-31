@@ -27,14 +27,14 @@
 		keyProperty="bannerId" useGeneratedKeys="true">
 		
 		INSERT INTO
-		HELPCENTER(TITLE,CONTENT,TYPE,PARENT_ID)VALUES(#{title},#{content},#{type},#{parent.id})
+		HELPCENTER(TITLE,CONTENT,TYPE,PARENT_ID,REFERENCE_ID)VALUES(#{title},#{content},#{type},#{parent.id},#{category.id})
 	</insert>
 
 	<!-- update a helpCenter bean -->
 	<update id="updateHelpCenter" parameterType="com.pgt.help.bean.HelpCenter">
 		
 		UPDATE HELPCENTER SET
-		TITLE=#{title},CONTENT=#{content},TYPE=#{type},PARENT_ID=#{parent.id}
+		TITLE=#{title},CONTENT=#{content},TYPE=#{type},PARENT_ID=#{parent.id},REFERENCE_ID=#{category.id}
 		WHERE ID=#{id}
 	
 	</update>
@@ -67,4 +67,20 @@
 		SELECT * FROM HELPCENTER WHERE ID =#{ID}
 	</select>
 
+	 <select id="queryHelpCenters" parameterType="com.pgt.help.bean.HelpCenter"
+            resultMap="helpCenterResult">
+        SELECT * FROM HELPCENTER WHERE 1=1
+        <if test="helpCenter.category!=null">
+	        <if test="helpCenter.category.id!=null">
+	            AND REFERENCE_ID=${helpCenter.category.id}
+	        </if>
+        </if>
+        <if test="paginationBean!=null">
+            <if test="paginationBean.currentIndex != null">
+                <if test="paginationBean.capacity != null">
+                    limit #{paginationBean.currentIndex}, #{paginationBean.capacity}
+                </if>
+            </if>
+        </if>
+    </select>
 </mapper>

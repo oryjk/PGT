@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
+import com.pgt.payment.bean.Transaction;
+import com.pgt.utils.PaginationBean;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +31,15 @@ import com.pgt.payment.service.PaymentService;
 import com.pgt.payment.service.TransactionLogService;
 import com.pgt.user.bean.User;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
+
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
-
-	@Resource(name = "transactionLogService")
-	private TransactionLogService transactionLogService;
 
 	@Autowired
 	private URLConfiguration urlConfiguration;
@@ -198,14 +202,6 @@ public class PaymentController {
 		}
 		modelAndView.addObject("order", order);
 		return modelAndView;
-	}
-
-	public TransactionLogService getTransactionLogService() {
-		return transactionLogService;
-	}
-
-	public void setTransactionLogService(TransactionLogService transactionLogService) {
-		this.transactionLogService = transactionLogService;
 	}
 
 	public PaymentService getPaymentService() {
