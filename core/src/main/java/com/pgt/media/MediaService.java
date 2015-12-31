@@ -25,6 +25,8 @@ public interface MediaService {
     List<ProductMedia> findMainMediasByProductId(String productId);
 
     List<ProductMedia> findThumbnailMediasByProductId(String productId);
+
+    Integer create(ProductMedia productMedia);
     Media findCopyWriterMedia(Integer copyWriterId);
 
 }

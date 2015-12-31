@@ -51,45 +51,35 @@
 				</div>
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
-					<form action="javascript:;" class="form-horizontal">
+					<form:form modelAttribute="product" method="post" action="create/stepBase" class="form-horizontal">
 						<div class="form-body">
 							<!-- 只有在修改时才显示id行-->
-							<div class="form-group">
-								<label class="col-md-3 control-label">id</label>
-								<div class="col-md-4">
-									<p class="form-control-static">
-										012
-									</p>
+							<c:if test="${!empty product.productId}">
+								<div class="form-group">
+									<label class="col-md-3 control-label">id</label>
+									<div class="col-md-4">
+										<p class="form-control-static">
+												${product.productId}
+										</p>
+									</div>
 								</div>
-							</div>
+							</c:if>
 							<div class="form-group">
 								<label class="col-md-3 control-label">产品名称:</label>
 								<div class="col-md-4">
-									<input type="text" class="form-control" placeholder="不超过30字">
+									<form:input path="name" placeholder="不超过30字" class="form-control"/>
 									</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">所属大类</label>
+								<label class="control-label col-md-3">所属分类</label>
 								<div class="col-md-9">
 									<div class="radio-list">
-										<select class="form-control input-medium">
-											<option value="1000">文玩杂项</option>
-											<option value="5000">木制品</option>
-											<option value="10000" selected="selected">玉石</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-md-3">所属子类</label>
-								<div class="col-md-9">
-									<div class="radio-list">
-										<select class="form-control input-medium">
-											<option value="5">橄榄核雕</option>
-											<option value="15">牦牛角</option>
-											<option value="20">骆驼骨头</option>
-										</select>
+										<form:select path="relatedCategoryId" class="form-control input-medium">
+											<c:forEach items="${categories}" var="category">
+												<form:option value="${category.id}">${category.name}</form:option>
+											</c:forEach>
+										</form:select>
 									</div>
 								</div>
 							</div>
@@ -97,10 +87,10 @@
 								<label class="control-label col-md-3">是否热门</label>
 								<div class="col-md-9">
 									<div class="radio-list">
-										<select class="form-control input-medium">
-											<option value="0">不热门</option>
-											<option value="1">热门</option>
-										</select>
+										<form:select path="isHot" class="form-control input-medium">
+											<form:option value="false">不热门</form:option>
+											<form:option value="true">热门</form:option>
+										</form:select>
 									</div>
 								</div>
 							</div>
@@ -113,47 +103,47 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label">卖点描述</label>
 								<div class="col-md-4">
-									<input type="text" class="form-control" placeholder="不超过20字">
+									<form:input  path="title" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">款式</label>
 								<div class="col-md-4">
-									<input type="text" class="form-control" placeholder="不超过20字">
+									<form:input path="shortDescription" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">成色</label>
 								<div class="col-md-4">
-									<input type="text" class="form-control" placeholder="不超过10字">
+									<form:input path="isNew" class="form-control" placeholder="不超过10字"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">库存</label>
 								<div class="col-md-4">
-									<input type="text" class="form-control" placeholder="不超过20字" value="1">
+									<form:input path="stock" class="form-control" placeholder="不超过20字" value="1"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">市场价</label>
 								<div class="col-md-4">
-									<input type="text" class="form-control" placeholder="格式为xxxx.xx">
+									<form:input path="listPrice" class="form-control" placeholder="格式为xxxx.xx"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">绝当价</label>
 								<div class="col-md-4">
-									<input type="text" class="form-control" placeholder="格式为xxxx.xx">
+									<form:input path="salePrice" class="form-control" placeholder="格式为xxxx.xx"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3">状态</label>
 								<div class="col-md-9">
 									<div class="radio-list">
-										<select class="form-control input-medium">
-											<option value="1000">启用</option>
-											<option value="5000">禁用</option>
-										</select>
+										<form:select path="status" class="form-control input-medium">
+											<form:option value="1">启用</form:option>
+											<form:option value="0">禁用</form:option>
+										</form:select>
 									</div>
 								</div>
 							</div>
@@ -163,12 +153,11 @@
 						<div class="form-actions top">
 							<div class="row">
 								<div class="col-md-offset-3 col-md-9">
-									<button type="submit" class="btn blue-hoki">确认</button>
-									<button type="button" class="btn default">取消</button>
+									<button type="submit" class="btn blue-hoki">保存</button>
 								</div>
 							</div>
 						</div>
-					</form>
+					</form:form>
 				</div>
 				<!-- END FORM-->
 			</div>
@@ -212,7 +201,7 @@
 										<label class="col-md-2 control-label">首页图</label>
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" type="file" value="advertisement"/>
+												<input class="pgt-file-btn" name="uploadPicture" type="file"/>
 												<input name="mediaType" type="hidden"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>

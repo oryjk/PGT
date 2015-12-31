@@ -31,5 +31,6 @@ public interface ProductService {
     List<ProductMedia> queryProductMedias(int pProductId);
     
     List <HotSearch> queryAllHotsearch();
+    void buildProductMedias(Product product);
 
 }
