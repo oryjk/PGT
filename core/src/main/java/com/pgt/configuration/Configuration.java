@@ -18,9 +18,10 @@ public class Configuration {
 	private Integer plpCapacity;
 	private String resourcePath;
 	private String initialDataPath;
-	private String imagePath="src/main/webapp/resources/image/upload/";
+	private String imagePath="/Users/carlwang/Project/PGT/b2c_store/src/main/webapp/resources/";
 	private Integer adminPlpCapacity;
 	private Integer adminCategoryCapacity;
+	private String imageFolder="/image/upload/";
 
 	public Integer getPlpCapacity() {
 		return plpCapacity;
@@ -166,5 +167,13 @@ public class Configuration {
 
 	public void setAdminCategoryCapacity(Integer adminCategoryCapacity) {
 		this.adminCategoryCapacity = adminCategoryCapacity;
+	}
+
+	public String getImageFolder() {
+		return imageFolder;
+	}
+
+	public void setImageFolder(String imageFolder) {
+		this.imageFolder = imageFolder;
 	}
 }

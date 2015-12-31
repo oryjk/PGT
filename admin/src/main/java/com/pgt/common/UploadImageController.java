@@ -66,7 +66,7 @@ public class UploadImageController {
         LOGGER.debug("The image path is {}.", imagePath);
         Map<String, Object> body = responseEntity.getBody();
         body.put("imagePath", configuration.getImageFolder() + originalFilename);
-        body.put("image", uploadPicture);
+        body.put("image", file);
 
         return responseEntity;
     }

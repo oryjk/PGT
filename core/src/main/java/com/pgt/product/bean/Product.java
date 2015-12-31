@@ -59,7 +59,6 @@ public class Product implements Serializable {
     }
 
 
-
     public ProductMedia getAdvertisementMedia() {
         return advertisementMedia;
     }
@@ -237,6 +236,10 @@ public class Product implements Serializable {
 
     public boolean isHot() {
         return isHot;
+    }
+
+    public boolean getIsHot() {
+        return isHot();
     }
 
     public void setIsHot(boolean isHot) {
