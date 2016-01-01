@@ -28,6 +28,7 @@
 		<result column="update_date" property="updateDate" />
 		<result column="submit_Date" property="submitDate" />
 		<association column="order_id" property="shippingVO" select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
+		<association column="order_id" property="payment" select="com.pgt.payment.dao.PaymentMapper.findPaymentGroupByOrderId" />
 		<collection column="order_id" property="commerceItems" select="loadCommerceItemsFromOrder" />
 	</resultMap>
 
