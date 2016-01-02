@@ -84,10 +84,32 @@
 	</select>
 
 	<select id="loadCommerceItemsFromOrder" parameterType="int" resultMap="com.pgt.cart.dao.ShoppingCartDao.commerceItem">
-		SELECT commerce_item_id, order_id, ci.reference_id, name, quality, list_price, sale_price, quantity, amount, snapshot_id, ci.`index`,
-		creation_date, update_date, m.media_id, m.title, m.path
+		SELECT
+			ci.commerce_item_id,
+			order_id,
+			ci.reference_id,
+			name,
+			quality,
+			list_price,
+			sale_price,
+			quantity,
+			amount,
+			snapshot_id,
+			ci.`index`,
+			creation_date,
+			update_date,
+			consignor,
+			delivered,
+			received,
+			logistics,
+			delivery_time,
+			tracking_no,
+			m.media_id,
+			m.title,
+			m.path
 		FROM COMMERCE_ITEM ci
-		LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
+			LEFT JOIN COMMERCE_ITEM_DELIVERY cid ON ci.commerce_item_id = cid.commerce_item_id
+			LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
 		WHERE order_id = #{orderId}
 		ORDER BY `index`
 	</select>
@@ -107,19 +129,19 @@
 
 	<update id="resetBrowsedProductUpdateDate" parameterType="int">
 		UPDATE RECENT_BROWSE
-		SET update_date = now()
+		SET update_date = now ()
 		WHERE id = #{browsedProductId}
 	</update>
 
 	<update id="replaceBrowsedProductRecord">
 		UPDATE RECENT_BROWSE
-		SET prod_id = #{productId}, creation_date = now(), update_date = now()
+		SET prod_id = #{productId}, creation_date = now (), update_date = now ()
 		WHERE id = #{browsedProductId}
 	</update>
 
 	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO RECENT_BROWSE (user_id, prod_id, creation_date, update_date)
-		VALUES (#{userId}, #{productId}, now(), now())
+		VALUES ( #{userId}, #{productId}, now (), now () )
 	</insert>
 
 	<update id="resetBrowsedProductsBatchUpdateDate">

@@ -1,6 +1,8 @@
 package com.pgt.order.dao;
 
 import com.pgt.base.mapper.SqlMapper;
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Delivery;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.order.bean.B2COrderSearchVO;
@@ -22,4 +24,10 @@ public interface B2COrderDao extends SqlMapper {
 	Order loadOrder(int pOrderId);
 
 	int updateOrder2Status(@Param("orderId") int pOrderId, @Param("status") int pStatus);
+
+	CommerceItem loadCommerceItem(int pCommerceItemId);
+
+	int createDelivery(Delivery pDelivery);
+
+	int updateDelivery(Delivery pDelivery);
 }

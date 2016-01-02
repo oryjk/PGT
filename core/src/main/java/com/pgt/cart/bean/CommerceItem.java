@@ -23,6 +23,7 @@ public class CommerceItem implements Comparable<CommerceItem> {
 	private Date mCreationDate = new Date();
 	private Date mUpdateDate;
 
+	private Delivery mDelivery;
 	private Media mSnapshotMedia;
 
 	@Override
@@ -176,6 +177,14 @@ public class CommerceItem implements Comparable<CommerceItem> {
 
 	public void setUpdateDate(final Date pUpdateDate) {
 		mUpdateDate = pUpdateDate;
+	}
+
+	public Delivery getDelivery() {
+		return mDelivery;
+	}
+
+	public void setDelivery(final Delivery pDelivery) {
+		mDelivery = pDelivery;
 	}
 
 	public Media getSnapshotMedia() {

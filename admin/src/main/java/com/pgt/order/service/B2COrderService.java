@@ -1,5 +1,7 @@
 package com.pgt.order.service;
 
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Delivery;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.pagination.InternalPagination;
@@ -24,11 +26,11 @@ public class B2COrderService implements OrderStatus {
 	@Resource(name = "B2COrderDao")
 	private B2COrderDao mB2COrderDao;
 
-	private int[] mPreStatus4UnpaidOrder = new int[] {PAID};
+	private int[] mPreStatus4UnpaidOrder = new int[] { PAID };
 	private int mUnpaidStatus = FILLED_SHIPPING;
-	private int[] mPreStatus4CompleteOrder = new int[] {INITIAL, FILLED_SHIPPING, PAID};
+	private int[] mPreStatus4CompleteOrder = new int[] { INITIAL, FILLED_SHIPPING, PAID };
 	private int mCompleteStatus = NO_PENDING_ACTION;
-	private int[] mPreStatus4CancelOrder = new int[] {INITIAL, FILLED_SHIPPING, PAID};
+	private int[] mPreStatus4CancelOrder = new int[] { INITIAL, FILLED_SHIPPING, PAID };
 	private int mCancelStatus = CANCEL;
 
 	public List<Order> queryB2COrderPage(final B2COrderSearchVO pB2COrderSearchVO, final InternalPagination pPagination) {
@@ -78,6 +80,17 @@ public class B2COrderService implements OrderStatus {
 		return false;
 	}
 
+	public boolean createDelivery(final Delivery pDelivery) {
+		return getB2COrderDao().createDelivery(pDelivery) > 0;
+	}
+
+	public boolean updateDelivery(final Delivery pDelivery) {
+		return getB2COrderDao().updateDelivery(pDelivery) > 0;
+	}
+
+	public CommerceItem loadCommerceItem(final int pCidInt) {
+		return getB2COrderDao().loadCommerceItem(pCidInt);
+	}
 
 	public B2COrderDao getB2COrderDao() {
 		return mB2COrderDao;
@@ -134,4 +147,5 @@ public class B2COrderService implements OrderStatus {
 	public void setCancelStatus(final int pCancelStatus) {
 		mCancelStatus = pCancelStatus;
 	}
+
 }

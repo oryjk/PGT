@@ -1,5 +1,7 @@
 package com.pgt.order.controller;
 
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Delivery;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.pagination.InternalPagination;
@@ -103,6 +105,60 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		} finally {
 			getTransactionManager().commit(ts);
 		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/delivery")
+	public ModelAndView redirect2DeliveryPage(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "cid", required = true) String cid) {
+		ModelAndView mav = new ModelAndView("redirect:/b2c-order/order-info?id=" + id);
+		int cidInt = RepositoryUtils.safeParseId(cid);
+		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
+		if (ci == null || !RepositoryUtils.idIsValid(ci.getId())) {
+			LOGGER.debug("Cannot find commerce item with id: {}", cid);
+			return mav;
+		}
+		mav.setViewName("/b2c-order/delivery");
+		mav.addObject(ResponseConstant.COMMERCE_ITEM, ci);
+		return mav;
+	}
+
+	@RequestMapping(value = "/make-delivery")
+	public ModelAndView makeDelivery(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "cid", required = true) String cid,
+			@RequestParam(value = "deliveryTimeStr", required = false) String deliveryTimeStr,
+			Delivery delivery) {
+		ModelAndView mav = new ModelAndView("forward:delivery");
+		int cidInt = RepositoryUtils.safeParseId(cid);
+		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
+		if (ci == null) {
+			return mav;
+		}
+		delivery.setDeliveryTime(deliveryTimeStr);
+		TransactionStatus status = ensureTransaction();
+		boolean result;
+		try {
+			if (delivery.getCommerceItemId() <= 0) {
+				delivery.setCommerceItemId(cidInt);
+				result = getB2COrderService().createDelivery(delivery);
+			} else {
+				result = getB2COrderService().updateDelivery(delivery);
+			}
+			if (!result) {
+				status.setRollbackOnly();
+			}
+		} catch (Exception e) {
+			status.setRollbackOnly();
+			LOGGER.error("Cannot make delivery for commerce item: {} of order: {}", cid, id, e);
+		} finally {
+			if (!status.isRollbackOnly()) {
+				ci.setDelivery(delivery);
+			}
+			getTransactionManager().commit(status);
+		}
+		mav.addObject(ResponseConstant.COMMERCE_ITEM, ci);
 		return mav;
 	}
 

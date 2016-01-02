@@ -30,7 +30,18 @@
 		<result column="index" property="index" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
+		<association column="commerce_item_id" property="delivery" resultMap="delivery" />
 		<association column="snapshot_id" property="snapshotMedia" resultMap="com.pgt.product.dao.ProductMapper.productMedia" />
+	</resultMap>
+
+	<resultMap id="delivery" type="com.pgt.cart.bean.Delivery">
+		<id column="commerce_item_id" property="commerceItemId" />
+		<result column="consignor" property="consignor" />
+		<result column="delivered" property="delivered" />
+		<result column="received" property="received" />
+		<result column="logistics" property="logistics" />
+		<result column="delivery_time" property="deliveryTime" />
+		<result column="tracking_no" property="trackingNo" />
 	</resultMap>
 
 	<resultMap id="productPrice" type="com.pgt.cart.bean.ProductPriceVector">
