@@ -80,7 +80,17 @@ public class PaymentService extends Transactionable {
 		getPaymentMapper().updateTransaction(transaction);
 	}
 
-	public List<Transaction> queryTransaction(Integer orderId, String paymentType, Integer state, String trackNo,
+
+	public List<Transaction> queryTransaction(TransactionQueryBean queryBean, PaginationBean paginationBean) {
+		queryBean.setPaginationBean(paginationBean);
+		int totalAmount = getPaymentMapper().queryTransactionTotalAmount(queryBean);
+		paginationBean.setTotalAmount(totalAmount);
+
+		return getPaymentMapper().queryTransaction(queryBean);
+	}
+
+
+	public List<Transaction> queryTransaction(Integer orderId, Integer paymentType, Integer state, String trackNo,
 											  Date startTime, Date endTime, PaginationBean paginationBean) {
 		TransactionQueryBean queryBean = new TransactionQueryBean();
 		queryBean.setOrderId(orderId);
@@ -96,7 +106,7 @@ public class PaymentService extends Transactionable {
 		return getPaymentMapper().queryTransaction(queryBean);
 	}
 
-	public void generateReport(Integer orderId, String paymentType, Integer state, String trackNo,
+	public void generateReport(Integer orderId, Integer paymentType, Integer state, String trackNo,
 							   Date startTime, Date endTime,OutputStream out) throws IOException {
 		TransactionQueryBean queryBean = new TransactionQueryBean();
 		queryBean.setOrderId(orderId);

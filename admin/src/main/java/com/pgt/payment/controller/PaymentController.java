@@ -8,6 +8,7 @@ import com.pgt.cart.bean.OrderStatus;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
 import com.pgt.payment.bean.Transaction;
+import com.pgt.payment.bean.TransactionQueryBean;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -47,7 +48,7 @@ public class PaymentController {
     @RequestMapping(value = "/queryTrans")
     public ModelAndView queryTransaction(HttpServletRequest pRequest, HttpServletResponse pResponse) {
         String orderIdStr = pRequest.getParameter("orderId");
-        String type  = pRequest.getParameter("type");
+        String typeStr  = pRequest.getParameter("type");
         String stateStr = pRequest.getParameter("state");
         String trackNo = pRequest.getParameter("trackNo");
         String startTimeStr = pRequest.getParameter("startTime");
@@ -58,6 +59,16 @@ public class PaymentController {
         if (StringUtils.isNotBlank(orderIdStr) && StringUtils.isNumeric(orderIdStr)) {
             orderId = Integer.valueOf(orderIdStr);
         }
+        if(StringUtils.isBlank(trackNo)) {
+            trackNo = null;
+        }
+        Integer type = null;
+        if (StringUtils.isNotBlank(typeStr) && StringUtils.isNumeric(typeStr)) {
+            type = Integer.valueOf(typeStr);
+        }
+
+
+
         Integer state = null;
         if (StringUtils.isNotBlank(stateStr) && StringUtils.isNumeric(stateStr)) {
             if (PaymentConstants.PAYMENT_STATUS_SUCCESS == Integer.valueOf(stateStr)) {
@@ -102,11 +113,20 @@ public class PaymentController {
         PaginationBean paginationBean = new PaginationBean();
         paginationBean.setCurrentIndex(currentIndex);
         paginationBean.setCapacity(capacity);
-        List<Transaction> result = getPaymentService().queryTransaction(orderId, type, state, trackNo, startTime, endTime, paginationBean);
+
+        TransactionQueryBean queryBean = new TransactionQueryBean();
+        queryBean.setOrderId(orderId);
+        queryBean.setPaymentType(type);
+        queryBean.setState(state);
+        queryBean.setTrackNo(trackNo);
+        queryBean.setStartTime(startTime);
+        queryBean.setEndTime(endTime);
+        List<Transaction> result = getPaymentService().queryTransaction(queryBean, paginationBean);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/payment/queryTransaction");
         modelAndView.addObject("result", result);
         modelAndView.addObject("paginationBean", paginationBean);
+        modelAndView.addObject("queryBean",queryBean);
         return modelAndView;
     }
 

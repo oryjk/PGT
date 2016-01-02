@@ -53,92 +53,7 @@
             </div>
             <div class="portlet-body">
               <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
-                <div class="row">
-                  <div class="col-md-2 col-sm-2">
-                    <div class="dataTables_filter">
-                      <label>id:<input type="search" class="form-control input-small input-inline"
-                                       placeholder="订单id" aria-controls="sample_3">
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-md-2 col-sm-2">
-                    <div class="dataTables_filter">
-                      <label>交易类型:
-                        <select name="sample_3_length" aria-controls="sample_3"
-                                class="form-control input-xsmall input-inline select2-offscreen"
-                                tabindex="-1" title="">
-                          <option value="-1">所有</option>
-                          <option value="5">类型1</option>
-                          <option value="15">类型2</option>
-                          <option value="20">类型3</option>
-                        </select> </label>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-xs-2">
-                    <div class="dataTables_filter">
-                      <label>状态:
-                        <select name="sample_3_length" aria-controls="sample_3"
-                                class="form-control input-xsmall input-inline select2-offscreen"
-                                tabindex="-1" title="">
-                          <option value="-1">所有</option>
-                          <option value="5">类型1</option>
-                          <option value="15">类型2</option>
-                          <option value="20">类型3</option>
-                        </select>
-
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-xs-3">
-                    <div class="dataTables_filter">
-                      <label>物流单号:<input type="search" class="form-control input-small input-inline"
-                                         placeholder="订单id" aria-controls="sample_3">
-
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-10">
-                    <div class="dataTables_filter">
-                      <div class="row">
-                        <div class="col-xs-1 pgt-time-tittle">
-                          <span>时间: </span>
-                        </div>
-                        <div class="col-xs-2 pgt-begin-date" style="position: relative">
-                          <input class="jcDate jcDateIco form-control input-small input-inline">
-                        </div>
-                        <div class="col-xs-2 pgt-time" style="position: relative">
-                          <input type="search" class="form-control input-mini input-inline"
-                                 placeholder="时" aria-controls="sample_3">
-                          :
-                          <input type="search" class="form-control input-mini input-inline"
-                                 placeholder="分" aria-controls="sample_3">
-                        </div>
-
-                        <div class="col-xs-1 pgt-date-divide">
-                          <span>至</span>
-                        </div>
-                        <div class="col-xs-2">
-                          <input class="jcDate jcDateIco form-control input-small input-inline">
-                        </div>
-                        <div class="col-xs-2 pgt-time">
-                          <input type="search" class="form-control input-mini input-inline"
-                                 placeholder="时" aria-controls="sample_3">
-                          :
-                          <input type="search" class="form-control input-mini input-inline"
-                                 placeholder="分" aria-controls="sample_3">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xs-1">
-                    <button class="btn blue">
-                      搜索
-                    </button>
-                  </div>
-                </div>
+                <jsp:include page="include/queryTransForm.jsp"/>
                 <div class="table-scrollable list-box">
                   <table class="table table-striped table-bordered table-hover dataTable no-footer"
                          id="list" role="grid" aria-describedby="sample_3_info">
@@ -154,13 +69,10 @@
                         金额
                       </th>
                       <th>
-                        开始时间
+                        交易时间
                       </th>
                       <th>
-                        结束时间
-                      </th>
-                      <th>
-                        物流单号
+                        交易单号
                       </th>
                       <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
                         <div class="btn-group">
@@ -182,52 +94,41 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="gradeX odd" role="row">
-                      <td>
-                        0000000000001
-                      </td>
-                      <td>
-                        类型1
-                      </td>
-                      <td>
-                        20100.00
-                      </td>
-                      <td>
-                        2015-12-28 12:23
-                      </td>
-                      <td>
-                        2015-12-29 12:23
-                      </td>
-                      <td>
-                        00000000000001
-                      </td>
-                      <td>
-                        状态1
-                      </td>
-                    </tr>
-                    <tr class="gradeX odd" role="row">
-                      <td>
-                        0000000000001
-                      </td>
-                      <td>
-                        类型1
-                      </td>
-                      <td>
-                        20100.00
-                      </td>
-                      <td>
-                        2015-12-28 12:23
-                      </td>
-                      <td>
-                        2015-12-29 12:23
-                      </td>
-                      <td>
-                        00000000000001
-                      </td>
-                      <td>
-                        状态1
-                      </td>
-                    </tr>
+                    <c:forEach var="trans" items="${result}">
+                      <tr class="gradeX odd" role="row">
+                        <td>
+                          ${trans.orderId}
+                        </td>
+                        <td>
+                          <c:if test="${trans.paymentType ==  1}">
+                            易宝
+                          </c:if>
+                          <c:if test="${trans.paymentType == 2}">
+                            支付宝
+                          </c:if>
+                        </td>
+                        <td>
+                          <fmt:formatNumber value="${trans.amount}" type="currency" pattern="￥.00"/>
+                        </td>
+                        <td>
+                          <fmt:formatDate  value="${trans.transactionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        </td>
+                        <td>
+                          ${trans.trackingNo}
+                        </td>
+                        <td>
+                          <c:if test="${trans.status ==  1}">
+                            支付成功
+                          </c:if>
+                          <c:if test="${trans.status == 0}">
+                            支付中
+                          </c:if>
+                          <c:if test="${trans.status == -1}">
+                            支付失败
+                          </c:if>
+                        </td>
+                      </tr>
+                    </c:forEach>
                     </tbody>
                   </table>
                 </div>

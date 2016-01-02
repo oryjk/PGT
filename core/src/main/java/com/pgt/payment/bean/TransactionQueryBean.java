@@ -10,11 +10,19 @@ import java.util.Date;
 public class TransactionQueryBean {
 
     private Integer orderId;
-    private String paymentType;
+    private Integer paymentType;
     private Integer state;
     private String trackNo;
     private Date startTime;
     private Date endTime;
+
+    public Integer getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(Integer paymentType) {
+        this.paymentType = paymentType;
+    }
 
     private PaginationBean paginationBean;
 
@@ -34,13 +42,6 @@ public class TransactionQueryBean {
         this.orderId = orderId;
     }
 
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
 
     public Integer getState() {
         return state;
