@@ -371,6 +371,10 @@
                                                             aria-label=" Email : activate to sort column ascending">
                                                             交易单号
                                                         </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                                            aria-label=" Email : activate to sort column ascending">
+                                                            交易结果
+                                                        </th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -383,6 +387,11 @@
                                                             </c:choose></td>
                                                             <td>¥&nbsp;<fmt:formatNumber value="${transaction.amount}" pattern="0.00" type="number" /></td>
                                                             <td>${transaction.trackingNo}</td>
+                                                            <td><c:choose>
+                                                                <c:when test="${transaction.status eq 1}">交易成功</c:when>
+                                                                <c:when test="${transaction.status eq 0}">交易进行中</c:when>
+                                                                <c:when test="${transaction.status eq -1}">交易失败</c:when>
+                                                            </c:choose></td>
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>
