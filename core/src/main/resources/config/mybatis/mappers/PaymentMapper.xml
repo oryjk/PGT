@@ -47,6 +47,7 @@
 		<result column="TRACKING_NO" property="trackingNo"/>
 		<result column="CREATION_DATE" property="createDate"/>
 		<result column="UPDATE_DATE" property="updateDate"/>
+		<collection column="TRACKING_NO" property="transactions" select="findTransactionByTrackingNumber" />
 	</resultMap>
 	
 	<resultMap id="transaction" type="com.pgt.payment.bean.Transaction">

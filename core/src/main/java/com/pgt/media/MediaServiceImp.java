@@ -62,8 +62,14 @@ public class MediaServiceImp implements MediaService {
     }
 
     @Override
+    public Integer create(ProductMedia productMedia) {
+        mediaMapper.createMedia(productMedia);
+        return productMedia.getId();
+    }
+
+    @Override
     public Media findCopyWriterMedia(Integer copyWriterId) {
-        return mediaMapper.queryMedia(MediaType.copy_write,copyWriterId);
+        return mediaMapper.queryMedia(MediaType.copy_write, copyWriterId);
 
     }
 

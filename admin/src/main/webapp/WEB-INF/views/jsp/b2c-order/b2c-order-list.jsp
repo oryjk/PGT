@@ -181,7 +181,7 @@
                                     <td>${order.commerceItemCount}</td>
                                     <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></td>
                                     <td>${order.userId}</td>
-                                    <td><a href="#" class="btn btn-xs btn-circle">查看</a></td>
+                                    <td><a href="<spring:url value="/order/order-info?id=${order.id}" />" class="btn btn-xs btn-circle">查看</a></td>
                                     <td>
                                         <!--super: blue:待付款 yellow待收货 green已完成 red已取消-->
                                         <div class="btn-group">

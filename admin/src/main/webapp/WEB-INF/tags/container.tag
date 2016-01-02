@@ -2,6 +2,7 @@
 <%@ attribute name="id" required="false" rtexprvalue="true" %>
 <%@ attribute name="extraPage" required="false" rtexprvalue="true" %>
 <%@ attribute name="pageJsPath" required="false" rtexprvalue="true" %>
+<%@ attribute name="pageCssPath" required="false" rtexprvalue="true" %>
 <%@ attribute name="loadJsDateInput" required="false" rtexprvalue="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -493,6 +494,7 @@
 <%--<script src="${ctx}/resources/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>--%>
 <%--<script src="${ctx}/resources/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>--%>
 
+<script src="${ctx}/resources/core/js/jquery.form.js"></script>
 <%--<!-- END PAGE LEVEL SCRIPTS -->--%>
 <%--<script>--%>
     <%--jQuery(document).ready(function () {--%>
@@ -1100,6 +1102,9 @@
 </c:if>
 <c:if test="${not empty pageJsPath}">
     <script src="${ctx}${pageJsPath}"></script>
+</c:if>
+<c:if test="${not empty pageCssPath}">
+    <link rel="stylesheet" href="${ctx}${pageCssPath}"/>
 </c:if>
 <!-- END JAVASCRIPTS -->
 </body>

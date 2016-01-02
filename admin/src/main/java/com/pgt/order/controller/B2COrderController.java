@@ -56,8 +56,18 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder();
 		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setSortFieldName(sortFieldName).setAsc(asc).createInternalPagination();
 		getB2COrderService().queryB2COrderPage(searchVO, pagination);
-		ModelAndView mav = new ModelAndView("/b2c-order/b2c-orders");
+		ModelAndView mav = new ModelAndView("/b2c-order/b2c-order-list");
 		mav.addObject(ResponseConstant.B2C_ORDER_PAGE, pagination);
+		return mav;
+	}
+
+	@RequestMapping(value = "/order-info")//, method = RequestMethod.GET)
+	public ModelAndView loadOrderHistoryDetails(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "id") String orderId) {
+		int orderIdInt = RepositoryUtils.safeParseId(orderId);
+		Order order = getB2COrderService().loadOrder(orderIdInt);
+		ModelAndView mav = new ModelAndView("/b2c-order/b2c-order");
+		mav.addObject(ResponseConstant.B2C_ORDER, order);
 		return mav;
 	}
 

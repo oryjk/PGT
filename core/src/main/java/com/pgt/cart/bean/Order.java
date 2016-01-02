@@ -1,17 +1,11 @@
 package com.pgt.cart.bean;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.payment.bean.PaymentGroup;
+import com.pgt.shipping.bean.ShippingVO;
 import org.springframework.util.CollectionUtils;
 
-import com.pgt.cart.util.RepositoryUtils;
-import com.pgt.shipping.bean.ShippingVO;
+import java.util.*;
 
 /**
  * Created by Yove on 10/26/2015.
@@ -25,6 +19,7 @@ public class Order {
 	private int mStatus = OrderStatus.INITIAL;
 	private List<CommerceItem> mCommerceItems = new ArrayList<>();
 	private ShippingVO mShippingVO;
+	private PaymentGroup mPayment;
 	private double mShippingFee;
 	private double mSubtotal;
 	private double mTotal;
@@ -264,4 +259,11 @@ public class Order {
 		mEasyBuy = pEasyBuy;
 	}
 
+	public PaymentGroup getPayment() {
+		return mPayment;
+	}
+
+	public void setPayment(final PaymentGroup pPayment) {
+		mPayment = pPayment;
+	}
 }

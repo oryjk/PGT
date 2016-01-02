@@ -1,6 +1,10 @@
 package com.pgt.product.controller;
 
+import com.pgt.category.bean.Category;
+import com.pgt.category.service.CategoryService;
+import com.pgt.media.MediaService;
 import com.pgt.product.bean.Product;
+import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -8,10 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by carlwang on 12/22/15.
@@ -23,6 +30,11 @@ public class ProductController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private MediaService mediaService;
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
     public ModelAndView findProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
@@ -41,8 +53,34 @@ public class ProductController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView createProduct(ModelAndView modelAndView) {
         modelAndView.addObject("product", new Product());
-        modelAndView.setViewName("/product/addAndModifyProduct");
+        List<Category> categories = categoryService.queryAllParentCategories();
+        modelAndView.addObject("categories", categories);
+        modelAndView.setViewName("/product/productBaseModify");
         return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/create/stepBase", method = RequestMethod.POST)
+    public ModelAndView createStepBase(Product product, ModelAndView modelAndView) {
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty.");
+            return modelAndView;
+        }
+        productService.createProduct(product);
+
+        modelAndView.addObject("product", product);
+        modelAndView.setViewName("/product/productImageModify");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/create/stepImage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createProductMedias(ProductMedia productMedia) {
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
+        Integer mediaId = mediaService.create(productMedia);
+        responseEntity.getBody().put("success", true);
+        responseEntity.getBody().put("mediaId", mediaId);
+        return responseEntity;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)

@@ -83,40 +83,7 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                 product.setUpdateDate(new Date());
             }
             productMapper.createProduct(product);
-            Integer productId = product.getProductId();
-            if (!ObjectUtils.isEmpty(product.getExpertMedia())) {
-                product.getExpertMedia().setReferenceId(productId);
-            }
-            if (!ObjectUtils.isEmpty(product.getAdvertisementMedia())) {
-
-                product.getAdvertisementMedia().setReferenceId(productId);
-            }
-            if (!ObjectUtils.isEmpty(product.getFrontMedia())) {
-                product.getFrontMedia().setReferenceId(productId);
-
-            }
-
-            mediaMapper.createMedia(product.getExpertMedia());
-            mediaMapper.createMedia(product.getAdvertisementMedia());
-            mediaMapper.createMedia(product.getFrontMedia());
-            if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
-                product.getHeroMedias().stream().forEach(productMedia -> {
-                    productMedia.setReferenceId(productId);
-                    mediaMapper.createMedia(productMedia);
-                });
-            }
-            if (!ObjectUtils.isEmpty(product.getMainMedias())) {
-                product.getMainMedias().stream().forEach(productMedia -> {
-                    productMedia.setReferenceId(productId);
-                    mediaMapper.createMedia(productMedia);
-                });
-            }
-            if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
-                product.getThumbnailMedias().stream().forEach(productMedia -> {
-                    productMedia.setReferenceId(productId);
-                    mediaMapper.createMedia(productMedia);
-                });
-            }
+            createProductMedias(product);
             ProductCategoryRelation productCategoryRelation = new ProductCategoryRelation();
             productCategoryRelation.setProductId(product.getProductId());
             productCategoryRelation.setCategoryId(categoryId);
@@ -126,6 +93,43 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
             getTransactionManager().rollback(transactionStatus);
+        }
+    }
+
+    public void createProductMedias(Product product) {
+        Integer productId = product.getProductId();
+        if (!ObjectUtils.isEmpty(product.getExpertMedia())) {
+            product.getExpertMedia().setReferenceId(productId);
+        }
+        if (!ObjectUtils.isEmpty(product.getAdvertisementMedia())) {
+
+            product.getAdvertisementMedia().setReferenceId(productId);
+        }
+        if (!ObjectUtils.isEmpty(product.getFrontMedia())) {
+            product.getFrontMedia().setReferenceId(productId);
+
+        }
+
+        mediaMapper.createMedia(product.getExpertMedia());
+        mediaMapper.createMedia(product.getAdvertisementMedia());
+        mediaMapper.createMedia(product.getFrontMedia());
+        if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
+            product.getHeroMedias().stream().forEach(productMedia -> {
+                productMedia.setReferenceId(productId);
+                mediaMapper.createMedia(productMedia);
+            });
+        }
+        if (!ObjectUtils.isEmpty(product.getMainMedias())) {
+            product.getMainMedias().stream().forEach(productMedia -> {
+                productMedia.setReferenceId(productId);
+                mediaMapper.createMedia(productMedia);
+            });
+        }
+        if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
+            product.getThumbnailMedias().stream().forEach(productMedia -> {
+                productMedia.setReferenceId(productId);
+                mediaMapper.createMedia(productMedia);
+            });
         }
     }
 
@@ -195,6 +199,11 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public List<HotSearch> queryAllHotsearch() {
 
         return productMapper.queryAllHotsearch();
+    }
+
+    @Override
+    public void buildProductMedias(Product product) {
+        createProductMedias(product);
     }
 
 }
