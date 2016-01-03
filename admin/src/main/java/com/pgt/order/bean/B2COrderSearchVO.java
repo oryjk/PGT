@@ -16,7 +16,7 @@ public class B2COrderSearchVO {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(B2COrderSearchVO.class);
 
-	private static final FastDateFormat DT_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
+	private static final FastDateFormat DT_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd");
 
 	private int mOrderId;
 	private String mUserName;

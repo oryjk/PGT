@@ -202,7 +202,7 @@
                             <div>
                                 <h3 class="form-section">
                                     收货人信息
-                                    <button class="btn btn-xs green" id="modifySwitch">修改</button>
+                                    <%--<button class="btn btn-xs green" id="modifySwitch">修改</button>--%>
                                 </h3>
                                 <div class="pgt-scan">
                                     <div class="row">
