@@ -28,7 +28,8 @@ public class PaymentService extends Transactionable {
 	@Autowired
 	private PaymentMapper paymentMapper;
 
-	private TransactionReportConfig transactionReportConfig;
+
+//	private TransactionReportConfig transactionReportConfig;
 
 	public PaymentGroup findPaymentGroupByOrderId(int id) {
 		return getPaymentMapper().findPaymentGroupByOrderId(id);
@@ -150,6 +151,13 @@ public class PaymentService extends Transactionable {
 					orderIdValue = String.valueOf(transaction.getOrderId());
 				}
 				// TODO PAYMENT TYPE
+				if (PaymentConstants.PAYMENT_TYPE_ALIPAY == transaction.getPaymentType()) {
+					paymentTypeValue = "支付宝";
+				}
+				if (PaymentConstants.PAYMENT_TYPE_YEEPAY == transaction.getPaymentType()) {
+					paymentTypeValue = "易宝";
+				}
+
 				if (PaymentConstants.PAYMENT_STATUS_FAILED == transaction.getStatus()) {
 					statusValue = "失败";
 				}
@@ -197,10 +205,11 @@ public class PaymentService extends Transactionable {
 	}
 
 	public TransactionReportConfig getTransactionReportConfig() {
+		TransactionReportConfig transactionReportConfig = new TransactionReportConfig();
+		transactionReportConfig.setRowBufferSize(100);
+		transactionReportConfig.setDataFetchSize(100);
+		// TODO: CHANGE INTO CONFIG
 		return transactionReportConfig;
 	}
 
-	public void setTransactionReportConfig(TransactionReportConfig transactionReportConfig) {
-		this.transactionReportConfig = transactionReportConfig;
-	}
 }

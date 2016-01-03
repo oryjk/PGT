@@ -32,6 +32,8 @@ import com.pgt.payment.service.PaymentService;
 import com.pgt.payment.service.TransactionLogService;
 import com.pgt.user.bean.User;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -128,6 +130,70 @@ public class PaymentController {
         modelAndView.addObject("paginationBean", paginationBean);
         modelAndView.addObject("queryBean",queryBean);
         return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/generateReport")
+    public void generateReport(HttpServletRequest pRequest, HttpServletResponse pResponse) throws IOException {
+        String orderIdStr = pRequest.getParameter("orderId");
+        String typeStr  = pRequest.getParameter("type");
+        String stateStr = pRequest.getParameter("state");
+        String trackNo = pRequest.getParameter("trackNo");
+        String startTimeStr = pRequest.getParameter("startTime");
+        String endTimeStr = pRequest.getParameter("endTime");
+        Integer orderId = null;
+        if (StringUtils.isNotBlank(orderIdStr) && StringUtils.isNumeric(orderIdStr)) {
+            orderId = Integer.valueOf(orderIdStr);
+        }
+        if(StringUtils.isBlank(trackNo)) {
+            trackNo = null;
+        }
+        Integer type = null;
+        if (StringUtils.isNotBlank(typeStr) && StringUtils.isNumeric(typeStr)) {
+            type = Integer.valueOf(typeStr);
+        }
+
+        Integer state = null;
+        if (StringUtils.isNotBlank(stateStr)) {
+            if (PaymentConstants.PAYMENT_STATUS_SUCCESS == Integer.valueOf(stateStr)) {
+                state = PaymentConstants.PAYMENT_STATUS_SUCCESS;
+            }
+            if (PaymentConstants.PAYMENT_STATUS_PROCCESSING == Integer.valueOf(stateStr)) {
+                state = PaymentConstants.PAYMENT_STATUS_PROCCESSING;
+            }
+            if (PaymentConstants.PAYMENT_STATUS_FAILED == Integer.valueOf(stateStr)) {
+                state = PaymentConstants.PAYMENT_STATUS_FAILED;
+            }
+        }
+
+        Date startTime = null;
+        Date endTime = null;
+        if (StringUtils.isNotBlank(startTimeStr)) {
+            try {
+                startTime = DateUtils.parseDate(startTimeStr, "MM/dd/yyyy HH:mm:ss");
+            } catch (ParseException e) {
+                throw new IllegalArgumentException("Start time format is not correct (MM/dd/yyyy HH:mm:ss)");
+            }
+        }
+        if (StringUtils.isNotBlank(endTimeStr)) {
+            try {
+                endTime = DateUtils.parseDate(endTimeStr, "MM/dd/yyyy HH:mm:ss");
+            } catch (ParseException e) {
+                throw new IllegalArgumentException("Start time format is not correct (MM/dd/yyyy HH:mm:ss)");
+            }
+        }
+        OutputStream os = pResponse.getOutputStream();
+        try {
+            pResponse.reset();
+            pResponse.setHeader("Content-Disposition", "attachment; filename=transactionReport.xlsx");
+            pResponse.setContentType("application/octet-stream; charset=utf-8");
+            getPaymentService().generateReport(orderId, type, state, trackNo, startTime, endTime, pResponse.getOutputStream());
+            os.flush();
+        } finally {
+            if (os != null) {
+                os.close();
+            }
+        }
     }
 
 
