@@ -15,8 +15,10 @@
 <c:set var="pagination" value="${b2cOrderPage}" scope="request" />
 
 <pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/order-list.js">
-    <jsp:include page="include/bread-crumb-row.jspf" />
-    <div class="row" style="display: block">
+    <jsp:include page="include/bread-crumb-row.jspf">
+        <jsp:param name="step" value="info" />
+    </jsp:include>
+    <div class="row" style="display: none;">
         <div class="col-xs-12">
             <div class="Metronic-alerts alert alert-danger fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>

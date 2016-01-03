@@ -14,8 +14,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/order-list.js">
-    <jsp:include page="include/bread-crumb-row.jspf" />
-    <div class="row" style="display: block">
+    <jsp:include page="include/bread-crumb-row.jspf">
+        <jsp:param name="step" value="delivery" />
+    </jsp:include>
+    <div class="row" style="display: none;">
         <div class="col-xs-12">
             <div class="Metronic-alerts alert alert-danger fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -28,7 +30,7 @@
             <div class="portlet box blue-hoki">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-gift"></i>${commerceItem.delivery.commerceItemId gt 0 ? '修改' : '准备'}发货
+                        <i class="fa fa-gift"></i>${commerceItem.delivery.delivered ? '修改' : '准备'}发货
                     </div>
                 </div>
                 <div class="portlet-body form">
