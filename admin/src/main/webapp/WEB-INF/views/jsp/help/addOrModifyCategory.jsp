@@ -29,7 +29,7 @@
                 <div class="col-xs-12">
                     <div class="Metronic-alerts alert alert-danger fade in">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                        <p>错误信息</p>
+                        <p>11111</p>
                     </div>
                 </div>
             </div>

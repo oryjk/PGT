@@ -126,7 +126,7 @@
                                             第
                                             <span>${paginationBean.currentIndex + 1}</span>
                                             条 到 第
-                                            <span>${paginationBean.currentIndex + 1 + fn:length(helpCenters)}</span>
+                                            <span>${paginationBean.currentIndex + fn:length(helpCenters)}</span>
                                             条 共
                                             <span>20</span>
                                             条
@@ -138,10 +138,10 @@
                                                 <select name="sample_3_length" aria-controls="sample_3"
                                                         class="form-control input-xsmall input-inline select2-offscreen"
                                                         tabindex="-1" title="">
-                                                    <option value="5">5</option>
-                                                    <option value="15" selected>15</option>
-                                                    <option value="20">20</option>
-                                                    <option value="-1">所有</option>
+                                                    <option value="5" ${paginationBean.capacity == 5 ? 'selected': ''}>5</option>
+                                                    <option value="15" ${paginationBean.capacity == 15 ? 'selected': ''}>15</option>
+                                                    <option value="20" ${paginationBean.capacity == 20 ? 'selected': ''}>20</option>
+                                                    <option value="-1" ${empty paginationBean.capacity ? 'selected': ''}>所有</option>
                                                 </select> 条</label>
                                         </div>
                                     </div>

@@ -55,6 +55,10 @@ public class PaginationBean implements Mapable {
 		return (totalAmount % capacity > 0 ? totalAmount / capacity + 1 : totalAmount / capacity) - 1;
 	}
 
+	public long getMaxPageNum() {
+		return totalAmount % capacity == 0 ? totalAmount / capacity : totalAmount / capacity + 1;
+	}
+
 	public long getSqlStartIndex() {
 		return currentIndex * capacity;
 	}
@@ -84,6 +88,7 @@ public class PaginationBean implements Mapable {
 	}
 	
 	
+	@Override
 	public Map<String, Object> getMapValue() {
 		try {
 			return BeanUtils.toMap(this);

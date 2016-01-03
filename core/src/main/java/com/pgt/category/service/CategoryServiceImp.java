@@ -106,6 +106,10 @@ public class CategoryServiceImp implements CategoryService {
         return categoryMapper.queryCategoryHierarchy(categoryId);
 
     }
+    @Override
+    public Integer getHelpCategoryCount(){
+    	return categoryMapper.getHelpCategoryCount();
+    }
 
     public CategoryMapper getCategoryMapper() {
         return categoryMapper;
