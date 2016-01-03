@@ -11,6 +11,10 @@ $(function () {
         format: "-",
         Timeout: 100
     });
+
+    $(".timePicker").datetimepicker({
+        timeFormat: "HH:mm:ss"
+    });
 });
 
 $(document).on('click', '[data-pgt-btn="modify"]', function () {

@@ -57,37 +57,39 @@
         <div class="col-xs-1 pgt-time-tittle">
           <span>时间: </span>
         </div>
-        <div class="col-xs-2 pgt-begin-date" style="position: relative">
-          <input class="jcDate jcDateIco form-control input-small input-inline">
+        <div class="col-xs-2 pgt-begin-date" style="position: relative;width: 180px">
+          <input name="startTime" class="timePicker jcDateIco form-control input-small input-inline" style="width: 180px" value="<fmt:formatDate value="${queryBean.startTime}" pattern="MM/dd/yyyy HH:mm:ss"/>">
         </div>
         <div class="col-xs-2 pgt-time" style="position: relative">
+          <!--
           <input type="search" class="form-control input-mini input-inline"
                  placeholder="时" aria-controls="sample_3">
           :
           <input type="search" class="form-control input-mini input-inline"
-                 placeholder="分" aria-controls="sample_3">
+                 placeholder="分" aria-controls="sample_3">-->
         </div>
 
         <div class="col-xs-1 pgt-date-divide">
           <span>至</span>
         </div>
         <div class="col-xs-2">
-          <input class="jcDate jcDateIco form-control input-small input-inline">
+          <input name="endTime" class="timePicker jcDateIco form-control input-small input-inline" value="<fmt:formatDate value="${queryBean.endTime}" pattern="MM/dd/yyyy HH:mm:ss"/>">
         </div>
         <div class="col-xs-2 pgt-time">
-          <input type="search" class="form-control input-mini input-inline"
-                 placeholder="时" aria-controls="sample_3">
-          :
-          <input type="search" class="form-control input-mini input-inline"
-                 placeholder="分" aria-controls="sample_3">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-1">
-    <button class="btn blue">
-      搜索
-    </button>
-  </div>
+          <!--
+         <input type="search" class="form-control input-mini input-inline"
+                placeholder="时" aria-controls="sample_3">
+         :
+         <input type="search" class="form-control input-mini input-inline"
+                placeholder="分" aria-controls="sample_3">-->
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="col-xs-1">
+   <button class="btn blue">
+     搜索
+   </button>
+ </div>
 </div>
 </form>

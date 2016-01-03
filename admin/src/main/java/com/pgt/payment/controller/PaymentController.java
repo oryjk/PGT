@@ -70,7 +70,7 @@ public class PaymentController {
 
 
         Integer state = null;
-        if (StringUtils.isNotBlank(stateStr) && StringUtils.isNumeric(stateStr)) {
+        if (StringUtils.isNotBlank(stateStr)) {
             if (PaymentConstants.PAYMENT_STATUS_SUCCESS == Integer.valueOf(stateStr)) {
                 state = PaymentConstants.PAYMENT_STATUS_SUCCESS;
             }
@@ -86,16 +86,16 @@ public class PaymentController {
         Date endTime = null;
         if (StringUtils.isNotBlank(startTimeStr)) {
             try {
-                startTime = DateUtils.parseDate(startTimeStr, "yyyyMM-dd HH:mm:ss");
+                startTime = DateUtils.parseDate(startTimeStr, "MM/dd/yyyy HH:mm:ss");
             } catch (ParseException e) {
-                throw new IllegalArgumentException("Start time format is not correct (yyyyMM-dd HH:mm:ss)");
+                throw new IllegalArgumentException("Start time format is not correct (MM/dd/yyyy HH:mm:ss)");
             }
         }
         if (StringUtils.isNotBlank(endTimeStr)) {
             try {
-                endTime = DateUtils.parseDate(endTimeStr, "yyyyMM-dd HH:mm:ss");
+                endTime = DateUtils.parseDate(endTimeStr, "MM/dd/yyyy HH:mm:ss");
             } catch (ParseException e) {
-                throw new IllegalArgumentException("Start time format is not correct (yyyyMM-dd HH:mm:ss)");
+                throw new IllegalArgumentException("Start time format is not correct (MM/dd/yyyy HH:mm:ss)");
             }
         }
         int currentIndex = 0;
