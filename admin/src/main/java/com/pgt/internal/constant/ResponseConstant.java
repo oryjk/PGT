@@ -15,4 +15,6 @@ public interface ResponseConstant {
 
 	String B2C_ORDER = "b2cOrder";
 	String B2C_ORDER_PAGE = "b2cOrderPage";
+
+	String COMMERCE_ITEM = "commerceItem";
 }

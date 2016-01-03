@@ -14,9 +14,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="pagination" value="${b2cOrderPage}" scope="request" />
 
-<pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/order-list.js">
-    <jsp:include page="include/bread-crumb-row.jspf" />
-    <div class="row" style="display: block">
+<pgt:container id="content">
+    <jsp:include page="include/bread-crumb-row.jspf">
+        <jsp:param name="step" value="info" />
+    </jsp:include>
+    <div class="row" style="display: none;">
         <div class="col-xs-12">
             <div class="Metronic-alerts alert alert-danger fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -162,24 +164,33 @@
                                                     <tr class="gradeX odd" role="row">
                                                         <td>${ci.id}</td>
                                                         <td>${ci.name}</td>
-                                                        <td> ¥&nbsp;<span><fmt:formatNumber value="${ci.salePrice}" pattern="0.00" type="number" /></span> </td>
+                                                        <td>¥&nbsp;<span><fmt:formatNumber value="${ci.salePrice}" pattern="0.00" type="number" /></span></td>
                                                         <td class="productlist-face-box">
                                                             <img src="${pageContext.request.contextPath}/resources${ci['snapshotMedia']['path']}"
                                                                  alt="${empty ci['snapshotMedia']['title'] ? ci.name : ci['snapshotMedia']['title']}" />
                                                         </td>
-                                                        <td> 鑫鑫珠宝行 </td>
-                                                        <td> 关羽 </td>
-                                                        <td> 2015-12-12 14:00 </td>
-                                                        <td> 顺丰快递 </td>
-                                                        <td> 123456789012345678 </td>
-                                                        <td>
-                                                            <!-- 有修改和发货两种按钮,根据是否已经有发货数据显示-->
-                                                            <button class="btn btn-xs green btn-circle" data-pgt-btn="send">修改</button>
-                                                        </td>
-                                                        <td>
-                                                            <!-- 有已收货文本和收货按钮两种,根据item状态显示-->
-                                                            已收货
-                                                        </td>
+                                                        <td>???</td>
+                                                        <td>${ci.delivery.consignor}</td>
+                                                        <td>${ci.delivery.deliveryTime}</td>
+                                                        <td>${ci.delivery.logistics}</td>
+                                                        <td>${ci.delivery.trackingNo}</td>
+                                                        <td><a href="<spring:url value="/order/delivery?id=${b2cOrder.id}&cid=${ci.id}" />"><c:choose>
+                                                            <c:when test="${ci.delivery.delivered}">
+                                                                <button class="btn btn-xs green btn-circle" data-pgt-btn="send">修改</button>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <button class="btn btn-xs blue btn-circle" data-pgt-btn="send">发货</button>
+                                                            </c:otherwise>
+                                                        </c:choose></a></td>
+                                                        <td><c:if test="${ci.delivery.delivered}">
+                                                            <c:choose>
+                                                                <c:when test="${ci.delivery.received}">已收货</c:when>
+                                                                <c:otherwise>
+                                                                    <a href="<spring:url value="/order/make-receive?id=${b2cOrder.id}&cid=${ci.id}" />">
+                                                                        <button class="btn btn-xs yellow btn-circle" data-pgt-btn="send">收货</button></a>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:if></td>
                                                     </tr>
                                                 </c:forEach>
                                                 </tbody>
@@ -193,7 +204,7 @@
                             <div>
                                 <h3 class="form-section">
                                     收货人信息
-                                    <button class="btn btn-xs green" id="modifySwitch">修改</button>
+                                    <%--<button class="btn btn-xs green" id="modifySwitch">修改</button>--%>
                                 </h3>
                                 <div class="pgt-scan">
                                     <div class="row">

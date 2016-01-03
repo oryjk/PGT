@@ -1,5 +1,7 @@
 package com.pgt.order.service;
 
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Delivery;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.pagination.InternalPagination;
@@ -12,11 +14,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yove on 12/21/2015.
  */
-@Service("B2COrderService")
 public class B2COrderService implements OrderStatus {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(B2COrderService.class);
@@ -24,11 +26,13 @@ public class B2COrderService implements OrderStatus {
 	@Resource(name = "B2COrderDao")
 	private B2COrderDao mB2COrderDao;
 
-	private int[] mPreStatus4UnpaidOrder = new int[] {PAID};
+	private Map<Integer, String> mOrderStatusMapping;
+
+	private int[] mPreStatus4UnpaidOrder = new int[] { PAID };
 	private int mUnpaidStatus = FILLED_SHIPPING;
-	private int[] mPreStatus4CompleteOrder = new int[] {INITIAL, FILLED_SHIPPING, PAID};
+	private int[] mPreStatus4CompleteOrder = new int[] { INITIAL, FILLED_SHIPPING, PAID };
 	private int mCompleteStatus = NO_PENDING_ACTION;
-	private int[] mPreStatus4CancelOrder = new int[] {INITIAL, FILLED_SHIPPING, PAID};
+	private int[] mPreStatus4CancelOrder = new int[] { INITIAL, FILLED_SHIPPING, PAID };
 	private int mCancelStatus = CANCEL;
 
 	public List<Order> queryB2COrderPage(final B2COrderSearchVO pB2COrderSearchVO, final InternalPagination pPagination) {
@@ -78,6 +82,17 @@ public class B2COrderService implements OrderStatus {
 		return false;
 	}
 
+	public boolean createDelivery(final Delivery pDelivery) {
+		return getB2COrderDao().createDelivery(pDelivery) > 0;
+	}
+
+	public boolean markCommerceItemReceived(final int pCommerceItemId) {
+		return getB2COrderDao().updateCommerceItemAsReceived(pCommerceItemId) > 0;
+	}
+
+	public CommerceItem loadCommerceItem(final int pCidInt) {
+		return getB2COrderDao().loadCommerceItem(pCidInt);
+	}
 
 	public B2COrderDao getB2COrderDao() {
 		return mB2COrderDao;
@@ -85,6 +100,14 @@ public class B2COrderService implements OrderStatus {
 
 	public void setB2COrderDao(final B2COrderDao pB2COrderDao) {
 		mB2COrderDao = pB2COrderDao;
+	}
+
+	public Map<Integer, String> getOrderStatusMapping() {
+		return mOrderStatusMapping;
+	}
+
+	public void setOrderStatusMapping(final Map<Integer, String> pOrderStatusMapping) {
+		mOrderStatusMapping = pOrderStatusMapping;
 	}
 
 	public int[] getPreStatus4UnpaidOrder() {

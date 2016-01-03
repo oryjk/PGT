@@ -23,16 +23,16 @@
 			AND u.login LIKE CONCAT('%', #{vo.userName}, '%')
 		</if>
 		<if test="vo.priceBeg != null">
-			AND  o.total &gt;= #{vo.priceBeg}
+			AND o.total &gt;= #{vo.priceBeg}
 		</if>
 		<if test="vo.priceEnd != null">
-			AND  o.total &lt;= #{vo.priceEnd}
+			AND o.total &lt;= #{vo.priceEnd}
 		</if>
 		<if test="vo.submitTimeBeg != null">
-			AND  o.submit_date &gt;= #{vo.submitTimeBeg}
+			AND o.submit_date &gt;= #{vo.submitTimeBeg}
 		</if>
 		<if test="vo.submitTimeEnd != null">
-			AND  o.submit_date &lt;= #{vo.submitTimeEnd}
+			AND o.submit_date &lt;= #{vo.submitTimeEnd}
 		</if>
 	</sql>
 
@@ -65,5 +65,56 @@
 			`status` = #{status}
 		</set>
 		WHERE order_id = #{orderId}
+	</update>
+
+	<select id="loadCommerceItem" parameterType="int" resultMap="com.pgt.cart.dao.ShoppingCartDao.commerceItem">
+		SELECT
+			ci.commerce_item_id,
+			order_id,
+			ci.reference_id,
+			name,
+			quality,
+			list_price,
+			sale_price,
+			quantity,
+			amount,
+			snapshot_id,
+			ci.`index`,
+			creation_date,
+			update_date,
+			consignor,
+			delivered,
+			received,
+			logistics,
+			delivery_time,
+			tracking_no,
+			m.media_id,
+			m.title,
+			m.path
+		FROM COMMERCE_ITEM ci
+			LEFT JOIN COMMERCE_ITEM_DELIVERY cid ON ci.commerce_item_id = cid.commerce_item_id
+			LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
+		WHERE ci.commerce_item_id = #{commerceItemId}
+	</select>
+
+	<insert id="createDelivery">
+		INSERT INTO COMMERCE_ITEM_DELIVERY (`COMMERCE_ITEM_ID`, `CONSIGNOR`, `DELIVERED`, `RECEIVED`, `LOGISTICS`, `DELIVERY_TIME`, `TRACKING_NO`)
+		VALUES ( #{commerceItemId}, #{consignor}, #{delivered}, #{received}, #{logistics}, #{deliveryTime}, #{trackingNo} )
+		ON DUPLICATE KEY
+		UPDATE
+			`CONSIGNOR`     = #{consignor},
+			`DELIVERED`     = #{delivered},
+			`RECEIVED`      = #{received},
+			`LOGISTICS`     = #{logistics},
+			`DELIVERY_TIME` = #{deliveryTime},
+			`TRACKING_NO`   = #{trackingNo}
+	</insert>
+
+	<update id="updateCommerceItemAsReceived" parameterType="int">
+		UPDATE COMMERCE_ITEM_DELIVERY
+		<set>
+			`RECEIVED` = 1
+		</set>
+		WHERE `COMMERCE_ITEM_ID` = #{commerceItemId};
 	</update>
 </mapper>

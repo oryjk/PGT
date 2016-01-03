@@ -17,9 +17,24 @@ $(function () {
     });
 });
 
-$(document).on('click', '[data-pgt-btn="modify"]', function () {
-    $('#confirmModal').modal('show');
+changeStatusUrl = ctx + "/order/ajax-change-order-status"
+
+$(document).on('click', '[data-pgt-btn="modify"]', function (e) {
+    var source = $(e.target);
+    var status = source.data("status");
+    var id = source.data("order-id");
+    $(document).off('click', '.btn_confirm').on('click', '.btn_confirm', function (e) {
+        $.post(changeStatusUrl, {'id': id, 'status': status}, function (response) {
+            if (response != null && response != undefined) {
+                if (response.success == 1) {
+                    window.location.reload();
+                }
+                $('#confirmModal').modal('hide')
+            }
+        });
+    });
     $('#confirmText').text('确定要修改?')
+    $('#confirmModal').modal('show');
 });
 $(document).on('click', '[data-pgt-btn="delete"]', function () {
     $('#confirmModal').modal('show');

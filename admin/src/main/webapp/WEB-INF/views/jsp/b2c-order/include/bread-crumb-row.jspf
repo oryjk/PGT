@@ -24,11 +24,11 @@
                 <i class="fa fa-circle"></i>
             </li>
             <c:choose>
-                <c:when test="${param.step eq 'signup'}">
-                    <li>新增管理员</li>
+                <c:when test="${param.step eq 'info'}">
+                    <li>订单详情</li>
                 </c:when>
-                <c:when test="${param.step eq 'iu-modify'}">
-                    <li>修改管理员</li>
+                <c:when test="${param.step eq 'delivery'}">
+                    <li>修改发货信息</li>
                 </c:when>
             </c:choose>
         </ul>

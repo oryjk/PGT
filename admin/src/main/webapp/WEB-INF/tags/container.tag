@@ -79,8 +79,10 @@
         .link-name {
             color: black;
         }
-
     </style>
+    <script>
+        ctx = "${ctx}";
+    </script>
 </head>
 <!-- END HEAD -->
 

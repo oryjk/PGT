@@ -15,7 +15,7 @@
 
 <pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/order-list.js">
     <jsp:include page="include/bread-crumb-row.jspf" />
-    <div class="row" style="display: block">
+    <div class="row" style="display: none;">
         <div class="col-xs-12">
             <div class="Metronic-alerts alert alert-danger fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -38,6 +38,7 @@
                     <form action="<spring:url value="/order/order-list"/>">
                         <input type="hidden" name="currentIndex" value="${param.currentIndex}" />
                         <input type="hidden" name="capacity" value="${param.capacity}" />
+
                         <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                             <div class="row">
                                 <div class="col-md-2 col-sm-2">
@@ -62,7 +63,7 @@
                                             <input type="search" name="priceBeg" value="${param.priceBeg}"
                                                    class="form-control input-xsmall input-inline"
                                                    placeholder="最低" aria-controls="sample_3" />
-                                            -
+                                               -
                                             <input type="search" name="priceEnd" value="${param.priceEnd}"
                                                    class="form-control input-xsmall input-inline"
                                                    placeholder="最高" aria-controls="sample_3" />
@@ -143,34 +144,38 @@
                                         <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
                                             订单状态 <i class="fa fa-angle-down"></i>
                                         </a>
-                                        <ul class="dropdown-menu pull-right">
-                                            <li>
-                                                <a href="javascript:;">
-                                                    全部订单 </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    待付款 </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    待收获 </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    已完成 </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    已取消 </a>
-                                            </li>
-                                        </ul>
+                                            <%--
+                                            <ul class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        全部订单 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        待付款 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        待收获 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        已完成 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        已取消 </a>
+                                                </li>
+                                            </ul>
+                                            --%>
                                     </div>
                                 </th>
-                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                    aria-label="Status : activate to sort column ascending">
-                                    操作
-                                </th>
+                                    <%--
+                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+                                        aria-label="Status : activate to sort column ascending">
+                                        操作
+                                    </th>
+                                    --%>
                             </tr>
                             </thead>
                             <tbody>
@@ -185,43 +190,68 @@
                                     <td>
                                         <!--super: blue:待付款 yellow待收货 green已完成 red已取消-->
                                         <div class="btn-group">
-                                            <a class="btn btn-xs blue" href="javascript:;" data-toggle="dropdown">
-                                                待付款 <i class="fa fa-angle-down"></i>
+                                            <a class="btn btn-xs blue" href="javascript:;" ${order.status ne -10 ? 'data-toggle="dropdown"' : ''}>
+                                                <c:choose>
+                                                    <c:when test="${order.status eq 10}">
+                                                        <span>待提交</span>
+                                                    </c:when>
+                                                    <c:when test="${order.status eq 20}">
+                                                        <span>待付款</span>
+                                                    </c:when>
+                                                    <c:when test="${order.status eq 25}">
+                                                        <span>待完成支付</span>
+                                                    </c:when>
+                                                    <c:when test="${order.status eq 30}">
+                                                        <span>待收货</span>
+                                                    </c:when>
+                                                    <c:when test="${order.status eq 100}">
+                                                        <span>已完成</span>
+                                                    </c:when>
+                                                    <c:when test="${order.status eq -10}">
+                                                        <span>已取消</span>
+                                                    </c:when>
+                                                </c:choose>
+                                                <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="javascript:;" data-pgt-btn="modify">
-                                                        待付款 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;" data-pgt-btn="modify">
-                                                        待收货 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;" data-pgt-btn="modify">
-                                                        已完成 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;" data-pgt-btn="modify">
-                                                        已取消 </a>
-                                                </li>
+                                                <c:if test="${order.status eq 30}">
+                                                    <li>
+                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="20" data-order-id="${order.id}">
+                                                            待付款 </a>
+                                                    </li>
+                                                </c:if>
+                                                <c:if test="${order.status eq 10 or order.status eq 20 or order.status eq 30}">
+                                                    <li>
+                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="100" data-order-id="${order.id}">
+                                                            已完成 </a>
+                                                    </li>
+                                                </c:if>
+                                                <c:if test="${order.status eq 10 or order.status eq 20 or order.status eq 30}">
+                                                    <li>
+                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="-10" data-order-id="${order.id}">
+                                                            已取消 </a>
+                                                    </li>
+                                                </c:if>
                                             </ul>
                                         </div>
                                     </td>
-                                    <td>
-                                        <button class="btn btn-xs red btn-circle" data-pgt-btn="delete">删除</button>
-                                    </td>
+                                        <%--
+                                        <td>
+                                            <button class="btn btn-xs red btn-circle" data-pgt-btn="delete">删除</button>
+                                        </td>
+                                        --%>
                                 </tr>
                             </c:forEach>
                             </tbody>
                         </table>
                     </div>
 
-                    <%-- pagination row --%>
+                        <%-- pagination row --%>
                     <form action="<spring:url value="/order/order-list" />" method="get">
                         <div class="row">
                             <jsp:include page="include/pagination-capacity-selection.jsp">
-                                <jsp:param name="paginationURL" value="/order/order-list?id=${param.id}&userName=${param.userName}&priceBeg=${param.priceBeg}&priceEnd=${param.priceEnd}&submitTimeBeg=${param.submitTimeBeg}&submitTimeEnd=${param.submitTimeEnd}" />
+                                <jsp:param name="paginationURL"
+                                           value="/order/order-list?id=${param.id}&userName=${param.userName}&priceBeg=${param.priceBeg}&priceEnd=${param.priceEnd}&submitTimeBeg=${param.submitTimeBeg}&submitTimeEnd=${param.submitTimeEnd}" />
                             </jsp:include>
                         </div>
                         <input type="hidden" name="id" value="${param.id}" />
@@ -250,7 +280,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn blue">确定</button>
+                        <button type="button" class="btn blue btn_confirm">确定</button>
                     </div>
                 </form>
             </div>
