@@ -1,12 +1,15 @@
 package com.pgt.help;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,10 +82,16 @@ public class HelpController {
 
 	@RequestMapping(value = "addCategory", method = RequestMethod.POST)
 	public ModelAndView addCategory(ModelAndView modelAndView, @Validated(value = CreateGroup.class) Category category,
-			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+			BindingResult bindingResult) {
 		modelAndView.setViewName("/help/addOrModifyCategory");
-		redirectAttributes.addFlashAttribute("actionUrl", "../updateCategory");
 		if (bindingResult.hasErrors()) {
+			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			Map<String, String> errors = new HashMap<String, String>();
+			for (FieldError err : fieldErrors) {
+				errors.put(err.getField(), err.getDefaultMessage());
+			}
+			modelAndView.addObject("errors", errors);
+			modelAndView.addObject("actionUrl", "addCategory");
 			return modelAndView;
 		}
 		category.setType(CategoryType.HELP_ROOT);
@@ -109,11 +118,28 @@ public class HelpController {
 		mav.setViewName("redirect:updateCategory/" + category.getId());
 		redirectAttributes.addFlashAttribute("actionUrl", "../updateCategory");
 		if (bindingResult.hasErrors()) {
+			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			Map<String, String> errors = new HashMap<String, String>();
+			for (FieldError err : fieldErrors) {
+				errors.put(err.getField(), err.getDefaultMessage());
+			}
+			redirectAttributes.addFlashAttribute("errors", errors);
 			return mav;
 		}
 		category.setType(CategoryType.HELP_ROOT);
 		category.setCode("1");
 		category.setColor("#006727");
+		categoryService.updateCategory(category);
+		mav.setViewName("redirect:/help/categoryList");
+		return mav;
+	}
+
+	@RequestMapping(value = "/updateCategoryStatus", method = RequestMethod.POST)
+	public ModelAndView updateCategoryStatus(@RequestParam(value = "categoryId", required = false) Integer categoryId,
+			@RequestParam(value = "status", required = false) Integer status) {
+		ModelAndView mav = new ModelAndView();
+		Category category = categoryService.queryCategory(categoryId);
+		category.setStatus(status);
 		categoryService.updateCategory(category);
 		mav.setViewName("redirect:/help/categoryList");
 		return mav;
@@ -149,6 +175,8 @@ public class HelpController {
 		paginationBean.setCurrentIndex((currentPage - 1) * paginationBean.getCapacity());
 
 		List<Category> categories = categoryHelper.findHelpCenterCategories();
+		List<HelpCenter> helpCentersList = helpCenterService.queryHelpCenters(helpCenter, null);
+		paginationBean.setTotalAmount(helpCentersList.size());
 		List<HelpCenter> helpCenters = helpCenterService.queryHelpCenters(helpCenter, paginationBean);
 		modelAndView.addObject("helpCenters", helpCenters);
 		modelAndView.addObject("categories", categories);
@@ -159,18 +187,23 @@ public class HelpController {
 
 	// 添加一个帮助信息
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
-	public ModelAndView addHelCenter(ModelAndView modelAndView, HelpCenter helpCenter) {
-		modelAndView.setViewName("redirect:addArticle");
-		if (ObjectUtils.isEmpty(helpCenter.getContent())) {
-			LOGGER.debug("helpcenter content is null");
-			return modelAndView;
-		}
-		if (ObjectUtils.isEmpty(helpCenter.getTitle())) {
-			LOGGER.debug("Title title is null");
+	public ModelAndView addHelCenter(ModelAndView modelAndView, @Validated HelpCenter helpCenter,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			Map<String, String> errors = new HashMap<String, String>();
+			for (FieldError err : fieldErrors) {
+				errors.put(err.getField(), err.getDefaultMessage());
+			}
+			List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
+			modelAndView.addObject("helpCategorVoList", HelpCategorVoList);
+			modelAndView.setViewName("/help/addOrModifyArticle");
+			modelAndView.addObject("errors", errors);
+			modelAndView.addObject("actionUrl", "addArticle");
 			return modelAndView;
 		}
 		helpCenterService.createHelpCenter(helpCenter);
-		modelAndView.setViewName("redirect:/help/listArticle");
+		modelAndView.setViewName("redirect:/help/articleList");
 		return modelAndView;
 	}
 
@@ -195,23 +228,27 @@ public class HelpController {
 	}
 
 	@RequestMapping(value = "/updateArticle", method = RequestMethod.POST)
-	public ModelAndView updateHlepCenter(HelpCenter helpCenter) {
+	public ModelAndView updateHlepCenter(@Validated HelpCenter helpCenter, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:updateArticle/" + helpCenter.getId());
-		if (ObjectUtils.isEmpty(helpCenter.getContent())) {
-			LOGGER.debug("helpcenter content is null");
-			return mav;
-		}
-		if (ObjectUtils.isEmpty(helpCenter.getTitle())) {
-			LOGGER.debug("Title title is null");
+		if (bindingResult.hasErrors()) {
+			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			Map<String, String> errors = new HashMap<String, String>();
+			for (FieldError err : fieldErrors) {
+				errors.put(err.getField(), err.getDefaultMessage());
+			}
+			redirectAttributes.addFlashAttribute("errors", errors);
+			List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
+			redirectAttributes.addFlashAttribute("helpCategorVoList", HelpCategorVoList);
 			return mav;
 		}
 		helpCenterService.updateHelpCenter(helpCenter);
-		mav.setViewName("redirect:/help/listArticle");
+		mav.setViewName("redirect:/help/articleList");
 		return mav;
 	}
 
-	@RequestMapping(value = "/delete/{helpCenterId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteArticle/{helpCenterId}", method = RequestMethod.GET)
 	public ModelAndView deleteHelpCenterById(@PathVariable("helpCenterId") String helpCenterId,
 			ModelAndView modelAndView) {
 		helpCenterService.deleteHelpCenterById(Integer.parseInt(helpCenterId));

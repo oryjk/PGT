@@ -24,11 +24,11 @@
                 </div>
             </div>
             <!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
-            <div class="row" style="display: block">
+            <div class="row" style="display: none">
                 <div class="col-xs-12">
                     <div class="Metronic-alerts alert alert-danger fade in">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                        <p><form:errors path="nameError"/></p>
+                        <p>111</p>
                     </div>
                 </div>
             </div>
@@ -89,21 +89,14 @@
                                             <th>
                                                 文章数量
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
+                                            <th>
+                                              状态
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="display:none">
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
                                                         状态 <i class="fa fa-angle-down"></i>
                                                     </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li>
-                                                            <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
-                                                                启用 </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;" data-pgt-value="0"  data-pgt-dropdown="status-option">
-                                                                禁用 </a>
-                                                        </li>
-                                                    </ul>
                                                 </div>
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
@@ -123,19 +116,26 @@
 	                                            <td> ${fn:length(helpCategorVo.helpCenterList)}</td>
 	                                            <td>
 	                                                <div class="btn-group">
-	                                                    <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="1">
-	                                                        ${helpCategorVo.category.status == 0 ? '禁用' : '启用'} <i class="fa fa-angle-down"></i>
-	                                                    </a>
-	                                                    <ul class="dropdown-menu pull-right">
-	                                                        <li>
-	                                                            <a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
-	                                                                禁用 </a>
-	                                                        </li>
-	                                                        <li>
-	                                                            <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
-	                                                                启用 </a>
-	                                                        </li>
-	                                                    </ul>
+	                                                	<c:if test="${helpCategorVo.category.status == 0 }">
+	                                                		 <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="1">
+		                                                      	禁用 <i class="fa fa-angle-down"></i>
+		                                                    </a>
+		                                                    <ul class="dropdown-menu pull-right">
+		                                                        <li>
+		                                                            <a href="javascript:;" class="js-update-category-status" data-pgt-value="1" data-category-id="${helpCategorVo.category.id}" data-pgt-dropdown="status-option"> 启用 </a>
+		                                                        </li>
+		                                                    </ul>
+	                                                	</c:if>
+	                                                	<c:if test="${helpCategorVo.category.status != 0 }">
+	                                                		 <a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="1">
+		                                                      	启用 <i class="fa fa-angle-down"></i>
+		                                                    </a>
+		                                                    <ul class="dropdown-menu pull-right">
+		                                                        <li>
+		                                                            <a href="javascript:;" class="js-update-category-status" data-pgt-value="0" data-category-id="${helpCategorVo.category.id}" data-pgt-dropdown="status-option"> 禁用 </a>
+		                                                        </li>
+		                                                    </ul>
+	                                                	</c:if>
 	                                                </div>
 	                                            </td>
 	                                            <td>
@@ -166,7 +166,7 @@
                                                 <select id="capacityList" name="sample_3_length" aria-controls="sample_3"
                                                         class="form-control input-xsmall input-inline select2-offscreen"
                                                         tabindex="-1" title="">
-                                                    <option value="2" ${paginationBean.capacity == 5 ? 'selected': ''}>5</option>
+                                                    <option value="5" ${paginationBean.capacity == 5 ? 'selected': ''}>5</option>
                                                     <option value="15" ${paginationBean.capacity == 15 ? 'selected': ''}>15</option>
                                                     <option value="20" ${paginationBean.capacity == 20 ? 'selected': ''}>20</option>
                                                     <option value="10000" ${empty paginationBean.capacity ? 'selected': ''}>所有</option>
@@ -177,7 +177,7 @@
                                         <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
                                             <!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
                                             <ul class="pagination">
-                                                <li class="paginate_button previous ${2 > currentPage ? 'disabled': ''}"><a href="#"><i
+                                                <li class="paginate_button previous js-change-page ${2 > currentPage ? 'disabled': ''}" data-page="${currentPage - 1}"><a href="#"><i
                                                         class="fa fa-angle-left"></i></a></li>
                                                 <li class="paginate_button js-change-page" data-page="1"><a
                                                         href="#">首页</a></li>
@@ -209,7 +209,7 @@
                                                 </c:if>
                                                 <li class="paginate_button js-change-page" data-page="${maxPageNum}"><a
                                                         href="#">末页</a></li>
-                                                <li class="paginate_button next ${maxPageNum > currentPage ? '': 'disabled'}"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                                <li class="paginate_button next js-change-page ${maxPageNum > currentPage ? '': 'disabled'}" data-page="${currentPage + 1}"><a href="#"><i class="fa fa-angle-right"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -220,6 +220,10 @@
                                                 <input id="capacity" type="hidden" name="capacity" value="${paginationBean.capacity}"/>
                                                 <input id="submitBtn" type="submit" class="btn blue" value="跳转">
                                             </label>
+                                        </form>
+                                        <form id="updateCategoryStatusForm" action="updateCategoryStatus" method="post">
+                                        	 <input id="categoryId" type="hidden" name="categoryId" value=""/>
+                                        	 <input id="categoryStatus" type="hidden" name="status" value=""/>
                                         </form>
                                     </div>
                                 </div>
