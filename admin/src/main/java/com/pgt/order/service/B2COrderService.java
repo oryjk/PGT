@@ -14,17 +14,19 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yove on 12/21/2015.
  */
-@Service("B2COrderService")
 public class B2COrderService implements OrderStatus {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(B2COrderService.class);
 
 	@Resource(name = "B2COrderDao")
 	private B2COrderDao mB2COrderDao;
+
+	private Map<Integer, String> mOrderStatusMapping;
 
 	private int[] mPreStatus4UnpaidOrder = new int[] { PAID };
 	private int mUnpaidStatus = FILLED_SHIPPING;
@@ -98,6 +100,14 @@ public class B2COrderService implements OrderStatus {
 
 	public void setB2COrderDao(final B2COrderDao pB2COrderDao) {
 		mB2COrderDao = pB2COrderDao;
+	}
+
+	public Map<Integer, String> getOrderStatusMapping() {
+		return mOrderStatusMapping;
+	}
+
+	public void setOrderStatusMapping(final Map<Integer, String> pOrderStatusMapping) {
+		mOrderStatusMapping = pOrderStatusMapping;
 	}
 
 	public int[] getPreStatus4UnpaidOrder() {

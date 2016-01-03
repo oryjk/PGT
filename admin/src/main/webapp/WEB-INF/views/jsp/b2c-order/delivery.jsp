@@ -13,7 +13,7 @@
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/order-list.js">
+<pgt:container id="content">
     <jsp:include page="include/bread-crumb-row.jspf">
         <jsp:param name="step" value="delivery" />
     </jsp:include>

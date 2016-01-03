@@ -159,4 +159,17 @@
             </props>
         </property>
     </bean>
+    
+    <bean id="B2COrderService" class="com.pgt.order.service.B2COrderService">
+        <property name="orderStatusMapping">
+            <map>
+                <entry key="10" value="待提交" />
+                <entry key="20" value="待付款" />
+                <entry key="25" value="待完成支付" />
+                <entry key="30" value="待收货" />
+                <entry key="100" value="已完成" />
+                <entry key="-10" value="已取消" />
+            </map>
+        </property>
+    </bean>
 </beans>
