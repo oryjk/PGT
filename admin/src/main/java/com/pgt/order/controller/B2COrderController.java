@@ -130,7 +130,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			@RequestParam(value = "cid", required = true) String cid,
 			@RequestParam(value = "deliveryTimeStr", required = false) String deliveryTimeStr,
 			Delivery delivery) {
-		ModelAndView mav = new ModelAndView("forward:delivery");
+		ModelAndView mav = new ModelAndView("redirect:/order/delivery?id=" + id + "&cid=" + cid);
 		int cidInt = RepositoryUtils.safeParseId(cid);
 		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
 		if (ci == null) {
@@ -138,17 +138,8 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		}
 		delivery.setDeliveryTime(deliveryTimeStr);
 		TransactionStatus status = ensureTransaction();
-		boolean result;
 		try {
-			if (delivery.getCommerceItemId() <= 0) {
-				delivery.setCommerceItemId(cidInt);
-				result = getB2COrderService().createDelivery(delivery);
-			} else {
-				result = getB2COrderService().updateDelivery(delivery);
-			}
-			if (!result) {
-				status.setRollbackOnly();
-			}
+			getB2COrderService().createDelivery(delivery);
 		} catch (Exception e) {
 			status.setRollbackOnly();
 			LOGGER.error("Cannot make delivery for commerce item: {} of order: {}", cid, id, e);
@@ -159,6 +150,31 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			getTransactionManager().commit(status);
 		}
 		mav.addObject(ResponseConstant.COMMERCE_ITEM, ci);
+		return mav;
+	}
+
+	@RequestMapping(value = "/make-receive")
+	public ModelAndView makeReceive(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "cid", required = true) String cid) {
+		ModelAndView mav = new ModelAndView("redirect:/order/order-info?id=" + id);
+		int cidInt = RepositoryUtils.safeParseId(cid);
+		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
+		if (ci == null) {
+			return mav;
+		}
+		TransactionStatus status = ensureTransaction();
+		try {
+			boolean result = getB2COrderService().markCommerceItemReceived(cidInt);
+			if (!result) {
+				status.setRollbackOnly();
+			}
+		} catch (Exception e) {
+			status.setRollbackOnly();
+			LOGGER.error("Cannot mark received for commerce item: {} of order: {}", cid, id, e);
+		} finally {
+			getTransactionManager().commit(status);
+		}
 		return mav;
 	}
 

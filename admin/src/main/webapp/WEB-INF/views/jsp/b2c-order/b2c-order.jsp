@@ -184,7 +184,8 @@
                                                             <c:choose>
                                                                 <c:when test="${ci.delivery.received}">已收货</c:when>
                                                                 <c:otherwise>
-                                                                    <a herf="#"><button class="btn btn-xs yellow btn-circle" data-pgt-btn="send">收货</button></a>
+                                                                    <a href="<spring:url value="/order/make-receive?id=${b2cOrder.id}&cid=${ci.id}" />">
+                                                                        <button class="btn btn-xs yellow btn-circle" data-pgt-btn="send">收货</button></a>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </c:if></td>

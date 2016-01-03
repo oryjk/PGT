@@ -84,8 +84,8 @@ public class B2COrderService implements OrderStatus {
 		return getB2COrderDao().createDelivery(pDelivery) > 0;
 	}
 
-	public boolean updateDelivery(final Delivery pDelivery) {
-		return getB2COrderDao().updateDelivery(pDelivery) > 0;
+	public boolean markCommerceItemReceived(final int pCommerceItemId) {
+		return getB2COrderDao().updateCommerceItemAsReceived(pCommerceItemId) > 0;
 	}
 
 	public CommerceItem loadCommerceItem(final int pCidInt) {
@@ -147,5 +147,4 @@ public class B2COrderService implements OrderStatus {
 	public void setCancelStatus(final int pCancelStatus) {
 		mCancelStatus = pCancelStatus;
 	}
-
 }

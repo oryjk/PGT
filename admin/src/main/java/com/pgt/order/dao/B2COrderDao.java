@@ -29,5 +29,5 @@ public interface B2COrderDao extends SqlMapper {
 
 	int createDelivery(Delivery pDelivery);
 
-	int updateDelivery(Delivery pDelivery);
+	int updateCommerceItemAsReceived(int pCommerceItemId);
 }
