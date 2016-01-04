@@ -61,7 +61,12 @@
                         <a href="#">${helpCenter.title}</a>
                     </p>
                 </div>
-                <img src="${pageContext.request.contextPath}/resources/${helpCenter.frontMedia.path}" alt="${helpCenter.title}">
+                <c:if test="${not empty helpCenter.content}">
+                	${helpCenter.content}
+                </c:if>
+                 <c:if test="${empty helpCenter.content}">
+                	<img src="${pageContext.request.contextPath}/resources/${helpCenter.frontMedia.path}" alt="${helpCenter.title}">
+                </c:if>
             </div>
 
         </div>
@@ -91,6 +96,9 @@
 </body>
 
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/help/helpcenter.js"/>" defer async="true"></script>
-
+<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.config.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.all.min.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.parse.min.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/lang/zh-cn/zh-cn.js"/>"></script>
 
 </html>
