@@ -293,7 +293,7 @@
             keyProperty="hotSearchId" useGeneratedKeys="true">
 		INSERT INTO
 		HOT_SEARCH(TERM,MEDIA_ID)
-		VALUES {#{term},#{frontMedia.mId})
+		VALUES (#{term},#{frontMedia.mId})
 	</insert>
 
     <select id="queryAllHotsearch" resultMap="hotSearch">
