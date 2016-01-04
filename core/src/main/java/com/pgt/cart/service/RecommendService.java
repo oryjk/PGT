@@ -1,8 +1,8 @@
 package com.pgt.cart.service;
 
 import com.pgt.cart.dao.RecommendDao;
-import com.pgt.configuration.URLConfiguration;
 import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.configuration.URLConfiguration;
 import com.pgt.product.bean.Product;
 import com.pgt.product.dao.ProductMapper;
 import org.apache.commons.collections.CollectionUtils;
@@ -45,8 +45,8 @@ public class RecommendService {
 
 	private boolean mRecommendOutOfStockProduct = false;
 
-	private String[] mRecommendURLs = new String[] {"/myAccount/favourites", "/user/updatePassword", "/userinformation/query", "/myAccount/orderHistory",
-			"/myAccount/browsedProducts", "/404", "/checkout/shipping", "/payment/gateway", "/payment/complete"};
+	private String[] mRecommendURLs = new String[] { "/myAccount/favourites", "/user/updatePassword", "/userinformation/query", "/myAccount/orderHistory",
+			"/myAccount/browsedProducts", "/404", "/checkout/shipping", "/payment/gateway", "/payment/complete" };
 
 	private static final String SUFFIX_JS = ".js";
 	private static final String SUFFIX_CSS = ".css";
@@ -164,7 +164,7 @@ public class RecommendService {
 			if (CollectionUtils.isEmpty(categoryProductIds)) {
 				continue;
 			}
-			for (int i = RandomUtils.nextInt(0, categoryProductIds.size()); pRecommendProducts.size() < getRecommendCount(); i++) {
+			for (int i = RandomUtils.nextInt(0, categoryProductIds.size()); pRecommendProducts.size() < getRecommendCount() && i < categoryProductIds.size(); i++) {
 				pRecommendProducts.add(categoryProductIds.get(i));
 				// restart loop at the begin of list
 				if (i == categoryProductIds.size() - 1) {
