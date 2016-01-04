@@ -15,6 +15,29 @@ $(function () {
     $(".timePicker").datetimepicker({
         timeFormat: "HH:mm:ss"
     });
+
+    $("#conditionSumbitButton").click(function() {
+        $("#currentIndex").val("");
+        $("#capacity").val("");
+        $("#conditionForm").submit();
+    });
+
+    $(".pageable").click(function() {
+        $("#currentIndex").val($(this).attr("data-index"));
+        $("#conditionForm").submit();
+    });
+
+    $("#changeCapacity").change(function() {
+        $("#capacity").val($(this).val());
+        $("#currentIndex").val("");
+        $("#conditionForm").submit();
+    });
+
+    $("#jumpTo").click(function() {
+        $("#currentIndex").val($("#jumpToIndex").val() - 1);
+        $("#conditionForm").submit();
+    });
+
 });
 
 changeStatusUrl = ctx + "/order/ajax-change-order-status"
