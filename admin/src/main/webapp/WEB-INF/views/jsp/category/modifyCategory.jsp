@@ -50,7 +50,7 @@
         </div>
         <div class="portlet-body form">
           <!-- BEGIN FORM-->
-          <form:form action="create" class="form-horizontal" modelAttribute="category">
+          <form:form action="update" class="form-horizontal" modelAttribute="category">
             <div class="form-body">
               <!-- 只有在修改时才出现id行-->
               <c:if test="${category.id!=null}">

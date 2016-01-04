@@ -11,7 +11,7 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<admin:container id="productList">
+<admin:container id="productList" pageJsPath="/resources/category/category-list.js">
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">

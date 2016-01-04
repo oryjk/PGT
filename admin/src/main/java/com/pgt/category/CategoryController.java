@@ -79,6 +79,7 @@ public class CategoryController {
         String categoryId = categoryService.createCategory(category);
         LOGGER.debug("The category is is {}.", categoryId);
         LOGGER.debug("end create category.");
+        modelAndView.setViewName("/category/addAndModifyCategorySuccess");
         return modelAndView;
     }
 
@@ -109,6 +110,7 @@ public class CategoryController {
             return modelAndView;
         }
         modelAndView.addObject("category", category);
+        modelAndView.setViewName("/category/modifyCategory");
         return modelAndView;
     }
 
@@ -123,6 +125,7 @@ public class CategoryController {
             LOGGER.debug("Not success update the category.");
             return modelAndView;
         }
+        modelAndView.setViewName("/category/addAndModifyCategorySuccess");
         return modelAndView;
     }
 
