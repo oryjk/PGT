@@ -137,7 +137,9 @@ public class PaymentService extends Transactionable {
 		header.createCell(5).setCellValue("交易号");
 
 		rowNum++;
-		while (paginationBean.getCurrentIndex() < paginationBean.getMaxIndex() + 1) {
+		long currentIndex = paginationBean.getCurrentIndex();
+		long maxIndex = paginationBean.getMaxIndex();
+		while (currentIndex < maxIndex + 1) {
 			List<Transaction> transactions = getPaymentMapper().queryTransaction(queryBean);
 			for(Transaction transaction : transactions){
 				Row row = sh.createRow( rowNum);
@@ -179,7 +181,7 @@ public class PaymentService extends Transactionable {
 		 		rowNum++;
 			}
 
-			paginationBean.setCurrentIndex(paginationBean.getCurrentIndex() + 1);
+			currentIndex++;
 		}
 		wb.write(out);
 	}

@@ -37,7 +37,17 @@ $(function () {
         $("#currentIndex").val($("#jumpToIndex").val() - 1);
         $("#conditionForm").submit();
     });
+    $("#reportSumbitButton").click(function() {
+        var originalUrl = $("#conditionForm").attr("action");
+        var actionUrl = $(this).attr("data-action");
+        $("#conditionForm").attr("action", actionUrl);
+        $("#conditionForm").submit();
+        setInterval(function() {
+            $("#conditionForm").attr("action", originalUrl);
+        },100);
 
+
+    });
 });
 
 changeStatusUrl = ctx + "/order/ajax-change-order-status"

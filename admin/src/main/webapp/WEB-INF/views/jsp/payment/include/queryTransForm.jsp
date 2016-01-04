@@ -89,6 +89,9 @@
    <button class="btn blue" id="conditionSumbitButton">
      搜索
    </button>
+     <button class="btn blue" id="reportSumbitButton" data-action="<spring:url value="/payment/generateReport"/>">
+         生成报表
+     </button>
  </div>
 </div>
     <input type="hidden" name="currentIndex" id="currentIndex" value="${paginationBean.currentIndex}"/>

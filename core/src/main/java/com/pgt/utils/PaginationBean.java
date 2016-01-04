@@ -147,7 +147,10 @@ public class PaginationBean implements Mapable {
 	}
 
 	public long getCurrentIndex() {
-		if (currentIndex> getMaxIndex() || currentIndex < 0) {
+		if (currentIndex> getMaxIndex()) {
+			return getMaxIndex();
+		}
+		if (currentIndex < 0) {
 			return 0;
 		}
 		return currentIndex;

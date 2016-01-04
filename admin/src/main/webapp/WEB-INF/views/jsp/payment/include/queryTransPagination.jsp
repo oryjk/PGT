@@ -23,9 +23,10 @@
         <select name="sample_3_length" aria-controls="sample_3"
                 class="form-control input-xsmall input-inline select2-offscreen"
                 tabindex="-1" title="" id="changeCapacity">
-          <option value="2" <c:if test="${paginationBean.capacity == 2}">selected</c:if> >5</option>
-          <option value="3" <c:if test="${paginationBean.capacity == 3}">selected</c:if> >15</option>
-          <option value="4" <c:if test="${paginationBean.capacity == 4}">selected</c:if>>20</option>
+          <option value="5" <c:if test="${paginationBean.capacity == 5}">selected</c:if> >5</option>
+          <option value="15" <c:if test="${paginationBean.capacity == 15}">selected</c:if> >15</option>
+          <option value="20" <c:if test="${paginationBean.capacity == 20}">selected</c:if>>20</option>
+          <option value="50" <c:if test="${paginationBean.capacity == 50}">selected</c:if>>50</option>
         </select> 条</label>
     </div>
   </div>
