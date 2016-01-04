@@ -9,6 +9,8 @@ import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by carlwang on 12/17/15.
@@ -43,9 +47,10 @@ public class CategoryController {
             categoryType = CategoryType.ROOT;
         }
         Category categoryRequest = new Category();
+        categoryRequest.setCode(null);
         PaginationBean paginationBean = new PaginationBean();
         if (ObjectUtils.isEmpty(currentIndex)) {
-            currentIndex = 20;
+            currentIndex = 0;
         }
         paginationBean.setCurrentIndex(currentIndex);
         paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
@@ -53,6 +58,7 @@ public class CategoryController {
 
         List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
         modelAndView.addObject("categories", categories);
+        modelAndView.addObject("categoryType", categoryType.toString());
         modelAndView.setViewName("category/categoryList");
         return modelAndView;
     }
@@ -62,7 +68,9 @@ public class CategoryController {
     public ModelAndView create(ModelAndView modelAndView) {
         LOGGER.debug("create GET.");
         modelAndView.addObject("category", new Category());
-        modelAndView.setViewName("/");
+        List<Category> categories = categoryService.queryAllParentCategories();
+        modelAndView.setViewName("/category/addCategory");
+        modelAndView.addObject("categories", categories);
         return modelAndView;
     }
 
@@ -77,6 +85,7 @@ public class CategoryController {
         String categoryId = categoryService.createCategory(category);
         LOGGER.debug("The category is is {}.", categoryId);
         LOGGER.debug("end create category.");
+        modelAndView.setViewName("/category/addAndModifyCategorySuccess");
         return modelAndView;
     }
 
@@ -107,6 +116,7 @@ public class CategoryController {
             return modelAndView;
         }
         modelAndView.addObject("category", category);
+        modelAndView.setViewName("/category/modifyCategory");
         return modelAndView;
     }
 
@@ -121,7 +131,20 @@ public class CategoryController {
             LOGGER.debug("Not success update the category.");
             return modelAndView;
         }
+        modelAndView.setViewName("/category/addAndModifyCategorySuccess");
         return modelAndView;
     }
 
+    @RequestMapping(value = "/getSubCategories/{rootCategoryId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity getSubCategories(@PathVariable("rootCategoryId") Integer rootCategoryId) {
+        LOGGER.debug("The root category id is {}.", rootCategoryId);
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        List<Category> categories = categoryService.querySubCategories(rootCategoryId);
+        LOGGER.debug("The sub category size is {}.", categories.size());
+        Map<String, Object> body = responseEntity.getBody();
+        body.put("categories", categories);
+
+        return responseEntity;
+    }
 }

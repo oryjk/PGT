@@ -9,9 +9,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<admin:container id="productList">
+<admin:container id="productList" pageJsPath="/resources/category/category-list.js">
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -20,7 +20,7 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="table_managed.html">商品管理</a>
+					<a href="">商品管理</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
@@ -81,310 +81,200 @@
 						<div class="row">
 							<div class="col-xs-2">
 								<div class="dataTables_length">
-									<label>分类等级
-										<select name="sample_3_length" aria-controls="sample_3"
-												class="form-control input-xsmall input-inline select2-offscreen"
-												tabindex="-1" title="">
-											<option value="1">主分类</option>
-											<option value="2">次分类</option>
-										</select></label>
-								</div>
-							</div>
-							<div class="col-xs-2">
-								<div class="dataTables_length">
 									<label>主分类
 										<select name="sample_3_length" aria-controls="sample_3"
-												class="form-control input-small input-inline select2-offscreen"
+												class="form-control input-small input-inline select2-offscreen" path="rootCategoryId"
 												tabindex="-1" title="">
-											<option value="0">全部</option>
-											<option value="1">文玩杂项</option>
-											<option value="2">玉石</option>
-											<option value="3">琥珀蜜蜡</option>
-											<option value="4">木制品</option>
+											<option value="" selected="true">全部</option>
+											<c:forEach items="${categories}" var="category">
+												<option value="${category.id}">${category.name}</option>
+											</c:forEach>
 										</select></label>
 								</div>
 							</div>
 						</div>
-						<div class="table-scrollable productlist-box">
-							<table class="table table-striped table-bordered table-hover dataTable no-footer"
-								   id="list1" role="grid" aria-describedby="sample_3_info">
-								<thead>
-								<tr role="row">
-									<th>
-										位置
-									</th>
-									<th>
-										移动
-									</th>
-									<th>
-										分类id
-									</th>
-									<th>
-										分类名称
-									</th>
-									<th>
-										副标题
-									</th>
-									<th>
-										封面图
-									</th>
-									<th>
-										色调
-									</th>
-									<th>
-										子分类数
-									</th>
-									<th>
-										商品数
-									</th>
-									<th>
-										状态
-									</th>
-									<th>
-										操作
-									</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr class="gradeX odd" role="row">
-									<td>
-										1
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">上移</button>
-										<button class="btn btn-xs green btn-circle">下移</button>
-									</td>
-									<td>
-										1
-									</td>
-									<td>
-										文玩杂项
-									</td>
-									<td>
-										品真 质纯 艺臻
-									</td>
-									<td class="face-box">
-										<img src="" alt=""/>
-									</td>
-									<td>
-										#666666
-									</td>
-									<td>
-										4
-									</td>
-									<td>
-										120
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-												禁用 <i class="fa fa-angle-down"></i>
-											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
-														禁用 </a>
-												</li>
-												<li>
-													<a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
-														启用 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">修改</button>
-										<button class="btn btn-xs red btn-circle">删除</button>
-									</td>
-								</tr>
-								<tr class="gradeX odd" role="row">
-									<td>
-										2
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">上移</button>
-										<button class="btn btn-xs green btn-circle">下移</button>
-									</td>
-									<td>
-										2
-									</td>
-									<td>
-										文玩杂项
-									</td>
-									<td>
-										品真 质纯 艺臻
-									</td>
-									<td class="face-box">
-										<img src="" alt=""/>
-									</td>
-									<td>
-										#666666
-									</td>
-									<td>
-										4
-									</td>
-									<td>
-										120
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-												禁用 <i class="fa fa-angle-down"></i>
-											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
-														禁用 </a>
-												</li>
-												<li>
-													<a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
-														启用 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">修改</button>
-										<button class="btn btn-xs red btn-circle">删除</button>
-									</td>
-								</tr>
-								<tr class="gradeX odd" role="row">
-									<td>
-										3
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">上移</button>
-										<button class="btn btn-xs green btn-circle">下移</button>
-									</td>
-									<td>
-										3
-									</td>
-									<td>
-										文玩杂项
-									</td>
-									<td>
-										品真 质纯 艺臻
-									</td>
-									<td class="face-box">
-										<img src="" alt=""/>
-									</td>
-									<td>
-										#666666
-									</td>
-									<td>
-										4
-									</td>
-									<td>
-										120
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="1">
-												启用 <i class="fa fa-angle-down"></i>
-											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
-														禁用 </a>
-												</li>
-												<li>
-													<a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
-														启用 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">修改</button>
-										<button class="btn btn-xs red btn-circle">删除</button>
-									</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="table-scrollable productlist-box">
-							<table class="table table-striped table-bordered table-hover dataTable no-footer"
-								   id="list" role="grid" aria-describedby="sample_3_info">
-								<thead>
-								<tr role="row">
-									<th>
-										位置
-									</th>
-									<th>
-										移动
-									</th>
-									<th>
-										分类名称
-									</th>
-									<th>
-										商品数量
-									</th>
-									<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
-										<div class="btn-group">
-											<a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-												状态 <i class="fa fa-angle-down"></i>
-											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
-														启用 </a>
-												</li>
-												<li>
-													<a href="javascript:;" data-pgt-value="0"  data-pgt-dropdown="status-option">
-														禁用 </a>
-												</li>
-											</ul>
-										</div>
-									</th>
-									<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-										aria-label="Status : activate to sort column ascending">
-										操作
-									</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr class="gradeX odd" role="row">
-									<td>
-										1
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">上移</button>
-										<button class="btn btn-xs green btn-circle">下移</button>
-									</td>
-									<td>
-										钻石彩宝
-									</td>
-									<td>
-										54
-									</td>
-									<td>
-										<div class="btn-group">
-											<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="1">
-												启用 <i class="fa fa-angle-down"></i>
-											</a>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
-														禁用 </a>
-												</li>
-												<li>
-													<a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
-														启用 </a>
-												</li>
-											</ul>
-										</div>
-									</td>
-									<td>
-										<button class="btn btn-xs green btn-circle">修改</button>
-										<button class="btn btn-xs red btn-circle">删除</button>
-									</td>
-								</tr>
-
-								</tbody>
-							</table>
-						</div>
+						<c:choose>
+							<c:when test="${categoryType eq 'ROOT'}">
+								<div class="table-scrollable productlist-box">
+									<table class="table table-striped table-bordered table-hover dataTable no-footer"
+										   id="list1" role="grid" aria-describedby="sample_3_info">
+										<thead>
+										<tr role="row">
+											<th>
+												位置
+											</th>
+											<th>
+												分类id
+											</th>
+											<th>
+												分类名称
+											</th>
+											<th>
+												副标题
+											</th>
+											<th>
+												封面图
+											</th>
+											<th>
+												色调
+											</th>
+											<th>
+												子分类数
+											</th>
+											<th>
+												状态
+											</th>
+											<th>
+												操作
+											</th>
+										</tr>
+										</thead>
+										<tbody>
+										<c:forEach items="${categories}" var="rootCategory">
+											<tr class="gradeX odd" role="row">
+												<td>
+														${rootCategory.sort}
+												</td>
+												<td>
+														${rootCategory.id}
+												</td>
+												<td>
+														${rootCategory.name}
+												</td>
+												<td>
+														${rootCategory.description}
+												</td>
+												<td class="face-box">
+													<img src="" alt=""/>
+												</td>
+												<td>
+														${rootCategory.color}
+												</td>
+												<td>
+														${fn:length(rootCategory.children)}
+												</td>
+												<td>
+													<div class="btn-group">
+														<a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
+															<c:choose>
+																<c:when test="${rootCategory.status==1}">
+																	启用
+																</c:when>
+																<c:otherwise>
+																	禁用
+																</c:otherwise>
+															</c:choose>
+															<i class="fa fa-angle-down"></i>
+														</a>
+														<ul class="dropdown-menu pull-right">
+															<li>
+																<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
+																	禁用 </a>
+															</li>
+															<li>
+																<a href="javascript:;" data-pgt-value="1" data-pgt-dropdown="status-option">
+																	启用 </a>
+															</li>
+														</ul>
+													</div>
+												</td>
+												<td>
+													<button class="btn btn-xs green btn-circle">修改</button>
+													<button class="btn btn-xs red btn-circle">删除</button>
+												</td>
+											</tr>
+										</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="table-scrollable productlist-box">
+									<table class="table table-striped table-bordered table-hover dataTable no-footer"
+										   id="list" role="grid" aria-describedby="sample_3_info">
+										<thead>
+										<tr role="row">
+											<th>
+												位置
+											</th>
+											<th>
+												分类名称
+											</th>
+											<th>
+												分类id
+											</th>
+											<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
+												<div class="btn-group">
+													<a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
+														状态 <i class="fa fa-angle-down"></i>
+													</a>
+													<ul class="dropdown-menu pull-right">
+														<li>
+															<a href="javascript:;" data-pgt-value="1" data-pgt-dropdown="status-option">
+																启用 </a>
+														</li>
+														<li>
+															<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
+																禁用 </a>
+														</li>
+													</ul>
+												</div>
+											</th>
+											<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+												aria-label="Status : activate to sort column ascending">
+												操作
+											</th>
+										</tr>
+										</thead>
+										<c:forEach items="${categories}" var="rootCategory">
+										<tr class="gradeX odd" role="row">
+											<td>
+													${rootCategory.sort}
+											</td>
+											<td>
+													${rootCategory.name}
+											</td>
+											<td>
+													${rootCategory.id}
+											</td>
+											<td>
+												<div class="btn-group">
+													<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="1">
+														<c:choose>
+															<c:when test="${rootCategory.status==1}">
+																启用
+															</c:when>
+															<c:otherwise>
+																禁用
+															</c:otherwise>
+														</c:choose>
+														<i class="fa fa-angle-down"></i>
+													</a>
+													<ul class="dropdown-menu pull-right">
+														<li>
+															<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
+																禁用 </a>
+														</li>
+														<li>
+															<a href="javascript:;" data-pgt-value="1" data-pgt-dropdown="status-option">
+																启用 </a>
+														</li>
+													</ul>
+												</div>
+											</td>
+											<td>
+												<button class="btn btn-xs green btn-circle">修改</button>
+												<button class="btn btn-xs red btn-circle">删除</button>
+											</td>
+										</tr>
+										</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</c:otherwise>
+						</c:choose>
 						<div class="row">
-							<link rel="stylesheet" href="../core/css/page.css"/>
+							<link href="${ctx}/resources/core/css/page.css" rel="stylesheet" type="text/css">
 							<div class="col-xs-2">
 								<div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
 									第

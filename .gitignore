@@ -159,3 +159,9 @@ server/
 /classes/
 .metadata/
 admin/src/main/webapp/resources/image/upload
+admin/src/main/resources/customProperties.properties
+mobile/build
+p2p_store/build
+b2c_store/build
+admin/build
+

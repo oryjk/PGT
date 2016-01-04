@@ -115,6 +115,10 @@
 
     <a href="http://webscan.360.cn/index/checkwebsite/url/mp.dianjinzi.com">
       <img border="0" src="http://img.webscan.360.cn/status/pai/hash/4ee18cbbbfc36755fd8f96837e2f700f"/></a>
+
+    <a href="http://zhanzhang.anquan.org/physical/report/?domain=www.dianjinzi.com"
+       name="jSDgnQDcuKCy2w4jyIuu952ZsXPj0vMz8rXjiARpUBepRIVAEt"><img
+            src="http://zhanzhang.anquan.org/static/common/images/zhanzhang.png" alt="安全联盟站长平台" width="114" height="41"></a>
   </div>
   <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
 </div>

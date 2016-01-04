@@ -6,6 +6,8 @@ import com.pgt.media.MediaService;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
+import com.pgt.search.bean.SearchPaginationBean;
+import com.pgt.search.service.SearchService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,9 @@ public class ProductController {
 
     @Autowired
     private MediaService mediaService;
+
+    @Autowired
+    private SearchService searchService;
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
     public ModelAndView findProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
@@ -67,7 +72,6 @@ public class ProductController {
             return modelAndView;
         }
         productService.createProduct(product);
-
         modelAndView.addObject("product", product);
         modelAndView.setViewName("/product/productImageModify");
         return modelAndView;
@@ -122,9 +126,15 @@ public class ProductController {
         return responseEntity;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public ModelAndView updateProduct(ModelAndView modelAndView) {
-        modelAndView.addObject("product", new Product());
+    @RequestMapping(value = "/update/{productId}", method = RequestMethod.GET)
+    public ModelAndView updateProduct(@PathVariable("productId") Integer productId, ModelAndView modelAndView) {
+        Product product = productService.queryProduct(productId);
+        modelAndView.setViewName("/product/addAndModifyProduct");
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty with id {}.", productId);
+            return modelAndView;
+        }
+        modelAndView.addObject("product", product);
         return modelAndView;
     }
 
@@ -136,6 +146,17 @@ public class ProductController {
         }
         productService.updateProduct(product);
         LOGGER.debug("The product has updated with product is is {}.", product.getProductId());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView searchProducts(@RequestParam(required = false, value = "term") String term,
+                                       @RequestParam(required = false, value = "currentIndex") Integer currentIndex, ModelAndView modelAndView) {
+        SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
+        searchPaginationBean.setCurrentIndex(currentIndex);
+        searchPaginationBean.setTerm(term);
+        List<Product> products = searchService.queryProduct(searchPaginationBean);
+        modelAndView.addObject("products", products);
         return modelAndView;
     }
 

@@ -239,5 +239,8 @@
 			</div>
 		</div>
 	</div>
+	<div style="float: left">
+		<img  id="test" src="" alt="wo"/>
+	</div>
 </admin:container>
 

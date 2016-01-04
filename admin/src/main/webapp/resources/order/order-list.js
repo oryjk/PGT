@@ -11,6 +11,10 @@ $(function () {
         format: "-",
         Timeout: 100
     });
+
+    $(".timePicker").datetimepicker({
+        timeFormat: "HH:mm:ss"
+    });
 });
 
 changeStatusUrl = ctx + "/order/ajax-change-order-status"
