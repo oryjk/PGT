@@ -98,7 +98,7 @@
         <div class="container">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="index.html"><img src="${ctx}/resources/assets/admin/layout3/img/logo-default.png" alt="logo"
+                <a href="<spring:url value="/"/>"><img src="${ctx}/resources/assets/admin/layout3/img/logo-default.png" alt="logo"
                                           class="logo-default"></a>
             </div>
             <!-- END LOGO -->
@@ -271,7 +271,7 @@
             <div class="hor-menu ">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="<spring:url value="/"/>">首页</a>
                     </li>
 
                     <!-- !!!list 商品管理-->
