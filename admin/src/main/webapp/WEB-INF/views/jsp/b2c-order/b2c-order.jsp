@@ -14,9 +14,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="pagination" value="${b2cOrderPage}" scope="request" />
 
-<pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/order-list.js">
-    <jsp:include page="include/bread-crumb-row.jspf" />
-    <div class="row" style="display: block">
+<pgt:container id="content">
+    <jsp:include page="include/bread-crumb-row.jspf">
+        <jsp:param name="step" value="info" />
+    </jsp:include>
+    <div class="row" style="display: none;">
         <div class="col-xs-12">
             <div class="Metronic-alerts alert alert-danger fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -184,7 +186,8 @@
                                                             <c:choose>
                                                                 <c:when test="${ci.delivery.received}">已收货</c:when>
                                                                 <c:otherwise>
-                                                                    <a herf="#"><button class="btn btn-xs yellow btn-circle" data-pgt-btn="send">收货</button></a>
+                                                                    <a href="<spring:url value="/order/make-receive?id=${b2cOrder.id}&cid=${ci.id}" />">
+                                                                        <button class="btn btn-xs yellow btn-circle" data-pgt-btn="send">收货</button></a>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </c:if></td>
@@ -201,7 +204,7 @@
                             <div>
                                 <h3 class="form-section">
                                     收货人信息
-                                    <button class="btn btn-xs green" id="modifySwitch">修改</button>
+                                    <%--<button class="btn btn-xs green" id="modifySwitch">修改</button>--%>
                                 </h3>
                                 <div class="pgt-scan">
                                     <div class="row">

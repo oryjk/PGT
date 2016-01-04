@@ -1,21 +1,20 @@
 package com.pgt.category.bean;
 
+import java.util.List;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.pgt.base.bean.BaseBean;
 import com.pgt.category.validation.CreateGroup;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 
-import javax.validation.constraints.NotNull;
-import java.util.List;
-
 public class Category extends BaseBean {
 
     private Integer id;
-    @NotNull(groups = CreateGroup.class, message = "{Category.name.null}")
+    @NotEmpty(groups = CreateGroup.class, message = "{Category.name.null}")
     private String name;
     private String code;
     @JsonBackReference

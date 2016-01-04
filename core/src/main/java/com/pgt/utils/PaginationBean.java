@@ -3,8 +3,7 @@ package com.pgt.utils;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 
@@ -19,12 +18,88 @@ import java.util.Map;
 public class PaginationBean implements Mapable {
 
 	public static final int DEFAULT_CAPACITY = 5;
+	public static final int DEFAULT_SPAN_SIZE = 2;
 
 	private long capacity;
 	private long currentIndex;// start from 0;
 	private long totalAmount;
 	private String sortFiledName;
 	private boolean asc;
+	private int spanSize = DEFAULT_SPAN_SIZE;
+
+	public int getSpanSize() {
+		return spanSize;
+	}
+
+	public void setSpanSize(int spanSize) {
+		this.spanSize = spanSize;
+	}
+
+	public boolean isFirstPage() {
+		return currentIndex == 0;
+	}
+
+
+	public boolean isLastPage() {
+		return currentIndex == getMaxIndex();
+	}
+
+
+	public boolean isShowCurrentPage() {
+		if (isFirstPage() && isLastPage()) {
+			return true;
+		}
+		if (isFirstPage()) {
+			return false;
+		}
+		if (isLastPage()) {
+			return false;
+		}
+		return true;
+ 	}
+
+
+	public List<Long> getLeftSpan() {
+		List<Long> result = new ArrayList<Long>();
+		if (currentIndex > 0) {
+			for (long i = currentIndex - 1; i > 0; i--) {
+				if (currentIndex - i > spanSize) {
+					break;
+				}
+				result.add(i);
+			}
+			Collections.reverse(result);
+		}
+		return result;
+	}
+
+	public List<Long> getRightSpan() {
+		List<Long> result = new ArrayList<Long>();
+		if (currentIndex < getMaxIndex()) {
+			for (long i = currentIndex + 1; i < getMaxIndex(); i++) {
+				if (i == 0 || i - currentIndex > spanSize) {
+					break;
+				}
+				result.add(i);
+			}
+		}
+		return result;
+	}
+
+	public boolean isShowLeftDots() {
+		if (currentIndex - getSpanSize() > 0) {
+			return true;
+		}
+		return false;
+	}
+
+
+	public boolean isShowRightDots() {
+		if (currentIndex + getSpanSize() < getMaxIndex()) {
+			return true;
+		}
+		return false;
+	}
 
 	public long getNextIndex() {
 		if (0 >= capacity) {
@@ -53,6 +128,10 @@ public class PaginationBean implements Mapable {
 	
 	public long getMaxIndex() {
 		return (totalAmount % capacity > 0 ? totalAmount / capacity + 1 : totalAmount / capacity) - 1;
+	}
+
+	public long getMaxPageNum() {
+		return totalAmount % capacity == 0 ? totalAmount / capacity : totalAmount / capacity + 1;
 	}
 
 	public long getSqlStartIndex() {
@@ -84,6 +163,7 @@ public class PaginationBean implements Mapable {
 	}
 	
 	
+	@Override
 	public Map<String, Object> getMapValue() {
 		try {
 			return BeanUtils.toMap(this);

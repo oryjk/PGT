@@ -74,6 +74,10 @@
 		WHERE CATEGORY_ID=#{id}
 	</update>
 
+    <delete id="deleteCategory" parameterType="int">
+        DELETE FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
+    </delete>
+    
     <select id="queryCategory" resultMap="CategoryResult">
 		SELECT * FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
 	</select>
@@ -143,4 +147,7 @@
         SELECT COUNT(PRODUCT_ID) FROM PRODUCT_CATEGORY WHERE CATEGORY_ID=#{CATEGORY_ID}
     </select>
 
+    <select id="getHelpCategoryCount" resultType="int">
+        SELECT COUNT(*) FROM CATEGORIES WHERE TYPE='help_root'
+    </select>
 </mapper>

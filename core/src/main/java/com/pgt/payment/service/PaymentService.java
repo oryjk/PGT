@@ -28,7 +28,8 @@ public class PaymentService extends Transactionable {
 	@Autowired
 	private PaymentMapper paymentMapper;
 
-	private TransactionReportConfig transactionReportConfig;
+
+//	private TransactionReportConfig transactionReportConfig;
 
 	public PaymentGroup findPaymentGroupByOrderId(int id) {
 		return getPaymentMapper().findPaymentGroupByOrderId(id);
@@ -80,7 +81,17 @@ public class PaymentService extends Transactionable {
 		getPaymentMapper().updateTransaction(transaction);
 	}
 
-	public List<Transaction> queryTransaction(Integer orderId, String paymentType, Integer state, String trackNo,
+
+	public List<Transaction> queryTransaction(TransactionQueryBean queryBean, PaginationBean paginationBean) {
+		queryBean.setPaginationBean(paginationBean);
+		int totalAmount = getPaymentMapper().queryTransactionTotalAmount(queryBean);
+		paginationBean.setTotalAmount(totalAmount);
+
+		return getPaymentMapper().queryTransaction(queryBean);
+	}
+
+
+	public List<Transaction> queryTransaction(Integer orderId, Integer paymentType, Integer state, String trackNo,
 											  Date startTime, Date endTime, PaginationBean paginationBean) {
 		TransactionQueryBean queryBean = new TransactionQueryBean();
 		queryBean.setOrderId(orderId);
@@ -96,7 +107,7 @@ public class PaymentService extends Transactionable {
 		return getPaymentMapper().queryTransaction(queryBean);
 	}
 
-	public void generateReport(Integer orderId, String paymentType, Integer state, String trackNo,
+	public void generateReport(Integer orderId, Integer paymentType, Integer state, String trackNo,
 							   Date startTime, Date endTime,OutputStream out) throws IOException {
 		TransactionQueryBean queryBean = new TransactionQueryBean();
 		queryBean.setOrderId(orderId);
@@ -140,6 +151,13 @@ public class PaymentService extends Transactionable {
 					orderIdValue = String.valueOf(transaction.getOrderId());
 				}
 				// TODO PAYMENT TYPE
+				if (PaymentConstants.PAYMENT_TYPE_ALIPAY == transaction.getPaymentType()) {
+					paymentTypeValue = "支付宝";
+				}
+				if (PaymentConstants.PAYMENT_TYPE_YEEPAY == transaction.getPaymentType()) {
+					paymentTypeValue = "易宝";
+				}
+
 				if (PaymentConstants.PAYMENT_STATUS_FAILED == transaction.getStatus()) {
 					statusValue = "失败";
 				}
@@ -187,10 +205,11 @@ public class PaymentService extends Transactionable {
 	}
 
 	public TransactionReportConfig getTransactionReportConfig() {
+		TransactionReportConfig transactionReportConfig = new TransactionReportConfig();
+		transactionReportConfig.setRowBufferSize(100);
+		transactionReportConfig.setDataFetchSize(100);
+		// TODO: CHANGE INTO CONFIG
 		return transactionReportConfig;
 	}
 
-	public void setTransactionReportConfig(TransactionReportConfig transactionReportConfig) {
-		this.transactionReportConfig = transactionReportConfig;
-	}
 }

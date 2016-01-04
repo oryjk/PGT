@@ -1,21 +1,24 @@
 package com.pgt.order.controller;
 
-import com.pgt.cart.bean.CommerceItem;
-import com.pgt.cart.bean.Delivery;
-import com.pgt.cart.bean.Order;
-import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.bean.*;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
+import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.internal.constant.ResponseConstant;
 import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.order.bean.B2COrderSearchVO;
 import com.pgt.order.service.B2COrderService;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,6 +37,9 @@ public class B2COrderController extends InternalTransactionBaseController implem
 
 	@Resource(name = "B2COrderService")
 	private B2COrderService mB2COrderService;
+
+	@Autowired
+	private ResponseBuilderFactory mResponseBuilderFactory;
 
 	@RequestMapping(value = "/order-list")//, method = RequestMethod.GET)
 	public ModelAndView listB2COrders(HttpServletRequest pRequest, HttpServletResponse pResponse,
@@ -81,6 +87,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		int idInt = RepositoryUtils.safeParseId(id);
 		Order order = getB2COrderService().loadOrder(idInt);
 		if (order == null) {
+			LOGGER.debug("Cannot find order to change status with id: {}", id);
 			mav.addObject(ResponseConstant.ERROR_MSG, "Cannot find order with id: " + id);
 			return mav;
 		}
@@ -103,9 +110,56 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			LOGGER.error("Cannot change status to: {} for order: {}", status, id, e);
 			ts.setRollbackOnly();
 		} finally {
+			if (ts.isRollbackOnly()) {
+				mav.addObject(ResponseConstant.ERROR_MSG, "Change order status failed for order with id: " + id);
+			}
 			getTransactionManager().commit(ts);
 		}
 		return mav;
+	}
+
+
+	@RequestMapping(value = "/ajax-change-order-status")
+	@ResponseBody
+	public ResponseEntity ajaxChangeOrderStatus(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "status", required = true) String status) {
+		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		int idInt = RepositoryUtils.safeParseId(id);
+		Order order = getB2COrderService().loadOrder(idInt);
+		if (order == null) {
+			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, "Cannot find order with id: " + id);
+			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+		}
+		int statusInt = RepositoryUtils.safeParseId(status);
+		LOGGER.debug("Try to change status from: {} to: {} for order: {}", order.getStatus(), status, id);
+		TransactionStatus ts = ensureTransaction();
+		try {
+			boolean result = false;
+			if (statusInt == getB2COrderService().getUnpaidStatus()) {
+				result = getB2COrderService().updateOrder2UnpaidStatus(order);
+			} else if (statusInt == getB2COrderService().getCompleteStatus()) {
+				result = getB2COrderService().updateOrder2CompleteStatus(order);
+			} else if (statusInt == getB2COrderService().getCancelStatus()) {
+				result = getB2COrderService().updateOrder2CancelStatus(order);
+			}
+			if (!result) {
+				ts.setRollbackOnly();
+			}
+		} catch (Exception e) {
+			LOGGER.error("Cannot change status to: {} for order: {}", status, id, e);
+			ts.setRollbackOnly();
+		} finally {
+			if (ts.isRollbackOnly()) {
+				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, "Change order status failed for order with id: " + id);
+			} else {
+				String statusText = getB2COrderService().getOrderStatusMapping().get(statusInt);
+				Pair<String, String> statusPair = Pair.of(String.valueOf(statusInt), statusText);
+				rb.setSuccess(true).setData(statusPair);
+			}
+			getTransactionManager().commit(ts);
+		}
+		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/delivery")
@@ -130,7 +184,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			@RequestParam(value = "cid", required = true) String cid,
 			@RequestParam(value = "deliveryTimeStr", required = false) String deliveryTimeStr,
 			Delivery delivery) {
-		ModelAndView mav = new ModelAndView("forward:delivery");
+		ModelAndView mav = new ModelAndView("redirect:/order/delivery?id=" + id + "&cid=" + cid);
 		int cidInt = RepositoryUtils.safeParseId(cid);
 		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
 		if (ci == null) {
@@ -138,17 +192,8 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		}
 		delivery.setDeliveryTime(deliveryTimeStr);
 		TransactionStatus status = ensureTransaction();
-		boolean result;
 		try {
-			if (delivery.getCommerceItemId() <= 0) {
-				delivery.setCommerceItemId(cidInt);
-				result = getB2COrderService().createDelivery(delivery);
-			} else {
-				result = getB2COrderService().updateDelivery(delivery);
-			}
-			if (!result) {
-				status.setRollbackOnly();
-			}
+			getB2COrderService().createDelivery(delivery);
 		} catch (Exception e) {
 			status.setRollbackOnly();
 			LOGGER.error("Cannot make delivery for commerce item: {} of order: {}", cid, id, e);
@@ -162,11 +207,44 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		return mav;
 	}
 
+	@RequestMapping(value = "/make-receive")
+	public ModelAndView makeReceive(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "cid", required = true) String cid) {
+		ModelAndView mav = new ModelAndView("redirect:/order/order-info?id=" + id);
+		int cidInt = RepositoryUtils.safeParseId(cid);
+		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
+		if (ci == null) {
+			return mav;
+		}
+		TransactionStatus status = ensureTransaction();
+		try {
+			boolean result = getB2COrderService().markCommerceItemReceived(cidInt);
+			if (!result) {
+				status.setRollbackOnly();
+			}
+		} catch (Exception e) {
+			status.setRollbackOnly();
+			LOGGER.error("Cannot mark received for commerce item: {} of order: {}", cid, id, e);
+		} finally {
+			getTransactionManager().commit(status);
+		}
+		return mav;
+	}
+
 	public B2COrderService getB2COrderService() {
 		return mB2COrderService;
 	}
 
 	public void setB2COrderService(final B2COrderService pB2COrderService) {
 		mB2COrderService = pB2COrderService;
+	}
+
+	public ResponseBuilderFactory getResponseBuilderFactory() {
+		return mResponseBuilderFactory;
+	}
+
+	public void setResponseBuilderFactory(final ResponseBuilderFactory pResponseBuilderFactory) {
+		mResponseBuilderFactory = pResponseBuilderFactory;
 	}
 }

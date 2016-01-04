@@ -79,8 +79,10 @@
         .link-name {
             color: black;
         }
-
     </style>
+    <script>
+        ctx = "${ctx}";
+    </script>
 </head>
 <!-- END HEAD -->
 
@@ -508,6 +510,10 @@
 <%--</script>--%>
 
 <c:if test="${loadJsDateInput}">
+    <link href="${ctx}/resources/core/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="${ctx}/resources/core/css/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css">
+    <script src="${ctx}/resources/core/js/jquery-ui.min.js"></script>
+    <script src="${ctx}/resources/core/js/jquery-ui-timepicker-addon.js"></script>
     <!--日期插件框-->
     <div id="jcDate" style="left: 0; top: 28px; display: none;"><input
             type="hidden" value="11" id="dateHideText">

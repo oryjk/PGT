@@ -83,16 +83,16 @@
 		SELECT * FROM TRANSACTIONS
 		WHERE 1=1
 		<if test="orderId != null">
-			AND ORDER_ID = #{orderId}
+			AND ORDER_ID LIKE CONCAT('%', #{orderId}, '%')
 		</if>
 		<if test="paymentType != null">
-			AND PAYMENT_TYPE = ${paymentType}
+			AND PAYMENT_TYPE = #{paymentType}
 		</if>
 		<if test="state != null">
 			AND `STATUS` = #{state}
 		</if>
 		<if test="trackNo != null">
-			AND TRACKING_NO CONCAT('%', #{trackNo}, '%')
+			AND TRACKING_ID LIKE CONCAT('%', #{trackNo}, '%')
 		</if>
 		<if test="endTime != null">
 			<![CDATA[
@@ -115,20 +115,21 @@
 			</if>
 		</if>
 	</select>
+
 	<select id="queryTransactionTotalAmount" resultType="int" parameterType="com.pgt.payment.bean.TransactionQueryBean">
 		SELECT COUNT(*) FROM TRANSACTIONS
 		WHERE 1=1
 		<if test="orderId != null">
-			AND ORDER_ID = #{orderId}
+			AND ORDER_ID LIKE CONCAT('%', #{orderId}, '%')
 		</if>
 		<if test="paymentType != null">
-			AND PAYMENT_TYPE = ${paymentType}
+			AND PAYMENT_TYPE =#{paymentType}
 		</if>
 		<if test="state != null">
 			AND `STATUS` = #{state}
 		</if>
 		<if test="trackNo != null">
-			AND TRACKING_NO CONCAT('%', #{trackNo}, '%')
+			AND TRACKING_ID LIKE CONCAT('%', #{trackNo}, '%')
 		</if>
 		<if test="endTime != null">
 			<![CDATA[

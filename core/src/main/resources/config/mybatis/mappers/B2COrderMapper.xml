@@ -100,17 +100,20 @@
 	<insert id="createDelivery">
 		INSERT INTO COMMERCE_ITEM_DELIVERY (`COMMERCE_ITEM_ID`, `CONSIGNOR`, `DELIVERED`, `RECEIVED`, `LOGISTICS`, `DELIVERY_TIME`, `TRACKING_NO`)
 		VALUES ( #{commerceItemId}, #{consignor}, #{delivered}, #{received}, #{logistics}, #{deliveryTime}, #{trackingNo} )
+		ON DUPLICATE KEY
+		UPDATE
+			`CONSIGNOR`     = #{consignor},
+			`DELIVERED`     = #{delivered},
+			`RECEIVED`      = #{received},
+			`LOGISTICS`     = #{logistics},
+			`DELIVERY_TIME` = #{deliveryTime},
+			`TRACKING_NO`   = #{trackingNo}
 	</insert>
 
-	<update id="updateDelivery">
-		UPDATE commerce_item_delivery
+	<update id="updateCommerceItemAsReceived" parameterType="int">
+		UPDATE COMMERCE_ITEM_DELIVERY
 		<set>
-			`CONSIGNOR` = #{consignor},
-			`DELIVERED` = #{delivered},
-			`RECEIVED` = #{received},
-			`LOGISTICS` = #{logistics},
-			`DELIVERY_TIME` = #{deliveryTime},
-			`TRACKING_NO` = #{trackingNo}
+			`RECEIVED` = 1
 		</set>
 		WHERE `COMMERCE_ITEM_ID` = #{commerceItemId};
 	</update>
