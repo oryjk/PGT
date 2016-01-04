@@ -62,7 +62,9 @@ public class CategoryController {
     public ModelAndView create(ModelAndView modelAndView) {
         LOGGER.debug("create GET.");
         modelAndView.addObject("category", new Category());
-        modelAndView.setViewName("/");
+        List<Category> categories =categoryService.queryAllParentCategories();
+        modelAndView.setViewName("/category/addCategory");
+        modelAndView.addObject("categories",categories);
         return modelAndView;
     }
 

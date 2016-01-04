@@ -50,21 +50,23 @@
         </div>
         <div class="portlet-body form">
           <!-- BEGIN FORM-->
-          <form action="javascript:;" class="form-horizontal">
+          <form:form action="create" class="form-horizontal">
             <div class="form-body">
               <!-- 只有在修改时才出现id行-->
+              <c:if test="${category.id!=null}">
               <div class="form-group">
                 <label class="col-md-3 control-label">id</label>
                 <div class="col-md-4">
                   <p class="form-control-static">
-                    012
+                    ${category.id}
                   </p>
                 </div>
               </div>
+              </c:if>
               <div class="form-group">
                 <label class="col-md-3 control-label">分类名称:</label>
                 <div class="col-md-4">
-                  <input type="text" class="form-control" placeholder="6个字以下">
+                  <form:input type="text" class="form-control" placeholder="6个字以下" path="name"/>
                   </p>
                 </div>
               </div>
@@ -72,10 +74,10 @@
                 <label class="control-label col-md-3">分类等级</label>
                 <div class="col-md-9">
                   <div class="radio-list">
-                    <select class="form-control input-medium" id="levelSelect">
-                      <option value="1">主分类</option>
-                      <option value="2">子分类</option>
-                    </select>
+                    <form:select class="form-control input-medium" id="levelSelect" path="type">
+                      <form:option value="ROOT">主分类</form:option>
+                      <form:option value="HIERARCHY">子分类</form:option>
+                    </form:select>
                   </div>
                 </div>
               </div>
@@ -84,13 +86,13 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label">副标题</label>
                   <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="不超过10字">
+                    <form:input type="text" class="form-control" placeholder="不超过10字" path="description"/>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-md-3 control-label">分类色调</label>
                   <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="#xxxxxx形式">
+                    <form:input type="text" class="form-control" placeholder="#xxxxxx形式" path="color"/>
                   </div>
                 </div>
               </div>
@@ -100,11 +102,9 @@
                   <label class="control-label col-md-3">所属大类</label>
                   <div class="col-md-9">
                     <div class="radio-list">
-                      <select class="form-control input-medium">
-                        <option value="1000">文玩杂项</option>
-                        <option value="5000">木制品</option>
-                        <option value="10000" selected="selected">玉石</option>
-                      </select>
+                      <form:select class="form-control input-medium" path="parent.id" items="${categories}" itemLabel="name" itemValue="id">
+                        <option value="">请选择</option>
+                      </form:select>
                     </div>
                   </div>
                 </div>
@@ -114,10 +114,10 @@
                 <label class="control-label col-md-3">状态</label>
                 <div class="col-md-9">
                   <div class="radio-list">
-                    <select class="form-control input-medium">
-                      <option value="1">启用</option>
-                      <option value="0">禁用</option>
-                    </select>
+                    <form:select class="form-control input-medium" path="status">
+                      <form:option value="1">启用</form:option>
+                      <form:option value="0">禁用</form:option>
+                    </form:select>
                   </div>
                 </div>
               </div>
@@ -132,7 +132,7 @@
                 </div>
               </div>
             </div>
-          </form>
+          </form:form>
         </div>
         <!-- END FORM-->
       </div>
