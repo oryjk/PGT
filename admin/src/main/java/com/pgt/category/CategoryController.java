@@ -43,6 +43,7 @@ public class CategoryController {
             categoryType = CategoryType.ROOT;
         }
         Category categoryRequest = new Category();
+        categoryRequest.setCode(null);
         PaginationBean paginationBean = new PaginationBean();
         if (ObjectUtils.isEmpty(currentIndex)) {
             currentIndex = 0;
@@ -53,6 +54,7 @@ public class CategoryController {
 
         List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
         modelAndView.addObject("categories", categories);
+        modelAndView.addObject("categoryType", categoryType.toString());
         modelAndView.setViewName("category/categoryList");
         return modelAndView;
     }

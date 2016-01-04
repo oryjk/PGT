@@ -62,15 +62,15 @@
     <!--insert a hot product bean -->
     <insert id="createCategory" parameterType="com.pgt.category.bean.Category"
             keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO CATEGORIES(NAME,CODE,PARENT_CATEGORY_ID,STATUS,TYPE,COLOR)
+		INSERT INTO CATEGORIES(NAME,CODE,PARENT_CATEGORY_ID,STATUS,TYPE,COLOR,DESCRIPTION)
 		VALUES
-		(#{name},#{code},#{parent.id},#{status},#{type},#{color})
+		(#{name},#{code},#{parent.id},#{status},#{type},#{color},#{description})
 	</insert>
     <!--update a hot product bean -->
     <update id="updateCategory" parameterType="com.pgt.category.bean.Category"
             keyProperty="id" useGeneratedKeys="true">
 		UPDATE CATEGORIES SET
-		NAME=#{name},CODE=#{code},STATUS=#{status},TYPE=#{type},COLOR=#{color}
+		NAME=#{name},CODE=#{code},STATUS=#{status},TYPE=#{type},COLOR=#{color},DESCRIPTION=#{description}
 		WHERE CATEGORY_ID=#{id}
 	</update>
 

@@ -16,7 +16,7 @@ public class Category extends BaseBean {
     private Integer id;
     @NotEmpty(groups = CreateGroup.class, message = "{Category.name.null}")
     private String name;
-    private String code;
+    private String code="1";
     @JsonBackReference
     private Category parent;
     @JsonManagedReference
