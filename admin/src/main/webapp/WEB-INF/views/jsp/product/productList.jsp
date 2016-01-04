@@ -89,13 +89,6 @@
 							</div>
 							<div class="col-md-2 col-sm-2">
 								<div class="dataTables_filter">
-									<label>持有人:<input type="search" class="form-control input-small input-inline"
-													  placeholder="" aria-controls="sample_3">
-									</label>
-								</div>
-							</div>
-							<div class="col-md-2 col-sm-2">
-								<div class="dataTables_filter">
 									<label>名称:<input type="search" class="form-control input-small input-inline"
 													 placeholder="" aria-controls="sample_3">
 									</label>

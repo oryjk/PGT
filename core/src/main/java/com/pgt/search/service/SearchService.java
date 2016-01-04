@@ -8,38 +8,40 @@ import com.pgt.search.bean.SearchPaginationBean;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by carlwang on 11/15/15.
  */
+@Service
 public class SearchService {
 
-	@Autowired
-	private ProductService productService;
+    @Autowired
+    private ProductService productService;
 
-	@Autowired
-	private ProductHelper productHelper;
+    @Autowired
+    private ProductHelper productHelper;
 
-	List<Product> queryProduct(SearchPaginationBean searchPaginationBean) {
+    public List<Product> queryProduct(SearchPaginationBean searchPaginationBean) {
 
-		return productHelper.findProducts(searchPaginationBean);
+        return productHelper.findProducts(searchPaginationBean);
 
-	}
+    }
 
-	public ProductService getProductService() {
-		return productService;
-	}
+    public ProductService getProductService() {
+        return productService;
+    }
 
-	public void setProductService(ProductService productService) {
-		this.productService = productService;
-	}
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
 
-	public ProductHelper getProductHelper() {
-		return productHelper;
-	}
+    public ProductHelper getProductHelper() {
+        return productHelper;
+    }
 
-	public void setProductHelper(ProductHelper productHelper) {
-		this.productHelper = productHelper;
-	}
+    public void setProductHelper(ProductHelper productHelper) {
+        this.productHelper = productHelper;
+    }
 
 }
