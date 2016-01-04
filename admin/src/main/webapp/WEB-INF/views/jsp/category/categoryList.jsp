@@ -273,8 +273,6 @@
 								</div>
 							</c:otherwise>
 						</c:choose>
-
-
 						<div class="row">
 							<link href="${ctx}/resources/core/css/page.css" rel="stylesheet" type="text/css">
 							<div class="col-xs-2">

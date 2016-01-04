@@ -37,6 +37,7 @@
         <result column="CREATION_DATE" property="creationDate"></result>
         <result column="UPDATE_DATE" property="updateDate"></result>
         <result column="KEY_WORD" property="keyWord"/>
+        <result column="MERCHANT" property="merchant"/>
         <collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>
     </resultMap>
     <resultMap id="productMedia" type="com.pgt.product.bean.ProductMedia">
