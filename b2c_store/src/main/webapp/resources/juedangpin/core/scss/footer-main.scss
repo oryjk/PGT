@@ -97,7 +97,7 @@
   ul {
     float: left;
     @include o;
-    width: 12%;
+    width: 15%;
     list-style: none;
   }
 
@@ -145,7 +145,7 @@
 .approve {
   @include bfc;
   margin: 0 auto;
-  width: 600px;
+  width: 240px;
 
   a {
     float: left;
