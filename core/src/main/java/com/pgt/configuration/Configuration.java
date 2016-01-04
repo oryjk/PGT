@@ -18,7 +18,7 @@ public class Configuration {
 	private Integer plpCapacity;
 	private String resourcePath;
 	private String initialDataPath;
-	private String imagePath="/Users/carlwang/Project/PGT/b2c_store/src/main/webapp/resources/";
+	private String imagePath;
 	private Integer adminPlpCapacity;
 	private Integer adminCategoryCapacity;
 	private String imageFolder="/image/upload/";

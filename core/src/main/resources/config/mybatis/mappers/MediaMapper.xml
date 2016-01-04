@@ -15,6 +15,7 @@
         <result column="PATH" property="path"></result>
         <result column="INDEX" property="index"></result>
         <result column="TYPE" property="type"></result>
+
     </resultMap>
 
     <select id="queryMedias" parameterType="int" resultMap="MediaResult">
@@ -40,11 +41,11 @@
 	</select>
 
     <insert id="createMedia" parameterMap="paramMedia">
-        INSERT INTO MEDIA(REFERENCE_ID,TITLE,PATH,TYPE,INDEX) VALUES (#{referenceId},#{title},#{path},#{type},#{index})
+        INSERT INTO MEDIA(REFERENCE_ID,TITLE,PATH,TYPE,`INDEX`) VALUES (#{referenceId},#{title},#{path},#{type},#{index})
     </insert>
     <update id="updateMedia" parameterMap="paramMedia">
         UPDATE MEDIA SET
-		REFERENCE_ID=#{referenceId},TITLE=#{title},PATH=#{path},TYPE=#{type},INDEX=#{index}
+		REFERENCE_ID=#{referenceId},TITLE=#{title},PATH=#{path},TYPE=#{type},`INDEX`=#{index}
 		WHERE MEDIA_ID=#{id}
     </update>
 

@@ -45,7 +45,7 @@ public class CategoryController {
         Category categoryRequest = new Category();
         PaginationBean paginationBean = new PaginationBean();
         if (ObjectUtils.isEmpty(currentIndex)) {
-            currentIndex = 20;
+            currentIndex = 0;
         }
         paginationBean.setCurrentIndex(currentIndex);
         paginationBean.setCapacity(configuration.getAdminCategoryCapacity());

@@ -67,7 +67,6 @@ public class ProductController {
             return modelAndView;
         }
         productService.createProduct(product);
-
         modelAndView.addObject("product", product);
         modelAndView.setViewName("/product/productImageModify");
         return modelAndView;

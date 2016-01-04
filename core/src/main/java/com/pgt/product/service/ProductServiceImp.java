@@ -61,6 +61,10 @@ public class ProductServiceImp extends TransactionService implements ProductServ
         TransactionStatus transactionStatus = ensureTransaction();
         try {
             productMapper.createProduct(product);
+            ProductCategoryRelation productCategoryRelation = new ProductCategoryRelation();
+            productCategoryRelation.setProductId(product.getProductId());
+            productCategoryRelation.setCategoryId(Integer.valueOf(product.getRelatedCategoryId()));
+            productMapper.createProductCategoryRelation(productCategoryRelation);
             getTransactionManager().commit(transactionStatus);
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",

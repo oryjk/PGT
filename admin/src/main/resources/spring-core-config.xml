@@ -70,7 +70,7 @@
         <property name="initialDataPath" value="/json"></property>
         <property name="adminPlpCapacity" value="20"></property>
         <property name="adminCategoryCapacity" value="20"></property>
-        <property name="imagePath" value="/Users/supersoup/Projects/new/PGT/b2c_store/src/main/webapp/resources/"></property>
+        <property name="imagePath" value="${imagePath}"></property>
 
 
     </bean>
@@ -157,6 +157,14 @@
                 <prop key="output.encoding">utf-8</prop>
                 <prop key="input.encoding">utf-8</prop>
             </props>
+        </property>
+    </bean>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:customProperties.properties</value>
+            </list>
         </property>
     </bean>
 </beans>
