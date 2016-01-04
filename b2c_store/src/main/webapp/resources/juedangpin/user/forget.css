@@ -1106,7 +1106,7 @@ span {
     float: left;
     padding: 0;
     margin: 0;
-    width: 12%;
+    width: 15%;
     list-style: none; }
   .about-us li {
     padding: 1px 0; }
@@ -1141,7 +1141,7 @@ span {
   overflow: hidden;
   *zoom: 1;
   margin: 0 auto;
-  width: 600px; }
+  width: 240px; }
   .approve a {
     float: left;
     padding-right: 20px;

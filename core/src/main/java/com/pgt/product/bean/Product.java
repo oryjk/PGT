@@ -41,6 +41,7 @@ public class Product implements Serializable {
     private ShippingAddress shippingAddress;
     private boolean isHot;
     private String keyWord;
+    private String merchant;
 
     public List<ProductMedia> getMainMedias() {
         return mainMedias;
@@ -252,5 +253,13 @@ public class Product implements Serializable {
 
     public void setKeyWord(String keyWord) {
         this.keyWord = keyWord;
+    }
+
+    public String getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(String merchant) {
+        this.merchant = merchant;
     }
 }

@@ -16,7 +16,7 @@ public class Category extends BaseBean {
     private Integer id;
     @NotEmpty(groups = CreateGroup.class, message = "{Category.name.null}")
     private String name;
-    private String code;
+    private String code="1";
     @JsonBackReference
     private Category parent;
     @JsonManagedReference
@@ -27,6 +27,7 @@ public class Category extends BaseBean {
     private Integer sort = 1;
     private String description;
     private Integer categoryIndex;
+    private Integer productTotal;
 
     public ProductMedia getFrontMedia() {
         return frontMedia;
@@ -133,5 +134,13 @@ public class Category extends BaseBean {
 
     public void setCategoryIndex(Integer categoryIndex) {
         this.categoryIndex = categoryIndex;
+    }
+
+    public Integer getProductTotal() {
+        return productTotal;
+    }
+
+    public void setProductTotal(Integer productTotal) {
+        this.productTotal = productTotal;
     }
 }

@@ -111,6 +111,11 @@ public class CategoryServiceImp implements CategoryService {
     	return categoryMapper.getHelpCategoryCount();
     }
 
+    @Override
+    public List<Category> querySubCategories(Integer rootCategoryId) {
+        return categoryMapper.querySubCategories(rootCategoryId);
+    }
+
     public CategoryMapper getCategoryMapper() {
         return categoryMapper;
     }

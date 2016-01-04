@@ -990,5 +990,7 @@ span {
         background: #3ec564; }
         .info-import .like-select li:hover a {
           color: white; }
+    .info-import .like-select ul {
+      height: auto; }
   .info-import .row2 {
     padding: 10px 0 0 245px; }

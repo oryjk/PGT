@@ -31,4 +31,6 @@ public interface CategoryService {
     CategoryHierarchy queryCategoryHierarchy(Integer categoryId);
     
     Integer getHelpCategoryCount();
+
+    List<Category> querySubCategories(Integer rootCategoryId);
 }

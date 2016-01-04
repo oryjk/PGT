@@ -70,7 +70,7 @@
         <property name="initialDataPath" value="/json"></property>
         <property name="adminPlpCapacity" value="20"></property>
         <property name="adminCategoryCapacity" value="20"></property>
-        <property name="imagePath" value="/Users/supersoup/Projects/new/PGT/b2c_store/src/main/webapp/resources/"></property>
+        <property name="imagePath" value="${imagePath}"></property>
 
 
     </bean>
@@ -159,16 +159,24 @@
             </props>
         </property>
     </bean>
-    
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:customProperties.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <bean id="B2COrderService" class="com.pgt.order.service.B2COrderService">
         <property name="orderStatusMapping">
             <map>
-                <entry key="10" value="待提交" />
-                <entry key="20" value="待付款" />
-                <entry key="25" value="待完成支付" />
-                <entry key="30" value="待收货" />
-                <entry key="100" value="已完成" />
-                <entry key="-10" value="已取消" />
+                <entry key="10" value="待提交"/>
+                <entry key="20" value="待付款"/>
+                <entry key="25" value="待完成支付"/>
+                <entry key="30" value="待收货"/>
+                <entry key="100" value="已完成"/>
+                <entry key="-10" value="已取消"/>
             </map>
         </property>
     </bean>

@@ -98,7 +98,7 @@
         <div class="container">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="index.html"><img src="${ctx}/resources/assets/admin/layout3/img/logo-default.png" alt="logo"
+                <a href="<spring:url value="/"/>"><img src="${ctx}/resources/assets/admin/layout3/img/logo-default.png" alt="logo"
                                           class="logo-default"></a>
             </div>
             <!-- END LOGO -->
@@ -271,35 +271,25 @@
             <div class="hor-menu ">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="<spring:url value="/"/>">首页</a>
                     </li>
 
                     <!-- !!!list 商品管理-->
                     <li class="menu-dropdown mega-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                           href="javascript:;" class="dropdown-toggle">
+                           href="<spring:url value="/product/productList"/>" class="dropdown-toggle">
                             商品管理 <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href=":;">
+                                <a href="<spring:url value="/product/productList"/>">
                                     <i class="fa-angle-right"></i>
                                     商品列表 </a>
                             </li>
                             <li>
-                                <a href=":;">
+                                <a href="<spring:url value="/category/categoryList"/>">
                                     <i class="fa-angle-right"></i>
                                     分类管理 </a>
-                            </li>
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    收藏管理 </a>
-                            </li>
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    购物车管理 </a>
                             </li>
                             <li>
                                 <a href="<spring:url value="/order/order-list" />">

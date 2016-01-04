@@ -27,6 +27,7 @@
         <result column="SHORT_DESCRIPYION" property="shortDescription"/>
         <result column="TITLE" property="title"/>
         <result column="KEY_WORD" property="keyWord"/>
+        <result column="MERCHANT" property="merchant"/>
 
         <association property="shippingAddress" column="PRODUCT_ID"
                      select="com.pgt.shipping.dao.ShippingAddressMapper.queryAddressByProduct"/>
@@ -207,9 +208,9 @@
 
 		INSERT INTO
 		PRODUCT(NAME,SERIAL_NUMBER,LIST_PRICE,SALE_PRICE,STATUS,DESCRIPTION,
-		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD)
+		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT)
 		VALUES
-		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord})
+		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant})
 	</insert>
 
 
@@ -217,7 +218,7 @@
 		UPDATE PRODUCT SET
 		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
 		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},CREATION_DATE=#{creationDate},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title}
-		UPDATE_DATE=#{updateDate}
+		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant}
 	</update>
     <delete id="deleteProduct" parameterType="int">
 		DELETE FROM PRODUCT
@@ -292,7 +293,7 @@
             keyProperty="hotSearchId" useGeneratedKeys="true">
 		INSERT INTO
 		HOT_SEARCH(TERM,MEDIA_ID)
-		VALUES {#{term},#{frontMedia.mId})
+		VALUES (#{term},#{frontMedia.mId})
 	</insert>
 
     <select id="queryAllHotsearch" resultMap="hotSearch">

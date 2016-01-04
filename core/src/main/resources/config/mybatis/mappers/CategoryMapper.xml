@@ -20,6 +20,7 @@
                      javaType="com.pgt.category.bean.Category" select="queryCategory"/>
         <collection property="children" column="CATEGORY_ID"
                     select="queryChildCategory"/>
+        <collection property="productTotal" column="CATEGORY_ID" select="queryProductTotalByCategoryId"/>
     </resultMap>
 
     <resultMap id="resultProduct" type="com.pgt.product.bean.Product">
@@ -36,6 +37,7 @@
         <result column="CREATION_DATE" property="creationDate"></result>
         <result column="UPDATE_DATE" property="updateDate"></result>
         <result column="KEY_WORD" property="keyWord"/>
+        <result column="MERCHANT" property="merchant"/>
         <collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>
     </resultMap>
     <resultMap id="productMedia" type="com.pgt.product.bean.ProductMedia">
@@ -52,7 +54,8 @@
         <id column="CATEGORY_ID" property="categoryId"/>
         <result column="NAME" property="name"></result>
         <result column="TYPE" property="categoryType"></result>
-        <association property="parentCategory" javaType="com.pgt.product.bean.CategoryHierarchy" column="PARENT_CATEGORY_ID"
+        <association property="parentCategory" javaType="com.pgt.product.bean.CategoryHierarchy"
+                     column="PARENT_CATEGORY_ID"
                      select="queryCategoryHierarchy"/>
     </resultMap>
 
@@ -60,22 +63,22 @@
     <!--insert a hot product bean -->
     <insert id="createCategory" parameterType="com.pgt.category.bean.Category"
             keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO CATEGORIES(NAME,CODE,PARENT_CATEGORY_ID,STATUS,TYPE,COLOR)
+		INSERT INTO CATEGORIES(NAME,CODE,PARENT_CATEGORY_ID,STATUS,TYPE,COLOR,DESCRIPTION)
 		VALUES
-		(#{name},#{code},#{parent.id},#{status},#{type},#{color})
+		(#{name},#{code},#{parent.id},#{status},#{type},#{color},#{description})
 	</insert>
     <!--update a hot product bean -->
     <update id="updateCategory" parameterType="com.pgt.category.bean.Category"
             keyProperty="id" useGeneratedKeys="true">
 		UPDATE CATEGORIES SET
-		NAME=#{name},CODE=#{code},STATUS=#{status},TYPE=#{type},COLOR=#{color}
+		NAME=#{name},CODE=#{code},STATUS=#{status},TYPE=#{type},COLOR=#{color},DESCRIPTION=#{description}
 		WHERE CATEGORY_ID=#{id}
 	</update>
 
     <delete id="deleteCategory" parameterType="int">
         DELETE FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
     </delete>
-    
+
     <select id="queryCategory" resultMap="CategoryResult">
 		SELECT * FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
 	</select>
@@ -141,8 +144,16 @@
     <select id="queryCategoryHierarchy" parameterType="int" resultMap="CategoryHierarchyResult">
         SELECT CATEGORY_ID,NAME,TYPE,PARENT_CATEGORY_ID FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
     </select>
+    <select id="queryProductTotalByCategoryId" parameterType="int" resultType="int">
+        SELECT COUNT(PRODUCT_ID) FROM PRODUCT_CATEGORY WHERE CATEGORY_ID=#{CATEGORY_ID}
+    </select>
 
     <select id="getHelpCategoryCount" resultType="int">
         SELECT COUNT(*) FROM CATEGORIES WHERE TYPE='help_root'
     </select>
+    <select id="querySubCategories" resultMap="CategoryResult">
+        SELECT * FROM CATEGORIES WHERE PARENT_CATEGORY_ID=#{rootCategoryId}
+    </select>
+
+
 </mapper>

@@ -16,11 +16,11 @@
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
 				<li>
-					<a href="#">首页</a>
+					<a href="<spring:url value="/"/>">首页</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="table_managed.html">商品管理</a>
+					<a href="">商品管理</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
@@ -38,7 +38,7 @@
 						<span class="caption-subject font-green-sharp bold uppercase">表格</span>
 					</div>
 					<div class="actions btn-set">
-						<button class="btn green-haze btn-circle"><i class="fa fa-plus"></i> 新增</button>
+						<button class="btn green-haze btn-circle" data-url="<spring:url value="/product/create"/>"><i class="fa fa-plus"></i> 新增</button>
 						<div class="btn-group">
 							<a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
 								<i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>
@@ -89,13 +89,6 @@
 							</div>
 							<div class="col-md-2 col-sm-2">
 								<div class="dataTables_filter">
-									<label>持有人:<input type="search" class="form-control input-small input-inline"
-													  placeholder="" aria-controls="sample_3">
-									</label>
-								</div>
-							</div>
-							<div class="col-md-2 col-sm-2">
-								<div class="dataTables_filter">
 									<label>名称:<input type="search" class="form-control input-small input-inline"
 													 placeholder="" aria-controls="sample_3">
 									</label>
@@ -126,18 +119,13 @@
 												分类 <i class="fa fa-angle-down"></i>
 											</a>
 											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;">
-														分类1 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														分类2 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														分类3 </a>
-												</li>
+												<c:forEach items="${categories}" var="category">
+													<li>
+														<a href="javascript:;" data-value="${category.id}">
+															${category.name}
+														</a>
+													</li>
+												</c:forEach>
 											</ul>
 										</div>
 									</th>
@@ -246,7 +234,7 @@
 											${product.salePrice}
 										</td>
 										<td class="productlist-face-box">
-											<img src="${product.thumbnailMedias[0].path}" alt=""/>
+											<img src="${staticServer}${product.thumbnailMedias[0].path}" alt=""/>
 										</td>
 										<td>
 											1
@@ -268,8 +256,8 @@
 											</div>
 										</td>
 										<td>
-											<button class="btn btn-xs green btn-circle">修改</button>
-											<button class="btn btn-xs red btn-circle">删除</button>
+											<button class="btn btn-xs green btn-circle" data-url="<spring:url value="/update/${product.productId}"/>">修改</button>
+											<button class="btn btn-xs red btn-circle" data-url="<spring:url value="/delete/${product.productId}"/>">删除</button>
 										</td>
 									</tr>
 								</c:forEach>

@@ -3,63 +3,67 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pgt.cart.dao.OrderMapper">
-	<resultMap id="order" type="com.pgt.cart.bean.Order">
-		<id column="order_id" property="id" />
-		<result column="user_id" property="userId" />
-		<result column="status" property="status" />
-		<result column="shipping_fee" property="shippingFee" />
-		<result column="subtotal" property="subtotal" />
-		<result column="total" property="total" />
-		<result column="user_comments" property="userComments" />
-		<result column="creation_date" property="creationDate" />
-		<result column="update_date" property="updateDate" />
-		<result column="easy_buy" property="easyBuy" />
-		<association property="shippingVO" column="shipping_id" 
-            select="com.pgt.shipping.dao.ShippingVOMapper.findShipping"/>
-		<collection property="commerceItems" column="order_id" select="selectCommerceItemByOrderId"/>
-	</resultMap>
-	<resultMap id="commerceItem" type="com.pgt.cart.bean.CommerceItem">
-		<id column="commerce_item_id" property="id" />
-		<result column="order_id" property="orderId" />
-		<result column="reference_id" property="referenceId" />
-		<result column="name" property="name" />
-		<result column="quality" property="quality" />
-		<result column="list_price" property="listPrice" />
-		<result column="sale_price" property="salePrice" />
-		<result column="quantity" property="quantity" />
-		<result column="amount" property="amount" />
-		<result column="snapshot_id" property="snapshotId" />
-		<result column="index" property="index" />
-		<result column="creation_date" property="creationDate" />
-		<result column="update_date" property="updateDate" />
-	</resultMap>
-	
+    <resultMap id="order" type="com.pgt.cart.bean.Order">
+        <id column="order_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="status" property="status"/>
+        <result column="shipping_fee" property="shippingFee"/>
+        <result column="subtotal" property="subtotal"/>
+        <result column="total" property="total"/>
+        <result column="user_comments" property="userComments"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="easy_buy" property="easyBuy"/>
+        <association property="shippingVO" column="shipping_id"
+                     select="com.pgt.shipping.dao.ShippingVOMapper.findShipping"/>
+        <collection property="commerceItems" column="order_id" select="selectCommerceItemByOrderId"/>
+    </resultMap>
+    <resultMap id="commerceItem" type="com.pgt.cart.bean.CommerceItem">
+        <id column="commerce_item_id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="reference_id" property="referenceId"/>
+        <result column="name" property="name"/>
+        <result column="quality" property="quality"/>
+        <result column="list_price" property="listPrice"/>
+        <result column="sale_price" property="salePrice"/>
+        <result column="quantity" property="quantity"/>
+        <result column="amount" property="amount"/>
+        <result column="snapshot_id" property="snapshotId"/>
+        <result column="index" property="index"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
     <select id="loadOrder" parameterType="int" resultMap="order">
         SELECT * FROM `order` WHERE order_id = #{orderId} 
     </select>
-    
-     <select id="loadEasyBuyOrderByUserId" parameterType="string" resultMap="order">
+    <select id="loadAllPaidOrder" parameterType="int" resultMap="order">
+        SELECT * FROM `order` WHERE
+    </select>
+
+    <select id="loadEasyBuyOrderByUserId" parameterType="string" resultMap="order">
         SELECT * FROM `order` WHERE user_id = #{userId} AND easy_buy = 1 and status =10 ORDER BY order_id DESC LIMIT 1
     </select>
-    
+
     <select id="selectCommerceItemByOrderId" parameterType="int" resultMap="commerceItem">
         SELECT * FROM commerce_item WHERE order_id = #{orderId}
     </select>
-    
+
     <update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
-		UPDATE `ORDER`
-		<set>
-			status = #{status}, shipping_fee = #{shippingFee}, subtotal = #{subtotal}, total = #{total}, user_comments = #{userComments},
-			submit_date = #{submitDate}, update_date = now()
-		</set>
-		WHERE order_id = #{id}
-	</update>
-	
+        UPDATE `ORDER`
+        <set>
+            status = #{status}, shipping_fee = #{shippingFee}, subtotal = #{subtotal}, total = #{total}, user_comments =
+            #{userComments},
+            submit_date = #{submitDate}, update_date = now()
+        </set>
+        WHERE order_id = #{id}
+    </update>
+
     <delete id="deleteAllCommerceItems" parameterType="int">
 		DELETE FROM COMMERCE_ITEM WHERE ORDER_ID = #{orderId}
 	</delete>
 
-	<update id="updateOrderStatus" parameterType="com.pgt.cart.bean.Order">
+    <update id="updateOrderStatus" parameterType="com.pgt.cart.bean.Order">
 		UPDATE `ORDER` SET status = #{status} WHERE order_id = #{id}
 	</update>
 
