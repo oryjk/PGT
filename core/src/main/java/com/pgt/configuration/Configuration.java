@@ -22,6 +22,7 @@ public class Configuration {
 	private Integer adminPlpCapacity;
 	private Integer adminCategoryCapacity;
 	private String imageFolder="/image/upload/";
+	private String staticServer="http://www.pgt_admin.com";
 
 	public Integer getPlpCapacity() {
 		return plpCapacity;
@@ -175,5 +176,13 @@ public class Configuration {
 
 	public void setImageFolder(String imageFolder) {
 		this.imageFolder = imageFolder;
+	}
+
+	public String getStaticServer() {
+		return staticServer;
+	}
+
+	public void setStaticServer(String staticServer) {
+		this.staticServer = staticServer;
 	}
 }

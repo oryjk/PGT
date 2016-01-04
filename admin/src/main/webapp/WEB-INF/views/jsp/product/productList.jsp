@@ -16,11 +16,11 @@
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
 				<li>
-					<a href="#">首页</a>
+					<a href="<spring:url value="/"/>">首页</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="table_managed.html">商品管理</a>
+					<a href="">商品管理</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
@@ -126,18 +126,13 @@
 												分类 <i class="fa fa-angle-down"></i>
 											</a>
 											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="javascript:;">
-														分类1 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														分类2 </a>
-												</li>
-												<li>
-													<a href="javascript:;">
-														分类3 </a>
-												</li>
+												<c:forEach items="${categories}" var="category">
+													<li>
+														<a href="javascript:;" data-value="${category.id}">
+															${category.name}
+														</a>
+													</li>
+												</c:forEach>
 											</ul>
 										</div>
 									</th>
@@ -246,7 +241,7 @@
 											${product.salePrice}
 										</td>
 										<td class="productlist-face-box">
-											<img src="${product.thumbnailMedias[0].path}" alt=""/>
+											<img src="${staticServer}${product.thumbnailMedias[0].path}" alt=""/>
 										</td>
 										<td>
 											1
@@ -268,7 +263,7 @@
 											</div>
 										</td>
 										<td>
-											<button class="btn btn-xs green btn-circle">修改</button>
+											<button class="btn btn-xs green btn-circle" data-value="<spring:url value="update/${product.productId}"/>">修改</button>
 											<button class="btn btn-xs red btn-circle">删除</button>
 										</td>
 									</tr>

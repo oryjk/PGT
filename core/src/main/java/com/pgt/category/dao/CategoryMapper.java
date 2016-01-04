@@ -36,4 +36,6 @@ public interface CategoryMapper extends SqlMapper {
     CategoryHierarchy queryCategoryHierarchy(@Param("categoryId")Integer categoryId);
     
     Integer getHelpCategoryCount();
+
+    List<Category> querySubCategories(@Param("rootCategoryId")Integer rootCategoryId);
 }

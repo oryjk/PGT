@@ -20,7 +20,7 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="table_managed.html">商品管理</a>
+					<a href="">商品管理</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">

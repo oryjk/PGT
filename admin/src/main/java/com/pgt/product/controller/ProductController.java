@@ -121,9 +121,15 @@ public class ProductController {
         return responseEntity;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public ModelAndView updateProduct(ModelAndView modelAndView) {
-        modelAndView.addObject("product", new Product());
+    @RequestMapping(value = "/update/{productId}", method = RequestMethod.GET)
+    public ModelAndView updateProduct(@PathVariable("productId") Integer productId, ModelAndView modelAndView) {
+        Product product = productService.queryProduct(productId);
+        modelAndView.setViewName("/product/addAndModifyProduct");
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty with id {}.", productId);
+            return modelAndView;
+        }
+        modelAndView.addObject("product", product);
         return modelAndView;
     }
 

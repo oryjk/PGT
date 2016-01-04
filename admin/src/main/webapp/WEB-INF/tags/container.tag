@@ -277,12 +277,12 @@
                     <!-- !!!list 商品管理-->
                     <li class="menu-dropdown mega-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                           href="javascript:;" class="dropdown-toggle">
+                           href="<spring:url value="/product/productList"/>" class="dropdown-toggle">
                             商品管理 <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href=":;">
+                                <a href="<spring:url value="/product/productList"/>">
                                     <i class="fa-angle-right"></i>
                                     商品列表 </a>
                             </li>

@@ -77,7 +77,7 @@
     <delete id="deleteCategory" parameterType="int">
         DELETE FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
     </delete>
-    
+
     <select id="queryCategory" resultMap="CategoryResult">
 		SELECT * FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
 	</select>
@@ -150,4 +150,9 @@
     <select id="getHelpCategoryCount" resultType="int">
         SELECT COUNT(*) FROM CATEGORIES WHERE TYPE='help_root'
     </select>
+    <select id="querySubCategories" resultMap="CategoryResult">
+        SELECT * FROM CATEGORIES WHERE PARENT_CATEGORY_ID=#{rootCategoryId}
+    </select>
+
+
 </mapper>
