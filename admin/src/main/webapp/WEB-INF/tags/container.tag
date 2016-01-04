@@ -287,19 +287,9 @@
                                     商品列表 </a>
                             </li>
                             <li>
-                                <a href=":;">
+                                <a href="<spring:url value="/category/categoryList"/>">
                                     <i class="fa-angle-right"></i>
                                     分类管理 </a>
-                            </li>
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    收藏管理 </a>
-                            </li>
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    购物车管理 </a>
                             </li>
                             <li>
                                 <a href="<spring:url value="/order/order-list" />">

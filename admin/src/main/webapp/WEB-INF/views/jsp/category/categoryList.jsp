@@ -104,9 +104,6 @@
 												位置
 											</th>
 											<th>
-												移动
-											</th>
-											<th>
 												分类id
 											</th>
 											<th>
@@ -135,9 +132,6 @@
 										<tbody>
 										<c:forEach items="${categories}" var="rootCategory">
 											<tr class="gradeX odd" role="row">
-												<td>
-													<input class="pgt-sort-num" type="text" value="${rootCategory.sort}"/>
-												</td>
 												<td>
 														${rootCategory.sort}
 												</td>
@@ -204,9 +198,6 @@
 												位置
 											</th>
 											<th>
-												移动
-											</th>
-											<th>
 												分类名称
 											</th>
 											<th>
@@ -239,10 +230,6 @@
 										<tr class="gradeX odd" role="row">
 											<td>
 													${rootCategory.sort}
-											</td>
-											<td>
-												<button class="btn btn-xs green btn-circle">上移</button>
-												<button class="btn btn-xs green btn-circle">下移</button>
 											</td>
 											<td>
 													${rootCategory.name}
@@ -289,7 +276,7 @@
 
 
 						<div class="row">
-							<link rel="stylesheet" href="../core/css/page.css"/>
+							<link href="${ctx}/resources/core/css/page.css" rel="stylesheet" type="text/css">
 							<div class="col-xs-2">
 								<div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
 									第
