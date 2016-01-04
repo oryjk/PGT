@@ -121,7 +121,7 @@
                 <value>sort</value>
             </list>
         </property>
-        <property name="needIndex" value="true"/>
+        <property name="needIndex" value="false"/>
         <property name="clearIndex" value="false"/>
     </bean>
 
