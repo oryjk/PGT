@@ -2,6 +2,7 @@ package com.pgt.category.bean;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -16,7 +17,7 @@ public class Category extends BaseBean {
     private Integer id;
     @NotEmpty(groups = CreateGroup.class, message = "{Category.name.null}")
     private String name;
-    private String code="1";
+    private String code;
     @JsonBackReference
     private Category parent;
     @JsonManagedReference
@@ -65,6 +66,9 @@ public class Category extends BaseBean {
     }
 
     public String getCode() {
+        if (StringUtils.isBlank(code)) {
+            return "1";
+        }
         return code;
     }
 

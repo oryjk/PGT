@@ -20,11 +20,11 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="">商品管理</a>
+					<a href="">分类列表</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
-					<a href="#">商品列表</a>
+					<a href="#">主分类</a>
 				</li>
 			</ul>
 		</div>
