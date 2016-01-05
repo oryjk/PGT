@@ -1,1 +1,1 @@
-update CATEGORIES  set code = '1'
+UPDATE CATEGORIES  SET CODE = '1'
