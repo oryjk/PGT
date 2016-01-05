@@ -66,4 +66,6 @@ public interface ProductMapper extends SqlMapper {
     List<HotSearch> queryAllHotsearch();
 
     List<Product> queryProductByIds(List<Integer> pSupposeProductIds);
+
+    Integer queryProductTotal(SearchPaginationBean searchPaginationBean);
 }

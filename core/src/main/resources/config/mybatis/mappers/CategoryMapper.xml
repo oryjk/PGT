@@ -154,6 +154,9 @@
     <select id="querySubCategories" resultMap="CategoryResult">
         SELECT * FROM CATEGORIES WHERE PARENT_CATEGORY_ID=#{rootCategoryId}
     </select>
+    <select id="queryCategoryTotal" parameterType="com.pgt.category.bean.Category" resultType="int">
+        SELECT COUNT(CATEGORY_ID) FROM CATEGORIES WHERE TYPE=#{type}
+    </select>
 
 
 </mapper>

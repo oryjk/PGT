@@ -27,6 +27,7 @@ public interface CategoryService {
     List<Category> queryAllParentCategories();
 
     List<Category> queryCategories(Category category, PaginationBean paginationBean);
+    Integer queryCategoryTotal(Category category);
 
     CategoryHierarchy queryCategoryHierarchy(Integer categoryId);
     

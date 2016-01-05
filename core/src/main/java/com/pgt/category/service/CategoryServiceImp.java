@@ -101,6 +101,12 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
+    public Integer queryCategoryTotal(Category category) {
+
+        return categoryMapper.queryCategoryTotal(category);
+    }
+
+    @Override
     public CategoryHierarchy queryCategoryHierarchy(Integer categoryId) {
         LOGGER.debug("The category is {}.", categoryId);
         return categoryMapper.queryCategoryHierarchy(categoryId);

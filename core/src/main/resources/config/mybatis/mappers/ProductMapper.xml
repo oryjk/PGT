@@ -308,4 +308,67 @@
             #{id}
         </foreach>
     </select>
+    <select id="queryProductTotal" parameterType="com.pgt.search.bean.SearchPaginationBean" resultType="int">
+        <choose>
+            <when test="categoryId!=null">
+                SELECT * FROM PRODUCT p left join
+                PRODUCT_CATEGORY pc
+                on
+                pc.CATEGORY_ID=#{categoryId} where
+                p.PRODUCT_ID=pc.PRODUCT_ID
+            </when>
+            <otherwise>
+                SELECT * FROM PRODUCT p where 1=1
+            </otherwise>
+        </choose>
+
+        <choose>
+            <when test="stock!=-1">
+                AND stock > 0
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+
+        <if test="term!=null">
+            AND p.name like "%${term}%"
+        </if>
+
+        <if test="term!=null">
+            OR p.PRODUCT_ID =#{term}
+        </if>
+
+        <if test="isNew!=null">
+            <where>
+                p.IS_NEW = #{isNew}
+            </where>
+        </if>
+
+        <if test="sortBeans!=null">
+            ORDER BY
+            <foreach collection="sortBeans" item="sortBean" index="index">
+                #{sortBean.propertyName} #{sortBean.sort}
+                <if test="index+1 != sortBeans.size">
+                    ,
+                </if>
+            </foreach>
+        </if>
+        <if test="currentIndex != null">
+            <choose>
+                <when test="currentIndex >-1">
+                    <if test="capacity != null">
+                        <choose>
+                            <when test="capacity>-1">
+                                limit #{currentIndex}, #{capacity}
+                            </when>
+                            <otherwise>
+                            </otherwise>
+                        </choose>
+                    </if>
+                </when>
+                <otherwise>
+                </otherwise>
+            </choose>
+        </if>
+    </select>
 </mapper>

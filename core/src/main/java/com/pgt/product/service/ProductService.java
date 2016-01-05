@@ -33,4 +33,5 @@ public interface ProductService {
     List <HotSearch> queryAllHotsearch();
     void buildProductMedias(Product product);
 
+    Integer queryProductTotal(SearchPaginationBean searchPaginationBean);
 }

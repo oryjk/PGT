@@ -73,4 +73,5 @@ public class SearchPaginationBean extends PaginationBean {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
 }
