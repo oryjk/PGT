@@ -13,17 +13,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<<<<<<< HEAD
 <admin:container id="productList" pageJsPath="/resources/product/product-list.js">
-=======
-<admin:container id="productList">
-	searchPaginationBean:${searchPaginationBean.currentIndex}
-	searchPaginationBean:${searchPaginationBean.totalAmount}
-	searchPaginationBean:${searchPaginationBean.capacity}
-	searchPaginationBean:${searchPaginationBean.nextIndex}
-	searchPaginationBean:${searchPaginationBean.preIndex}
-	searchPaginationBean:${searchPaginationBean.maxIndex}
->>>>>>> 23d0651218cb477511d9f06d93aec2e3d7d25d46
+
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
