@@ -286,11 +286,11 @@
 							<div class="col-xs-2">
 								<div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
 									第
-									<span>1</span>
+									<span>${searchPaginationBean.sqlStartIndex}</span>
 									条 到 第
-									<span>15</span>
+									<span>${searchPaginationBean.sqlStartIndex+searchPaginationBean.capacity}</span>
 									条 共
-									<span>100</span>
+									<span>${searchPaginationBean.totalAmount}</span>
 									条
 								</div>
 							</div>

@@ -60,7 +60,7 @@
         <property name="defaultEncoding" value="utf-8"></property>
         <property name="cacheSeconds" value="120"></property>
     </bean>
-    <bean id="configuration" class="com.pgt.configuration.Configuration">
+    <bean id="configuration" class="com.pgt.configuration.Configuration" scope="singleton">
         <property name="homeHotProductCount" value="5"/>
         <property name="onlyShowInStock" value="false"/>
         <property name="productListPageCapacity" value="20"/>
