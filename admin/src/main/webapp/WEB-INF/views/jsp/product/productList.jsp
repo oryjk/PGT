@@ -82,11 +82,10 @@
 										<select name="sample_3_length" aria-controls="sample_3"
 												class="form-control input-small input-inline select2-offscreen"
 												tabindex="-1" title="">
-											<option value="5">文玩杂项</option>
-											<option value="15">玉石</option>
-											<option value="20">琥珀蜜蜡</option>
-											<option value="20">木制品</option>
-											<option value="-1">所有</option>
+											<option value="" selected="true">全部</option>
+											<c:forEach items="${categories}" var="category">
+												<option value="${category.id}">${category.name}</option>
+											</c:forEach>
 										</select></label>
 								</div>
 							</div>

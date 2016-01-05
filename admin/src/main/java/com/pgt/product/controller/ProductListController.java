@@ -2,6 +2,7 @@ package com.pgt.product.controller;
 
 import com.google.common.collect.Lists;
 import com.pgt.category.bean.Category;
+import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.ViewMapperConfiguration;
 import com.pgt.configuration.Configuration;
@@ -10,6 +11,7 @@ import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.bean.SortBean;
+import com.pgt.utils.PaginationBean;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +41,8 @@ public class ProductListController {
 
 
     @RequestMapping(value = "/product/productList", method = RequestMethod.GET)
-    public ModelAndView get(@RequestParam(value = "categoryId",required = false) Integer categoryId, @RequestParam(value = "stock", required = false) Integer stock,
+    public ModelAndView get(@RequestParam(value = "categoryId", required = false) Integer categoryId,
+                            @RequestParam(value = "stock", required = false) Integer stock,
                             @RequestParam(value = "term", required = false) String term,
                             @RequestParam(value = "sortProperty", required = false) String sortProperty,
                             @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue,
@@ -54,11 +57,18 @@ public class ProductListController {
         if (ObjectUtils.isEmpty(productList)) {
             LOGGER.debug("Can not find products with category id is {}", categoryId);
         }
-        List<Category> categories = categoryService.queryAllParentCategories();
+
+        Category categoryRequest = new Category();
+        categoryRequest.setCode(null);
+        PaginationBean paginationBean = new PaginationBean();
+        paginationBean.setCurrentIndex(0L);
+        paginationBean.setCapacity(10000L);
+        categoryRequest.setType(CategoryType.ROOT);
+        List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
         modelAndView.addObject("categoryHierarchy", categoryHierarchy);
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("productList", productList);
-        modelAndView.addObject("staticServer",configuration.getStaticServer());
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName(viewMapperConfiguration.getProductListPage());
         return modelAndView;
     }
@@ -71,7 +81,7 @@ public class ProductListController {
                                                        Long currentIndex) {
         SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
         searchPaginationBean.setCategoryId(String.valueOf(categoryId));
-        if(ObjectUtils.isEmpty(categoryId)){
+        if (ObjectUtils.isEmpty(categoryId)) {
             searchPaginationBean.setCategoryId(null);
         }
 
