@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<admin:container id="productList" pageJsPath="/resources/product/product-add-and-modify.js" pageCssPath="/resources/product/product-add-and-mofify.css" >
+<admin:container id="productList" pageJsPath="/resources/product/product-add-and-modify.js" pageCssPath="/resources/product/product-add-and-modify.css" >
 	<input type="hidden" value="${pageContext.request.contextPath}" id="contextPath"/>
 	<input type="hidden" value="http://www.pgt_admin.com/" id="staticServer"/>
 	<input type="hidden" value="${product.name}" id="productName"/>
@@ -60,7 +60,7 @@
 										<label class="col-md-2 control-label">略缩图</label>
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
 												<input name="mediaType" type="hidden" value="thumbnail"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -80,7 +80,7 @@
 										<label class="col-md-2 control-label">首页图</label>
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture"  data-pgt-btn="single" type="file"/>
 												<input name="mediaType" type="hidden" value="advertisement"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -100,7 +100,7 @@
 										<label class="col-md-2 control-label">列表图</label>
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture"  data-pgt-btn="single" type="file"/>
 												<input name="mediaType" type="hidden" value="front"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -120,7 +120,7 @@
 										<label class="col-md-2 control-label">主图</label>
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="multiple" type="file"/>
 												<input name="mediaType" type="hidden" value="hero"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -157,7 +157,7 @@
 										<label class="col-md-2 control-label">详情图</label>
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="multiple" type="file"/>
 												<input name="mediaType" type="hidden" value="main"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -195,7 +195,7 @@
 										<label class="col-md-2 control-label">专家点评</label>
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="multiple" type="file"/>
 												<input name="mediaType" type="hidden" value="expert"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -239,8 +239,7 @@
 			</div>
 		</div>
 	</div>
-	<div style="float: left">
-		<img  id="test" src="" alt="wo"/>
+	<div id="testbox">
 	</div>
 </admin:container>
 

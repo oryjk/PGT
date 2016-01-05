@@ -40,7 +40,7 @@
 						<span class="caption-subject font-green-sharp bold uppercase">表格</span>
 					</div>
 					<div class="actions btn-set">
-						<button class="btn green-haze btn-circle" data-url="<spring:url value="/product/create"/>"><i class="fa fa-plus"></i> 新增</button>
+						<button class="btn green-haze btn-circle" data-pgt-btn="create" data-url="<spring:url value="/product/create"/>"><i class="fa fa-plus"></i> 新增</button>
 						<div class="btn-group">
 							<a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
 								<i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>

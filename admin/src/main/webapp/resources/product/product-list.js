@@ -16,7 +16,7 @@
 //        view.addClass('red');
 //    }
 //});
-$(document).on('click', '[data-pgt-btn="modify"]', function() {
+$(document).on('click', '[data-pgt-btn="modify"], [data-pgt-btn="create"]', function() {
     var $this = $(this);
     window.location = $this.attr('data-url');
 });
@@ -32,7 +32,7 @@ $(document).on('click', '[data-pgt-btn="delete"]', function() {
                 url: $this.attr('data-url'),
                 success: function(param) {
                     if (param.success == true) {
-                        window.location = location + '?delete' + $this.attr('data-url');
+                        window.location = location;
                     }
                 }
             })

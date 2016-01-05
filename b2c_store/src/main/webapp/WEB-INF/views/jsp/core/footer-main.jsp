@@ -93,7 +93,7 @@
       <a class="online-server" href="#">
         <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/weixin.png"/>" alt="微信公众号"/>
         <h3>微信公众号</h3>
-        <img class="two-dimension" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/erweima.jpg"/>" alt="二维码"/>
+        <img class="two-dimension" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/weixinerweima.jpg"/>" alt="二维码"/>
   </a>
       <a class="online-server" href="#">
         <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/weibo.png"/>" alt="新浪官方微博"/>
