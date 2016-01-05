@@ -36,12 +36,12 @@ public class PaginationBean implements Mapable {
 	}
 
 	public boolean isFirstPage() {
-		return currentIndex == 0;
+		return getCurrentIndex() == 0;
 	}
 
 
 	public boolean isLastPage() {
-		return currentIndex == getMaxIndex();
+		return getCurrentIndex() == getMaxIndex();
 	}
 
 
@@ -61,9 +61,9 @@ public class PaginationBean implements Mapable {
 
 	public List<Long> getLeftSpan() {
 		List<Long> result = new ArrayList<Long>();
-		if (currentIndex > 0) {
-			for (long i = currentIndex - 1; i > 0; i--) {
-				if (currentIndex - i > spanSize) {
+		if (getCurrentIndex() > 0) {
+			for (long i = getCurrentIndex() - 1; i > 0; i--) {
+				if (getCurrentIndex() - i > spanSize) {
 					break;
 				}
 				result.add(i);
@@ -75,9 +75,9 @@ public class PaginationBean implements Mapable {
 
 	public List<Long> getRightSpan() {
 		List<Long> result = new ArrayList<Long>();
-		if (currentIndex < getMaxIndex()) {
-			for (long i = currentIndex + 1; i < getMaxIndex(); i++) {
-				if (i == 0 || i - currentIndex > spanSize) {
+		if (getCurrentIndex() < getMaxIndex()) {
+			for (long i = getCurrentIndex() + 1; i < getMaxIndex(); i++) {
+				if (i == 0 || i - getCurrentIndex() > spanSize) {
 					break;
 				}
 				result.add(i);
@@ -87,7 +87,7 @@ public class PaginationBean implements Mapable {
 	}
 
 	public boolean isShowLeftDots() {
-		if (currentIndex - getSpanSize() > 0) {
+		if (getCurrentIndex() - getSpanSize() > 0) {
 			return true;
 		}
 		return false;
@@ -95,7 +95,7 @@ public class PaginationBean implements Mapable {
 
 
 	public boolean isShowRightDots() {
-		if (currentIndex + getSpanSize() < getMaxIndex()) {
+		if (getCurrentIndex() + getSpanSize() < getMaxIndex()) {
 			return true;
 		}
 		return false;
@@ -106,10 +106,10 @@ public class PaginationBean implements Mapable {
 			throw new InvalidParameterException("capacity must greater than zero.");
 		}
 		long maxIndex = (totalAmount % capacity > 0 ? totalAmount / capacity + 1 : totalAmount / capacity) - 1;
-		if (currentIndex > maxIndex) {
+		if (getCurrentIndex() > maxIndex) {
 			return maxIndex;
 		}
-		return maxIndex > currentIndex ? currentIndex + 1 : currentIndex;
+		return maxIndex > getCurrentIndex() ? getCurrentIndex() + 1 : getCurrentIndex();
 	}
 
 	public long getPreIndex() {
@@ -117,13 +117,13 @@ public class PaginationBean implements Mapable {
 			throw new InvalidParameterException("capacity must greater than zero.");
 		}
 		long maxIndex = getMaxIndex();
-		if (currentIndex > maxIndex) {
+		if (getCurrentIndex() > maxIndex) {
 			return maxIndex > 0 ? maxIndex - 1 : maxIndex;
 		}
-		if (currentIndex <= 0) {
-			return currentIndex;
+		if (getCurrentIndex() <= 0) {
+			return getCurrentIndex();
 		}
-		return currentIndex - 1;
+		return getCurrentIndex() - 1;
 	}
 	
 	public long getMaxIndex() {
@@ -135,7 +135,7 @@ public class PaginationBean implements Mapable {
 	}
 
 	public long getSqlStartIndex() {
-		return currentIndex * capacity;
+		return getCurrentIndex() * capacity;
 	}
 
 	public long getCapacity() {
@@ -147,6 +147,12 @@ public class PaginationBean implements Mapable {
 	}
 
 	public long getCurrentIndex() {
+		if (currentIndex> getMaxIndex()) {
+			return getMaxIndex();
+		}
+		if (currentIndex < 0) {
+			return 0;
+		}
 		return currentIndex;
 	}
 

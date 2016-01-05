@@ -34,10 +34,8 @@ import java.util.Date;
  * Created by Yove on 10/20/2015.
  */
 @RestController
-@RequestMapping("/internal")
+@RequestMapping
 public class InternalUserController extends InternalTransactionBaseController implements InternalUserMessages, InternalUserProperties {
-
-	private static final String REDIRECT_DASHBOARD = "redirect:/internal/dashboard";
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(InternalUserController.class);
 
@@ -51,9 +49,9 @@ public class InternalUserController extends InternalTransactionBaseController im
 	private ResponseBuilderFactory mResponseBuilderFactory;
 
 
-	@RequestMapping(value = "/login")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		ModelAndView mav = new ModelAndView("/internal/login");
+		ModelAndView mav = new ModelAndView("/login");
 		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(INTERNAL_USER);
 		if (iu != null && RepositoryUtils.idIsValid(iu.getId()) && iu.isAvailable()) {
 			// internal user has already login
@@ -65,8 +63,8 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return mav;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView signup(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	@RequestMapping(value = "/internal/register", method = RequestMethod.GET)
+	public ModelAndView signUp(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView("/internal/register");
 		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(INTERNAL_USER);
 		if (iu != null && RepositoryUtils.idIsValid(iu.getId()) && iu.isAvailable()) {
@@ -80,7 +78,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return mav;
 	}
 
-	@RequestMapping(value = "/iu-list")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/internal/iu-list")//, method = RequestMethod.GET)
 	public ModelAndView listInternalUser(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
 			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
@@ -98,7 +96,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 
-	@RequestMapping(value = "/iu-modify")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/internal/iu-modify")//, method = RequestMethod.GET)
 	public ModelAndView internalUserModify(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "uid", required = true) String uid) {
 		ModelAndView mav = new ModelAndView("/internal/iu-modify");
@@ -117,13 +115,13 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return mav;
 	}
 
-	@RequestMapping(value = "/authorize", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView authorize(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "login", required = true) String login,
 			@RequestParam(value = "password", required = true) String password) {
 		// trim login
 		login = login.trim();
-		ModelAndView mav = new ModelAndView(REDIRECT_DASHBOARD);
+		ModelAndView mav = new ModelAndView("/login");
 		// check internal user exist
 		InternalUser iu = new InternalUserBuilder().setLogin(login).setPassword(password).createInternalUser();
 		TransactionStatus status = ensureTransaction();
@@ -231,7 +229,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/internal/register", method = RequestMethod.POST)
 	public ModelAndView register(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "login", required = true) String login,
 			@RequestParam(value = "password", required = true) String password,
@@ -329,7 +327,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return mav;
 	}
 
-	@RequestMapping(value = "/ajaxRegister", method = RequestMethod.POST)
+	@RequestMapping(value = "/internal/ajaxRegister", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity ajaxRegister(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "login", required = true) String login,
@@ -427,7 +425,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/iu-list-data")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/internal/iu-list-data")//, method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity listInternalUserData(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
@@ -443,7 +441,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/iu-batch-available-update")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/internal/iu-batch-available-update")//, method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity updateBatchInternalUserAvailable(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "ids", required = true) int[] ids,
@@ -474,7 +472,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/iu-modify", method = RequestMethod.POST)
+	@RequestMapping(value = "/internal/iu-modify", method = RequestMethod.POST)
 	public ModelAndView internalUserUpdate(HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
 			@RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
 		ModelAndView mav = new ModelAndView("/internal/iu-modify");
@@ -561,7 +559,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return mav;
 	}
 
-	@RequestMapping(value = "/ajax-iu-modify", method = RequestMethod.POST)
+	@RequestMapping(value = "/internal/ajax-iu-modify", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity ajaxInternalUserUpdate(HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
 			@RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {

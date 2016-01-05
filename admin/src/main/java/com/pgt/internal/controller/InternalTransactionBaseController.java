@@ -17,6 +17,9 @@ import java.util.Locale;
  */
 public abstract class InternalTransactionBaseController implements AdminSessionConstant {
 
+	protected static final String REDIRECT_DASHBOARD = "redirect:/dashboard";
+	protected static final String REDIRECT_LOGIN = "redirect:/login";
+
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
 
