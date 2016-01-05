@@ -38,7 +38,7 @@
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form action="<spring:url value="/internal/register" />" class="form-horizontal" method="post">
+                    <form action="/internal/register" class="form-horizontal" method="post">
                         <input type="hidden" name="investType" value="NONEED">
 
                         <div class="form-body">

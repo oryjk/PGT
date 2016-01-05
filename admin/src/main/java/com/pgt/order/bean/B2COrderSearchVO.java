@@ -2,11 +2,12 @@ package com.pgt.order.bean;
 
 import com.pgt.cart.util.RepositoryUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class B2COrderSearchVO {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(B2COrderSearchVO.class);
 
-	private static final FastDateFormat DT_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd");
+	private static final DateFormat DT_FORMAT = new SimpleDateFormat("yyyy-MM-dd H:mm");
 
 	private int mOrderId;
 	private String mUserName;
@@ -125,7 +126,7 @@ public class B2COrderSearchVO {
 	public B2COrderSearchVO setSubmitTimeBeg(final String pSubmitTimeBeg) {
 		if (StringUtils.isNotBlank(pSubmitTimeBeg)) {
 			try {
-				mSubmitTimeBeg = DT_FORMAT.getInstance().parse(pSubmitTimeBeg);
+				mSubmitTimeBeg = DT_FORMAT.parse(pSubmitTimeBeg);
 			} catch (ParseException pe) {
 				StackTraceElement[] elements = pe.getStackTrace();
 				LOGGER.error("{}#{} (line: {})", elements[3].getClassName(), elements[3].getMethodName(), elements[3].getLineNumber());
@@ -147,7 +148,7 @@ public class B2COrderSearchVO {
 	public B2COrderSearchVO setSubmitTimeEnd(final String pSubmitTimeEnd) {
 		if (StringUtils.isNotBlank(pSubmitTimeEnd)) {
 			try {
-				mSubmitTimeEnd = DT_FORMAT.getInstance().parse(pSubmitTimeEnd);
+				mSubmitTimeEnd = DT_FORMAT.parse(pSubmitTimeEnd);
 			} catch (ParseException pe) {
 				StackTraceElement[] elements = pe.getStackTrace();
 				LOGGER.error("{}#{} (line: {})", elements[3].getClassName(), elements[3].getMethodName(), elements[3].getLineNumber());

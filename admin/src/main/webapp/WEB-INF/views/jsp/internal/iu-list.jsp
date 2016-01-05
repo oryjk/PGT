@@ -24,7 +24,7 @@
                         <span class="caption-subject font-green-sharp bold uppercase">管理员列表</span>
                     </div>
                     <div class="actions btn-set">
-                        <button class="btn green-haze btn-circle"><a href="<spring:url value="/internal/signup" />"><i class="fa fa-plus"></i> 新增</a></button>
+                        <button class="btn green-haze btn-circle"><a href="/internal/signup"><i class="fa fa-plus"></i> 新增</a></button>
                         <div class="btn-group">
                             <a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
                                 <i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>
@@ -45,7 +45,7 @@
                 <div class="portlet-body">
                     <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
-                            <form action="<spring:url value="/internal/iu-list" />" method="get">
+                            <form action="/internal/iu-list" method="get">
                                 <input type="hidden" name="currentIndex" value="${param.currentIndex}" />
                                 <input type="hidden" name="capacity" value="${param.capacity}" />
                                 <div class="col-md-2 col-sm-2">
@@ -138,14 +138,14 @@
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
-                                        <td><a href="<spring:url value="/internal/iu-modify?uid=${iu.id}" />"><button class="btn btn-xs blue btn-circle">修改</button></a></td>
+                                        <td><a href="/internal/iu-modify?uid=${iu.id}"><button class="btn btn-xs blue btn-circle">修改</button></a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                         <%-- pagination row --%>
-                        <form action="<spring:url value="/internal/iu-list" />" method="get">
+                        <form action="/internal/iu-list" method="get">
                             <div class="row">
                                 <jsp:include page="../b2c-order/include/pagination-capacity-selection.jsp">
                                     <jsp:param name="paginationURL" value="/internal/iu-list?keyword=${param.keyword}" />

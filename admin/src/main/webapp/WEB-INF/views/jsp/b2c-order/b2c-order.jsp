@@ -174,7 +174,7 @@
                                                         <td>${ci.delivery.deliveryTime}</td>
                                                         <td>${ci.delivery.logistics}</td>
                                                         <td>${ci.delivery.trackingNo}</td>
-                                                        <td><a href="<spring:url value="/order/delivery?id=${b2cOrder.id}&cid=${ci.id}" />"><c:choose>
+                                                        <td><a href="/order/delivery?id=${b2cOrder.id}&cid=${ci.id}"><c:choose>
                                                             <c:when test="${ci.delivery.delivered}">
                                                                 <button class="btn btn-xs green btn-circle" data-pgt-btn="send">修改</button>
                                                             </c:when>
@@ -186,7 +186,7 @@
                                                             <c:choose>
                                                                 <c:when test="${ci.delivery.received}">已收货</c:when>
                                                                 <c:otherwise>
-                                                                    <a href="<spring:url value="/order/make-receive?id=${b2cOrder.id}&cid=${ci.id}" />">
+                                                                    <a href="/order/make-receive?id=${b2cOrder.id}&cid=${ci.id}">
                                                                         <button class="btn btn-xs yellow btn-circle" data-pgt-btn="send">收货</button></a>
                                                                 </c:otherwise>
                                                             </c:choose>

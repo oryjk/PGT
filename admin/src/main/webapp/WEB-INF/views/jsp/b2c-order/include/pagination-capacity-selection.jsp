@@ -43,9 +43,9 @@
             <c:choose>
                 <c:when test="${pagination.currentIndex gt 0}">
                     <li class="paginate_button previous" aria-controls="sample_3" tabindex="0" id="sample_3_previous">
-                        <a href="<spring:url value="${paginationURL}&capacity=${pagination.capacity}&currentIndex=${pagination.currentIndex - 1}" />">
+                        <a href="${paginationURL}&capacity=${pagination.capacity}&currentIndex=${pagination.currentIndex - 1}">
                             <i class="fa fa-angle-left"></i></a></li>
-                    <li class="paginate_button"><a href="<spring:url value="${paginationURL}&capacity=${pagination.capacity}&currentIndex=0" />">首页</a></li>
+                    <li class="paginate_button"><a href="${paginationURL}&capacity=${pagination.capacity}&currentIndex=0">首页</a></li>
                 </c:when>
                 <c:otherwise>
                     <li class="paginate_button previous disabled" aria-controls="sample_3" tabindex="0" id="sample_3_previous">
@@ -60,15 +60,15 @@
                     </c:when>
                     <c:otherwise>
                         <li class="paginate_button" aria-controls="sample_3" tabindex="0">
-                            <a href="<spring:url value="${paginationURL}&capacity=${pagination.capacity}&currentIndex=${pageNum}" />">${pageNum + 1}</a></li>
+                            <a href="${paginationURL}&capacity=${pagination.capacity}&currentIndex=${pageNum}">${pageNum + 1}</a></li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
             <c:choose>
                 <c:when test="${pagination.currentIndex lt pagination.maxIndex}">
-                    <li class="paginate_button"><a href="<spring:url value="${paginationURL}&capacity=${pagination.capacity}&currentIndex=${pagination.maxIndex}" />">末页</a></li>
+                    <li class="paginate_button"><a href="${paginationURL}&capacity=${pagination.capacity}&currentIndex=${pagination.maxIndex}">末页</a></li>
                     <li class="paginate_button next" aria-controls="sample_3" tabindex="0" id="sample_3_next">
-                        <a href="<spring:url value="${paginationURL}&capacity=${pagination.capacity}&currentIndex=${pagination.currentIndex + 1}" />">
+                        <a href=${paginationURL}&capacity=${pagination.capacity}&currentIndex=${pagination.currentIndex + 1}">
                             <i class="fa fa-angle-right"></i></a></li>
                 </c:when>
                 <c:otherwise>
