@@ -16,7 +16,7 @@
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
 				<li>
-					<a href="<spring:url value="/"/>">首页</a>
+					<a href="/">首页</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
