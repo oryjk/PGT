@@ -54,34 +54,7 @@
     <link rel="stylesheet" href="${ctx}/resources/core/css/page.css"/>
     <!-- END THEME STYLES -->
     <!--<link rel="shortcut icon" href="favicon.ico">-->
-    <style>
-        #productlist td {
-            vertical-align: middle;
-        }
 
-        #productlist .productlist-box {
-            overflow: visible;
-        }
-
-        #productlist .product-face-box-th {
-            padding: 8px 8px;
-        }
-
-        #productlist .productlist-face-box {
-            text-align: center;
-            padding: 2px 8px;
-        }
-
-        #productlist .productlist-face-box img {
-            width: 40px;
-            height: 40px;
-
-        }
-
-        .link-name {
-            color: black;
-        }
-    </style>
     <script>
         ctx = "${ctx}";
     </script>
@@ -437,7 +410,7 @@
 
 
 <!-- BEGIN PAGE CONTAINER -->
-<div class="page-container" id="${id}">
+<div class="page-container" id="main">
     <div class="page-content">
         <div class="container-fluid">
             <jsp:doBody />
