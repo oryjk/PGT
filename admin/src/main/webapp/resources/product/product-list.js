@@ -27,7 +27,15 @@ $(document).on('click', '[data-pgt-btn="delete"]', function() {
     $('#comfirmBtn')
         .off()
         .click(function() {
-            $.get($this.attr('data-url'))
+            $.ajax({
+                type: 'get',
+                url: $this.attr('data-url'),
+                success: function(param) {
+                    if (param.success == true) {
+                        window.location = location + '?delete' + $this.attr('data-url');
+                    }
+                }
+            })
     });
 });
 

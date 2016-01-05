@@ -82,7 +82,7 @@
 							<div class="col-xs-2">
 								<div class="dataTables_length">
 									<label>主分类
-										<select name="sample_3_length" aria-controls="sample_3"
+										<select id="categorySelect" name="sample_3_length" aria-controls="sample_3"
 												class="form-control input-small input-inline select2-offscreen" path="rootCategoryId"
 												tabindex="-1" title="">
 											<option value="" selected="true">全部</option>
@@ -145,7 +145,7 @@
 														${rootCategory.description}
 												</td>
 												<td class="face-box">
-													<img src="${staticServer}${rootCategory.frontMedia.path}" alt=""/>
+													<img src="${staticServer}${rootCategory.frontMedia.path}" alt="" style="width: 150px;height: 200px;"/>
 												</td>
 												<td>
 														${rootCategory.color}
