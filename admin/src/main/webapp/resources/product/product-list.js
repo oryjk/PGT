@@ -49,3 +49,27 @@ $('#checkAll').change(function() {
         allCheck.prop('checked', false);
     }
 });
+
+$('#mainCategory').change(function() {
+    var $this = $(this);
+    var viceCategory = $('#viceCategory');
+
+    $.ajax({
+        type: 'get',
+        url: '/category/getSubCategoriesAjax/' + $this.val(),
+        success: function(param) {
+            var str = '';
+
+            $.each(param.categories, function(i, data) {
+                str += '<option value="'+data.id+'">'+data.name+'</option>';
+            });
+
+            viceCategory.html(str);
+        }
+    });
+});
+
+$('#viceCategory').change(function() {
+    var $this =$(this);
+    window.location = '/product/productList?categoryId=' + $this.val() + '&currentIndex=0';
+});
