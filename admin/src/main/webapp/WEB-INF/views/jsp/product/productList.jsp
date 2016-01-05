@@ -13,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<admin:container id="productList">
+<admin:container id="productList" pageJsPath="/resources/product/product-list.js">
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -119,11 +119,11 @@
 
 						<div class="table-scrollable list-box">
 							<table class="table table-striped table-bordered table-hover dataTable no-footer"
-								   id="sample_3" role="grid" aria-describedby="sample_3_info">
+								   id="list" role="grid" aria-describedby="sample_3_info">
 								<thead>
 								<tr role="row">
 									<th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="">
-										<input type="checkbox">
+										<input id="checkAll" type="checkbox">
 									</th>
 									<th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
 										colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
@@ -257,24 +257,18 @@
 											1
 										</td>
 										<td>
-											<div class="btn-group">
-												<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
-													<c:choose>
-														<c:when test="${product.status==1}">
-															正售
-														</c:when>
-														<c:otherwise>
-															下架
-														</c:otherwise>
-													</c:choose>
-													<i class="fa fa-angle-down"></i>
-												</a>
-
-											</div>
+											<c:choose>
+												<c:when test="${product.status==1}">
+													正售
+												</c:when>
+												<c:otherwise>
+													下架
+												</c:otherwise>
+											</c:choose>
 										</td>
 										<td>
-											<button class="btn btn-xs green btn-circle" data-url="<spring:url value="/update/${product.productId}"/>">修改</button>
-											<button class="btn btn-xs red btn-circle" data-url="<spring:url value="/delete/${product.productId}"/>">删除</button>
+											<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="<spring:url value="/product/update/${product.productId}"/>">修改</button>
+											<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="<spring:url value="/product/delete/${product.productId}"/>">删除</button>
 										</td>
 									</tr>
 								</c:forEach>
