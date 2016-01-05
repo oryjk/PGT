@@ -20,11 +20,11 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="">商品管理</a>
+					<a href="">分类列表</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
-					<a href="#">商品列表</a>
+					<a href="#">主分类</a>
 				</li>
 			</ul>
 		</div>
@@ -273,70 +273,6 @@
 								</div>
 							</c:otherwise>
 						</c:choose>
-						<div class="row">
-							<link href="${ctx}/resources/core/css/page.css" rel="stylesheet" type="text/css">
-							<div class="col-xs-2">
-								<div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
-									第
-									<span>1</span>
-									条 到 第
-									<span>15</span>
-									条 共
-									<span>100</span>
-									条
-								</div>
-							</div>
-							<div class="col-xs-2">
-								<div class="dataTables_length pgt-each-page">
-									<label>每页显示
-										<select name="sample_3_length" aria-controls="sample_3"
-												class="form-control input-xsmall input-inline select2-offscreen"
-												tabindex="-1" title="">
-											<option value="5">5</option>
-											<option value="15">15</option>
-											<option value="20">20</option>
-											<option value="-1">所有</option>
-										</select> 条</label>
-								</div>
-							</div>
-							<div class="col-md-4 col-sm-4">
-								<div class="dataTables_paginate paging_simple_numbers pgt-page-box">
-									<!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
-									<ul class="pagination">
-										<li class="paginate_button previous disabled"><a href="#"><i
-												class="fa fa-angle-left"></i></a></li>
-										<li class="paginate_button"><a
-												href="#">首页</a></li>
-										<li class="paginate_button disabled"><a
-												href="javascript:;">...</a></li>
-										<li class="paginate_button "><a
-												href="#">3</a></li>
-										<li class="paginate_button "><a
-												href="#">4</a></li>
-										<li class="paginate_button active"><a
-												href="#">5</a></li>
-										<li class="paginate_button"><a
-												href="#">6</a></li>
-										<li class="paginate_button"><a
-												href="#">7</a></li>
-										<li class="paginate_button disabled"><a
-												href="javascript:;">...</a></li>
-										<li class="paginate_button"><a
-												href="#">末页</a></li>
-										<li class="paginate_button next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-xs-2">
-								<form class="dataTables_filter pgt-goto-page">
-									<label>
-										<input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
-										<input type="submit" class="btn blue" value="跳转">
-									</label>
-								</form>
-							</div>
-						</div>
-
 					</div>
 				</div>
 			</div>

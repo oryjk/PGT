@@ -28,7 +28,7 @@ public interface ProductMapper extends SqlMapper {
 
     void updateProduct(Product product);
 
-    void deleteProduct(@Param("productId") String productId);
+    void deleteProduct(@Param("productId") Integer productId);
 
     void deleteProducts(List<String> productIds);
 

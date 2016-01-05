@@ -144,6 +144,7 @@ public class CategoryController {
         LOGGER.debug("The sub category size is {}.", categories.size());
         modelAndView.setViewName("category/categoryList");
         modelAndView.addObject("categories", categories);
+        modelAndView.addObject("categoryType", CategoryType.HIERARCHY);
         return modelAndView;
     }
 }
