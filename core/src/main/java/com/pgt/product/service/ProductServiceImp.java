@@ -210,4 +210,9 @@ public class ProductServiceImp extends TransactionService implements ProductServ
         createProductMedias(product);
     }
 
+    @Override
+    public Integer queryProductTotal(SearchPaginationBean searchPaginationBean) {
+        return productMapper.queryProductTotal(searchPaginationBean);
+    }
+
 }

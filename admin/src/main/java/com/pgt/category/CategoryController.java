@@ -55,7 +55,8 @@ public class CategoryController {
         paginationBean.setCurrentIndex(currentIndex);
         paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
         categoryRequest.setType(categoryType);
-
+        Integer total = categoryService.queryCategoryTotal(categoryRequest);
+        paginationBean.setTotalAmount(total);
         List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("categoryType", categoryType.toString());
