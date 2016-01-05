@@ -2,6 +2,7 @@ package com.pgt.config;
 
 import com.pgt.configuration.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +24,9 @@ public class ConfigInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (ObjectUtils.isEmpty(modelAndView)) {
+            return;
+        }
         modelAndView.addObject("configuration", configuration);
     }
 

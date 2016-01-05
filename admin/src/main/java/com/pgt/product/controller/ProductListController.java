@@ -72,6 +72,7 @@ public class ProductListController {
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("productList", productList);
         modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.addObject("searchPaginationBean", searchPaginationBean);
         modelAndView.setViewName(viewMapperConfiguration.getProductListPage());
         return modelAndView;
     }
