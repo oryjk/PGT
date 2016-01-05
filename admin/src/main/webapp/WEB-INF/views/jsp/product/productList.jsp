@@ -14,7 +14,12 @@
 
 
 <admin:container id="productList" pageJsPath="/resources/product/product-list.js">
-
+	searchPaginationBean:${searchPaginationBean.currentIndex}
+	searchPaginationBean:${searchPaginationBean.totalAmount}
+	searchPaginationBean:${searchPaginationBean.capacity}
+	searchPaginationBean:${searchPaginationBean.nextIndex}
+	searchPaginationBean:${searchPaginationBean.preIndex}
+	searchPaginationBean:${searchPaginationBean.maxIndex}
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">

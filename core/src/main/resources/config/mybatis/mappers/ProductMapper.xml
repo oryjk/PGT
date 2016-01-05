@@ -311,7 +311,7 @@
     <select id="queryProductTotal" parameterType="com.pgt.search.bean.SearchPaginationBean" resultType="int">
         <choose>
             <when test="categoryId!=null">
-                SELECT COUNT(PRODUCT_ID) FROM PRODUCT p left join
+                SELECT COUNT(p.PRODUCT_ID) FROM PRODUCT p left join
                 PRODUCT_CATEGORY pc
                 on
                 pc.CATEGORY_ID=#{categoryId} where
