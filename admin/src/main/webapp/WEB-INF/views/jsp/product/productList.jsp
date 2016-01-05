@@ -13,13 +13,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<admin:container id="productList">
-	searchPaginationBean:${searchPaginationBean.currentIndex}
-	searchPaginationBean:${searchPaginationBean.totalAmount}
-	searchPaginationBean:${searchPaginationBean.capacity}
-	searchPaginationBean:${searchPaginationBean.nextIndex}
-	searchPaginationBean:${searchPaginationBean.preIndex}
-	searchPaginationBean:${searchPaginationBean.maxIndex}
+<admin:container id="productList" pageJsPath="/resources/product/product-list.js">
+
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -46,7 +41,7 @@
 						<span class="caption-subject font-green-sharp bold uppercase">表格</span>
 					</div>
 					<div class="actions btn-set">
-						<button class="btn green-haze btn-circle" data-url="/product/create"><i class="fa fa-plus"></i> 新增</button>
+						<button class="btn green-haze btn-circle" data-pgt-btn="create" data-url="<spring:url value="/product/create"/>"><i class="fa fa-plus"></i> 新增</button>
 						<div class="btn-group">
 							<a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
 								<i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>
@@ -87,7 +82,7 @@
 									<label>主分类
 										<select name="sample_3_length" aria-controls="sample_3"
 												class="form-control input-small input-inline select2-offscreen"
-												tabindex="-1" title="">
+												id="mainCategory" tabindex="-1" title="">
 											<option value="" selected="true">全部</option>
 											<c:forEach items="${categories}" var="category">
 												<option value="${category.id}">${category.name}</option>
@@ -100,7 +95,7 @@
 									<label>次分类
 										<select name="sample_3_length" aria-controls="sample_3"
 												class="form-control input-small input-inline select2-offscreen"
-												tabindex="-1" title="">
+												id="viceCategory" tabindex="-1" title="">
 											<option value="5">橄榄核雕</option>
 											<option value="15">牦牛角</option>
 											<option value="20">骆驼骨头</option>
@@ -124,11 +119,11 @@
 
 						<div class="table-scrollable list-box">
 							<table class="table table-striped table-bordered table-hover dataTable no-footer"
-								   id="sample_3" role="grid" aria-describedby="sample_3_info">
+								   id="list" role="grid" aria-describedby="sample_3_info">
 								<thead>
 								<tr role="row">
 									<th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="">
-										<input type="checkbox">
+										<input id="checkAll" type="checkbox">
 									</th>
 									<th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
 										colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
@@ -262,24 +257,18 @@
 											1
 										</td>
 										<td>
-											<div class="btn-group">
-												<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown">
-													<c:choose>
-														<c:when test="${product.status==1}">
-															正售
-														</c:when>
-														<c:otherwise>
-															下架
-														</c:otherwise>
-													</c:choose>
-													<i class="fa fa-angle-down"></i>
-												</a>
-
-											</div>
+											<c:choose>
+												<c:when test="${product.status==1}">
+													正售
+												</c:when>
+												<c:otherwise>
+													下架
+												</c:otherwise>
+											</c:choose>
 										</td>
 										<td>
-											<button class="btn btn-xs green btn-circle" data-url="/update/${product.productId}">修改</button>
-											<button class="btn btn-xs red btn-circle" data-url="/delete/${product.productId}">删除</button>
+											<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="<spring:url value="/product/update/${product.productId}"/>">修改</button>
+											<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="<spring:url value="/product/delete/${product.productId}"/>">删除</button>
 										</td>
 									</tr>
 								</c:forEach>

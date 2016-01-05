@@ -430,6 +430,28 @@
 
 <!-- END PAGE CONTAINER -->
 
+    <!--super: 确认操作modal-->
+    <div class="modal fade bs-modal-sm" id="confirmModal" tabindex="-1" role="basic" aria-hidden="true" style="display:
+    none;">
+    <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">确认</h4>
+    </div>
+    <form action="#" class="form-horizontal">
+    <div class="modal-body" id="confirmText">
+    确认你的操作
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn default" data-dismiss="modal">取消</button>
+    <button type="button" class="btn blue" id="comfirmBtn">确定</button>
+    </div>
+    </form>
+    </div>
+    </div>
+    <!-- /.modal-content -->
+
 <!-- BEGIN JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>

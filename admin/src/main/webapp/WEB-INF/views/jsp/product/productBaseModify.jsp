@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<admin:container id="productList" pageJsPath="/resources/product/product-add-and-modify.js">
+<admin:container id="productList" pageJsPath="/resources/product/product-base.js">
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -30,11 +30,11 @@
 	</div>
 
 	<!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
-	<div class="row" style="display: block">
+	<div class="row" id="alertRow" style="display: none">
 		<div class="col-xs-12">
 			<div class="Metronic-alerts alert alert-danger fade in">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-				<p>错误信息</p>
+				<p id="alertText">错误信息</p>
 			</div>
 		</div>
 	</div>
@@ -95,7 +95,7 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label">所属商家id</label>
 								<div class="col-md-4">
-									<input type="" class="form-control" placeholder="商家id">
+									<input type="text" class="form-control" placeholder="商家id">
 								</div>
 							</div>
 							<div class="form-group">
@@ -151,7 +151,7 @@
 						<div class="form-actions top">
 							<div class="row">
 								<div class="col-md-offset-3 col-md-9">
-									<button type="submit" class="btn blue-hoki">下一步</button>
+									<button type="submit" class="btn blue-hoki" id="newStep">下一步</button>
 									<button type="button" class="btn default">取消</button>
 								</div>
 							</div>
