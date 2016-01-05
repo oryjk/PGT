@@ -18,7 +18,7 @@
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
 				<li>
-					<a href="<spring:url value="/"/>">首页</a>
+					<a href="/">首页</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
@@ -40,7 +40,11 @@
 						<span class="caption-subject font-green-sharp bold uppercase">表格</span>
 					</div>
 					<div class="actions btn-set">
+<<<<<<< HEAD
 						<button class="btn green-haze btn-circle" data-pgt-btn="create" data-url="<spring:url value="/product/create"/>"><i class="fa fa-plus"></i> 新增</button>
+=======
+						<button class="btn green-haze btn-circle" data-url="/product/create"><i class="fa fa-plus"></i> 新增</button>
+>>>>>>> 3fcd1a9f56d4869b5312b76630d804316cacb84b
 						<div class="btn-group">
 							<a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
 								<i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>
