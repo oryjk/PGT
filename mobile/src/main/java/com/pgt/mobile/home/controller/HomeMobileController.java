@@ -78,7 +78,11 @@ public class HomeMobileController extends BaseMobileController{
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             responseMap.put("hotSearchList",hotSearchList);
-            return responseMap;
+
+             Banner banner = bannerService.queryBanner(1);
+             responseMap.put("banner",banner);
+
+             return responseMap;
     }
 
 
