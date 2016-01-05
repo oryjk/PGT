@@ -17,5 +17,5 @@
 
 $('#categorySelect').change(function() {
     var $this = $(this);
-    window.location = '/admin/category/getSubCategories/' + $this.val();
+    window.location = '/category/getSubCategories/' + $this.val();
 });
