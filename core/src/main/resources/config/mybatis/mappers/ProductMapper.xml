@@ -182,7 +182,7 @@
                     <if test="capacity != null">
                         <choose>
                             <when test="capacity>-1">
-                                limit #{currentIndex}*20, #{capacity}
+                                limit #{sqlStartIndex}, #{capacity}
                             </when>
                             <otherwise>
                             </otherwise>
