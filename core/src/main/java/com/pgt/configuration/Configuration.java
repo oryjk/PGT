@@ -23,6 +23,7 @@ public class Configuration {
 	private Integer adminCategoryCapacity;
 	private String imageFolder="/image/upload/";
 	private String staticServer="http://www.pgt_admin.com";
+	private boolean useProxy=true;
 
 	public Integer getPlpCapacity() {
 		return plpCapacity;
@@ -184,5 +185,13 @@ public class Configuration {
 
 	public void setStaticServer(String staticServer) {
 		this.staticServer = staticServer;
+	}
+
+	public boolean getUseProxy() {
+		return useProxy;
+	}
+
+	public void setUseProxy(boolean useProxy) {
+		this.useProxy = useProxy;
 	}
 }

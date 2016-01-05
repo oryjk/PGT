@@ -147,4 +147,19 @@ public class CategoryController {
         modelAndView.addObject("categoryType", CategoryType.HIERARCHY);
         return modelAndView;
     }
+
+
+    @RequestMapping(value = "/getSubCategoriesAjax/{rootCategoryId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity getSubCategories(@PathVariable("rootCategoryId") Integer rootCategoryId) {
+        LOGGER.debug("The root category id is {}.", rootCategoryId);
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        List<Category> categories = categoryService.querySubCategories(rootCategoryId);
+        LOGGER.debug("The sub category size is {}.", categories.size());
+        Map<String, Object> body = responseEntity.getBody();
+        body.put("categories", categories);
+
+        return responseEntity;
+    }
+
 }

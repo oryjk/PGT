@@ -3,9 +3,24 @@
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <spring:url var="adminStaticPath" value="${adminStaticPath}"/>
-<script type="text/javascript" charset="utf-8" src="${adminStaticPath }/core/js/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="${adminStaticPath }/core/js/ueditor/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="${adminStaticPath }/core/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<%
+	String ctx = request.getContextPath();
+	request.setAttribute("ctx", ctx);
+%>
+
+<c:choose>
+	<c:when test="${configuration.useProxy}">
+		<c:set var="ctx" value="" scope="request"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="ctx" value="${ctx}" scope="request"/>
+	</c:otherwise>
+</c:choose>
+
+<script type="text/javascript" charset="utf-8" src="${ctx}/resources/core/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctx }/resources/core/js/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="${ctx }/resources/core/js/ueditor/lang/zh-cn/zh-cn.js"></script>
 <pgt:container id="content">
 	<div class="page-content">
         <div class="container-fluid pgt-container">
@@ -97,6 +112,6 @@
     </div>
 </pgt:container>
 
-<script src="${adminStaticPath }/help/artcle-add-and-modify.js"></script>
+<script src="${ctx}/resources/help/artcle-add-and-modify.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
