@@ -75,7 +75,7 @@
 						</ul>
 
 						<h2 style="border-bottom: 2px solid ${homeCategory['source']['category']['color']}">
-							${homeCategory['source']['category']['name']} <small style="color: ${homeCategory['source']['category']['color']}">品真 质纯 艺臻</small>
+							${homeCategory['source']['category']['name']} <small style="color: ${homeCategory['source']['category']['color']}">${homeCategory['source']['category']['description']}</small>
 						</h2>
 						<div class="products">
 
@@ -137,7 +137,7 @@
 								更多></a></li>
 						</ul>
 						<h2 style="border-bottom: 2px solid ${homeCategory['source']['category']['color']}">
-							${homeCategory['source']['category']['name']} <small style="color: ${homeCategory['source']['category']['color']}">品真 质纯 艺臻</small>
+							${homeCategory['source']['category']['name']} <small style="color: ${homeCategory['source']['category']['color']}">${homeCategory['source']['category']['description']}</small>
 						</h2>
 						<div class="products">
 
