@@ -202,7 +202,7 @@
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 						   data-close-others="true">
 							<img alt="" class="img-circle" src="${ctx}/resources/assets/admin/layout3/img/avatar9.jpg">
-							<span class="username username-hide-mobile">超级管理员</span>
+							<span class="username username-hide-mobile">${empty internal_user.name ? internal_user.login : internal_user.name}</span>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">
 							<li>
@@ -236,7 +236,7 @@
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown dropdown-extended quick-sidebar-toggler">
 						<span class="sr-only">Toggle Quick Sidebar</span>
-						<i class="icon-logout"></i>
+						<a href="/logout"><i class="icon-logout"></i></a>
 					</li>
 					<!-- END USER LOGIN DROPDOWN -->
 				</ul>
@@ -254,7 +254,7 @@
 			<div class="hor-menu ">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="<spring:url value="/"/>">首页</a>
+						<a href="/dashboard">首页</a>
 					</li>
 
 					<!-- !!!list 商品管理-->
