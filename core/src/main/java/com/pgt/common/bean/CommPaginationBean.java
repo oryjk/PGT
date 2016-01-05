@@ -12,8 +12,22 @@ public class CommPaginationBean extends PaginationBean {
 
 	private long endPageIndex; // totalAmount
 
+	private long currentIndex;
+
+
 	public CommPaginationBean() {
 
+	}
+
+
+	@Override
+	public long getCurrentIndex() {
+		return currentIndex;
+	}
+
+	@Override
+	public void setCurrentIndex(long currentIndex) {
+		this.currentIndex = currentIndex;
 	}
 
 	public CommPaginationBean(long capacity, long currentIndex, long totalAmount) {
@@ -86,6 +100,7 @@ public class CommPaginationBean extends PaginationBean {
 
 		return endPageIndex;
 	}
+
 
 	public void setEndPageIndex(long endPageIndex) {
 		this.endPageIndex = endPageIndex;
