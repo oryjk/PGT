@@ -35,7 +35,7 @@
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form action="<spring:url value="/order/make-delivery" />" class="form-horizontal" method="post">
+                    <form action="/order/make-delivery" class="form-horizontal" method="post">
                         <input type="hidden" name="id" value="${param.id}" />
                         <input type="hidden" name="cid" value="${param.cid}" />
                         <input type="hidden" name="commerceItemId" value="${commerceItem.delivery.commerceItemId}" />
@@ -115,7 +115,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn blue-hoki">确认</button>
-                                    <a href="<spring:url value="/order/order-info?id=${param.id}" />"><button type="button" class="btn default">取消</button></a>
+                                    <a href="/order/order-info?id=${param.id}"><button type="button" class="btn default">取消</button></a>
                                 </div>
                             </div>
                         </div>

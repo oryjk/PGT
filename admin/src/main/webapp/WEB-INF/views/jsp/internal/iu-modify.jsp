@@ -38,7 +38,7 @@
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form action="<spring:url value="/internal/iu-modify" />" class="form-horizontal" method="post">
+                    <form action="/internal/iu-modify" class="form-horizontal" method="post">
                         <input type="hidden" name="investType" value="NONEED">
                         <input type="hidden" name="id" value="${iu.id}">
                         <div class="form-body">
