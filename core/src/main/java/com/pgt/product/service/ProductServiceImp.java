@@ -173,11 +173,12 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public void deleteProduct(String productId) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
-            productMapper.deleteProduct(productId);
+            productMapper.deleteProduct(Integer.valueOf(productId));
             productMapper.deleteProductCategoryRelationByProductId(Integer.valueOf(productId));
 
         } catch (Exception e) {
-            LOGGER.error("Some thing wrong when delete a product with product is is {productId}", productId);
+            LOGGER.error("Some thing wrong when delete a product with product is is {}.", productId);
+            LOGGER.error(e.getMessage());
             getTransactionManager().rollback(transactionStatus);
         }
     }
