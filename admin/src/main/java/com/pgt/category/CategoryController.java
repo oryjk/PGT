@@ -60,6 +60,7 @@ public class CategoryController {
         List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("categoryType", categoryType.toString());
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("category/categoryList");
         return modelAndView;
     }
@@ -137,15 +138,12 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/getSubCategories/{rootCategoryId}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity getSubCategories(@PathVariable("rootCategoryId") Integer rootCategoryId) {
+    public ModelAndView getSubCategories(@PathVariable("rootCategoryId") Integer rootCategoryId, ModelAndView modelAndView) {
         LOGGER.debug("The root category id is {}.", rootCategoryId);
-        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         List<Category> categories = categoryService.querySubCategories(rootCategoryId);
         LOGGER.debug("The sub category size is {}.", categories.size());
-        Map<String, Object> body = responseEntity.getBody();
-        body.put("categories", categories);
-
-        return responseEntity;
+        modelAndView.setViewName("category/categoryList");
+        modelAndView.addObject("categories", categories);
+        return modelAndView;
     }
 }

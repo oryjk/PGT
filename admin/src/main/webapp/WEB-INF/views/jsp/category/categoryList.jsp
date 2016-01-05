@@ -145,7 +145,7 @@
 														${rootCategory.description}
 												</td>
 												<td class="face-box">
-													<img src="" alt=""/>
+													<img src="${staticServer}${rootCategory.frontMedia.path}" alt=""/>
 												</td>
 												<td>
 														${rootCategory.color}

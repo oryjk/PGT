@@ -61,11 +61,12 @@ public class ProductListController {
         Category categoryRequest = new Category();
         categoryRequest.setCode(null);
         PaginationBean paginationBean = new PaginationBean();
-        paginationBean.setCurrentIndex(0L);
         paginationBean.setCapacity(10000L);
+        paginationBean.setCurrentIndex(-1);
+        categoryRequest.setType(CategoryType.ROOT);
         Integer total = categoryService.queryCategoryTotal(categoryRequest);
         paginationBean.setTotalAmount(total);
-        categoryRequest.setType(CategoryType.ROOT);
+        paginationBean.setCurrentIndex(0);
         List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
         modelAndView.addObject("categoryHierarchy", categoryHierarchy);
         modelAndView.addObject("categories", categories);
@@ -100,9 +101,11 @@ public class ProductListController {
             sortBean.setSort(sortValue);
             searchPaginationBean.setSortBeans(Lists.newArrayList(sortBean));
         }
-        if (currentIndex == null) {
+        if (ObjectUtils.isEmpty(currentIndex)) {
             currentIndex = 0L;
         }
+        searchPaginationBean.setCurrentIndex(-1);
+        searchPaginationBean.setCapacity(100000);
         Integer total = productService.queryProductTotal(searchPaginationBean);
         searchPaginationBean.setCurrentIndex(currentIndex);
         searchPaginationBean.setCapacity(configuration.getAdminPlpCapacity());
