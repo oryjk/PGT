@@ -1,0 +1,1 @@
+update CATEGORIES  set code = '1'
