@@ -19,7 +19,6 @@
         <result column="STATUS" property="status"></result>
         <result column="DESCRIPTION" property="description"></result>
         <result column="SHIPPING_FEE" property="shippingFee"></result>
-        <result column="RELATED_CATEGORY_ID" property="relatedCategoryId"></result>
         <result column="STOCK" property="stock"></result>
         <result column="CREATION_DATE" property="creationDate"></result>
         <result column="UPDATE_DATE" property="updateDate"></result>
@@ -28,7 +27,8 @@
         <result column="TITLE" property="title"/>
         <result column="KEY_WORD" property="keyWord"/>
         <result column="MERCHANT" property="merchant"/>
-
+        <association property="relatedCategoryId" column="PRODUCT_ID"
+                     select="queryRelatedCategoryId"/>
         <association property="shippingAddress" column="PRODUCT_ID"
                      select="com.pgt.shipping.dao.ShippingAddressMapper.queryAddressByProduct"/>
         <association property="expertMedia" column="PRODUCT_ID" select="queryProductExpertMedia"/>
@@ -343,5 +343,9 @@
                 p.IS_NEW = #{isNew}
             </where>
         </if>
+    </select>
+
+    <select id="queryRelatedCategoryId" resultType="string" parameterType="int">
+        SELECT CATEGORY_ID FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId}
     </select>
 </mapper>

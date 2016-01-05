@@ -53,17 +53,19 @@
 						<div class="form-body">
 							<!-- 只有在修改时才显示id行-->
 							<c:if test="${!empty product.productId}">
-							<div class="form-group">
-								<label class="col-md-3 control-label">id</label>
-								<div class="col-md-4">
-									<p class="form-control-static">
-										${product.productId}
-									</p>
+								<div class="form-group">
+									<label class="col-md-3 control-label">id</label>
+
+									<div class="col-md-4">
+										<p class="form-control-static">
+												${product.productId}
+										</p>
+									</div>
 								</div>
-							</div>
 							</c:if>
 							<div class="form-group">
 								<label class="col-md-3 control-label">产品名称:</label>
+
 								<div class="col-md-4">
 									<form:input path="name" placeholder="不超过30字" class="form-control"/>
 									</p>
@@ -71,11 +73,20 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3">所属分类</label>
+
 								<div class="col-md-9">
 									<div class="radio-list">
 										<form:select path="relatedCategoryId" class="form-control input-medium">
 											<c:forEach items="${categories}" var="category">
-												<form:option value="${category.id}">${category.name}</form:option>
+												<c:choose>
+													<c:when test="${category.id eq product.relatedCategoryId}">
+														<option selected="selected" value="${category.id}">${category.name}</option>
+													</c:when>
+													<c:otherwise>
+														<form:option value="${category.id}">${category.name}</form:option>
+													</c:otherwise>
+												</c:choose>
+
 											</c:forEach>
 										</form:select>
 									</div>
@@ -83,6 +94,7 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3">是否热门</label>
+
 								<div class="col-md-9">
 									<div class="radio-list">
 										<form:select path="isHot" class="form-control input-medium">
@@ -94,48 +106,56 @@
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">所属商家id</label>
+
 								<div class="col-md-4">
 									<input type="text" class="form-control" placeholder="商家id">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">卖点描述</label>
+
 								<div class="col-md-4">
-									<form:input  path="title" class="form-control" placeholder="不超过20字"/>
+									<form:input path="title" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">款式</label>
+
 								<div class="col-md-4">
 									<form:input path="shortDescription" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">成色</label>
+
 								<div class="col-md-4">
 									<form:input path="isNew" class="form-control" placeholder="不超过10字"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">库存</label>
+
 								<div class="col-md-4">
 									<form:input path="stock" class="form-control" placeholder="不超过20字" value="1"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">市场价</label>
+
 								<div class="col-md-4">
 									<form:input path="listPrice" class="form-control" placeholder="格式为xxxx.xx"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">绝当价</label>
+
 								<div class="col-md-4">
 									<form:input path="salePrice" class="form-control" placeholder="格式为xxxx.xx"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3">状态</label>
+
 								<div class="col-md-9">
 									<div class="radio-list">
 										<form:select path="status" class="form-control input-medium">
