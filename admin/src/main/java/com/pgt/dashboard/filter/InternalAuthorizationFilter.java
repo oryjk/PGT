@@ -34,6 +34,9 @@ public class InternalAuthorizationFilter implements Filter {
 	private static final String SUFFIX_CSS = ".css";
 	private static final String SUFFIX_JPG = ".jpg";
 	private static final String SUFFIX_PNG = ".png";
+	private static final String SUFFIX_WOFF2 = ".woff2";
+	private static final String SUFFIX_WOFF = ".woff";
+	private static final String SUFFIX_TTF = ".ttf";
 
 	@Override
 	public void init(final FilterConfig filterConfig) throws ServletException {
@@ -65,7 +68,8 @@ public class InternalAuthorizationFilter implements Filter {
 				LOGGER.debug("Pass login page request.");
 				return true;
 			}
-			if (requestURI.endsWith(SUFFIX_JS) || requestURI.endsWith(SUFFIX_CSS) || requestURI.endsWith(SUFFIX_JPG) || requestURI.endsWith(SUFFIX_PNG)) {
+			if (requestURI.endsWith(SUFFIX_JS) || requestURI.endsWith(SUFFIX_CSS) || requestURI.endsWith(SUFFIX_JPG) || requestURI.endsWith(SUFFIX_PNG) || requestURI.contains
+					(SUFFIX_WOFF) || requestURI.contains(SUFFIX_WOFF2) || requestURI.contains(SUFFIX_TTF)) {
 				LOGGER.debug("Pass js/css/image request.");
 				return true;
 			}
