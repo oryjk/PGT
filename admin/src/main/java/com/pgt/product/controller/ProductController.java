@@ -101,16 +101,22 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/delete/{productId}", method = RequestMethod.GET)
-    public ModelAndView deleteProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
+    @ResponseBody
+    public ResponseEntity deleteProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
         LOGGER.debug("Delete the product with product is is {}.", productId);
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
+        Map<String, Object> response = responseEntity.getBody();
         if (StringUtils.isEmpty(productId)) {
             LOGGER.debug("The parameter product id is null.");
-            return modelAndView;
+            response.put("success", false);
+            response.put("message", "The product id is empty.");
+            return responseEntity;
         }
 
         productService.deleteProduct(productId);
+        response.put("success", true);
         LOGGER.debug("The product has deleted with product is is {}.", productId);
-        return modelAndView;
+        return responseEntity;
     }
 
     @RequestMapping(value = "/delete/list", method = RequestMethod.POST)
