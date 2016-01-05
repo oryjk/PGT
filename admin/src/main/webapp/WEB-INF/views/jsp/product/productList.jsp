@@ -272,7 +272,7 @@
 											</div>
 										</td>
 										<td>
-											<button class="btn btn-xs green btn-circle" data-url="<spring:url value="/update/${product.productId}"/>">修改</button>
+											<button class="btn btn-xs green btn-circle" data-url="/update/${product.productId}">修改</button>
 											<button class="btn btn-xs red btn-circle" data-url="<spring:url value="/delete/${product.productId}"/>">删除</button>
 										</td>
 									</tr>

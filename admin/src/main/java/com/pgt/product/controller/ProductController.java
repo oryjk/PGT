@@ -115,7 +115,7 @@ public class ProductController {
 
         productService.deleteProduct(productId);
         response.put("success", true);
-        LOGGER.debug("The product has deleted with product is is {}.", productId);
+        LOGGER.debug("The product has deleted with product id is {}.", productId);
         return responseEntity;
     }
 
