@@ -66,9 +66,6 @@ public class Category extends BaseBean {
     }
 
     public String getCode() {
-        if (StringUtils.isBlank(code)) {
-            return "1";
-        }
         return code;
     }
 

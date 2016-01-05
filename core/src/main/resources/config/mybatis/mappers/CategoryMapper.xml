@@ -96,9 +96,6 @@
         <if test="category.type!=null">
             AND TYPE=#{category.type}
         </if>
-        <if test="category.code!=null">
-            AND CODE=#{category.code}
-        </if>
         <if test="category.status!=null">
             AND STATUS=${category.status}
         </if>
