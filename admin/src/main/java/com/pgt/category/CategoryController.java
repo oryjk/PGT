@@ -60,6 +60,7 @@ public class CategoryController {
         List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("categoryType", categoryType.toString());
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("category/categoryList");
         return modelAndView;
     }

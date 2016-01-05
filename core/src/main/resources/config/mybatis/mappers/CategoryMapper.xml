@@ -107,7 +107,7 @@
         </if>
         <if test="paginationBean!=null">
             <if test="paginationBean.currentIndex != null">
-                <if test="paginationBean.capacity != null">
+                <if test="paginationBean.capacity >-1">
                     limit #{paginationBean.currentIndex}, #{paginationBean.capacity}
                 </if>
             </if>
