@@ -105,13 +105,6 @@
 							</div>
 							<div class="col-md-2 col-sm-2">
 								<div class="dataTables_filter">
-									<label>持有人:<input type="search" class="form-control input-small input-inline"
-													  placeholder="" aria-controls="sample_3">
-									</label>
-								</div>
-							</div>
-							<div class="col-md-2 col-sm-2">
-								<div class="dataTables_filter">
 									<label>名称:<input type="search" class="form-control input-small input-inline"
 													 placeholder="" aria-controls="sample_3">
 									</label>
@@ -124,7 +117,7 @@
 							</div>
 						</div>
 
-						<div class="table-scrollable productlist-box">
+						<div class="table-scrollable list-box">
 							<table class="table table-striped table-bordered table-hover dataTable no-footer"
 								   id="sample_3" role="grid" aria-describedby="sample_3_info">
 								<thead>
@@ -191,7 +184,7 @@
 										aria-label="Status : activate to sort column ascending">
 										绝当价(元)
 									</th>
-									<th class="sorting product-face-box-th" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
+									<th class="sorting face-box-th" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
 										aria-label="Status : activate to sort column ascending">
 										略缩图
 									</th>
@@ -257,7 +250,7 @@
 										<td>
 											${product.salePrice}
 										</td>
-										<td class="productlist-face-box">
+										<td class="face-box">
 											<img src="${staticServer}${product.thumbnailMedias[0].path}" alt=""/>
 										</td>
 										<td>
