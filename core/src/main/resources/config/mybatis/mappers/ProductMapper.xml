@@ -182,7 +182,7 @@
                     <if test="capacity != null">
                         <choose>
                             <when test="capacity>-1">
-                                limit #{currentIndex}, #{capacity}
+                                limit #{currentIndex}*20, #{capacity}
                             </when>
                             <otherwise>
                             </otherwise>
@@ -318,7 +318,7 @@
                 p.PRODUCT_ID=pc.PRODUCT_ID
             </when>
             <otherwise>
-                SELECT COUNT(PRODUCT_ID) FROM PRODUCT p where 1=1
+                SELECT COUNT(p.PRODUCT_ID) FROM PRODUCT p where 1=1
             </otherwise>
         </choose>
 
@@ -342,33 +342,6 @@
             <where>
                 p.IS_NEW = #{isNew}
             </where>
-        </if>
-
-        <if test="sortBeans!=null">
-            ORDER BY
-            <foreach collection="sortBeans" item="sortBean" index="index">
-                #{sortBean.propertyName} #{sortBean.sort}
-                <if test="index+1 != sortBeans.size">
-                    ,
-                </if>
-            </foreach>
-        </if>
-        <if test="currentIndex != null">
-            <choose>
-                <when test="currentIndex >-1">
-                    <if test="capacity != null">
-                        <choose>
-                            <when test="capacity>-1">
-                                limit #{currentIndex}, #{capacity}
-                            </when>
-                            <otherwise>
-                            </otherwise>
-                        </choose>
-                    </if>
-                </when>
-                <otherwise>
-                </otherwise>
-            </choose>
         </if>
     </select>
 </mapper>

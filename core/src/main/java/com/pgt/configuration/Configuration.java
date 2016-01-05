@@ -19,7 +19,7 @@ public class Configuration {
 	private String resourcePath;
 	private String initialDataPath;
 	private String imagePath;
-	private Integer adminPlpCapacity;
+	private Integer adminPlpCapacity=20;
 	private Integer adminCategoryCapacity;
 	private String imageFolder="/image/upload/";
 	private String staticServer="http://www.pgt_admin.com";
