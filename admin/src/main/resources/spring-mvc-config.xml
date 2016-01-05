@@ -51,9 +51,12 @@
         </mvc:interceptor>
 
     </mvc:interceptors>-->
-
-
-
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.pgt.config.ConfigInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
