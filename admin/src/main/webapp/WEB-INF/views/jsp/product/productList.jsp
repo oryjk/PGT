@@ -14,12 +14,6 @@
 
 
 <admin:container id="productList" pageJsPath="/resources/product/product-list.js">
-	searchPaginationBean:${searchPaginationBean.currentIndex}
-	searchPaginationBean:${searchPaginationBean.totalAmount}
-	searchPaginationBean:${searchPaginationBean.capacity}
-	searchPaginationBean:${searchPaginationBean.nextIndex}
-	searchPaginationBean:${searchPaginationBean.preIndex}
-	searchPaginationBean:${searchPaginationBean.maxIndex}
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -144,7 +138,7 @@
 												<c:forEach items="${categories}" var="category">
 													<li>
 														<a href="javascript:;" data-value="${category.id}">
-															${category.name}
+																${category.name}
 														</a>
 													</li>
 												</c:forEach>
@@ -231,13 +225,13 @@
 											<input type="checkbox">
 										</td>
 										<td class="sorting_1">
-											${product.productId}
+												${product.productId}
 										</td>
 										<td>
-											${categoryHierarchy.parentCategory.name}
+												${categoryHierarchy.parentCategory.name}
 										</td>
 										<td>
-											${categoryHierarchy.name}
+												${categoryHierarchy.name}
 										</td>
 										<td>
 											<a class="link-name" href="#">
@@ -246,14 +240,14 @@
 										</td>
 										<td>
 											<a class="link-name" href="#">
-												${product.name}
+													${product.name}
 											</a>
 										</td>
 										<td>
-											${product.listPrice}
+												${product.listPrice}
 										</td>
 										<td>
-											${product.salePrice}
+												${product.salePrice}
 										</td>
 										<td class="face-box">
 											<img src="${staticServer}${product.thumbnailMedias[0].path}" alt=""/>
@@ -272,8 +266,12 @@
 											</c:choose>
 										</td>
 										<td>
-											<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="<spring:url value="/product/update/${product.productId}"/>">修改</button>
-											<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="<spring:url value="/product/delete/${product.productId}"/>">删除</button>
+											<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/product/update/${product.productId}">
+												修改
+											</button>
+											<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/product/delete/${product.productId}">
+												删除
+											</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -286,7 +284,7 @@
 							<div class="col-xs-2">
 								<div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
 									第
-									<span>${searchPaginationBean.sqlStartIndex}</span>
+									<span>${searchPaginationBean.sqlStartIndex+1}</span>
 									条 到 第
 									<span>${searchPaginationBean.sqlStartIndex+searchPaginationBean.capacity}</span>
 									条 共
@@ -303,7 +301,6 @@
 											<option value="5">5</option>
 											<option value="15">15</option>
 											<option value="20">20</option>
-											<option value="-1">所有</option>
 										</select> 条</label>
 								</div>
 							</div>
@@ -314,23 +311,41 @@
 										<li class="paginate_button previous disabled"><a href="#"><i
 												class="fa fa-angle-left"></i></a></li>
 										<li class="paginate_button"><a
-												href="#">首页</a></li>
-										<li class="paginate_button disabled"><a
-												href="javascript:;">...</a></li>
-										<li class="paginate_button "><a
-												href="#">3</a></li>
-										<li class="paginate_button "><a
-												href="#">4</a></li>
-										<li class="paginate_button active"><a
-												href="#">5</a></li>
+												href="/product/productList?currentIndex=0">首页</a></li>
+
+										<c:choose>
+											<c:when test="${searchPaginationBean.maxIndex}>5">
+												<li class="paginate_button disabled"><a
+														href="javascript:;">...</a></li>
+												<li class="paginate_button "><a
+														href="#">3</a></li>
+												<li class="paginate_button "><a
+														href="#">4</a></li>
+												<li class="paginate_button active"><a
+														href="#">5</a></li>
+												<li class="paginate_button"><a
+														href="#">6</a></li>
+												<li class="paginate_button"><a
+														href="#">7</a></li>
+												<li class="paginate_button disabled"><a
+														href="javascript:;">...</a></li>
+											</c:when>
+											<c:otherwise>
+												<c:forEach var="current" begin="1" end="${searchPaginationBean.maxIndex+1}">
+
+													<li class="paginate_button <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if> ">
+														<a href="/product/productList?currentIndex=${current-1}">${current}</a>
+													</li>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+
+
+
+
+
 										<li class="paginate_button"><a
-												href="#">6</a></li>
-										<li class="paginate_button"><a
-												href="#">7</a></li>
-										<li class="paginate_button disabled"><a
-												href="javascript:;">...</a></li>
-										<li class="paginate_button"><a
-												href="#">末页</a></li>
+												href="/product/productList?currentIndex=${searchPaginationBean.maxIndex}">末页</a></li>
 										<li class="paginate_button next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
 									</ul>
 								</div>
