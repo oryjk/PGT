@@ -60,6 +60,7 @@ public class ProductController {
         modelAndView.addObject("product", new Product());
         List<Category> categories = categoryService.queryAllParentCategories();
         modelAndView.addObject("categories", categories);
+        modelAndView.addObject("action", "/product/create/stepBase");
         modelAndView.setViewName("/product/productBaseModify");
         return modelAndView;
     }
@@ -135,12 +136,28 @@ public class ProductController {
     @RequestMapping(value = "/update/{productId}", method = RequestMethod.GET)
     public ModelAndView updateProduct(@PathVariable("productId") Integer productId, ModelAndView modelAndView) {
         Product product = productService.queryProduct(productId);
-        modelAndView.setViewName("/product/addAndModifyProduct");
+        List<Category> categories = categoryService.queryAllParentCategories();
+        modelAndView.setViewName("/product/productBaseModify");
         if (ObjectUtils.isEmpty(product)) {
             LOGGER.debug("The product is empty with id {}.", productId);
             return modelAndView;
         }
         modelAndView.addObject("product", product);
+        modelAndView.addObject("categories", categories);
+        modelAndView.addObject("action", "/product/update/stepBase");
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/update/stepBase", method = RequestMethod.POST)
+    public ModelAndView updateStepBase(Product product, ModelAndView modelAndView) {
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty.");
+            return modelAndView;
+        }
+        productService.updateProduct(product);
+        modelAndView.addObject("product", product);
+        modelAndView.setViewName("/product/productImageModify");
         return modelAndView;
     }
 
