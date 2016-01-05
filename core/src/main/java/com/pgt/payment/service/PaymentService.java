@@ -181,8 +181,8 @@ public class PaymentService extends Transactionable {
                 row.createCell(5).setCellValue(trackingNoValue);
                 rowNum++;
             }
-
             currentIndex++;
+            paginationBean.setCurrentIndex(currentIndex);
         }
         wb.write(out);
     }
@@ -208,7 +208,7 @@ public class PaymentService extends Transactionable {
     public TransactionReportConfig getTransactionReportConfig() {
         TransactionReportConfig transactionReportConfig = new TransactionReportConfig();
         transactionReportConfig.setRowBufferSize(100);
-        transactionReportConfig.setDataFetchSize(100);
+        transactionReportConfig.setDataFetchSize(2);
         // TODO: CHANGE INTO CONFIG
         return transactionReportConfig;
     }

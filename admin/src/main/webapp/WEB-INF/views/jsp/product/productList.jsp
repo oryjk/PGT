@@ -14,6 +14,8 @@
 
 
 <admin:container id="productList" pageJsPath="/resources/product/product-list.js">
+	<c:set value="${searchPaginationBean.currentIndex}" var="currentIndex"/>
+	<c:set value="${searchPaginationBean.maxIndex}" var="maxIndex"/>
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -40,7 +42,7 @@
 						<span class="caption-subject font-green-sharp bold uppercase">表格</span>
 					</div>
 					<div class="actions btn-set">
-						<button class="btn green-haze btn-circle" data-pgt-btn="create" data-url="<spring:url value="/product/create"/>"><i class="fa fa-plus"></i> 新增</button>
+						<button class="btn green-haze btn-circle" data-pgt-btn="create" data-url="/product/create"><i class="fa fa-plus"></i> 新增</button>
 						<div class="btn-group">
 							<a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
 								<i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>
@@ -308,27 +310,67 @@
 								<div class="dataTables_paginate paging_simple_numbers pgt-page-box">
 									<!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
 									<ul class="pagination">
-										<li class="paginate_button previous disabled"><a href="#"><i
-												class="fa fa-angle-left"></i></a></li>
+
 										<li class="paginate_button"><a
 												href="/product/productList?currentIndex=0">首页</a></li>
-
 										<c:choose>
-											<c:when test="${searchPaginationBean.maxIndex}>5">
-												<li class="paginate_button disabled"><a
-														href="javascript:;">...</a></li>
-												<li class="paginate_button "><a
-														href="#">3</a></li>
-												<li class="paginate_button "><a
-														href="#">4</a></li>
-												<li class="paginate_button active"><a
-														href="#">5</a></li>
-												<li class="paginate_button"><a
-														href="#">6</a></li>
-												<li class="paginate_button"><a
-														href="#">7</a></li>
-												<li class="paginate_button disabled"><a
-														href="javascript:;">...</a></li>
+											<c:when test="${searchPaginationBean.maxIndex>5}">
+												<c:if test="${searchPaginationBean.currentIndex>2 and searchPaginationBean.currentIndex<searchPaginationBean.maxIndex-3}">
+													<li class="paginate_button disabled">
+														<a href="javascript:;">...</a>
+													</li>
+													<li class="paginate_button ">
+														<a href="/product/productList?currentIndex=${currentIndex-2}">${currentIndex-1}</a>
+													</li>
+													<li class="paginate_button ">
+														<a href="/product/productList?currentIndex=${currentIndex-1}">${currentIndex}</a>
+													</li>
+													<li class="paginate_button active">
+														<a href="/product/productList?currentIndex=${currentIndex}">${currentIndex+1}</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex+1}">${currentIndex+2}</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex+2}">${currentIndex+3}</a>
+													</li>
+													<li class="paginate_button disabled">
+														<a href="javascript:;">...</a>
+													</li>
+												</c:if>
+												<c:if test="${searchPaginationBean.currentIndex<3}">
+
+													<c:forEach var="current" begin="1" end="${currentIndex+1}">
+														<li class="paginate_button <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if> ">
+															<a href="/product/productList?currentIndex=${current-1}">${current}</a>
+														</li>
+													</c:forEach>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex+1}">${currentIndex+2}</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex+2}">${currentIndex+3}</a>
+													</li>
+													<li class="paginate_button disabled">
+														<a href="javascript:;">...</a>
+													</li>
+												</c:if>
+												<c:if test="${searchPaginationBean.currentIndex+4>searchPaginationBean.maxIndex}">
+													<li class="paginate_button disabled">
+														<a href="javascript:;">...</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex-2}">${currentIndex-2}</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex-1}">${currentIndex-1}</a>
+													</li>
+													<c:forEach var="current" begin="${currentIndex+1}" end="${maxIndex+1}">
+														<li class="paginate_button <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if> ">
+															<a href="/product/productList?currentIndex=${current-1}">${current}</a>
+														</li>
+													</c:forEach>
+												</c:if>
 											</c:when>
 											<c:otherwise>
 												<c:forEach var="current" begin="1" end="${searchPaginationBean.maxIndex+1}">
@@ -341,12 +383,9 @@
 										</c:choose>
 
 
-
-
-
 										<li class="paginate_button"><a
 												href="/product/productList?currentIndex=${searchPaginationBean.maxIndex}">末页</a></li>
-										<li class="paginate_button next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+
 									</ul>
 								</div>
 							</div>
