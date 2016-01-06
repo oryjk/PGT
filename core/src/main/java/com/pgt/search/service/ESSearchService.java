@@ -287,43 +287,47 @@ public class ESSearchService {
         LOGGER.debug("Begin to reduce the product inventory.");
         BulkResponse bulkResponse;
 
-        try {
-            Client client = getIndexClient();
-            BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Integer> productList = new ArrayList<>();
-            productPairs.stream().forEach(pair -> {
-                productList.add(pair.getKey());
-            });
+        if (productPairs.size() != 0) {
+            try {
+                Client client = getIndexClient();
+                BulkRequestBuilder bulkRequest = client.prepareBulk();
+                List<Integer> productList = new ArrayList<>();
+                productPairs.stream().forEach(pair -> {
+                    productList.add(pair.getKey());
+                });
 
-            productPairs.stream().forEach(integerIntegerPair -> {
-                Product product = productService.queryProduct(integerIntegerPair.getKey());
-                if (!ObjectUtils.isEmpty(product)) {
-                    Category parentCategory = categoryService.queryParentCategoryByProductId(integerIntegerPair.getKey());
-                    Category rootCategory = parentCategory.getParent();
-                    product.setStock(integerIntegerPair.getValue());
-                    ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
-                    ObjectMapper mapper = new ObjectMapper();
-                    try {
-                        byte[] bytes = mapper.writeValueAsBytes(esProduct);
-                        LOGGER.debug("Product id is {}.", esProduct.getProductId());
-                        UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
-                                .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
-                        bulkRequest.add(updateRequestBuilder);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                productPairs.stream().forEach(integerIntegerPair -> {
+                    Product product = productService.queryProduct(integerIntegerPair.getKey());
+                    if (!ObjectUtils.isEmpty(product)) {
+                        Category parentCategory = categoryService.queryParentCategoryByProductId(integerIntegerPair.getKey());
+                        Category rootCategory = parentCategory.getParent();
+                        product.setStock(integerIntegerPair.getValue());
+                        ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
+                        ObjectMapper mapper = new ObjectMapper();
+                        try {
+                            byte[] bytes = mapper.writeValueAsBytes(esProduct);
+                            LOGGER.debug("Product id is {}.", esProduct.getProductId());
+                            UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
+                                    .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
+                            bulkRequest.add(updateRequestBuilder);
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
 
-            });
-            bulkResponse = bulkRequest.execute().actionGet(100000);
-            if (bulkResponse.hasFailures()) {
-                return false;
+                });
+                bulkResponse = bulkRequest.execute().actionGet(100000);
+                if (bulkResponse.hasFailures()) {
+                    return false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+
         LOGGER.debug("End to reduce the product inventory.");
         return true;
     }
