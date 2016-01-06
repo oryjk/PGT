@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,13 +71,16 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	public ModelAndView redirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView modelAndView = new ModelAndView("shopping-cart/cart");
 		Order order = getCurrentOrder(pRequest);
-		synchronized (order) {
-			getShoppingCartService().checkInventory(order);
+		if(!ObjectUtils.isEmpty(order)){
+			synchronized (order) {
+				getShoppingCartService().checkInventory(order);
+			}
+			String error = checkOutOfStockNotify(pRequest);
+			if (StringUtils.isNotBlank(error)) {
+				modelAndView.addObject("error", error);
+			}
 		}
-		String error = checkOutOfStockNotify(pRequest);
-		if (StringUtils.isNotBlank(error)) {
-			modelAndView.addObject("error", error);
-		}
+
 		return modelAndView;
 	}
 
