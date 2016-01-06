@@ -68,10 +68,16 @@
                        	<div class="portlet-body form">
                        		 <form action="${actionUrl }" method="post">
                        		 	<input type="hidden" name="id" value="${helpCenter.id}"/>
-                       		 	<input type="text" name="title" value="${helpCenter.title}"/>
                        		 	<input type="hidden" name="type" value="${helpCenter.type}"/>
 	                            <div class="form-horizontal">
 	                                <div class="form-body">
+										<div class="form-group">
+											<label class="col-md-2 control-label"></label>
+											<div class="col-md-8">
+												<input type="text"  name="title" class="form-control" value="${helpCenter.title}" placeholder="请在此处标题">
+												</p>
+											</div>
+										</div>
 	                                    <div class="row">
 	                                        <div class="col-xs-10 col-xs-push-1">
 	                                            <script id="editor" type="text/plain" name="content" style="width:100%;height:500px;">
