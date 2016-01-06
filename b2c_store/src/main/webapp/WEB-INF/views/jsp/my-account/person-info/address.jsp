@@ -255,8 +255,8 @@
                     </div>市
 
                     <!-- 仿select-->
-                    <div class="county">
-                        <a id="county" class="select-view"  href="#">
+                    <div class="country">
+                        <a id="country" class="select-view"  href="#">
                             <span class="selected">请选择</span>
                             <i class="foundicon-down-arrow"></i>
                         </a>
