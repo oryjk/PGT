@@ -33,12 +33,12 @@ public class BannerMobileController extends BaseMobileController{
         if(StringUtils.isEmpty(type)){
             return responseMobileFail(responseMap, "type.empty");
         }
-        List<Banner> bannerList = bannerService.queryBannerByType(type);
+        Banner banner = bannerService.queryBannerByType(type);
 
-        if(ObjectUtils.isEmpty(bannerList)){
+        if(ObjectUtils.isEmpty(banner)){
             return responseMobileFail(responseMap, "BannerList.empty");
         }
-        responseMap.put("bannerList",bannerList);
+        responseMap.put("banner",banner);
         responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
         return responseMap;
     }

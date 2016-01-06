@@ -78,7 +78,7 @@ public class HomeController {
             SearchResponse searchResponse = esSearchService.findHotSales(esSort);
             SearchHits searchHits = searchResponse.getHits();
             SearchHit[] hotProducts = searchHits.getHits();
-            Banner banner = bannerService.queryBanner(1);
+            Banner banner = bannerService.queryBannerByType(Constants.BANNER_TYPE_HOME);
             if (!ArrayUtils.isEmpty(hotProducts)) {
                 modelAndView.addObject("hotProducts", hotProducts);
             }
@@ -91,7 +91,7 @@ public class HomeController {
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             modelAndView.addObject("hotSearchList", hotSearchList);
-            Banner banner = bannerService.queryBanner(1);
+            Banner banner = bannerService.queryBannerByType(Constants.BANNER_TYPE_HOME);
             modelAndView.addObject("banner", banner);
 
             modelAndView.setViewName("/index/index");
