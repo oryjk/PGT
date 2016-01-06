@@ -255,15 +255,12 @@
                     </div>市
 
                     <!-- 仿select-->
-                    <div class="county">
-                        <a id="county" class="select-view"  href="#">
+                    <div class="country">
+                        <a id="country" class="select-view"  href="#">
                             <span class="selected">请选择</span>
                             <i class="foundicon-down-arrow"></i>
                         </a>
                         <ul class="options">
-                            <li><a class="option-view" data-value="0" href="#">高新区</a></li>
-                            <li><a class="option-view" data-value="1" href="#">姑苏区</a></li>
-                            <li><a class="option-view" data-value="2" href="#">宜秀区</a></li>
                         </ul>
                         <input class="select-value" name="district" type="hidden" value=""/>
                     </div>区/县

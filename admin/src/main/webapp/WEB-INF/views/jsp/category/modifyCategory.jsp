@@ -92,8 +92,9 @@
                 </div>
                 <div class="form-group">
                   <label class="col-md-3 control-label">分类色调</label>
-                  <div class="col-md-4">
-                    <form:input type="text" class="form-control" placeholder="#xxxxxx形式" path="color"/>
+                  <div class="col-md-4 pgt-color-box">
+                    <form:input type="text" class="form-control" id="pgtColorInput" placeholder="#xxxxxx形式" path="color"/>
+                    <div class="pgt-color" id="pgtColor"></div>
                   </div>
                 </div>
               </div>
@@ -158,13 +159,15 @@
     <div class="row">
       <label class="col-md-12 control-label">分类主图</label>
       <div class="col-md-12">
-        <form class="pgt-file-box" action="/test">
-          <input class="pgt-file-btn" name="thumbnail" type="file"/>
+        <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+          <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
+          <input name="mediaType" type="hidden" value="category"/>
           <button type="button" class="btn blue">选择图片</button>
         </form>
         <p></p>
       </div>
     </div>
   </div>
+  <div id="testbox"></div>
 </admin:container>
 
