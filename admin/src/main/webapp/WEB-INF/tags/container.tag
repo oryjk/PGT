@@ -320,7 +320,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href=":;">
+								<a href="/help/articleList">
 									<i class="fa-angle-right"></i>
 									文章管理 </a>
 							</li>

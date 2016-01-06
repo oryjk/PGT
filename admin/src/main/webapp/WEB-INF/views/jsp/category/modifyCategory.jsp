@@ -50,7 +50,7 @@
         </div>
         <div class="portlet-body form">
           <!-- BEGIN FORM-->
-          <form:form action="update" class="form-horizontal" modelAttribute="category">
+          <form:form action="/category/update/" class="form-horizontal" modelAttribute="category">
             <div class="form-body">
               <!-- 只有在修改时才出现id行-->
               <c:if test="${category.id!=null}">
@@ -59,6 +59,7 @@
                 <div class="col-md-4">
                   <p class="form-control-static">
                     ${category.id}
+                    <input type="hidden" value="${category.id}" name="id"/>
                   </p>
                 </div>
               </div>
@@ -131,6 +132,11 @@
                 </div>
               </div>
             </div>
+            <form:input path="frontMedia.path" cssClass="hidden" id="categoryMediaPath"/>
+            <form:input path="frontMedia.id" cssClass="hidden" id="categoryMediaId"/>
+            <form:input path="frontMedia.referenceId" cssClass="hidden" id="categoryMediaRefId"/>
+            <form:input path="frontMedia.type" cssClass="hidden" id="categoryMediaRefType"/>
+            <form:input path="frontMedia.title" cssClass="hidden" id="categoryMediaRefTitle"/>
           </form:form>
         </div>
         <!-- END FORM-->
@@ -144,7 +150,7 @@
           <div class="pgt-handle-box">
             <a class="pgt-img-delete" href="#">删除</a>
           </div>
-          <img class="pgt-category-img" src="" alt=""/>
+          <img class="pgt-category-img" src="${category.frontMedia.path}" alt=""/>
           <p>200 * 200</p>
         </div>
       </div>
