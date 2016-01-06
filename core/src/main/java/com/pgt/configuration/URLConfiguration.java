@@ -16,6 +16,9 @@ public class URLConfiguration {
 	private String	pdpPage;
 	private String	plpPage;
 	private String helpCenterPage;
+	private String orderHistoryPage="/myAccount/orderHistory";
+	private String yeepayPage="/user/yeepayAccountInfo";
+	private String myaccountPage="/userinformation/query";
 
 	public String getCategoryPage() {
 		return categoryPage;
@@ -111,5 +114,29 @@ public class URLConfiguration {
 
 	public void setHelpCenterPage(String helpCenterPage) {
 		this.helpCenterPage = helpCenterPage;
+	}
+
+	public String getOrderHistoryPage() {
+		return orderHistoryPage;
+	}
+
+	public void setOrderHistoryPage(String orderHistoryPage) {
+		this.orderHistoryPage = orderHistoryPage;
+	}
+
+	public String getYeepayPage() {
+		return yeepayPage;
+	}
+
+	public void setYeepayPage(String yeepayPage) {
+		this.yeepayPage = yeepayPage;
+	}
+
+	public String getMyaccountPage() {
+		return myaccountPage;
+	}
+
+	public void setMyaccountPage(String myaccountPage) {
+		this.myaccountPage = myaccountPage;
 	}
 }
