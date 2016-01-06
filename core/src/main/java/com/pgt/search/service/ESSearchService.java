@@ -531,11 +531,12 @@ public class ESSearchService {
      *
      * @param categoryId
      * @param esMatches
+     * @param esSorts
      * @return
      */
 
     public SearchResponse findProductsByCategoryId(String categoryId, List<ESTerm> esMatches, ESRange esRange, PaginationBean paginationBean,
-                                                   ESAggregation esAggregation) {
+                                                   ESAggregation esAggregation, List<ESSort> esSorts) {
         SearchResponse response = null;
         if (!StringUtils.isBlank(categoryId)) {
 
@@ -570,7 +571,7 @@ public class ESSearchService {
                 }
                 LOGGER.debug("This category id is not belong to ROOT category.");
 
-                return findProducts(getCategoryEsTerm(Constants.PARENT_CATEGORY_ID, categoryId), esMatches, esRange, null, paginationBean,
+                return findProducts(getCategoryEsTerm(Constants.PARENT_CATEGORY_ID, categoryId), esMatches, esRange, esSorts, paginationBean,
                         esAggregation, null);
 
             }
