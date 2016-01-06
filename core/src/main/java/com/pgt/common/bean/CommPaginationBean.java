@@ -8,9 +8,9 @@ public class CommPaginationBean extends PaginationBean {
 
 	private long currentPage;// 当前页数
 
-	private long startPageIndex; // currentIndex
+	private long startPageIndex;
 
-	private long endPageIndex; // totalAmount
+	private long endPageIndex;
 
 	private long currentIndex;
 

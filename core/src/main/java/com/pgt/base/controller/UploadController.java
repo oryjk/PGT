@@ -43,16 +43,19 @@ public class UploadController {
 		// 获取扩展名
 		String originalFilename = uploadPic.getOriginalFilename();
 		String ext = FilenameUtils.getExtension(originalFilename);
-		String basePath = request.getRealPath("/resources/image/upload/user/");
+		String basePath = request.getRealPath("/resources/image/upload/");
+
+		File filemkdir = new File(basePath);
+		if(!filemkdir.exists()){
+			filemkdir.mkdirs();
+		}
+
 		// 相对路径
 		String path = picName + "." + ext;
 		// 全路径
-		String url = basePath + path;
+		String url = basePath + "/"+path;
 		// 新图片
 		File file = new File(url);
-		if(!file.exists()){
-			file.mkdirs();
-		}
 		// 将内存中的文件写入磁盘
 		uploadPic.transferTo(file);
 		url= url.substring(url.indexOf("image"),url.length());
@@ -85,7 +88,7 @@ public class UploadController {
 			for (int i = 0; i < 3; i++) {
 				picName += r.nextInt(10);
 			}
-			String basePath = request.getRealPath("/resources/image/upload/user/");
+			String basePath = request.getRealPath("/resources/image/upload/");
 			File filemkdir = new File(basePath);
 			if(!filemkdir.exists()){
 				filemkdir.mkdirs();
@@ -94,7 +97,7 @@ public class UploadController {
 			// 相对路径
 			String path = picName + "." + ext;
 			// 全路径
-			String url = basePath + path;
+			String url = basePath +"/"+path;
 			// 新图片
 			File file = new File(url);
 
