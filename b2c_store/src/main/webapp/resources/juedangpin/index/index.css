@@ -1094,12 +1094,14 @@ span {
 /*2维码*/
 .two-dimension {
   opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0) \9;
   position: absolute;
   top: 0;
   left: 100px; }
 
 .our-app a:hover .two-dimension {
   opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100) \9;
   transition: opacity 1s linear; }
 
 .good-text {
@@ -1933,10 +1935,10 @@ small {
 .out-of-stock {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 140px;
-  height: 90px;
-  background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  background: url("../core/images/productList/out-of-stock-s.png") no-repeat left top;
   opacity: 1; }
 
 .product-message {

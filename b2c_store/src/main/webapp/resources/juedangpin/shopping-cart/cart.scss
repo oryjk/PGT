@@ -527,6 +527,19 @@ td {
   .get-self {
     padding-left: 40px;
   }
+
+  .img-box {
+    position: relative;
+
+
+    .out-of-stock {
+      position: absolute;
+      top: 2px;
+      left: 10px;
+      @include wh(50px, 50px);
+      opacity: .7;
+    }
+  }
 }
 
 .content-3,

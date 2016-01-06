@@ -205,6 +205,15 @@ public class ShoppingCartService {
         return getShoppingCartDao().deleteCommerceItems(pCommerceItemIds) > 0;
     }
 
+    public void checkInventory(Order pOrder) {
+        if(pOrder.emptyOrder()) {
+return;
+        }
+        for(CommerceItem ci:pOrder.getCommerceItems()) {
+
+        }
+    }
+
     public void deleteAllCommerceItems(final int pOrderId) {
         getShoppingCartDao().deleteAllCommerceItems(pOrderId);
     }
@@ -240,4 +249,5 @@ public class ShoppingCartService {
     public void setTransactionManager(DataSourceTransactionManager pTransactionManager) {
         mTransactionManager = pTransactionManager;
     }
+
 }
