@@ -420,7 +420,7 @@
 <!-- BEGIN PAGE CONTAINER -->
 <div class="page-container" id="main">
 	<div class="page-content">
-		<div class="container-fluid">
+		<div class="container-fluid pgt-container">
 			<jsp:doBody/>
 		</div>
 	</div>
