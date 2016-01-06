@@ -128,11 +128,11 @@
 
 								<c:if test="${sortKey eq 'creationDate'}">
 								<c:if test="${not empty sortOrder}">
-									<c:if test="${sortOrder eq 'asc'}">
+									<c:if test="${sortOrder eq 'desc'}">
 									<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
 									</c:if>
 
-									<c:if test="${sortOrder eq 'desc'}">
+									<c:if test="${sortOrder eq 'asc'}">
 								<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
 								    </c:if>
 								</c:if>
@@ -144,13 +144,13 @@
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=salePrice<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">价格</a>
 
-								<c:if test="${sortKey eq 'listPrice'}">
+								<c:if test="${sortKey eq 'salePrice'}">
 								<c:if test="${not empty sortOrder}">
-									<c:if test="${sortOrder eq 'asc'}">
+									<c:if test="${sortOrder eq 'desc'}">
 										<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
 									</c:if>
 
-									<c:if test="${sortOrder eq 'desc'}">
+									<c:if test="${sortOrder eq 'asc'}">
 										<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
 									</c:if>
 								</c:if>
@@ -163,13 +163,7 @@
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=productId">综合排序</a>
 
 							</li>
-							<li>
-								<a href="#">只显示有货</a>
-								<!--仿checkbox-->
-								<span class="checkbox only-availble" data-value="0">
-									<i class="foundicon-checkmark"></i>
-									<input name="" type="hidden" value="0"/>
-								</span></li>
+
 						</ul>
 					</div>
 

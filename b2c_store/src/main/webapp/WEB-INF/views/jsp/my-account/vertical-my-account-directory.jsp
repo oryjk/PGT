@@ -14,6 +14,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div class="aside">
+
     <h2>账户管理</h2>
     <ul>
         <li>
@@ -58,10 +59,10 @@
             <a class="menu-level-1" href="#">个人中心</a>
             <ul>
                 <li>
-                    <a class="menu-level-end" href="<spring:url value="/userinformation/query"/>">个人信息</a>
+                    <a class="menu-level-end ${param.step eq 'userinformation' ? 'current-page' : ''}" href="<spring:url value="/userinformation/query"/>">个人信息</a>
                 </li>
                 <li>
-                    <a class="menu-level-end" href="<spring:url value="/user/updatePassword"/>">修改密码</a>
+                    <a class="menu-level-end ${param.step eq 'updatePassword' ? 'current-page' : ''}" href="<spring:url value="/user/updatePassword"/>">修改密码</a>
                 </li>
                 <li>
                     <a class="menu-level-end ${param.step eq 'address' ? 'current-page' : '' }" href="<spring:url value="/my-account/person-info/address"/>">地址管理</a>

@@ -25,7 +25,7 @@ public class UserInformation implements Serializable {
 	private User user;
 
 	@NotEmpty(message = "{NotNull.user.nickname}", groups = { AddUserInformationGroup.class })
-	@Size(min=3,max=12,message="{Error.userInformation.nickname.invalid}")
+	@Size(min=3,max=12,message="{Error.userInformation.nickname.invalid}",groups = { AddUserInformationGroup.class })
 	private String nickname;
 
 
@@ -35,7 +35,6 @@ public class UserInformation implements Serializable {
 
 	@Pattern(regexp = "(^\\d{18}$)|(^\\d{15}$)", message = "{Error.userInformation.idCard.invalid}", groups = {
 			AddUserInformationGroup.class })
-	@NotEmpty(message = "{NotEmpty.userInformation.idCard}", groups = { AddUserInformationGroup.class })
 	private String idCard;
 
 	private String marrage;
@@ -48,7 +47,6 @@ public class UserInformation implements Serializable {
 
 	private String payBinding;// 支付绑定
 
-	@Email(message="{Error.internalUser.email.invalid}",groups={AddUserInformationGroup.class})
 	private String personEmail;// 个人邮箱
 
 	private String type;

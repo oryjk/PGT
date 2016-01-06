@@ -100,6 +100,16 @@ public class MediaServiceImp extends TransactionService implements MediaService 
         }
     }
 
+    @Override
+    public Media findMedia(Integer mediaId, MediaType mediaType) {
+        return mediaMapper.queryMedia(mediaType, mediaId);
+    }
+
+    @Override
+    public void updateMedia(Media media) {
+        mediaMapper.updateMedia(media);
+    }
+
     public ProductMapper getProductMapper() {
         return productMapper;
     }

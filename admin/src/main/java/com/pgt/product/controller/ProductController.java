@@ -2,6 +2,7 @@ package com.pgt.product.controller;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
+import com.pgt.configuration.Configuration;
 import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.Product;
@@ -46,6 +47,9 @@ public class ProductController {
     @Autowired
     private ESSearchService esSearchService;
 
+    @Autowired
+    private Configuration configuration;
+
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
     public ModelAndView findProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
         LOGGER.debug("search the product with id {productId}.", productId);
@@ -80,6 +84,7 @@ public class ProductController {
         productService.createProduct(product);
         esSearchService.productIndex(product);
         modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("/product/productImageModify");
         return modelAndView;
     }
@@ -194,7 +199,9 @@ public class ProductController {
         product.setUpdateDate(new Date());
         productService.updateProductBase(product);
         product = productService.queryProduct(product.getProductId());
+        esSearchService.updateProductIndex(product);
         modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("/product/productImageModify");
         return modelAndView;
     }
