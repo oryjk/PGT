@@ -12,6 +12,7 @@ import com.pgt.utils.PaginationBean;
 public interface CategoryService {
 
     String createCategory(Category category);
+    String createCategory(Category category,Integer mediaId);
 
     Integer updateCategory(Category category);
 

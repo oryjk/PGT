@@ -77,14 +77,13 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(Category category, ModelAndView modelAndView, BindingResult bindingResult, HttpServletRequest request,
-                               HttpServletResponse response) {
+    public ModelAndView create(Category category, ModelAndView modelAndView, BindingResult bindingResult) {
         LOGGER.debug("Begin create category.");
         if (bindingResult.hasErrors()) {
             LOGGER.debug("Some data value mission.");
             return modelAndView;
         }
-        String categoryId = categoryService.createCategory(category);
+        String categoryId = categoryService.createCategory(category, category.getFrontMedia().getId());
         LOGGER.debug("The category is is {}.", categoryId);
         LOGGER.debug("end create category.");
         modelAndView.setViewName("/category/addAndModifyCategorySuccess");
