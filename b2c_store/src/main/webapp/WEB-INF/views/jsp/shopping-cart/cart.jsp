@@ -60,13 +60,17 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <c:set var="invalidItemCount" value="0" />
                         <c:forEach var="commerceItem" items="${order.commerceItems}">
                             <tr data-value="${commerceItem.referenceId}">
                                 <td class="product-hidden">
                                     <input type="hidden" data-item-id="${commerceItem.id}" />
                                 </td>
                                 <td>
-                                    <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
+                                    <c:if test="${not commerceItem.inStock}">
+                                        <c:set var="invalidItemCount" value="${invalidItemCount + 1}" />
+                                    </c:if>
+                                    <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}" ${not commerceItem.inStock ? 'class="out-of-stock"' : ''}
                                          alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
                                 </td>
                                 <td class="product-name">
@@ -76,10 +80,10 @@
                                     <span class="level">${commerceItem.quality}</span>
                                 </td>
                                 <td class="product-old-cost">
-                                    ¥<span><fmt:formatNumber value="${commerceItem.listPrice}" pattern="0.00" type="number" /></span>
+                                    ¥ <span><fmt:formatNumber value="${commerceItem.listPrice}" pattern="0.00" type="number" /></span>
                                 </td>
                                 <td class="product-now-cost">
-                                    ¥<span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span>
+                                    ¥ <span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span>
                                 </td>
                                 <td>
                                     <c:if test="${not empty currentUser}">
@@ -114,7 +118,14 @@
                         </div>
                         <div class="bottom">
                             <span>账面应付金额 <span class="cost">¥<span class="order-total"><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span></span></span>
-                            <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'"/>
+                            <c:choose>
+                                <c:when test="${invalidItemCount gt 0}">
+                                    <input class="d-btn" type="button" value="请先删除无效的商品" />
+                                </c:when>
+                                <c:otherwise>
+                                    <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

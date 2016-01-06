@@ -1,16 +1,20 @@
 package com.pgt.payment.controller;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.controller.CartMessages;
+import com.pgt.cart.service.OrderService;
+import com.pgt.cart.service.UserOrderService;
+import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.UserConstant;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
-import com.pgt.payment.bean.Transaction;
-import com.pgt.utils.PaginationBean;
+import com.pgt.payment.PaymentConstants;
+import com.pgt.payment.bean.PaymentGroup;
+import com.pgt.payment.service.PaymentService;
+import com.pgt.user.bean.User;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,25 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pgt.cart.bean.Order;
-import com.pgt.cart.constant.CartConstant;
-import com.pgt.cart.service.OrderService;
-import com.pgt.cart.service.UserOrderService;
-import com.pgt.configuration.URLConfiguration;
-import com.pgt.constant.UserConstant;
-import com.pgt.payment.PaymentConstants;
-import com.pgt.payment.bean.PaymentGroup;
-import com.pgt.payment.service.PaymentService;
-import com.pgt.payment.service.TransactionLogService;
-import com.pgt.user.bean.User;
-
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/payment")
-public class PaymentController {
+public class PaymentController implements CartMessages {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
@@ -119,7 +111,7 @@ public class PaymentController {
 			modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
 			return modelAndView;
 		} catch (Exception e) {
-			String message = "INV.CHECK.FAILED";
+			String message = CartMessages.ERROR_INV_CHECK_FAILED;
 			LOGGER.error("lock inventory failed", e);
 			modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
 			return modelAndView;

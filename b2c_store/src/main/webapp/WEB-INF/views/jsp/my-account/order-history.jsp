@@ -39,10 +39,12 @@
 
         <!-- 详细内容列表-->
         <div id="main" class="main-box">
+            <%--
             <a class="order-trash" href="#">
                 <i class="foundicon-trash"></i>
                 订单回收站
             </a>
+            --%>
             <!--面包屑-->
             <div class="bread-nav">
                 <p>
@@ -53,10 +55,6 @@
             </div>
             <!-- 筛选-->
             <div class="filter-box">
-                <%--<div class="content-search">--%>
-                    <%--<input class="content-search" type="text" placeholder="订单号或商品名" value="${param.keyword}" />--%>
-                    <%--<a href="#" class="order-history-search" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>--%>
-                <%--</div>--%>
                 <form action="<spring:url value="/myAccount/orderHistory"/>" class="content-search">
                     <input class="content-search" type="text" name="keyword" placeholder="商品搜索"/>
                     <a href="#" class="search-link-btn" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>
