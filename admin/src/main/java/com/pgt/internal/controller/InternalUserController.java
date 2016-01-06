@@ -4,6 +4,7 @@ import com.pgt.cart.bean.ResponseBean;
 import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
+import com.pgt.cart.constant.CookieConstant;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.internal.bean.InternalUser;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
@@ -59,8 +61,16 @@ public class InternalUserController extends InternalTransactionBaseController im
 			mav.setViewName(REDIRECT_DASHBOARD);
 			return mav;
 		}
-		//TODO check recognized user in cookies
 		return mav;
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		pRequest.getSession().invalidate();
+		Cookie cookie = new Cookie(CookieConstant.INTERNAL_LOGIN_TOKEN, StringUtils.EMPTY);
+		cookie.setMaxAge(0);
+		pResponse.addCookie(cookie);
+		return new ModelAndView("/login");
 	}
 
 	@RequestMapping(value = "/internal/register", method = RequestMethod.GET)
@@ -74,7 +84,6 @@ public class InternalUserController extends InternalTransactionBaseController im
 			return mav;
 		}
 		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
-		//TODO check recognized user in cookies
 		return mav;
 	}
 
@@ -118,7 +127,8 @@ public class InternalUserController extends InternalTransactionBaseController im
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView authorize(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "login", required = true) String login,
-			@RequestParam(value = "password", required = true) String password) {
+			@RequestParam(value = "password", required = true) String password,
+			@RequestParam(value = "remember", required = false, defaultValue = "false") boolean remember) {
 		// trim login
 		login = login.trim();
 		ModelAndView mav = new ModelAndView("/login");
@@ -158,7 +168,12 @@ public class InternalUserController extends InternalTransactionBaseController im
 			getInternalUserService().updateLastLogin(piu.getId(), piu.getIp());
 			// set internal user into session
 			pRequest.getSession().setAttribute(INTERNAL_USER, piu);
-			//TODO set cookies to mark as remember me status
+			if (remember) {
+				String encodeInfo = getInternalUserService().encodeRememberInfo(piu.getId());
+				Cookie cookie = new Cookie(CookieConstant.INTERNAL_LOGIN_TOKEN, encodeInfo);
+				cookie.setMaxAge(getInternalUserService().getRememberExpiration());
+				pResponse.addCookie(cookie);
+			}
 			mav.setViewName(REDIRECT_DASHBOARD);
 			return mav;
 		} catch (Exception e) {
