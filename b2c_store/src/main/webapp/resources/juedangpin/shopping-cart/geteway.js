@@ -1,12 +1,18 @@
 /**
  * Created by supersoup on 15/12/17.
  */
+var baseUrl = '../../../resources';
+if (location.hostname == 'localhost' || location.hostname == 'www.dianjinzi.com') {
+    //测试用
+    baseUrl = '../../b2c_store/resources';
+}
 
 require.config({
+    baseUrl: baseUrl,
     paths: {
-        jquery: '../core/js/jquery.min',
-        component: '../core/js/module/component',
-        product: '../core/js/module/product'
+        jquery: './juedangpin/core/js/jquery.min',
+        component: './juedangpin/core/js/module/component',
+        product: './juedangpin/core/js/module/product'
     }
 });
 
