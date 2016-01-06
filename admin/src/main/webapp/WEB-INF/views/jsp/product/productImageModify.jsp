@@ -130,7 +130,6 @@
 											<c:forEach items="${product.mainMedias}" var="mainMedia">
 												<div class="pgt-each-img">
 													<div class="pgt-handle-box">
-														<a class="pgt-img-pre" href="#">前移</a>
 														<a class="pgt-img-delete" href="#" data-url="/media/delete/${mainMedia.id}">删除</a>
 													</div>
 													<img class="pgt-hero-img" src="${mainMedia.path}" alt=""/>
@@ -153,7 +152,6 @@
 											<c:forEach items="${product.heroMedias}" var="heroMedia">
 												<div class="pgt-each-img">
 													<div class="pgt-handle-box">
-														<a class="pgt-img-pre" href="#">前移</a>
 														<a class="pgt-img-delete" href="#" data-url="/media/delete/${heroMedia.id}">删除</a>
 													</div>
 													<img class="pgt-hero-img" src="${heroMedia.path}" alt=""/>
@@ -177,7 +175,6 @@
 										<div class="col-md-8">
 												<div class="pgt-each-img">
 													<div class="pgt-handle-box">
-														<a class="pgt-img-pre" href="#">前移</a>
 														<a class="pgt-img-delete" href="#" data-url="/media/delete/${product.expertMedia.id}">删除</a>
 													</div>
 													<img class="pgt-hero-img" src="${product.expertMedia.path}" alt=""/>

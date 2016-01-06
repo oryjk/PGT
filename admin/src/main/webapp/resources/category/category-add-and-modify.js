@@ -14,16 +14,15 @@ $('.pgt-file-btn').change(function() {
 });
 
 $('#levelSelect').change(function() {
-    console.log(this)
     var that = $(this);
     var categoryMain =  $('#categoryMain');
     var categorySon = $('#categorySon');
     var imgUpload = $('#imgUpload');
-    if (that.val() == 1) {
+    if (that.val() == 'ROOT') {
         categoryMain.show();
         imgUpload.show();
         categorySon.hide();
-    } else if (that.val() == 2) {
+    } else if (that.val() == 'HIERARCHY') {
         categoryMain.hide();
         imgUpload.hide();
         categorySon.show();
