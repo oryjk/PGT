@@ -79,7 +79,7 @@
 						</h2>
 						<div class="products">
 
-							<a class="product-main" href="#">
+							<a class="product-main" href="${pageContext.request.contextPath}/essearch?rootCategoryId=${homeCategory['source']['category']['id']}">
 								<img
 								src="${pageContext.request.contextPath}/resources${homeCategory['source']['category']['frontMedia']['path']}" alt="${homeCategory['source']['category']['name']}" />
 								<div class="light"></div>
@@ -141,7 +141,7 @@
 						</h2>
 						<div class="products">
 
-							<a class="product-main" href="#"> <img
+							<a class="product-main" href="${pageContext.request.contextPath}/essearch?rootCategoryId=${homeCategory['source']['category']['id']}"> <img
 								src="${pageContext.request.contextPath}/resources${homeCategory['source']['category']['frontMedia']['path']}" alt="${homeCategory['source']['category']['name']}" />
 								<div class="light"></div>
 							</a>

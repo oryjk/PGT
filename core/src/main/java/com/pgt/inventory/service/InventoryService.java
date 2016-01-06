@@ -38,9 +38,9 @@ public class InventoryService extends Transactionable {
     @Autowired
     private OrderMapper orderMapper;
 
-    private static final int INVENTORY_LOCK_MIN_COMMIT_ORDER = 1;
+    private static final int INVENTORY_LOCK_MIN_COMMIT_ORDER = 15;
 
-    private static final int INVENTORY_LOCK_MIN_START_PAYMENT = 2;
+    private static final int INVENTORY_LOCK_MIN_START_PAYMENT = 35;
 
     public void lockInventory(final Order order) throws LockInventoryException {
 

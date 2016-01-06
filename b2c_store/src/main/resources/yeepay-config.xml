@@ -20,6 +20,7 @@
 		<property name="notifyUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayNotify"/>
 		<property name="completeTransactionNotifyUrl" value="http://localhost:8080/b2c_store/yeepay/completeTransactionNotify"/>
 		<property name="targetPlatformUserNo" value="pgt14"/>
+		<property name="transactionExpiredMin" value="30"/>
 		<!-- need change when go live -->
 		<property name="withdrawType" value="NORMAL"/>
 		<property name="feeMode">
