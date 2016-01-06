@@ -1,7 +1,6 @@
 package index;
 
 import com.google.common.collect.Lists;
-import com.pgt.product.bean.InventoryType;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESTerm;
@@ -39,7 +38,7 @@ public class IndexTest {
 
         esSearchService.initialIndex(true);
         esSearchService.categoryIndex();
-        BulkResponse responses = esSearchService.productIndex();
+        BulkResponse responses = esSearchService.productsIndex();
         Assert.assertFalse(responses.hasFailures());
 
     }

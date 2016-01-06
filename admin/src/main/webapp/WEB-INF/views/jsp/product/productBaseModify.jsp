@@ -49,12 +49,13 @@
 				</div>
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
-					<form:form modelAttribute="product" method="post" action="create/stepBase" class="form-horizontal">
+					<form:form modelAttribute="product" method="post" action="${action}" class="form-horizontal">
 						<div class="form-body">
 							<!-- 只有在修改时才显示id行-->
 							<c:if test="${!empty product.productId}">
 								<div class="form-group">
 									<label class="col-md-3 control-label">id</label>
+									<input type="hidden" name="productId" value="${product.productId}"/>
 
 									<div class="col-md-4">
 										<p class="form-control-static">
@@ -63,6 +64,14 @@
 									</div>
 								</div>
 							</c:if>
+							<div class="form-group">
+								<label class="col-md-3 control-label">序列号:</label>
+
+								<div class="col-md-4">
+									<form:input path="serialNumber" placeholder="不超过30字" class="form-control"/>
+									</p>
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">产品名称:</label>
 
@@ -108,7 +117,7 @@
 								<label class="col-md-3 control-label">所属商家id</label>
 
 								<div class="col-md-4">
-									<input type="text" class="form-control" placeholder="商家id">
+									<form:input path="merchant" type="text" class="form-control" placeholder="商家id"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -116,6 +125,13 @@
 
 								<div class="col-md-4">
 									<form:input path="title" class="form-control" placeholder="不超过20字"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">关键字</label>
+
+								<div class="col-md-4">
+									<form:input path="keyWord" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">

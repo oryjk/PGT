@@ -71,7 +71,9 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                     product.getProductId());
             getTransactionManager().rollback(transactionStatus);
         }
-
+        finally {
+            getTransactionManager().commit(transactionStatus);
+        }
         return product.getProductId();
     }
 
@@ -97,44 +99,57 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
             getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
         }
     }
 
     public void createProductMedias(Product product) {
-        Integer productId = product.getProductId();
-        if (!ObjectUtils.isEmpty(product.getExpertMedia())) {
-            product.getExpertMedia().setReferenceId(productId);
-        }
-        if (!ObjectUtils.isEmpty(product.getAdvertisementMedia())) {
 
-            product.getAdvertisementMedia().setReferenceId(productId);
-        }
-        if (!ObjectUtils.isEmpty(product.getFrontMedia())) {
-            product.getFrontMedia().setReferenceId(productId);
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            Integer productId = product.getProductId();
+            if (!ObjectUtils.isEmpty(product.getExpertMedia())) {
+                product.getExpertMedia().setReferenceId(productId);
+            }
+            if (!ObjectUtils.isEmpty(product.getAdvertisementMedia())) {
 
+                product.getAdvertisementMedia().setReferenceId(productId);
+            }
+            if (!ObjectUtils.isEmpty(product.getFrontMedia())) {
+                product.getFrontMedia().setReferenceId(productId);
+
+            }
+
+            mediaMapper.createMedia(product.getExpertMedia());
+            mediaMapper.createMedia(product.getAdvertisementMedia());
+            mediaMapper.createMedia(product.getFrontMedia());
+            if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
+                product.getHeroMedias().stream().forEach(productMedia -> {
+                    productMedia.setReferenceId(productId);
+                    mediaMapper.createMedia(productMedia);
+                });
+            }
+            if (!ObjectUtils.isEmpty(product.getMainMedias())) {
+                product.getMainMedias().stream().forEach(productMedia -> {
+                    productMedia.setReferenceId(productId);
+                    mediaMapper.createMedia(productMedia);
+                });
+            }
+            if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
+                product.getThumbnailMedias().stream().forEach(productMedia -> {
+                    productMedia.setReferenceId(productId);
+                    mediaMapper.createMedia(productMedia);
+                });
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
         }
 
-        mediaMapper.createMedia(product.getExpertMedia());
-        mediaMapper.createMedia(product.getAdvertisementMedia());
-        mediaMapper.createMedia(product.getFrontMedia());
-        if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
-            product.getHeroMedias().stream().forEach(productMedia -> {
-                productMedia.setReferenceId(productId);
-                mediaMapper.createMedia(productMedia);
-            });
-        }
-        if (!ObjectUtils.isEmpty(product.getMainMedias())) {
-            product.getMainMedias().stream().forEach(productMedia -> {
-                productMedia.setReferenceId(productId);
-                mediaMapper.createMedia(productMedia);
-            });
-        }
-        if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
-            product.getThumbnailMedias().stream().forEach(productMedia -> {
-                productMedia.setReferenceId(productId);
-                mediaMapper.createMedia(productMedia);
-            });
-        }
+
     }
 
     @Override
@@ -165,6 +180,8 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             LOGGER.error("Some thing wrong when update a product with product is is {productId}",
                     product.getProductId());
             getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
         }
         return product.getProductId();
     }
@@ -180,6 +197,8 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             LOGGER.error("Some thing wrong when delete a product with product is is {}.", productId);
             LOGGER.error(e.getMessage());
             getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
         }
     }
 
@@ -192,6 +211,8 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             LOGGER.error("Some thing wrong when delete products,products ids are:");
             productIds.stream().forEach(s -> LOGGER.error(s));
             getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
         }
     }
 

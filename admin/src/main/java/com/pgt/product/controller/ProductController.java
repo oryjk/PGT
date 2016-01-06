@@ -7,6 +7,7 @@ import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.SearchPaginationBean;
+import com.pgt.search.service.ESSearchService;
 import com.pgt.search.service.SearchService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +42,8 @@ public class ProductController {
 
     @Autowired
     private SearchService searchService;
+    @Autowired
+    private ESSearchService esSearchService;
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
     public ModelAndView findProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
@@ -73,6 +77,7 @@ public class ProductController {
             return modelAndView;
         }
         productService.createProduct(product);
+        esSearchService.productIndex(product);
         modelAndView.addObject("product", product);
         modelAndView.setViewName("/product/productImageModify");
         return modelAndView;
@@ -83,6 +88,15 @@ public class ProductController {
     public ResponseEntity createProductMedias(ProductMedia productMedia) {
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
         Integer mediaId = mediaService.create(productMedia);
+        Product product = productService.queryProduct(productMedia.getReferenceId());
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty with id is {}.", productMedia.getReferenceId());
+            responseEntity.getBody().put("success", false);
+            responseEntity.getBody().put("message", "Can not update product index.");
+            return responseEntity;
+        }
+
+        esSearchService.updateProductIndex(product);
         responseEntity.getBody().put("success", true);
         responseEntity.getBody().put("mediaId", mediaId);
         return responseEntity;
@@ -95,7 +109,8 @@ public class ProductController {
             LOGGER.debug("Can not create a product, because the product is null");
             return modelAndView;
         }
-
+        product.setCreationDate(new Date());
+        product.setUpdateDate(new Date());
         productService.createProduct(Integer.valueOf(product.getRelatedCategoryId()), product);
         LOGGER.debug("Product has created, the product is is {}.", product.getProductId());
         return modelAndView;
@@ -155,6 +170,7 @@ public class ProductController {
             LOGGER.debug("The product is empty.");
             return modelAndView;
         }
+        product.setUpdateDate(new Date());
         productService.updateProduct(product);
         modelAndView.addObject("product", product);
         modelAndView.setViewName("/product/productImageModify");
@@ -167,6 +183,7 @@ public class ProductController {
             LOGGER.debug("The parameter product is null.");
             return modelAndView;
         }
+        product.setUpdateDate(new Date());
         productService.updateProduct(product);
         LOGGER.debug("The product has updated with product is is {}.", product.getProductId());
         return modelAndView;
