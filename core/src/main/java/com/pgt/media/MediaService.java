@@ -1,6 +1,7 @@
 package com.pgt.media;
 
 import com.pgt.common.bean.Media;
+import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.ProductMedia;
 
 import java.util.List;
@@ -24,9 +25,16 @@ public interface MediaService {
 
     List<ProductMedia> findMainMediasByProductId(String productId);
 
-    List<ProductMedia> findThumbnailMediasByProductId(String productId);
+    ProductMedia findThumbnailMediasByProductId(String productId);
 
     Integer create(ProductMedia productMedia);
+
     Media findCopyWriterMedia(Integer copyWriterId);
+
+    void deleteMedia(Integer mediaId);
+
+    Media findMedia(Integer mediaId,MediaType mediaType);
+
+    void updateMedia(Media media);
 
 }

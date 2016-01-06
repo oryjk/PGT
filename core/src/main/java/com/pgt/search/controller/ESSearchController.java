@@ -59,7 +59,7 @@ public class ESSearchController {
                             @RequestParam(value = "priceStart", required = false) String priceStart,
                             @RequestParam(value = "priceEnd", required = false) String priceEnd,
                             @RequestParam(value = "currentIndex", required = false) String currentIndex, ModelAndView modelAndView) {
-        PaginationBean paginationBean = new PaginationBean();
+        CommPaginationBean paginationBean = new CommPaginationBean();
         StringBuilder message = new StringBuilder();
         if (StringUtils.isEmpty(currentIndex)) {
             paginationBean.setCurrentIndex(0);
@@ -70,6 +70,7 @@ public class ESSearchController {
         ESRange esRange = null;
         ESTerm esterm = null;
         List<ESTerm> esMatches = new ArrayList<>();
+        List<ESSort> sortList = new ArrayList<>();
         String result[] = new String[2]; // 是否搜索到结果
         try {
             ESAggregation esAggregation = new ESAggregation();
@@ -82,7 +83,13 @@ public class ESSearchController {
                 paginationBean.setCurrentIndex(Long.valueOf(currentIndex));
             }
             term = buildESMatch(term, modelAndView, message, esMatches);
-            buildESSort(sortKey, sortOrder, modelAndView);
+
+            esSort= buildESSort(sortKey, sortOrder, modelAndView);
+
+            if(!ObjectUtils.isEmpty(esSort)){
+                sortList.add(esSort);
+            }
+
             if (!StringUtils.isEmpty(rootCategoryId)) {
                 rootCategoryId = rootCategoryId.trim();
                 esterm = new ESTerm();
@@ -126,13 +133,13 @@ public class ESSearchController {
             // 如果分类不为空，则调用分类的查询方法
             if (!StringUtils.isEmpty(parentCategoryId)) {
                 searchResponse = esSearchService.findProductsByCategoryId(parentCategoryId, esMatches, esRange,
-                        paginationBean, esAggregation);
+                        paginationBean, esAggregation, sortList);
             } else if (!StringUtils.isEmpty(rootCategoryId)) {
                 searchResponse = esSearchService.findProductsByCategoryId(rootCategoryId, esMatches, esRange,
-                        paginationBean, esAggregation);
+                        paginationBean, esAggregation, sortList);
             } else {
                 // 查找出所有的商品普通方法
-                searchResponse = esSearchService.findProducts(esterm, esMatches, esRange, null, paginationBean,
+                searchResponse = esSearchService.findProducts(esterm, esMatches, esRange,sortList, paginationBean,
                         esAggregation, null);
             }
             // 获取categoryId的聚合信息,出现的次数，以及id
@@ -199,9 +206,9 @@ public class ESSearchController {
         }
         return modelAndView;
     }
-    private void buildESSort(@RequestParam(value = "sortKey", required = false) String sortKey,
+    private  ESSort buildESSort(@RequestParam(value = "sortKey", required = false) String sortKey,
                              @RequestParam(value = "sortOrder", required = false) String sortOrder, ModelAndView modelAndView) {
-        ESSort esSort;
+        ESSort esSort=null;
         if (!StringUtils.isEmpty(sortKey)) {
             esSort = new ESSort();
             esSort.setPropertyName(sortKey);
@@ -220,7 +227,10 @@ public class ESSearchController {
             modelAndView.addObject("sortKey", sortKey);
             LOGGER.debug("add sortKey to modelAndView", sortKey);
         }
+        return esSort;
     }
+
+
     private String buildESMatch(@RequestParam(value = "term", required = false) String term, ModelAndView modelAndView, StringBuilder message,
                                 List<ESTerm> esMatches) {
         if (!StringUtils.isEmpty(term)) {

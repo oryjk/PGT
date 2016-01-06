@@ -27,6 +27,7 @@ public class Constants {
     public static final String DISCUSS_PAGE = "/productdetail/discuss";
     public static final String RESET_PASSWORD = "/user/resetforget";
     public static final String HELP_CENTER = "/help/helpcenter";
+    public static final String BANNER_TYPE_HOME="HOME";
 
     //user
     public static final String USER = "user";

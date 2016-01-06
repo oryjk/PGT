@@ -105,7 +105,7 @@
 
 h2 {
   padding-bottom: 2px;
-  width: $c8;
+  width: $c6;
 }
 
 
@@ -257,9 +257,9 @@ small {
 .out-of-stock {
   position: absolute;
   top: 0;
-  left: 0;
-  @include wh(140px, 90px);
-  background: url("../core/images/productList/out-of-stock.png") no-repeat left top;
+  right: 0;
+  @include wh(70px, 70px);
+  background: url("../core/images/productList/out-of-stock-s.png") no-repeat left top;
   opacity: 1;
 }
 

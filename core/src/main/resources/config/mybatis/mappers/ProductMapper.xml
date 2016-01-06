@@ -19,7 +19,6 @@
         <result column="STATUS" property="status"></result>
         <result column="DESCRIPTION" property="description"></result>
         <result column="SHIPPING_FEE" property="shippingFee"></result>
-        <result column="RELATED_CATEGORY_ID" property="relatedCategoryId"></result>
         <result column="STOCK" property="stock"></result>
         <result column="CREATION_DATE" property="creationDate"></result>
         <result column="UPDATE_DATE" property="updateDate"></result>
@@ -28,16 +27,17 @@
         <result column="TITLE" property="title"/>
         <result column="KEY_WORD" property="keyWord"/>
         <result column="MERCHANT" property="merchant"/>
-
+        <association property="relatedCategoryId" column="PRODUCT_ID"
+                     select="queryRelatedCategoryId"/>
         <association property="shippingAddress" column="PRODUCT_ID"
                      select="com.pgt.shipping.dao.ShippingAddressMapper.queryAddressByProduct"/>
-        <association property="expertMedia" column="PRODUCT_ID" select="queryProductExpertMedia"/>
+        <association property="thumbnailMedia" column="PRODUCT_ID" select="queryProductThumbnailMedia"/>
         <association property="advertisementMedia" column="PRODUCT_ID" select="queryProductAdvertisementMedia"/>
         <association property="frontMedia" column="PRODUCT_ID" select="queryProductFrontMedia"/>
+        <association property="expertMedia" column="PRODUCT_ID" select="queryProductExpertMedia"/>
         <collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>
         <collection property="heroMedias" column="PRODUCT_ID" select="queryProductHeroMedias"/>
         <collection property="mainMedias" column="PRODUCT_ID" select="queryProductMainMedias"/>
-        <collection property="thumbnailMedias" column="PRODUCT_ID" select="queryProductThumbnailMedias"/>
 
     </resultMap>
 
@@ -95,7 +95,7 @@
         ORDER BY 'index'
         asc
     </select>
-    <select id="queryProductThumbnailMedias" parameterType="int" resultMap="productMedia">
+    <select id="queryProductThumbnailMedia" parameterType="int" resultMap="productMedia">
         SELECT *
         FROM MEDIA
         WHERE reference_id = #{productId} AND TYPE='thumbnail'
@@ -217,8 +217,8 @@
     <update id="updateProduct" parameterMap="paramProduct">
 		UPDATE PRODUCT SET
 		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
-		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},CREATION_DATE=#{creationDate},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title}
-		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant}
+		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},CREATION_DATE=#{creationDate},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
+		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot} WHERE PRODUCT_ID=#{productId}
 	</update>
     <delete id="deleteProduct" parameterType="int">
 		DELETE FROM PRODUCT
@@ -343,5 +343,9 @@
                 p.IS_NEW = #{isNew}
             </where>
         </if>
+    </select>
+
+    <select id="queryRelatedCategoryId" resultType="string" parameterType="int">
+        SELECT CATEGORY_ID FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId}
     </select>
 </mapper>

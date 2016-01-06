@@ -2,11 +2,14 @@ package com.pgt.product.controller;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
+import com.pgt.configuration.Configuration;
 import com.pgt.media.MediaService;
+import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.SearchPaginationBean;
+import com.pgt.search.service.ESSearchService;
 import com.pgt.search.service.SearchService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +44,11 @@ public class ProductController {
 
     @Autowired
     private SearchService searchService;
+    @Autowired
+    private ESSearchService esSearchService;
+
+    @Autowired
+    private Configuration configuration;
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
     public ModelAndView findProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
@@ -60,6 +69,7 @@ public class ProductController {
         modelAndView.addObject("product", new Product());
         List<Category> categories = categoryService.queryAllParentCategories();
         modelAndView.addObject("categories", categories);
+        modelAndView.addObject("action", "/product/create/stepBase");
         modelAndView.setViewName("/product/productBaseModify");
         return modelAndView;
     }
@@ -72,7 +82,9 @@ public class ProductController {
             return modelAndView;
         }
         productService.createProduct(product);
+        esSearchService.productIndex(product);
         modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("/product/productImageModify");
         return modelAndView;
     }
@@ -81,7 +93,36 @@ public class ProductController {
     @ResponseBody
     public ResponseEntity createProductMedias(ProductMedia productMedia) {
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
+        if (productMedia.getType().equals(MediaType.front)) {
+            ProductMedia oldProductMedia = mediaService.findFrontByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.advertisement)) {
+            ProductMedia oldProductMedia = mediaService.findAdByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.thumbnail)) {
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+
+
         Integer mediaId = mediaService.create(productMedia);
+        Product product = productService.queryProduct(productMedia.getReferenceId());
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty with id is {}.", productMedia.getReferenceId());
+            responseEntity.getBody().put("success", false);
+            responseEntity.getBody().put("message", "Can not update product index.");
+            return responseEntity;
+        }
+
+        esSearchService.updateProductIndex(product);
         responseEntity.getBody().put("success", true);
         responseEntity.getBody().put("mediaId", mediaId);
         return responseEntity;
@@ -94,7 +135,8 @@ public class ProductController {
             LOGGER.debug("Can not create a product, because the product is null");
             return modelAndView;
         }
-
+        product.setCreationDate(new Date());
+        product.setUpdateDate(new Date());
         productService.createProduct(Integer.valueOf(product.getRelatedCategoryId()), product);
         LOGGER.debug("Product has created, the product is is {}.", product.getProductId());
         return modelAndView;
@@ -135,12 +177,32 @@ public class ProductController {
     @RequestMapping(value = "/update/{productId}", method = RequestMethod.GET)
     public ModelAndView updateProduct(@PathVariable("productId") Integer productId, ModelAndView modelAndView) {
         Product product = productService.queryProduct(productId);
-        modelAndView.setViewName("/product/addAndModifyProduct");
+        List<Category> categories = categoryService.queryAllParentCategories();
+        modelAndView.setViewName("/product/productBaseModify");
         if (ObjectUtils.isEmpty(product)) {
             LOGGER.debug("The product is empty with id {}.", productId);
             return modelAndView;
         }
         modelAndView.addObject("product", product);
+        modelAndView.addObject("categories", categories);
+        modelAndView.addObject("action", "/product/update/stepBase");
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/update/stepBase", method = RequestMethod.POST)
+    public ModelAndView updateStepBase(Product product, ModelAndView modelAndView) {
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty.");
+            return modelAndView;
+        }
+        product.setUpdateDate(new Date());
+        productService.updateProductBase(product);
+        product = productService.queryProduct(product.getProductId());
+        esSearchService.updateProductIndex(product);
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.setViewName("/product/productImageModify");
         return modelAndView;
     }
 
@@ -150,6 +212,7 @@ public class ProductController {
             LOGGER.debug("The parameter product is null.");
             return modelAndView;
         }
+        product.setUpdateDate(new Date());
         productService.updateProduct(product);
         LOGGER.debug("The product has updated with product is is {}.", product.getProductId());
         return modelAndView;

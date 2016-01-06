@@ -1,4 +1,4 @@
-package com.pgt.dashboard;
+package com.pgt.dashboard.controller;
 
 import com.pgt.internal.controller.InternalTransactionBaseController;
 import org.slf4j.Logger;

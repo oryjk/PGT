@@ -86,13 +86,13 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label">副标题</label>
                   <div class="col-md-4">
-                    <form:input type="text" class="form-control" placeholder="不超过10字" path="description"/>
+                    <form:input  class="form-control" placeholder="不超过10字" path="description"/>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-md-3 control-label">分类色调</label>
                   <div class="col-md-4">
-                    <form:input type="text" class="form-control" placeholder="#xxxxxx形式" path="color"/>
+                    <form:input  class="form-control" placeholder="#xxxxxx形式" path="color"/>
                   </div>
                 </div>
               </div>
@@ -131,6 +131,7 @@
                 </div>
               </div>
             </div>
+            <form:input cssClass="hidden" path="frontMedia.id" id="frontMedia"/>
           </form:form>
         </div>
         <!-- END FORM-->

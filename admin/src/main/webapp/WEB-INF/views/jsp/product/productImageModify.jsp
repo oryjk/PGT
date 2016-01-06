@@ -12,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList" pageJsPath="/resources/product/product-add-and-modify.js" pageCssPath="/resources/product/product-add-and-modify.css" >
 	<input type="hidden" value="${pageContext.request.contextPath}" id="contextPath"/>
-	<input type="hidden" value="http://www.pgt_admin.com/" id="staticServer"/>
+	<input type="hidden" value="${staticServer}" id="staticServer"/>
 	<input type="hidden" value="${product.name}" id="productName"/>
 	<input type="hidden" value="${product.productId}" id="productId"/>
 	<div class="row">
@@ -69,9 +69,9 @@
 										<div class="col-md-8">
 											<div class="pgt-each-img">
 												<div class="pgt-handle-box">
-													<a class="pgt-img-delete" href="#">删除</a>
+													<a class="pgt-img-delete" href="#" data-url="/media/delete/${product.thumbnailMedia.id}">删除</a>
 												</div>
-												<img class="pgt-thumbnail-img" src="" alt=""/>
+												<img class="pgt-thumbnail-img" src="${product.thumbnailMedia.path}" alt=""/>
 												<p>60 * 60</p>
 											</div>
 										</div>
@@ -89,9 +89,9 @@
 										<div class="col-md-8">
 											<div class="pgt-each-img">
 												<div class="pgt-handle-box">
-													<a class="pgt-img-delete" href="#">删除</a>
+													<a class="pgt-img-delete" href="#" data-url="/media/delete/${product.advertisementMedia.id}">删除</a>
 												</div>
-												<img class="pgt-advertisement-img" src="" alt=""/>
+												<img class="pgt-advertisement-img" src="${product.advertisementMedia.path}" alt=""/>
 												<p>60 * 60</p>
 											</div>
 										</div>
@@ -109,9 +109,9 @@
 										<div class="col-md-8">
 											<div class="pgt-each-img">
 												<div class="pgt-handle-box">
-													<a class="pgt-img-delete" href="#">删除</a>
+													<a class="pgt-img-delete" href="#" data-url="/media/delete/${product.frontMedia.id}">删除</a>
 												</div>
-												<img class="pgt-front-img" src="" alt=""/>
+												<img class="pgt-front-img" src="${product.frontMedia.path}" alt=""/>
 												<p>60 * 60</p>
 											</div>
 										</div>
@@ -127,30 +127,15 @@
 											<p></p>
 										</div>
 										<div class="col-md-8">
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
+											<c:forEach items="${product.mainMedias}" var="mainMedia">
+												<div class="pgt-each-img">
+													<div class="pgt-handle-box">
+														<a class="pgt-img-delete" href="#" data-url="/media/delete/${mainMedia.id}">删除</a>
+													</div>
+													<img class="pgt-hero-img" src="${mainMedia.path}" alt=""/>
+													<p class="pgt-img-size">100 * 100</p>
 												</div>
-												<img class="pgt-hero-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-hero-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-hero-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
+											</c:forEach>
 										</div>
 									</div>
 									<div class="form-group">
@@ -164,30 +149,15 @@
 											<p></p>
 										</div>
 										<div class="col-md-8">
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
+											<c:forEach items="${product.heroMedias}" var="heroMedia">
+												<div class="pgt-each-img">
+													<div class="pgt-handle-box">
+														<a class="pgt-img-delete" href="#" data-url="/media/delete/${heroMedia.id}">删除</a>
+													</div>
+													<img class="pgt-hero-img" src="${heroMedia.path}" alt=""/>
+													<p class="pgt-img-size">100 * 100</p>
 												</div>
-												<img class="pgt-main-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-main-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-main-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
+											</c:forEach>
 										</div>
 									</div>
 
@@ -201,31 +171,15 @@
 											</form>
 											<p></p>
 										</div>
+
 										<div class="col-md-8">
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
+												<div class="pgt-each-img">
+													<div class="pgt-handle-box">
+														<a class="pgt-img-delete" href="#" data-url="/media/delete/${product.expertMedia.id}">删除</a>
+													</div>
+													<img class="pgt-hero-img" src="${product.expertMedia.path}" alt=""/>
+													<p class="pgt-img-size">100 * 100</p>
 												</div>
-												<img class="pgt-expert-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-expert-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-expert-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
 										</div>
 									</div>
 

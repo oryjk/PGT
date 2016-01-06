@@ -12,6 +12,7 @@ import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.Constants;
 import com.pgt.home.bean.HotSale;
 import com.pgt.hot.service.HotProductHelper;
+import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
 import com.pgt.product.service.ProductService;
@@ -25,9 +26,12 @@ import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.action.update.UpdateRequestBuilder;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.Requests;
 import org.elasticsearch.client.transport.TransportClient;
@@ -153,7 +157,7 @@ public class ESSearchService {
      *
      * @return
      */
-    public BulkResponse productIndex() {
+    public BulkResponse productsIndex() {
 
         BulkResponse bulkResponse = null;
         try {
@@ -201,6 +205,32 @@ public class ESSearchService {
         }
         LOGGER.debug("End to product index.");
         return bulkResponse;
+    }
+
+
+    public IndexResponse productIndex(Product product) {
+        IndexResponse response = null;
+        try {
+            CategoryHierarchy categoryHierarchy = categoryService.queryCategoryHierarchy(Integer.valueOf(product.getRelatedCategoryId()));
+            Category category = categoryService.queryCategory(categoryHierarchy.getCategoryId());
+            Category rootCategory = categoryService.queryCategory(categoryHierarchy.getParentCategory().getCategoryId());
+            ESProduct esProduct = buildESProduct(product, rootCategory, category);
+            ObjectMapper mapper = new ObjectMapper();
+            byte[] bytes = mapper.writeValueAsBytes(esProduct);
+            IndexRequestBuilder indexRequestBuilder = getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants
+                            .PRODUCT_INDEX_TYPE,
+                    product.getProductId() + "")
+                    .setSource(bytes);
+            response = indexRequestBuilder.execute().actionGet(100000);
+            if (response.isCreated()) {
+                LOGGER.debug("success to create product.");
+                return response;
+            }
+            LOGGER.warn("Not success create product.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 
     /**
@@ -267,8 +297,23 @@ public class ESSearchService {
 
             productPairs.stream().forEach(integerIntegerPair -> {
                 Product product = productService.queryProduct(integerIntegerPair.getKey());
-                if(!ObjectUtils.isEmpty(product)){
-
+                if (!ObjectUtils.isEmpty(product)) {
+                    Category parentCategory = categoryService.queryParentCategoryByProductId(integerIntegerPair.getKey());
+                    Category rootCategory = parentCategory.getParent();
+                    product.setStock(integerIntegerPair.getValue());
+                    ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        byte[] bytes = mapper.writeValueAsBytes(esProduct);
+                        LOGGER.debug("Product id is {}.", esProduct.getProductId());
+                        UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
+                                .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
+                        bulkRequest.add(updateRequestBuilder);
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
             });
@@ -282,6 +327,61 @@ public class ESSearchService {
         LOGGER.debug("End to reduce the product inventory.");
         return true;
     }
+
+
+    public void updateProductIndex(Product product) {
+        Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
+        Category rootCategory = parentCategory.getParent();
+        ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] bytes = mapper.writeValueAsBytes(esProduct);
+            LOGGER.debug("Product id is {}.", esProduct.getProductId());
+            UpdateRequestBuilder updateRequestBuilder = getIndexClient().prepareUpdate(Constants.SITE_INDEX_NAME, Constants
+                    .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
+            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
+            if (updateResponse.isCreated()) {
+                LOGGER.debug("Success to update product.");
+                return;
+            }
+        } catch (JsonProcessingException e) {
+            LOGGER.error(e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+    }
+
+    public void updateCategoryIndex(Category category) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] rootByte = mapper.writeValueAsBytes(category);
+            UpdateRequestBuilder updateRequestBuilder = getIndexClient().prepareUpdate(Constants.SITE_INDEX_NAME, Constants
+                    .CATEGORY_INDEX_TYPE, category.getId() + "").setDoc(rootByte);
+            updateRequestBuilder.execute().actionGet(10000);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createCategoryIndex(Category category) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] rootByte = mapper.writeValueAsBytes(category);
+            IndexRequestBuilder indexRequestBuilder = getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE,
+                    category.getId() + "")
+                    .setSource(rootByte);
+            indexRequestBuilder.execute().actionGet(10000);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private ESProduct buildESProduct(Product product, Category rootCategory, Category parentCategory) {
         ESProduct esProduct = new ESProduct();
@@ -463,11 +563,12 @@ public class ESSearchService {
      *
      * @param categoryId
      * @param esMatches
+     * @param esSorts
      * @return
      */
 
     public SearchResponse findProductsByCategoryId(String categoryId, List<ESTerm> esMatches, ESRange esRange, PaginationBean paginationBean,
-                                                   ESAggregation esAggregation) {
+                                                   ESAggregation esAggregation, List<ESSort> esSorts) {
         SearchResponse response = null;
         if (!StringUtils.isBlank(categoryId)) {
 
@@ -502,7 +603,7 @@ public class ESSearchService {
                 }
                 LOGGER.debug("This category id is not belong to ROOT category.");
 
-                return findProducts(getCategoryEsTerm(Constants.PARENT_CATEGORY_ID, categoryId), esMatches, esRange, null, paginationBean,
+                return findProducts(getCategoryEsTerm(Constants.PARENT_CATEGORY_ID, categoryId), esMatches, esRange, esSorts, paginationBean,
                         esAggregation, null);
 
             }

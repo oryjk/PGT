@@ -6,4 +6,6 @@ package com.pgt.cart.constant;
 public interface CookieConstant {
 
 	String BROWSED_PRODUCTS = "browsed_products";
+
+	String INTERNAL_LOGIN_TOKEN = "iu_token";
 }

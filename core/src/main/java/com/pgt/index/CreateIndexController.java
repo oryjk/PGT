@@ -2,10 +2,6 @@ package com.pgt.index;
 
 import com.pgt.search.service.ESSearchService;
 import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.support.TransportProxyClient;
-import org.elasticsearch.common.settings.Settings;
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +28,7 @@ public class CreateIndexController {
         esSearchService.initialIndex(true);
         esSearchService.categoryIndex();
         esSearchService.hotProductIndex();
-        BulkResponse responses = esSearchService.productIndex();
+        BulkResponse responses = esSearchService.productsIndex();
         message.put("responses", responses);
         if (responses.hasFailures()) {
 

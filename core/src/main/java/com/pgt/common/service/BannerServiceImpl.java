@@ -56,7 +56,7 @@ public class BannerServiceImpl implements BannerService {
 	}
 
 	@Override
-	public List<Banner> queryBannerByType(String type) {
+	public Banner queryBannerByType(String type) {
 		return bannerMapper.queryBannerByType(type);
 	}
 

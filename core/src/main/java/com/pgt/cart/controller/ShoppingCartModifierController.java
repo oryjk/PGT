@@ -69,6 +69,10 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView redirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView modelAndView = new ModelAndView("shopping-cart/cart");
+		Order current = getCurrentOrder(pRequest);
+		synchronized (current) {
+			getShoppingCartService().checkInventory(current);
+		}
 		String oosProdId = pRequest.getParameter("oosProdId");
 		try {
 			if (StringUtils.isNotBlank(oosProdId)) {
@@ -101,7 +105,6 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		if (StringUtils.isNotBlank(error)) {
 			modelAndView.addObject("error", error);
 		}
-
 		return modelAndView;
 	}
 

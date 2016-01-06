@@ -47,6 +47,7 @@
 .two-dimension {
   opacity: 0;
   //transition: opacity 0.1s linear;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0)\9;
   position: absolute;
   top: 0;
   left: 100px;
@@ -55,6 +56,7 @@
 .our-app a:hover {
   .two-dimension {
     opacity: 1;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100)\9;
     transition: opacity 1s linear;
   }
 }

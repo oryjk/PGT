@@ -5,7 +5,7 @@
     position: absolute;
     width: 300px;
     height: 400px;
-    top: 30%;
+    top: 28%;
     right: 5%;
 }
 
@@ -38,5 +38,21 @@
 }
 
 .pgt-category-img {
-    height: 100px;
+    height: 200px;
+}
+
+.hidden {
+    display: none;
+}
+
+.pgt-color-box {
+    position: relative;
+}
+
+.pgt-color {
+    position: absolute;
+    top: 7px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
 }

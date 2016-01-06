@@ -22,6 +22,6 @@ public interface BannerMapper extends SqlMapper {
 
 	List<Banner> queryAllBanners();
 
-	List<Banner> queryBannerByType(String type);
+	Banner queryBannerByType(String type);
 	
 }

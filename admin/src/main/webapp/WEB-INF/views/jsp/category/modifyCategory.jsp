@@ -50,7 +50,7 @@
         </div>
         <div class="portlet-body form">
           <!-- BEGIN FORM-->
-          <form:form action="update" class="form-horizontal" modelAttribute="category">
+          <form:form action="/category/update/" class="form-horizontal" modelAttribute="category">
             <div class="form-body">
               <!-- 只有在修改时才出现id行-->
               <c:if test="${category.id!=null}">
@@ -59,6 +59,7 @@
                 <div class="col-md-4">
                   <p class="form-control-static">
                     ${category.id}
+                    <input type="hidden" value="${category.id}" name="id"/>
                   </p>
                 </div>
               </div>
@@ -91,8 +92,9 @@
                 </div>
                 <div class="form-group">
                   <label class="col-md-3 control-label">分类色调</label>
-                  <div class="col-md-4">
-                    <form:input type="text" class="form-control" placeholder="#xxxxxx形式" path="color"/>
+                  <div class="col-md-4 pgt-color-box">
+                    <form:input type="text" class="form-control" id="pgtColorInput" placeholder="#xxxxxx形式" path="color"/>
+                    <div class="pgt-color" id="pgtColor"></div>
                   </div>
                 </div>
               </div>
@@ -131,6 +133,11 @@
                 </div>
               </div>
             </div>
+            <form:input path="frontMedia.path" cssClass="hidden" id="categoryMediaPath"/>
+            <form:input path="frontMedia.id" cssClass="hidden" id="categoryMediaId"/>
+            <form:input path="frontMedia.referenceId" cssClass="hidden" id="categoryMediaRefId"/>
+            <form:input path="frontMedia.type" cssClass="hidden" id="categoryMediaRefType"/>
+            <form:input path="frontMedia.title" cssClass="hidden" id="categoryMediaRefTitle"/>
           </form:form>
         </div>
         <!-- END FORM-->
@@ -144,7 +151,7 @@
           <div class="pgt-handle-box">
             <a class="pgt-img-delete" href="#">删除</a>
           </div>
-          <img class="pgt-category-img" src="" alt=""/>
+          <img class="pgt-category-img" src="${category.frontMedia.path}" alt=""/>
           <p>200 * 200</p>
         </div>
       </div>
@@ -152,13 +159,15 @@
     <div class="row">
       <label class="col-md-12 control-label">分类主图</label>
       <div class="col-md-12">
-        <form class="pgt-file-box" action="/test">
-          <input class="pgt-file-btn" name="thumbnail" type="file"/>
+        <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+          <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
+          <input name="mediaType" type="hidden" value="category"/>
           <button type="button" class="btn blue">选择图片</button>
         </form>
         <p></p>
       </div>
     </div>
   </div>
+  <div id="testbox"></div>
 </admin:container>
 

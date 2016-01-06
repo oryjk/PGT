@@ -284,8 +284,10 @@
                     <tbody>
 	                    <c:forEach var="commerceItem" items="${checkoutOrder.commerceItems}">
 		                    <tr>
-		                        <td>
-		                           <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
+		                        <td class="img-box">
+                                    <img class="out-of-stock" src="${pageContext.request.contextPath}/core/images/productList/out-of-stock-s.png" alt=""/>
+
+                                    <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
 	                                         alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
 		                        </td>
 		                        <td class="product-name">

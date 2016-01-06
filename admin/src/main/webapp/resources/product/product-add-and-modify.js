@@ -9,7 +9,7 @@ $('[data-pgt-btn="single"]').change(function () {
     p.html(that.val());
 
     form.ajaxSubmit({
-        url: $('#contextPath').val() + '/upload/image',
+        url: '/upload/image',
         dataType: 'json',
         type: 'POST',
         success: function (responseBody) {
@@ -17,14 +17,14 @@ $('[data-pgt-btn="single"]').change(function () {
             var test = $('<img>');
 
             //所有功能写进回调:
-            test.load(function() {
+            test.load(function () {
                 size = test.width() + '*' + test.height();
                 that.parents('.col-md-2').siblings('.col-md-8').children().children('img').attr('src', staticPath + responseBody.imagePath)
                     .siblings('p').html(size);
                 console.log(that.parents('.col-md-2').siblings('.col-md-8').children().children('img').siblings('p'))
                 test.remove();
                 $.ajax({
-                    url: $('#contextPath').val() + '/product/create/stepImage',
+                    url: '/product/create/stepImage',
                     type: 'post',
                     data: {
                         referenceId: $('#productId').val(),
@@ -32,7 +32,8 @@ $('[data-pgt-btn="single"]').change(function () {
                         path: responseBody.imagePath,
                         type: responseBody.mediaType
                     },
-                    success: function() {}
+                    success: function () {
+                    }
                 });
             });
 
@@ -52,7 +53,7 @@ $('[data-pgt-btn="multiple"]').change(function () {
     p.html(that.val());
 
     form.ajaxSubmit({
-        url: $('#contextPath').val() + '/upload/image',
+        url: '/upload/image',
         dataType: 'json',
         type: 'POST',
         success: function (responseBody) {
@@ -62,7 +63,7 @@ $('[data-pgt-btn="multiple"]').change(function () {
             test.attr('src', staticPath + responseBody.imagePath);
 
             //所有功能写进回调:
-            test.load(function() {
+            test.load(function () {
                 size = test.width() + '*' + test.height();
                 test.remove();
 
@@ -73,10 +74,12 @@ $('[data-pgt-btn="multiple"]').change(function () {
                     size +
                     '</p> </div>';
 
+                console.log(str)
+
                 that.parents('.col-md-2').siblings('.col-md-8').append($(str));
 
                 $.ajax({
-                    url: $('#contextPath').val() + '/product/create/stepImage',
+                    url: '/product/create/stepImage',
                     type: 'post',
                     data: {
                         referenceId: $('#productId').val(),
@@ -84,7 +87,8 @@ $('[data-pgt-btn="multiple"]').change(function () {
                         path: responseBody.imagePath,
                         type: responseBody.mediaType
                     },
-                    success: function() {}
+                    success: function () {
+                    }
                 });
             });
 
@@ -94,3 +98,13 @@ $('[data-pgt-btn="multiple"]').change(function () {
     });
 });
 
+$(document).on('click', '.pgt-img-delete', function() {
+    var $this = $(this);
+    $.ajax({
+        type: 'get',
+        url: $this.attr('data-value'),
+        success: function(param) {
+            console.log(param);
+        }
+    })
+});

@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <form action="<spring:url value="/order/order-list"/>">
+                    <form action="/order/order-list">
                         <input type="hidden" name="currentIndex" value="${param.currentIndex}" />
                         <input type="hidden" name="capacity" value="${param.capacity}" />
 
@@ -79,28 +79,19 @@
                                                 <span>时间: </span>
                                             </div>
                                             <div class="col-xs-2 pgt-begin-date" style="position: relative">
-                                                <input name="submitTimeBeg" value="${param.submitTimeBeg}" class="jcDate jcDateIco form-control input-small input-inline" />
+                                                <input name="submitTimeBeg" value="${param.submitTimeBeg}" class="form-control input-small input-inline" maxlength="16"
+                                                       onfocus="$(this).calendar()">
                                             </div>
-                                            <div class="col-xs-2 pgt-time" style="position: relative">
-                                                <input type="search" class="form-control input-mini input-inline"
-                                                       placeholder="时" aria-controls="sample_3">
-                                                :
-                                                <input type="search" class="form-control input-mini input-inline"
-                                                       placeholder="分" aria-controls="sample_3">
-                                            </div>
+
+
                                             <div class="col-xs-1 pgt-date-divide">
-                                                <span>至</span>
+                                                <span style="padding-left: 20px;">至</span>
                                             </div>
                                             <div class="col-xs-2">
-                                                <input name="submitTimeEnd" value="${param.submitTimeEnd}" class="jcDate jcDateIco form-control input-small input-inline" />
+                                                <input name="submitTimeEnd" value="${param.submitTimeEnd}" class="form-control input-small input-inline" maxlength="16"
+                                                       onfocus="$(this).calendar()">
                                             </div>
-                                            <div class="col-xs-2 pgt-time">
-                                                <input type="search" class="form-control input-mini input-inline"
-                                                       placeholder="时" aria-controls="sample_3">
-                                                :
-                                                <input type="search" class="form-control input-mini input-inline"
-                                                       placeholder="分" aria-controls="sample_3">
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -186,9 +177,8 @@
                                     <td>${order.commerceItemCount}</td>
                                     <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></td>
                                     <td>${order.userId}</td>
-                                    <td><a href="<spring:url value="/order/order-info?id=${order.id}" />" class="btn btn-xs btn-circle">查看</a></td>
+                                    <td><a href="/order/order-info?id=${order.id}" class="btn btn-xs btn-circle">查看</a></td>
                                     <td>
-                                        <!--super: blue:待付款 yellow待收货 green已完成 red已取消-->
                                         <div class="btn-group">
                                             <a class="btn btn-xs blue" href="javascript:;" ${order.status ne -10 ? 'data-toggle="dropdown"' : ''}>
                                                 <c:choose>
@@ -247,7 +237,7 @@
                     </div>
 
                         <%-- pagination row --%>
-                    <form action="<spring:url value="/order/order-list" />" method="get">
+                    <form action="/order/order-list" method="get">
                         <div class="row">
                             <jsp:include page="include/pagination-capacity-selection.jsp">
                                 <jsp:param name="paginationURL"

@@ -68,7 +68,7 @@
         <property name="useES" value="true"></property>
         <property name="resourcePath" value="/resources"></property>
         <property name="initialDataPath" value="/json"></property>
-        <property name="adminPlpCapacity" value="20"></property>
+        <property name="adminPlpCapacity" value="5"></property>
         <property name="adminCategoryCapacity" value="20"></property>
         <property name="imagePath" value="${imagePath}"></property>
         <property name="useProxy" value="${useProxy}"></property>
@@ -181,4 +181,14 @@
             </map>
         </property>
     </bean>
+
+    <bean class="com.pgt.executor.processor.InstantiationTracingBeanPostProcessor">
+        <property name="initializationHandlers">
+            <array>
+                <ref bean="adminSessionPathInitHandler" />
+            </array>
+        </property>
+    </bean>
+
+    <bean id="adminSessionPathInitHandler" class="com.pgt.executor.handler.AdminSessionPathInitHandler" />
 </beans>

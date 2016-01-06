@@ -39,7 +39,7 @@ public class ParseDataTest {
             product.setRelatedCategoryId(100 + "");
             product.setSerialNumber(100000000 + "");
             product.setShortDescription("这个产品真心好");
-            product.setThumbnailMedias(Lists.newArrayList(new ProductMedia()));
+            product.setThumbnailMedia(new ProductMedia());
             product.setTitle("this is title");
             product.setUpdateDate(new Date());
             product.setShippingFee(20.00);

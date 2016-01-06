@@ -14,6 +14,8 @@
 
 
 <admin:container id="productList" pageJsPath="/resources/product/product-list.js">
+	<c:set value="${searchPaginationBean.currentIndex}" var="currentIndex"/>
+	<c:set value="${searchPaginationBean.maxIndex}" var="maxIndex"/>
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -250,7 +252,7 @@
 												${product.salePrice}
 										</td>
 										<td class="face-box">
-											<img src="${staticServer}${product.thumbnailMedias[0].path}" alt=""/>
+											<img src="${staticServer}${product.thumbnailMedia.path}" alt=""/>
 										</td>
 										<td>
 											1
@@ -280,7 +282,7 @@
 						</div>
 
 						<div class="row">
-							<link rel="stylesheet" href="../core/css/page.css"/>
+							<link rel="stylesheet" href="/resources/core/css/page.css"/>
 							<div class="col-xs-2">
 								<div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
 									第
@@ -308,27 +310,67 @@
 								<div class="dataTables_paginate paging_simple_numbers pgt-page-box">
 									<!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
 									<ul class="pagination">
-										<li class="paginate_button previous disabled"><a href="#"><i
-												class="fa fa-angle-left"></i></a></li>
+
 										<li class="paginate_button"><a
 												href="/product/productList?currentIndex=0">首页</a></li>
-
 										<c:choose>
-											<c:when test="${searchPaginationBean.maxIndex}>5">
-												<li class="paginate_button disabled"><a
-														href="javascript:;">...</a></li>
-												<li class="paginate_button "><a
-														href="#">3</a></li>
-												<li class="paginate_button "><a
-														href="#">4</a></li>
-												<li class="paginate_button active"><a
-														href="#">5</a></li>
-												<li class="paginate_button"><a
-														href="#">6</a></li>
-												<li class="paginate_button"><a
-														href="#">7</a></li>
-												<li class="paginate_button disabled"><a
-														href="javascript:;">...</a></li>
+											<c:when test="${searchPaginationBean.maxIndex>5}">
+												<c:if test="${searchPaginationBean.currentIndex>2 and searchPaginationBean.currentIndex<searchPaginationBean.maxIndex-3}">
+													<li class="paginate_button disabled">
+														<a href="javascript:;">...</a>
+													</li>
+													<li class="paginate_button ">
+														<a href="/product/productList?currentIndex=${currentIndex-2}">${currentIndex-1}</a>
+													</li>
+													<li class="paginate_button ">
+														<a href="/product/productList?currentIndex=${currentIndex-1}">${currentIndex}</a>
+													</li>
+													<li class="paginate_button active">
+														<a href="/product/productList?currentIndex=${currentIndex}">${currentIndex+1}</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex+1}">${currentIndex+2}</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex+2}">${currentIndex+3}</a>
+													</li>
+													<li class="paginate_button disabled">
+														<a href="javascript:;">...</a>
+													</li>
+												</c:if>
+												<c:if test="${searchPaginationBean.currentIndex<3}">
+
+													<c:forEach var="current" begin="1" end="${currentIndex+1}">
+														<li class="paginate_button <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if> ">
+															<a href="/product/productList?currentIndex=${current-1}">${current}</a>
+														</li>
+													</c:forEach>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex+1}">${currentIndex+2}</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex+2}">${currentIndex+3}</a>
+													</li>
+													<li class="paginate_button disabled">
+														<a href="javascript:;">...</a>
+													</li>
+												</c:if>
+												<c:if test="${searchPaginationBean.currentIndex+4>searchPaginationBean.maxIndex}">
+													<li class="paginate_button disabled">
+														<a href="javascript:;">...</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex-2}">${currentIndex-2}</a>
+													</li>
+													<li class="paginate_button">
+														<a href="/product/productList?currentIndex=${currentIndex-1}">${currentIndex-1}</a>
+													</li>
+													<c:forEach var="current" begin="${currentIndex+1}" end="${maxIndex+1}">
+														<li class="paginate_button <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if> ">
+															<a href="/product/productList?currentIndex=${current-1}">${current}</a>
+														</li>
+													</c:forEach>
+												</c:if>
 											</c:when>
 											<c:otherwise>
 												<c:forEach var="current" begin="1" end="${searchPaginationBean.maxIndex+1}">
@@ -341,20 +383,17 @@
 										</c:choose>
 
 
-
-
-
 										<li class="paginate_button"><a
 												href="/product/productList?currentIndex=${searchPaginationBean.maxIndex}">末页</a></li>
-										<li class="paginate_button next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+
 									</ul>
 								</div>
 							</div>
 							<div class="col-xs-2">
-								<form class="dataTables_filter pgt-goto-page">
+								<form class="dataTables_filter pgt-goto-page" action="/product/productList" method="get">
 									<label>
-										<input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
-										<input type="submit" class="btn blue" value="跳转">
+										<input type="search" value="${currentIndex+1}" name="currentIndex" class="form-control input-xsmall input-inline" placeholder="第几页">
+										<input type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
 									</label>
 								</form>
 							</div>
