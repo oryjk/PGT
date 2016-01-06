@@ -12,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList" pageJsPath="/resources/product/product-add-and-modify.js" pageCssPath="/resources/product/product-add-and-modify.css" >
 	<input type="hidden" value="${pageContext.request.contextPath}" id="contextPath"/>
-	<input type="hidden" value="http://www.pgt_admin.com/" id="staticServer"/>
+	<input type="hidden" value="${staticServer}" id="staticServer"/>
 	<input type="hidden" value="${product.name}" id="productName"/>
 	<input type="hidden" value="${product.productId}" id="productId"/>
 	<div class="row">
