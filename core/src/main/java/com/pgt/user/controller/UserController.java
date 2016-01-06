@@ -396,6 +396,7 @@ public class UserController {
         if(ObjectUtils.isEmpty(oldpassword)){
             bindingResult.addError(
                     new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
+             modelAndView.setViewName("my-account/person-info/update-password");
              return modelAndView;
         }
 
@@ -404,6 +405,7 @@ public class UserController {
         if(!oldMd5Password.endsWith(user.getPassword())){
             bindingResult.addError(
                     new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("Error.internalUser.password.notMatch", null, null)));
+            modelAndView.setViewName("my-account/person-info/update-password");
             return modelAndView;
         }
         //修改密码
