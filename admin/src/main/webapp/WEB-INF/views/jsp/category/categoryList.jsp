@@ -47,33 +47,7 @@
 						<span class="caption-subject font-green-sharp bold uppercase">表格</span>
 					</div>
 					<div class="actions btn-set">
-						<button class="btn green-haze btn-circle" data-pgt-btn="create"><i class="fa fa-plus"></i> 新增</button>
-						<div class="btn-group">
-							<a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
-								<i class="fa fa-check-circle"></i> 批量操作 <i class="fa fa-angle-down"></i>
-							</a>
-							<ul class="dropdown-menu pull-right">
-								<li>
-									<a href="javascript:;">
-										启用分类 </a>
-								</li>
-								<li>
-									<a href="javascript:;">
-										禁用分类 </a>
-								</li>
-								<li class="divider">
-								<li>
-									<a href="javascript:;">
-										删除所选项 </a>
-								</li>
-								<li class="divider">
-								</li>
-								<li>
-									<a href="javascript:;">
-										打印所选项 </a>
-								</li>
-							</ul>
-						</div>
+						<button class="btn green-haze btn-circle" data-pgt-btn="create" data-url="/category/create"><i class="fa fa-plus"></i> 新增</button>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -170,8 +144,8 @@
 													</div>
 												</td>
 												<td>
-													<button class="btn btn-xs green btn-circle" data-pgt-btn="modify">修改</button>
-													<button class="btn btn-xs red btn-circle" data-pgt-btn="delete">删除</button>
+													<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/category/update/${rootCategory.id}">修改</button>
+													<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/category/delete/${rootCategory.id}">删除</button>
 												</td>
 											</tr>
 										</c:forEach>
@@ -254,8 +228,8 @@
 												</div>
 											</td>
 											<td>
-												<button class="btn btn-xs green btn-circle">修改</button>
-												<button class="btn btn-xs red btn-circle">删除</button>
+												<button class="btn btn-xs green btn-circle" data-url="/category/update/${rootCategory.id}">修改</button>
+												<button class="btn btn-xs red btn-circle" data-url="/category/delete/${rootCategory.id}">删除</button>
 											</td>
 										</tr>
 										</c:forEach>
