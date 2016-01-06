@@ -126,10 +126,10 @@ public class ESSearchController {
             // 如果分类不为空，则调用分类的查询方法
             if (!StringUtils.isEmpty(parentCategoryId)) {
                 searchResponse = esSearchService.findProductsByCategoryId(parentCategoryId, esMatches, esRange,
-                        paginationBean, esAggregation);
+                        paginationBean, esAggregation, null);
             } else if (!StringUtils.isEmpty(rootCategoryId)) {
                 searchResponse = esSearchService.findProductsByCategoryId(rootCategoryId, esMatches, esRange,
-                        paginationBean, esAggregation);
+                        paginationBean, esAggregation, null);
             } else {
                 // 查找出所有的商品普通方法
                 searchResponse = esSearchService.findProducts(esterm, esMatches, esRange, null, paginationBean,
