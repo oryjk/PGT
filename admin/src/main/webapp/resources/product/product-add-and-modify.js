@@ -96,3 +96,13 @@ $('[data-pgt-btn="multiple"]').change(function () {
     });
 });
 
+$(document).on('click', '.pgt-img-delete', function() {
+    var $this = $(this);
+    $.ajax({
+        type: 'get',
+        url: $this.attr('data-value'),
+        success: function(param) {
+            console.log(param);
+        }
+    })
+});
