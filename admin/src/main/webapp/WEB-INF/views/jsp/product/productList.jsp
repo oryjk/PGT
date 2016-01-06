@@ -282,7 +282,7 @@
 						</div>
 
 						<div class="row">
-							<link rel="stylesheet" href="../core/css/page.css"/>
+							<link rel="stylesheet" href="/resources/core/css/page.css"/>
 							<div class="col-xs-2">
 								<div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
 									第
@@ -390,10 +390,10 @@
 								</div>
 							</div>
 							<div class="col-xs-2">
-								<form class="dataTables_filter pgt-goto-page">
+								<form class="dataTables_filter pgt-goto-page" action="/product/productList" method="get">
 									<label>
-										<input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
-										<input type="submit" class="btn blue" value="跳转">
+										<input type="search" value="${currentIndex+1}" name="currentIndex" class="form-control input-xsmall input-inline" placeholder="第几页">
+										<input type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
 									</label>
 								</form>
 							</div>

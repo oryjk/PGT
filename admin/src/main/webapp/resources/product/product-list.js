@@ -16,31 +16,31 @@
 //        view.addClass('red');
 //    }
 //});
-$(document).on('click', '[data-pgt-btn="modify"], [data-pgt-btn="create"]', function() {
+$(document).on('click', '[data-pgt-btn="modify"], [data-pgt-btn="create"]', function () {
     var $this = $(this);
     window.location = $this.attr('data-url');
 });
 
-$(document).on('click', '[data-pgt-btn="delete"]', function() {
+$(document).on('click', '[data-pgt-btn="delete"]', function () {
     var $this = $(this);
     $('#confirmModal').modal();
     $('#comfirmBtn')
         .off()
-        .click(function() {
+        .click(function () {
             $.ajax({
                 type: 'get',
                 url: $this.attr('data-url'),
-                success: function(param) {
+                success: function (param) {
                     if (param.success == true) {
                         window.location = location;
                     }
                 }
             })
-    });
+        });
 });
 
 
-$('#checkAll').change(function() {
+$('#checkAll').change(function () {
     var that = $(this);
     var allCheck = $('#list input[type="checkbox"]');
     if (that.prop('checked')) {
@@ -50,18 +50,18 @@ $('#checkAll').change(function() {
     }
 });
 
-$('#mainCategory').change(function() {
+$('#mainCategory').change(function () {
     var $this = $(this);
     var viceCategory = $('#viceCategory');
 
     $.ajax({
         type: 'get',
         url: '/category/getSubCategoriesAjax/' + $this.val(),
-        success: function(param) {
+        success: function (param) {
             var str = '';
 
-            $.each(param.categories, function(i, data) {
-                str += '<option value="'+data.id+'">'+data.name+'</option>';
+            $.each(param.categories, function (i, data) {
+                str += '<option value="' + data.id + '">' + data.name + '</option>';
             });
 
             viceCategory.html(str);
@@ -69,7 +69,14 @@ $('#mainCategory').change(function() {
     });
 });
 
-$('#viceCategory').change(function() {
-    var $this =$(this);
+$('#viceCategory').change(function () {
+    var $this = $(this);
     window.location = '/product/productList?categoryId=' + $this.val() + '&currentIndex=0';
 });
+
+$('.pgt-goto-page-btn').on('click', function () {
+    var oValue = $('.pgt-goto-page .input-inline').val();
+    if(oValue>0){
+        $('.pgt-goto-page .input-inline').val(oValue-1);
+    }
+})
