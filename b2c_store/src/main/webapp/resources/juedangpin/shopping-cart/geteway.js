@@ -2,7 +2,7 @@
  * Created by supersoup on 15/12/17.
  */
 var baseUrl = '../../../resources';
-if (location.hostname == 'localhost' || location.hostname == 'www.dianjinzi.com') {
+if (location.hostname == 'localhost') {
     //测试用
     baseUrl = '../../b2c_store/resources';
 }
