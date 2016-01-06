@@ -206,11 +206,11 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="extra_profile.html">
+                                <a href="javascript:;">
                                     <i class="icon-user"></i> 我的资料 </a>
                             </li>
                             <li>
-                                <a href="page_calendar.html">
+                                <a href="javascript:;">
                                     <i class="icon-calendar"></i> 我的收益 </a>
                             </li>
                             <li>
@@ -227,7 +227,7 @@
                             <li class="divider">
                             </li>
                             <li>
-                                <a href="login.html">
+                                <a href="/logout">
                                     <i class="icon-key"></i> 退出登陆 </a>
                             </li>
                         </ul>
@@ -236,7 +236,7 @@
                     <!-- BEGIN USER LOGIN DROPDOWN -->
                     <li class="dropdown dropdown-extended quick-sidebar-toggler">
                         <span class="sr-only">Toggle Quick Sidebar</span>
-                        <a href="/logout"><i class="icon-logout"></i></a>
+                        <i class="icon-logout" onclick="javascript:window.location.href='/logout'"></i>
                     </li>
                     <!-- END USER LOGIN DROPDOWN -->
                 </ul>
