@@ -58,7 +58,7 @@
 	                        <span class="row-title">银行卡号 :</span>
 	                        <c:choose>
 	                        <c:when test="${empty result['cardNo'] }">
-	                        	<span class="row-text">为绑定</span>
+	                        	<span class="row-text">未绑定</span>
 	                        	<a class="link-btn" href="<c:url value="/yeepay/yeepayForm?serviceName=toBindBankCard"/>">绑卡</a>
 	                        </c:when>
 	                        <c:otherwise>
