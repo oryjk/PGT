@@ -26,7 +26,7 @@
 
         <!-- 侧边栏-->
         <jsp:include page="../vertical-my-account-directory.jsp">
-            <jsp:param name="step" value="address" />
+            <jsp:param name="step" value="updatePassword" />
         </jsp:include>
 
 

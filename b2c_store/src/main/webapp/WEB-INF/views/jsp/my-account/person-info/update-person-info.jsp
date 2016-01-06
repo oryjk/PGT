@@ -23,6 +23,7 @@
     </div>
 
 
+
     <!--正文-->
     <div class="content-box">
 
@@ -30,7 +31,7 @@
 
         <!-- 侧边栏-->
         <jsp:include page="../vertical-my-account-directory.jsp">
-            <jsp:param name="step" value="address" />
+            <jsp:param name="step" value="userinformation" />
         </jsp:include>
 
 
@@ -66,7 +67,11 @@
 
                     </div>
                    <form action="${pageContext.request.contextPath}/userinformation/create" method="post">
-                      ${error}
+
+                       <c:forEach items="${error}" var="message">
+                            ${message.defaultMessage}
+                           </c:forEach>
+
                        <input type="hidden" name="path" id="path" value="${userInformation.path}"/>
                     <div class="personal-right">
                         <div class="text1">
@@ -91,7 +96,7 @@
                             <input type="text" class="input-text1" name="personEmail" value="${userInformation.personEmail}">
                         </div>
                         <div class="text3">
-                            身份证号
+                            <span style="color: red"> *</span>身份证号
                             <input type="text" class="input-text2" name="idCard" value="${userInformation.idCard}" >
                         </div>
                         <div class="text3">

@@ -128,11 +128,11 @@
 
 								<c:if test="${sortKey eq 'creationDate'}">
 								<c:if test="${not empty sortOrder}">
-									<c:if test="${sortOrder eq 'asc'}">
+									<c:if test="${sortOrder eq 'desc'}">
 									<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
 									</c:if>
 
-									<c:if test="${sortOrder eq 'desc'}">
+									<c:if test="${sortOrder eq 'asc'}">
 								<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
 								    </c:if>
 								</c:if>
@@ -146,11 +146,11 @@
 
 								<c:if test="${sortKey eq 'salePrice'}">
 								<c:if test="${not empty sortOrder}">
-									<c:if test="${sortOrder eq 'asc'}">
+									<c:if test="${sortOrder eq 'desc'}">
 										<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
 									</c:if>
 
-									<c:if test="${sortOrder eq 'desc'}">
+									<c:if test="${sortOrder eq 'asc'}">
 										<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
 									</c:if>
 								</c:if>
