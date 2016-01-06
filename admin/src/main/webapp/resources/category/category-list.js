@@ -24,3 +24,5 @@ $(document).on('click', '[data-pgt-btn="modify"], [data-pgt-btn="create"]', func
     var $this = $(this);
     window.location = $this.attr('data-url');
 });
+
+
