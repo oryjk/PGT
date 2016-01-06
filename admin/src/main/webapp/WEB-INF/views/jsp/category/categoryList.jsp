@@ -215,16 +215,7 @@
 														</c:choose>
 														<i class="fa fa-angle-down"></i>
 													</a>
-													<ul class="dropdown-menu pull-right">
-														<li>
-															<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
-																禁用 </a>
-														</li>
-														<li>
-															<a href="javascript:;" data-pgt-value="1" data-pgt-dropdown="status-option">
-																启用 </a>
-														</li>
-													</ul>
+
 												</div>
 											</td>
 											<td>

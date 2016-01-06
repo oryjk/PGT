@@ -2,10 +2,13 @@ package com.pgt.category.service;
 
 import java.util.List;
 
+import com.pgt.base.service.TransactionService;
+import com.pgt.media.MediaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.util.ObjectUtils;
 
 import com.pgt.category.bean.Category;
@@ -20,12 +23,15 @@ import com.pgt.utils.PaginationBean;
  * Created by carlwang on 11/13/15.
  */
 @Service
-public class CategoryServiceImp implements CategoryService {
+public class CategoryServiceImp extends TransactionService implements CategoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImp.class);
     @Autowired
     private CategoryMapper categoryMapper;
     @Autowired
     private MediaMapper mediaMapper;
+
+    @Autowired
+    private MediaService mediaService;
 
     @Override
     public String createCategory(Category category) {
@@ -53,11 +59,32 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
+    public String createCategory(Category category, Integer mediaId) {
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            LOGGER.debug("Begin create category.");
+            categoryMapper.createCategory(category);
+            Media media = mediaService.findMedia(mediaId, MediaType.category);
+            media.setReferenceId(category.getId());
+            mediaService.updateMedia(media);
+
+            LOGGER.debug("End create category.");
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
+
+        return String.valueOf(category.getId());
+    }
+
+    @Override
     public Integer updateCategory(Category category) {
         Integer count = categoryMapper.updateCategory(category);
-		if (category.getFrontMedia() != null) {
-			mediaMapper.updateMedia(category.getFrontMedia());
-		}
+        if (category.getFrontMedia() != null) {
+            mediaMapper.updateMedia(category.getFrontMedia());
+        }
         return count;
     }
 
@@ -112,9 +139,10 @@ public class CategoryServiceImp implements CategoryService {
         return categoryMapper.queryCategoryHierarchy(categoryId);
 
     }
+
     @Override
-    public Integer getHelpCategoryCount(){
-    	return categoryMapper.getHelpCategoryCount();
+    public Integer getHelpCategoryCount() {
+        return categoryMapper.getHelpCategoryCount();
     }
 
     @Override
