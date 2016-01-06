@@ -285,8 +285,10 @@
 	                    <c:forEach var="commerceItem" items="${checkoutOrder.commerceItems}">
 		                    <tr>
 		                        <td class="img-box">
-                                    <img class="out-of-stock" src="${pageContext.request.contextPath}/core/images/productList/out-of-stock-s.png" alt=""/>
-
+                                    <c:if test="${not commerceItem.inStock}">
+                                        <c:set var="invalidItemCount" value="${invalidItemCount + 1}" />
+                                        <img src="${pageContext.request.contextPath}/resources/images/productList/out-of-stock-s.png" class="out-of-stock" />
+                                    </c:if>
                                     <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
 	                                         alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
 		                        </td>
