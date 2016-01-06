@@ -19,3 +19,8 @@ $('#categorySelect').change(function() {
     var $this = $(this);
     window.location = '/category/getSubCategories/' + $this.val();
 });
+
+$(document).on('click', '[data-pgt-btn="modify"], [data-pgt-btn="create"]', function () {
+    var $this = $(this);
+    window.location = $this.attr('data-url');
+});
