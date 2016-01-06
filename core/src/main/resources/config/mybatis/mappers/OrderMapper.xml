@@ -35,18 +35,18 @@
     </resultMap>
 
     <select id="loadOrder" parameterType="int" resultMap="order">
-        SELECT * FROM `order` WHERE order_id = #{orderId} 
+        SELECT * FROM `ORDER` WHERE order_id = #{orderId}
     </select>
     <select id="loadAllPaidOrder" parameterType="int" resultMap="order">
-        SELECT * FROM `order` WHERE
+        SELECT * FROM `ORDER` WHERE
     </select>
 
     <select id="loadEasyBuyOrderByUserId" parameterType="string" resultMap="order">
-        SELECT * FROM `order` WHERE user_id = #{userId} AND easy_buy = 1 and status =10 ORDER BY order_id DESC LIMIT 1
+        SELECT * FROM `ORDER` WHERE user_id = #{userId} AND easy_buy = 1 and status =10 ORDER BY order_id DESC LIMIT 1
     </select>
 
     <select id="selectCommerceItemByOrderId" parameterType="int" resultMap="commerceItem">
-        SELECT * FROM commerce_item WHERE order_id = #{orderId}
+        SELECT * FROM COMMERCE_ITEM WHERE order_id = #{orderId}
     </select>
 
     <update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
