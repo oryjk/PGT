@@ -86,6 +86,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			
 			handleResult(paymentGroup, trackingNo, result, transaction, now, order);
 		} catch(Exception e) {
+			LOGGER.error(e.getMessage(), e);
 			getPaymentService().setAsRollback();
 			throw new YeePayException(e);
 		}finally {
