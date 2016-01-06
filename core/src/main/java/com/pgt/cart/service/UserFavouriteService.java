@@ -2,13 +2,12 @@ package com.pgt.cart.service;
 
 import com.pgt.cart.bean.Favourite;
 import com.pgt.cart.bean.FavouriteBuilder;
-import com.pgt.cart.dao.UserFavouriteDao;
 import com.pgt.cart.bean.pagination.InternalPagination;
+import com.pgt.cart.dao.UserFavouriteDao;
 import com.pgt.product.bean.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -70,8 +69,8 @@ public class UserFavouriteService {
 		} else {
 			fb.setFinalPrice(0d);
 		}
-		if (!ObjectUtils.isEmpty(pProduct.getThumbnailMedia())) {
-			fb.setSnapshotId(pProduct.getThumbnailMedia().getId());
+		if (!ObjectUtils.isEmpty(pProduct.getFrontMedia())) {
+			fb.setSnapshotId(pProduct.getFrontMedia().getId());
 		}
 		return fb.createFavourite();
 	}
