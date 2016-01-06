@@ -309,6 +309,11 @@ public class UserFavouriteController extends TransactionBaseController implement
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
+		if (!getShoppingCartService().checkProductValidity(product)) {
+			LOGGER.debug("Favourite item from cart failed for product: {} not available", productId);
+			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
+			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+		}
 		// check user has already add this item as favourite
 		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId);
 		if (favourite != null && RepositoryUtils.idIsValid(favourite.getId())) {
