@@ -74,6 +74,8 @@ $('[data-pgt-btn="multiple"]').change(function () {
                     size +
                     '</p> </div>';
 
+                console.log(str)
+
                 that.parents('.col-md-2').siblings('.col-md-8').append($(str));
 
                 $.ajax({

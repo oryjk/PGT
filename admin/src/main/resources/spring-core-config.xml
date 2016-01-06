@@ -181,4 +181,14 @@
             </map>
         </property>
     </bean>
+
+    <bean class="com.pgt.executor.processor.InstantiationTracingBeanPostProcessor">
+        <property name="initializationHandlers">
+            <array>
+                <ref bean="adminSessionPathInitHandler" />
+            </array>
+        </property>
+    </bean>
+
+    <bean id="adminSessionPathInitHandler" class="com.pgt.executor.handler.AdminSessionPathInitHandler" />
 </beans>
