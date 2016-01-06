@@ -261,9 +261,6 @@
                             <i class="foundicon-down-arrow"></i>
                         </a>
                         <ul class="options">
-                            <li><a class="option-view" data-value="0" href="#">高新区</a></li>
-                            <li><a class="option-view" data-value="1" href="#">姑苏区</a></li>
-                            <li><a class="option-view" data-value="2" href="#">宜秀区</a></li>
                         </ul>
                         <input class="select-value" name="district" type="hidden" value=""/>
                     </div>区/县
