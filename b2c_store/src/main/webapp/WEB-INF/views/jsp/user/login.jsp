@@ -16,7 +16,7 @@
 
 <div class="content-box">
     <div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/login-bg.jpg"/>') center 0 no-repeat;">
-        <form:form commandName="user" method="post" action="login" id="login">
+        <form:form modelAttribute="user" method="post" action="login" id="login">
             <div class="login-head">
                 <c:set var="registerUrl" value="register"/>
                 <c:if test="${param.redirect!=null}">
