@@ -63,7 +63,15 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         //事件委托:加入购物车, 添加收藏
         $(document).on('click', '.addCart', addCart);
         $(document).on('click', '.addEnjoy', addEnjoy);
-        $(document).on('click', '.join-cart', mainAddCart);
+        if ($('#outOfStock').size() <= 0) {
+            $(document).on('click', '.join-cart', mainAddCart);
+        } else {
+            $('.join-cart').css({
+                background: 'grey',
+                cursor: 'default'
+            })
+        }
+
 
         //加入购物车
         function addCart(event) {

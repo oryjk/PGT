@@ -22,6 +22,7 @@ public class CommerceItem implements Comparable<CommerceItem> {
 	private int mIndex;
 	private Date mCreationDate = new Date();
 	private Date mUpdateDate;
+	private boolean mInStock;
 
 	private Delivery mDelivery;
 	private Media mSnapshotMedia;
@@ -71,6 +72,8 @@ public class CommerceItem implements Comparable<CommerceItem> {
 				", mIndex=" + mIndex +
 				", mCreationDate=" + mCreationDate +
 				", mUpdateDate=" + mUpdateDate +
+				", mInStock=" + mInStock +
+				", mDelivery=" + mDelivery +
 				", mSnapshotMedia=" + mSnapshotMedia +
 				'}';
 	}
@@ -193,5 +196,13 @@ public class CommerceItem implements Comparable<CommerceItem> {
 
 	public void setSnapshotMedia(final Media pSnapshotMedia) {
 		mSnapshotMedia = pSnapshotMedia;
+	}
+
+	public boolean isInStock() {
+		return mInStock;
+	}
+
+	public void setInStock(final boolean pInStock) {
+		mInStock = pInStock;
 	}
 }

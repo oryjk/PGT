@@ -1,34 +1,12 @@
 package com.pgt.shipping.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.pgt.address.bean.AddressInfo;
 import com.pgt.address.bean.Store;
 import com.pgt.address.service.AddressInfoService;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.controller.CartMessages;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.city.bean.Province;
@@ -41,6 +19,23 @@ import com.pgt.shipping.bean.ShippingMethod;
 import com.pgt.shipping.bean.ShippingVO;
 import com.pgt.shipping.service.ShippingService;
 import com.pgt.user.bean.User;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ethanli
@@ -48,7 +43,7 @@ import com.pgt.user.bean.User;
  */
 @RestController
 @RequestMapping("/checkout")
-public class ShippingController {
+public class ShippingController implements CartMessages {
 	private static final Logger	LOGGER	= LoggerFactory.getLogger(ShippingController.class);
 	@Autowired
 	private URLConfiguration	urlConfiguration;
@@ -194,7 +189,7 @@ public class ShippingController {
 
 			return mav;
 		} catch (Exception e) {
-			String message = "INV.CHECK.FAILED";
+			String message = CartMessages.ERROR_INV_CHECK_FAILED;
 			LOGGER.error("lock inventory failed", e);
 			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
 			return mav;

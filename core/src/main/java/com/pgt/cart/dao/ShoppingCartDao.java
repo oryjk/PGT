@@ -3,6 +3,7 @@ package com.pgt.cart.dao;
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.ProductInventoryVector;
 import com.pgt.cart.bean.ProductPriceVector;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
@@ -37,4 +38,7 @@ public interface ShoppingCartDao extends SqlMapper {
 	void deleteAllCommerceItems(@Param("orderId") int pOrderId);
 
 	int deleteCommerceItems(List<Integer> pCommerceItemIds);
+
+	@MapKey("productId")
+	Map<Integer, ProductInventoryVector> loadProductInventory(Integer[] pProductIds);
 }

@@ -11,7 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <ul class="fixed-aside-1">
     <li>
-        <a class="aside-person" href="#">
+        <a class="aside-person" href="<spring:url value="${urlConfiguration.myaccountPage}"/>">
             <img src="<spring:url value="${juedangpinStaticPath}/core/images/component/_0003_USER.png"/>" alt=""/>
         </a>
     </li>
@@ -27,13 +27,13 @@
         </a>
     </li>
     <li>
-        <a class="aside-order" href="#">
+        <a class="aside-order" href="<spring:url value="${urlConfiguration.orderHistoryPage}"/>">
             <img src="<spring:url value="${juedangpinStaticPath}/core/images/component/_0000_NOTEPAD.png"/>" alt=""/>
             <span>订单</span>
         </a>
     </li>
     <li>
-        <a class="aside-account" href="#">
+        <a class="aside-account" href="<spring:url value="${urlConfiguration.yeepayPage}"/>">
             <img src="<spring:url value="${juedangpinStaticPath}/core/images/component/_0001_yen.png"/>" alt=""/>
             <span>账户</span>
         </a>

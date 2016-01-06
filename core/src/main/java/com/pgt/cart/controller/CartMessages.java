@@ -14,4 +14,8 @@ public interface CartMessages {
 	String ERROR_ITEM_REMOVE_FAILED = "Error.shoppingCart.item.removeItemFromCartFailed";
 
 	String ERROR_CART_EMPTY_FAILED = "Error.shoppingCart.cart.emptyCartFailed";
+
+	String ERROR_INV_CHECK_FAILED = "Error.shoppingCart.cart.inventoryCheckFailed";
+
+	String WARN_REMOVE_ITEM_NOTIFY = "Warn.shoppingCart.item.removeItemNotify";
 }
