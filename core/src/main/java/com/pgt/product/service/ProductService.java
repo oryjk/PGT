@@ -23,6 +23,7 @@ public interface ProductService {
     void createProduct(Integer categoryId, Product product);
 
     Integer updateProduct(Product product);
+    Integer updateProductBase(Product product);
 
     void deleteProduct(String productId);
 

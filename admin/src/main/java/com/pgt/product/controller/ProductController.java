@@ -3,6 +3,7 @@ package com.pgt.product.controller;
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.media.MediaService;
+import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
@@ -87,6 +88,26 @@ public class ProductController {
     @ResponseBody
     public ResponseEntity createProductMedias(ProductMedia productMedia) {
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
+        if (productMedia.getType().equals(MediaType.front)) {
+            ProductMedia oldProductMedia = mediaService.findFrontByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.advertisement)) {
+            ProductMedia oldProductMedia = mediaService.findAdByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.thumbnail)) {
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+
+
         Integer mediaId = mediaService.create(productMedia);
         Product product = productService.queryProduct(productMedia.getReferenceId());
         if (ObjectUtils.isEmpty(product)) {
@@ -171,7 +192,8 @@ public class ProductController {
             return modelAndView;
         }
         product.setUpdateDate(new Date());
-        productService.updateProduct(product);
+        productService.updateProductBase(product);
+        product = productService.queryProduct(product.getProductId());
         modelAndView.addObject("product", product);
         modelAndView.setViewName("/product/productImageModify");
         return modelAndView;

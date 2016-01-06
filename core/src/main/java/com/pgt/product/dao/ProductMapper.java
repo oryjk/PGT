@@ -26,7 +26,7 @@ public interface ProductMapper extends SqlMapper {
 
     Integer createProduct(Product product);
 
-    void updateProduct(Product product);
+    Integer updateProduct(Product product);
 
     void deleteProduct(@Param("productId") Integer productId);
 
@@ -38,7 +38,7 @@ public interface ProductMapper extends SqlMapper {
 
     List<ProductMedia> queryProductMainMedias(@Param("productId") int pProductId);
 
-    List<ProductMedia> queryProductThumbnailMedias(@Param("productId") int pProductId);
+    ProductMedia queryProductThumbnailMedias(@Param("productId") int pProductId);
 
     ProductMedia queryProductExpertMedia(@Param("productId") int pProductId);
 

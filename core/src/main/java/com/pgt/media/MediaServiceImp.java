@@ -62,7 +62,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     }
 
     @Override
-    public List<ProductMedia> findThumbnailMediasByProductId(String productId) {
+    public ProductMedia findThumbnailMediasByProductId(String productId) {
         return productMapper.queryProductThumbnailMedias(Integer.valueOf(productId));
     }
 
@@ -84,6 +84,20 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     public Media findCopyWriterMedia(Integer copyWriterId) {
         return mediaMapper.queryMedia(MediaType.copy_write, copyWriterId);
 
+    }
+
+    @Override
+    public void deleteMedia(Integer mediaId) {
+
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            mediaMapper.deleteMedia(mediaId);
+        } catch (Exception e) {
+            LOGGER.error("Can not delete product media with id is {}.", mediaId);
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
     }
 
     public ProductMapper getProductMapper() {

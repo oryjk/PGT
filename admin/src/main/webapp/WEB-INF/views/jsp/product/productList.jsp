@@ -252,7 +252,7 @@
 												${product.salePrice}
 										</td>
 										<td class="face-box">
-											<img src="${staticServer}${product.thumbnailMedias[0].path}" alt=""/>
+											<img src="${staticServer}${product.thumbnailMedia.path}" alt=""/>
 										</td>
 										<td>
 											1

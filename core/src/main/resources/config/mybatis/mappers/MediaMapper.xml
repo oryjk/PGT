@@ -52,5 +52,8 @@
     <delete id="deleteAllProductMedia" parameterType="int">
         DELETE FROM MEDIA WHERE REFERENCE_ID=#{productId} AND TYPE !='category'
     </delete>
+    <delete id="deleteMedia" parameterType="int">
+        DELETE FROM MEDIA WHERE MEDIA_ID=#{mediaId};
+    </delete>
 
 </mapper>

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -69,8 +70,8 @@ public class UserFavouriteService {
 		} else {
 			fb.setFinalPrice(0d);
 		}
-		if (!CollectionUtils.isEmpty(pProduct.getThumbnailMedias())) {
-			fb.setSnapshotId(pProduct.getThumbnailMedias().get(0).getId());
+		if (!ObjectUtils.isEmpty(pProduct.getThumbnailMedia())) {
+			fb.setSnapshotId(pProduct.getThumbnailMedia().getId());
 		}
 		return fb.createFavourite();
 	}

@@ -70,8 +70,7 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
             getTransactionManager().rollback(transactionStatus);
-        }
-        finally {
+        } finally {
             getTransactionManager().commit(transactionStatus);
         }
         return product.getProductId();
@@ -109,8 +108,8 @@ public class ProductServiceImp extends TransactionService implements ProductServ
         TransactionStatus transactionStatus = ensureTransaction();
         try {
             Integer productId = product.getProductId();
-            if (!ObjectUtils.isEmpty(product.getExpertMedia())) {
-                product.getExpertMedia().setReferenceId(productId);
+            if (!ObjectUtils.isEmpty(product.getThumbnailMedia())) {
+                product.getThumbnailMedia().setReferenceId(productId);
             }
             if (!ObjectUtils.isEmpty(product.getAdvertisementMedia())) {
 
@@ -121,9 +120,10 @@ public class ProductServiceImp extends TransactionService implements ProductServ
 
             }
 
-            mediaMapper.createMedia(product.getExpertMedia());
+            mediaMapper.createMedia(product.getThumbnailMedia());
             mediaMapper.createMedia(product.getAdvertisementMedia());
             mediaMapper.createMedia(product.getFrontMedia());
+            mediaMapper.createMedia(product.getExpertMedia());
             if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
                 product.getHeroMedias().stream().forEach(productMedia -> {
                     productMedia.setReferenceId(productId);
@@ -136,12 +136,7 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                     mediaMapper.createMedia(productMedia);
                 });
             }
-            if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
-                product.getThumbnailMedias().stream().forEach(productMedia -> {
-                    productMedia.setReferenceId(productId);
-                    mediaMapper.createMedia(productMedia);
-                });
-            }
+
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             getTransactionManager().rollback(transactionStatus);
@@ -152,15 +147,19 @@ public class ProductServiceImp extends TransactionService implements ProductServ
 
     }
 
+
+
+
     @Override
     public Integer updateProduct(Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
             productMapper.updateProduct(product);
             mediaMapper.deleteAllProductMedia(product.getProductId());
-            mediaMapper.createMedia(product.getExpertMedia());
+            mediaMapper.createMedia(product.getThumbnailMedia());
             mediaMapper.createMedia(product.getAdvertisementMedia());
             mediaMapper.createMedia(product.getFrontMedia());
+            mediaMapper.createMedia(product.getExpertMedia());
             if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
                 product.getHeroMedias().stream().forEach(productMedia -> {
                     mediaMapper.createMedia(productMedia);
@@ -168,11 +167,6 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             }
             if (!ObjectUtils.isEmpty(product.getMainMedias())) {
                 product.getMainMedias().stream().forEach(productMedia -> {
-                    mediaMapper.createMedia(productMedia);
-                });
-            }
-            if (!ObjectUtils.isEmpty(product.getThumbnailMedias())) {
-                product.getThumbnailMedias().stream().forEach(productMedia -> {
                     mediaMapper.createMedia(productMedia);
                 });
             }
@@ -184,6 +178,11 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             getTransactionManager().commit(transactionStatus);
         }
         return product.getProductId();
+    }
+
+    @Override
+    public Integer updateProductBase(Product product) {
+        return productMapper.updateProduct(product);
     }
 
     @Override

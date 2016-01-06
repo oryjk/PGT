@@ -31,7 +31,7 @@ public class Product implements Serializable {
     private List<ProductMedia> medias;
     private List<ProductMedia> mainMedias;
     private List<ProductMedia> heroMedias;
-    private List<ProductMedia> thumbnailMedias;
+    private ProductMedia thumbnailMedia;
     private ProductMedia advertisementMedia;
     private ProductMedia frontMedia;
     private ProductMedia expertMedia;
@@ -219,21 +219,6 @@ public class Product implements Serializable {
         this.frontMedia = frontMedia;
     }
 
-    public List<ProductMedia> getThumbnailMedias() {
-        return thumbnailMedias;
-    }
-
-    public void setThumbnailMedias(List<ProductMedia> thumbnailMedias) {
-        this.thumbnailMedias = thumbnailMedias;
-    }
-
-    public ProductMedia getExpertMedia() {
-        return expertMedia;
-    }
-
-    public void setExpertMedia(ProductMedia expertMedia) {
-        this.expertMedia = expertMedia;
-    }
 
     public boolean isHot() {
         return isHot;
@@ -261,5 +246,24 @@ public class Product implements Serializable {
 
     public void setMerchant(String merchant) {
         this.merchant = merchant;
+    }
+
+
+
+    public ProductMedia getThumbnailMedia() {
+        return thumbnailMedia;
+    }
+
+    public void setThumbnailMedia(ProductMedia thumbnailMedia) {
+        this.thumbnailMedia = thumbnailMedia;
+    }
+
+
+    public ProductMedia getExpertMedia() {
+        return expertMedia;
+    }
+
+    public void setExpertMedia(ProductMedia exprtMedia) {
+        this.expertMedia = exprtMedia;
     }
 }

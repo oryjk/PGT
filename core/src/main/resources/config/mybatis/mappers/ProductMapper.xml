@@ -31,13 +31,13 @@
                      select="queryRelatedCategoryId"/>
         <association property="shippingAddress" column="PRODUCT_ID"
                      select="com.pgt.shipping.dao.ShippingAddressMapper.queryAddressByProduct"/>
-        <association property="expertMedia" column="PRODUCT_ID" select="queryProductExpertMedia"/>
+        <association property="thumbnailMedia" column="PRODUCT_ID" select="queryProductThumbnailMedia"/>
         <association property="advertisementMedia" column="PRODUCT_ID" select="queryProductAdvertisementMedia"/>
         <association property="frontMedia" column="PRODUCT_ID" select="queryProductFrontMedia"/>
+        <association property="expertMedia" column="PRODUCT_ID" select="queryProductExpertMedia"/>
         <collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>
         <collection property="heroMedias" column="PRODUCT_ID" select="queryProductHeroMedias"/>
         <collection property="mainMedias" column="PRODUCT_ID" select="queryProductMainMedias"/>
-        <collection property="thumbnailMedias" column="PRODUCT_ID" select="queryProductThumbnailMedias"/>
 
     </resultMap>
 
@@ -95,7 +95,7 @@
         ORDER BY 'index'
         asc
     </select>
-    <select id="queryProductThumbnailMedias" parameterType="int" resultMap="productMedia">
+    <select id="queryProductThumbnailMedia" parameterType="int" resultMap="productMedia">
         SELECT *
         FROM MEDIA
         WHERE reference_id = #{productId} AND TYPE='thumbnail'
