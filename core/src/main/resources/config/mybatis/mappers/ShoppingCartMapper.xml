@@ -50,16 +50,21 @@
 		<result column="sale_price" property="salePrice" />
 	</resultMap>
 
+	<resultMap id="productInventory" type="com.pgt.cart.bean.ProductInventoryVector">
+		<id column="product_id" property="productId" />
+		<result column="stock" property="stock" />
+	</resultMap>
+
 	<select id="loadInitialOrderByUserId" parameterType="int" resultMap="order">
 		SELECT *
 		FROM `ORDER` o
 		WHERE o.user_id = #{userId}
-		AND o.status = 10
+		      AND o.status = 10
 	</select>
 
 	<insert id="createOrder" parameterType="com.pgt.cart.bean.Order" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO `ORDER` (user_id, status, shipping_fee, subtotal, total, creation_date, update_date, easy_buy, user_comments)
-		VALUES (#{userId}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments})
+		VALUES ( #{userId}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now (), now (), #{easyBuy}, #{userComments} )
 	</insert>
 
 	<update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
@@ -73,7 +78,7 @@
 
 	<insert id="createCommerceItem" parameterType="com.pgt.cart.bean.CommerceItem" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO COMMERCE_ITEM (order_id, reference_id, name, quality, list_price, sale_price, quantity, amount, snapshot_id, `index`, creation_date, update_date)
-		VALUES (#{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, now(), now())
+		VALUES ( #{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, now (), now () )
 	</insert>
 
 	<update id="updateCommerceItems" parameterType="list">
@@ -89,11 +94,26 @@
 	</update>
 
 	<select id="loadCommerceItemsFromOrderWithRealTimePrice" parameterType="int" resultMap="commerceItem">
-		SELECT ci.commerce_item_id, ci.order_id, ci.reference_id, ci.name, ci.quality, prod.list_price, prod.sale_price, ci.quantity, ci.amount,
-			ci.snapshot_id, ci.`index`, ci.creation_date, ci.update_date, m.media_id, m.title, m.path
+		SELECT
+			ci.commerce_item_id,
+			ci.order_id,
+			ci.reference_id,
+			ci.name,
+			ci.quality,
+			prod.list_price,
+			prod.sale_price,
+			ci.quantity,
+			ci.amount,
+			ci.snapshot_id,
+			ci.`index`,
+			ci.creation_date,
+			ci.update_date,
+			m.media_id,
+			m.title,
+			m.path
 		FROM COMMERCE_ITEM ci
-		LEFT JOIN PRODUCT prod ON ci.reference_id = prod.product_id
-		LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
+			LEFT JOIN PRODUCT prod ON ci.reference_id = prod.product_id
+			LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
 		WHERE ci.order_id = #{orderId}
 		ORDER BY ci.index
 	</select>
@@ -112,12 +132,6 @@
 		WHERE commerce_item_id = #{commerceItemId}
 	</delete>
 
-	<select id="queryThumbnailMedia" parameterType="int" resultMap="com.pgt.product.dao.ProductMapper.productMedia">
-		SELECT *
-		FROM MEDIA
-		WHERE media_id = #{mediaId} AND type = 'thumbnail'
-	</select>
-
 	<delete id="deleteAllCommerceItems" parameterType="int">
 		DELETE FROM COMMERCE_ITEM
 		WHERE order_id = #{orderId}
@@ -130,4 +144,13 @@
 			#{item}
 		</foreach>
 	</delete>
+
+	<select id="loadProductInventory" resultMap="productInventory">
+		SELECT product_id, stock
+		FROM PRODUCT prod
+		WHERE prod.product_id IN
+		<foreach collection="array" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
 </mapper>

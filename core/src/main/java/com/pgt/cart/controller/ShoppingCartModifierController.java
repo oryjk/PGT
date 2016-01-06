@@ -52,7 +52,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@Autowired
 	private ProductService mProductService;
-	
+
 	@Autowired
 	private OrderService orderService;
 	@Autowired
@@ -69,42 +69,49 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView redirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView modelAndView = new ModelAndView("shopping-cart/cart");
-		String oosProdId = pRequest.getParameter("oosProdId");
-		try {
-			if (StringUtils.isNotBlank(oosProdId)) {
-				String[] prodIds = oosProdId.split("_");
-				String productName = "";
-				int count = 0;
-				for (String prodId : prodIds) {
-					count++;
-					Product product = getProductService().queryProduct(Integer.valueOf(prodId));
-					if (null == product) {
-						continue;
-					}
-					productName += product.getName();
-					if (count != prodIds.length) {
-						productName += ",";
-					}
-				}
-				if (StringUtils.isNotBlank(productName)) {
-					modelAndView.addObject("error", productName + "没有库存，请移除。");
-				}
-			}
-
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+		Order order = getCurrentOrder(pRequest);
+		synchronized (order) {
+			getShoppingCartService().checkInventory(order);
 		}
-		String error = pRequest.getParameter("error");
-		if ("INV.CHECK.FAILED".equals(error)) {
-			error = "库存检查异常，请重试。";
-		}
+		String error = checkOutOfStockNotify(pRequest);
 		if (StringUtils.isNotBlank(error)) {
 			modelAndView.addObject("error", error);
 		}
-
 		return modelAndView;
 	}
 
+	private String checkOutOfStockNotify(HttpServletRequest pRequest) {
+		String error = null;
+		String oosProdId = pRequest.getParameter("oosProdId");
+		if (StringUtils.isBlank(oosProdId)) {
+			return error;
+		}
+		try {
+			String[] prodIds = oosProdId.split("_");
+			String productName = "";
+			int count = 0;
+			for (String prodId : prodIds) {
+				count++;
+				Product product = getProductService().queryProduct(Integer.valueOf(prodId));
+				if (null == product) {
+					continue;
+				}
+				productName += product.getName();
+				if (count != prodIds.length) {
+					productName += ",";
+				}
+			}
+			if (StringUtils.isNotBlank(productName)) {
+				return productName.concat(getMessageValue(WARN_REMOVE_ITEM_NOTIFY, StringUtils.EMPTY));
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		if (StringUtils.equals(pRequest.getParameter("error"), ERROR_INV_CHECK_FAILED)) {
+			return getMessageValue(ERROR_INV_CHECK_FAILED, StringUtils.EMPTY);
+		}
+		return StringUtils.EMPTY;
+	}
 
 	@RequestMapping(value = "/addItemToOrder")//, method = RequestMethod.POST)
 	public ModelAndView addItemToOrderRedirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse,
@@ -174,7 +181,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 					if (easyBuy > 0) {
 						pRequest.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
 						mav.setViewName(getRedirectView("/checkout/shipping"));
-						mav.addObject(CartConstant.ORDER_ID,order.getId());
+						mav.addObject(CartConstant.ORDER_ID, order.getId());
 					}
 				}
 				getTransactionManager().commit(status);
@@ -547,7 +554,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		}
 		return order;
 	}
-	
+
 	public ShoppingCartService getShoppingCartService() {
 		return mShoppingCartService;
 	}

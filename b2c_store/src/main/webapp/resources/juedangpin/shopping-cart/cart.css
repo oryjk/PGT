@@ -614,12 +614,14 @@ span {
 /*2维码*/
 .two-dimension {
   opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0) \9;
   position: absolute;
   top: 0;
   left: 100px; }
 
 .our-app a:hover .two-dimension {
   opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100) \9;
   transition: opacity 1s linear; }
 
 .good-text {
@@ -1679,6 +1681,16 @@ td img {
 
 .content-2 .get-self {
   padding-left: 40px; }
+
+.content-2 .img-box {
+  position: relative; }
+  .content-2 .img-box .out-of-stock {
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    opacity: .7; }
 
 .content-3 h2,
 .content-4 h2 {
