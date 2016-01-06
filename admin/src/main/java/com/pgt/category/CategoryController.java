@@ -5,6 +5,7 @@ import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
 import com.pgt.configuration.Configuration;
 import com.pgt.product.service.ProductService;
+import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +36,9 @@ public class CategoryController {
     private ProductService productService;
     @Autowired
     private Configuration configuration;
+
+    @Autowired
+    private ESSearchService esSearchService;
 
     @RequestMapping(value = "/categoryList", method = RequestMethod.GET)
     public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "type", required = false) CategoryType categoryType,
@@ -84,6 +86,8 @@ public class CategoryController {
             return modelAndView;
         }
         String categoryId = categoryService.createCategory(category, category.getFrontMedia().getId());
+        category = categoryService.queryCategory(category.getId());
+        esSearchService.createCategoryIndex(category);
         LOGGER.debug("The category is is {}.", categoryId);
         LOGGER.debug("end create category.");
         modelAndView.setViewName("/category/addAndModifyCategorySuccess");
@@ -132,6 +136,8 @@ public class CategoryController {
             LOGGER.debug("Not success update the category.");
             return modelAndView;
         }
+        category = categoryService.queryCategory(category.getId());
+        esSearchService.updateCategoryIndex(category);
         modelAndView.setViewName("/category/addAndModifyCategorySuccess");
         return modelAndView;
     }

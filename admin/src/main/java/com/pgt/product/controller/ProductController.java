@@ -194,6 +194,7 @@ public class ProductController {
         product.setUpdateDate(new Date());
         productService.updateProductBase(product);
         product = productService.queryProduct(product.getProductId());
+        esSearchService.updateProductIndex(product);
         modelAndView.addObject("product", product);
         modelAndView.setViewName("/product/productImageModify");
         return modelAndView;

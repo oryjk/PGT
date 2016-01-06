@@ -351,6 +351,38 @@ public class ESSearchService {
         }
     }
 
+    public void updateCategoryIndex(Category category) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] rootByte = mapper.writeValueAsBytes(category);
+            UpdateRequestBuilder updateRequestBuilder = getIndexClient().prepareUpdate(Constants.SITE_INDEX_NAME, Constants
+                    .CATEGORY_INDEX_TYPE, category.getId() + "").setDoc(rootByte);
+            updateRequestBuilder.execute().actionGet(10000);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createCategoryIndex(Category category) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] rootByte = mapper.writeValueAsBytes(category);
+            IndexRequestBuilder indexRequestBuilder = getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE,
+                    category.getId() + "")
+                    .setSource(rootByte);
+            indexRequestBuilder.execute().actionGet(10000);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private ESProduct buildESProduct(Product product, Category rootCategory, Category parentCategory) {
         ESProduct esProduct = new ESProduct();
         ModelMapper modelMapper = new ModelMapper();
