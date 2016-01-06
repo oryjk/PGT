@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,8 @@ import com.pgt.user.bean.User;
 import com.pgt.user.bean.UserInformation;
 import com.pgt.user.service.UserInformationService;
 import com.pgt.user.validation.group.AddUserInformationGroup;
+
+import java.util.List;
 
 
 /**
@@ -47,7 +50,9 @@ public class UserInformationController {
 		// 接收验证错误信息
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("my-account/person-info/update-person-info");
-			modelAndView.getModel().put("error", UserConstant.UNKNOWN_ERROR);
+			List<ObjectError> ls= bindingResult.getAllErrors();
+			ls.get(0).getDefaultMessage();
+			modelAndView.getModel().put("error", ls);
 			return modelAndView;
 		}
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
