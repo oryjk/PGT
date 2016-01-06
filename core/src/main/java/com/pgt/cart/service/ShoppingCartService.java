@@ -151,7 +151,7 @@ public class ShoppingCartService {
 			cib.setIndex(pOrder.getCommerceItems().size());
 			// set snapshot
 			Media snapshotMedia = null;
-			if (ObjectUtils.isEmpty(pProduct.getThumbnailMedia())) {
+			if (!ObjectUtils.isEmpty(pProduct.getThumbnailMedia())) {
 				snapshotMedia = pProduct.getThumbnailMedia();
 				cib.setSnapshotId(snapshotMedia.getId());
 			}
