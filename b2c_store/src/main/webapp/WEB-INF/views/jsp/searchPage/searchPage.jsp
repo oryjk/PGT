@@ -193,7 +193,7 @@
 									</div>
 
 									<p>
-										<a href="#">${searchHit.source['name']}</a>
+										<a href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}">${searchHit.source['name']}</a>
 									</p>
 
 									<p>
