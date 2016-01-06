@@ -477,7 +477,7 @@ public class YeePayController {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		calendar.add(Calendar.MINUTE, getConfig().getTransactionExpiredMin());
-		paramMap.put(YeePayConstants.PARAM_NAME_EXPIRED, DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd HH:mm:ss"));
+//		paramMap.put(YeePayConstants.PARAM_NAME_EXPIRED, DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd HH:mm:ss"));
 
 
 		Map<String, Object> detailsMap = new HashMap<String, Object>();

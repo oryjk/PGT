@@ -129,19 +129,19 @@
 
 	<update id="resetBrowsedProductUpdateDate" parameterType="int">
 		UPDATE RECENT_BROWSE
-		SET update_date = now ()
+		SET update_date = now()
 		WHERE id = #{browsedProductId}
 	</update>
 
 	<update id="replaceBrowsedProductRecord">
 		UPDATE RECENT_BROWSE
-		SET prod_id = #{productId}, creation_date = now (), update_date = now ()
+		SET prod_id = #{productId}, creation_date = now(), update_date = now()
 		WHERE id = #{browsedProductId}
 	</update>
 
 	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO RECENT_BROWSE (user_id, prod_id, creation_date, update_date)
-		VALUES ( #{userId}, #{productId}, now (), now () )
+		VALUES ( #{userId}, #{productId}, now(), now() )
 	</insert>
 
 	<update id="resetBrowsedProductsBatchUpdateDate">

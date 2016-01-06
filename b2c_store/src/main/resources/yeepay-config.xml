@@ -13,8 +13,8 @@
 		<property name="connectionTimeout" value="5000" />
 		<property name="socketTimeout" value="15000" />
 		<!-- need change when go live -->
-		<property name="platformUserNoPrefix" value="pgttesttt"></property>
-		<property name="requestNoPrefix" value="pgttesttt"/>
+		<property name="platformUserNoPrefix" value="pgtuatttt"></property>
+		<property name="requestNoPrefix" value="pgtuatttt"/>
 		<property name="directRequestUrl" value="https://member.yeepay.com/member/bhaexter/bhaController" />
 		<property name="callbackUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayCallback" />
 		<property name="notifyUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayNotify"/>
@@ -182,6 +182,7 @@
 		<property name="paymentService" ref="paymentService"/>
 		<property name="shoppingCartDao" ref="shoppingCartDao"/>
 		<property name="userOrderDao" ref="userOrderDao"/>
+		<property name="inventoryService" ref="inventoryService"/>
 	</bean>
 
 	<!-- yeepay direct config -->
