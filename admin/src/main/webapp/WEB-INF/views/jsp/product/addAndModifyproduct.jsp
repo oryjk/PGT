@@ -248,30 +248,7 @@
 											<p></p>
 										</div>
 										<div class="col-md-8">
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-hero-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-hero-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-hero-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
+
 										</div>
 									</div>
 									<div class="form-group">
@@ -285,71 +262,31 @@
 											<p></p>
 										</div>
 										<div class="col-md-8">
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-main-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-main-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-main-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
+
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-md-2 control-label">专家点评</label>
 										<div class="col-md-2">
-											<form class="pgt-file-box" action="" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" type="file"/>
+											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
 												<input name="mediaType" type="hidden" value="expert"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
 											<p></p>
 										</div>
+
 										<div class="col-md-8">
 											<div class="pgt-each-img">
 												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
+													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="">删除</a>
 												</div>
-												<img class="pgt-expert-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-expert-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
-											</div>
-											<div class="pgt-each-img">
-												<div class="pgt-handle-box">
-													<a class="pgt-img-pre" href="#">前移</a>
-													<a class="pgt-img-delete" href="#">删除</a>
-												</div>
-												<img class="pgt-expert-img" src="" alt=""/>
-												<p class="pgt-img-size">100 * 100</p>
+												<img class="pgt-hero-img" src="" alt=""/>
+												<p class="pgt-img-size"></p>
 											</div>
 										</div>
 									</div>
-
 								</div>
 							</div>
 						</div>

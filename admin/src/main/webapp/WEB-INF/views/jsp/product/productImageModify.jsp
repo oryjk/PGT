@@ -72,7 +72,7 @@
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.thumbnailMedia.id}">删除</a>
 												</div>
 												<img class="pgt-thumbnail-img" src="${product.thumbnailMedia.path}" alt=""/>
-												<p>60 * 60</p>
+												<p></p>
 											</div>
 										</div>
 									</div>
@@ -92,7 +92,7 @@
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.advertisementMedia.id}">删除</a>
 												</div>
 												<img class="pgt-advertisement-img" src="${product.advertisementMedia.path}" alt=""/>
-												<p>60 * 60</p>
+												<p></p>
 											</div>
 										</div>
 									</div>
@@ -112,7 +112,7 @@
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.frontMedia.id}">删除</a>
 												</div>
 												<img class="pgt-front-img" src="${product.frontMedia.path}" alt=""/>
-												<p>60 * 60</p>
+												<p></p>
 											</div>
 										</div>
 									</div>
@@ -133,7 +133,7 @@
 														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${heroMedia.id}">删除</a>
 													</div>
 													<img class="pgt-hero-img" src="${heroMedia.path}" alt=""/>
-													<p class="pgt-img-size">100 * 100</p>
+													<p class="pgt-img-size"></p>
 												</div>
 											</c:forEach>
 										</div>
@@ -160,12 +160,11 @@
 											</c:forEach>
 										</div>
 									</div>
-
 									<div class="form-group">
 										<label class="col-md-2 control-label">专家点评</label>
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="multiple" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
 												<input name="mediaType" type="hidden" value="expert"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -175,10 +174,10 @@
 										<div class="col-md-8">
 												<div class="pgt-each-img">
 													<div class="pgt-handle-box">
-														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${product.expertMedia.id}">删除</a>
+														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.expertMedia.id}">删除</a>
 													</div>
 													<img class="pgt-hero-img" src="${product.expertMedia.path}" alt=""/>
-													<p class="pgt-img-size">100 * 100</p>
+													<p class="pgt-img-size"></p>
 												</div>
 										</div>
 									</div>
