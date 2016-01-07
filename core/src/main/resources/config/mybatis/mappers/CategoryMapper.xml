@@ -154,6 +154,8 @@
     <select id="queryCategoryTotal" parameterType="com.pgt.category.bean.Category" resultType="int">
         SELECT COUNT(CATEGORY_ID) FROM CATEGORIES WHERE TYPE=#{type}
     </select>
-
+    <select id="queryRootCategories" resultMap="CategoryResult">
+    SELECT * FROM CATEGORIES WHERE TYPE='ROOT'
+    </select>
 
 </mapper>
