@@ -49,6 +49,7 @@ public class CategoryController {
     @ModelAttribute
     public void modelAttribute(ModelAndView modelAndView) {
         modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.addObject("categories", categoryService.queryRootCategories());
     }
 
 
@@ -165,11 +166,10 @@ public class CategoryController {
     @RequestMapping(value = "/getSubCategories/{rootCategoryId}", method = RequestMethod.GET)
     public ModelAndView getSubCategories(@PathVariable("rootCategoryId") Integer rootCategoryId, ModelAndView modelAndView) {
         LOGGER.debug("The root category id is {}.", rootCategoryId);
-        List<Category> categories = categoryService.querySubCategories(rootCategoryId);
-        LOGGER.debug("The sub category size is {}.", categories.size());
+        List<Category> subCategories = categoryService.querySubCategories(rootCategoryId);
         modelAndView.setViewName("category/categoryList");
-        modelAndView.addObject("categories", categories);
         modelAndView.addObject("categoryType", CategoryType.HIERARCHY);
+        modelAndView.addObject("subCategories", subCategories);
         return modelAndView;
     }
 
