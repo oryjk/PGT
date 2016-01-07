@@ -68,13 +68,14 @@ $('[data-pgt-btn="multiple"]').change(function () {
                 test.remove();
 
                 var str =
-                    '<div class="pgt-each-img"><div class="pgt-handle-box"><a class="pgt-img-delete" href="#">删除</a> </div> <img class="pgt-main-img" src="' +
+                    '<div class="pgt-each-img"><div class="pgt-handle-box"><a class="pgt-img-delete" data-pgt-btn="delete-multiple" data-url="/media/delete/' +
+
+                    '" href="#">删除</a> </div> <img class="pgt-main-img" src="' +
                     staticPath + responseBody.imagePath +
                     '" alt=""/> <p class="pgt-img-size">' +
                     size +
                     '</p> </div>';
 
-                console.log(str)
 
                 that.parents('.col-md-2').siblings('.col-md-8').append($(str));
 
@@ -98,13 +99,25 @@ $('[data-pgt-btn="multiple"]').change(function () {
     });
 });
 
-$(document).on('click', '.pgt-img-delete', function() {
+$(document).on('click', '.pgt-img-delete', function(event) {
+    event.preventDefault();
+
     var $this = $(this);
+
     $.ajax({
         type: 'get',
-        url: $this.attr('data-value'),
+        url: $this.attr('data-url'),
         success: function(param) {
-            console.log(param);
+            if (param.success == true) {
+                var dataPgtBtn = $this.attr('data-pgt-btn');
+                if (dataPgtBtn == 'delete-single') {
+                    $this.parent()
+                        .siblings('img').attr('src', '')
+                        .siblings('p').html('');
+                } else if (dataPgtBtn == 'delete-multiple') {
+                    $this.parents('.pgt-each-img').remove();
+                }
+            }
         }
     })
 });
