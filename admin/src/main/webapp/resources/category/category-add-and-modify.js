@@ -21,20 +21,19 @@ $('#levelSelect').change(function() {
 $('[data-pgt-btn="single"]').change(function () {
     var that = $(this);
     var form = that.parent();
-    var p = form.siblings('p');
     var staticPath = $('#staticServer').val();
-    p.html(that.val());
 
     form.ajaxSubmit({
         dataType: 'json',
         type: 'POST',
-        success: function (responseBody) {
+        success: function(responseBody) {
+
             $.ajax({
-                url: '/product/create/stepImage',
-                type: 'post',
+                type: 'POST',
+                url: '/media/create',
                 data: {
-                    referenceId: $('#productId').val(),
-                    title: $('#productName').val(),
+                    id: $('#categoryMediaId').val(),
+                    title: $('#categoryMediaRefTitle').val(),
                     path: responseBody.imagePath,
                     type: responseBody.mediaType
                 },
