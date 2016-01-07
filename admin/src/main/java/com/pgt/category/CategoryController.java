@@ -10,6 +10,7 @@ import com.pgt.media.bean.MediaType;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,7 +152,7 @@ public class CategoryController {
         }
         if (category.getType().equals(CategoryType.ROOT)) {
             List<Media> medias = mediaService.findMediaByRefId(category.getId(), MediaType.category);
-            if (!ObjectUtils.isEmpty(medias)) {
+            if (!CollectionUtils.isEmpty(medias)) {
                 mediaService.deleteMedia(medias.get(0).getId());
             }
             Media media = mediaService.findMedia(category.getFrontMedia().getId(), MediaType.category);
