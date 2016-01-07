@@ -134,11 +134,7 @@
                 </div>
               </div>
             </div>
-            <form:input path="frontMedia.path" cssClass="hidden" id="categoryMediaPath"/>
-            <form:input path="frontMedia.id" cssClass="hidden" id="categoryMediaId"/>
-            <form:input path="frontMedia.referenceId" cssClass="hidden" id="categoryMediaRefId"/>
-            <form:input path="frontMedia.type" cssClass="hidden" id="categoryMediaRefType"/>
-            <form:input path="frontMedia.title" cssClass="hidden" id="categoryMediaRefTitle"/>
+            <form:input cssClass="hidden" path="frontMedia.id" id="frontMedia"/>
           </form:form>
         </div>
         <!-- END FORM-->

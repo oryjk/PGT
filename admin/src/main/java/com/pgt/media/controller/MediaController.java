@@ -41,7 +41,7 @@ public class MediaController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity deleteMedia(ProductMedia productMedia) {
+    public ResponseEntity createMedia(ProductMedia productMedia) {
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         mediaService.create(productMedia);
         responseEntity.getBody().put("success", true);

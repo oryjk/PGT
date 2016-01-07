@@ -84,9 +84,6 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     @Override
     public Integer updateCategory(Category category) {
         Integer count = categoryMapper.updateCategory(category);
-        if (category.getFrontMedia() != null) {
-            mediaMapper.updateMedia(category.getFrontMedia());
-        }
         return count;
     }
 

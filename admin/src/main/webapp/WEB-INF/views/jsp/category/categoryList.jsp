@@ -24,7 +24,7 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
-					<a href="#">主分类</a>
+					<a href="/category/categoryList">主分类</a>
 				</li>
 			</ul>
 		</div>

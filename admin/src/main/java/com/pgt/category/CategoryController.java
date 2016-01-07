@@ -151,10 +151,12 @@ public class CategoryController {
         }
         if (category.getType().equals(CategoryType.ROOT)) {
             List<Media> medias = mediaService.findMediaByRefId(category.getId(), MediaType.category);
-            if (ObjectUtils.isEmpty(medias)) {
-                medias.get(0).setReferenceId(category.getId());
-                mediaService.updateMedia(medias.get(0));
+            if (!ObjectUtils.isEmpty(medias)) {
+                mediaService.deleteMedia(medias.get(0).getId());
             }
+            Media media = mediaService.findMedia(category.getFrontMedia().getId(), MediaType.category);
+            media.setReferenceId(category.getId());
+            mediaService.updateMedia(media);
 
         }
         category = categoryService.queryCategory(category.getId());
