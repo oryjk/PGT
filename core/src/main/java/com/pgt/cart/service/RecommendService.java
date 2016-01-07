@@ -46,7 +46,7 @@ public class RecommendService {
 	private boolean mRecommendOutOfStockProduct = false;
 
 	private String[] mRecommendURLs = new String[] { "/myAccount/favourites", "/user/updatePassword", "/userinformation/query", "/myAccount/orderHistory",
-			"/myAccount/browsedProducts", "/404", "/checkout/shipping", "/payment/gateway", "/payment/complete" };
+			"/myAccount/browsedProducts", "/404", "/checkout/shipping", "/payment/gateway", "/payment/complete", "/my-account/person-info/address" };
 
 	private static final String SUFFIX_JS = ".js";
 	private static final String SUFFIX_CSS = ".css";

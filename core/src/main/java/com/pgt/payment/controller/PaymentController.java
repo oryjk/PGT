@@ -1,5 +1,21 @@
 package com.pgt.payment.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.constant.CartConstant;
@@ -10,22 +26,14 @@ import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
+import com.pgt.mail.MailConstants;
+import com.pgt.mail.service.MailService;
 import com.pgt.payment.PaymentConstants;
 import com.pgt.payment.bean.PaymentGroup;
 import com.pgt.payment.service.PaymentService;
 import com.pgt.user.bean.User;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.pgt.user.bean.UserInformation;
+import com.pgt.user.service.UserInformationService;
 
 @RestController
 @RequestMapping("/payment")
@@ -44,27 +52,33 @@ public class PaymentController implements CartMessages {
 
 	@Resource(name = "inventoryService")
 	private InventoryService inventoryService;
-	
+
 	@Autowired
 	private OrderService orderService;
+
+	@Autowired
+	private MailService				mailService;
+	@Autowired
+	private UserInformationService	userInformationService;
 
 	@RequestMapping(value = "/gateway", method = RequestMethod.GET)
 	public ModelAndView gatewayPage(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		// This code is for test ---- start ----
-//		Order mockOrder = new Order();
-//		mockOrder.setTotal(0.01);
-//		List<CommerceItem> commerceItems = new ArrayList<CommerceItem>();
-//		CommerceItem item = new CommerceItem();
-//		item.setName("蜜蜡");
-//		commerceItems.add(item);
-//		item = new CommerceItem();
-//		item.setName("南红");
-//		commerceItems.add(item);
-//		mockOrder.setCommerceItems(commerceItems);
-//		mockOrder.setUserId(1);
-//		pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, mockOrder);
+		// Order mockOrder = new Order();
+		// mockOrder.setTotal(0.01);
+		// List<CommerceItem> commerceItems = new ArrayList<CommerceItem>();
+		// CommerceItem item = new CommerceItem();
+		// item.setName("蜜蜡");
+		// commerceItems.add(item);
+		// item = new CommerceItem();
+		// item.setName("南红");
+		// commerceItems.add(item);
+		// mockOrder.setCommerceItems(commerceItems);
+		// mockOrder.setUserId(1);
+		// pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER,
+		// mockOrder);
 		// This code is for test ---- end ----
-		
+
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 		if (null == user) {
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
@@ -72,7 +86,7 @@ public class PaymentController implements CartMessages {
 		}
 		Order order = getOrderService().getSessionOrder(pRequest);
 		if (getOrderService().isInvalidOrder(user, order)) {
-			ModelAndView modelAndView = new ModelAndView("redirect:"+getUrlConfiguration().getShoppingCartPage());
+			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getShoppingCartPage());
 			return modelAndView;
 		}
 		// check the order is paid
@@ -95,7 +109,7 @@ public class PaymentController implements CartMessages {
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
-		
+
 		Order order = getOrderService().getSessionOrder(pRequest);
 		ModelAndView modelAndView = new ModelAndView();
 		if (getOrderService().isInvalidOrder(user, order)) {
@@ -117,9 +131,8 @@ public class PaymentController implements CartMessages {
 			return modelAndView;
 		}
 
-
 		String method = pRequest.getParameter("method");
-		if(!PaymentConstants.METHOD_YEEPAY.equals(method) && !PaymentConstants.METHOD_ALIPAY.equals(method) ){
+		if (!PaymentConstants.METHOD_YEEPAY.equals(method) && !PaymentConstants.METHOD_ALIPAY.equals(method)) {
 			modelAndView.setViewName("redirect:/payment/gateway");
 			modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
 			return modelAndView;
@@ -132,7 +145,6 @@ public class PaymentController implements CartMessages {
 			return modelAndView;
 		}
 
-	
 		if (PaymentConstants.METHOD_YEEPAY.equals(method)) {
 			modelAndView.setViewName("redirect:/yeepay/yeepayB2cPay?orderId=" + order.getId());
 			return modelAndView;
@@ -145,9 +157,7 @@ public class PaymentController implements CartMessages {
 		ModelAndView mav = null;
 		return mav;
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/complete")
 	public ModelAndView complete(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
@@ -175,7 +185,8 @@ public class PaymentController implements CartMessages {
 			return modelAndView;
 		}
 		if (order.getUserId() != user.getId().intValue()) {
-			LOGGER.debug("user on order not match user in session redriect to shopping cart. user on order: " + order.getUserId() + " user in session" + user.getId().intValue() );
+			LOGGER.debug("user on order not match user in session redriect to shopping cart. user on order: "
+					+ order.getUserId() + " user in session" + user.getId().intValue());
 			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
 			return modelAndView;
 		}
@@ -194,6 +205,25 @@ public class PaymentController implements CartMessages {
 		}
 		modelAndView.addObject("order", order);
 		return modelAndView;
+	}
+
+	public void sendEmail(User user, Order order) {
+		try {
+			UserInformation userInformation = userInformationService.queryUserInformation(user);
+			if (userInformation == null || userInformation.getPersonEmail() == null) {
+				LOGGER.info(
+						"Current user has not add user information so that cannot send payment success email to he/she. User id is:{}.",
+						user.getId());
+				return;
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("user", user);
+			map.put("order", order);
+			mailService.sendEmail(MailConstants.SUBJECT_PAID_SUCCESS, map, MailConstants.TEMPLATE_PAID_SUCCESS,
+					userInformation.getPersonEmail());
+		} catch (Exception e) {
+			LOGGER.error("Failed to send payment success email to user:" + user.getId() + ".", e);
+		}
 	}
 
 	public PaymentService getPaymentService() {

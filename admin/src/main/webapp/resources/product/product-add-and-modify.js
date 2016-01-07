@@ -1,9 +1,14 @@
 /**
  * Created by supersoup on 15/12/28.
  */
+
+inspect();
+
 $('[data-pgt-btn="single"]').change(function () {
+
     var that = $(this);
     var form = that.parent();
+    var message = form.siblings('p');
     var staticPath = $('#staticServer').val();
 
     form.ajaxSubmit({
@@ -34,7 +39,11 @@ $('[data-pgt-btn="single"]').change(function () {
                         img.attr('src', staticPath + responseBody.imagePath);
                         p.html(size);
                         deleteBtn.attr('data-url', '/media/delete/'+mediaId);
+                        message.html('图片上传成功');
                         test.remove();
+
+                        //检查src以确定是否允许上传图片
+                        inspect();
                     });
 
                     $('#testbox').append(test);
@@ -49,6 +58,7 @@ $('[data-pgt-btn="single"]').change(function () {
 $('[data-pgt-btn="multiple"]').change(function () {
     var that = $(this);
     var form = that.parent();
+    var message = form.siblings('p');
     var staticPath = $('#staticServer').val();
 
     form.ajaxSubmit({
@@ -84,6 +94,10 @@ $('[data-pgt-btn="multiple"]').change(function () {
                             '</p> </div>';
 
                         that.parents('.col-md-2').siblings('.col-md-8').append($(str));
+                        message.html('图片上传成功');
+
+
+
                     });
 
                     test.attr('src', staticPath + responseBody.imagePath);
@@ -99,6 +113,8 @@ $(document).on('click', '.pgt-img-delete', function(event) {
     event.preventDefault();
 
     var $this = $(this);
+    var message = $this.parents('.col-md-8').siblings('.col-md-2').children('p');
+
 
     $.ajax({
         type: 'get',
@@ -110,10 +126,34 @@ $(document).on('click', '.pgt-img-delete', function(event) {
                     $this.parent()
                         .siblings('img').attr('src', '')
                         .siblings('p').html('');
+
+                    //检查src以确定是否允许上传图片
+                    inspect();
+
                 } else if (dataPgtBtn == 'delete-multiple') {
                     $this.parents('.pgt-each-img').remove();
                 }
+
+                message.html('图片删除成功');
+                console.log(message);
             }
         }
     })
 });
+
+function inspect() {
+    $('[data-pgt-btn="single"]').each(function() {
+        var $this = $(this);
+        var img = $this.parents('.col-md-2').siblings('.col-md-8').children().children('img');
+
+        if (img.attr('src') == '') {
+            $this.attr('data-pgt-available', '1').css({
+                display: 'inline'
+            }).siblings('button').addClass('blue');
+        } else {
+            $this.attr('data-pgt-available', '0').css({
+                display: 'none'
+            }).siblings('button').removeClass('blue');
+        }
+    });
+}

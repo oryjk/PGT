@@ -1,5 +1,28 @@
 package com.pgt.shipping.controller;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.pgt.address.bean.AddressInfo;
 import com.pgt.address.bean.Store;
 import com.pgt.address.service.AddressInfoService;
@@ -15,27 +38,14 @@ import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
+import com.pgt.mail.MailConstants;
+import com.pgt.mail.service.MailService;
 import com.pgt.shipping.bean.ShippingMethod;
 import com.pgt.shipping.bean.ShippingVO;
 import com.pgt.shipping.service.ShippingService;
 import com.pgt.user.bean.User;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.pgt.user.bean.UserInformation;
+import com.pgt.user.service.UserInformationService;
 
 /**
  * @author ethanli
@@ -44,19 +54,23 @@ import java.util.Map;
 @RestController
 @RequestMapping("/checkout")
 public class ShippingController implements CartMessages {
-	private static final Logger	LOGGER	= LoggerFactory.getLogger(ShippingController.class);
+	private static final Logger		LOGGER	= LoggerFactory.getLogger(ShippingController.class);
 	@Autowired
-	private URLConfiguration	urlConfiguration;
+	private URLConfiguration		urlConfiguration;
 	@Autowired
-	private AddressInfoService	addressInfoService;
+	private AddressInfoService		addressInfoService;
 	@Autowired
-	private ShippingService		shippingService;
+	private ShippingService			shippingService;
 	@Autowired
-	private ShoppingCartService	shoppingCartService;
+	private ShoppingCartService		shoppingCartService;
 	@Autowired
-	private OrderService		orderService;
+	private OrderService			orderService;
 	@Autowired
-	private CityService			cityService;
+	private CityService				cityService;
+	@Autowired
+	private MailService				mailService;
+	@Autowired
+	private UserInformationService	userInformationService;
 
 	@Resource(name = "inventoryService")
 	private InventoryService inventoryService;
@@ -88,7 +102,7 @@ public class ShippingController implements CartMessages {
 			addressInfoList = getAddressInfoService().sortAddress(user.getDefaultAddressId(), addressInfoList);
 			AddressInfo defaultAddress = getAddressInfoService().findAddress(user.getDefaultAddressId());
 			mav.addObject("defaultAddress", defaultAddress);
-			if(order.getShippingVO() == null){
+			if (order.getShippingVO() == null) {
 				getShippingService().addAddress(user.getDefaultAddressId(), order);
 			}
 		}
@@ -195,7 +209,8 @@ public class ShippingController implements CartMessages {
 			return mav;
 		}
 
-
+		sendEmail(user, order);
+		request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
 		mav.setViewName("redirect:/payment/gateway");
 		mav.addObject(CartConstant.ORDER_ID, order.getId());
 		return mav;
@@ -215,6 +230,25 @@ public class ShippingController implements CartMessages {
 			return true;
 		}
 		return false;
+	}
+
+	public void sendEmail(User user, Order order) {
+		try {
+			UserInformation userInformation = userInformationService.queryUserInformation(user);
+			if (userInformation == null || userInformation.getPersonEmail() == null) {
+				LOGGER.info(
+						"Current user has not add user information so that cannot send place order email to he/she. User id is:{}.",
+						user.getId());
+				return;
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("user", user);
+			map.put("order", order);
+			getMailService().sendEmail(MailConstants.SUBJECT_PLACE_ORDER, map, MailConstants.TEMPLATE_PLACE_ORDER,
+					userInformation.getPersonEmail());
+		} catch (Exception e) {
+			LOGGER.error("Failed to send place order email to user:" + user.getId() + ".", e);
+		}
 	}
 
 	public AddressInfoService getAddressInfoService() {
@@ -264,4 +298,13 @@ public class ShippingController implements CartMessages {
 	public void setInventoryService(InventoryService inventoryService) {
 		this.inventoryService = inventoryService;
 	}
+
+	public MailService getMailService() {
+		return mailService;
+	}
+
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
+	}
+
 }
