@@ -63,7 +63,7 @@ public class UploadController {
 		// 获取扩展名
 		String originalFilename = uploadPic.getOriginalFilename();
 		String ext = FilenameUtils.getExtension(originalFilename);
-		String basePath = configuration.getImagePath()+"/resources/"+configuration.getImageFolder();
+		String basePath = configuration.getImagePath()+configuration.getImageFolder();
 		LOGGER.debug("The file basePath is {}.", basePath);
 
 
