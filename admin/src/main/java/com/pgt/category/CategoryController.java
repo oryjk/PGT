@@ -3,7 +3,11 @@ package com.pgt.category;
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
+import com.pgt.common.bean.Media;
 import com.pgt.configuration.Configuration;
+import com.pgt.media.MediaService;
+import com.pgt.media.bean.MediaType;
+import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
@@ -39,6 +43,9 @@ public class CategoryController {
 
     @Autowired
     private ESSearchService esSearchService;
+
+    @Autowired
+    private MediaService mediaService;
 
     @RequestMapping(value = "/categoryList", method = RequestMethod.GET)
     public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "type", required = false) CategoryType categoryType,
@@ -135,6 +142,12 @@ public class CategoryController {
         if (count != 1) {
             LOGGER.debug("Not success update the category.");
             return modelAndView;
+        }
+        if(category.getType().equals(CategoryType.ROOT)){
+            Integer mediaId = category.getFrontMedia().getId();
+            Media media =mediaService.findMedia(mediaId, MediaType.category);
+            media.setReferenceId(category.getId());
+            mediaService.updateMedia(media);
         }
         category = categoryService.queryCategory(category.getId());
         esSearchService.updateCategoryIndex(category);
