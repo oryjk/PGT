@@ -12,6 +12,7 @@
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList" pageCssPath="/resources/category/category-add-and-modify.css" pageJsPath="/resources/category/category-add-and-modify.js">
+  <input type="hidden" value="${staticServer}" id="staticServer"/>
   <div class="row">
     <div class="col-xs-12">
       <ul class="page-breadcrumb breadcrumb">
