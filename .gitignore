@@ -13,6 +13,7 @@ mobile/mobile.iml
 p2p_store/src/main/webapp/node_modules
 b2c_store/src/main/webapp/node_modules
 b2c_store/src/main/webapp/resources/image/upload
+mobile/src/main/webapp/resources/image/upload
 pgt.ipr
 pgt.iws
 bin/
