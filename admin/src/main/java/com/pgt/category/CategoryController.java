@@ -49,6 +49,7 @@ public class CategoryController {
     @ModelAttribute
     public void modelAttribute(ModelAndView modelAndView) {
         modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.addObject("categories", categoryService.queryRootCategories());
     }
 
 
@@ -149,10 +150,12 @@ public class CategoryController {
             return modelAndView;
         }
         if (category.getType().equals(CategoryType.ROOT)) {
-            Integer mediaId = category.getFrontMedia().getId();
-            Media media = mediaService.findMedia(mediaId, MediaType.category);
-            media.setReferenceId(category.getId());
-            mediaService.updateMedia(media);
+            List<Media> medias = mediaService.findMediaByRefId(category.getId(), MediaType.category);
+            if (ObjectUtils.isEmpty(medias)) {
+                medias.get(0).setReferenceId(category.getId());
+                mediaService.updateMedia(medias.get(0));
+            }
+
         }
         category = categoryService.queryCategory(category.getId());
         esSearchService.updateCategoryIndex(category);
@@ -163,11 +166,10 @@ public class CategoryController {
     @RequestMapping(value = "/getSubCategories/{rootCategoryId}", method = RequestMethod.GET)
     public ModelAndView getSubCategories(@PathVariable("rootCategoryId") Integer rootCategoryId, ModelAndView modelAndView) {
         LOGGER.debug("The root category id is {}.", rootCategoryId);
-        List<Category> categories = categoryService.querySubCategories(rootCategoryId);
-        LOGGER.debug("The sub category size is {}.", categories.size());
+        List<Category> subCategories = categoryService.querySubCategories(rootCategoryId);
         modelAndView.setViewName("category/categoryList");
-        modelAndView.addObject("categories", categories);
         modelAndView.addObject("categoryType", CategoryType.HIERARCHY);
+        modelAndView.addObject("subCategories", subCategories);
         return modelAndView;
     }
 

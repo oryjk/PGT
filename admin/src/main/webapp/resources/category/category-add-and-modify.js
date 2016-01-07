@@ -54,6 +54,7 @@ $('[data-pgt-btn="single"]').change(function () {
 
                     $('#testbox').append(test);
                     test.attr('src', staticPath + responseBody.imagePath);
+                    $('#frontMedia').val(param.mediaId);
                 }
             });
         }

@@ -372,6 +372,7 @@ public class ESSearchService {
 
     public void createCategoryIndex(Category category) {
 
+
         ObjectMapper mapper = new ObjectMapper();
         try {
             byte[] rootByte = mapper.writeValueAsBytes(category);
@@ -383,6 +384,11 @@ public class ESSearchService {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if (category.getType().equals(CategoryType.HIERARCHY)) {
+            Category parentCategory = category.getParent();
+            createCategoryIndex(parentCategory);
         }
     }
 
@@ -603,7 +609,7 @@ public class ESSearchService {
                         LOGGER.debug("Can not find the child categories.");
                         return response;
                     }
-                    return findProducts(esTerms, esMatches, esRange,esSorts, paginationBean, esAggregation);
+                    return findProducts(esTerms, esMatches, esRange, esSorts, paginationBean, esAggregation);
                 }
                 LOGGER.debug("This category id is not belong to ROOT category.");
 

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -82,8 +83,11 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public Media findCopyWriterMedia(Integer copyWriterId) {
-        return mediaMapper.queryMedia(MediaType.copy_write, copyWriterId);
-
+        List<Media> medias = mediaMapper.queryMediaByRefId(MediaType.copy_write, copyWriterId);
+        if (!ObjectUtils.isEmpty(medias)) {
+            return medias.get(0);
+        }
+        return null;
     }
 
     @Override
@@ -102,7 +106,14 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public Media findMedia(Integer mediaId, MediaType mediaType) {
-        return mediaMapper.queryMedia(mediaType, mediaId);
+
+        return mediaMapper.queryMedia(mediaId);
+    }
+
+    @Override
+    public List<Media> findMediaByRefId(Integer referenceId, MediaType mediaType) {
+        return mediaMapper.queryMediaByRefId(mediaType, referenceId);
+
     }
 
     @Override
