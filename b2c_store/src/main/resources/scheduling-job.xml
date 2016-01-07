@@ -4,24 +4,32 @@
                            http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
 
 
-    <bean name="inventoryReleaseJob" class="org.springframework.scheduling.quartz.JobDetailBean">
-        <property name="jobClass" value="com.pgt.inventory.scheduling.InventoryReleaseJob" />
-        <property name="jobDataAsMap">
-            <map>
-                <entry key="inventoryService" value-ref="inventoryService" />
-            </map>
+    <bean name="inventoryReleaseJob" class="com.pgt.inventory.scheduling.InventoryReleaseJob">
+        <property name="inventoryService" ref="inventoryService" />
+    </bean>
+
+
+
+    <bean id="inventoryReleaseJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="inventoryReleaseJob" />
+        </property>
+        <property name="targetMethod">
+            <value>work</value>
         </property>
     </bean>
 
-    <bean name="inventoryReleaseTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="inventoryReleaseJob"/>
+    <bean id="inventoryReleaseJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="inventoryReleaseJobDetail"/>
         <property name="cronExpression" value="0 0/1 * * * ?" /><!-- run each five min-->
     </bean>
+
 
     <bean name="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                <ref bean="inventoryReleaseTrigger"/>
+                <ref bean="inventoryReleaseJobTrigger"/>
             </list>
         </property>
     </bean>

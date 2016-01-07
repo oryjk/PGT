@@ -69,7 +69,7 @@
         <property name="useES" value="true"></property>
         <property name="resourcePath" value="/resources"></property>
         <property name="initialDataPath" value="/json"></property>
-
+        <property name="imagePath" value="/home/xiaodong/Projects/work/PGT/b2c_store/src/main/webapp"></property>
 
 
     </bean>
