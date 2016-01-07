@@ -71,6 +71,7 @@
         <property name="adminPlpCapacity" value="5"></property>
         <property name="adminCategoryCapacity" value="20"></property>
         <property name="imagePath" value="${imagePath}"></property>
+        <property name="imageFolder" value="${imageFolder}"></property>
         <property name="useProxy" value="${useProxy}"></property>
 
 

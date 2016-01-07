@@ -62,6 +62,7 @@ public class ESSearchMobileController extends BaseMobileController{
         ESRange esRange = null;
         ESTerm esterm = null;
         List<ESTerm> esMatches = new ArrayList<>();
+        List<ESSort> sortList = new ArrayList<>();
 
         try {
             ESAggregation esAggregation = new ESAggregation();
@@ -74,7 +75,12 @@ public class ESSearchMobileController extends BaseMobileController{
                 paginationBean.setCurrentIndex(Long.valueOf(essearchBean.getCurrentIndex()));
             }
             essearchBean.setTerm( buildESMatch(essearchBean.getTerm(), responseMap,esMatches));
-            buildESSort(essearchBean.getSortKey(), essearchBean.getSortOrder(),responseMap);
+            esSort= buildESSort(essearchBean.getSortKey(), essearchBean.getSortOrder(),responseMap);
+            if(!ObjectUtils.isEmpty(esSort)){
+                sortList.add(esSort);
+            }
+
+
             if (!StringUtils.isEmpty(essearchBean.getCategoryId())) {
                 essearchBean.setCategoryId(essearchBean.getCategoryId().trim());
                 LOGGER.debug("add CategoryId to responseMap{}", essearchBean.getCategoryId());
@@ -88,10 +94,10 @@ public class ESSearchMobileController extends BaseMobileController{
             // 如果分类不为空，则调用分类的查询方法
             if (!StringUtils.isEmpty(essearchBean.getCategoryId())) {
                 searchResponse = esSearchService.findProductsByCategoryId(essearchBean.getCategoryId(), esMatches, esRange,
-                        paginationBean, esAggregation, null);
+                        paginationBean, esAggregation,sortList);
             } else {
                 // 查找出所有的商品普通方法
-                searchResponse = esSearchService.findProducts(esterm, esMatches, esRange, null, paginationBean,
+                searchResponse = esSearchService.findProducts(esterm, esMatches, esRange,sortList, paginationBean,
                         esAggregation, null);
             }
 
@@ -180,8 +186,8 @@ public class ESSearchMobileController extends BaseMobileController{
         return esRange;
     }
 
-    private void buildESSort(String sortKey, String sortOrder, Map<String,Object> responseMap) {
-        ESSort esSort;
+    private ESSort buildESSort(String sortKey, String sortOrder, Map<String,Object> responseMap) {
+        ESSort esSort=null;
         if (!StringUtils.isEmpty(sortKey)) {
             esSort = new ESSort();
             esSort.setPropertyName(sortKey);
@@ -200,6 +206,7 @@ public class ESSearchMobileController extends BaseMobileController{
             responseMap.put("sortKey",sortKey);
             LOGGER.debug("add sortKey to responseMap", sortKey);
         }
+        return esSort;
     }
 
     private String buildESMatch(String term,Map<String,Object> responseMap,

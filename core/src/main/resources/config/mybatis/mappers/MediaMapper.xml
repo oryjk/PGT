@@ -40,7 +40,8 @@
 		WHERE MEDIA_ID = #{MEDIA_ID}
 	</select>
 
-    <insert id="createMedia" parameterMap="paramMedia">
+    <insert id="createMedia" parameterMap="paramMedia" keyProperty="id" useGeneratedKeys="true">
+
         INSERT INTO MEDIA(REFERENCE_ID,TITLE,PATH,TYPE,`INDEX`) VALUES (#{referenceId},#{title},#{path},#{type},#{index})
     </insert>
     <update id="updateMedia" parameterMap="paramMedia">

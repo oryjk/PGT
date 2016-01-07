@@ -11,12 +11,12 @@
 					<c:forEach items="${banner.images}" var="image" varStatus="status">
 
 						<c:if test="${status.index=='0'}">
-							<a href="#" data-banner="${stauts.index}"
+							<a href="${pageContext.request.contextPath}${image.url}" data-banner="${stauts.index}"
 								style="background: url('${pageContext.request.contextPath}/resources${image.path}') center center no-repeat ${image.color}; display: block"></a>
 						</c:if>
 
 						<c:if test="${status.index!='0'}">
-							<a href="#" data-banner="${status.index}"
+							<a href="${pageContext.request.contextPath}${image.url}" data-banner="${status.index}"
 								style="background: url('${pageContext.request.contextPath}/resources${image.path}') center center no-repeat ${image.color}"></a>
 						</c:if>
 
@@ -102,9 +102,7 @@
 										</p>
 
                                     <c:if test="${product['stock']<1}">
-									<div class="out-of-stock">
-									
-									</div>
+
 									</c:if>
 
 									<div class="product-message">添加成功</div>
@@ -161,9 +159,7 @@
 										</p>
 
 									  <c:if test="${product['stock']<1}">
-									<div class="out-of-stock">
-									
-									</div>
+
 									</c:if>
 
 									<div class="product-message">添加成功</div>

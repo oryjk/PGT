@@ -1,6 +1,8 @@
 package com.pgt.media.controller;
 
+import com.pgt.common.bean.Media;
 import com.pgt.media.MediaService;
+import com.pgt.product.bean.ProductMedia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +38,16 @@ public class MediaController {
         responseEntity.getBody().put("success", true);
         return responseEntity;
     }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity deleteMedia(ProductMedia productMedia) {
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        mediaService.create(productMedia);
+        responseEntity.getBody().put("success", true);
+        responseEntity.getBody().put("mediaId", productMedia.getId());
+        return responseEntity;
+    }
+
+
 }

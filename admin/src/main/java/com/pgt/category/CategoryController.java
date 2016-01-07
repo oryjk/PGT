@@ -3,7 +3,10 @@ package com.pgt.category;
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
+import com.pgt.common.bean.Media;
 import com.pgt.configuration.Configuration;
+import com.pgt.media.MediaService;
+import com.pgt.media.bean.MediaType;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
@@ -40,6 +43,15 @@ public class CategoryController {
     @Autowired
     private ESSearchService esSearchService;
 
+    @Autowired
+    private MediaService mediaService;
+
+    @ModelAttribute
+    public void modelAttribute(ModelAndView modelAndView) {
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
+    }
+
+
     @RequestMapping(value = "/categoryList", method = RequestMethod.GET)
     public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "type", required = false) CategoryType categoryType,
                             @RequestParam(value = "currentIndex", required = false) Integer currentIndex) {
@@ -72,7 +84,7 @@ public class CategoryController {
     public ModelAndView create(ModelAndView modelAndView) {
         LOGGER.debug("create GET.");
         modelAndView.addObject("category", new Category());
-        List<Category> categories = categoryService.queryAllParentCategories();
+        List<Category> categories = categoryService.queryRootCategories();
         modelAndView.setViewName("/category/addCategory");
         modelAndView.addObject("categories", categories);
         return modelAndView;
@@ -135,6 +147,12 @@ public class CategoryController {
         if (count != 1) {
             LOGGER.debug("Not success update the category.");
             return modelAndView;
+        }
+        if (category.getType().equals(CategoryType.ROOT)) {
+            Integer mediaId = category.getFrontMedia().getId();
+            Media media = mediaService.findMedia(mediaId, MediaType.category);
+            media.setReferenceId(category.getId());
+            mediaService.updateMedia(media);
         }
         category = categoryService.queryCategory(category.getId());
         esSearchService.updateCategoryIndex(category);

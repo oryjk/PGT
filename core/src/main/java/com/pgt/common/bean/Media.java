@@ -8,11 +8,11 @@ import java.io.Serializable;
 
 public class Media implements Serializable {
 
-	private int id;
-	private int referenceId;
+	private Integer id;
+	private Integer referenceId;
 	private String title;
 	private String path;
-	private int index;
+	private Integer index;
 	private String type;
 
 	public String getType() {
@@ -23,19 +23,19 @@ public class Media implements Serializable {
 		this.type = type;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(final int pId) {
+	public void setId(final Integer pId) {
 		id = pId;
 	}
 
-	public int getReferenceId() {
+	public Integer getReferenceId() {
 		return referenceId;
 	}
 
-	public void setReferenceId(final int pReferenceId) {
+	public void setReferenceId(final Integer pReferenceId) {
 		referenceId = pReferenceId;
 	}
 
@@ -55,11 +55,11 @@ public class Media implements Serializable {
 		path = pPath;
 	}
 
-	public int getIndex() {
+	public Integer getIndex() {
 		return index;
 	}
 
-	public void setIndex(final int pIndex) {
+	public void setIndex(final Integer pIndex) {
 		index = pIndex;
 	}
 

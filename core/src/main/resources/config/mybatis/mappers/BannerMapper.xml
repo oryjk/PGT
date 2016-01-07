@@ -4,6 +4,42 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pgt.common.dao.BannerMapper">
 
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.currentIndex},
+					#{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+    <!--查询条件 -->
+	<sql id="bannerListWhere">
+		<where>
+			<if test="type!=null">
+				and TYPE =#{type}
+			</if>
+			<if test="status!=null">
+				and STATUS =#{status}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 需要查询的数据 -->
+	<sql id="bannerSelector">
+		SELECT
+		<if test="fields !=null">
+			${fields}
+		</if>
+		<if test="fields ==null">
+			*
+		</if>
+		FROM BANNER
+	</sql>
+
 	<!--Banner result map -->
 	<resultMap id="BannerResult" type="com.pgt.common.bean.Banner">
 		<id column="BANNER_ID" property="bannerId" />
@@ -51,9 +87,10 @@
 		TYPE=#{type}
 	</select>
 
-
-	<select id="queryAllBanners" resultMap="BannerResult">
-		SELECT * FROM BANNER
+	<select id="queryBannerByQuery"  resultMap="BannerResult">
+		<include refid="bannerSelector"/>
+		<include refid="bannerListWhere"/>
+		<include refid="pageBean"/>
 	</select>
 
 </mapper>

@@ -1,76 +1,80 @@
 package com.pgt.common.controller;
 
-import java.util.List;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.pgt.common.bean.Image;
-import com.pgt.common.bean.ImageCustom;
 import com.pgt.common.service.ImageService;
 import com.pgt.configuration.URLConfiguration;
 
+
+@RestController
+@RequestMapping("/image")
 public class ImageController {
 
+	@Autowired
 	private ImageService imageService;
 
+	@Autowired
 	private URLConfiguration urlConfiguration;
 
-	// 1.进入添加图片的页面，需要携带banner的id
-	public String createImageUI(Integer bannerId, Model model) {
 
-		
-		return null;
+	@RequestMapping(value="/createImageUI",method = RequestMethod.GET)
+	public ModelAndView createImageUI(Integer bannerId, ModelAndView modelAndView) {
+
+		return modelAndView;
 	}
 
-	// 2.提交添加图片的操作，需要处理图片上传
-	public ModelAndView createIamge(Image image, ModelAndView modelAndView, String path) {
 
-		image.setPath(path);
+	@RequestMapping(value="/createIamge",method = RequestMethod.POST)
+	public ModelAndView createIamge(Image image, ModelAndView modelAndView) {
+		if(StringUtils.isEmpty(image.getPath())){
+			return modelAndView;
+		}
+		if(StringUtils.isEmpty(image.getUrl())){
+			return modelAndView;
+		}
 
 		imageService.createImage(image);
-
 		modelAndView.setViewName("");
-
 		return modelAndView;
 	}
 
-	// 3.提供修改banner的界面,回显
-	public String updateUI(Integer imageId, Model model) {
+	@RequestMapping(value="/updateUI",method = RequestMethod.GET)
+	public ModelAndView updateUI(Integer imageId, ModelAndView modelAndView) {
 
 		Image image = imageService.queryImageById(imageId);
-
-		model.addAttribute("image", image);
-
-		return "";
-	}
-
-	// 4.提交修改图片的操作，需要图片上传
-	public ModelAndView updateImage(ModelAndView modelAndView) {
-
-		return modelAndView;
-	}
-
-	// 5.删除一个轮播的展示图片
-	public String deleteIamge(Integer imageId) {
-
-		imageService.deleteImageById(imageId);
-
-		return "";
-	}
-
-	// 6.进入查看图片的列表页面
-	public ModelAndView imageList(ModelAndView modelAndView) {
-
-		ImageCustom imageCustom = new ImageCustom();
-
-		List<Image> images = imageService.queryAllImage(imageCustom);
-
-		modelAndView.addObject("images", images);
-
 		modelAndView.setViewName("");
-
 		return modelAndView;
 	}
-	
+
+	@RequestMapping(value="/updateImage",method = RequestMethod.POST)
+	public ModelAndView updateImage(ModelAndView modelAndView,Image image) {
+
+		if(StringUtils.isEmpty(image.getPath())){
+			return modelAndView;
+		}
+		if(StringUtils.isEmpty(image.getUrl())){
+			return modelAndView;
+		}
+		imageService.updateImage(image);
+		return modelAndView;
+	}
+
+	@RequestMapping(value="/deleteImage",method = RequestMethod.GET)
+	public ModelAndView deleteImage(Integer imageId,ModelAndView modelAndView) {
+
+		if(StringUtils.isEmpty(imageId)){
+			return modelAndView;
+		}
+		imageService.deleteImageById(imageId);
+		return modelAndView;
+	}
+
+
 	public ImageService getImageService() {
 		return imageService;
 	}

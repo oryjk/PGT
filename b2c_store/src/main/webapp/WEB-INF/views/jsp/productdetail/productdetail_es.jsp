@@ -16,7 +16,7 @@
                         src="${pageContext.request.contextPath}/resources${product['heroMedias'][0]['path']}"   
                         alt="1" />
                     <c:if test="${product.stock<1}">
-                    <div class="out-of-stock"></div>
+                    <div id="outOfStock" class="out-of-stock"></div>
                     </c:if>
                     <div id="glass" class="glass"></div>   
                 </div>

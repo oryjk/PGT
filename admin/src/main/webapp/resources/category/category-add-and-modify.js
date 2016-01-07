@@ -21,41 +21,39 @@ $('#levelSelect').change(function() {
 $('[data-pgt-btn="single"]').change(function () {
     var that = $(this);
     var form = that.parent();
-    var p = form.siblings('p');
     var staticPath = $('#staticServer').val();
-    p.html(that.val());
 
     form.ajaxSubmit({
         dataType: 'json',
         type: 'POST',
-        success: function (responseBody) {
-            var size = '';
-            var test = $('<img>');
+        success: function(responseBody) {
 
-            //所有功能写进回调:
-            test.load(function () {
-                size = test.width() + '*' + test.height();
-                $('.pgt-category-img').attr('src', staticPath + responseBody.imagePath)
-                    .siblings('p').html(size);
-                test.remove();
-                $.ajax({
-                    url: '/product/create/stepImage',
-                    type: 'post',
-                    data: {
-                        referenceId: $('#productId').val(),
-                        title: $('#productName').val(),
-                        path: responseBody.imagePath,
-                        type: responseBody.mediaType
-                    },
-                    success: function () {
-                    }
-                });
+            $.ajax({
+                type: 'POST',
+                url: '/media/create',
+                data: {
+                    path: responseBody.imagePath,
+                    type: responseBody.mediaType
+                },
+                success: function (param) {
+                    var size = '';
+                    var test = $('<img>');
+                    var mediaId = param.mediaId;
+
+                    //所有功能写进回调:
+                    test.load(function () {
+                        size = test.width() + '*' + test.height();
+                        $('.pgt-category-img').attr('src', staticPath + responseBody.imagePath)
+                            .siblings('p').html(size);
+                        $('.pgt-img-delete').attr('data-url', mediaId);
+                        test.remove();
+
+                    });
+
+                    $('#testbox').append(test);
+                    test.attr('src', staticPath + responseBody.imagePath);
+                }
             });
-
-
-            $('#testbox').append(test);
-            test.attr('src', staticPath + responseBody.imagePath);
-
         }
     });
 });
