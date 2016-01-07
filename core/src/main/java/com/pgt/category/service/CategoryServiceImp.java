@@ -65,8 +65,10 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
             LOGGER.debug("Begin create category.");
             categoryMapper.createCategory(category);
             Media media = mediaService.findMedia(mediaId, MediaType.category);
-            media.setReferenceId(category.getId());
-            mediaService.updateMedia(media);
+            if(!ObjectUtils.isEmpty(media)){
+                media.setReferenceId(category.getId());
+                mediaService.updateMedia(media);
+            }
 
             LOGGER.debug("End create category.");
         } catch (Exception e) {
