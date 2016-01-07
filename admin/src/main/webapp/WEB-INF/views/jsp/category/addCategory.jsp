@@ -153,8 +153,9 @@
     <div class="row">
       <label class="col-md-12 control-label">分类主图</label>
       <div class="col-md-12">
-        <form class="pgt-file-box" action="/test">
-          <input class="pgt-file-btn" name="thumbnail" type="file"/>
+        <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+          <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
+          <input name="mediaType" type="hidden" value="category"/>
           <button type="button" class="btn blue">选择图片</button>
         </form>
         <p></p>

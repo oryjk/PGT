@@ -32,8 +32,6 @@ $('[data-pgt-btn="single"]').change(function () {
                 type: 'POST',
                 url: '/media/create',
                 data: {
-                    id: $('#categoryMediaId').val(),
-                    title: $('#categoryMediaRefTitle').val(),
                     path: responseBody.imagePath,
                     type: responseBody.mediaType
                 },
