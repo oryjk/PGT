@@ -137,6 +137,10 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
     	$.post(action,data).done(function(result){
     		if(result.success == 'true'){
     			$('#addressInfoId').val(result.addedAddressId);
+    			if('updateAddress' == result.action){
+    				window.location.reload();
+    				return;
+    			}
     			$('#js-add-address-to-order').click();
     			$this.data('pending',false);
     		}else{
@@ -162,6 +166,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
     	}
     	$this.data('pending',true);
     	$('#js-address-form-area').show();
+    	form.find('span.js-error-msg').empty();
     	form.attr('action',$this.data('href'));
     	$.get($this.data('find-adress-url')).done(function(result){
     		if(result.success == 'true'){
@@ -271,11 +276,20 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
     });
     $('#show-address-form').click(function(){
     	$('#addAddressForm')[0].reset();
+    	$('#addAddressForm').attr('action','../my-account/person-info/addAddress');
     	$('#js-address-form-area').show();
     });
     $('#js-hide-address-form').click(function(){
     	$('#js-address-form-area').hide();
     });
     
+    $('#checkBox').change(function(){
+    	 if ($(this).is(":checked")) {
+    		 $(this).val(1).prop("checked", true);
+    	 }else {
+    		 $(this).val(0).prop("checked", false);
+    	 }
+    });
+    	
  //===============shipping page end========================
 });
