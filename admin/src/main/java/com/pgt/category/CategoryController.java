@@ -149,10 +149,12 @@ public class CategoryController {
             return modelAndView;
         }
         if (category.getType().equals(CategoryType.ROOT)) {
-            Integer mediaId = category.getFrontMedia().getId();
-            Media media = mediaService.findMedia(mediaId, MediaType.category);
-            media.setReferenceId(category.getId());
-            mediaService.updateMedia(media);
+            List<Media> medias = mediaService.findMediaByRefId(category.getId(), MediaType.category);
+            if (ObjectUtils.isEmpty(medias)) {
+                medias.get(0).setReferenceId(category.getId());
+                mediaService.updateMedia(medias.get(0));
+            }
+
         }
         category = categoryService.queryCategory(category.getId());
         esSearchService.updateCategoryIndex(category);
