@@ -29,33 +29,34 @@ $('[data-pgt-btn="single"]').change(function () {
         dataType: 'json',
         type: 'POST',
         success: function (responseBody) {
-            var size = '';
-            var test = $('<img>');
+            $.ajax({
+                url: '/product/create/stepImage',
+                type: 'post',
+                data: {
+                    referenceId: $('#productId').val(),
+                    title: $('#productName').val(),
+                    path: responseBody.imagePath,
+                    type: responseBody.mediaType
+                },
+                success: function (param) {
+                    var size = '';
+                    var test = $('<img>');
+                    var mediaId = param.mediaId;
 
-            //所有功能写进回调:
-            test.load(function () {
-                size = test.width() + '*' + test.height();
-                $('.pgt-category-img').attr('src', staticPath + responseBody.imagePath)
-                    .siblings('p').html(size);
-                test.remove();
-                $.ajax({
-                    url: '/product/create/stepImage',
-                    type: 'post',
-                    data: {
-                        referenceId: $('#productId').val(),
-                        title: $('#productName').val(),
-                        path: responseBody.imagePath,
-                        type: responseBody.mediaType
-                    },
-                    success: function () {
-                    }
-                });
+                    //所有功能写进回调:
+                    test.load(function () {
+                        size = test.width() + '*' + test.height();
+                        $('.pgt-category-img').attr('src', staticPath + responseBody.imagePath)
+                            .siblings('p').html(size);
+                        $('.pgt-img-delete').attr('data-url', mediaId);
+                        test.remove();
+
+                    });
+
+                    $('#testbox').append(test);
+                    test.attr('src', staticPath + responseBody.imagePath);
+                }
             });
-
-
-            $('#testbox').append(test);
-            test.attr('src', staticPath + responseBody.imagePath);
-
         }
     });
 });

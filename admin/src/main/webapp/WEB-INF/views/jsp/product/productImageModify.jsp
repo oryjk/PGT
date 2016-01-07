@@ -127,12 +127,12 @@
 											<p></p>
 										</div>
 										<div class="col-md-8">
-											<c:forEach items="${product.mainMedias}" var="mainMedia">
+											<c:forEach items="${product.heroMedias}" var="heroMedia">
 												<div class="pgt-each-img">
 													<div class="pgt-handle-box">
-														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${mainMedia.id}">删除</a>
+														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${heroMedia.id}">删除</a>
 													</div>
-													<img class="pgt-hero-img" src="${mainMedia.path}" alt=""/>
+													<img class="pgt-hero-img" src="${heroMedia.path}" alt=""/>
 													<p class="pgt-img-size">100 * 100</p>
 												</div>
 											</c:forEach>
@@ -149,12 +149,12 @@
 											<p></p>
 										</div>
 										<div class="col-md-8">
-											<c:forEach items="${product.heroMedias}" var="heroMedia">
+											<c:forEach items="${product.mainMedias}" var="mainMedia">
 												<div class="pgt-each-img">
 													<div class="pgt-handle-box">
-														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${heroMedia.id}">删除</a>
+														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${mainMedia.id}">删除</a>
 													</div>
-													<img class="pgt-hero-img" src="${heroMedia.path}" alt=""/>
+													<img class="pgt-hero-img" src="${mainMedia.path}" alt=""/>
 													<p class="pgt-img-size">100 * 100</p>
 												</div>
 											</c:forEach>
