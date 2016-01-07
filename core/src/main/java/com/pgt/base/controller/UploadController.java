@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +33,18 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @RestController
 public class UploadController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
+
 	@RequestMapping(value = "/uploadPic")
 	public void uploadPic(@RequestParam(required = false) MultipartFile uploadPic, HttpServletResponse response,
 			HttpServletRequest request) throws Exception {
+		JSONObject jo = new JSONObject();
+		if(ObjectUtils.isEmpty(uploadPic)){
+			LOGGER.debug("The upload image is empty.");
+			ResponseUtils.renderJson(response, "uploda is null");
+			return;
+		}
+
 		// 精确到毫秒
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		String picName = df.format(new Date());
@@ -45,6 +57,8 @@ public class UploadController {
 		String ext = FilenameUtils.getExtension(originalFilename);
 		String basePath = request.getRealPath("/resources/image/upload/");
 
+		LOGGER.debug("The file basePath is ---------------------------------------- {}.", basePath);
+
 		File filemkdir = new File(basePath);
 		if(!filemkdir.exists()){
 			filemkdir.mkdirs();
@@ -54,12 +68,14 @@ public class UploadController {
 		String path = picName + "." + ext;
 		// 全路径
 		String url = basePath + "/"+path;
+
+		LOGGER.debug("The file url is {}.", url);
 		// 新图片
 		File file = new File(url);
 		// 将内存中的文件写入磁盘
 		uploadPic.transferTo(file);
 		url= url.substring(url.indexOf("image"),url.length());
-		JSONObject jo = new JSONObject();
+
 		jo.put("url", url);
 		jo.put("path", path);
 		ResponseUtils.renderJson(response, jo.toString());
