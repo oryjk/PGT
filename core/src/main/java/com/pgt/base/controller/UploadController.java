@@ -57,7 +57,7 @@ public class UploadController {
 		String ext = FilenameUtils.getExtension(originalFilename);
 		String basePath = request.getRealPath("/resources/image/upload/");
 
-		LOGGER.debug("The file basePath is ---------------------------------------- {}.", basePath);
+		LOGGER.debug("The file basePath is {}.", basePath);
 
 		File filemkdir = new File(basePath);
 		if(!filemkdir.exists()){
@@ -74,6 +74,7 @@ public class UploadController {
 		File file = new File(url);
 		// 将内存中的文件写入磁盘
 		uploadPic.transferTo(file);
+		LOGGER.debug("The file absolutePath is {}.",file.getAbsolutePath());
 		url= url.substring(url.indexOf("image"),url.length());
 
 		jo.put("url", url);
