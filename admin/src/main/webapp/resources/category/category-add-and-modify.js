@@ -43,9 +43,11 @@ $('[data-pgt-btn="single"]').change(function () {
                     //所有功能写进回调:
                     test.load(function () {
                         size = test.width() + '*' + test.height();
+
                         $('.pgt-category-img').attr('src', staticPath + responseBody.imagePath)
                             .siblings('p').html(size);
-                        $('.pgt-img-delete').attr('data-url', mediaId);
+                        $('.pgt-img-delete').attr('data-url', '/media/delete/' + mediaId);
+
                         test.remove();
 
                     });
@@ -59,6 +61,22 @@ $('[data-pgt-btn="single"]').change(function () {
 });
 
 $('#pgtColorInput').keydown(categoryColor);
+
+$(document).on('click', '.pgt-img-delete', function(event) {
+    event.preventDefault();
+
+    var $this = $(this);
+
+    $.ajax({
+        type: 'get',
+        url: $this.attr('data-url'),
+        success: function(param) {
+            if (param.success == true) {
+                $('.pgt-category-img').attr('src', '').siblings('p').html('');
+            }
+        }
+    })
+});
 
 categoryColor();
 
