@@ -25,10 +25,17 @@
 		ORDER BY 'index'
 		asc
 	</select>
-    <select id="queryMedia" resultMap="MediaResult">
+    <select id="queryMediaByRefId" resultMap="MediaResult">
 		SELECT *
 		FROM MEDIA
 		WHERE reference_id = #{referenceId} AND TYPE = #{mediaType}
+		ORDER BY 'index'
+		asc
+	</select>
+    <select id="queryMedia" resultMap="MediaResult">
+		SELECT *
+		FROM MEDIA
+		WHERE MEDIA_ID = #{id}
 		ORDER BY 'index'
 		asc
 	</select>

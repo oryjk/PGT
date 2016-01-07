@@ -191,7 +191,7 @@
 											</th>
 										</tr>
 										</thead>
-										<c:forEach items="${categories}" var="rootCategory">
+										<c:forEach items="${subCategories}" var="rootCategory">
 										<tr class="gradeX odd" role="row">
 											<td>
 													${rootCategory.sort}

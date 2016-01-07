@@ -35,6 +35,7 @@ public interface MediaService {
 
     Media findMedia(Integer mediaId,MediaType mediaType);
 
+    List<Media> findMediaByRefId(Integer referenceId,MediaType mediaType);
     void updateMedia(Media media);
 
 }
