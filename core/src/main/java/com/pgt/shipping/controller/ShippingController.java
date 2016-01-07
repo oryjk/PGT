@@ -195,7 +195,7 @@ public class ShippingController implements CartMessages {
 			return mav;
 		}
 
-
+		request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
 		mav.setViewName("redirect:/payment/gateway");
 		mav.addObject(CartConstant.ORDER_ID, order.getId());
 		return mav;
