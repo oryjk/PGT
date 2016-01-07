@@ -603,7 +603,7 @@ public class ESSearchService {
                         LOGGER.debug("Can not find the child categories.");
                         return response;
                     }
-                    return findProducts(esTerms, esMatches, esRange, null, paginationBean, esAggregation);
+                    return findProducts(esTerms, esMatches, esRange,esSorts, paginationBean, esAggregation);
                 }
                 LOGGER.debug("This category id is not belong to ROOT category.");
 

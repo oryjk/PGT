@@ -71,6 +71,7 @@
         <property name="initialDataPath" value="/json"></property>
 
 
+
     </bean>
     <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
         <property name="categoryPage" value="/category"/>
