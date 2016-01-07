@@ -46,7 +46,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         //事件委托:加入购物车, 添加收藏
         $(document).on('click', '.addCart', addCart);
         $(document).on('click', '.addEnjoy', addEnjoy);
-        $('.search-link-btn').on('click', orderSearch);
 
         //加入购物车
         function addCart(event) {
@@ -69,4 +68,5 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
             Prd.addItemToFavourite(productId, productMessage);
         }
+    });
 });

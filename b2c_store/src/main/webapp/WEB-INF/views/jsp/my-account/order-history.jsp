@@ -184,7 +184,6 @@
 </div>
 <jsp:include page="../core/footer-main.jsp" />
 </body>
-<script
-        src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/my-account/person-info/update-password/"/>"></script>
+<script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
+        data-main="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/my-orders"/>"></script>
 </html>
