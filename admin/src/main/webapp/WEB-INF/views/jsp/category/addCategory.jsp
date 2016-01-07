@@ -163,5 +163,7 @@
       </div>
     </div>
   </div>
+  <div id="testbox"></div>
+
 </admin:container>
 
