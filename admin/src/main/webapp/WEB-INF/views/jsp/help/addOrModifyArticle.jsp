@@ -28,15 +28,15 @@
                 <div class="col-xs-12">
                     <ul class="page-breadcrumb breadcrumb">
                         <li>
-                            <a href="#">首页</a>
+                            <a href="/">首页</a>
                             <i class="fa fa-circle"></i>
                         </li>
                         <li>
-                            <a href="#">文章列表</a>
+                            <a href="/help/articleList">文章列表</a>
                             <i class="fa fa-circle"></i>
                         </li>
                         <li class="active">
-                            <a href="#">新增分类</a>
+                            <a href="/help/addCategory">新增分类</a>
                         </li>
                     </ul>
                 </div>

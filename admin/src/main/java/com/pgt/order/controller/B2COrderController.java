@@ -1,14 +1,9 @@
 package com.pgt.order.controller;
 
-import com.pgt.cart.bean.*;
-import com.pgt.cart.bean.pagination.InternalPagination;
-import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
-import com.pgt.cart.service.ResponseBuilderFactory;
-import com.pgt.cart.util.RepositoryUtils;
-import com.pgt.internal.constant.ResponseConstant;
-import com.pgt.internal.controller.InternalTransactionBaseController;
-import com.pgt.order.bean.B2COrderSearchVO;
-import com.pgt.order.service.B2COrderService;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +17,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Delivery;
+import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.bean.ResponseBean;
+import com.pgt.cart.bean.ResponseBuilder;
+import com.pgt.cart.bean.pagination.InternalPagination;
+import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
+import com.pgt.cart.service.ResponseBuilderFactory;
+import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.internal.constant.ResponseConstant;
+import com.pgt.internal.controller.InternalTransactionBaseController;
+import com.pgt.mail.service.MailService;
+import com.pgt.order.bean.B2COrderSearchVO;
+import com.pgt.order.service.B2COrderService;
 
 /**
  * Created by Yove on 12/21/2015.
@@ -40,6 +47,9 @@ public class B2COrderController extends InternalTransactionBaseController implem
 
 	@Autowired
 	private ResponseBuilderFactory mResponseBuilderFactory;
+	
+	@Autowired
+	private MailService mMailService;
 
 	@RequestMapping(value = "/order-list")//, method = RequestMethod.GET)
 	public ModelAndView listB2COrders(HttpServletRequest pRequest, HttpServletResponse pResponse,
@@ -106,6 +116,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			if (!result) {
 				ts.setRollbackOnly();
 			}
+			getmMailService().sendUpdateOrderEmail(order, result, statusInt);
 		} catch (Exception e) {
 			LOGGER.error("Cannot change status to: {} for order: {}", status, id, e);
 			ts.setRollbackOnly();
@@ -146,6 +157,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			if (!result) {
 				ts.setRollbackOnly();
 			}
+			getmMailService().sendUpdateOrderEmail(order, result, statusInt);
 		} catch (Exception e) {
 			LOGGER.error("Cannot change status to: {} for order: {}", status, id, e);
 			ts.setRollbackOnly();
@@ -194,6 +206,8 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		TransactionStatus status = ensureTransaction();
 		try {
 			getB2COrderService().createDelivery(delivery);
+			Order order = getB2COrderService().loadOrder(ci.getOrderId());
+			getmMailService().sendDeliveryEmail(order, ci, delivery);
 		} catch (Exception e) {
 			status.setRollbackOnly();
 			LOGGER.error("Cannot make delivery for commerce item: {} of order: {}", cid, id, e);
@@ -223,6 +237,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			if (!result) {
 				status.setRollbackOnly();
 			}
+			
 		} catch (Exception e) {
 			status.setRollbackOnly();
 			LOGGER.error("Cannot mark received for commerce item: {} of order: {}", cid, id, e);
@@ -247,4 +262,13 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	public void setResponseBuilderFactory(final ResponseBuilderFactory pResponseBuilderFactory) {
 		mResponseBuilderFactory = pResponseBuilderFactory;
 	}
+
+	public MailService getmMailService() {
+		return mMailService;
+	}
+
+	public void setmMailService(MailService mMailService) {
+		this.mMailService = mMailService;
+	}
+	
 }
