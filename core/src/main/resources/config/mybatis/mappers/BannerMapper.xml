@@ -87,10 +87,15 @@
 		TYPE=#{type}
 	</select>
 
-	<select id="queryBannerByQuery"  resultMap="BannerResult">
+	<select id="queryBannerByQuery" parameterType="com.pgt.common.bean.BannerQuery" resultMap="BannerResult">
 		<include refid="bannerSelector"/>
 		<include refid="bannerListWhere"/>
 		<include refid="pageBean"/>
+	</select>
+	
+	<select id="queryBannerCount" parameterType="com.pgt.common.bean.BannerQuery" resultType="Integer">
+		<include refid="bannerSelector"/>
+		<include refid="bannerListWhere"/>
 	</select>
 
 </mapper>
