@@ -51,7 +51,7 @@
                 </div>
                 <div class="details">
                     <div class="number">
-                        111,127
+                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${orderCount}"  />
                     </div>
                     <div class="desc">
                         总订单数
@@ -66,7 +66,7 @@
                 </div>
                 <div class="details">
                     <div class="number">
-                        162,123
+                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${itemCount}"  />
                     </div>
                     <div class="desc">
                         总销售数量
@@ -82,7 +82,7 @@
                 <div class="details">
                     <div class="number">
                         <span>¥</span>
-                        <span>123,231,000</span>
+                        <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalSales}" pattern="0.00" /></span>
                     </div>
                     <div class="desc">
                         总销售额
