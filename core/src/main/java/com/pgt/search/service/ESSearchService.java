@@ -357,15 +357,21 @@ public class ESSearchService {
 
     public void updateCategoryIndex(Category category) {
 
+        LOGGER.debug("Begin to update category index with id is {}.", category.getId());
         ObjectMapper mapper = new ObjectMapper();
         try {
             byte[] rootByte = mapper.writeValueAsBytes(category);
             UpdateRequestBuilder updateRequestBuilder = getIndexClient().prepareUpdate(Constants.SITE_INDEX_NAME, Constants
                     .CATEGORY_INDEX_TYPE, category.getId() + "").setDoc(rootByte);
-            updateRequestBuilder.execute().actionGet(10000);
+            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
+            if (updateResponse.isCreated()) {
+                LOGGER.debug("Success update category index.");
+            }
         } catch (JsonProcessingException e) {
+            LOGGER.error("JsonProcessingException has occur when update category.");
             e.printStackTrace();
         } catch (IOException e) {
+            LOGGER.error("IOException has occur when update category.");
             e.printStackTrace();
         }
     }
