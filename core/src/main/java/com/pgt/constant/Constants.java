@@ -68,4 +68,5 @@ public class Constants {
     public static final String HOT_PRODUCTS = "hotProducts";
     public static final String HOT_SEARCH_LIST = "hotSearchList";
     public static final String ERROR = "error";
+    public static final String TRUE = "true";
 }

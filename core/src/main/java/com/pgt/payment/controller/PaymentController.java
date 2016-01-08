@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ import com.pgt.cart.controller.CartMessages;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.UserOrderService;
 import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.Constants;
 import com.pgt.constant.UserConstant;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
@@ -109,7 +111,6 @@ public class PaymentController implements CartMessages {
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
 			return modelAndView;
 		}
-
 		Order order = getOrderService().getSessionOrder(pRequest);
 		ModelAndView modelAndView = new ModelAndView();
 		if (getOrderService().isInvalidOrder(user, order)) {
@@ -159,7 +160,8 @@ public class PaymentController implements CartMessages {
 	}
 
 	@RequestMapping(value = "/complete")
-	public ModelAndView complete(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ModelAndView complete(HttpServletRequest pRequest, HttpServletResponse pResponse,
+			@ModelAttribute(PaymentConstants.PAID_SUCCESS_FLAG) String paidSuccessFlag) {
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 		if (null == user) {
 			LOGGER.debug("no user in session redrict to login page.");
@@ -200,6 +202,7 @@ public class PaymentController implements CartMessages {
 			modelAndView.addObject("orderId", orderId);
 			modelAndView.addObject("orderTotal", total);
 			pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, null);
+			sendEmail(user, order, paidSuccessFlag);
 		} else {
 			modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
 		}
@@ -207,8 +210,11 @@ public class PaymentController implements CartMessages {
 		return modelAndView;
 	}
 
-	public void sendEmail(User user, Order order) {
+	public void sendEmail(User user, Order order, String paidSuccessFlag) {
 		try {
+			if (!Constants.TRUE.equals(paidSuccessFlag)) {
+				return;
+			}
 			UserInformation userInformation = userInformationService.queryUserInformation(user);
 			if (userInformation == null || userInformation.getPersonEmail() == null) {
 				LOGGER.info(

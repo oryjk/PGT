@@ -17,12 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.Constants;
 import com.pgt.payment.PaymentConstants;
 import com.pgt.payment.bean.PaymentGroup;
 import com.pgt.payment.bean.Transaction;
@@ -82,7 +85,8 @@ public class AlipayController {
 	}
 
 	@RequestMapping(value = "/return", method = RequestMethod.GET)
-	public ModelAndView handleAlipayReturn(HttpServletRequest request, HttpSession session) {
+	public ModelAndView handleAlipayReturn(HttpServletRequest request, HttpSession session,
+			RedirectAttributes redirectAttributes) {
 		Integer orderId = getAlipayService().getOrderIdFromNotify(request);
 		Order order = getOrderService().loadOrder(orderId);
 		boolean success = getAlipayService().verifyResult(request);
@@ -90,12 +94,14 @@ public class AlipayController {
 		if (success) {
 			handleSuccessfulAlipayNotify(request, order);
 			mav.setViewName("redirect:/payment/complete?orderId=" + orderId);
+			redirectAttributes.addFlashAttribute(PaymentConstants.PAID_SUCCESS_FLAG, Constants.TRUE);
 			return mav;
 		} else {
 			LOGGER.error("Method handleAlipayReturn(): Failed to pay the order-{} by alipay.", orderId);
 		}
 		mav = new ModelAndView("redirect:/payment/gateway");
 		mav.addObject("order", order);
+		mav.addObject(CartConstant.ORDER_ID, order.getId());
 		return mav;
 	}
 
@@ -125,6 +131,7 @@ public class AlipayController {
 		if (paymentGroup == null) {
 			LOGGER.error("Cannot get paymentgroup by order id-{} after successing to pay the order by alipay.",
 					orderId);
+			return;
 		}
 		if (PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
 			LOGGER.info("Had saved alipay result for order-{} before.", orderId);
