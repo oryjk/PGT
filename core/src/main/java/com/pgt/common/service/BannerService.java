@@ -2,6 +2,8 @@ package com.pgt.common.service;
 
 import java.util.List;
 import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.BannerQuery;
+
 /**
  * Created by ddjunshi 2015年11月13日
  */
@@ -18,5 +20,9 @@ public interface BannerService {
     List<Banner> queryAllBanner();
 
     Banner queryBannerByType(String type);
+
+    List<Banner> queryBannerByQuery(BannerQuery bannerQuery);
+
+    Integer queryBannerCount(BannerQuery bannerQuery);
 	
 }
