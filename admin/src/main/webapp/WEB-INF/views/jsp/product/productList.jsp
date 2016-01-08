@@ -81,12 +81,20 @@
 							<div class="col-xs-2">
 								<div class="dataTables_length">
 									<label>主分类
+										<c:set var="rootCategoryId" value="${categoryHierarchy.parentCategory.categoryId}"/>
 										<select name="sample_3_length" aria-controls="sample_3"
 												class="form-control input-small input-inline select2-offscreen"
 												id="mainCategory" tabindex="-1" title="">
-											<option value="" selected="true">全部</option>
+											<option value="">全部</option>
 											<c:forEach items="${categories}" var="category">
-												<option value="${category.id}">${category.name}</option>
+												<c:choose>
+													<c:when test="${rootCategoryId == category.id}">
+														<option value="${category.id}" selected="true">${category.name}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${category.id}">${category.name}</option>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 										</select></label>
 								</div>
@@ -94,13 +102,21 @@
 							<div class="col-xs-2">
 								<div class="dataTables_length">
 									<label>次分类
+										<c:set var="categoryId" value="${categoryHierarchy.categoryId}"/>
 										<select name="sample_3_length" aria-controls="sample_3"
 												class="form-control input-small input-inline select2-offscreen"
 												id="viceCategory" tabindex="-1" title="">
-											<option value="5">橄榄核雕</option>
-											<option value="15">牦牛角</option>
-											<option value="20">骆驼骨头</option>
-											<option value="-1">所有</option>
+											<option value="5">全部</option>
+											<c:forEach items="${subCategories}" var="subCategory">
+												<c:choose>
+													<c:when test="${subCategory.id == categoryId}">
+														<option value="${subCategory.id}" selected="true">${subCategory.name}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${subCategory.id}">${subCategory.name}</option>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
 										</select> </label>
 								</div>
 							</div>
