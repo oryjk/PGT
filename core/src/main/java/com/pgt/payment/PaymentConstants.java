@@ -10,4 +10,6 @@ public class PaymentConstants {
 	
 	public static final int PAYMENT_TYPE_YEEPAY = 1;
 	public static final int PAYMENT_TYPE_ALIPAY = 2;
+	
+	public static final String PAID_SUCCESS_FLAG = "paidSuccessFlag";
 }
