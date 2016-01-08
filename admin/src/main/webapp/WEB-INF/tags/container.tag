@@ -81,7 +81,7 @@
         <div class="container">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href=""><img src="${ctx}/resources/assets/admin/layout3/img/logo-default.png" alt="logo"
+                <a href="/"><img src="${ctx}/resources/assets/admin/layout3/img/logo-default.png" alt="logo"
                                 class="logo-default"></a>
             </div>
             <!-- END LOGO -->
@@ -254,7 +254,7 @@
             <div class="hor-menu ">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/dashboard">首页</a>
+                        <a href="/">首页</a>
                     </li>
 
                     <!-- !!!list 商品管理-->

@@ -15,7 +15,7 @@ public class DashboardController extends InternalTransactionBaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DashboardController.class);
 
-	@RequestMapping("/dashboard")
+	@RequestMapping("/")
 	public ModelAndView redirectDashboard() {
 		return new ModelAndView("/dashboard/dashboard");
 	}
