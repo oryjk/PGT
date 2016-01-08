@@ -1,22 +1,6 @@
 /**
- * Created by supersoup on 15/12/28.
+ * Created by supersoup on 16/1/8.
  */
-
-$('#levelSelect').change(function() {
-    var that = $(this);
-    var categoryMain =  $('#categoryMain');
-    var categorySon = $('#categorySon');
-    var imgUpload = $('#imgUpload');
-    if (that.val() == 'ROOT') {
-        categoryMain.show();
-        imgUpload.show();
-        categorySon.hide();
-    } else if (that.val() == 'HIERARCHY') {
-        categoryMain.hide();
-        imgUpload.hide();
-        categorySon.show();
-    }
-});
 
 //上传图片
 $('[data-pgt-btn="single"]').change(function () {
@@ -66,8 +50,6 @@ $('[data-pgt-btn="single"]').change(function () {
     });
 });
 
-//有输入时变色
-$('#pgtColorInput').keydown(categoryColor);
 
 $(document).on('click', '.pgt-img-delete', function(event) {
     event.preventDefault();
@@ -85,10 +67,3 @@ $(document).on('click', '.pgt-img-delete', function(event) {
     })
 });
 
-categoryColor();
-
-function categoryColor() {
-    $('#pgtColor').css({
-        background: $('#pgtColorInput').val()
-    })
-}

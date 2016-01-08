@@ -134,11 +134,7 @@
                 </div>
               </div>
             </div>
-            <form:input path="frontMedia.path" cssClass="hidden" id="categoryMediaPath"/>
-            <form:input path="frontMedia.id" cssClass="hidden" id="categoryMediaId"/>
-            <form:input path="frontMedia.referenceId" cssClass="hidden" id="categoryMediaRefId"/>
-            <form:input path="frontMedia.type" cssClass="hidden" id="categoryMediaRefType"/>
-            <form:input path="frontMedia.title" cssClass="hidden" id="categoryMediaRefTitle"/>
+            <form:input cssClass="hidden" path="frontMedia.id" id="frontMedia"/>
           </form:form>
         </div>
         <!-- END FORM-->
@@ -150,7 +146,7 @@
       <div class="col-md-8">
         <div class="pgt-each-img">
           <div class="pgt-handle-box">
-            <a class="pgt-img-delete" href="#">删除</a>
+            <a class="pgt-img-delete" href="#" data-url="/media/delete/${category.frontMedia.id}">删除</a>
           </div>
           <img class="pgt-category-img" src="${category.frontMedia.path}" alt=""/>
           <p>200 * 200</p>

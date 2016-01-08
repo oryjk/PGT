@@ -40,12 +40,13 @@
 							<c:forEach items="${parentCategoryList}" var="category">
 							<li>
 
-                                 <c:if test="${breadCrumb[0] eq category.source.name}">
+
+                                 <c:if test="${breadCrumb[0].breadName eq category.source.name}">
 
 									 <a class="filter-selection-focus" href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.source.id}">${category.source.name}</a>
 									</c:if>
 
-									<c:if test="${breadCrumb[0] != category.source.name}">
+									<c:if test="${breadCrumb[0].breadName != category.source.name}">
 									<a  href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.source.id}">${category.source.name}</a>
 									</c:if>
 

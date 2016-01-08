@@ -58,7 +58,7 @@ $('#mainCategory').change(function () {
         type: 'get',
         url: '/category/getSubCategoriesAjax/' + $this.val(),
         success: function (param) {
-            var str = '';
+            var str = '<option value="">全部</option>>';
 
             $.each(param.categories, function (i, data) {
                 str += '<option value="' + data.id + '">' + data.name + '</option>';
@@ -79,4 +79,13 @@ $('.pgt-goto-page-btn').on('click', function () {
     if(oValue>0){
         $('.pgt-goto-page .input-inline').val(oValue-1);
     }
-})
+});
+
+$('#pagination').on('click', 'a', function(event) {
+    var $this = $(this);
+    //如果有分类条件
+    if ($.url.param("categoryId")) {
+        event.preventDefault();
+        window.location = $this.attr('href') + '&categoryId=' + $.url.param("categoryId");
+    }
+});

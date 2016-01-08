@@ -51,12 +51,20 @@ public class ProductListController {
         SearchPaginationBean searchPaginationBean = buildSearchPagination(categoryId, stock, term, sortProperty, sortValue, currentIndex);
         List<Product> productList = productService.queryProducts(searchPaginationBean);
         CategoryHierarchy categoryHierarchy = categoryService.queryCategoryHierarchy(categoryId);
-        if (ObjectUtils.isEmpty(categoryHierarchy)) {
+        if (!ObjectUtils.isEmpty(categoryHierarchy)) {
             LOGGER.debug("Can not find the categoryHierarchy with id is {}.", categoryId);
+            Integer rootCategoryId = categoryHierarchy.getCategoryId();
+            if (!ObjectUtils.isEmpty(categoryHierarchy.getParentCategory())) {
+                rootCategoryId = categoryHierarchy.getParentCategory().getCategoryId();
+            }
+            List<Category> subCategories = categoryService.querySubCategories(rootCategoryId);
+            modelAndView.addObject("subCategories", subCategories);
         }
         if (ObjectUtils.isEmpty(productList)) {
             LOGGER.debug("Can not find products with category id is {}", categoryId);
+            return modelAndView;
         }
+
 
         Category categoryRequest = new Category();
         categoryRequest.setCode(null);

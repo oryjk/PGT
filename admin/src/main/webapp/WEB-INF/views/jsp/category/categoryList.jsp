@@ -24,13 +24,13 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
-					<a href="#">主分类</a>
+					<a href="/category/categoryList">主分类</a>
 				</li>
 			</ul>
 		</div>
 	</div>
 	<!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
-	<div class="row" style="display: block">
+	<div class="row" style="display: none">
 		<div class="col-xs-12">
 			<div class="Metronic-alerts alert alert-danger fade in">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>

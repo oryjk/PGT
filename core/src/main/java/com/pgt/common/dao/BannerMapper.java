@@ -3,6 +3,7 @@ package com.pgt.common.dao;
 import java.util.List;
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.BannerQuery;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,5 +24,8 @@ public interface BannerMapper extends SqlMapper {
 	List<Banner> queryAllBanners();
 
 	Banner queryBannerByType(String type);
-	
+
+	List<Banner> queryBannerByQuery(BannerQuery bannerQuery);
+
+	Integer queryBannerCount(BannerQuery bannerQuery);
 }

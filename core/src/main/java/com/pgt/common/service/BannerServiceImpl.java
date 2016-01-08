@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.pgt.common.bean.BannerQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +28,19 @@ public class BannerServiceImpl implements BannerService {
 	}
 
 	@Override
-	public Integer updateBanner(Banner banner) {
+	public Integer queryBannerCount(BannerQuery bannerQuery) {
+		return bannerMapper.queryBannerCount(bannerQuery);
+	}
 
+	@Override
+	public List<Banner> queryBannerByQuery(BannerQuery bannerQuery) {
+		return bannerMapper.queryBannerByQuery(bannerQuery);
+	}
+
+	@Override
+	public Integer updateBanner(Banner banner) {
 		bannerMapper.updateBanner(banner);
 		return banner.getBannerId();
-
 	}
 
 	@Override

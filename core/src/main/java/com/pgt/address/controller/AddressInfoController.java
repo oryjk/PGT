@@ -1,12 +1,12 @@
 package com.pgt.address.controller;
 
-import com.google.gson.Gson;
-import com.pgt.address.bean.AddressInfo;
-import com.pgt.address.service.AddressInfoService;
-import com.pgt.configuration.URLConfiguration;
-import com.pgt.constant.UserConstant;
-import com.pgt.user.bean.User;
-import com.pgt.user.service.UserService;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.gson.Gson;
+import com.pgt.address.bean.AddressInfo;
+import com.pgt.address.service.AddressInfoService;
+import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.UserConstant;
+import com.pgt.user.bean.User;
+import com.pgt.user.service.UserService;
 
 @Controller
 @RequestMapping("/my-account/person-info")
@@ -90,7 +92,7 @@ public class AddressInfoController {
 		}
 		getAddressInfoService().deleteAddress(Integer.parseInt(addressId));
 		Integer defaultAddressId = user.getDefaultAddressId();
-		if(addressId.equals(defaultAddressId)){
+		if(defaultAddressId != null && addressId.equals(defaultAddressId.toString())){
 			user.setDefaultAddressId(null);
 			userService.updateUser(user);
 		}
@@ -127,7 +129,12 @@ public class AddressInfoController {
 		addressInfo.setStatus(0);
 		addressInfo.setUpdateDate(new Date());
 		getAddressInfoService().updateAddress(addressInfo);
+		if (addressInfo.isPrimary()) {
+			user.setDefaultAddressId(addressInfo.getId());
+			userService.updateUser(user);
+		}
 		map.put("success", "true");
+		map.put("action", "updateAddress");
 		return map;
 	}
 

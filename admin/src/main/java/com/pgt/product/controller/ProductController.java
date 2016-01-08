@@ -82,7 +82,9 @@ public class ProductController {
             return modelAndView;
         }
         productService.createProduct(product);
-        esSearchService.productIndex(product);
+        if (product.getStatus() == 1) {
+            esSearchService.productIndex(product);
+        }
         modelAndView.addObject("product", product);
         modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("/product/productImageModify");
@@ -156,6 +158,7 @@ public class ProductController {
         }
 
         productService.deleteProduct(productId);
+        esSearchService.deleteProductIndex(productId);
         response.put("success", true);
         LOGGER.debug("The product has deleted with product id is {}.", productId);
         return responseEntity;
@@ -199,10 +202,14 @@ public class ProductController {
         product.setUpdateDate(new Date());
         productService.updateProductBase(product);
         product = productService.queryProduct(product.getProductId());
-        esSearchService.updateProductIndex(product);
         modelAndView.addObject("product", product);
         modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("/product/productImageModify");
+        if (product.getStatus() == 0) {
+            esSearchService.deleteProductIndex(String.valueOf(product.getProductId()));
+            return modelAndView;
+        }
+        esSearchService.updateProductIndex(product);
         return modelAndView;
     }
 

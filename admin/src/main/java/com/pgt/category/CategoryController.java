@@ -10,6 +10,7 @@ import com.pgt.media.bean.MediaType;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,10 +116,12 @@ public class CategoryController {
             return modelAndView;
         }
         Integer count = categoryService.deleteCategory(categoryId);
+
         if (count != 1) {
             LOGGER.debug("Not success delete the category.");
             return modelAndView;
         }
+        esSearchService.deleteCategoryIndex(String.valueOf(categoryId));
         LOGGER.debug("Success delete the category with id {}.", categoryId);
 
         return modelAndView;
@@ -151,9 +154,14 @@ public class CategoryController {
         }
         if (category.getType().equals(CategoryType.ROOT)) {
             List<Media> medias = mediaService.findMediaByRefId(category.getId(), MediaType.category);
-            if (ObjectUtils.isEmpty(medias)) {
-                medias.get(0).setReferenceId(category.getId());
-                mediaService.updateMedia(medias.get(0));
+            if (!CollectionUtils.isEmpty(medias)) {
+                mediaService.deleteMedia(medias.get(0).getId());
+            }
+            Media media = mediaService.findMedia(category.getFrontMedia().getId(), MediaType.category);
+            LOGGER.debug("Can not find the media id with {}.", category.getFrontMedia().getId());
+            if (!ObjectUtils.isEmpty(media)) {
+                media.setReferenceId(category.getId());
+                mediaService.updateMedia(media);
             }
 
         }

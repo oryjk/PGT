@@ -1,5 +1,7 @@
 package com.pgt.common.bean;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.Date;
 
 /**
@@ -9,12 +11,16 @@ public class Image {
 
 	private Integer imageId;
 
+	@NotEmpty(message = "{NotEmpty.banner_Image.createDate}")
 	private Date createDate;// 开始时间
 
+	@NotEmpty(message = "{NotEmpty.banner_Image.endDate}")
 	private Date endDate;// 结束时间
 
-	private String location;// 位置
+	@NotEmpty(message = "{NotEmpty.banner_Image.location}")
+	private String location;//序号
 
+	@NotEmpty(message = "{NotEmpty.banner_Image.url}")
 	private String url; // 连接地址
 
 	private String path; // 存储图片的路径
@@ -23,7 +29,18 @@ public class Image {
 
 	private String title;// 标题
 
+	@NotEmpty(message = "{NotEmpty.banner_Image.color}")
 	public String color;//背景颜色
+
+	private Banner banner;
+
+
+	public Banner getBanner() {
+		return banner;
+	}
+	public void setBanner(Banner banner) {
+		this.banner = banner;
+	}
 
 	public String getColor() {
 		return color;

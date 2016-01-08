@@ -172,7 +172,7 @@
                 <p class="choose-has" ${empty defaultAddress ? 'style="display:none"':''}>
                     <a id="show-address-form" class="link-btn" href="javascript:void(0)">新增配送地址</a>
                 </p>
-                <c:forEach items="${addressInfoList }" var="addressInfo">
+                <c:forEach items="${addressInfoList }" var="addressInfo"> 
                 	<div class="row">
 	                    <input type="radio" class="js-address-item" name="addressInfoId" ${addressInfo.id eq selectedAddress.addressInfoId ? 'checked' :''} value="${addressInfo.id}"/>
 	                    <span>${addressInfo.name} ${addressInfo.phone} ${addressInfo.province}${addressInfo.city}${addressInfo.district} ${addressInfo.address}</span>
@@ -181,7 +181,7 @@
 	                    <a class="link-btn js-delete-address" href="javascript:void(0)" data-href="../my-account/person-info/deleteAddress/${addressInfo.id}">删除</a>
 	                </div>
                 </c:forEach>
-                <div id="js-address-form-area" class="drop-area" ${not empty defaultAddress ? 'style="display:none"':''}>
+                <div id="js-address-form-area" class="drop-area" ${not empty addressInfoList ? 'style="display:none"':''}>
                     <div class="inner" style="background: url('${staticPath}/core/images/index/classify-2.jpg') no-repeat right center">
                         <table>
                             <colgroup class="col-1">
@@ -255,7 +255,7 @@
                             </tr>
                             <tr>
                                 <th></th>
-                                <td><input type="checkbox" name="primary"/>设置为默认收货地址</td>
+                                <td><input id="checkBox" type="checkbox" name="primary" value="0"/>设置为默认收货地址</td>
                                 <td></td>
                             </tr>
                             <tr>
