@@ -325,7 +325,7 @@
 							<div class="col-md-4 col-sm-4">
 								<div class="dataTables_paginate paging_simple_numbers pgt-page-box">
 									<!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
-									<ul class="pagination">
+									<ul class="pagination" id="pagination">
 
 										<li class="paginate_button"><a
 												href="/product/productList?currentIndex=0">首页</a></li>

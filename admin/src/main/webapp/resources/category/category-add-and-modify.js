@@ -18,16 +18,19 @@ $('#levelSelect').change(function() {
     }
 });
 
+//上传图片
 $('[data-pgt-btn="single"]').change(function () {
     var that = $(this);
     var form = that.parent();
     var staticPath = $('#staticServer').val();
 
+    //提交图片
     form.ajaxSubmit({
         dataType: 'json',
         type: 'POST',
         success: function(responseBody) {
 
+            //提交图片的关联性
             $.ajax({
                 type: 'POST',
                 url: '/media/create',
@@ -37,10 +40,11 @@ $('[data-pgt-btn="single"]').change(function () {
                 },
                 success: function (param) {
                     var size = '';
+                    //测量图片大小所用
                     var test = $('<img>');
                     var mediaId = param.mediaId;
 
-                    //所有功能写进回调:
+                    //等待图片加载完成之后触发回调
                     test.load(function () {
                         size = test.width() + '*' + test.height();
 
@@ -52,6 +56,7 @@ $('[data-pgt-btn="single"]').change(function () {
 
                     });
 
+                    //需要把图片加入dom后才能获取得到它的height和width
                     $('#testbox').append(test);
                     test.attr('src', staticPath + responseBody.imagePath);
                     $('#frontMedia').val(param.mediaId);
@@ -61,6 +66,7 @@ $('[data-pgt-btn="single"]').change(function () {
     });
 });
 
+//有输入时变色
 $('#pgtColorInput').keydown(categoryColor);
 
 $(document).on('click', '.pgt-img-delete', function(event) {

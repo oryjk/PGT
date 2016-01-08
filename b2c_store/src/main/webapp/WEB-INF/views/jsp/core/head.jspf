@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>绝当淘商城</title>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/core/images/header/pig.ico"/>">
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}${param.cssPath}"/>"/>
     <!--
