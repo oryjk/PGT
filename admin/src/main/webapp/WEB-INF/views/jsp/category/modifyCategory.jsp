@@ -146,7 +146,7 @@
       <div class="col-md-8">
         <div class="pgt-each-img">
           <div class="pgt-handle-box">
-            <a class="pgt-img-delete" href="#" data-url="/category/delete/${category.id}">删除</a>
+            <a class="pgt-img-delete" href="#" data-url="/media/delete/${category.frontMedia.id}">删除</a>
           </div>
           <img class="pgt-category-img" src="${category.frontMedia.path}" alt=""/>
           <p>200 * 200</p>
