@@ -159,6 +159,4 @@
 </div>
 </body>
 <script src="${staticPath}/core/js/require.js" defer async="true" data-main="${staticPath}/my-account/person-info/address"></script>
-<script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/my-account/person-info/recommend-bar"/>"></script>
 </html>
