@@ -25,6 +25,7 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
@@ -364,9 +365,14 @@ public class ESSearchService {
             UpdateRequestBuilder updateRequestBuilder = getIndexClient().prepareUpdate(Constants.SITE_INDEX_NAME, Constants
                     .CATEGORY_INDEX_TYPE, category.getId() + "").setDoc(rootByte);
             UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
+            updateResponse.getHeaders().stream().forEach(s -> LOGGER.debug(s));
             if (updateResponse.isCreated()) {
                 LOGGER.debug("Success update category index.");
+                return;
             }
+
+            LOGGER.debug("Not success update category index.");
+
         } catch (JsonProcessingException e) {
             LOGGER.error("JsonProcessingException has occur when update category.");
             e.printStackTrace();
@@ -816,5 +822,29 @@ public class ESSearchService {
         this.hotProductHelper = hotProductHelper;
     }
 
+    public void deleteProductIndex(String productId) {
+        deleteIndex(productId, Constants.PRODUCT_INDEX_TYPE);
+    }
+
+    public void deleteCategoryIndex(String categoryId) {
+        deleteIndex(categoryId, Constants.CATEGORY_INDEX_TYPE);
+    }
+
+
+    private void deleteIndex(String id, String type) {
+        try {
+            DeleteResponse response = getIndexClient().prepareDelete(Constants.SITE_INDEX_NAME, type, id).execute()
+                    .actionGet();
+            response.getHeaders().stream().forEach(s -> LOGGER.debug(s));
+            if (response.isFound()) {
+                LOGGER.debug("Success delete with id is {},type is {}.", id, type);
+                return;
+            }
+            LOGGER.debug("Can not found to delete with id is {},type is {}.", id, type);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

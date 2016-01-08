@@ -116,10 +116,12 @@ public class CategoryController {
             return modelAndView;
         }
         Integer count = categoryService.deleteCategory(categoryId);
+
         if (count != 1) {
             LOGGER.debug("Not success delete the category.");
             return modelAndView;
         }
+        esSearchService.deleteCategoryIndex(String.valueOf(categoryId));
         LOGGER.debug("Success delete the category with id {}.", categoryId);
 
         return modelAndView;
@@ -156,8 +158,11 @@ public class CategoryController {
                 mediaService.deleteMedia(medias.get(0).getId());
             }
             Media media = mediaService.findMedia(category.getFrontMedia().getId(), MediaType.category);
-            media.setReferenceId(category.getId());
-            mediaService.updateMedia(media);
+            LOGGER.debug("Can not find the media id with {}.", category.getFrontMedia().getId());
+            if (!ObjectUtils.isEmpty(media)) {
+                media.setReferenceId(category.getId());
+                mediaService.updateMedia(media);
+            }
 
         }
         category = categoryService.queryCategory(category.getId());
