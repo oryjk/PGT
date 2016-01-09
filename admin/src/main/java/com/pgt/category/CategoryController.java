@@ -99,9 +99,15 @@ public class CategoryController {
             LOGGER.debug("Some data value mission.");
             return modelAndView;
         }
+        if (category.getType().equals(CategoryType.ROOT)) {
+            category.setParent(null);
+        }
         String categoryId = categoryService.createCategory(category, category.getFrontMedia().getId());
         category = categoryService.queryCategory(category.getId());
         esSearchService.createCategoryIndex(category);
+        if (category.getType().equals(CategoryType.ROOT)) {
+            esSearchService.createHotSaleIndex(category.getId());
+        }
         LOGGER.debug("The category is is {}.", categoryId);
         LOGGER.debug("end create category.");
         modelAndView.setViewName("/category/addAndModifyCategorySuccess");
@@ -109,7 +115,8 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.GET)
-    public ModelAndView delete(@PathVariable("categoryId") Integer categoryId, ModelAndView modelAndView) {
+    public ModelAndView delete(@PathVariable("categoryId") Integer categoryId,
+                               @RequestParam(value = "categoryType", required = false) CategoryType categoryType, ModelAndView modelAndView) {
         LOGGER.debug("Delete category id is {}.", categoryId);
         if (categoryId == null) {
             LOGGER.debug("The category id is empty,do nothing.");
@@ -122,6 +129,9 @@ public class CategoryController {
             return modelAndView;
         }
         esSearchService.deleteCategoryIndex(String.valueOf(categoryId));
+        if (categoryType.equals(CategoryType.ROOT)) {
+            esSearchService.deleteHotSaleIndex(String.valueOf(categoryId));
+        }
         LOGGER.debug("Success delete the category with id {}.", categoryId);
 
         return modelAndView;
@@ -167,6 +177,9 @@ public class CategoryController {
         }
         category = categoryService.queryCategory(category.getId());
         esSearchService.updateCategoryIndex(category);
+        if (category.getType().equals(CategoryType.ROOT)) {
+            esSearchService.createHotSaleIndex(category.getId());
+        }
         modelAndView.setViewName("/category/addAndModifyCategorySuccess");
         return modelAndView;
     }
