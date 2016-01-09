@@ -99,9 +99,15 @@ public class CategoryController {
             LOGGER.debug("Some data value mission.");
             return modelAndView;
         }
+        if (category.getType().equals(CategoryType.ROOT)) {
+            category.setParent(null);
+        }
         String categoryId = categoryService.createCategory(category, category.getFrontMedia().getId());
         category = categoryService.queryCategory(category.getId());
         esSearchService.createCategoryIndex(category);
+        if (category.getType().equals(CategoryType.ROOT)) {
+            esSearchService.createHotSaleIndex(category.getId());
+        }
         LOGGER.debug("The category is is {}.", categoryId);
         LOGGER.debug("end create category.");
         modelAndView.setViewName("/category/addAndModifyCategorySuccess");
@@ -167,6 +173,9 @@ public class CategoryController {
         }
         category = categoryService.queryCategory(category.getId());
         esSearchService.updateCategoryIndex(category);
+        if (category.getType().equals(CategoryType.ROOT)) {
+            esSearchService.createHotSaleIndex(category.getId());
+        }
         modelAndView.setViewName("/category/addAndModifyCategorySuccess");
         return modelAndView;
     }

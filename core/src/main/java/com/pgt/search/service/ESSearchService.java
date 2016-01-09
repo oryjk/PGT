@@ -234,12 +234,36 @@ public class ESSearchService {
         return response;
     }
 
+    public void createHotSaleIndex(Integer rootCategoryId) {
+        try {
+            Client client = getIndexClient();
+            Category rootCategory = categoryService.queryCategory(rootCategoryId);
+            List<Product> products = hotProductHelper.findCategoryHotProductByRootCategoryId(rootCategoryId);
+            HotSale hotSale = new HotSale(rootCategory, products);
+            ObjectMapper mapper = new ObjectMapper();
+            byte[] bytes = mapper.writeValueAsBytes(hotSale);
+            IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants.HOT_PRODUCT_INDEX_TYPE, hotSale
+                    .getId() + "").setSource(bytes);
+            IndexResponse indexResponse = indexRequestBuilder.execute().actionGet(1000);
+            if (indexResponse.isCreated()) {
+                LOGGER.debug("Success to create hot sale products.");
+                return;
+            }
+            LOGGER.debug("Not need update hot sale.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * Do hot sale product index.
      *
      * @return
      */
-    public BulkResponse hotProductIndex() {
+    public BulkResponse hotSaleIndex() {
 
         BulkResponse bulkResponse = null;
         try {
@@ -353,6 +377,9 @@ public class ESSearchService {
             LOGGER.error(e.getMessage());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+        }
+        if (product.isHot()) {
+            createHotSaleIndex(rootCategory.getId());
         }
     }
 

@@ -95,7 +95,7 @@ public class MigrateData implements ApplicationListener<ContextRefreshedEvent> {
                 if (categoryResponse.hasFailures()) {
                     LOGGER.error("Category index error.");
                 }
-                BulkResponse hotResponse = esSearchService.hotProductIndex();
+                BulkResponse hotResponse = esSearchService.hotSaleIndex();
                 if (hotResponse.hasFailures()) {
                     LOGGER.error("Hot product index error.");
                 }
