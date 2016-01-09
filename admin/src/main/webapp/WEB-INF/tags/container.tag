@@ -1,6 +1,7 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="id" required="false" rtexprvalue="true" %>
 <%@ attribute name="extraPage" required="false" rtexprvalue="true" %>
+<%@ attribute name="dashboard" required="false" rtexprvalue="true" %>
 <%@ attribute name="pageJsPath" required="false" rtexprvalue="true" %>
 <%@ attribute name="pageCssPath" required="false" rtexprvalue="true" %>
 <%@ attribute name="loadJsDateInput" required="false" rtexprvalue="true" %>
@@ -511,6 +512,23 @@
     <c:if test="${loadJsDateInput}">
     <link rel="stylesheet" href="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.css" />
     <script src="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.js"></script>
+    </c:if>
+    <c:if test="${dashboard}">
+        <script src="${ctx}/resources/assets/global/plugins/flot/jquery.flot.js" type="text/javascript"></script>
+        <script src="${ctx}/resources/assets/global/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
+        <script src="${ctx}/resources/assets/global/plugins/flot/jquery.flot.categories.js" type="text/javascript"></script>
+        <script src="${ctx}/resources/assets/global/scripts/metronic.js" type="text/javascript"></script>
+        <script src="${ctx}/resources/assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
+        <script src="${ctx}/resources/assets/admin/layout3/scripts/demo.js" type="text/javascript"></script>
+        <script src="${ctx}/resources/dashboard/dashboard-canvas.js"></script>
+        <script>
+            jQuery(document).ready(function() {
+                Metronic.init(); // init metronic core components
+                Layout.init(); // init current layout
+                Demo.init(); // init demo features
+                EcommerceIndex.init();
+            });
+        </script>
     </c:if>
     <c:if test="${not empty pageJsPath}">
     <script src="${ctx}${pageJsPath}"></script>
