@@ -60,13 +60,17 @@ public class DashboardService {
 		Calendar cal = Calendar.getInstance();
 		// get calendar instance of statistic days before
 		for (int i = 0; i < getDashboardStatisticDays(); i++) {
-			cal.add(Calendar.DAY_OF_YEAR, -1);
 			String dateString = DATE_FORMAT.format(cal.getTime());
 			dates.add(dateString);
+			cal.add(Calendar.DAY_OF_YEAR, -1);
 		}
 		// reverse to let date asc
 		Collections.reverse(dates);
 		return dates;
+	}
+
+	public String getDashboardToday() {
+		return DATE_FORMAT.format(new Date());
 	}
 
 	public DashboardDao getDashboardDao() {

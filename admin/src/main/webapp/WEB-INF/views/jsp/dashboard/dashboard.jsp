@@ -547,20 +547,20 @@
 
                                 <h3>
                                     <span>¥</span>
-                                    <span>123,123.00</span>
+                                    <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${dateTotalSalesMap[dashboardToday]}" pattern="0.00" /></span>
                                 </h3>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
 										<span class="label label-info uppercase">
 										今日成单量: </span>
 
-                                <h3><span>89</span></h3>
+                                <h3><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${dateOrderCountMap[dashboardToday]}" /></span></h3>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
 										<span class="label label-danger uppercase">
 										今日销售数: </span>
 
-                                <h3><span>120</span></h3>
+                                <h3><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${dateItemCountMap[dashboardToday]}" /></span></h3>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
 										<span class="label label-warning uppercase">

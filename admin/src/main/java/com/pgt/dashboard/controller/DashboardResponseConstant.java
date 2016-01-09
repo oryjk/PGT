@@ -10,6 +10,7 @@ public interface DashboardResponseConstant {
 	String TOTAL_SALES ="totalSales";
 
 	String DASHBOARD_DATES = "dashboardDates";
+	String DASHBOARD_TODAY = "dashboardToday";
 	String DATE_ORDER_COUNT = "dateOrderCountMap";
 	String DATE_ITEM_COUNT ="dateItemCountMap";
 	String DATE_TOTAL_SALES ="dateTotalSalesMap";
