@@ -156,9 +156,12 @@ public class ProductController {
             response.put("message", "The product id is empty.");
             return responseEntity;
         }
-
+        Category rootCategory = categoryService.queryRootCategoryByProductId(Integer.valueOf(productId));
         productService.deleteProduct(productId);
         esSearchService.deleteProductIndex(productId);
+        if (!ObjectUtils.isEmpty(rootCategory)) {
+            esSearchService.createHotSaleIndex(rootCategory.getId());
+        }
         response.put("success", true);
         LOGGER.debug("The product has deleted with product id is {}.", productId);
         return responseEntity;

@@ -55,6 +55,11 @@ public class ESSearchServiceTest {
         ESSort esSort = new ESSort();
         esSort.setPropertyName(Constants.SORT);
         esSort.setSortOrder(SortOrder.ASC);
+
+
+
+
+
         SearchResponse response = esSearchService.findHotSales(esSort);
         Assert.assertNotNull(response);
     }
