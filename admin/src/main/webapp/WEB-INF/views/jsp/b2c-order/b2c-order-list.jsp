@@ -173,7 +173,7 @@
                             <c:forEach var="order" items="${b2cOrderPage.result}">
                                 <tr class="gradeX odd" role="row">
                                     <td class="sorting_1">${order.id}</td>
-                                    <td>${order.submitDate}</td>
+                                    <td><fmt:formatDate value="${order.submitDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${order.commerceItemCount}</td>
                                     <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></td>
                                     <td>${order.userId}</td>

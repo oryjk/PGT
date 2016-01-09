@@ -14,5 +14,5 @@ public class MailConstants {
 	public static final String	SUBJECT_SHIPPED_NOTIFY	= "您的订单已经发货";
 
 	public static final String	TEMPLATE_ORDER_CHANGED	= "orderChangedTemplate.vm";
-	public static final String	SUBJECT_ORDER_CHANGED	= "您的订单状态发生改变";
+	public static final String	SUBJECT_ORDER_CHANGED	= "修改订单";
 }

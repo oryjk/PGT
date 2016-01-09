@@ -10,11 +10,11 @@
                 <div class="col-xs-12">
                     <ul class="page-breadcrumb breadcrumb">
                         <li>
-                            <a href="#">首页</a>
+                            <a href="/">首页</a>
                             <i class="fa fa-circle"></i>
                         </li>
                         <li>
-                            <a href="#">分类列表</a>
+                            <a href="/help/categoryList">分类列表</a>
                             <i class="fa fa-circle"></i>
                         </li>
                         <li class="active">

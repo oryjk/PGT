@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        p {
+            margin: 0.67em 0;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+        a {
+            text-decoration: none;
+            color: #0286ce;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            margin: 0;
+            width: 280px;
+            height: 70px;
+        }
+        h1 a {
+            display: block;
+            height: 100%;
+        }
+
+        ul {
+            float: right;
+            margin: 0;
+            padding: 50px 0 0;
+            list-style: none;
+        }
+        li {
+            float: left;
+            padding-left: 5px;
+        }
+        .email-container {
+            margin: 0 auto;
+            width: 95%;
+        }
+        .header,
+        .content,
+        .footer {
+            padding: 10px 0;
+        }
+        .header {
+            border-bottom: 1px solid black;
+        }
+        .footer {
+            border-top: 1px dashed black;
+        }
+
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="header">
+        <ul>
+            <li><a href="http://www.dianjinzi.com/">绝当淘首页</a></li>
+            <li><a href="http://www.dianjinzi.com/myAccount/orderHistory">我的账户</a></li>
+            <li><a href="#">帮助</a></li>
+        </ul>
+        <h1 class="logo">
+            <a href="#">
+                <img src="http://www.dianjinzi.com/resources/juedangpin/core/images/header/logo.jpg" alt="点金子——绝当淘"/>
+            </a>
+        </h1>
+    </div>
+    <div class="content">
+        <p><strong>尊敬的<span>$user.username</span>,您好:</strong></p>
+        <p>您的订单：<strong>$order.id </strong>
+        #if($updateStatusInt == 20)
+        已经被修改为<strong>待支付</strong>状态，请您尽快完成支付！
+        #elseif($updateStatusInt == 100)
+         已经被修改为<strong>完成</strong>状态
+        #elseif($updateStatusInt == -10)
+           已经被<strong>取消</strong>，如有疑问请联系客服。
+        #else
+        已经被修改
+        #end
+        <p>收货人: <span>$order.shippingVO.shippingAddress.name</span></p>
+        <p>收货地址: <span>$order.shippingVO.shippingAddress.province $order.shippingVO.shippingAddress.city$order.shippingVO.shippingAddress.district$order.shippingVO.shippingAddress.address</span></p>
+        <p>联系电话: <span>$order.shippingVO.shippingAddress.phone</span></p>
+        <p>如果收货信息有误,请及时作出更改.</p>
+        <p>如非您本人操作,请及时修改密码并联系我们:028-85033350</p>
+        <p>点金子感谢您地信任和支持, 衷心地祝您购物愉快!</p>
+    </div>
+    <div class="footer">
+        <p>您之所以会收到此封邮件,是因为您曾经注册成为点金子的会员用户.</p>
+        <p>本邮件是是由系统自动发出, <strong>请勿直接回复</strong>.</p>
+        <p>如果您有任何疑问,请联系我们,点金子客服热线:028-85033350</p>
+    </div>
+</div>
+</body>
+</html>

@@ -124,7 +124,7 @@
 
                                                 <div class="col-md-8">
                                                     <p class="form-control-static">
-                                                            ${b2cOrder.submitDate}
+                                                        <fmt:formatDate value="${b2cOrder.submitDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                                                     </p>
                                                 </div>
                                             </div>

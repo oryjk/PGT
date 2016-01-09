@@ -1,5 +1,6 @@
 package com.pgt.mail.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -17,14 +18,24 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Delivery;
+import com.pgt.cart.bean.Order;
+import com.pgt.mail.MailConstants;
+import com.pgt.user.bean.User;
+import com.pgt.user.bean.UserInformation;
+import com.pgt.user.service.UserInformationService;
+
 @Service
 public class MailService {
-	private static final Logger	LOGGER			= LoggerFactory.getLogger(MailService.class);
+	private static final Logger		LOGGER			= LoggerFactory.getLogger(MailService.class);
 	@Autowired
-	private VelocityEngine		velocityEngine;
+	private VelocityEngine			velocityEngine;
 	@Autowired
-	private JavaMailSenderImpl	mailSender;
-	private String				templatePath	= "";
+	private JavaMailSenderImpl		mailSender;
+	@Autowired
+	private UserInformationService	userInformationService;
+	private String					templatePath	= "";
 
 	public boolean sendEmail(String subject, Map<String, Object> params, String templateName, String... receivers) {
 		if (ArrayUtils.isEmpty(receivers)) {
@@ -56,6 +67,53 @@ public class MailService {
 		return true;
 	}
 
+	public boolean sendEmail(String subject, Map<String, Object> params, String templateName, Order order) {
+		try {
+			if (order == null) {
+				return false;
+			}
+			int userId = order.getUserId();
+			User user = new User();
+			user.setId(Long.valueOf(userId));
+			UserInformation userInformation = userInformationService.queryUserInformation(user);
+			if (userInformation == null || userInformation.getPersonEmail() == null) {
+				LOGGER.info(
+						"Current user has not add user information so that cannot send email to he/she. User id is:{}, order id is:{}.",
+						user.getId(), order.getId());
+				return false;
+			}
+			Map<String, Object> map = params;
+			if (map == null) {
+				map = new HashMap<String, Object>();
+			}
+			map.put("user", userInformation.getUser());
+			map.put("order", order);
+			return sendEmail(subject, map, templateName, userInformation.getPersonEmail());
+		} catch (Exception e) {
+			LOGGER.error("Method sendEmail: Failed to create mail message.", e);
+			return false;
+		}
+	}
+
+	public void sendUpdateOrderEmail(Order order, boolean result, int statusInt) {
+		if (!result) {
+			return;
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("updateStatusInt", statusInt);
+		sendEmail(MailConstants.SUBJECT_ORDER_CHANGED, params, MailConstants.TEMPLATE_ORDER_CHANGED, order);
+	}
+
+	public void sendDeliveryEmail(Order order, CommerceItem ci, Delivery delivery) {
+		if (ci == null) {
+			return;
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("commerceItem", ci);
+		params.put("delivery", delivery);
+		sendEmail(MailConstants.SUBJECT_SHIPPED_NOTIFY, params, MailConstants.TEMPLATE_SHIPPED_NOTIFY, order);
+	}
+
 	public VelocityEngine getVelocityEngine() {
 		return velocityEngine;
 	}
@@ -78,6 +136,14 @@ public class MailService {
 
 	public void setTemplatePath(String templatePath) {
 		this.templatePath = templatePath;
+	}
+
+	public UserInformationService getUserInformationService() {
+		return userInformationService;
+	}
+
+	public void setUserInformationService(UserInformationService userInformationService) {
+		this.userInformationService = userInformationService;
 	}
 
 }

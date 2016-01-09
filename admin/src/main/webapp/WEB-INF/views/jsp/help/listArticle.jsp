@@ -3,7 +3,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<spring:url var="adminStaticPath" value="${adminStaticPath}"/>
+<%
+	String ctx = request.getContextPath();
+	request.setAttribute("ctx", ctx);
+%>
+<c:choose>
+	<c:when test="${configuration.useProxy}">
+		<c:set var="ctx" value="" scope="request"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="ctx" value="${ctx}" scope="request"/>
+	</c:otherwise>
+</c:choose>
+
 <c:set var="currentPage" value="${empty param.currentPage ? 1 : param.currentPage}"/>
 <c:set var="maxPageNum" value="${paginationBean.maxPageNum}"/>
 <pgt:container id="main">
@@ -13,7 +25,7 @@
                 <div class="col-xs-12">
                     <ul class="page-breadcrumb breadcrumb">
                         <li>
-                            <a href="#">首页</a>
+                            <a href="/">首页</a>
                             <i class="fa fa-circle"></i>
                         </li>
                         <li class="active">
@@ -122,7 +134,7 @@
                                     </table>
                                 </div>
                                 <div class="row">
-                                    <link rel="stylesheet" href="${adminStaticPath}/core/css/page.css"/>
+                                    <link rel="stylesheet" href="${ctx}/resources/core/css/page.css"/>
                                     <div class="col-xs-2">
                                         <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
                                             第
@@ -208,4 +220,4 @@
         </div>
     </div>
 </pgt:container>
-<script src="${adminStaticPath}/help/category.js"></script>
+<script src="${ctx}/resources/help/category.js"></script>
