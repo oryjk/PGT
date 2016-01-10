@@ -23,6 +23,7 @@ public class CommerceItem implements Comparable<CommerceItem> {
 	private Date mCreationDate = new Date();
 	private Date mUpdateDate;
 	private boolean mInStock;
+	private String mMerchant;
 
 	private Delivery mDelivery;
 	private Media mSnapshotMedia;
@@ -39,7 +40,8 @@ public class CommerceItem implements Comparable<CommerceItem> {
 	public CommerceItem() {
 	}
 
-	public CommerceItem(final int pId, final int pOrderId, final int pReferenceId, final String pName, final String pQuality, final double pListPrice, final double pSalePrice, final int pQuantity, final double pAmount, final int pSnapshotId, final int pIndex, final Date pCreationDate, final Date pUpdateDate, final Media pSnapshotMedia) {
+	public CommerceItem(final int pId, final int pOrderId, final int pReferenceId, final String pName, final String pQuality, final double pListPrice, final double pSalePrice, final int pQuantity, final
+	double pAmount, final int pSnapshotId, final int pIndex, final String pMerchant, final Date pCreationDate, final Date pUpdateDate, final Media pSnapshotMedia) {
 		mId = pId;
 		mOrderId = pOrderId;
 		mReferenceId = pReferenceId;
@@ -51,6 +53,7 @@ public class CommerceItem implements Comparable<CommerceItem> {
 		mAmount = pAmount;
 		mSnapshotId = pSnapshotId;
 		mIndex = pIndex;
+		mMerchant = pMerchant;
 		mCreationDate = pCreationDate;
 		mUpdateDate = pUpdateDate;
 		mSnapshotMedia = pSnapshotMedia;
@@ -73,6 +76,7 @@ public class CommerceItem implements Comparable<CommerceItem> {
 				", mCreationDate=" + mCreationDate +
 				", mUpdateDate=" + mUpdateDate +
 				", mInStock=" + mInStock +
+				", mMerchant='" + mMerchant + '\'' +
 				", mDelivery=" + mDelivery +
 				", mSnapshotMedia=" + mSnapshotMedia +
 				'}';
@@ -204,5 +208,13 @@ public class CommerceItem implements Comparable<CommerceItem> {
 
 	public void setInStock(final boolean pInStock) {
 		mInStock = pInStock;
+	}
+
+	public String getMerchant() {
+		return mMerchant;
+	}
+
+	public void setMerchant(String mMerchant) {
+		this.mMerchant = mMerchant;
 	}
 }

@@ -125,7 +125,7 @@ public class ShoppingCartService {
 
 	public CommerceItemBuilder convertProductToCommerceItemBuilder(final Product pProduct) {
 		CommerceItemBuilder cib = new CommerceItemBuilder().setName(pProduct.getName()).setQuality(pProduct.getIsNew())
-				.setReferenceId(pProduct.getProductId());
+				.setReferenceId(pProduct.getProductId()).setMerchant(pProduct.getMerchant());
 		return cib.setListPrice(pProduct.getListPrice()).setSalePrice(pProduct.getSalePrice());
 	}
 

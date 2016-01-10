@@ -14,6 +14,7 @@ public class CommerceItemBuilder {
 	private double mAmount;
 	private int mSnapshotId;
 	private int mIndex;
+	private String mMerchant;
 	private Date mCreationDate = new Date();
 	private Date mUpdateDate;
 
@@ -73,6 +74,11 @@ public class CommerceItemBuilder {
 		return this;
 	}
 
+	public CommerceItemBuilder setMerchant(final String pMerchant) {
+		mMerchant = pMerchant;
+		return this;
+	}
+
 	public CommerceItemBuilder setCreationDate(final Date pCreationDate) {
 		mCreationDate = pCreationDate;
 		return this;
@@ -84,6 +90,6 @@ public class CommerceItemBuilder {
 	}
 
 	public CommerceItem createCommerceItem() {
-		return new CommerceItem(mId, mOrderId, mReferenceId, mName, mQuality, mListPrice, mSalePrice, mQuantity, mAmount, mSnapshotId, mIndex, mCreationDate, mUpdateDate, null);
+		return new CommerceItem(mId, mOrderId, mReferenceId, mName, mQuality, mListPrice, mSalePrice, mQuantity, mAmount, mSnapshotId, mIndex, mMerchant, mCreationDate, mUpdateDate, null);
 	}
 }
