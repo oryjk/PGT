@@ -64,7 +64,7 @@ public class BannerController {
 
 		modelAndView.addObject("bannerList",bannerList);
         modelAndView.addObject("paginationBean",paginationBean);
-        modelAndView.setViewName("");
+        modelAndView.setViewName("/banner/listBanner");
 		return modelAndView;
 	}
 

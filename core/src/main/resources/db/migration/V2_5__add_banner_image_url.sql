@@ -3,3 +3,7 @@ UPDATE `mp`.`IMAGE` SET `URL`='/essearch?rootCategoryId=43' WHERE `IMAGE_ID`='3'
 UPDATE `mp`.`IMAGE` SET `URL`='/essearch?rootCategoryId=52' WHERE `IMAGE_ID`='1';
 UPDATE `mp`.`IMAGE` SET `URL`='/product/72' WHERE `IMAGE_ID`='2';
 UPDATE `mp`.`IMAGE` SET `URL`='/product/83' WHERE `IMAGE_ID`='4';
+ALTER TABLE `mp`.`BANNER`
+DROP COLUMN `IMAGE_PATH`,
+DROP COLUMN `IMAGE_URL`,
+ADD COLUMN `name` VARCHAR(45) NULL AFTER `STATUS`;
