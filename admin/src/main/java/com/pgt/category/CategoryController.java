@@ -117,29 +117,25 @@ public class CategoryController {
     @RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity delete(@PathVariable("categoryId") Integer categoryId,
-                               @RequestParam(value = "categoryType", required = false) CategoryType categoryType, ModelAndView modelAndView) {
+                                 @RequestParam(value = "categoryType", required = false) CategoryType categoryType, ModelAndView modelAndView) {
         LOGGER.debug("Delete category id is {}.", categoryId);
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         if (categoryId == null) {
             LOGGER.debug("The category id is empty,do nothing.");
-            responseEntity.getBody().put("message","category id is null.");
-            responseEntity.getBody().put("success",false);
+            responseEntity.getBody().put("message", "category id is null.");
+            responseEntity.getBody().put("success", false);
             return responseEntity;
         }
-        Integer count = categoryService.deleteCategory(categoryId);
+        categoryService.deleteCategory(categoryId);
 
-        if (count != 1) {
-            LOGGER.debug("Not success delete the category.");
-            responseEntity.getBody().put("success",false);
-            return responseEntity;
-        }
+
         esSearchService.deleteCategoryIndex(String.valueOf(categoryId));
         if (categoryType.equals(CategoryType.ROOT)) {
             esSearchService.deleteHotSaleIndex(String.valueOf(categoryId));
         }
         LOGGER.debug("Success delete the category with id {}.", categoryId);
 
-        responseEntity.getBody().put("success",true);
+        responseEntity.getBody().put("success", true);
         return responseEntity;
 
     }
