@@ -115,18 +115,23 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.GET)
-    public ModelAndView delete(@PathVariable("categoryId") Integer categoryId,
+    @ResponseBody
+    public ResponseEntity delete(@PathVariable("categoryId") Integer categoryId,
                                @RequestParam(value = "categoryType", required = false) CategoryType categoryType, ModelAndView modelAndView) {
         LOGGER.debug("Delete category id is {}.", categoryId);
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         if (categoryId == null) {
             LOGGER.debug("The category id is empty,do nothing.");
-            return modelAndView;
+            responseEntity.getBody().put("message","category id is null.");
+            responseEntity.getBody().put("success",false);
+            return responseEntity;
         }
         Integer count = categoryService.deleteCategory(categoryId);
 
         if (count != 1) {
             LOGGER.debug("Not success delete the category.");
-            return modelAndView;
+            responseEntity.getBody().put("success",false);
+            return responseEntity;
         }
         esSearchService.deleteCategoryIndex(String.valueOf(categoryId));
         if (categoryType.equals(CategoryType.ROOT)) {
@@ -134,7 +139,8 @@ public class CategoryController {
         }
         LOGGER.debug("Success delete the category with id {}.", categoryId);
 
-        return modelAndView;
+        responseEntity.getBody().put("success",true);
+        return responseEntity;
 
     }
 
