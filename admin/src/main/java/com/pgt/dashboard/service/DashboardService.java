@@ -30,7 +30,7 @@ public class DashboardService {
 		if (CollectionUtils.isEmpty(pDateStrings)) {
 			return Collections.EMPTY_MAP;
 		}
-		return getDashboardDao().queryPaidOrderCountDuringDate(pDateStrings);
+		return new TreeMap<>(getDashboardDao().queryPaidOrderCountDuringDate(pDateStrings));
 	}
 
 	public int queryPaidCommerceItemCount() {
@@ -41,7 +41,7 @@ public class DashboardService {
 		if (CollectionUtils.isEmpty(pDateStrings)) {
 			return Collections.EMPTY_MAP;
 		}
-		return getDashboardDao().queryPaidCommerceItemCountDuringDate(pDateStrings);
+		return new TreeMap<>(getDashboardDao().queryPaidCommerceItemCountDuringDate(pDateStrings));
 	}
 
 	public double queryTotalSaleAmount() {
@@ -52,7 +52,7 @@ public class DashboardService {
 		if (CollectionUtils.isEmpty(pDateStrings)) {
 			return Collections.EMPTY_MAP;
 		}
-		return getDashboardDao().queryTotalSaleAmountDuringDate(pDateStrings);
+		return new TreeMap<>(getDashboardDao().queryTotalSaleAmountDuringDate(pDateStrings));
 	}
 
 	public List<String> calculateDashboardStatisticDays() {
