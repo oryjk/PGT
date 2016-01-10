@@ -92,8 +92,9 @@
                 </div>
                 <div class="form-group">
                   <label class="col-md-3 control-label">分类色调</label>
-                  <div class="col-md-4">
-                    <form:input  class="form-control" placeholder="#xxxxxx形式" path="color"/>
+                  <div class="col-md-4 pgt-color-box">
+                    <form:input  class="form-control" id="pgtColorInput" placeholder="#xxxxxx形式" path="color"/>
+                    <div class="pgt-color" id="pgtColor"></div>
                   </div>
                 </div>
               </div>

@@ -34,6 +34,9 @@ $(document).on('click', '[data-pgt-btn="delete"]', function () {
             $.ajax({
                 type: 'get',
                 url: $this.attr('data-url'),
+                data: {
+                    categoryType: $this.attr('data-pgt-type')
+                },
                 success: function (param) {
                     if (param.success == true) {
                         location.reload();
