@@ -25,4 +25,22 @@ $(document).on('click', '[data-pgt-btn="modify"], [data-pgt-btn="create"]', func
     window.location = $this.attr('data-url');
 });
 
+$(document).on('click', '[data-pgt-btn="delete"]', function () {
+    var $this = $(this);
+    $('#confirmModal').modal();
+    $('#comfirmBtn')
+        .off()
+        .click(function () {
+            $.ajax({
+                type: 'get',
+                url: $this.attr('data-url'),
+                success: function (param) {
+                    if (param.success == true) {
+                        location.reload();
+                    }
+                }
+            })
+        });
+});
+
 
