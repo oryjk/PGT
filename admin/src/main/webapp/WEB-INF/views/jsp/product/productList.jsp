@@ -122,13 +122,13 @@
 							</div>
 							<div class="col-md-2 col-sm-2">
 								<div class="dataTables_filter">
-									<label>名称:<input type="search" value="${term}" class="form-control input-small input-inline"
+									<label>名称:<input id="term" type="search" value="${term}" class="form-control input-small input-inline"
 													 placeholder="" aria-controls="sample_3">
 									</label>
 								</div>
 							</div>
 							<div class="col-md-2 col-sm-2">
-								<button class="btn blue">
+								<button id="searchBtn" class="btn blue">
 									搜索
 								</button>
 							</div>
