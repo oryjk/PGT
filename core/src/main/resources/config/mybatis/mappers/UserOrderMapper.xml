@@ -96,6 +96,7 @@
 			amount,
 			snapshot_id,
 			ci.`index`,
+			merchant,
 			creation_date,
 			update_date,
 			consignor,
