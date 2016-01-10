@@ -39,7 +39,7 @@
     <!-- BEGIN PAGE BREADCRUMB -->
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a href="#">首页</a><i class="fa fa-circle"></i>
+            <a href="/">首页</a><i class="fa fa-circle"></i>
         </li>
     </ul>
     <!-- END PAGE BREADCRUMB -->
