@@ -879,5 +879,9 @@ public class ESSearchService {
             e.printStackTrace();
         }
     }
+
+    public void deleteHotSaleIndex(String rootCategoryId) {
+        deleteIndex(rootCategoryId, Constants.HOT_PRODUCT_INDEX_TYPE);
+    }
 }
 

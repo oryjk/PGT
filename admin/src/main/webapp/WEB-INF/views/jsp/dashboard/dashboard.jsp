@@ -8,12 +8,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="pagination" value="${b2cOrderPage}" scope="request" />
 
-<pgt:container id="content">
+<pgt:container id="content" dashboard="true">
     <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
     <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -486,43 +487,25 @@
                     <div style="display: none">
                         <p id="amountSale">
                             [
-                            ['12/23', 102540],
-                            ['12/24', 120540],
-                            ['12/25', 65540],
-                            ['12/26', 32540],
-                            ['12/27', 122540],
-                            ['12/28', 65540],
-                            ['12/29', 50540],
-                            ['12/30', 99540],
-                            ['12/31', 90540]
+                            <c:forEach var="entry" items="${dateTotalSalesMap}" varStatus="index">
+                                [${entry.key}, ${entry.value}]<c:if test="${index.count < fn:length(dateTotalSalesMap)}">,</c:if>
+                            </c:forEach>
                             ]
                         </p>
 
                         <p id="amountOrder">
                             [
-                            ['12/23', 102],
-                            ['12/24', 112],
-                            ['12/25', 65],
-                            ['12/26', 32],
-                            ['12/27', 84],
-                            ['12/28', 70],
-                            ['12/29', 50],
-                            ['12/30', 102],
-                            ['12/31', 87]
+                            <c:forEach var="entry" items="${dateOrderCountMap}" varStatus="index">
+                                [${entry.key}, ${entry.value}]<c:if test="${index.count < fn:length(dateOrderCountMap)}">,</c:if>
+                            </c:forEach>
                             ]
                         </p>
 
                         <p id="amountProduct">
                             [
-                            ['12/23', 122],
-                            ['12/24', 122],
-                            ['12/25', 85],
-                            ['12/26', 22],
-                            ['12/27', 84],
-                            ['12/28', 98],
-                            ['12/29', 50],
-                            ['12/30', 122],
-                            ['12/31', 97]
+                            <c:forEach var="entry" items="${dateItemCountMap}" varStatus="index">
+                                [${entry.key}, ${entry.value}]<c:if test="${index.count < fn:length(dateItemCountMap)}">,</c:if>
+                            </c:forEach>
                             ]
                         </p>
                     </div>
@@ -564,20 +547,20 @@
 
                                 <h3>
                                     <span>¥</span>
-                                    <span>123,123.00</span>
+                                    <span><fmt:formatNumber type="number" maxFractionDigits="3" value="${dateTotalSalesMap[dashboardToday]}" pattern="0.00" /></span>
                                 </h3>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
 										<span class="label label-info uppercase">
 										今日成单量: </span>
 
-                                <h3><span>89</span></h3>
+                                <h3><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${dateOrderCountMap[dashboardToday]}" /></span></h3>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
 										<span class="label label-danger uppercase">
 										今日销售数: </span>
 
-                                <h3><span>120</span></h3>
+                                <h3><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${dateItemCountMap[dashboardToday]}" /></span></h3>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
 										<span class="label label-warning uppercase">
