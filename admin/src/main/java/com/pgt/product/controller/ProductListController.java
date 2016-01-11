@@ -77,6 +77,7 @@ public class ProductListController {
         paginationBean.setCurrentIndex(0);
         List<Category> categories = categoryService.queryCategories(categoryRequest, paginationBean);
         modelAndView.addObject("categoryHierarchy", categoryHierarchy);
+        modelAndView.addObject("term", term);
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("productList", productList);
         modelAndView.addObject("staticServer", configuration.getStaticServer());

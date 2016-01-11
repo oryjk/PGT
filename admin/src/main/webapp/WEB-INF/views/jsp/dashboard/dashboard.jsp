@@ -39,7 +39,7 @@
     <!-- BEGIN PAGE BREADCRUMB -->
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a href="#">首页</a><i class="fa fa-circle"></i>
+            <a href="/">首页</a><i class="fa fa-circle"></i>
         </li>
     </ul>
     <!-- END PAGE BREADCRUMB -->
@@ -481,30 +481,30 @@
                     <div class="caption">
                         <i class="icon-share font-red-sunglo"></i>
                         <span class="caption-subject font-red-sunglo bold uppercase">走势图</span>
-                        <span class="caption-helper">近一周</span>
+                        <span class="caption-helper">近 ${fn:length(dashboardDates)} 天</span>
                     </div>
                     <!-- super:请把数据写在下面div里面-->
                     <div style="display: none">
                         <p id="amountSale">
-                            [
+                            [['',0],['',0],
                             <c:forEach var="entry" items="${dateTotalSalesMap}" varStatus="index">
-                                [${entry.key}, ${entry.value}]<c:if test="${index.count < fn:length(dateTotalSalesMap)}">,</c:if>
+                                ['${fn:replace(fn:substring(entry.key, 5, 10), '-', '/')}', ${entry.value}]<c:if test="${index.count < fn:length(dateTotalSalesMap)}">,</c:if>
                             </c:forEach>
                             ]
                         </p>
 
                         <p id="amountOrder">
-                            [
+                            [['',0],['',0],
                             <c:forEach var="entry" items="${dateOrderCountMap}" varStatus="index">
-                                [${entry.key}, ${entry.value}]<c:if test="${index.count < fn:length(dateOrderCountMap)}">,</c:if>
+                                ['${fn:replace(fn:substring(entry.key, 5, 10), '-', '/')}', ${entry.value}]<c:if test="${index.count < fn:length(dateOrderCountMap)}">,</c:if>
                             </c:forEach>
                             ]
                         </p>
 
                         <p id="amountProduct">
-                            [
+                            [['',0],['',0],
                             <c:forEach var="entry" items="${dateItemCountMap}" varStatus="index">
-                                [${entry.key}, ${entry.value}]<c:if test="${index.count < fn:length(dateItemCountMap)}">,</c:if>
+                                ['${fn:replace(fn:substring(entry.key, 5, 10), '-', '/')}', ${entry.value}]<c:if test="${index.count < fn:length(dateItemCountMap)}">,</c:if>
                             </c:forEach>
                             ]
                         </p>

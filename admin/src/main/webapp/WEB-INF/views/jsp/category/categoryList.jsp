@@ -145,7 +145,7 @@
 												</td>
 												<td>
 													<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/category/update/${rootCategory.id}">修改</button>
-													<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/category/delete/${rootCategory.id}">删除</button>
+													<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/category/delete/${rootCategory.id}" data-pgt-type="ROOT">删除</button>
 												</td>
 											</tr>
 										</c:forEach>
@@ -220,7 +220,7 @@
 											</td>
 											<td>
 												<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/category/update/${rootCategory.id}">修改</button>
-												<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/category/delete/${rootCategory.id}">删除</button>
+												<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/category/delete/${rootCategory.id}" data-pgt-type="HIERARCHY">删除</button>
 											</td>
 										</tr>
 										</c:forEach>
