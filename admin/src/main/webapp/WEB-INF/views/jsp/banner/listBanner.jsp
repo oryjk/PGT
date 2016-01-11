@@ -91,30 +91,20 @@
 
                                                         <c:if test="${banner.status==1}">
                                                             <a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-                                                                启用 <i class="fa fa-angle-down"></i>
+                                                                启用 </i>
                                                             </a>
 
                                                         </c:if>
                                                         <c:if test="${banner.status==0}">
                                                         <a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-                                                            禁用 <i class="fa fa-angle-down"></i>
+                                                            禁用 </i>
                                                         </a>
                                                         </c:if>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li>
-                                                                <a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
-                                                                    禁用 </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:;" data-pgt-value="1"  data-pgt-dropdown="status-option">
-                                                                    启用 </a>
-                                                            </li>
-                                                        </ul>
+
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-xs green btn-circle" onclick="javascript:window.location.href='/banner/updateBanner/${banner.bannerId}'">修改</button>
-                                                    <button class="btn btn-xs red btn-circle" onclick="javascript:window.location.href='/banner/deleteBannerById/${banner.bannerId}'">删除</button>
+                                                    <button class="btn btn-xs green btn-circle" onclick="javascript:window.location.href='/banner/updateBanner/${banner.bannerId}'">修改状态</button>
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-xs green btn-circle">新增</button>
