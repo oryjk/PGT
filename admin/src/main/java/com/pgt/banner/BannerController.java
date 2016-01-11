@@ -70,6 +70,8 @@ public class BannerController {
 	public ModelAndView addBanner(ModelAndView modelAndView){
 
 		modelAndView.setViewName("/banner/bannerAndModify");
+		BannerType[] types=BannerType.values();
+		modelAndView.addObject("types",types);
 		return modelAndView;
 	}
 
@@ -98,6 +100,8 @@ public class BannerController {
 		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
         if(!ObjectUtils.isEmpty(oldBanner)){
 			modelAndView.addObject("error","已经有该位置的Banner,无法添加");
+			BannerType[] types=BannerType.values();
+			modelAndView.addObject("types",types);
 			LOGGER.debug("The banner status is extis");
 			modelAndView.setViewName("/banner/bannerAndModify");
 			return modelAndView;
@@ -116,6 +120,8 @@ public class BannerController {
 			return modelAndView;
 		}
 		modelAndView.addObject("banner",banner);
+		BannerType[] types=BannerType.values();
+		modelAndView.addObject("types",types);
 		modelAndView.setViewName("/banner/bannerAndModify");
 		return modelAndView;
 	}
@@ -138,6 +144,17 @@ public class BannerController {
 			modelAndView.setViewName("redirect:/banner/updateBanner");
 			return modelAndView;
 		}
+
+		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
+		if(!ObjectUtils.isEmpty(oldBanner)&&oldBanner.getBannerId()!=banner.getBannerId()){
+			modelAndView.addObject("error","已经有该位置的Banner,无法修改位置");
+			BannerType[] types=BannerType.values();
+			modelAndView.addObject("types",types);
+			LOGGER.debug("The banner type is extis");
+			modelAndView.setViewName("/banner/bannerAndModify");
+			return modelAndView;
+		}
+
 		bannerService.updateBanner(banner);
 		modelAndView.setViewName("redirect:/banner/bannerList");
 		return modelAndView;

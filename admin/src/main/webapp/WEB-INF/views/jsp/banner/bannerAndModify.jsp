@@ -18,19 +18,7 @@
                             <i class="fa fa-circle"></i>
                         </li>
                         <li>
-                            <a href="#">用户管理</a>
-                            <i class="fa fa-circle"></i>
-                        </li>
-                        <li>
-                            <a href="#">管理员管理</a>
-                            <i class="fa fa-circle"></i>
-                        </li>
-                        <li class="active">
-                            <a href="#">管理员列表</a>
-                            <i class="fa fa-circle"></i>
-                        </li>
-                        <li>
-                            <a href="#">新增管理员</a>
+                            <a href="#">新增Banner</a>
                         </li>
                     </ul>
                 </div>
@@ -94,7 +82,9 @@
 
                                             <div class="radio-list">${param.status eq 100 ? 'choose' : ''}
                                                 <select class="form-control input-medium" name="type">
-                                                    <option value="HOME" ${banner.type eq 'HOME' ? "selected='selected'" :''}>首页</option>
+                                                    <c:forEach items="${types}" var="type">
+                                                    <option value="${type}" ${banner.type eq type ? "selected='selected'" :''}>${type}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </div>
 
