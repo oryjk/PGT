@@ -142,7 +142,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-
+<!--
                                 <div class="row">
                                     <link rel="stylesheet" href="../core/css/page.css"/>
                                     <div class="col-xs-2">
@@ -171,7 +171,6 @@
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
-                                            <!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
                                             <ul class="pagination">
                                                 <li class="paginate_button previous disabled"><a href="#"><i
                                                         class="fa fa-angle-left"></i></a></li>
@@ -205,6 +204,8 @@
                                             </label>
                                         </form>
                                     </div>
+
+                        -->
                                 </div>
 
                             </div>
