@@ -37,7 +37,7 @@
             </div>
 
             <!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
-            <div class="row" style="display: ${error eq null ? 'block' : 'none'}">
+            <div class="row" style="display: ${error eq null ? 'none' : 'block'}">
                 <div class="col-xs-12">
                     <div class="Metronic-alerts alert alert-danger fade in">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -53,7 +53,7 @@
                     <div class="portlet box blue-hoki">
                         <div class="portlet-title">
 
-                          <c:if test="${empty banner}">
+                          <c:if test="${empty banner.bannerId}">
                             <!-- super:新增时显示-->
                             <div class="caption">
                                 <i class="fa fa-gift"></i>增加Banner
@@ -61,7 +61,7 @@
 
                           </c:if>
 
-                            <c:if test="${!empty banner}">
+                            <c:if test="${!empty banner.bannerId}">
                             <!-- super:修改时显示-->
                             <div class="caption">
                                 <i class="fa fa-gift"></i>修改Banner
@@ -75,7 +75,7 @@
                                 <div class="form-body">
 
                                     <!-- super:修改用户时才出现下面一个div.form-group-->
-                                    <c:if test="${!empty banner}">
+                                    <c:if test="${!empty banner.bannerId}">
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">id</label>
                                         <div class="col-md-4">

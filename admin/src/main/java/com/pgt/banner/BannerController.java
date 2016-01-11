@@ -74,28 +74,32 @@ public class BannerController {
 	}
 
 	@RequestMapping(value="/addBannerSubmit",method = RequestMethod.POST)
-    public ModelAndView addBannerSubmit(ModelAndView modelAndView, Banner banner, ModelMap model){
+    public ModelAndView addBannerSubmit(ModelAndView modelAndView, Banner banner){
 
 		if(ObjectUtils.isEmpty(banner)){
 			LOGGER.debug("The banner is Empty");
+			modelAndView.clear();
 			modelAndView.setViewName("redirect:/banner/addBanner");
 			return modelAndView;
 		}
 		if(StringUtils.isEmpty(banner.getType())){
 			LOGGER.debug("The banner Type is Empty");
+			modelAndView.clear();
 			modelAndView.setViewName("redirect:/banner/addBanner");
 			return modelAndView;
 		}
 		if(StringUtils.isEmpty(banner.getStatus())){
             LOGGER.debug("The banner status is Empty");
+			modelAndView.clear();
 			modelAndView.setViewName("redirect:/banner/addBanner");
+			return modelAndView;
 		}
 
 		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
         if(!ObjectUtils.isEmpty(oldBanner)){
-			model.addAttribute("error","已经有该位置的Banner,无法添加");
+			modelAndView.addObject("error","已经有该位置的Banner,无法添加");
 			LOGGER.debug("The banner status is extis");
-			modelAndView.setViewName("redirect:/banner/addBanner");
+			modelAndView.setViewName("/banner/bannerAndModify");
 			return modelAndView;
 		}
 		bannerService.createBanner(banner);
@@ -153,8 +157,8 @@ public class BannerController {
 	}
 
 
-	@RequestMapping(value ="/queryBanner",method=RequestMethod.GET)
-	public ModelAndView queryBanner(Integer bannerId,ModelAndView modelAndView){
+	@RequestMapping(value ="/queryBanner/{bannerId}",method=RequestMethod.GET)
+	public ModelAndView queryBanner(@PathVariable("bannerId") Integer bannerId,ModelAndView modelAndView){
 
 		if(ObjectUtils.isEmpty(bannerId)){
 			LOGGER.debug("The bannerId is Empty");
@@ -162,8 +166,14 @@ public class BannerController {
 		}
 		Banner banner =bannerService.queryBanner(bannerId);
 		modelAndView.addObject("banner",banner);
+		modelAndView.setViewName("/banner/bannerImagelist");
 		return modelAndView;
 	}
+
+
+
+
+
 
 	public BannerService getBannerService() {
 		return bannerService;

@@ -326,7 +326,7 @@
                                     文章管理 </a>
                             </li>
                             <li>
-                                <a href=":;">
+                                <a href="/banner/bannerList">
                                     <i class="fa-angle-right"></i>
                                     广告管理 </a>
                             </li>

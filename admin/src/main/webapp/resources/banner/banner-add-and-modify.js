@@ -10,10 +10,13 @@ $('[data-pgt-btn="single"]').change(function () {
 
     //提交图片
     form.ajaxSubmit({
+        url:'/upload/image',
         dataType: 'json',
         type: 'POST',
         success: function(responseBody) {
 
+            $("#pgt-banner-img").val(responseBody.imagePath);
+            $('#pgt-category-img').attr('src', staticPath + responseBody.imagePath);
             //提交图片的关联性
             $.ajax({
                 type: 'POST',
@@ -35,6 +38,8 @@ $('[data-pgt-btn="single"]').change(function () {
                         $('.pgt-category-img').attr('src', staticPath + responseBody.imagePath)
                             .siblings('p').html(size);
                         $('.pgt-img-delete').attr('data-url', '/media/delete/' + mediaId);
+
+
 
                         test.remove();
 

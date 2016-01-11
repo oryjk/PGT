@@ -83,7 +83,7 @@
 		 SELECT
 		*
 		FROM BANNER WHERE
-		TYPE=#{type}
+		TYPE=#{type} AND STATUS=1
 	</select>
 
 	<select id="queryBannerByQuery" parameterType="com.pgt.common.bean.BannerQuery" resultMap="BannerResult">
