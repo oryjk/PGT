@@ -43,10 +43,9 @@
 	<!--Banner result map -->
 	<resultMap id="BannerResult" type="com.pgt.common.bean.Banner">
 		<id column="BANNER_ID" property="bannerId" />
-		<result column="IMAGE_URL" property="imageUrl"></result>
-		<result column="IMAGE_PATH" property="imagePath" />
 		<result column="TYPE" property="type" />
 		<result column="STATUS" property="status" />
+		<result column="NAME" property="name" />
 		<collection column="BANNER_ID" property="images"
 			select="com.pgt.common.dao.ImageMapper.queryAllImageByBannerId"/>
 	</resultMap>
@@ -55,14 +54,14 @@
 	<insert id="createBanner" parameterType="com.pgt.common.bean.Banner"
 		keyProperty="bannerId" useGeneratedKeys="true">
 		INSERT INTO
-		BANNER(IMAGE_URL,IMAGE_PATH,TYPE,STATUS)VALUES(#{imageUrl},#{imagePath},#{type},#{status})
+		BANNER(TYPE,STATUS,NAME)VALUES(#{type},#{status},#{name})
 	</insert>
 
 	<!-- update a banner bean -->
 	<update id="updateBanner" parameterType="com.pgt.common.bean.Banner"
 		keyProperty="bannerId" useGeneratedKeys="true">
 		UPDATE BANNER SET
-		IMAGE_URL=#{imageUrl},IMAGE_PATH=#{imagePath},TYPE=#{type},STATUS=#{status}
+		TYPE=#{type},STATUS=#{status},NAME=#{name}
 		WHERE BANNER_ID=#{bannerId}
 	</update>
 
