@@ -185,13 +185,17 @@
 											</ul>
 										</div>
 									</th>
-									<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-										aria-label=" Email : activate to sort column ascending">
+									<th>
 										持有人
 									</th>
-									<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-										aria-label="Status : activate to sort column ascending">
+									<th style="width: 250px;">
 										产品名称
+									</th>
+									<th style="width: 120px;">
+										关键字
+									</th>
+									<th>
+										产品编码
 									</th>
 									<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
 										aria-label="Status : activate to sort column ascending">
@@ -261,6 +265,8 @@
 													${product.name}
 											</a>
 										</td>
+										<td></td>
+										<td></td>
 										<td>
 												${product.listPrice}
 										</td>
