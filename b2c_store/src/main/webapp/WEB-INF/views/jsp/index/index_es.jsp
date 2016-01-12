@@ -5,38 +5,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 	<div id="content" class="content-box">
-		<div class="content">
-			<div id="bannerBox" class="banner-box">
-				<div id="banner" class="banner">
-					<c:forEach items="${banner.images}" var="image" varStatus="status">
+		<div id="bannerBox" class="banner-box">
+			<div id="banner" class="banner">
+				<c:forEach items="${banner.images}" var="image" varStatus="status">
 
-						<c:if test="${status.index=='0'}">
-							<a href="${pageContext.request.contextPath}${image.url}" data-banner="${stauts.index}"
-								style="background: url('${pageContext.request.contextPath}/resources${image.path}') center center no-repeat ${image.color}; display: block"></a>
-						</c:if>
+					<c:if test="${status.index=='0'}">
+						<a href="${pageContext.request.contextPath}${image.url}" data-banner="${stauts.index}"
+						   style="background: url('${pageContext.request.contextPath}/resources${image.path}') center center no-repeat ${image.color}; display: block"></a>
+					</c:if>
 
-						<c:if test="${status.index!='0'}">
-							<a href="${pageContext.request.contextPath}${image.url}" data-banner="${status.index}"
-								style="background: url('${pageContext.request.contextPath}/resources${image.path}') center center no-repeat ${image.color}"></a>
-						</c:if>
+					<c:if test="${status.index!='0'}">
+						<a href="${pageContext.request.contextPath}${image.url}" data-banner="${status.index}"
+						   style="background: url('${pageContext.request.contextPath}/resources${image.path}') center center no-repeat ${image.color}"></a>
+					</c:if>
 
-					</c:forEach>
+				</c:forEach>
 
-				</div>
-
-				<ol id="bannerNav" class="banner-nav">
-
-					<c:forEach items="${banner.images}" var="image" varStatus="status">
-
-						<c:if test="${status.index=='0'}">
-							<li class="banner-nav-now">${status.index}</li>
-						</c:if>
-						<c:if test="${status.index!='0'}">
-							<li>${status.index}</li>
-						</c:if>
-					</c:forEach>
-				</ol>
 			</div>
+
+			<ol id="bannerNav" class="banner-nav">
+
+				<c:forEach items="${banner.images}" var="image" varStatus="status">
+
+					<c:if test="${status.index=='0'}">
+						<li class="banner-nav-now">${status.index}</li>
+					</c:if>
+					<c:if test="${status.index!='0'}">
+						<li>${status.index}</li>
+					</c:if>
+				</c:forEach>
+			</ol>
+		</div>
+		<div class="content">
+
 			<div class="classify-box">
 				<h2 class="classify-head">
 					最新热卖 <small>全网性价比第一!</small>

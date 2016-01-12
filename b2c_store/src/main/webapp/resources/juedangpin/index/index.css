@@ -1686,8 +1686,7 @@ h2 {
   position: relative;
   left: 0;
   top: 0;
-  margin: 10px 0 0 190px;
-  width: 990px;
+  width: 100%;
   height: 468px; }
 
 .banner {
@@ -1701,7 +1700,7 @@ h2 {
 
 .banner-nav {
   position: absolute;
-  right: 5%;
+  right: 42%;
   bottom: 3%; }
   .banner-nav li {
     float: left;
