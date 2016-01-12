@@ -128,6 +128,13 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-md-3 control-label">产品编码</label>
+
+								<div class="col-md-4">
+									<form:input path="" class="form-control" placeholder=""/>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-md-3 control-label">关键字</label>
 
 								<div class="col-md-4">
