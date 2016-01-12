@@ -24,4 +24,6 @@ public interface CartConstant {
 	String BROWSED_PRODUCTS = "browsedProducts";
 	
 	String ORDER_KEY_PREFIX = "orderId";
+
+	String ORDER_ITEM_LIMIT = "orderItemLimit";
 }

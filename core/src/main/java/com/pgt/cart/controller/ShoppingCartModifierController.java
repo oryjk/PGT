@@ -69,53 +69,23 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView redirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		ModelAndView modelAndView = new ModelAndView("shopping-cart/cart");
+		ModelAndView mav = new ModelAndView("shopping-cart/cart");
+		mav.addObject(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getMaxItemCount4Cart());
 		Order order = getCurrentOrder(pRequest);
-		if(!ObjectUtils.isEmpty(order)){
+		if (!ObjectUtils.isEmpty(order)) {
 			synchronized (order) {
 				getShoppingCartService().checkInventory(order);
-			}
-			String error = checkOutOfStockNotify(pRequest);
-			if (StringUtils.isNotBlank(error)) {
-				modelAndView.addObject("error", error);
-			}
-		}
-
-		return modelAndView;
-	}
-
-	private String checkOutOfStockNotify(HttpServletRequest pRequest) {
-		String error = null;
-		String oosProdId = pRequest.getParameter("oosProdId");
-		if (StringUtils.isBlank(oosProdId)) {
-			return error;
-		}
-		try {
-			String[] prodIds = oosProdId.split("_");
-			String productName = "";
-			int count = 0;
-			for (String prodId : prodIds) {
-				count++;
-				Product product = getProductService().queryProduct(Integer.valueOf(prodId));
-				if (null == product) {
-					continue;
-				}
-				productName += product.getName();
-				if (count != prodIds.length) {
-					productName += ",";
+				if (!getShoppingCartService().checkCartItemCount(order)) {
+					LOGGER.debug("redirect to cart page because cart item count had been reached limit");
+					mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
+					return mav;
 				}
 			}
-			if (StringUtils.isNotBlank(productName)) {
-				return productName.concat(getMessageValue(WARN_REMOVE_ITEM_NOTIFY, StringUtils.EMPTY));
-			}
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			checkOutOfStockNotify(pRequest, mav);
 		}
-		if (StringUtils.equals(pRequest.getParameter("error"), ERROR_INV_CHECK_FAILED)) {
-			return getMessageValue(ERROR_INV_CHECK_FAILED, StringUtils.EMPTY);
-		}
-		return StringUtils.EMPTY;
+		return mav;
 	}
+
 
 	@RequestMapping(value = "/addItemToOrder")//, method = RequestMethod.POST)
 	public ModelAndView addItemToOrderRedirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse,
@@ -129,7 +99,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_NOT_AVAILABLE, StringUtils.EMPTY));
 			return mav;
 		}
-		Order order = null;
+		Order order;
 		if (easyBuy > 0) {
 			User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 			if (user == null) {
@@ -143,7 +113,21 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			// check and generate order
 			order = getCurrentOrder(pRequest, true);
 		}
+		if (order == null) {
+			return mav;
+		}
 		synchronized (order) {
+			if (!getShoppingCartService().ensureCartItemCapacity(order)) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item count had been reached limit", productId);
+				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
+				return mav;
+			}
+			CommerceItem purchaseCommerceItem = order.getCommerceItemByProduct(productId);
+			if (purchaseCommerceItem != null) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item had been added to cart", productId);
+				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_ADDED_TO_CART, StringUtils.EMPTY));
+				return mav;
+			}
 			if (!getShoppingCartService().purchaseProduct(order, product)) {
 				LOGGER.debug("Stop add item to cart for product: {} out of stock", productId);
 				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_OUT_STOCK, StringUtils.EMPTY));
@@ -209,6 +193,17 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
 		synchronized (order) {
+			if (!getShoppingCartService().ensureCartItemCapacity(order)) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item count had been reached limit", productId);
+				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_ITEM_REACHED_LIMIT);
+				return new ResponseEntity(rb, HttpStatus.OK);
+			}
+			CommerceItem purchaseCommerceItem = order.getCommerceItemByProduct(productId);
+			if (purchaseCommerceItem != null) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item had been added to cart", productId);
+				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_ADDED_TO_CART);
+				return new ResponseEntity(rb, HttpStatus.OK);
+			}
 			if (!getShoppingCartService().purchaseProduct(order, product)) {
 				LOGGER.debug("Stop add item to cart for product: {} out of stock", productId);
 				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_OUT_STOCK);
@@ -551,7 +546,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		}
 		Order order = getOrderService().loadEasyBuyOrderWithoutItem(String.valueOf(currentUser.getId()));
 		if (order == null) {
-			LOGGER.debug("Get empty esay buy order by user id.");
+			LOGGER.debug("Get empty easy buy order by user id.");
 			order = new Order();
 			order.setEasyBuy(true);
 			order.setUserId(currentUser.getId().intValue());
@@ -613,6 +608,23 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	public void setUrlConfiguration(URLConfiguration urlConfiguration) {
 		this.urlConfiguration = urlConfiguration;
+	}
+
+	private void checkOutOfStockNotify(HttpServletRequest pRequest, ModelAndView pModelAndView) {
+		if (StringUtils.equals(pRequest.getParameter("error"), ERROR_INV_CHECK_FAILED)) {
+			String error = getMessageValue(ERROR_INV_CHECK_FAILED, StringUtils.EMPTY);
+			pModelAndView.addObject(CartConstant.ERROR_MSG, error);
+			return;
+		}
+		String oosProductIds = pRequest.getParameter("oosProdId");
+		if (StringUtils.isBlank(oosProductIds)) {
+			return;
+		}
+		String oosProductNames = getShoppingCartService().convertProductIdsToProductNames(oosProductIds, "_");
+		if (StringUtils.isNotBlank(oosProductNames)) {
+			String error = oosProductNames.concat(getMessageValue(WARN_REMOVE_ITEM_NOTIFY, StringUtils.EMPTY));
+			pModelAndView.addObject(CartConstant.ERROR_MSG, error);
+		}
 	}
 
 }

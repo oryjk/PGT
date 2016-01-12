@@ -7,6 +7,7 @@ import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.common.bean.Media;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class ShoppingCartService {
 
 	@Autowired
 	private ProductService mProductService;
+
+	private int mMaxItemCount4Cart = 2;
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
@@ -196,6 +199,14 @@ public class ShoppingCartService {
 		return true;
 	}
 
+	public boolean checkCartItemCount(Order pOrder) {
+		return pOrder.getCommerceItemCount() <= getMaxItemCount4Cart();
+	}
+
+	public boolean ensureCartItemCapacity(Order pOrder) {
+		return pOrder.getCommerceItemCount() < getMaxItemCount4Cart();
+	}
+
 	public void updateOrder(Order pOrder) {
 		getShoppingCartDao().updateOrder(pOrder);
 	}
@@ -219,6 +230,24 @@ public class ShoppingCartService {
 			}
 			ci.setInStock(pi.getStock() != 0);
 		}
+	}
+
+	public String convertProductIdsToProductNames(String pProductIds, String pSplit) {
+		String[] prodIds = pProductIds.split(pSplit);
+		String productNames = StringUtils.EMPTY;
+		int count = 0;
+		for (String prodId : prodIds) {
+			count++;
+			Product product = getProductService().queryProduct(Integer.valueOf(prodId));
+			if (null == product) {
+				continue;
+			}
+			productNames += product.getName();
+			if (count != prodIds.length) {
+				productNames += ",";
+			}
+		}
+		return productNames;
 	}
 
 	public void deleteAllCommerceItems(final int pOrderId) {
@@ -257,4 +286,11 @@ public class ShoppingCartService {
 		mTransactionManager = pTransactionManager;
 	}
 
+	public int getMaxItemCount4Cart() {
+		return mMaxItemCount4Cart;
+	}
+
+	public void setMaxItemCount4Cart(final int pMaxItemCount4Cart) {
+		mMaxItemCount4Cart = pMaxItemCount4Cart;
+	}
 }

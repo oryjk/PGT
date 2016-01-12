@@ -87,7 +87,7 @@
 			UPDATE COMMERCE_ITEM
 			<set>
 				order_id = #{item.orderId}, reference_id = #{item.referenceId}, name = #{item.name}, quality = #{item.quality}, list_price = #{item.listPrice},
-				sale_price = #{item.salePrice}, quantity = #{item.quantity}, amount = #{item.amount}, snapshot_id = #{item.snapshotId}, merchant = #{merchant},
+				sale_price = #{item.salePrice}, quantity = #{item.quantity}, amount = #{item.amount}, snapshot_id = #{item.snapshotId}, merchant = #{item.merchant},
 				`index` = #{item.index}, update_date = now()
 			</set>
 			WHERE commerce_item_id = #{item.id}
