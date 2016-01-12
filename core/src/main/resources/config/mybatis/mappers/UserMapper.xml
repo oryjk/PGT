@@ -55,7 +55,7 @@
 
 
     <select id="authorize" parameterType="string" resultMap="user">
-        SELECT * FROM USERS WHERE login = #{login}
+        SELECT * FROM USERS WHERE login = #{authorizeValue} OR PHONE_NUMBER=#{authorizeValue}
     </select>
 
 

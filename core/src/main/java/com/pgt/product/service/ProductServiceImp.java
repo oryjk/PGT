@@ -8,6 +8,7 @@ import com.pgt.product.bean.ProductCategoryRelation;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
 import com.pgt.search.bean.SearchPaginationBean;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,8 +147,6 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     }
 
 
-
-
     @Override
     public Integer updateProduct(Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
@@ -180,7 +179,17 @@ public class ProductServiceImp extends TransactionService implements ProductServ
 
     @Override
     public Integer updateProductBase(Product product) {
-        return productMapper.updateProduct(product);
+        productMapper.updateProduct(product);
+        String referenceId = product.getRelatedCategoryId();
+        if (!StringUtils.isBlank(referenceId)) {
+            ProductCategoryRelation productCategoryRelation = new ProductCategoryRelation();
+            productCategoryRelation.setProductId(product.getProductId());
+            productCategoryRelation.setCategoryId(Integer.valueOf(product.getRelatedCategoryId()));
+            productMapper.updateProductCategoryRelation(productCategoryRelation);
+
+        }
+
+        return product.getProductId();
     }
 
     @Override

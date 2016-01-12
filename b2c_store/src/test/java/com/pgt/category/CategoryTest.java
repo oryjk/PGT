@@ -56,7 +56,7 @@ public class CategoryTest {
 
     @Test
     public void queryCategoryTest() {
-        Integer id = 23;
+        Integer id = 43;
         Category category = categoryServiceImp.queryCategory(id);
         Assert.assertNotNull(category);
         Assert.assertNotNull(category.getChildren());
