@@ -245,7 +245,7 @@
             keyProperty="productCategoryRelationId" useGeneratedKeys="true">
 		UPDATE
 		PRODUCT_CATEGORY SET
-		PRODUCT_ID=#{productId},CATEGORY_ID=#{categoryId}
+		PRODUCT_ID=#{productId},CATEGORY_ID=#{categoryId} WHERE PRODUCT_ID=#{productId}
 	</update>
 
     <select id="queryProductCategoryRelationProducts" parameterType="com.pgt.category.bean.CategoryType"
