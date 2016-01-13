@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="error"><c:if test="${not empty error}"><span>${error}</span></c:if> </div>
+        <div class="error"><c:if test="${not empty error_message}"><span>${error_message}</span></c:if> </div>
 
         <c:choose>
             <c:when test="${empty order or order.commerceItemCount eq 0}">
@@ -123,6 +123,9 @@
                             <c:choose>
                                 <c:when test="${invalidItemCount gt 0}">
                                     <input class="d-btn" type="button" value="请先删除无效的商品" />
+                                </c:when>
+                                <c:when test="${order.commerceItemCount gt orderItemLimit}">
+                                    <input class="d-btn" type="button" value="最多一次购买${orderItemLimit}个商品" />
                                 </c:when>
                                 <c:otherwise>
                                     <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'"/>
