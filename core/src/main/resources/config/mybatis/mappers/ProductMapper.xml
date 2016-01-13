@@ -35,9 +35,11 @@
         <association property="advertisementMedia" column="PRODUCT_ID" select="queryProductAdvertisementMedia"/>
         <association property="frontMedia" column="PRODUCT_ID" select="queryProductFrontMedia"/>
         <association property="expertMedia" column="PRODUCT_ID" select="queryProductExpertMedia"/>
+        <association property="mobileDetailMedia" column="PRODUCT_ID" select="queryProductMobileDetailMedia"/>
         <collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>
         <collection property="heroMedias" column="PRODUCT_ID" select="queryProductHeroMedias"/>
         <collection property="mainMedias" column="PRODUCT_ID" select="queryProductMainMedias"/>
+
 
     </resultMap>
 
@@ -120,6 +122,13 @@
         SELECT *
         FROM MEDIA
         WHERE reference_id = #{productId} AND TYPE='expert'
+        ORDER BY 'index'
+        asc
+    </select>
+    <select id="queryProductMobileDetailMedia" parameterType="int" resultMap="productMedia">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{productId} AND TYPE='mobileDetail'
         ORDER BY 'index'
         asc
     </select>
