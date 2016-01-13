@@ -3,6 +3,7 @@ package com.pgt.inventory.service;
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.dao.OrderMapper;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.bean.InventoryLock;
@@ -153,7 +154,7 @@ public class InventoryService extends Transactionable {
 
     private void cancelOrder(int orderId) {
         LOGGER.debug("Update order status to cancel. order(id= " + orderId + ")");
-        Order order = new Order();
+        Order order = new Order(OrderType.P2P_ORDER);
         order.setId(orderId);
         order.setStatus(OrderStatus.CANCEL);
         getOrderMapper().updateOrderStatus(order);

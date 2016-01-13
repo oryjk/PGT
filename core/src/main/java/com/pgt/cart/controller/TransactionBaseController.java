@@ -1,6 +1,7 @@
 package com.pgt.cart.controller;
 
 import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.constant.UserConstant;
 import com.pgt.user.bean.User;
@@ -56,7 +57,7 @@ public class TransactionBaseController {
 		Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
 		if (pCreateIfAbsent && order == null) {
 			LOGGER.debug("Get empty order from session, re-generate order.");
-			order = new Order();
+			order = new Order(OrderType.B2C_ORDER);
 			User currentUser = getCurrentUser(pRequest);
 			if (currentUser != null && currentUser.getId() != null) {
 				order.setUserId(currentUser.getId().intValue());

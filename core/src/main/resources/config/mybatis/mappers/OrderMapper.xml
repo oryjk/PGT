@@ -7,7 +7,7 @@
         <id column="order_id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="status" property="status"/>
-        <result column="shipping_fee" property="shippingFee"/>
+        <result column="order_type" property="type"/>
         <result column="subtotal" property="subtotal"/>
         <result column="total" property="total"/>
         <result column="user_comments" property="userComments"/>

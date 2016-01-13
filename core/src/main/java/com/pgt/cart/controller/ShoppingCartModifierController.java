@@ -547,9 +547,8 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		Order order = getOrderService().loadEasyBuyOrderWithoutItem(String.valueOf(currentUser.getId()));
 		if (order == null) {
 			LOGGER.debug("Get empty easy buy order by user id.");
-			order = new Order();
+			order = new Order(currentUser.getId().intValue());
 			order.setEasyBuy(true);
-			order.setUserId(currentUser.getId().intValue());
 		}
 		return order;
 	}

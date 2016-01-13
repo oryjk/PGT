@@ -10,17 +10,17 @@ import java.util.*;
 /**
  * Created by Yove on 10/26/2015.
  */
-public class Order {
+public class Order implements OrderType, OrderStatus {
 
 	private static final String PATTERN_AMOUNT = "%.2f";
 
 	private int mId;
 	private int mUserId;
+	private int mType;
 	private int mStatus = OrderStatus.INITIAL;
 	private List<CommerceItem> mCommerceItems = new ArrayList<>();
 	private ShippingVO mShippingVO;
 	private PaymentGroup mPayment;
-	private double mShippingFee;
 	private double mSubtotal;
 	private double mTotal;
 	private String mUserComments;
@@ -28,6 +28,19 @@ public class Order {
 	private Date mUpdateDate;
 	private Date mSubmitDate;
 	private boolean mEasyBuy;
+
+	public Order() {
+
+	}
+
+	public Order(int pType) {
+		mType = pType;
+	}
+
+	public Order(int pUserId, int pType) {
+		mUserId = pUserId;
+		mType = pType;
+	}
 
 	public boolean emptyOrder() {
 		return CollectionUtils.isEmpty(mCommerceItems);
@@ -125,7 +138,6 @@ public class Order {
 
 	public void resetOrderPrice() {
 		mSubtotal = 0d;
-		mShippingFee = 0d;
 		mTotal = 0d;
 	}
 
@@ -134,16 +146,18 @@ public class Order {
 		return "Order{" +
 				"mId=" + mId +
 				", mUserId=" + mUserId +
+				", mType=" + mType +
 				", mStatus=" + mStatus +
 				", mCommerceItems=" + mCommerceItems +
 				", mShippingVO=" + mShippingVO +
-				", mShippingFee=" + mShippingFee +
+				", mPayment=" + mPayment +
 				", mSubtotal=" + mSubtotal +
 				", mTotal=" + mTotal +
 				", mUserComments='" + mUserComments + '\'' +
 				", mCreationDate=" + mCreationDate +
 				", mUpdateDate=" + mUpdateDate +
 				", mSubmitDate=" + mSubmitDate +
+				", mEasyBuy=" + mEasyBuy +
 				'}';
 	}
 
@@ -171,6 +185,14 @@ public class Order {
 		mUserId = pUserId;
 	}
 
+	public int getType() {
+		return mType;
+	}
+
+	public void setType(final int pType) {
+		mType = pType;
+	}
+
 	public int getStatus() {
 		return mStatus;
 	}
@@ -193,14 +215,6 @@ public class Order {
 
 	public void setShippingVO(ShippingVO shippingVO) {
 		this.mShippingVO = shippingVO;
-	}
-
-	public double getShippingFee() {
-		return mShippingFee;
-	}
-
-	public void setShippingFee(final double pShippingFee) {
-		mShippingFee = pShippingFee;
 	}
 
 	public double getSubtotal() {

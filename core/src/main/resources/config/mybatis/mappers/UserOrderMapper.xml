@@ -19,8 +19,8 @@
 	<resultMap id="orderWithCommerceItem" type="com.pgt.cart.bean.Order">
 		<id column="order_id" property="id" />
 		<result column="user_id" property="userId" />
+		<result column="order_type" property="type" />
 		<result column="status" property="status" />
-		<result column="shipping_fee" property="shippingFee" />
 		<result column="subtotal" property="subtotal" />
 		<result column="total" property="total" />
 		<result column="user_comments" property="userComments" />
@@ -41,44 +41,44 @@
 	</resultMap>
 
 	<select id="querySubmittedOrderCount" resultType="long">
-		SELECT COUNT(o.order_id)
+		SELECT COUNT(o.ORDER_ID)
 		FROM `ORDER` o
-		WHERE o.user_id = #{userId}
+		WHERE o.USER_ID = #{userId}
 		<choose>
 			<when test="orderStatus &gt; 0">
-				AND o.status = #{orderStatus}
+				AND o.STATUS = #{orderStatus}
 			</when>
 			<otherwise>
-				AND o.status != 10
+				AND o.STATUS != 10
 			</otherwise>
 		</choose>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
-			AND (o.order_id = #{pagination.keyword}
-			OR o.order_id IN (
-			SELECT DISTINCT order_id
+			AND (o.ORDER_ID = #{pagination.keyword}
+			OR o.ORDER_ID IN (
+			SELECT DISTINCT ORDER_ID
 			FROM COMMERCE_ITEM ci
-			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%')))
+			WHERE ci.NAME LIKE CONCAT('%', #{pagination.keyword}, '%')))
 		</if>
 	</select>
 
 	<select id="querySubmittedOrderPage" resultMap="orderWithCommerceItem">
 		SELECT o.*
 		FROM `ORDER` o
-		WHERE o.user_id = #{userId}
+		WHERE o.USER_ID = #{userId}
 		<choose>
 			<when test="orderStatus &gt; 0">
-				AND o.status = #{orderStatus}
+				AND o.STATUS = #{orderStatus}
 			</when>
 			<otherwise>
-				AND o.status != 10
+				AND o.STATUS != 10
 			</otherwise>
 		</choose>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
-			AND (o.order_id = #{pagination.keyword}
-			OR o.order_id IN (
-			SELECT DISTINCT order_id
+			AND (o.ORDER_ID = #{pagination.keyword}
+			OR o.ORDER_ID IN (
+			SELECT DISTINCT ORDER_ID
 			FROM COMMERCE_ITEM ci
-			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%')))
+			WHERE ci.NAME LIKE CONCAT('%', #{pagination.keyword}, '%')))
 		</if>
 		<include refid="limit-split-page" />
 	</select>
@@ -118,14 +118,14 @@
 	<select id="loadOrderHistory" parameterType="int" resultMap="orderWithCommerceItem">
 		SELECT *
 		FROM `ORDER` o
-		WHERE o.order_id = #{orderId}
+		WHERE o.ORDER_ID = #{orderId}
 	</select>
 
 	<select id="queryBrowsedProducts" parameterType="int" resultMap="browsedProduct">
 		SELECT *
 		FROM RECENT_BROWSE
-		WHERE user_id = #{userId}
-		ORDER BY update_date DESC
+		WHERE USER_ID = #{userId}
+		ORDER BY UPDATE_DATE DESC
 	</select>
 
 	<update id="resetBrowsedProductUpdateDate" parameterType="int">
@@ -136,20 +136,20 @@
 
 	<update id="replaceBrowsedProductRecord">
 		UPDATE RECENT_BROWSE
-		SET prod_id = #{productId}, creation_date = now(), update_date = now()
+		SET PROD_ID = #{productId}, CREATION_DATE = now(), UPDATE_DATE = now()
 		WHERE id = #{browsedProductId}
 	</update>
 
 	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO RECENT_BROWSE (user_id, prod_id, creation_date, update_date)
+		INSERT INTO RECENT_BROWSE (USER_ID, PROD_ID, CREATION_DATE, UPDATE_DATE)
 		VALUES ( #{userId}, #{productId}, now(), now() )
 	</insert>
 
 	<update id="resetBrowsedProductsBatchUpdateDate">
 		<foreach collection="list" item="item" open="" close="" separator=";">
 			UPDATE RECENT_BROWSE
-			SET update_date = now()
-			WHERE id = #{item}
+			SET UPDATE_DATE = now()
+			WHERE ID = #{item}
 		</foreach>
 	</update>
 
