@@ -1,4 +1,4 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+仏rget<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
@@ -63,6 +63,7 @@
                         class="link-btn" href="#">换一张</a>
                 </div>
             </div>
+            <div class="error-box-1"></div>
             <div class="sure-btn">
                 <input class="d-btn" type="submit" value="提交"> <input
                     class="l-btn" type="reset" value="取消" />
@@ -104,7 +105,7 @@
                  <input type="hidden" id="smsPath" data-value="<spring:url value="/sms/resetPassword?phoneNumber=${userResult.phoneNumber}"/>">
                     <span class="phone-code-wrong">验证码错误!</span>
             </div>      
-              
+            <div class="error-box-2"></div>
             
             <div class="sure-btn">
                 <input class="d-btn" type="submit" value="提交"> <input
@@ -139,6 +140,7 @@
             <div class="validate">
                 确认新密码：<input name="password2" type="password" class="text"> <span class="tips">两次密码不一致</span>
             </div>
+            <div class="error-box-3"></div>
             <div class="sure-btn">
                 <input class="d-btn" type="submit" value="提交"> <input
                     class="l-btn" type="reset" value="取消" />

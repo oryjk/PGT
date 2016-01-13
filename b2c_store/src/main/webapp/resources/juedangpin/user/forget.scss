@@ -424,6 +424,29 @@ input[type=password] {
   }
 }
 
+.error-box-1 {
+  padding: 0 0 10px 380px;
+
+  span {
+    color: $emColor;
+  }
+}
+
+.error-box-2 {
+  padding: 0 0 10px 380px;
+
+  span {
+    color: $emColor;
+  }
+}
+
+.error-box-3 {
+  padding: 0 0 10px 335px;
+
+  span {
+    color: $emColor;
+  }
+}
 /*for js
 ******************************************************************/
 .disable {

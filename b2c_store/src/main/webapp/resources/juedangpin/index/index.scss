@@ -15,6 +15,10 @@
 @mixin small-title($where,$mr, $ml) {
   float: left;
 
+  .products {
+    background: white;
+  }
+
   a {
     overflow: hidden;
     float: left;
@@ -165,31 +169,6 @@ h2 {
 
 
 }
-//
-//.classify-0 {
-//  @include wh($c3 + $colSpace, 400px + 10px);
-//}
-//
-//.classify-1 {
-//  margin-left: $colSpace - 10px;
-//  @include wh($c5, 200px);
-//}
-//
-//.classify-2 {
-//  margin-left: $colSpace - 10px;
-//  @include wh($c4, 200px);
-//}
-//
-//.classify-3 {
-//  margin: ($colSpace - 10px) 0 0 ($colSpace - 10px);
-//  @include wh($c4, 200px);
-//}
-//
-//.classify-4 {
-//  margin: ($colSpace - 10px) 0 0 ($colSpace - 10px);
-//  @include wh($c5, 200px);
-//}
-
 
 
 /*products
@@ -251,6 +230,7 @@ small {
     @include wh(100%, 100%);
     text-align: center;
     @extend %product-nav-a;
+    background: transparent;
   }
 }
 
