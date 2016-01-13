@@ -186,6 +186,11 @@ public class ShippingController implements CartMessages {
 			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage());
 			return mav;
 		}
+		if (!getShoppingCartService().checkCartItemCount(order)) {
+			String redirectUrl = "redirect:" + urlConfiguration.getShoppingCartPage();
+			mav.setViewName(redirectUrl);
+			return mav;
+		}
 		if (!hasShippingOnOrder(order)) {
 			mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
 			mav.addObject(CartConstant.ORDER_ID, order.getId());
