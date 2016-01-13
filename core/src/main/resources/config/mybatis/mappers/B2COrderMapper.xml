@@ -17,29 +17,29 @@
 
 	<sql id="query-order-condition">
 		<if test="@Ognl@isValidId(vo.orderId)">
-			AND o.order_id = #{vo.orderId}
+			AND o.ORDER_ID = #{vo.orderId}
 		</if>
 		<if test="@Ognl@isNotBlankString(vo.userName)">
-			AND u.login LIKE CONCAT('%', #{vo.userName}, '%')
+			AND u.LOGIN LIKE CONCAT('%', #{vo.userName}, '%')
 		</if>
 		<if test="vo.priceBeg != null">
-			AND o.total &gt;= #{vo.priceBeg}
+			AND o.TOTAL &gt;= #{vo.priceBeg}
 		</if>
 		<if test="vo.priceEnd != null">
-			AND o.total &lt;= #{vo.priceEnd}
+			AND o.TOTAL &lt;= #{vo.priceEnd}
 		</if>
 		<if test="vo.submitTimeBeg != null">
-			AND o.submit_date &gt;= #{vo.submitTimeBeg}
+			AND o.SUBMIT_DATE &gt;= #{vo.submitTimeBeg}
 		</if>
 		<if test="vo.submitTimeEnd != null">
-			AND o.submit_date &lt;= #{vo.submitTimeEnd}
+			AND o.SUBMIT_DATE &lt;= #{vo.submitTimeEnd}
 		</if>
 	</sql>
 
 	<select id="queryB2COrderCount" resultType="long">
-		SELECT COUNT(o.order_id)
+		SELECT COUNT(o.ORDER_ID)
 		FROM `ORDER` o
-		LEFT JOIN `USERS` u ON u.user_id = o.user_id
+		LEFT JOIN `USERS` u ON u.USER_ID = o.USER_ID
 		WHERE 1 = 1
 		<include refid="query-order-condition" />
 	</select>
@@ -47,8 +47,8 @@
 	<select id="queryB2COrderPage" resultMap="com.pgt.cart.dao.UserOrderDao.orderWithCommerceItem">
 		SELECT o.*
 		FROM `ORDER` o
-		LEFT JOIN `USERS` u ON u.user_id = o.user_id
-		WHERE 1 = 1 AND o.status &gt; 10
+		LEFT JOIN `USERS` u ON u.USER_ID = o.USER_ID
+		WHERE 1 = 1 AND o.STATUS &gt; 10
 		<include refid="query-order-condition" />
 		<include refid="limit-split-page" />
 	</select>
@@ -56,15 +56,15 @@
 	<select id="loadOrder" parameterType="int" resultMap="com.pgt.cart.dao.UserOrderDao.orderWithCommerceItem">
 		SELECT *
 		FROM `ORDER` o
-		WHERE o.order_id = #{orderId}
+		WHERE o.ORDER_ID = #{orderId}
 	</select>
 
 	<update id="updateOrder2Status" parameterType="com.pgt.cart.bean.Order">
 		UPDATE `ORDER`
 		<set>
-			`status` = #{status}
+			`STATUS` = #{status}
 		</set>
-		WHERE order_id = #{orderId}
+		WHERE ORDER_ID = #{orderId}
 	</update>
 
 	<select id="loadCommerceItem" parameterType="int" resultMap="com.pgt.cart.dao.ShoppingCartDao.commerceItem">
