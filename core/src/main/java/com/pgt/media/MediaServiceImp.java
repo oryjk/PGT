@@ -68,6 +68,11 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     }
 
     @Override
+    public ProductMedia findMobileDetailMediaByProductId(String productId) {
+        return productMapper.queryProductMobileDetailMedias(Integer.valueOf(productId));
+    }
+
+    @Override
     public Integer create(ProductMedia productMedia) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {

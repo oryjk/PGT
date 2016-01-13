@@ -28,7 +28,7 @@ public class Product implements Serializable {
     private Integer stock;
     private Date creationDate;
     private Date updateDate;
-    private List<ProductMedia> medias;
+    //    private List<ProductMedia> medias;
     private List<ProductMedia> mainMedias;
     private List<ProductMedia> heroMedias;
     private ProductMedia thumbnailMedia;
@@ -198,21 +198,15 @@ public class Product implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public List<ProductMedia> getMedias() {
-        return medias;
-    }
-
-    public void setMedias(List<ProductMedia> medias) {
-        this.medias = medias;
-    }
+//    public List<ProductMedia> getMedias() {
+//        return medias;
+//    }
+//
+//    public void setMedias(List<ProductMedia> medias) {
+//        this.medias = medias;
+//    }
 
     public ProductMedia getFrontMedia() {
-        if (frontMedia != null) {
-            return frontMedia;
-        }
-        if (!ObjectUtils.isEmpty(medias)) {
-            medias.get(0);
-        }
         return frontMedia;
     }
 
@@ -248,7 +242,6 @@ public class Product implements Serializable {
     public void setMerchant(String merchant) {
         this.merchant = merchant;
     }
-
 
 
     public ProductMedia getThumbnailMedia() {
