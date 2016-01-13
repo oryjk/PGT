@@ -81,10 +81,10 @@ public class Delivery {
 		mTrackingNo = pTrackingNo;
 	}
 
-	public void setDeliveryTime(final String pSubmitTimeBeg) {
-		if (StringUtils.isNotBlank(pSubmitTimeBeg)) {
+	public void setDeliveryTime(final String pDeliveryTimeString) {
+		if (StringUtils.isNotBlank(pDeliveryTimeString)) {
 			try {
-				mDeliveryTime = DT_FORMAT.getInstance().parse(pSubmitTimeBeg);
+				mDeliveryTime = DT_FORMAT.getInstance().parse(pDeliveryTimeString);
 			} catch (ParseException pe) {
 				StackTraceElement[] elements = pe.getStackTrace();
 				LOGGER.error("{}#{} (line: {})", elements[3].getClassName(), elements[3].getMethodName(), elements[3].getLineNumber());

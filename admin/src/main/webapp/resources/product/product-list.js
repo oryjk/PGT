@@ -32,7 +32,7 @@ $(document).on('click', '[data-pgt-btn="delete"]', function () {
                 url: $this.attr('data-url'),
                 success: function (param) {
                     if (param.success == true) {
-                        window.location = location;
+                        location.reload();
                     }
                 }
             })
@@ -83,9 +83,22 @@ $('.pgt-goto-page-btn').on('click', function () {
 
 $('#pagination').on('click', 'a', function(event) {
     var $this = $(this);
-    //如果有分类条件
-    if ($.url.param("categoryId")) {
-        event.preventDefault();
-        window.location = $this.attr('href') + '&categoryId=' + $.url.param("categoryId");
+    var str = '';
+
+    event.preventDefault();
+    if ($.url.param('categoryId')) {
+         str += '&categoryId=' + $.url.param("categoryId");
     }
+    if ($.url.param('term')) {
+        str += '&term=' + $.url.param('term');
+    }
+    window.location = $this.attr('href') + str;
+});
+$('#searchBtn').click(function() {
+    var str = '?';
+    if ($.url.param("categoryId")) {
+        str += 'categoryId=' + $.url.param("categoryId") + '&';
+    }
+    str += 'term=' + $('#term').val();
+    window.location = str;
 });

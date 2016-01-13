@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/bannerImage")
 public class ImageController {
 
 	@Autowired
@@ -38,87 +39,142 @@ public class ImageController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImageController.class);
 
-	@RequestMapping(value="/createImageUI",method = RequestMethod.GET)
-	public ModelAndView createImageUI(Integer bannerId, ModelAndView modelAndView) {
+	@RequestMapping(value="/createImageUI/{bannerId}",method = RequestMethod.GET)
+	public ModelAndView createImageUI(@PathVariable("bannerId") Integer bannerId, ModelAndView modelAndView) {
 
-		modelAndView.setViewName("");
+		if(ObjectUtils.isEmpty(bannerId)){
+			LOGGER.debug("The bannerId is empty for createBannerImage");
+			modelAndView.setViewName("redirect:/banner/bannerList");
+			return modelAndView;
+		}
+		Banner banner= bannerService.queryBanner(bannerId);
+        if(ObjectUtils.isEmpty(banner)){
+			LOGGER.debug("The banner is empty for createBannerImage");
+			modelAndView.setViewName("redirect:/banner/bannerList");
+			return modelAndView;
+		}
+		modelAndView.addObject("banner",banner);
+		modelAndView.setViewName("/banner/bannerImageAddAndModify");
 		return modelAndView;
 	}
 
 
 	@RequestMapping(value="/createIamge",method = RequestMethod.POST)
-	public ModelAndView createIamge(@Validated Image image, ModelAndView modelAndView, BindingResult bindingResult,Integer bannerId) {
+	public ModelAndView createIamge(Image image, ModelAndView modelAndView, Integer bannerId) {
 
-		if(bindingResult.hasErrors()){
-			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-			Map<String, String> errors = new HashMap<String, String>();
-			for (FieldError err : fieldErrors) {
-				errors.put(err.getField(), err.getDefaultMessage());
-			}
-			modelAndView.addObject("errors",errors);
-			LOGGER.debug("create image has some errors");
-			return modelAndView;
-		}
 		if(ObjectUtils.isEmpty(bannerId)){
 			LOGGER.debug("The bannerId is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
 		}
+
+		if(ObjectUtils.isEmpty(image.getPath())){
+			LOGGER.debug("The imagePath is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(image.getLocation())){
+			LOGGER.debug("The location is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
+		}
+
+		if(ObjectUtils.isEmpty(image.getUrl())){
+			LOGGER.debug("The location is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
+		}
+
 		Banner banner =bannerService.queryBanner(bannerId);
 		if(ObjectUtils.isEmpty(banner)){
 			LOGGER.debug("banner is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
 		}
 		image.setBanner(banner);
 		imageService.createImage(image);
-
-		modelAndView.setViewName("");
+		modelAndView.setViewName("redirect:/banner/queryBanner/"+banner.getBannerId());
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/updateUI",method = RequestMethod.GET)
-	public ModelAndView updateUI(Integer imageId, ModelAndView modelAndView) {
+	@RequestMapping(value="/updateUI/{bannerId}/{imageId}",method = RequestMethod.GET)
+	public ModelAndView updateUI(@PathVariable("bannerId") Integer bannerId,@PathVariable("imageId")Integer imageId, ModelAndView modelAndView) {
+
+		if(ObjectUtils.isEmpty(bannerId)){
+			LOGGER.debug("The bannerId is empty for createBannerImage");
+			modelAndView.setViewName("redirect:/banner/bannerList");
+			return modelAndView;
+		}
+		Banner banner= bannerService.queryBanner(bannerId);
+		if(ObjectUtils.isEmpty(banner)){
+			LOGGER.debug("The banner is empty for createBannerImage");
+			modelAndView.setViewName("redirect:/banner/bannerList");
+			return modelAndView;
+		}
 
 		Image image = imageService.queryImageById(imageId);
 		if(ObjectUtils.isEmpty(image)){
 			LOGGER.debug("The image is empty");
 			return modelAndView;
 		}
-		modelAndView.setViewName("");
+		modelAndView.addObject("banner",banner);
+		modelAndView.addObject("image",image);
+		modelAndView.setViewName("/banner/bannerImageAddAndModify");
 		return modelAndView;
 	}
 
 	@RequestMapping(value="/updateImage",method = RequestMethod.POST)
-	public ModelAndView updateImage(ModelAndView modelAndView,@Validated Image image,BindingResult bindingResult,Integer bannerId) {
+	public ModelAndView updateImage(ModelAndView modelAndView, Image image,Integer bannerId) {
 
-		if(bindingResult.hasErrors()){
-			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-			Map<String, String> errors = new HashMap<String, String>();
-			for (FieldError err : fieldErrors) {
-				errors.put(err.getField(), err.getDefaultMessage());
-			}
-			modelAndView.addObject("errors",errors);
-			LOGGER.debug("update image has some errors");
-			return modelAndView;
-		}
 		if(ObjectUtils.isEmpty(bannerId)){
 			LOGGER.debug("The bannerId is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
 		}
+
+		if(ObjectUtils.isEmpty(image.getPath())){
+			LOGGER.debug("The imagePath is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(image.getLocation())){
+			LOGGER.debug("The location is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
+		}
+
+		if(ObjectUtils.isEmpty(image.getUrl())){
+			LOGGER.debug("The location is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
+		}
+
 		Banner banner =bannerService.queryBanner(bannerId);
 		if(ObjectUtils.isEmpty(banner)){
 			LOGGER.debug("banner is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
 		}
 		image.setBanner(banner);
 		imageService.updateImage(image);
+		modelAndView.setViewName("redirect:/banner/queryBanner/"+banner.getBannerId());
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/deleteImage",method = RequestMethod.GET)
-	public ModelAndView deleteImage(Integer imageId,ModelAndView modelAndView) {
+	@RequestMapping(value="/deleteImage/{bannerId}/{imageId}",method = RequestMethod.GET)
+	public ModelAndView deleteImage(@PathVariable("bannerId") Integer bannerId,@PathVariable("imageId") Integer imageId,ModelAndView modelAndView) {
 
+		if(ObjectUtils.isEmpty(bannerId)){
+			LOGGER.debug("The bannerId is empty");
+			modelAndView.setViewName("redirect:/banner/queryBanner/"+bannerId);
+			return modelAndView;
+		}
 		if(StringUtils.isEmpty(imageId)){
 			LOGGER.debug("The imageId is null");
+			modelAndView.setViewName("redirect:/banner/queryBanner/"+bannerId);
 			return modelAndView;
 		}
 		imageService.deleteImageById(imageId);
-		modelAndView.setViewName("");
+		modelAndView.setViewName("redirect:/banner/queryBanner/"+bannerId);
 		return modelAndView;
 	}
 

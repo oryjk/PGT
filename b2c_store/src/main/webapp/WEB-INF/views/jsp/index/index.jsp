@@ -23,7 +23,11 @@
 
 <!--正文-->
 
-<div id="content" class="content-box" style="background: #faf4f6 url('<spring:url value="${juedangpinStaticPath}/core/images/index/background.png"/>') repeat">
+<div id="content" class="content-box" style="
+background:  url('<spring:url value="${juedangpinStaticPath}/core/images/index/bg-top.jpg"/>') center 500px no-repeat,
+url('<spring:url value="${juedangpinStaticPath}/core/images/index/bg-bottom.jpg"/>') center bottom no-repeat,
+url('<spring:url value="${juedangpinStaticPath}/core/images/index/bg-base.jpg"/>') center top repeat-y
+">
 
     <c:if test="${ES==true}">
 

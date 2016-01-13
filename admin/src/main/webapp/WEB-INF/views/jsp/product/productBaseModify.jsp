@@ -64,14 +64,7 @@
 									</div>
 								</div>
 							</c:if>
-							<div class="form-group">
-								<label class="col-md-3 control-label">序列号:</label>
 
-								<div class="col-md-4">
-									<form:input path="serialNumber" placeholder="不超过30字" class="form-control"/>
-									</p>
-								</div>
-							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">产品名称:</label>
 
@@ -125,6 +118,13 @@
 
 								<div class="col-md-4">
 									<form:input path="title" class="form-control" placeholder="不超过20字"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">产品编码</label>
+
+								<div class="col-md-4">
+									<form:input path="serialNumber" class="form-control" placeholder=""/>
 								</div>
 							</div>
 							<div class="form-group">

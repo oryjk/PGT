@@ -65,19 +65,30 @@ public class HotProductHelper {
         }
 
         if (autoComplete) {
-            if (hotProducts.size() < hotAmount) {
-                SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
-                searchPaginationBean.setCategoryId(String.valueOf(categoryId));
-                searchPaginationBean.setStock(-1);
-                searchPaginationBean.setCapacity(hotAmount * 2);
-                List<Product> products = productMapper.queryProducts(searchPaginationBean);
-                hotProducts.addAll(products);
-            }
-            return hotProducts;
+            return autoCompleteHotSale(categoryId, hotProducts);
 
         }
 
         return hotProducts;
+    }
+
+    public List<Product> autoCompleteHotSale(Integer categoryId, List<Product> hotProducts) {
+        if (hotProducts.size() < hotAmount) {
+            SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
+            searchPaginationBean.setCategoryId(String.valueOf(categoryId));
+            searchPaginationBean.setStock(-1);
+            searchPaginationBean.setCapacity(hotAmount * 10);
+            List<Product> products = productMapper.queryProducts(searchPaginationBean);
+            hotProducts.addAll(products);
+        }
+        List<Product> products = new ArrayList<>();
+        hotProducts.stream().forEach(product -> {
+            if (!products.contains(product)) {
+                products.add(product);
+            }
+        });
+
+        return products;
     }
 
     public List<Product> findCategoryHotProductByRootCategoryId(Integer rootCategoryId) {

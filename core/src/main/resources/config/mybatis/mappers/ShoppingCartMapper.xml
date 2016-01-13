@@ -28,6 +28,7 @@
 		<result column="amount" property="amount" />
 		<result column="snapshot_id" property="snapshotId" />
 		<result column="index" property="index" />
+		<result column="merchant" property="merchant" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 		<association column="commerce_item_id" property="delivery" resultMap="delivery" />
@@ -77,8 +78,8 @@
 	</update>
 
 	<insert id="createCommerceItem" parameterType="com.pgt.cart.bean.CommerceItem" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO COMMERCE_ITEM (order_id, reference_id, name, quality, list_price, sale_price, quantity, amount, snapshot_id, `index`, creation_date, update_date)
-		VALUES ( #{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, now(), now() )
+		INSERT INTO COMMERCE_ITEM (order_id, reference_id, name, quality, list_price, sale_price, quantity, amount, snapshot_id, `index`, merchant, creation_date, update_date)
+		VALUES ( #{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, #{merchant}, now(), now() )
 	</insert>
 
 	<update id="updateCommerceItems" parameterType="list">
@@ -86,7 +87,7 @@
 			UPDATE COMMERCE_ITEM
 			<set>
 				order_id = #{item.orderId}, reference_id = #{item.referenceId}, name = #{item.name}, quality = #{item.quality}, list_price = #{item.listPrice},
-				sale_price = #{item.salePrice}, quantity = #{item.quantity}, amount = #{item.amount}, snapshot_id = #{item.snapshotId},
+				sale_price = #{item.salePrice}, quantity = #{item.quantity}, amount = #{item.amount}, snapshot_id = #{item.snapshotId}, merchant = #{item.merchant},
 				`index` = #{item.index}, update_date = now()
 			</set>
 			WHERE commerce_item_id = #{item.id}
@@ -106,6 +107,7 @@
 			ci.amount,
 			ci.snapshot_id,
 			ci.`index`,
+			ci.merchant,
 			ci.creation_date,
 			ci.update_date,
 			m.media_id,

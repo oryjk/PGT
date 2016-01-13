@@ -8,12 +8,10 @@ import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.pgt.common.bean.Banner;
 import com.pgt.common.service.BannerService;
@@ -64,37 +62,57 @@ public class BannerController {
 
 		modelAndView.addObject("bannerList",bannerList);
         modelAndView.addObject("paginationBean",paginationBean);
-        modelAndView.setViewName("");
+        modelAndView.setViewName("/banner/listBanner");
 		return modelAndView;
 	}
 
 	@RequestMapping(value="/addBanner",method = RequestMethod.GET)
 	public ModelAndView addBanner(ModelAndView modelAndView){
 
-		modelAndView.setViewName("");
+		modelAndView.setViewName("/banner/bannerAndModify");
+		BannerType[] types=BannerType.values();
+		modelAndView.addObject("types",types);
 		return modelAndView;
 	}
 
 	@RequestMapping(value="/addBannerSubmit",method = RequestMethod.POST)
-    public ModelAndView addBannerSubmit(ModelAndView modelAndView,Banner banner){
+    public ModelAndView addBannerSubmit(ModelAndView modelAndView, Banner banner){
 
 		if(ObjectUtils.isEmpty(banner)){
 			LOGGER.debug("The banner is Empty");
+			modelAndView.clear();
+			modelAndView.setViewName("redirect:/banner/addBanner");
 			return modelAndView;
 		}
 		if(StringUtils.isEmpty(banner.getType())){
 			LOGGER.debug("The banner Type is Empty");
+			modelAndView.clear();
+			modelAndView.setViewName("redirect:/banner/addBanner");
 			return modelAndView;
 		}
 		if(StringUtils.isEmpty(banner.getStatus())){
             LOGGER.debug("The banner status is Empty");
+			modelAndView.clear();
+			modelAndView.setViewName("redirect:/banner/addBanner");
+			return modelAndView;
+		}
+
+		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
+        if(!ObjectUtils.isEmpty(oldBanner)){
+			modelAndView.addObject("error","已经有该位置的Banner,无法添加");
+			BannerType[] types=BannerType.values();
+			modelAndView.addObject("types",types);
+			LOGGER.debug("The banner status is extis");
+			modelAndView.setViewName("/banner/bannerAndModify");
+			return modelAndView;
 		}
 		bannerService.createBanner(banner);
+		modelAndView.setViewName("redirect:/banner/bannerList");
 		return modelAndView;
 	}
 
-    @RequestMapping(value="/updateBanner",method = RequestMethod.GET)
-	public ModelAndView updateBanner(Integer bannerId,ModelAndView modelAndView) {
+    @RequestMapping(value="/updateBanner/{bannerId}",method = RequestMethod.GET)
+	public ModelAndView updateBanner(@PathVariable("bannerId") Integer bannerId, ModelAndView modelAndView) {
 
 		Banner banner = bannerService.queryBanner(bannerId);
 		if(ObjectUtils.isEmpty(banner)){
@@ -102,6 +120,9 @@ public class BannerController {
 			return modelAndView;
 		}
 		modelAndView.addObject("banner",banner);
+		BannerType[] types=BannerType.values();
+		modelAndView.addObject("types",types);
+		modelAndView.setViewName("/banner/bannerAndModify");
 		return modelAndView;
 	}
 
@@ -110,32 +131,51 @@ public class BannerController {
 
 		if(ObjectUtils.isEmpty(banner)){
 			LOGGER.debug("The banner is Empty");
+			modelAndView.setViewName("redirect:/banner/updateBanner");
 			return modelAndView;
 		}
 		if(StringUtils.isEmpty(banner.getType())){
 			LOGGER.debug("The banner Type is Empty");
+			modelAndView.setViewName("redirect:/banner/updateBanner");
 			return modelAndView;
 		}
 		if(StringUtils.isEmpty(banner.getStatus())){
 			LOGGER.debug("The banner status is Empty");
+			modelAndView.setViewName("redirect:/banner/updateBanner");
+			return modelAndView;
 		}
+
+		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
+		if(!ObjectUtils.isEmpty(oldBanner)&&oldBanner.getBannerId()!=banner.getBannerId()){
+			modelAndView.addObject("error","已经有该位置的Banner,无法修改位置");
+			BannerType[] types=BannerType.values();
+			modelAndView.addObject("types",types);
+			LOGGER.debug("The banner type is extis");
+			modelAndView.setViewName("/banner/bannerAndModify");
+			return modelAndView;
+		}
+
 		bannerService.updateBanner(banner);
+		modelAndView.setViewName("redirect:/banner/bannerList");
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/deleteBannerById",method= RequestMethod.GET)
-	public ModelAndView deleteBannerById(Integer bannerId,ModelAndView modelAndView) {
+	@RequestMapping(value="/deleteBannerById/{bannerId}",method= RequestMethod.GET)
+	public ModelAndView deleteBannerById(@PathVariable("bannerId") Integer bannerId,ModelAndView modelAndView) {
 
 		if(bannerId==null){
 			LOGGER.debug("The bannerId Empty");
+			modelAndView.setViewName("redirect:/banner/bannerList");
+			return modelAndView;
 		}
 		bannerService.deleteBanner(bannerId);
+		modelAndView.setViewName("redirect:/banner/bannerList");
 		return modelAndView;
 	}
 
 
-	@RequestMapping(value ="/queryBanner",method=RequestMethod.GET)
-	public ModelAndView queryBanner(Integer bannerId,ModelAndView modelAndView){
+	@RequestMapping(value ="/queryBanner/{bannerId}",method=RequestMethod.GET)
+	public ModelAndView queryBanner(@PathVariable("bannerId") Integer bannerId,ModelAndView modelAndView){
 
 		if(ObjectUtils.isEmpty(bannerId)){
 			LOGGER.debug("The bannerId is Empty");
@@ -143,8 +183,14 @@ public class BannerController {
 		}
 		Banner banner =bannerService.queryBanner(bannerId);
 		modelAndView.addObject("banner",banner);
+		modelAndView.setViewName("/banner/bannerImagelist");
 		return modelAndView;
 	}
+
+
+
+
+
 
 	public BannerService getBannerService() {
 		return bannerService;

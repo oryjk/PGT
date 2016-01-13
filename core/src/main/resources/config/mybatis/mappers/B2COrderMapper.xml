@@ -48,7 +48,7 @@
 		SELECT o.*
 		FROM `ORDER` o
 		LEFT JOIN `USERS` u ON u.user_id = o.user_id
-		WHERE 1 = 1
+		WHERE 1 = 1 AND o.status &gt; 10
 		<include refid="query-order-condition" />
 		<include refid="limit-split-page" />
 	</select>
@@ -80,6 +80,7 @@
 			amount,
 			snapshot_id,
 			ci.`index`,
+			merchant,
 			creation_date,
 			update_date,
 			consignor,

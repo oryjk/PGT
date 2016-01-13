@@ -8,12 +8,17 @@ import java.util.List;
 public class Banner {
 
 	private Integer bannerId;
-	private String imageUrl;
-	private String imagePath;
+	private String name;
 	private String type;
 	private Integer status;
 	private List<Image> images;
 
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public List<Image> getImages() {
 		return images;
 	}
@@ -30,34 +35,15 @@ public class Banner {
 		this.bannerId = bannerId;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
-
 	public String getType() {
 		return type;
 	}
-
 	public void setType(String type) {
 		this.type = type;
 	}
-
 	public Integer getStatus() {
 		return status;
 	}
-
 	public void setStatus(Integer status) {
 		this.status = status;
 	}

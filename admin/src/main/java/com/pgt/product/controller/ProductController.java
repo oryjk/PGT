@@ -113,6 +113,12 @@ public class ProductController {
                 mediaService.deleteMedia(oldProductMedia.getId());
             }
         }
+        if(productMedia.getType().equals(MediaType.mobileDetail)){
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
 
 
         Integer mediaId = mediaService.create(productMedia);
