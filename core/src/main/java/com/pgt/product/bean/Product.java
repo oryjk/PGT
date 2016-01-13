@@ -42,6 +42,7 @@ public class Product implements Serializable {
     private boolean isHot;
     private String keyWord;
     private String merchant;
+    private ProductMedia mobileDetailMedia;
 
     public List<ProductMedia> getMainMedias() {
         return mainMedias;
@@ -284,5 +285,13 @@ public class Product implements Serializable {
         int result = productId.hashCode();
         result = 31 * result + name.hashCode();
         return result;
+    }
+
+    public ProductMedia getMobileDetailMedia() {
+        return mobileDetailMedia;
+    }
+
+    public void setMobileDetailMedia(ProductMedia mobileDetailMedia) {
+        this.mobileDetailMedia = mobileDetailMedia;
     }
 }

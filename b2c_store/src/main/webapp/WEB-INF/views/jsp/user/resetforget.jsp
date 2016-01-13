@@ -52,10 +52,12 @@
             <li class="main-font3">设置新密码</li>
             <li class="main-font4">完成</li>
         </ul>
-        <form class="forget" action="${pageContext.request.contextPath}/user/resetPassword" method="post">
+        <form:form modelAttribute="user" class="forget" action="${pageContext.request.contextPath}/user/resetPassword" method="post">
             <div class="admin">
                 账户名：<input type="text" class="text" name="username">
             </div>
+            loginError:${loginError}
+            <form:errors path="loginError"/>
             <div class="validate">
                 验证码：<input type="text" class="text" name="authCode">	
                 <div class="validate-img">
@@ -67,7 +69,7 @@
                 <input class="d-btn" type="submit" value="提交"> <input
                     class="l-btn" type="reset" value="取消" />
             </div>
-        </form>
+        </form:form>
     </div>
     <!--check phone code-->
     <div class="main2" style="display:<c:choose>
@@ -110,7 +112,6 @@
                 <input class="d-btn" type="submit" value="提交"> <input
                     class="l-btn" type="reset" value="取消" />
         	</div>
-        	<input type="hidden" id="smsPath" value="<spring:url value="/sms/resetPassword?phoneNumber=${userResult.phoneNumber}"/>">
     	</div>
         </form>
     </div>
