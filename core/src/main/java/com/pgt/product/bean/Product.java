@@ -14,8 +14,6 @@ import java.util.List;
 public class Product implements Serializable {
 
     public static final int INVALID = 0;
-    public static final int AVAILABLE = 1;
-
     private Integer productId;
     private String name;
     private String serialNumber;
