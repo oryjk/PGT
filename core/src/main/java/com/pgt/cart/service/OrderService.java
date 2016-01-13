@@ -95,6 +95,12 @@ public class OrderService {
 		return user.getId().intValue() != order.getUserId();
 	}
 
+
+	public boolean hasUnsubmitOrder(int userId) {
+		int amount = getOrderMapper().getUnsubmitOrderAmount(userId);
+		return amount > 0;
+	}
+
 	public OrderMapper getOrderMapper() {
 		return orderMapper;
 	}

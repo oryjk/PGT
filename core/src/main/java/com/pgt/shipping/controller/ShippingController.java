@@ -112,11 +112,16 @@ public class ShippingController implements CartMessages {
 			List<Store> stores = getShippingService().findStoreByProductIds(productIds);
 			mav.addObject("storeList", stores);
 		}
+
 		List<Province> provinceList = getCityService().getAllProvince();
 		mav.addObject("provinceList", provinceList);
 		mav.setViewName(urlConfiguration.getShippingPage());
 		mav.addObject("addressInfoList", addressInfoList);
 		mav.addObject("checkoutOrder", order);
+		String error = request.getParameter("error");
+		if (StringUtils.isNotBlank(error)) {
+			mav.addObject("error", error);
+		}
 		return mav;
 	}
 
@@ -180,7 +185,23 @@ public class ShippingController implements CartMessages {
 	public ModelAndView redirectToPayment(HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		if (null == user) {
+			mav.setViewName("redirect:" + urlConfiguration.getLoginPage());
+			return mav;
+		}
 		Order order = getOrderService().getSessionOrder(request);
+		if (null == order) {
+			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage());
+			return mav;
+		}
+
+		if (getOrderService().hasUnsubmitOrder(user.getId().intValue())) {
+			mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
+			mav.addObject(CartConstant.ORDER_ID, order.getId());
+			mav.addObject("error", "HAS.UNSUBMIT.ORDER");
+			return mav;
+		}
+
 		if (getOrderService().isInvalidOrder(user, order)) {
 			LOGGER.error("Current order is invalid and will redirect to shopping cart.");
 			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage());

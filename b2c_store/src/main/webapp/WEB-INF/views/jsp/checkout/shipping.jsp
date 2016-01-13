@@ -82,7 +82,12 @@
             </div>
         </div>
 
-        <div class="error"></div>
+        <div class="error" <c:if test="${ empty error}">style="display: none;"</c:if> >
+            <c:if test="${error eq 'HAS.UNSUBMIT.ORDER'}">
+                <span>您有尚未支付的订单，请到账户管理 -> 我的订单页面继续支付</span>
+            </c:if>
+
+        </div>
 
         <form id="addPickup" class="post-way" action="addPickup">
             <h3>配送方式</h3>
