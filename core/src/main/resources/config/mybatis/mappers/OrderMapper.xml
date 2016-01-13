@@ -67,4 +67,9 @@
 		UPDATE `ORDER` SET status = #{status} WHERE order_id = #{id}
 	</update>
 
+    <select id="getUnsubmitOrderAmount" parameterType="int" resultType="int">
+        SELECT COUNT(ORDER_ID)
+        FROM `ORDER`
+        WHERE USER_ID = 1 AND STATUS = 20;
+    </select>
 </mapper>

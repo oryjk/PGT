@@ -22,4 +22,6 @@ public interface OrderMapper extends SqlMapper {
 	void updateOrder(Order pOrder);
 
 	void updateOrderStatus(Order order);
+
+	int getUnsubmitOrderAmount(int userId);
 }
