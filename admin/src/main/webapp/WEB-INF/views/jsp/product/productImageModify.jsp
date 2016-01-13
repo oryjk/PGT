@@ -181,6 +181,27 @@
 												</div>
 										</div>
 									</div>
+									<div class="form-group">
+										<label class="col-md-2 control-label">手机详情图</label>
+										<div class="col-md-2">
+											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
+												<input name="mediaType" type="hidden" value="mobileDetail"/>
+												<button type="button" class="btn blue">选择图片</button>
+											</form>
+											<p></p>
+										</div>
+
+										<div class="col-md-8">
+											<div class="pgt-each-img">
+												<div class="pgt-handle-box">
+													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.mobileDetailMedia.id}">删除</a>
+												</div>
+												<img class="pgt-hero-img" src="${product.mobileDetailMedia.path}" alt=""/>
+												<p class="pgt-img-size"></p>
+											</div>
+										</div>
+									</div>
 
 								</div>
 							</div>

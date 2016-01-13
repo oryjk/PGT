@@ -55,6 +55,7 @@ import org.springframework.util.ObjectUtils;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -276,6 +277,11 @@ public class ESSearchService {
                 rootCategories.stream().forEach(rootCategory -> {
                     LOGGER.debug("The root category id {categoryId}.", rootCategory.getId());
                     List<Product> products = hotProductHelper.findCategoryHotProductByRootCategoryId(rootCategory.getId());
+
+                    HashSet hSet  =   new HashSet(products);
+                    products.clear();
+                    products.addAll(hSet);
+
                     HotSale hotSale = new HotSale(rootCategory, products);
                     ObjectMapper mapper = new ObjectMapper();
                     try {

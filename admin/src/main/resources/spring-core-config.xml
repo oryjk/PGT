@@ -17,7 +17,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath*:config/mybatis/mappers/*Mapper.xml"/>
-        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/> -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
 
@@ -186,10 +186,10 @@
     <bean class="com.pgt.executor.processor.InstantiationTracingBeanPostProcessor">
         <property name="initializationHandlers">
             <array>
-                <ref bean="adminSessionPathInitHandler" />
+                <ref bean="adminSessionPathInitHandler"/>
             </array>
         </property>
     </bean>
 
-    <bean id="adminSessionPathInitHandler" class="com.pgt.executor.handler.AdminSessionPathInitHandler" />
+    <bean id="adminSessionPathInitHandler" class="com.pgt.executor.handler.AdminSessionPathInitHandler"/>
 </beans>

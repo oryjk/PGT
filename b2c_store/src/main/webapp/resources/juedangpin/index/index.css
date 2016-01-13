@@ -1686,8 +1686,7 @@ h2 {
   position: relative;
   left: 0;
   top: 0;
-  margin: 10px 0 0 190px;
-  width: 990px;
+  width: 100%;
   height: 468px; }
 
 .banner {
@@ -1701,7 +1700,7 @@ h2 {
 
 .banner-nav {
   position: absolute;
-  right: 5%;
+  right: 42%;
   bottom: 3%; }
   .banner-nav li {
     float: left;
@@ -1762,6 +1761,8 @@ small {
 
 .products-list-cardinal {
   float: left; }
+  .products-list-cardinal .products {
+    background: white; }
   .products-list-cardinal a {
     overflow: hidden;
     float: left;
@@ -1840,6 +1841,8 @@ small {
 
 .products-list-even {
   float: left; }
+  .products-list-even .products {
+    background: white; }
   .products-list-even a {
     overflow: hidden;
     float: left;
@@ -1930,7 +1933,8 @@ small {
     display: block;
     width: 100%;
     height: 100%;
-    text-align: center; }
+    text-align: center;
+    background: transparent; }
 
 .out-of-stock {
   position: absolute;

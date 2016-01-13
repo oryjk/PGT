@@ -15,6 +15,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.collect.HppcMaps;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.Aggregation;
@@ -47,6 +48,7 @@ public class ESSearchMobileController extends BaseMobileController{
     private ESConfiguration esConfiguration;
 
 
+
     @RequestMapping(value = "/query",method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> query(EssearchBean essearchBean) {
 
@@ -56,7 +58,12 @@ public class ESSearchMobileController extends BaseMobileController{
             paginationBean.setCurrentIndex(0);
             essearchBean.setCurrentIndex("0");
         }
-        paginationBean.setCapacity(configuration.getPlpCapacity());
+
+        if(!StringUtils.isEmpty(essearchBean.getMobileCapacity())){
+            paginationBean.setCapacity(Integer.parseInt(essearchBean.getMobileCapacity()));
+        }else {
+            paginationBean.setCapacity(configuration.getPlpCapacity());
+        }
 
         ESSort esSort = null;
         ESRange esRange = null;
@@ -102,8 +109,11 @@ public class ESSearchMobileController extends BaseMobileController{
             }
 
             SearchResponse categoryResponse= getCategoryHists(searchResponse);
-            List categoryHists= searchConvertToList(categoryResponse);
-            responseMap.put("categoryHists",categoryHists);
+
+            if(!ObjectUtils.isEmpty(categoryResponse)) {
+                List categoryHists = searchConvertToList(categoryResponse);
+                responseMap.put("categoryHists", categoryHists);
+            }
 
             hits = searchResponse.getHits();
             Long total = hits.getTotalHits();
@@ -117,9 +127,12 @@ public class ESSearchMobileController extends BaseMobileController{
             parentSort.setPropertyName("id");
             parentSort.setSortOrder(SortOrder.ASC);
             SearchResponse parentCategoryResponse = esSearchService.findCategories(null, parentSort);
-            List parentCategoryList= searchConvertToList(parentCategoryResponse);
-            responseMap.put("parentCategoryList",parentCategoryList);
 
+            if(!ObjectUtils.isEmpty(parentCategoryResponse)) {
+                List parentCategoryList = searchConvertToList(parentCategoryResponse);
+                responseMap.put("parentCategoryList", parentCategoryList);
+
+            }
 
             //查找category
             SearchResponse rootSearchResponse = esSearchService.findRootCategory();
@@ -135,8 +148,10 @@ public class ESSearchMobileController extends BaseMobileController{
                 responseMap.put(MobileConstans.MOBILE_MESSAGE,"ESSsearch.empty");
             } else {
                 responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
-                List products= searchConvertToList(searchResponse);
-                responseMap.put("products",products);
+               if(!ObjectUtils.isEmpty(searchResponse)) {
+                   List products = searchConvertToList(searchResponse);
+                   responseMap.put("products", products);
+               }
             }
         } catch (Exception e) {
             LOGGER.debug("ESSsearch has some exception{}", e.getMessage());

@@ -1965,6 +1965,21 @@ input[type=password]:focus {
     margin-top: 10px;
     margin-left: 15px; }
 
+.error-box-1 {
+  padding: 0 0 10px 380px; }
+  .error-box-1 span {
+    color: #c20008; }
+
+.error-box-2 {
+  padding: 0 0 10px 380px; }
+  .error-box-2 span {
+    color: #c20008; }
+
+.error-box-3 {
+  padding: 0 0 10px 335px; }
+  .error-box-3 span {
+    color: #c20008; }
+
 /*for js
 ******************************************************************/
 .disable {

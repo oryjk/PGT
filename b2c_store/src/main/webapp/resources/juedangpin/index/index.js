@@ -14,7 +14,8 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         //调整banner的高度,让他适应menu
         $('#bannerBox').css({
-            height: $('#menuList').height() - 10 + 'px'
+            //height: $('#menuList').height() - 10 + 'px'
+            height: $('#menuList').height()  + 'px'
         });
 
         //轮播图

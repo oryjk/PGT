@@ -1,28 +1,5 @@
 package com.pgt.shipping.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.pgt.address.bean.AddressInfo;
 import com.pgt.address.bean.Store;
 import com.pgt.address.service.AddressInfoService;
@@ -46,34 +23,53 @@ import com.pgt.shipping.service.ShippingService;
 import com.pgt.user.bean.User;
 import com.pgt.user.bean.UserInformation;
 import com.pgt.user.service.UserInformationService;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ethanli
- *
  */
 @RestController
 @RequestMapping("/checkout")
 public class ShippingController implements CartMessages {
-	private static final Logger		LOGGER	= LoggerFactory.getLogger(ShippingController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShippingController.class);
 	@Autowired
-	private URLConfiguration		urlConfiguration;
+	private URLConfiguration urlConfiguration;
 	@Autowired
-	private AddressInfoService		addressInfoService;
+	private AddressInfoService addressInfoService;
 	@Autowired
-	private ShippingService			shippingService;
+	private ShippingService shippingService;
 	@Autowired
-	private ShoppingCartService		shoppingCartService;
+	private ShoppingCartService shoppingCartService;
 	@Autowired
-	private OrderService			orderService;
+	private OrderService orderService;
 	@Autowired
-	private CityService				cityService;
+	private CityService cityService;
 	@Autowired
-	private MailService				mailService;
+	private MailService mailService;
 	@Autowired
-	private UserInformationService	userInformationService;
+	private UserInformationService userInformationService;
 
 	@Resource(name = "inventoryService")
 	private InventoryService inventoryService;
+
+	@Resource(name = "shoppingCartService")
+	private ShoppingCartService mShoppingCartService;
 
 	@RequestMapping(value = "/shipping", method = { RequestMethod.GET })
 	public ModelAndView shipping(HttpServletRequest request, HttpSession session) {
@@ -89,6 +85,11 @@ public class ShippingController implements CartMessages {
 		}
 		Order order = getOrderService().getSessionOrder(request);
 		if (getOrderService().isInvalidOrder(user, order)) {
+			String redirectUrl = "redirect:" + urlConfiguration.getShoppingCartPage();
+			mav.setViewName(redirectUrl);
+			return mav;
+		}
+		if (!getShoppingCartService().checkCartItemCount(order)) {
 			String redirectUrl = "redirect:" + urlConfiguration.getShoppingCartPage();
 			mav.setViewName(redirectUrl);
 			return mav;
@@ -111,11 +112,16 @@ public class ShippingController implements CartMessages {
 			List<Store> stores = getShippingService().findStoreByProductIds(productIds);
 			mav.addObject("storeList", stores);
 		}
+
 		List<Province> provinceList = getCityService().getAllProvince();
 		mav.addObject("provinceList", provinceList);
 		mav.setViewName(urlConfiguration.getShippingPage());
 		mav.addObject("addressInfoList", addressInfoList);
 		mav.addObject("checkoutOrder", order);
+		String error = request.getParameter("error");
+		if (StringUtils.isNotBlank(error)) {
+			mav.addObject("error", error);
+		}
 		return mav;
 	}
 
@@ -192,12 +198,18 @@ public class ShippingController implements CartMessages {
 		if (getOrderService().hasUnsubmitOrder(user.getId().intValue())) {
 			mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
 			mav.addObject(CartConstant.ORDER_ID, order.getId());
+			mav.addObject("error", "HAS.UNSUBMIT.ORDER");
 			return mav;
 		}
 
 		if (getOrderService().isInvalidOrder(user, order)) {
 			LOGGER.error("Current order is invalid and will redirect to shopping cart.");
 			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage());
+			return mav;
+		}
+		if (!getShoppingCartService().checkCartItemCount(order)) {
+			String redirectUrl = "redirect:" + urlConfiguration.getShoppingCartPage();
+			mav.setViewName(redirectUrl);
 			return mav;
 		}
 		if (!hasShippingOnOrder(order)) {
@@ -322,4 +334,11 @@ public class ShippingController implements CartMessages {
 		this.mailService = mailService;
 	}
 
+	public UserInformationService getUserInformationService() {
+		return userInformationService;
+	}
+
+	public void setUserInformationService(final UserInformationService pUserInformationService) {
+		userInformationService = pUserInformationService;
+	}
 }

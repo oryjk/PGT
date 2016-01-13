@@ -1,6 +1,8 @@
 package com.pgt.cart.controller;
 
 import com.pgt.cart.bean.*;
+import com.pgt.cart.bean.pagination.InternalPagination;
+import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.exception.PriceOrderException;
@@ -8,8 +10,6 @@ import com.pgt.cart.service.PriceOrderService;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.cart.service.UserFavouriteService;
-import com.pgt.cart.bean.pagination.InternalPagination;
-import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RequestMapping("/myAccount")
 @RestController
-public class UserFavouriteController extends TransactionBaseController implements FavouriteMessages {
+public class UserFavouriteController extends TransactionBaseController implements FavouriteMessages, CartMessages {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserFavouriteController.class);
 
@@ -415,34 +415,37 @@ public class UserFavouriteController extends TransactionBaseController implement
 		Order order = getCurrentOrder(pRequest, true);
 		synchronized (order) {
 			LOGGER.debug("Synchronized order to move favourite and update order");
+			CommerceItem purchasedCommerceItem = order.getCommerceItemByProduct(favourite.getProductId());
+			if (purchasedCommerceItem != null) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item had been added to cart", favourite.getProductId());
+				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_ADDED_TO_CART);
+				return new ResponseEntity(rb, HttpStatus.OK);
+			}
 			// persist changes to database
 			TransactionStatus status = ensureTransaction();
 			try {
 				getUserFavouriteService().deleteFavouriteItem(favouriteId);
 				// check order contains commerce item
-				CommerceItem purchasedCommerceItem = order.getCommerceItemByProduct(favourite.getProductId());
-				if (purchasedCommerceItem == null) {
-					// check product
-					Product product = getProductService().queryProduct(favourite.getProductId());
-					if (!getShoppingCartService().checkProductValidity(product)) {
-						LOGGER.debug("Stop move item to cart from favourite item for product: {} not available", favourite.getProductId());
-						rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
-						status.setRollbackOnly();
-					} else {
-						if (!getShoppingCartService().purchaseProduct(order, product)) {
-							LOGGER.debug("Stop move item from favourite to cart for product: {} out of stock", favourite.getProductId());
-							rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_OUT_STOCK);
-							return new ResponseEntity(rb, HttpStatus.OK);
-						}
-						getPriceOrderService().priceOrder(order);
-						// anonymous user could only add item to cart but not persisted
-						if (RepositoryUtils.idIsValid(order.getUserId())) {
-							boolean result = getShoppingCartService().persistInitialOrder(order);
-							LOGGER.debug("Persist order with result: {}", result ? "success" : "failed");
-							if (!result) {
-								status.setRollbackOnly();
-								throw new OrderPersistentException("Persist order failed, stop move favourite item to cart.");
-							}
+				// check product
+				Product product = getProductService().queryProduct(favourite.getProductId());
+				if (!getShoppingCartService().checkProductValidity(product)) {
+					LOGGER.debug("Stop move item to cart from favourite item for product: {} not available", favourite.getProductId());
+					rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
+					status.setRollbackOnly();
+				} else {
+					if (!getShoppingCartService().purchaseProduct(order, product)) {
+						LOGGER.debug("Stop move item from favourite to cart for product: {} out of stock", favourite.getProductId());
+						rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, FavouriteMessages.ERROR_PROD_OUT_STOCK);
+						return new ResponseEntity(rb, HttpStatus.OK);
+					}
+					getPriceOrderService().priceOrder(order);
+					// anonymous user could only add item to cart but not persisted
+					if (RepositoryUtils.idIsValid(order.getUserId())) {
+						boolean result = getShoppingCartService().persistInitialOrder(order);
+						LOGGER.debug("Persist order with result: {}", result ? "success" : "failed");
+						if (!result) {
+							status.setRollbackOnly();
+							throw new OrderPersistentException("Persist order failed, stop move favourite item to cart.");
 						}
 					}
 				}

@@ -462,7 +462,7 @@ public class UserController {
         LOGGER.debug("The user is not exist.");
         modelAndView.setViewName(Constants.RESET_PASSWORD);
         bindingResult.addError(
-                new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.authCode", null, null)));
+                new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.user.notExist", null, null)));
         return modelAndView;
     }
 

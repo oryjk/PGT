@@ -169,7 +169,7 @@
                                                             <img src="${pageContext.request.contextPath}/resources${ci['snapshotMedia']['path']}"
                                                                  alt="${empty ci['snapshotMedia']['title'] ? ci.name : ci['snapshotMedia']['title']}" />
                                                         </td>
-                                                        <td>???</td>
+                                                        <td>${ci.merchant}</td>
                                                         <td>${ci.delivery.consignor}</td>
                                                         <td>${ci.delivery.deliveryTime}</td>
                                                         <td>${ci.delivery.logistics}</td>
