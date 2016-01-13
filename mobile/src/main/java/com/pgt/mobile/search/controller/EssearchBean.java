@@ -12,6 +12,16 @@ public class EssearchBean {
     private String priceStart;
     private String priceEnd;
     private String currentIndex;
+    private String mobileCapacity;
+
+
+    public String getMobileCapacity() {
+        return mobileCapacity;
+    }
+
+    public void setMobileCapacity(String mobileCapacity) {
+        this.mobileCapacity = mobileCapacity;
+    }
 
     public String getCategoryId() {
         return categoryId;

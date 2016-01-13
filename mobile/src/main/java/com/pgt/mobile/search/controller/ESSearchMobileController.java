@@ -15,6 +15,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.collect.HppcMaps;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.Aggregation;
@@ -57,7 +58,12 @@ public class ESSearchMobileController extends BaseMobileController{
             paginationBean.setCurrentIndex(0);
             essearchBean.setCurrentIndex("0");
         }
-        paginationBean.setCapacity(configuration.getPlpCapacity());
+
+        if(!StringUtils.isEmpty(essearchBean.getMobileCapacity())){
+            paginationBean.setCapacity(Integer.parseInt(essearchBean.getMobileCapacity()));
+        }else {
+            paginationBean.setCapacity(configuration.getPlpCapacity());
+        }
 
         ESSort esSort = null;
         ESRange esRange = null;
