@@ -71,3 +71,36 @@ a{
     margin: 1em 4em ;
     text-align: center;
 }
+
+.footer{
+    background: #fff;
+    margin-top: 20em;
+    border-top: 1px solid #F3F3F3;
+
+}
+.footer-top{
+    padding-top: 1em;
+    display: -webkit-flex;
+}
+.f1{
+    flex:2;
+    color: #000;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    border-right: 1px solid #cccccc;
+}
+.kong1{
+    flex: 2;
+}
+.kong{
+    flex: 3;
+}
+.footer-bottom{
+    padding-top: 1em;
+    font-size: 10px;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}

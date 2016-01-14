@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 1em;
+}
+
+body {
+    background: #F3F3F3;
+}
+a{
+    color: #000;
+    text-decoration:none;
+}
+
+.header{
+    position: relative;
+    background: #fff;
+    display: block;
+    display: -webkit-flex;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #cccccc;
+}
+.arrow{
+    margin-top: 2em;
+    flex: 1;
+    height: 36px;
+    background: url("../img/left-arrow.png")no-repeat  2em 0;
+}
+.font{
+    font-size: 2em;
+    margin-top: 2em;
+    text-align: center;
+    flex: 2;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+
+}
+.dian{
+    margin-top: 2em;
+    display: block;
+    background: url("../img/list.png")no-repeat 1em 0;
+    flex: 1;
+}
+.menu {
+    color: #fff;
+    width: 7em;
+    background: #484f55;
+    position: absolute;
+    top: 5.3em;
+    right: 0;
+    border: 1px solid #484f55;
+    border-radius: 5px;
+}
+.menu li{
+    font-size: 1em;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1.5em;
+    padding-left: 2em;
+    list-style: none;
+    margin: 2em 0;
+    border-bottom: 2px solid #cccccc;
+}
+.menu .menu1{
+    margin: 2em 0 0 0;
+    border: none;
+    background: url("../img/right-icon3.png") no-repeat;
+}
+.menu2{
+    background: url("../img/right-icon1.png") no-repeat;
+}
+.menu3{
+    background: url("../img/right-icon2.png") no-repeat;
+}
+.menu4{
+    background: url("../img/right-icon3.png") no-repeat;
+}
+.menu5{
+    background: url("../img/right-icon4.png") no-repeat;
+}
+.box{
+    height: 8em;
+    padding-left: 0.5em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    display: -webkit-flex;
+    border-bottom: 2px solid #cccccc;
+}
+.img{
+    flex: 2;
+    background: url("../img/img1.jpg")no-repeat;
+    background-size:100% 100%;
+}
+.font{
+    font-size: 1em;
+    flex: 3;
+}
+.btn{
+    flex: 2;
+}
+.delete{
+    display: block;
+    padding: 0.2em;
+    margin: 3.5em 1em ;
+    text-align: center;
+    border: 2px solid #cccccc;
+}
+.btn-clean{
+    color: #ffffff;
+    background: red;
+    margin: 2em 6em;
+    display: block;
+    padding: 1em;
+    text-align: center;
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.footer{
+    background: #fff;
+    margin-top: 2em;
+    border-top: 1px solid #F3F3F3;
+
+}
+.footer-top{
+    padding-top: 1em;
+    display: -webkit-flex;
+}
+.f1{
+    flex:2;
+    color: #000;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    border-right: 1px solid #cccccc;
+}
+.kong1{
+    flex: 2;
+}
+.kong{
+    flex: 3;
+}
+.footer-bottom{
+    padding-top: 1em;
+    font-size: 10px;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
