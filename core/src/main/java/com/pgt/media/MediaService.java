@@ -39,4 +39,12 @@ public interface MediaService {
     List<Media> findMediaByRefId(Integer referenceId,MediaType mediaType);
     void updateMedia(Media media);
 
+    Media queryPageBackgroundHeaderMedia(Integer pageBackgroundId);
+
+    Media queryPageBackgroundMiddleMedia(Integer pageBackgroundId);
+
+    Media queryPageBackgroundFooterMedia(Integer pageBackgroundId);
+
+
+    Integer createMedia(Media media);
 }

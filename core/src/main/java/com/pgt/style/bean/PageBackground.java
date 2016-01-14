@@ -17,6 +17,8 @@ public class PageBackground implements Serializable {
     private Date updateDate;
     private Date startDate;
     private Date endDate;
+    private String title;
+
 
     public Integer getPageBackgroundId() {
         return pageBackgroundId;
@@ -26,12 +28,28 @@ public class PageBackground implements Serializable {
         this.pageBackgroundId = pageBackgroundId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Media getHeaderMedia() {
         return headerMedia;
     }
 
     public void setHeaderMedia(Media headerMedia) {
         this.headerMedia = headerMedia;
+    }
+
+    public Media getFooterMedia() {
+        return footerMedia;
+    }
+
+    public void setFooterMedia(Media footerMedia) {
+        this.footerMedia = footerMedia;
     }
 
     public Media getMiddleMedia() {
@@ -72,13 +90,5 @@ public class PageBackground implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    public Media getFooterMedia() {
-        return footerMedia;
-    }
-
-    public void setFooterMedia(Media footerMedia) {
-        this.footerMedia = footerMedia;
     }
 }

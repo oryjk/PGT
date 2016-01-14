@@ -330,6 +330,12 @@
                                     <i class="fa-angle-right"></i>
                                     广告管理 </a>
                             </li>
+                            <li>
+                                <a href="/pageBackground/queryPageBackground">
+                                    <i class="fa-angle-right"></i>
+                                    背景管理 </a>
+                            </li>
+
                         </ul>
                     </li>
 

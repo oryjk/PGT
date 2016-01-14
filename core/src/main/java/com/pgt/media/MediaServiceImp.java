@@ -6,6 +6,7 @@ import com.pgt.common.dao.MediaMapper;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
+import com.pgt.style.dao.PageBackgroundMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     private ProductMapper productMapper;
     @Autowired
     private MediaMapper mediaMapper;
+    @Autowired
+    private PageBackgroundMapper pageBackgroundMapper;
 
     @Override
     public ProductMedia findFrontMediaByProductId(String productId) {
@@ -87,6 +90,20 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     }
 
     @Override
+    public Integer createMedia(Media media) {
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            mediaMapper.createMedia(media);
+        } catch (Exception e) {
+            LOGGER.error("Can not create  media");
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
+        return media.getId();
+    }
+
+    @Override
     public Media findCopyWriterMedia(Integer copyWriterId) {
         List<Media> medias = mediaMapper.queryMediaByRefId(MediaType.copy_write, copyWriterId);
         if (!ObjectUtils.isEmpty(medias)) {
@@ -119,6 +136,22 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     public List<Media> findMediaByRefId(Integer referenceId, MediaType mediaType) {
         return mediaMapper.queryMediaByRefId(mediaType, referenceId);
 
+    }
+
+
+    @Override
+    public Media queryPageBackgroundFooterMedia(Integer pageBackgroundId) {
+        return  pageBackgroundMapper.queryPageBackgroundFooterMedia(pageBackgroundId);
+    }
+
+    @Override
+    public Media queryPageBackgroundMiddleMedia(Integer pageBackgroundId) {
+        return pageBackgroundMapper.queryPageBackgroundMiddleMedia(pageBackgroundId);
+    }
+
+    @Override
+    public Media queryPageBackgroundHeaderMedia(Integer pageBackgroundId) {
+        return pageBackgroundMapper.queryPageBackgroundHeaderMedia(pageBackgroundId);
     }
 
     @Override

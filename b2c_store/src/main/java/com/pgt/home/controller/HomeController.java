@@ -17,6 +17,9 @@ import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.service.ESSearchService;
 
+import com.pgt.style.bean.PageBackground;
+import com.pgt.style.bean.PageBackgroundQuery;
+import com.pgt.style.service.PageBackgroundService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.elasticsearch.action.search.SearchResponse;
@@ -32,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,6 +65,9 @@ public class HomeController {
     @Autowired
     private MediaService mediaService;
 
+    @Autowired
+    private PageBackgroundService pageBackgroundService;
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(ModelAndView modelAndView) {
         modelAndView.addObject("urlConfiguration", urlConfiguration);
@@ -82,18 +89,26 @@ public class HomeController {
             if (!ArrayUtils.isEmpty(hotProducts)) {
                 modelAndView.addObject("hotProducts", hotProducts);
             }
+            //get Pagebackground
+            PageBackgroundQuery pageBackgroundQuery = new PageBackgroundQuery();
+            pageBackgroundQuery.setNowDate(new Date());
+            List<PageBackground> pageBackgroundList=pageBackgroundService.queryPageBackground(pageBackgroundQuery);
+            if(!CollectionUtils.isEmpty(pageBackgroundList)){
+                modelAndView.addObject("pageBackground",pageBackgroundList.get(0));
+            }
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             modelAndView.addObject("hotSearchList", hotSearchList);
             modelAndView.addObject("banner", banner);
             modelAndView.setViewName("/index/index");
         } else {
+
+
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             modelAndView.addObject("hotSearchList", hotSearchList);
             Banner banner = bannerService.queryBannerByType(Constants.BANNER_TYPE_HOME);
             modelAndView.addObject("banner", banner);
-
             modelAndView.setViewName("/index/index");
 
         }
