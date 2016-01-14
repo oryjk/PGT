@@ -47,12 +47,27 @@ a{
     margin:1em 0 0 1em;
 }
 .search-all{
+    overflow: hidden;
     margin: 1em 0 0 1em;
 }
+.search-all a{
+    overflow: hidden;
+}
 .search-box{
+    display: block;
     float: left;
     width: auto;
     border: 2px  solid #cccccc;
+    border-radius: 5px;
     padding: 10px;
     margin: 1em ;
+}
+.search-box1{
+    background: #fff;
+    display: block;
+    border: 2px  solid #cccccc;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 1em 4em ;
+    text-align: center;
 }
