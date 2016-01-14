@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 1em;
+}
+
+body {
+    background: #F3F3F3;
+}
+a{
+    color: #000;
+    text-decoration:none;
+}
+
+.header{
+    display: block;
+    display: -webkit-flex;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #cccccc;
+}
+.arrow{
+    margin-top: 2.1em;
+    margin-left: 1em;
+    margin-right: 2em;
+    flex: 1;
+    height: 36px;
+    background: url("../img/left-arrow.png")no-repeat;
+}
+.input1{
+    font-size: 0.8em;
+    background: url("../img/search.png") no-repeat 1% 50% ;
+    border: 2px solid #cccccc;
+    padding-left: 10%;
+    border-radius: 10px;
+    height: 4em;
+    margin-top: 2em;
+    width: 100%;
+    flex: 6;
+}
+.kong{
+    flex: 1;
+}
+.search-font{
+    margin:1em 0 0 1em;
+}
+.search-all{
+    margin: 1em 0 0 1em;
+}
+.search-box{
+    float: left;
+    width: auto;
+    border: 2px  solid #cccccc;
+    padding: 10px;
+    margin: 1em ;
+}
