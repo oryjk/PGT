@@ -66,11 +66,11 @@
             <input class="search-text" type="text" name="term" value="${term}" /><input class="search-sub" type="submit" value="搜索" />
         </form>
         <ul class="search-tips" id="searchTips">
-            <li>小万</li>
-            <li>王霸</li>
-            <li>厉害</li>
-            <li>搜索</li>
-            <li>提示</li>
+            <li>钻石饰品</li>
+            <li>文玩杂项</li>
+            <li>玉石类</li>
+            <li>琥珀蜜蜡</li>
+            <li>木制品</li>
         </ul>
         <div class="hot-words">
 
