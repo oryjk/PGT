@@ -8,10 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
-    <script src="js/myfocus-2.0.4.min.js" type="text/javascript"></script>
-    <script src="js/mf-pattern/mF_expo2010.js" type="text/javascript"></script>
-    <link href="js/mf-pattern/mF_expo2010.css" rel="stylesheet" type="text/css">
-    <link href="index.css" rel="stylesheet">
+    <script src="resources/static/index/js/myfocus-2.0.4.min.js" type="text/javascript"></script>
+    <script src="resources/static/index/js/mf-pattern/mF_expo2010.js" type="text/javascript"></script>
+    <link href="resources/static/index/js/mf-pattern/mF_expo2010.css" rel="stylesheet" type="text/css">
+    <link href="resources/static/index/index.css" rel="stylesheet">
 </head>
 <body>
 <div class="header">
@@ -24,30 +24,28 @@
         <div class="ad" id="expo2010-box">
             <div class="pic">
                 <ul>
-                    <li style="background:url(<spring:url value="${juedangpinStaticPath}/resources/img/banner3.jpg) no-repeat center center;background-size:100% 100%;"
-                        class="banner1"></li>
-                    <li style="background:url(../img/banner3.jpg) no-repeat center center;background-size:100% 100%;"
-                        class="banner1"></li>
-                    <li style="background:url(../img/banner3.jpg) no-repeat center center;background-size:100% 100%;"
-                        class="banner1"></li>
+                    <c:forEach items="${data.banner.images}" var="image" varStatus="status">
+                         <li style="background:url(/resources${image.path}) no-repeat center center;background-size:100% 100%;"
+                            class="banner1"></li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>
     </div>
     <div class="classification">
-        <a class="box1"><img src="../img/icon1.png">
+        <a class="box1"><img src="resources/static/img/icon1.png">
 
             <div>分类查询</div>
         </a>
-        <a class="box1"><img src="../img/icon2.png">
+        <a class="box1"><img src="resources/static/img/icon2.png">
 
             <div>购物车</div>
         </a>
-        <a class="box1"><img src="../img/icon3.png">
+        <a class="box1"><img src="resources/static/img/icon3.png">
 
             <div>我的收藏</div>
         </a>
-        <a class="box1"><img src="../img/icon4.png">
+        <a class="box1"><img src="resources/static/img/icon4.png">
 
             <div>我的账户</div>
         </a>
@@ -55,26 +53,24 @@
 </div>
 <div class="content">
     <div class="like">最新热卖</div>
-    <div class="box3">
-        <a href="#" class="img1-left"></a>
-        <a href="#" class="img1-right"></a>
-    </div>
-    <div class="box4">
-        <a href="#" class="img1-left"></a>
-        <a href="#" class="img1-right"></a>
-    </div>
-    <div class="box2">
-        <div class="font">最新热卖</div>
-        <div class="img-all">
-            <div class="img1"></div>
-            <div class="img-right">
-                <div class="img-top">
-                </div>
-                <div class="img-bottom">
-
-                </div>
-            </div>
+    <c:forEach items="${data.hotSearchList}" var="hotSearchList" varStatus="status">
+        <div class="box3">
+            <a href="#" class="img1-left" style="background:url(/resources${hotSearchList.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
         </div>
+    </c:forEach>
+    <div class="box2">
+        <c:forEach items="${data.hotProducts}" var="hotProducts" varStatus="hotProducts-status">
+            <div class="like">  ${hotProducts.name} </div>
+            <div class="img-all">
+                <div class="img1" style="background:url(/resources${hotProducts.category.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></div>
+                <c:forEach items="${hotProducts.hotProduct}" var="hotProduct" varStatus="s">
+                    <c:if test="${s.index < 2}">
+                        <div class="img-top" style="background:url(/resources${hotProduct.thumbnailMedia.path}) no-repeat center center;background-size:100% 100%;">
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </c:forEach>
     </div>
 </div>
 
@@ -92,10 +88,6 @@
         蜀IPC备15022028号 dianjinzi, Inc. All rights reserved
     </div>
 </div>
-
-
-</body>
-
 
 <script type="text/javascript">
     myFocus.set({
