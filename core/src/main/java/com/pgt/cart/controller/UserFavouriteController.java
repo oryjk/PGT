@@ -387,9 +387,9 @@ public class UserFavouriteController extends TransactionBaseController implement
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/moveFavouriteToCart")
+	@RequestMapping(value = "/ajaxMoveFavouriteToCart")
 	@ResponseBody
-	public ResponseEntity moveFavouriteToCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
+	public ResponseEntity ajaxMoveFavouriteToCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
 			@RequestParam(value = "favouriteId", required = true) int favouriteId) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		if (!RepositoryUtils.idIsValid(favouriteId)) {
