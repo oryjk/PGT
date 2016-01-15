@@ -17,16 +17,16 @@ public enum Role {
 	private static final String   TEXT_PROD_ORDER_MANAGER = "商品订单管理员";
 	private static final String   TEXT_IVST_ORDER_MANAGER = "投资订单管理员";
 	private static final String   TEXT_ADMINISTRATOR      = "后台管理员";
-	public static        String[] ROLE_NAMES              = new String[]{TEXT_BROWSER, TEXT_MERCHANDISER, TEXT_INVESTOR, TEXT_PROD_ORDER_MANAGER, TEXT_IVST_ORDER_MANAGER, TEXT_ADMINISTRATOR};
-	public static        Role[]   ROLES                   = new Role[]{BROWSER, MERCHANDISER, INVESTOR, PROD_ORDER_MANAGER, IVST_ORDER_MANAGER, ADMINISTRATOR};
+	public static        String[] ROLE_NAMES              = new String[] { TEXT_BROWSER, TEXT_MERCHANDISER, TEXT_INVESTOR, TEXT_PROD_ORDER_MANAGER, TEXT_IVST_ORDER_MANAGER, TEXT_ADMINISTRATOR };
+	public static        Role[]   ROLES                   = new Role[] { BROWSER, MERCHANDISER, INVESTOR, PROD_ORDER_MANAGER, IVST_ORDER_MANAGER, ADMINISTRATOR };
 	private static Map<Role, String> ROLE_NAME_MAP;
 	private        int               mValue;
 
-	Role(int pValue) {
+	Role (int pValue) {
 		mValue = pValue;
 	}
 
-	public static Role valueOf(int pValue) {
+	public static Role valueOf (int pValue) {
 		switch (pValue) {
 			case 0:
 				return BROWSER;
@@ -46,7 +46,7 @@ public enum Role {
 		}
 	}
 
-	public static Map<Role, String> getRoleNameMap() {
+	public static Map<Role, String> getRoleNameMap () {
 		if (ROLE_NAME_MAP == null) {
 			ROLE_NAME_MAP = new TreeMap<>();
 			ROLE_NAME_MAP.put(BROWSER, TEXT_BROWSER);
@@ -59,16 +59,16 @@ public enum Role {
 		return ROLE_NAME_MAP;
 	}
 
-	public int getValue() {
+	public int getValue () {
 		return mValue;
 	}
 
-	public String getName() {
+	public String getName () {
 		return this.name();
 	}
 
 	@Override
-	public String toString() {
+	public String toString () {
 		switch (this) {
 			case BROWSER:
 				return TEXT_BROWSER;
