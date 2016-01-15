@@ -319,7 +319,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 			String encryptedPassword = DigestUtils.md5Hex(password + salt);
 			String ipAddress = captureIpAddress(pRequest);
 			iub.setSalt(salt).setPassword(encryptedPassword).setIp(ipAddress).setRole(role).setInvestType(investType);
-			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.ORDER_MANAGER)) {
+			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.PROD_ORDER_MANAGER)) {
 				iub.setInvestType(InternalUserInvestType.NONEED);
 			}
 			InternalUser iu = iub.createInternalUser();
@@ -417,7 +417,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 			String encryptedPassword = DigestUtils.md5Hex(password + salt);
 			String ipAddress = captureIpAddress(pRequest);
 			iub.setSalt(salt).setPassword(encryptedPassword).setIp(ipAddress).setRole(role).setInvestType(investType);
-			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.ORDER_MANAGER)) {
+			if (role.equals(Role.ADMINISTRATOR) || role.equals(Role.PROD_ORDER_MANAGER)) {
 				iub.setInvestType(InternalUserInvestType.NONEED);
 			}
 			InternalUser iu = iub.createInternalUser();
