@@ -36,6 +36,7 @@ a{
 }
 
 .input1 {
+    padding-left: 20%;
     width: 100%;
     height: 3em;
     position: absolute;
@@ -44,6 +45,8 @@ a{
     z-index: 3;
     border-radius: 10px;
     -webkit-transform: translate(-50%, -50%);
+    background: url("../img/search.png")no-repeat 5%;
+    background-size: 18%;
 }
 
 .in {

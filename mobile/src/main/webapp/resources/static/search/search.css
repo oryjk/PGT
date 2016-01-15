@@ -22,14 +22,13 @@ a{
     border-bottom: 2px solid #cccccc;
 }
 .arrow{
-    margin-top: 2.1em;
-    margin-left: 1em;
-    margin-right: 2em;
-    flex: 1;
+    margin-top: 2em;
+    flex: 3;
     height: 36px;
-    background: url("../img/left-arrow.png")no-repeat;
+    background: url("../img/left-arrow.png")no-repeat center;
 }
 .input1{
+    text-align: center;
     font-size: 0.8em;
     background: url("../img/search.png") no-repeat 1% 50% ;
     border: 2px solid #cccccc;
