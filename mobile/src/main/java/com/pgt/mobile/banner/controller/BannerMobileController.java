@@ -45,20 +45,6 @@ public class BannerMobileController extends BaseMobileController{
     }
 
 
-    @RequestMapping(value="/querytime",method = RequestMethod.POST)
-    public Map<String,Object> querytime(){
-
-        Map<String,Object> responseMap = new HashMap<String,Object>();
-
-
-        Date  date = new Date();
-
-        System.out.print("--------------------------------------------------------------------"+date);
-
-        responseMap.put("date",date);
-        responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
-        return responseMap;
-    }
 
 
 }

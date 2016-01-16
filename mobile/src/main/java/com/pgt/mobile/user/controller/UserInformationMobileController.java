@@ -32,11 +32,7 @@ public class UserInformationMobileController extends BaseMobileController {
 	@Autowired
 	private UserInformationService userInformationService;
 
-	@Autowired
-	private SimpleCacheManager cacheManager;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserInformationMobileController.class);
-
 
 	// 创建或修改一个用户信息
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
