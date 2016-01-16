@@ -53,11 +53,19 @@
 </div>
 <div class="content">
     <div class="like">最新热卖</div>
+
     <c:forEach items="${data.hotSearchList}" var="hotSearchList" varStatus="status">
-        <div class="box3">
-            <a href="#" class="img1-left" style="background:url(/resources${hotSearchList.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
-        </div>
-    </c:forEach>
+        <c:if test="${status.index < 4}">
+            <div style="width:50%;flex:1;float:left">
+                <div style="width:100%;">
+                    <div class="box3">
+                        <a href="#" class="img1-left" style="background:url(/resources${hotSearchList.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+    </c:forEach>s
+
     <div class="box2">
         <c:forEach items="${data.hotProducts}" var="hotProducts" varStatus="hotProducts-status">
             <div class="like">  ${hotProducts.name} </div>
@@ -65,8 +73,7 @@
                 <div class="img1" style="background:url(/resources${hotProducts.category.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></div>
                 <c:forEach items="${hotProducts.hotProduct}" var="hotProduct" varStatus="s">
                     <c:if test="${s.index < 2}">
-                        <div class="img-top" style="background:url(/resources${hotProduct.thumbnailMedia.path}) no-repeat center center;background-size:100% 100%;">
-                        </div>
+                        <a href="#" class="img1-left" style="background:url(/resources${hotProduct.thumbnailMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
                     </c:if>
                 </c:forEach>
             </div>
@@ -100,4 +107,6 @@
     });
 </script>
 
+
+</body>
 </html>
