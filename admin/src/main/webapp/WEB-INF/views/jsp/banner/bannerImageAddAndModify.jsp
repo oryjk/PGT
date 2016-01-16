@@ -6,8 +6,6 @@
 <spring:url var="adminStaticPath" value="${adminStaticPath}"/>
 <admin:container id="productList" pageJsPath="/resources/banner/banner-add-and-modify.js" pageCssPath="/resources/banner/banner-add-and-modify.css" >
 
-    <script src="${pageContext.request.contextPath}/assets/others/jquery-date-and-time/jquery-calendar.js"></script>
-
     <input type="hidden" value="${staticServer}" id="staticServer"/>
             <div class="row">
                 <div class="col-xs-12">
@@ -161,3 +159,4 @@
     </div>
 </div>
 </admin:container>
+<script src="/resources/assets/others/Jquery-date-and-time/jquery-calendar.js"></script>

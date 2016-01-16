@@ -257,7 +257,6 @@ public class UserMobileController extends BaseMobileController {
         if (!resetUser.getSmsCode().equals(phoneCode)) {
            return responseMobileFail(responseMap, "User.phone.code.error");
         }
-
         //修改密码
         user.setPassword(resetUser.getPassword());
         userServiceImp.updateUserPassword(user);

@@ -8,10 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
-    <script src="resources/static/index/js/myfocus-2.0.4.min.js" type="text/javascript"></script>
-    <script src="resources/static/index/js/mf-pattern/mF_expo2010.js" type="text/javascript"></script>
-    <link href="resources/static/index/js/mf-pattern/mF_expo2010.css" rel="stylesheet" type="text/css">
-    <link href="resources/static/index/index.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/static/index/js/myfocus-2.0.4.min.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/resources/static/index/js/mf-pattern/mF_expo2010.js" type="text/javascript"></script>
+    <link href="${pageContext.request.contextPath}/resources/static/index/js/mf-pattern/mF_expo2010.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/static/index/index.css" rel="stylesheet">
 </head>
 <body>
 <div class="header">
@@ -33,19 +33,19 @@
         </div>
     </div>
     <div class="classification">
-        <a class="box1"><img src="resources/static/img/icon1.png">
+        <a class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon1.png">
 
             <div>分类查询</div>
         </a>
-        <a class="box1"><img src="resources/static/img/icon2.png">
+        <a class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon2.png">
 
             <div>购物车</div>
         </a>
-        <a class="box1"><img src="resources/static/img/icon3.png">
+        <a class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon3.png">
 
             <div>我的收藏</div>
         </a>
-        <a class="box1"><img src="resources/static/img/icon4.png">
+        <a class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon4.png">
 
             <div>我的账户</div>
         </a>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </c:if>
-    </c:forEach>s
+    </c:forEach>
 
     <div class="box2">
         <c:forEach items="${data.hotProducts}" var="hotProducts" varStatus="hotProducts-status">
