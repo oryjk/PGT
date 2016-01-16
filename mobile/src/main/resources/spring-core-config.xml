@@ -135,7 +135,7 @@
             </set>
         </property>
     </bean>
-    <bean class="com.pgt.data.MigrateData">
+    <bean class="com.pgt.data.MigrateDataListener">
         <property name="dataSource" ref="dataSource"/>
         <property name="esConfiguration" ref="esConfiguration"/>
         <property name="esSearchService" ref="esSearchService"/>

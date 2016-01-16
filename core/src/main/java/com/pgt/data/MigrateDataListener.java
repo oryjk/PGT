@@ -1,7 +1,6 @@
 package com.pgt.data;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.JsonUtil;
@@ -18,11 +17,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
  */
 
 
-public class MigrateData implements ApplicationListener<ContextRefreshedEvent> {
+public class MigrateDataListener implements ApplicationListener<ContextRefreshedEvent> {
 
 
-    @Autowired
-    private Configuration configuration;
     public ESConfiguration getEsConfiguration() {
         return esConfiguration;
     }
@@ -42,7 +39,7 @@ public class MigrateData implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private ESSearchService esSearchService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(MigrateData.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MigrateDataListener.class);
 
     public ComboPooledDataSource getDataSource() {
         return dataSource;
@@ -60,12 +57,12 @@ public class MigrateData implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (event.getApplicationContext().getParent() == null) {//root application context 没有parent，他就是老大.
-            try{
+            try {
                 migrate();
 //                jsonUtil.categoriesCreate(configuration.getInitialDataPath());
                 createIndex();
-            }catch(Exception e){
-                LOGGER.error("Some error occured when migration data.The error message is {}.",e.getMessage());
+            } catch (Exception e) {
+                LOGGER.error("Some error occured when migration data.The error message is {}.", e.getMessage());
             }
         }
     }
