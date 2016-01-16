@@ -27,6 +27,9 @@ public class CommerceItem implements Comparable<CommerceItem> {
 
 	private Delivery mDelivery;
 	private Media mSnapshotMedia;
+	private Integer type;
+	private Boolean occupy;
+
 
 	@Override
 	public int compareTo(final CommerceItem o) {
@@ -216,5 +219,21 @@ public class CommerceItem implements Comparable<CommerceItem> {
 
 	public void setMerchant(String mMerchant) {
 		this.mMerchant = mMerchant;
+	}
+
+	public Boolean getOccupy() {
+		return occupy;
+	}
+
+	public void setOccupy(Boolean occupy) {
+		this.occupy = occupy;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 }

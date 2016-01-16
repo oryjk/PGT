@@ -43,6 +43,8 @@ public class Product implements Serializable {
     private String merchant;
     private ProductMedia mobileDetailMedia;
 
+    private Integer tenderId;
+
     public List<ProductMedia> getMainMedias() {
         return mainMedias;
     }
@@ -285,5 +287,13 @@ public class Product implements Serializable {
 
     public void setMobileDetailMedia(ProductMedia mobileDetailMedia) {
         this.mobileDetailMedia = mobileDetailMedia;
+    }
+
+    public Integer getTenderId() {
+        return tenderId;
+    }
+
+    public void setTenderId(Integer tenderId) {
+        this.tenderId = tenderId;
     }
 }
