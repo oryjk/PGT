@@ -11,6 +11,11 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList" pageJsPath="/resources/product/product-base.js">
+	<style>
+		.pgt-error {
+			color: red;
+		}
+	</style>
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -49,15 +54,15 @@
 				</div>
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
-					<form:form modelAttribute="product" method="post" action="${action}" class="form-horizontal">
+					<form:form modelAttribute="product" id="productBase" method="post" action="${action}" class="form-horizontal">
 						<div class="form-body">
 							<!-- 只有在修改时才显示id行-->
 							<c:if test="${!empty product.productId}">
 								<div class="form-group">
-									<label class="col-md-3 control-label">id</label>
+									<label class="col-xs-3 control-label">id</label>
 									<input type="hidden" name="productId" value="${product.productId}"/>
 
-									<div class="col-md-4">
+									<div class="col-xs-4">
 										<p class="form-control-static">
 												${product.productId}
 										</p>
@@ -66,17 +71,20 @@
 							</c:if>
 
 							<div class="form-group">
-								<label class="col-md-3 control-label">产品名称:</label>
+								<label class="col-xs-3 control-label">产品名称:</label>
 
-								<div class="col-md-4">
-									<form:input path="name" placeholder="不超过30字" class="form-control"/>
+								<div class="col-xs-4">
+									<form:input path="name" placeholder="不超过30字" class="form-control  pgt-requisite-name"/>
+								</div>
+								<div class="col-xs-4">
+									<p class="form-control-static pgt-error">
 									</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">所属分类</label>
+								<label class="control-label col-xs-3">所属分类</label>
 
-								<div class="col-md-9">
+								<div class="col-xs-9">
 									<div class="radio-list">
 										<form:select path="relatedCategoryId" class="form-control input-medium">
 											<c:forEach items="${categories}" var="category">
@@ -95,9 +103,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">是否热门</label>
+								<label class="control-label col-xs-3">是否热门</label>
 
-								<div class="col-md-9">
+								<div class="col-xs-9">
 									<div class="radio-list">
 										<form:select path="isHot" class="form-control input-medium">
 											<form:option value="false">不热门</form:option>
@@ -107,72 +115,80 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">所属商家id</label>
+								<label class="col-xs-3 control-label">所属商家id</label>
 
-								<div class="col-md-4">
+								<div class="col-xs-4">
 									<form:input path="merchant" type="text" class="form-control" placeholder="商家id"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">卖点描述</label>
+								<label class="col-xs-3 control-label">卖点描述</label>
 
-								<div class="col-md-4">
+								<div class="col-xs-4">
 									<form:input path="title" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">产品编码</label>
+								<label class="col-xs-3 control-label">产品编码</label>
 
-								<div class="col-md-4">
+								<div class="col-xs-4">
 									<form:input path="serialNumber" class="form-control" placeholder=""/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">关键字</label>
+								<label class="col-xs-3 control-label">关键字</label>
 
-								<div class="col-md-4">
+								<div class="col-xs-4">
 									<form:input path="keyWord" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">款式</label>
+								<label class="col-xs-3 control-label">款式</label>
 
-								<div class="col-md-4">
+								<div class="col-xs-4">
 									<form:input path="shortDescription" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">成色</label>
+								<label class="col-xs-3 control-label">成色</label>
 
-								<div class="col-md-4">
+								<div class="col-xs-4">
 									<form:input path="isNew" class="form-control" placeholder="不超过10字"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">库存</label>
+								<label class="col-xs-3 control-label">库存</label>
 
-								<div class="col-md-4">
+								<div class="col-xs-4">
 									<form:input path="stock" class="form-control" placeholder="不超过20字" value="1"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">市场价</label>
+								<label class="col-xs-3 control-label">市场价</label>
 
-								<div class="col-md-4">
-									<form:input path="listPrice" class="form-control" placeholder="格式为xxxx.xx"/>
+								<div class="col-xs-4">
+									<form:input path="listPrice" class="form-control pgt-requisite-price1" placeholder="格式为xxxx.xx"/>
+								</div>
+								<div class="col-xs-4">
+									<p class="form-control-static pgt-error">
+									</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">绝当价</label>
+								<label class="col-xs-3 control-label">绝当价</label>
 
-								<div class="col-md-4">
-									<form:input path="salePrice" class="form-control" placeholder="格式为xxxx.xx"/>
+								<div class="col-xs-4">
+									<form:input path="salePrice" class="form-control pgt-requisite-price2" placeholder="格式为xxxx.xx"/>
+								</div>
+								<div class="col-xs-4">
+									<p class="form-control-static pgt-error">
+									</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">状态</label>
+								<label class="control-label col-xs-3">状态</label>
 
-								<div class="col-md-9">
+								<div class="col-xs-9">
 									<div class="radio-list">
 										<form:select path="status" class="form-control input-medium">
 											<form:option value="1">启用</form:option>
@@ -186,7 +202,7 @@
 
 						<div class="form-actions top">
 							<div class="row">
-								<div class="col-md-offset-3 col-md-9">
+								<div class="col-xs-offset-3 col-xs-9">
 									<button type="submit" class="btn blue-hoki" id="newStep">下一步</button>
 									<button type="button" class="btn default">取消</button>
 								</div>

@@ -97,7 +97,7 @@
                         </div>
                         <div class="text3">
                             <span style="color: red"> *</span>身份证号
-                            <input type="text" class="input-text2" name="idCard" value="${userInformation.idCard}" >
+                            <input type="text" class="input-text6" name="idCard" value="${userInformation.idCard}" >
                         </div>
                         <div class="text3">
                             <div class="input-text5">

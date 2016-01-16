@@ -141,6 +141,10 @@ $(document).on('click', '.pgt-img-delete', function(event) {
     })
 });
 
+
+
+
+
 function inspect() {
     $('[data-pgt-btn="single"]').each(function() {
         var $this = $(this);
