@@ -28,6 +28,7 @@ public class Order implements OrderType, OrderStatus {
 	private Date mUpdateDate;
 	private Date mSubmitDate;
 	private boolean mEasyBuy;
+	private Integer p2pInfoId;
 
 	public Order() {
 
@@ -279,5 +280,13 @@ public class Order implements OrderType, OrderStatus {
 
 	public void setPayment(final PaymentGroup pPayment) {
 		mPayment = pPayment;
+	}
+
+	public Integer getP2pInfoId() {
+		return p2pInfoId;
+	}
+
+	public void setP2pInfoId(Integer p2pInfoId) {
+		this.p2pInfoId = p2pInfoId;
 	}
 }
