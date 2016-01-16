@@ -1,5 +1,5 @@
 -- -----------------------------------------------------
--- Table `dianjinzi`.`PAWN_SHOP`
+-- Table `PAWN_SHOP`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `PAWN_SHOP` ;
 
@@ -16,7 +16,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dianjinzi`.`TENDER`
+-- Table `TENDER`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `TENDER` ;
 
@@ -40,11 +40,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dianjinzi`.`PAWN_TICKET`
+-- Table `PAWN_TICKET`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `PAWN_TICKET` ;
 
-CREATE TABLE IF NOT EXISTS `dianjinzi`.`PAWN_TICKET` (
+CREATE TABLE IF NOT EXISTS `PAWN_TICKET` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `NUM` VARCHAR(100) NULL,
   `PAWN_SHOP_ID` VARCHAR(45) NULL,
@@ -55,7 +55,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dianjinzi`.`P2P_INFO`
+-- Table `P2P_INFO`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `P2P_INFO` ;
 
