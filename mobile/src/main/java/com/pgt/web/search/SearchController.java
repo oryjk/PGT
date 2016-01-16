@@ -19,7 +19,7 @@ public class SearchController {
     @Autowired
     ESSearchMobileController esSearchMobileController;
 
-    @RequestMapping("web/search")
+    @RequestMapping("/web/search")
     public ModelAndView search(ModelAndView modelAndView){
         EssearchBean essearchBean = new EssearchBean();
         essearchBean.setTerm("玉石");

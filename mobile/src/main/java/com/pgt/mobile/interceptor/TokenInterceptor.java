@@ -57,6 +57,13 @@ public class TokenInterceptor implements HandlerInterceptor {
           return true;
         }
 
+        //web手机端不需要登陆的请求，放行
+        if (url.matches(PathConstant.NO_LOGIN_INTERCEPTOR_PATH)) {
+            LOGGER.debug("Not need interceptor.");
+            return true;
+        }
+
+
         //不需要登陆的请求,放行
         if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH)) {
             LOGGER.debug("Not need interceptor.");
