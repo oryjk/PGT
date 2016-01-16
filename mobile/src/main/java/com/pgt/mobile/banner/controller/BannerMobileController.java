@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,22 @@ public class BannerMobileController extends BaseMobileController{
             return responseMobileFail(responseMap, "BannerList.empty");
         }
         responseMap.put("banner",banner);
+        responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+        return responseMap;
+    }
+
+
+    @RequestMapping(value="/querytime",method = RequestMethod.POST)
+    public Map<String,Object> querytime(){
+
+        Map<String,Object> responseMap = new HashMap<String,Object>();
+
+
+        Date  date = new Date();
+
+        System.out.print("--------------------------------------------------------------------"+date);
+
+        responseMap.put("date",date);
         responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
         return responseMap;
     }

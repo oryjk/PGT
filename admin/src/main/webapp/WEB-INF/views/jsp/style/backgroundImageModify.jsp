@@ -51,30 +51,30 @@
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
 
-					<div id="imgUpload" class="pgt-img-upload">
-						<div class="row">
-							<div class="col-md-8">
-								<div class="pgt-each-img">
-									<div class="pgt-handle-box">
-										<a id="pgt-header-delete" class="pgt-img-delete" data-url="/media/delete/${pageBackground.headerMedia.id}">删除</a>
-									</div>
-									<img id="pgt-header-img" class="pgt-category-img" src="${pageBackground.headerMedia.path}" alt=""/>
-									<p>200 * 200</p>
+
+					<div class="row">
+						<div class="col-md-8">
+							<div class="pgt-each-img">
+								<div class="pgt-handle-box">
+									<a id="pgt-header-delete" class="pgt-img-delete" data-url="/media/delete/${pageBackground.headerMedia.id}">删除</a>
 								</div>
-							</div>
-						</div>
-						<div class="row">
-							<label class="col-md-12 control-label">头部图片</label>
-							<div class="col-md-12">
-								<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-									<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
-									<input name="mediaType" type="hidden" value="header"/>
-									<button type="button" class="btn blue">选择图片</button>
-								</form>
-								<p></p>
+								<img id="pgt-header-img" class="pgt-category-img" src="${pageBackground.headerMedia.path}" alt=""/>
+								<p>200 * 200</p>
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<label class="col-md-12 control-label">头部图片</label>
+						<div class="col-md-12">
+							<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+								<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
+								<input name="mediaType" type="hidden" value="header"/>
+								<button type="button" class="btn blue">选择图片</button>
+							</form>
+							<p></p>
+						</div>
+					</div>
+
 
 
 					<div class="row">

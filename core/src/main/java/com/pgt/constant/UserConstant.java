@@ -5,6 +5,7 @@ package com.pgt.constant;
  */
 public class UserConstant {
     public static final String CURRENT_USER = "currentUser";
+    public static final String TOKEN = "token";
     public static final Integer OVERDUE = 864000000;
     public static final String UNKNOWN_ERROR = "unnownError";
     public static final String PASSWORD_NOT_SAME = "passwordNotSame";

@@ -1,12 +1,17 @@
 package com.pgt.mobile.user.controller;
 
+import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.service.ProductBrowseTrackService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.Constants;
+import com.pgt.constant.UserConstant;
 import com.pgt.integration.yeepay.direct.service.DirectYeePay;
 import com.pgt.mobile.base.controller.BaseMobileController;
 import com.pgt.mobile.base.constans.MobileConstans;
+import com.pgt.mobile.utils.TokenUtils;
+import com.pgt.token.bean.Token;
+import com.pgt.token.service.TokenService;
 import com.pgt.user.bean.User;
 import com.pgt.user.service.imp.UserServiceImp;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -28,10 +33,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * @author zhangxiaodong 2015年12月5日
+ */
 @RestController
 @RequestMapping("/mUser")
 public class UserMobileController extends BaseMobileController {
@@ -52,13 +60,16 @@ public class UserMobileController extends BaseMobileController {
     private SimpleCacheManager cacheManager;
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     private Configuration configuration;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserMobileController.class);
 
 
     @RequestMapping(value = "/mLogin", method = RequestMethod.POST)
-    public  Map<String, Object> mobileLogin(User user) {
+    public  Map<String, Object> mobileLogin(User user,HttpServletRequest request) {
 
         Map<String, Object> responseMap = new HashMap<>();
 
@@ -69,9 +80,8 @@ public class UserMobileController extends BaseMobileController {
             return responseMobileFail(responseMap, "PhoneId.empty");
         }
         LOGGER.debug("The phone id is {}.", user.getPhoneId());
-        Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
-        Cache.ValueWrapper valueWrapper = cache.get(user.getPhoneId());
-        if (!ObjectUtils.isEmpty(valueWrapper)) {
+        User oldUser = (User)request.getSession().getAttribute(UserConstant.CURRENT_USER);
+        if(!ObjectUtils.isEmpty(oldUser)){
             return responseMobileFail(responseMap, "User.alreadyLogin");
         }
 
@@ -89,16 +99,34 @@ public class UserMobileController extends BaseMobileController {
         if (!userResult.getPassword().equals(encryptedPassword)) {
             return responseMobileFail(responseMap, "Error.password.error");
         }
+
         TransactionStatus status = ensureTransaction();
         // update last login date
         userServiceImp.updateLastLogin(userResult.getId());
+
+        Token token = new Token();
+        Token tokenQuery = new Token();
+        tokenQuery.setUsername(user.getUsername());
+        tokenQuery.setPhoneId(user.getPhoneId());
+        Token tokenResult =tokenService.queryToken(tokenQuery);
+        if(!ObjectUtils.isEmpty(tokenResult)){
+            tokenService.deleteTokenById(tokenResult.getId());
+        }
+        String tokenNumber =TokenUtils.generateToken(user.getPhoneId(),user.getUsername());
+        token.setCreateDate(new Date());
+        token.setPhoneId(user.getPhoneId());
+        token.setUsername(user.getUsername());
+        token.setOutDate(TokenUtils.getTokenOutTime());
+        token.setTokenNumber(tokenNumber);
+        tokenService.createToken(token);
         getTransactionManager().commit(status);
+
         responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
         responseMap.put("user", userResult);
-
-        Cache cache2 = cacheManager.getCache(MobileConstans.PHONE_USER);
-
-        cache2.put(user.getPhoneId(), userResult);
+        responseMap.put("token",tokenNumber);
+        HttpSession session=request.getSession();
+        session.setAttribute(UserConstant.CURRENT_USER,userResult);
+        session.setAttribute(UserConstant.TOKEN,token);
         return responseMap;
     }
 
@@ -145,12 +173,10 @@ public class UserMobileController extends BaseMobileController {
         if(StringUtils.isEmpty(newUserPassword.getPhoneId())){
             return responseMobileFail(responseMap, "PhoneId.empty");
         }
-        Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
-        Cache.ValueWrapper valueWrapper = cache.get(newUserPassword.getPhoneId());
-        if (ObjectUtils.isEmpty(valueWrapper)) {
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        if(ObjectUtils.isEmpty(user)){
             return responseMobileFail(responseMap, "User.empty");
         }
-       User user= (User) valueWrapper.get();
 
         if(StringUtils.isEmpty(newUserPassword.getPhoneId())){
             return responseMobileFail(responseMap, "PhoneId.empty");
@@ -176,37 +202,39 @@ public class UserMobileController extends BaseMobileController {
 
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public  Map<String,Object> logout(String phoneId) {
+    public  Map<String,Object> logout(HttpServletRequest request,String phoneId,String username,String token) {
         Map<String,Object> responseMap = new HashMap<String,Object>();
         if(StringUtils.isEmpty(phoneId)) {
             return responseMobileFail(responseMap, "PhoneId.empty");
         }
-        Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
-        Cache.ValueWrapper valueWrapper = cache.get(phoneId);
-        if (ObjectUtils.isEmpty(valueWrapper)) {
-            responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
-            return responseMap;
-        }
-        cache.evict(phoneId);
+        HttpSession session=request.getSession();
+        session.removeAttribute(UserConstant.CURRENT_USER);
+        session.removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
+        session.removeAttribute(Constants.LOGIN_SESSION_SECURITY_CODE);
+        session.removeAttribute(CartConstant.CURRENT_ORDER);
+
+        Token tokenQuery = new Token();
+        tokenQuery.setUsername(username);
+        tokenQuery.setPhoneId(phoneId);
+        Token tokenResult =tokenService.queryToken(tokenQuery);
+        tokenService.deleteTokenById(tokenResult.getId());
+        LOGGER.debug("The logout userId is {} ",tokenQuery.getId());
         responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
         return responseMap;
     }
 
 
     @RequestMapping(value = "/resetPassword",method=RequestMethod.POST)
-    public  Map<String,Object> resetPassword(User resetUser,HttpServletRequest request){
+    public  Map<String,Object> resetPassword(User resetUser,HttpServletRequest request,HttpSession session){
 
         Map<String,Object> responseMap = new HashMap<String,Object>();
         if(StringUtils.isEmpty(resetUser.getPhoneId())) {
             return responseMobileFail(responseMap, "PhoneId.empty");
         }
-        Cache cacheUser = cacheManager.getCache(MobileConstans.PHONE_USER);
-        Cache.ValueWrapper valueWrapperUser = cacheUser.get(resetUser.getPhoneId());
-        if (ObjectUtils.isEmpty(valueWrapperUser)) {
-            responseMobileFail(responseMap, "User.empty");
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        if(ObjectUtils.isEmpty(user)){
+            return responseMobileFail(responseMap, "User.empty");
         }
-        User user= (User) valueWrapperUser.get();
-
         if(ObjectUtils.isEmpty(resetUser)){
           return  responseMobileFail(responseMap, "restUser.empty");
         }
