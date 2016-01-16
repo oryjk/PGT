@@ -1,6 +1,7 @@
 package com.pgt.mobile.interceptor;
 import com.pgt.constant.Constants;
 import com.pgt.constant.PathConstant;
+import com.pgt.constant.UserConstant;
 import com.pgt.mobile.base.constans.MobileConstans;
 import com.pgt.token.bean.Token;
 import com.pgt.token.service.TokenService;
@@ -46,7 +47,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         LOGGER.info("url:" + url);
 
         LOGGER.debug("TokenInterceptor has run");
-        User user= (User) request.getSession().getAttribute(Constants.USER);
+        User user= (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
         LOGGER.debug("The session createTime {}",request.getSession().getCreationTime());
         LOGGER.debug("The session lastAccessTime {}",request.getSession().getLastAccessedTime());
 

@@ -5,6 +5,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <spring:url var="adminStaticPath" value="${adminStaticPath}"/>
 <admin:container id="productList" pageJsPath="/resources/others/background-add-and-modify.js" pageCssPath="/resources/banner/banner-add-and-modify.css" >
+
+
     <input type="hidden" value="${pageBackground.pageBackgroundId}" id="pageBackgroundId"/>
     <div class="page-content">
         <div class="container-fluid pgt-container">
@@ -64,7 +66,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">开始时间:</label>
                                         <div class="col-md-4">
-                                            <input type="text" name="startDate" value="${pageBackground.startDate}" class="form-control" placeholder="" maxlength="25" onfocus="$(this).calendar()">
+                                            <input type="text" name="startDate" value="${pageBackground.startDate}" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
                                             </p>
                                         </div>
                                     </div>
@@ -72,7 +74,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">结束时间:</label>
                                         <div class="col-md-4">
-                                            <input type="text" name="endDate" value="${pageBackground.endDate}" class="form-control" placeholder="" maxlength="25" onfocus="$(this).calendar()">
+                                            <input type="text" name="endDate" value="${pageBackground.endDate}" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
                                             </p>
                                         </div>
                                     </div>
@@ -100,3 +102,4 @@
 </div>
 
 </admin:container>
+<script src="/resources/assets/others/Jquery-date-and-time/jquery-calendar.js"></script>
