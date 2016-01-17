@@ -108,7 +108,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 
-	@RequestMapping(value = "/internal/iu-modify")//, method = RequestMethod.GET)
+	@RequestMapping(value = "/internal/iu-modify", method = RequestMethod.GET)
 	public ModelAndView internalUserModify (HttpServletRequest pRequest, HttpServletResponse pResponse,
 	                                        @RequestParam(value = "uid", required = true) String uid) {
 		// verify permission
@@ -699,6 +699,25 @@ public class InternalUserController extends InternalTransactionBaseController im
 		}
 		rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_GENERAL_UPDATE_USER_FAILED);
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/internal/mine", method = RequestMethod.GET)
+	public ModelAndView internalUserOfMineRead (HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		// verify permission
+		if (!verifyPermission(pRequest)) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
+		InternalUser iu = getCurrentInternalUser(pRequest);
+		LOGGER.debug("Load internal user with id: {} to display", iu.getId());
+		if (getRolePermissionService().validAdministratorRole(iu.getRole())) {
+			LOGGER.debug("Current internal user has Administrator role, so he could update his information.");
+			ModelAndView mav = new ModelAndView("forward:/internal/iu-modify?uid=" + iu.getId());
+			return mav;
+		}
+		ModelAndView mav = new ModelAndView("/internal/iu-mine");
+		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
+		return mav;
 	}
 
 	protected String captureIpAddress (HttpServletRequest pRequest) {

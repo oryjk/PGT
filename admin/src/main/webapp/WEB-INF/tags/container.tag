@@ -207,7 +207,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="javascript:;">
+                                <a href="/internal/mine">
                                     <i class="icon-user"></i> 我的资料 </a>
                             </li>
                             <li>
@@ -237,7 +237,7 @@
                     <!-- BEGIN USER LOGIN DROPDOWN -->
                     <li class="dropdown dropdown-extended quick-sidebar-toggler">
                         <span class="sr-only">Toggle Quick Sidebar</span>
-                        <i class="icon-logout" onclick="javascript:window.location.href='/logout'"></i>
+                        <i class="icon-logout" onclick="window.location.href='/logout'"></i>
                     </li>
                     <!-- END USER LOGIN DROPDOWN -->
                 </ul>
@@ -346,13 +346,11 @@
                             用户管理 <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <%--//TODO
                             <li>
-                                <a href=":;">
+                                <a href="/internal/mine">
                                     <i class="fa-angle-right"></i>
                                     我的信息 </a>
                             </li>
-                            --%>
                             <li class=" dropdown-submenu">
                                 <a href=":;">
                                     <i class="icon-briefcase"></i>
