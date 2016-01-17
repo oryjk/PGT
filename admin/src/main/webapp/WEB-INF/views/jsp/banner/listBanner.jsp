@@ -108,7 +108,7 @@
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-xs green btn-circle" onclick="javascript:window.location.href='/bannerImage/createImageUI/${banner.bannerId}'" >新增</button>
-                                                    <button class="btn btn-xs red btn-circle" onclick="javascript:window.location.href='/banner/queryBanner/${banner.bannerId}'">列表</button>
+                                                    <button class="btn btn-xs red btn-circle" onclick="javascript:window.location.href='/banner/queryBanner?bannerId=${banner.bannerId}'">列表</button>
                                                 </td>
                                             </tr>
 

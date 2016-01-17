@@ -68,6 +68,10 @@ public interface ImageMapper extends SqlMapper {
 	 * @return
 	 */
 	List<Image> queryAllImageByLocation(ImageCustom imageCustom);
+
+	List<Image> queryImageByBanner(Integer bannerId);
+
+	Integer queryImageByBannerCount(Integer bannerId);
 	
 	
 }

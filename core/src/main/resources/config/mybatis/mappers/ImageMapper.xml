@@ -102,4 +102,16 @@
 	</select>
 
 
+	<select id="queryImageByBanner" parameterType="Integer"
+			resultMap="ImageResult">
+		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID} ORDER BY LOCATION ASC
+	</select>
+
+
+	<select id="queryImageByBannerCount" parameterType="Integer"
+			resultType="Integer">
+		SELECT count(*) FROM IMAGE WHERE BANNER_ID = #{BANNER_ID}
+	</select>
+
+
 </mapper>
