@@ -52,7 +52,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ModelAndView login (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView("/login");
 		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(INTERNAL_USER);
 		if (iu != null && RepositoryUtils.idIsValid(iu.getId()) && iu.isAvailable()) {
@@ -65,7 +65,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logout(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ModelAndView logout (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		pRequest.getSession().invalidate();
 		Cookie cookie = new Cookie(CookieConstant.INTERNAL_LOGIN_TOKEN, StringUtils.EMPTY);
 		cookie.setMaxAge(0);
@@ -74,24 +74,27 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 	@RequestMapping(value = "/internal/register", method = RequestMethod.GET)
-	public ModelAndView signUp(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		ModelAndView mav = new ModelAndView("/internal/register");
-		InternalUser iu = (InternalUser) pRequest.getSession().getAttribute(INTERNAL_USER);
-		if (iu != null && RepositoryUtils.idIsValid(iu.getId()) && iu.isAvailable()) {
-			// internal user has already login
-			LOGGER.debug("Internal user: {} already stay in login state, logout before try to register.", iu.getLogin());
-			mav.setViewName(REDIRECT_DASHBOARD);
-			return mav;
+	public ModelAndView signUp (HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		// verify permission
+		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
+			return new ModelAndView(PERMISSION_DENIED);
 		}
+		// main logic
+		ModelAndView mav = new ModelAndView("/internal/register");
 		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
 		return mav;
 	}
 
 	@RequestMapping(value = "/internal/iu-list")//, method = RequestMethod.GET)
-	public ModelAndView listInternalUser(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
-			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
-			@RequestParam(value = "keyword", required = false) String keyword) {
+	public ModelAndView listInternalUser (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                      @RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
+	                                      @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
+	                                      @RequestParam(value = "keyword", required = false) String keyword) {
+		// verify permission
+		if (!verifyPermission(pRequest)) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
 		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		LOGGER.debug("Query internal users with index: {}, capacity: {} and keyword: {}", ciLong, caLong, keyword);
@@ -105,9 +108,14 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 
-	@RequestMapping(value = "/internal/iu-modify")//, method = RequestMethod.GET)
-	public ModelAndView internalUserModify(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "uid", required = true) String uid) {
+	@RequestMapping(value = "/internal/iu-modify", method = RequestMethod.GET)
+	public ModelAndView internalUserModify (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                        @RequestParam(value = "uid", required = true) String uid) {
+		// verify permission
+		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		ModelAndView mav = new ModelAndView("/internal/iu-modify");
 		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
 		LOGGER.debug("Load internal user with id: {} to modify", uid);
@@ -125,10 +133,10 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView authorize(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "login", required = true) String login,
-			@RequestParam(value = "password", required = true) String password,
-			@RequestParam(value = "remember", required = false, defaultValue = "false") boolean remember) {
+	public ModelAndView authorize (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                               @RequestParam(value = "login", required = true) String login,
+	                               @RequestParam(value = "password", required = true) String password,
+	                               @RequestParam(value = "remember", required = false, defaultValue = "false") boolean remember) {
 		// trim login
 		login = login.trim();
 		ModelAndView mav = new ModelAndView("/login");
@@ -186,11 +194,11 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return mav;
 	}
 
-	@RequestMapping(value = "/ajaxAuthorize", method = RequestMethod.GET)
+	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity ajaxAuthorize(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "login", required = true) String login,
-			@RequestParam(value = "password", required = true) String password) {
+	public ResponseEntity ajaxAuthorize (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                     @RequestParam(value = "login", required = true) String login,
+	                                     @RequestParam(value = "password", required = true) String password) {
 		// trim login
 		login = login.trim();
 		// check internal user exist
@@ -245,13 +253,18 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 	@RequestMapping(value = "/internal/register", method = RequestMethod.POST)
-	public ModelAndView register(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "login", required = true) String login,
-			@RequestParam(value = "password", required = true) String password,
-			@RequestParam(value = "passwordConfirm", required = true) String passwordConfirm,
-			@RequestParam(value = "role", required = true) Role role,
-			@RequestParam(value = "investType", required = false) InternalUserInvestType investType,
-			String name, String phone, String email, String available) {
+	public ModelAndView register (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                              @RequestParam(value = "login", required = true) String login,
+	                              @RequestParam(value = "password", required = true) String password,
+	                              @RequestParam(value = "passwordConfirm", required = true) String passwordConfirm,
+	                              @RequestParam(value = "role", required = true) Role role,
+	                              @RequestParam(value = "investType", required = false) InternalUserInvestType investType,
+	                              String name, String phone, String email, String available) {
+		// verify permission
+		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
 		iub.setName(name).setPhone(phone).setEmail(email).setAvailable(available);
 		ModelAndView mav = new ModelAndView("/internal/register");
@@ -344,17 +357,22 @@ public class InternalUserController extends InternalTransactionBaseController im
 
 	@RequestMapping(value = "/internal/ajaxRegister", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity ajaxRegister(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "login", required = true) String login,
-			@RequestParam(value = "password", required = true) String password,
-			@RequestParam(value = "passwordConfirm", required = true) String passwordConfirm,
-			@RequestParam(value = "role", required = true) Role role,
-			@RequestParam(value = "investType", required = false) InternalUserInvestType investType,
-			String name, String phone, String email, String available) {
-		InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
-		iub.setName(name).setPhone(phone).setEmail(email).setAvailable(available);
+	public ResponseEntity ajaxRegister (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                    @RequestParam(value = "login", required = true) String login,
+	                                    @RequestParam(value = "password", required = true) String password,
+	                                    @RequestParam(value = "passwordConfirm", required = true) String passwordConfirm,
+	                                    @RequestParam(value = "role", required = true) Role role,
+	                                    @RequestParam(value = "investType", required = false) InternalUserInvestType investType,
+	                                    String name, String phone, String email, String available) {
 		// set default success as false
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// verify permission
+		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
+			return new ResponseEntity(rb.createResponse(), HttpStatus.FORBIDDEN);
+		}
+		// main logic
+		InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
+		iub.setName(name).setPhone(phone).setEmail(email).setAvailable(available);
 		// check fields
 		if (!getInternalUserValidationService().getLoginRegexValidator().match(login)) {
 			LOGGER.debug("Register internal user with invalid login: {}", login);
@@ -442,27 +460,38 @@ public class InternalUserController extends InternalTransactionBaseController im
 
 	@RequestMapping(value = "/internal/iu-list-data")//, method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity listInternalUserData(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
-			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
-			@RequestParam(value = "keyword", required = false) String keyword) {
+	public ResponseEntity listInternalUserData (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                            @RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
+	                                            @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
+	                                            @RequestParam(value = "keyword", required = false) String keyword) {
+		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// verify permission
+		if (!verifyPermission(pRequest)) {
+			return new ResponseEntity(rb.createResponse(), HttpStatus.FORBIDDEN);
+		}
+		// main logic
 		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
 		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		LOGGER.debug("Query internal users with index: {}, capacity: {} and keyword: {}", ciLong, caLong, keyword);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder();
 		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword).createInternalPagination();
 		getInternalUserService().queryInternalUserPage(pagination);
-		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setData(pagination);
+		rb = getResponseBuilderFactory().buildResponseBean().setSuccess(true).setData(pagination);
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/internal/iu-batch-available-update")//, method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity updateBatchInternalUserAvailable(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "ids", required = true) int[] ids,
-			@RequestParam(value = "available", required = true) boolean available) {
+	public ResponseEntity updateBatchInternalUserAvailable (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                                        @RequestParam(value = "ids", required = true) int[] ids,
+	                                                        @RequestParam(value = "available", required = true) boolean available) {
 		// set default success as false
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// verify permission
+		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
+			return new ResponseEntity(rb.createResponse(), HttpStatus.FORBIDDEN);
+		}
+		// main logic
 		if (ArrayUtils.isEmpty(ids)) {
 			LOGGER.debug("No internal user need to update available state.");
 			rb.addErrorMessage(PROP_USER_IDS, WARN_USER_IDS_EMPTY);
@@ -488,8 +517,13 @@ public class InternalUserController extends InternalTransactionBaseController im
 	}
 
 	@RequestMapping(value = "/internal/iu-modify", method = RequestMethod.POST)
-	public ModelAndView internalUserUpdate(HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
-			@RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
+	public ModelAndView internalUserUpdate (HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
+	                                        @RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
+		// verify permission
+		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		ModelAndView mav = new ModelAndView("/internal/iu-modify");
 		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
 		mav.addObject(ResponseConstant.INTERNAL_USER, internalUser);
@@ -576,10 +610,15 @@ public class InternalUserController extends InternalTransactionBaseController im
 
 	@RequestMapping(value = "/internal/ajax-iu-modify", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity ajaxInternalUserUpdate(HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
-			@RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
+	public ResponseEntity ajaxInternalUserUpdate (HttpServletRequest pRequest, HttpServletResponse pResponse, InternalUser internalUser,
+	                                              @RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
 		// set default success as false
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// verify permission
+		if (!verifyPermission(pRequest)) {
+			return new ResponseEntity(rb.createResponse(), HttpStatus.FORBIDDEN);
+		}
+		// main logic
 		if (internalUser == null || !RepositoryUtils.idIsValid(internalUser.getId())) {
 			LOGGER.debug("Cannot update internal user information for invalid id");
 			rb.addErrorMessage(PROP_USER_ID, ERROR_USER_ID_INVALID);
@@ -662,7 +701,26 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
-	protected String captureIpAddress(HttpServletRequest pRequest) {
+	@RequestMapping(value = "/internal/mine", method = RequestMethod.GET)
+	public ModelAndView internalUserOfMineRead (HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		// verify permission
+		if (!verifyPermission(pRequest)) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
+		InternalUser iu = getCurrentInternalUser(pRequest);
+		LOGGER.debug("Load internal user with id: {} to display", iu.getId());
+		if (getRolePermissionService().validAdministratorRole(iu.getRole())) {
+			LOGGER.debug("Current internal user has Administrator role, so he could update his information.");
+			ModelAndView mav = new ModelAndView("forward:/internal/iu-modify?uid=" + iu.getId());
+			return mav;
+		}
+		ModelAndView mav = new ModelAndView("/internal/iu-mine");
+		mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
+		return mav;
+	}
+
+	protected String captureIpAddress (HttpServletRequest pRequest) {
 		String ip = pRequest.getHeader("x-forwarded-for");
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = pRequest.getHeader("Proxy-Client-IP");
@@ -676,27 +734,27 @@ public class InternalUserController extends InternalTransactionBaseController im
 		return ip;
 	}
 
-	public InternalUserService getInternalUserService() {
+	public InternalUserService getInternalUserService () {
 		return mInternalUserService;
 	}
 
-	public void setInternalUserService(final InternalUserService pInternalUserService) {
+	public void setInternalUserService (final InternalUserService pInternalUserService) {
 		mInternalUserService = pInternalUserService;
 	}
 
-	public InternalUserValidationService getInternalUserValidationService() {
+	public InternalUserValidationService getInternalUserValidationService () {
 		return mInternalUserValidationService;
 	}
 
-	public void setInternalUserValidationService(final InternalUserValidationService pInternalUserValidationService) {
+	public void setInternalUserValidationService (final InternalUserValidationService pInternalUserValidationService) {
 		mInternalUserValidationService = pInternalUserValidationService;
 	}
 
-	public ResponseBuilderFactory getResponseBuilderFactory() {
+	public ResponseBuilderFactory getResponseBuilderFactory () {
 		return mResponseBuilderFactory;
 	}
 
-	public void setResponseBuilderFactory(final ResponseBuilderFactory pResponseBuilderFactory) {
+	public void setResponseBuilderFactory (final ResponseBuilderFactory pResponseBuilderFactory) {
 		mResponseBuilderFactory = pResponseBuilderFactory;
 	}
 }

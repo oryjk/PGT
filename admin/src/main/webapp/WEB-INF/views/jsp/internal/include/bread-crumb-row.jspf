@@ -30,6 +30,9 @@
                 <c:when test="${param.step eq 'iu-modify'}">
                     <li>修改管理员</li>
                 </c:when>
+                <c:when test="${param.step eq 'iu-mine'}">
+                    <li>我的资料</li>
+                </c:when>
             </c:choose>
         </ul>
     </div>

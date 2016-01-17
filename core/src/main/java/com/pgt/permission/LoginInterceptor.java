@@ -36,7 +36,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 log.debug("Not need interceptor.");
                 return true;
             }
-            response.sendRedirect(PathConstant.LOGIN_PATH);
+            response.sendRedirect(PathConstant.LOGIN_PAGE);
             return false;
 //            request.getRequestDispatcher(PathConstant.LOGIN_PATH).forward(request, response);
 //            return false;
