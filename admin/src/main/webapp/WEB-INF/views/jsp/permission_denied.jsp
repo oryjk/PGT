@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-Forbidden - No permission to continue.
+<h2>Forbidden - No permission to continue.</h2>
+<p>Click <a href="/logout">HERE</a> to login a account which has permissions.</p>
 </body>
 </html>

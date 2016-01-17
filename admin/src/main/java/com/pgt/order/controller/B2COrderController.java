@@ -56,7 +56,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	                                   @RequestParam(value = "submitTimeBeg", required = false) String submitTimeBeg,
 	                                   @RequestParam(value = "submitTimeEnd", required = false) String submitTimeEnd) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
 			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
 		}
@@ -80,7 +80,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	public ModelAndView loadOrderHistoryDetails (HttpServletRequest pRequest, HttpServletResponse pResponse,
 	                                             @RequestParam(value = "id") String orderId) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
 			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
 		}
@@ -194,7 +194,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	                                           @RequestParam(value = "id", required = true) String id,
 	                                           @RequestParam(value = "cid", required = true) String cid) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
 			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
 		}
@@ -218,7 +218,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	                                  @RequestParam(value = "deliveryTimeStr", required = false) String deliveryTimeStr,
 	                                  Delivery delivery) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
 			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
 		}
@@ -253,7 +253,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	                                 @RequestParam(value = "id", required = true) String id,
 	                                 @RequestParam(value = "cid", required = true) String cid) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
 			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
 		}
