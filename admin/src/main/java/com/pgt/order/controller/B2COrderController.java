@@ -58,7 +58,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		// permission verify
 		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
@@ -82,7 +82,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		// permission verify
 		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		int orderIdInt = RepositoryUtils.safeParseId(orderId);
@@ -99,7 +99,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/b2c-order/b2c-orders");
@@ -196,7 +196,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		// permission verify
 		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/b2c-order/order-info?id=" + id);
@@ -220,7 +220,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		// permission verify
 		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/order/delivery?id=" + id + "&cid=" + cid);
@@ -255,7 +255,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		// permission verify
 		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/order/order-info?id=" + id);

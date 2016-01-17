@@ -23,10 +23,10 @@ import java.util.Locale;
  */
 public abstract class InternalTransactionBaseController implements AdminSessionConstant {
 
-	protected static final String REDIRECT_DASHBOARD         = "redirect:/";
-	protected static final String REDIRECT_LOGIN             = "redirect:/login";
-	protected static final String REDIRECT_PERMISSION_DENIED = "/permission_denied";
-	private static final   Logger LOGGER                     = LoggerFactory.getLogger(InternalTransactionBaseController.class);
+	protected static final String REDIRECT_DASHBOARD = "redirect:/";
+	protected static final String REDIRECT_LOGIN     = "redirect:/login";
+	protected static final String PERMISSION_DENIED  = "/permission_denied";
+	private static final   Logger LOGGER             = LoggerFactory.getLogger(InternalTransactionBaseController.class);
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;

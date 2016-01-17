@@ -77,7 +77,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	public ModelAndView signUp (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		// verify permission
 		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("/internal/register");
@@ -92,7 +92,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	                                      @RequestParam(value = "keyword", required = false) String keyword) {
 		// verify permission
 		if (!verifyPermission(pRequest)) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
@@ -113,7 +113,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	                                        @RequestParam(value = "uid", required = true) String uid) {
 		// verify permission
 		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("/internal/iu-modify");
@@ -262,7 +262,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	                              String name, String phone, String email, String available) {
 		// verify permission
 		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
@@ -521,7 +521,7 @@ public class InternalUserController extends InternalTransactionBaseController im
 	                                        @RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
 		// verify permission
 		if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("/internal/iu-modify");
