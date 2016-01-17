@@ -3,7 +3,10 @@ package com.pgt.banner;
 import java.util.List;
 
 import com.pgt.common.bean.BannerQuery;
+import com.pgt.common.bean.Image;
+import com.pgt.common.service.ImageService;
 import com.pgt.configuration.Configuration;
+import com.pgt.style.bean.PageBackgroundQuery;
 import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +30,9 @@ public class BannerController {
 
 	@Autowired
 	private BannerService bannerService;
+
+	@Autowired
+	private ImageService imageService;
 
 	@Autowired
 	private URLConfiguration urlConfiguration;
@@ -174,15 +180,32 @@ public class BannerController {
 	}
 
 
-	@RequestMapping(value ="/queryBanner/{bannerId}",method=RequestMethod.GET)
-	public ModelAndView queryBanner(@PathVariable("bannerId") Integer bannerId,ModelAndView modelAndView){
+	@RequestMapping(value ="/queryBanner",method=RequestMethod.GET)
+	public ModelAndView queryBanner(@RequestParam(value = "bannerId", required = true) Integer bannerId,@RequestParam(value = "currentIndex", required = false) Integer currentIndex,
+									@RequestParam(value = "capacity", required = false) Long capacity,ModelAndView modelAndView){
 
 		if(ObjectUtils.isEmpty(bannerId)){
 			LOGGER.debug("The bannerId is Empty");
 			return modelAndView;
 		}
+
+		PaginationBean paginationBean = new PaginationBean();
+		if (ObjectUtils.isEmpty(currentIndex)) {
+			currentIndex = 1;
+		}
+		paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
+		if (!ObjectUtils.isEmpty(capacity)) {
+			paginationBean.setCapacity(capacity);
+		}
+		paginationBean.setCurrentIndex((currentIndex - 1) * paginationBean.getCapacity());
+		int total=imageService.queryImageByBannerCount(bannerId);
+		paginationBean.setTotalAmount(total);
+		List<Image> imageList= imageService.queryImageByBanner(bannerId);
 		Banner banner =bannerService.queryBanner(bannerId);
+
 		modelAndView.addObject("banner",banner);
+		modelAndView.addObject("imageList",imageList);
+		modelAndView.addObject("paginationBean",paginationBean);
 		modelAndView.setViewName("/banner/bannerImagelist");
 		return modelAndView;
 	}

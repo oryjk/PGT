@@ -11,12 +11,12 @@
 
 					<c:if test="${status.index=='0'}">
 						<a href="${pageContext.request.contextPath}${image.url}" data-banner="${stauts.index}"
-						   style="background: url('${pageContext.request.contextPath}/resources${image.path}') center center no-repeat ${image.color}; display: block"></a>
+						   style="background: url('${pageContext.request.contextPath}${image.path}') center center no-repeat ${image.color}; display: block"></a>
 					</c:if>
 
 					<c:if test="${status.index!='0'}">
 						<a href="${pageContext.request.contextPath}${image.url}" data-banner="${status.index}"
-						   style="background: url('${pageContext.request.contextPath}/resources${image.path}') center center no-repeat ${image.color}"></a>
+						   style="background: url('${pageContext.request.contextPath}${image.path}') center center no-repeat ${image.color}"></a>
 					</c:if>
 
 				</c:forEach>

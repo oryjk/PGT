@@ -1,14 +1,18 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<spring:url var="adminStaticPath" value="${adminStaticPath}"/>
-<c:set var="currentPage" value="${empty param.currentPage ? 1 : param.currentPage}"/>
-<c:set var="maxPageNum" value="${paginationBean.maxPageNum}"/>
 
-<pgt:container id="main">
+
+<admin:container id="BannerImageList" >
+
+    <c:set value="${paginationBean.currentIndex}" var="currentIndex"/>
+    <c:set value="${paginationBean.maxIndex}" var="maxIndex"/>
+
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -103,22 +107,22 @@
                                         </thead>
                                         <tbody>
 
-                                        <c:forEach items="${banner.images}" var="image">
+                                        <c:forEach items="${imageList}" var="image">
                                         <tr class="gradeX odd" role="row">
                                             <td>
                                                ${image.imageId}
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${image.createDate}" dateStyle="long" />
+                                                <fmt:formatDate value="${image.createDate}" type="both" />
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${image.endDate}" dateStyle="long" />
+                                                <fmt:formatDate value="${image.endDate}" type="both" />
                                             </td>
                                             <td>
                                                 ${image.url}
                                             </td>
                                             <td class="face-box">
-                                                <img src="${image.path}" alt=""  style="height: 200px;"/>
+                                                <img src="${image.path}" alt="${image.path}"  style="height: 200px;"/>
                                             </td>
                                             <td>
                                                 ${image.location}
@@ -142,17 +146,16 @@
                                         </tbody>
                                     </table>
                                 </div>
-<!--
                                 <div class="row">
-                                    <link rel="stylesheet" href="../core/css/page.css"/>
+                                    <link rel="stylesheet" href="/resources/core/css/page.css"/>
                                     <div class="col-xs-2">
                                         <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
                                             第
-                                            <span>1</span>
+                                            <span>${paginationBean.sqlStartIndex+1}</span>
                                             条 到 第
-                                            <span>15</span>
+                                            <span>${paginationBean.sqlStartIndex+fn:length(imageList)}</span>
                                             条 共
-                                            <span>100</span>
+                                            <span>${paginationBean.totalAmount}</span>
                                             条
                                         </div>
                                     </div>
@@ -165,47 +168,103 @@
                                                     <option value="5">5</option>
                                                     <option value="15">15</option>
                                                     <option value="20">20</option>
-                                                    <option value="-1">所有</option>
                                                 </select> 条</label>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
-                                            <ul class="pagination">
-                                                <li class="paginate_button previous disabled"><a href="#"><i
-                                                        class="fa fa-angle-left"></i></a></li>
+                                            <!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
+                                            <ul class="pagination" id="pagination">
+
                                                 <li class="paginate_button"><a
-                                                        href="#">首页</a></li>
-                                                <li class="paginate_button disabled"><a
-                                                        href="javascript:;">...</a></li>
-                                                <li class="paginate_button "><a
-                                                        href="#">3</a></li>
-                                                <li class="paginate_button "><a
-                                                        href="#">4</a></li>
-                                                <li class="paginate_button active"><a
-                                                        href="#">5</a></li>
+                                                        href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=0">首页</a></li>
+                                                <c:choose>
+                                                    <c:when test="${paginationBean.maxIndex>5}">
+                                                        <c:if test="${paginationBean.currentIndex>2 and paginationBean.currentIndex<paginationBean.maxIndex-3}">
+                                                            <li class="paginate_button disabled">
+                                                                <a href="javascript:;">...</a>
+                                                            </li>
+                                                            <li class="paginate_button ">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex-2}">${currentIndex-1}</a>
+                                                            </li>
+                                                            <li class="paginate_button ">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex-1}">${currentIndex}</a>
+                                                            </li>
+                                                            <li class="paginate_button active">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex}">${currentIndex+1}</a>
+                                                            </li>
+                                                            <li class="paginate_button">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex+1}">${currentIndex+2}</a>
+                                                            </li>
+                                                            <li class="paginate_button">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex+2}">${currentIndex+3}</a>
+                                                            </li>
+                                                            <li class="paginate_button disabled">
+                                                                <a href="javascript:;">...</a>
+                                                            </li>
+                                                        </c:if>
+                                                        <c:if test="${paginationBean.currentIndex<3}">
+
+                                                            <c:forEach var="current" begin="1" end="${currentIndex+1}">
+                                                                <li class="paginate_button <c:if test="${paginationBean.currentIndex+1==current}">active</c:if> ">
+                                                                    <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${current-1}">${current}</a>
+                                                                </li>
+                                                            </c:forEach>
+                                                            <li class="paginate_button">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex+1}">${currentIndex+2}</a>
+                                                            </li>
+                                                            <li class="paginate_button">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex+2}">${currentIndex+3}</a>
+                                                            </li>
+                                                            <li class="paginate_button disabled">
+                                                                <a href="javascript:;">...</a>
+                                                            </li>
+                                                        </c:if>
+                                                        <c:if test="${paginationBean.currentIndex+4>paginationBean.maxIndex}">
+                                                            <li class="paginate_button disabled">
+                                                                <a href="javascript:;">...</a>
+                                                            </li>
+                                                            <li class="paginate_button">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex-2}">${currentIndex-2}</a>
+                                                            </li>
+                                                            <li class="paginate_button">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${currentIndex-1}">${currentIndex-1}</a>
+                                                            </li>
+                                                            <c:forEach var="current" begin="${currentIndex+1}" end="${maxIndex+1}">
+                                                                <li class="paginate_button <c:if test="${paginationBean.currentIndex+1==current}">active</c:if> ">
+                                                                    <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${current-1}">${current}</a>
+                                                                </li>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach var="current" begin="1" end="${paginationBean.maxIndex+1}">
+
+                                                            <li class="paginate_button <c:if test="${paginationBean.currentIndex+1==current}">active</c:if> ">
+                                                                <a href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${current-1}">${current}</a>
+                                                            </li>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
+
+
                                                 <li class="paginate_button"><a
-                                                        href="#">6</a></li>
-                                                <li class="paginate_button"><a
-                                                        href="#">7</a></li>
-                                                <li class="paginate_button disabled"><a
-                                                        href="javascript:;">...</a></li>
-                                                <li class="paginate_button"><a
-                                                        href="#">末页</a></li>
-                                                <li class="paginate_button next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                                        href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=${paginationBean.maxIndex}">末页</a></li>
+
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-xs-2">
-                                        <form class="dataTables_filter pgt-goto-page">
+                                        <form class="dataTables_filter pgt-goto-page" action="/banner/queryBanner" method="get">
                                             <label>
-                                                <input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
-                                                <input type="submit" class="btn blue" value="跳转">
+                                                <input type="search" value="${currentIndex+1}" name="currentIndex" class="form-control input-xsmall input-inline" placeholder="第几页">
+                                                <input type="hidden" name="bannerId" value="${banner.bannerId}">
+                                                <input type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
                                             </label>
                                         </form>
                                     </div>
+                                </div>
 
-                        -->
                                 </div>
 
                             </div>
@@ -220,5 +279,4 @@
 
 </div>
 
-</pgt:container>
-
+</admin:container>
