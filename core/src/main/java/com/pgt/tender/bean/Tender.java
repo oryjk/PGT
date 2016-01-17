@@ -1,7 +1,10 @@
 package com.pgt.tender.bean;
 
+import com.pgt.product.bean.Product;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by carlwang on 1/16/16.
@@ -19,6 +22,15 @@ public class Tender implements Serializable {
     private String description;
     private Integer prePeriod;
     private Integer postPeriod;
+    private List<Product> products;
+
+    public double getUnitPrice() {
+        if (tenderQuantity > 0) {
+            return tenderTotal / tenderQuantity;
+        }
+        return 0;
+    }
+
 
     public Integer getTenderId() {
         return tenderId;
@@ -114,5 +126,13 @@ public class Tender implements Serializable {
 
     public void setPostPeriod(Integer postPeriod) {
         this.postPeriod = postPeriod;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
