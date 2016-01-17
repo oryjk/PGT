@@ -5,6 +5,7 @@ import com.pgt.payment.bean.PaymentGroup;
 import com.pgt.shipping.bean.ShippingVO;
 import org.springframework.util.CollectionUtils;
 
+import java.beans.Transient;
 import java.util.*;
 
 /**
@@ -91,7 +92,8 @@ public class Order implements OrderType, OrderStatus {
 		return commerceItem;
 	}
 
-	public List<CommerceItem> getPersistedCommerceItems() {
+	@Transient
+	public List<CommerceItem> obtainPersistedCommerceItems () {
 		if (emptyOrder()) {
 			return Collections.EMPTY_LIST;
 		}
@@ -104,7 +106,7 @@ public class Order implements OrderType, OrderStatus {
 		return persistentCommerceItems;
 	}
 
-	public List<CommerceItem> getTransientCommerceItems() {
+	public List<CommerceItem> obtainTransientCommerceItems () {
 		if (emptyOrder()) {
 			return Collections.EMPTY_LIST;
 		}
