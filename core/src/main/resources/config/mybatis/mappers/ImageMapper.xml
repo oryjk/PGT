@@ -80,7 +80,7 @@
 
 	<select id="queryAllImageByBannerId" parameterType="Integer"
 		resultMap="ImageResult">
-		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID} ORDER BY LOCATION ASC
+		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID} AND NOW() BETWEEN CREATE_DATE AND END_DATE ORDER BY LOCATION ASC
 	</select>
 
 	<!-- 查询总记录数 -->

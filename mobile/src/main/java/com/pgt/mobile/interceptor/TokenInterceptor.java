@@ -1,5 +1,4 @@
 package com.pgt.mobile.interceptor;
-import com.pgt.constant.Constants;
 import com.pgt.constant.PathConstant;
 import com.pgt.constant.UserConstant;
 import com.pgt.mobile.base.constans.MobileConstans;
@@ -94,7 +93,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         if(tokenNumber.endsWith(tokenResult.getTokenNumber())){
             //处理登陆
             User userResult = userService.authorize(username);
-            request.getSession().setAttribute(Constants.USER,userResult);
+            request.getSession().setAttribute(UserConstant.CURRENT_USER,userResult);
             return true;
         }else{
             jo.put("message","need.Login");
