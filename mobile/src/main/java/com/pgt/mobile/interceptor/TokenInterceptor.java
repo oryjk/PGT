@@ -50,24 +50,19 @@ public class TokenInterceptor implements HandlerInterceptor {
         LOGGER.debug("The session createTime {}",request.getSession().getCreationTime());
         LOGGER.debug("The session lastAccessTime {}",request.getSession().getLastAccessedTime());
 
-        //session中存在user信息,放行
-        if(!ObjectUtils.isEmpty(user)){
-            LOGGER.debug("The user is success");
-          return true;
-        }
-
-        //web手机端不需要登陆的请求，放行
-        if (url.matches(PathConstant.NO_LOGIN_INTERCEPTOR_PATH)) {
-            LOGGER.debug("Not need interceptor.");
-            return true;
-        }
-
 
         //不需要登陆的请求,放行
         if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH)) {
             LOGGER.debug("Not need interceptor.");
             return true;
         }
+
+        //session中存在user信息,放行
+        if(!ObjectUtils.isEmpty(user)){
+            LOGGER.debug("The user is success");
+          return true;
+        }
+
 
         String tokenNumber = request.getParameter("token");
         if(StringUtils.isEmpty(tokenNumber)){
