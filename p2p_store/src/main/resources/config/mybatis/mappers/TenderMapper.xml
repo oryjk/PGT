@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.tender.mapper.TenderMapper">
+	<resultMap id="tenderResult" type="com.pgt.tender.bean.Tender">
+		<id column="ID" property="tenderId"/>
+		<result column="PAWN_SHOP_ID" property="pawnshopId"/>
+		<result column="PAWN_TICKET_ID" property="pawnTicketId"/>
+		<result column="TENDER_TOTAL" property="tenderTotal"/>
+		<result column="TENDER_QUANTITY" property="tenderQuantity"/>
+		<result column="PUBLISH_DATE" property="publishDate"/>
+		<result column="DUE_DATE" property="dueDate"/>
+		<result column="INTEREST_RATE" property="interestRate"/>
+		<result column="NAME" property="name"/>
+		<result column="DESCRIPTION" property="description"/>
+		<result column="PRE_PERIOD" property="prePeriod"/>
+		<result column="POST_PERIOD" property="postPeriod"/>
+		<result column="CREATION_DATE" property="creationDate"/>
+		<result column="UPDATE_DATE" property="updateDate"/>
+		<collection property="products" column="ID" select="com.pgt.product.dao.ProductMapper.queryProductByTenderId"/>
+	</resultMap>
+
+	<select id="queryTenderById" resultMap="tenderResult">
+		SELECT * FROM TENDER WHERE ID=#{tenderId}
+		<if test="#{onlyActive}">
+			AND DUE_DATE>now()
+		</if>
+	</select>
+
+	<select id="queryTendersByCategoryId" resultMap="tenderResult">
+		SELECT * FROM TENDER t LEFT JOIN
+		TENDER_CATEGORY tc ON
+		tc.CATEGORY_ID=#{categoryId} WHERE
+		t.ID=tc.TENDER_ID
+		<if test="#{onlyActive}">
+			AND t.DUE_DATE>now()
+		</if>
+	</select>
+
+	<insert id="createTender" parameterType="com.pgt.tender.bean.Tender" keyProperty="tenderId" useGeneratedKeys="true">
+        INSERT INTO TENDER(PAWN_SHOP_ID,PAWN_TICKET_ID,TENDER_TOTAL,TENDER_QUANTITY,PUBLISH_DATE,DUE_DATE,INTEREST_RATE,
+        NAME,DESCRIPTION,PRE_PERIOD,POST_PERIOD,CREATION_DATE,UPDATE_DATE) VALUES (#{pawnshopId},#{pawnTicketId},#{tenderTotal},
+        #{tenderQuantity},#{publishDate},#{dueDate},#{interestRate},#{name},#{description},#{prePeriod},#{postPeriod},
+        #{creationDate},#{updateDate})
+    </insert>
+	<update id="updateTender" parameterType="com.pgt.tender.bean.Tender" keyProperty="tenderId" useGeneratedKeys="true">
+		UPDATE TENDER SET PAWN_SHOP_ID=#{pawnshopId},PAWN_TICKET_ID=#{pawnTicketId},TENDER_TOTAL=#{tenderTotal},TENDER_QUANTITY=#{tenderQuantity},
+		PUBLISH_DATE=#{publishDate},DUE_DATE=#{dueDate},INTEREST_RATE=#{interestRate},
+        NAME=#{name},DESCRIPTION=#{description},PRE_PERIOD=#{prePeriod},POST_PERIOD=#{postPeriod},CREATION_DATE=#{creationDate},UPDATE_DATE=${updateDate}
+	</update>
+	<delete id="deleteTender" parameterType="int">
+		DELETE FROM TENDER WHERE ID=#{tenderId}
+	</delete>
+</mapper>
