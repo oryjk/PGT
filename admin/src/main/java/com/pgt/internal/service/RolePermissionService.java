@@ -13,7 +13,7 @@ public class RolePermissionService {
 	public boolean checkRole (Role pRole, Role... pValidRoles) {
 		if (ArrayUtils.isNotEmpty(pValidRoles)) {
 			for (Role validRole : pValidRoles) {
-				if (pRole.equals(pValidRoles)) {
+				if (pRole.equals(validRole)) {
 					return true;
 				}
 			}

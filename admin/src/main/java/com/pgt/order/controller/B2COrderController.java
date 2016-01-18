@@ -56,9 +56,9 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	                                   @RequestParam(value = "submitTimeBeg", required = false) String submitTimeBeg,
 	                                   @RequestParam(value = "submitTimeEnd", required = false) String submitTimeEnd) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
@@ -80,9 +80,9 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	public ModelAndView loadOrderHistoryDetails (HttpServletRequest pRequest, HttpServletResponse pResponse,
 	                                             @RequestParam(value = "id") String orderId) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		int orderIdInt = RepositoryUtils.safeParseId(orderId);
@@ -99,7 +99,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/b2c-order/b2c-orders");
@@ -194,9 +194,9 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	                                           @RequestParam(value = "id", required = true) String id,
 	                                           @RequestParam(value = "cid", required = true) String cid) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/b2c-order/order-info?id=" + id);
@@ -218,9 +218,9 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	                                  @RequestParam(value = "deliveryTimeStr", required = false) String deliveryTimeStr,
 	                                  Delivery delivery) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/order/delivery?id=" + id + "&cid=" + cid);
@@ -253,9 +253,9 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	                                 @RequestParam(value = "id", required = true) String id,
 	                                 @RequestParam(value = "cid", required = true) String cid) {
 		// permission verify
-		boolean pass = verifyPermission(pRequest, Role.BROWSER);
+		boolean pass = verifyPermission(pRequest);
 		if (!pass) {
-			return new ModelAndView(REDIRECT_PERMISSION_DENIED);
+			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/order/order-info?id=" + id);

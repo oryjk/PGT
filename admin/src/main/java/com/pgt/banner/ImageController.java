@@ -93,7 +93,7 @@ public class ImageController {
 		}
 		image.setBanner(banner);
 		imageService.createImage(image);
-		modelAndView.setViewName("redirect:/banner/queryBanner/"+banner.getBannerId());
+		modelAndView.setViewName("redirect:/banner/queryBanner?bannerId="+banner.getBannerId());
 		return modelAndView;
 	}
 
@@ -156,7 +156,7 @@ public class ImageController {
 		}
 		image.setBanner(banner);
 		imageService.updateImage(image);
-		modelAndView.setViewName("redirect:/banner/queryBanner/"+banner.getBannerId());
+		modelAndView.setViewName("redirect:/banner/queryBanner?bannerId="+banner.getBannerId());
 		return modelAndView;
 	}
 
@@ -174,7 +174,7 @@ public class ImageController {
 			return modelAndView;
 		}
 		imageService.deleteImageById(imageId);
-		modelAndView.setViewName("redirect:/banner/queryBanner/"+bannerId);
+		modelAndView.setViewName("redirect:/banner/queryBanner?bannerId="+bannerId);
 		return modelAndView;
 	}
 

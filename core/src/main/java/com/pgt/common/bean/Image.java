@@ -1,6 +1,5 @@
 package com.pgt.common.bean;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.Date;
 

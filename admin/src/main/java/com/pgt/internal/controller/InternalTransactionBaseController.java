@@ -23,10 +23,11 @@ import java.util.Locale;
  */
 public abstract class InternalTransactionBaseController implements AdminSessionConstant {
 
-	protected static final String REDIRECT_DASHBOARD         = "redirect:/dashboard";
-	protected static final String REDIRECT_LOGIN             = "redirect:/login";
-	protected static final String REDIRECT_PERMISSION_DENIED = "/permission_denied";
-	private static final   Logger LOGGER                     = LoggerFactory.getLogger(InternalTransactionBaseController.class);
+	protected static final String REDIRECT_DASHBOARD = "redirect:/";
+	protected static final String REDIRECT_LOGIN     = "redirect:/login";
+	protected static final String PERMISSION_DENIED  = "/permission_denied";
+	private static final   Logger LOGGER             = LoggerFactory.getLogger(InternalTransactionBaseController.class);
+
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
 
@@ -68,7 +69,20 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 		if (iu != null) {
 			boolean verified = getRolePermissionService().checkRole(iu.getRole(), pRoles);
 			if (!verified) {
-				LOGGER.debug("Permission: {} verify failed for current permission: {} of user: {}", Arrays.toString(pRoles), iu.getRole(), iu.getId());
+				LOGGER.debug("Permission: {} verify failed for current permission: {} of user: {} with request uri: {}", Arrays.toString(pRoles), iu.getRole(), iu.getId(), pRequest.getRequestURI());
+			}
+			return verified;
+		}
+		LOGGER.warn("Cannot find internal user from session but try to request uri: {}", pRequest.getRequestURI());
+		return false;
+	}
+
+	protected boolean verifyPermission (HttpServletRequest pRequest) {
+		InternalUser iu = getCurrentInternalUser(pRequest);
+		if (iu != null) {
+			boolean verified = iu.getRole().getValue() > Role.BROWSER.getValue();
+			if (!verified) {
+				LOGGER.debug("Permission: {} verify failed for current permission: {} of user: {}", Role.BROWSER, iu.getRole(), iu.getId());
 			}
 			return verified;
 		}

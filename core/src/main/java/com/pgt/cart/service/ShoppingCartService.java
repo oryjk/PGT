@@ -92,7 +92,7 @@ public class ShoppingCartService {
 				}
 				// persist transient commerce items first
 				if (result) {
-					List<CommerceItem> transientItems = pOrder.getTransientCommerceItems();
+					List<CommerceItem> transientItems = pOrder.obtainTransientCommerceItems();
 					if (!CollectionUtils.isEmpty(transientItems)) {
 						for (CommerceItem ci : transientItems) {
 							ci.setOrderId(pOrder.getId());
@@ -102,7 +102,7 @@ public class ShoppingCartService {
 				}
 				// update commerce items
 				if (result) {
-					List<CommerceItem> persistentItems = pOrder.getPersistedCommerceItems();
+					List<CommerceItem> persistentItems = pOrder.obtainPersistedCommerceItems();
 					if (!CollectionUtils.isEmpty(persistentItems)) {
 						persistentItems.forEach(ci -> {
 							ci.setOrderId(pOrder.getId());
