@@ -11,5 +11,14 @@ import java.util.List;
  */
 public interface TenderMapper extends SqlMapper {
 
-    List<Tender> queryTenderById(@Param("tenderId") Integer tenderId);
+    Tender queryTenderById(@Param("tenderId") Integer tenderId, @Param("onlyActive") Boolean onlyActive);
+
+    List<Tender> queryTendersByCategoryId(@Param("categoryId") Integer categoryId, @Param("onlyActive") Boolean onlyActive);
+
+    void createTender(Tender tender);
+
+    void updateTender(Tender tender);
+
+    void deleteTender(@Param("tenderId") Integer tenderId);
+
 }

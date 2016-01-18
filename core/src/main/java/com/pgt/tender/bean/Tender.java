@@ -23,6 +23,8 @@ public class Tender implements Serializable {
     private Integer prePeriod;
     private Integer postPeriod;
     private List<Product> products;
+    private Date creationDate;
+    private Date updateDate;
 
     public double getUnitPrice() {
         if (tenderQuantity > 0) {
@@ -134,5 +136,21 @@ public class Tender implements Serializable {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 }

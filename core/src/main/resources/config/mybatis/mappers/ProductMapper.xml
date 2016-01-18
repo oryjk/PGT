@@ -364,4 +364,9 @@
     <select id="queryRelatedCategoryId" resultType="string" parameterType="int">
         SELECT CATEGORY_ID FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId}
     </select>
+    <select id="queryProductByTenderId" resultMap="resultProduct" parameterType="int">
+        SELECT * FROM PRODUCT WHERE TENDER_ID=#{tenderId}
+    </select>
+
+
 </mapper>
