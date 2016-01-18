@@ -226,7 +226,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		if (!mShoppingCartService.checkProductValidity(product)) {
 			LOGGER.debug("Stop add item to cart for product: {} not available", productId);
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_NOT_AVAILABLE);
-			return new ResponseEntity(rb, HttpStatus.OK);
+			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
@@ -234,18 +234,18 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			if (!getShoppingCartService().ensureCartItemCapacity(order)) {
 				LOGGER.debug("Stop add item to cart for product: {} because cart item count had been reached limit", productId);
 				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_ITEM_REACHED_LIMIT);
-				return new ResponseEntity(rb, HttpStatus.OK);
+				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 			}
 			CommerceItem purchaseCommerceItem = order.getCommerceItemByProduct(productId);
 			if (purchaseCommerceItem != null) {
 				LOGGER.debug("Stop add item to cart for product: {} because cart item had been added to cart", productId);
 				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_ADDED_TO_CART);
-				return new ResponseEntity(rb, HttpStatus.OK);
+				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 			}
 			if (!getShoppingCartService().purchaseProduct(order, product)) {
 				LOGGER.debug("Stop add item to cart for product: {} out of stock", productId);
 				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_OUT_STOCK);
-				return new ResponseEntity(rb, HttpStatus.OK);
+				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 			}
 			// persist changes to database
 			TransactionStatus status = ensureTransaction();
@@ -282,7 +282,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 				getTransactionManager().commit(status);
 			}
 		}
-		return new ResponseEntity(rb, HttpStatus.OK);
+		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/removeItemFromOrder")//, method = RequestMethod.POST)
