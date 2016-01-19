@@ -10,12 +10,30 @@ html {
 body {
     background: #F3F3F3;
 }
-a{
-    color: #000;
-    text-decoration:none;
+
+h2 {
+    font-size: 1.1em;
+    display: block;
+    padding-left: 5%;
 }
 
-.header{
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+p {
+    line-height: 1.2em;
+    margin-top: 5%;
+    padding: 0 5%;
+}
+
+img {
+    border: 0 solid #ddd;
+    outline: none;
+}
+
+.header {
     position: relative;
     background: #fff;
     display: block;
@@ -23,29 +41,32 @@ a{
     padding-bottom: 1em;
     border-bottom: 2px solid #cccccc;
 }
-.arrow{
+
+.arrow {
     margin-top: 2em;
     flex: 1;
     height: 36px;
-    background: url("../img/left-arrow.png")no-repeat  center;
+    background: url("../img/left-arrow.png") no-repeat center;
 }
-.font{
-    font-size: 2em;
+
+.font {
+    font-size: 1em;
     margin-top: 2em;
     text-align: center;
-    flex: 2;
+    flex: 8;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
-    flex-direction: column;
+
 }
 
-.dian{
+.dian {
     margin-top: 2em;
     display: block;
-    background: url("../img/list.png")no-repeat center;
-    flex: 1;
+    background: url("../img/list.png") no-repeat center;
+    flex: 2;
 }
+
 .menu {
     color: #fff;
     width: 7em;
@@ -57,7 +78,8 @@ a{
     border-radius: 5px;
     z-index: 3;
 }
-.menu li{
+
+.menu li {
     font-size: 1em;
     text-align: center;
     padding-top: 1em;
@@ -67,119 +89,112 @@ a{
     margin: 2em 0;
     border-bottom: 2px solid #cccccc;
 }
-.menu .menu1{
+
+.menu .menu1 {
     margin: 2em 0 0 0;
     border: none;
     background: url("../img/right-icon3.png") no-repeat;
 }
-.menu2{
+
+.menu2 {
     background: url("../img/right-icon1.png") no-repeat;
 }
-.menu3{
+
+.menu3 {
     background: url("../img/right-icon2.png") no-repeat;
 }
-.menu4{
+
+.menu4 {
     background: url("../img/right-icon3.png") no-repeat;
 }
-.menu5{
+
+.menu5 {
     background: url("../img/right-icon4.png") no-repeat;
 }
 
 
-.box{
-    position: relative;
-    height: 8em;
-    padding-left: 0.5em;
-    padding-top: 2em;
-    padding-bottom: 2em;
+
+.content1{
+
+    margin: 10%;
     display: -webkit-flex;
-    border-bottom: 2px solid #cccccc;
-}
-.img1{
-    flex: 2;
-    background: url("../img/img1.jpg")no-repeat;
-    background-size:100% 100%;
-}
-.font{
-    font-size: 1em;
-    flex: 3;
-    display: -webkit-flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    border-bottom: 2px dashed #F3F3F3;
 }
-.font1-1{
-    flex: 3;
-}
-.font1-2{
+.content1-1{
     color: #d11010;
-    flex: 3;
-
-}
-.kong2{
+    font-size: 1.2em;
     flex: 2;
 }
-.btn1{
-    width: 40%;
-    position: absolute;
-    right: 1%;
-    bottom: 2%;
+.content1-2{
+    display: -webkit-flex;
     justify-content: center;
     align-items: center;
-    display: -webkit-flex;
+    flex: 3;
 }
-.delete-1{
-    padding: 8%;
-    margin-right: 10%;
-    background: #d11010;
-    border: 2px solid #d11010;
-    border-radius: 10px;
+.content1-2 span{
+    text-decoration:line-through;
+}
+.content1-3{
+    padding: 3%;
+    background: #F60;
+    border-radius: 5px;
     color: #fff;
-}
-.delete1-1{
-    padding: 8%;
-    background: #ffaa00;
-    border: 2px solid #ffaa00;
-    border-radius: 10px;
-    color: #fff;
-}
-.btn-clean{
-    color: #ffffff;
-    background: red;
-    margin: 2em 6em;
-    display: block;
-    padding: 1em;
-    text-align: center;
-    border: 2px solid red;
-    border-radius: 10px;
+    flex: 2;
 }
 
-.footer{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer {
     background: #fff;
     margin-top: 2em;
     border-top: 1px solid #F3F3F3;
 
 }
-.footer-top{
+
+.footer-top {
     padding-top: 1em;
     display: -webkit-flex;
 }
-.f1{
-    flex:2;
+
+.f1 {
+    flex: 2;
     color: #000;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
     border-right: 1px solid #cccccc;
 }
-.kong1{
+
+.kong1 {
     flex: 2;
 }
-.kong{
+
+.kong {
     flex: 3;
 }
-.footer-bottom{
+
+.footer-bottom {
     padding-top: 1em;
     font-size: 10px;
     margin-top: 1em;

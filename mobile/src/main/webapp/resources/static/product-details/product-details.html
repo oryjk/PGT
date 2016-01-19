@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+    <link type="text/css" href="style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.event.drag-1.5.min.js"></script>
+    <script type="text/javascript" src="js/jquery.touchSlider.js"></script>
+    <script type="text/javascript" src="../js/right.js"></script>
+    <link type="text/css" href="product-details.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="header">
+    <a href="#" class="arrow"></a>
+
+    <div class="font">产品详情</div>
+    <a href="#" class="dian">
+        <ul class="menu">
+            <li class="menu2"><a href="#">首页</a></li>
+            <li class="menu3"><a href="#">分类</a></li>
+            <li class="menu4"><a href="#">搜索</a></li>
+            <li class="menu5"><a href="#">购物车</a></li>
+            <li class="menu1"><a href="#">我的账户</a></li>
+        </ul>
+    </a>
+</div>
+<div class="banner">
+    <div class="main_visual">
+        <div class="flicking_con">
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+        </div>
+        <div class="main_image">
+            <ul>
+                <li><span class="img_3"></span></li>
+                <li><span class="img_4"></span></li>
+                <li><span class="img_1"></span></li>
+                <li><span class="img_2"></span></li>
+                <li><span class="img_5"></span></li>
+            </ul>
+            <a href="javascript:;" id="btn_prev"></a>
+            <a href="javascript:;" id="btn_next"></a>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="content1">
+        <div class="content1-1">
+            1800.00元
+        </div>
+        <div class="content1-2">
+            市场价：<span>5600</span>
+        </div>
+        <div class="content1-3">
+            下载客户端
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer-top">
+        <div class="kong1"></div>
+        <a href="#" class="f1">请登录</a>
+        <a href="#" class="f1">请注册</a>
+        <a href="#" class="f1">客户端</a>
+        <a href="#" class="f1">电脑版</a>
+        <a href="#" class="f1">回顶部</a>
+
+        <div class="kong"></div>
+    </div>
+    <div class="footer-bottom">
+        蜀IPC备15022028号 dianjinzi, Inc. All rights reserved
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".main_visual").hover(function () {
+            $("#btn_prev,#btn_next").fadeIn()
+        }, function () {
+            $("#btn_prev,#btn_next").fadeOut()
+        });
+
+        $dragBln = false;
+
+        $(".main_image").touchSlider({
+            flexible: true,
+            speed: 200,
+            btn_prev: $("#btn_prev"),
+            btn_next: $("#btn_next"),
+            paging: $(".flicking_con a"),
+            counter: function (e) {
+                $(".flicking_con a").removeClass("on").eq(e.current - 1).addClass("on");
+            }
+        });
+
+        $(".main_image").bind("mousedown", function () {
+            $dragBln = false;
+        });
+
+        $(".main_image").bind("dragstart", function () {
+            $dragBln = true;
+        });
+
+        $(".main_image a").click(function () {
+            if ($dragBln) {
+                return false;
+            }
+        });
+
+        timer = setInterval(function () {
+            $("#btn_next").click();
+        }, 5000);
+
+        $(".main_visual").hover(function () {
+            clearInterval(timer);
+        }, function () {
+            timer = setInterval(function () {
+                $("#btn_next").click();
+            }, 5000);
+        });
+
+        $(".main_image").bind("touchstart", function () {
+            clearInterval(timer);
+        }).bind("touchend", function () {
+            timer = setInterval(function () {
+                $("#btn_next").click();
+            }, 5000);
+        });
+
+    });
+</script>
+</html>
