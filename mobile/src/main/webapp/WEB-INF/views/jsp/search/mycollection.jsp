@@ -30,6 +30,13 @@
             </div>
         </c:if>
     </c:forEach>
+
+    <c:if test="${page.currentIndex > 0}">
+        <a href="searchProduct?term=${essearchBean.term}&&currentIndex=${page.currentIndex-1}">上一页</a>
+    </c:if>
+    <c:if test="${page.totalPage > page.currentIndex + 1}">
+        <a href="searchProduct?term=${essearchBean.term}&&currentIndex=${page.currentIndex+1}">下一页</a>
+    </c:if>
 </div>
 
 <a class="btn-clean">
