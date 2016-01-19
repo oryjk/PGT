@@ -8,13 +8,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
-    <link href="resources/static/search/search.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/static/search/search.css" rel="stylesheet">
 </head>
 <body>
 <div class="header">
     <a href="#" class="arrow"></a>
-    <form action = "">
-        <input type="search" class="input1" placeholder="点击搜索宝贝" autocomplete="off">
+    <form action = "searchProduct">
+        <input type="search" class="input1" name="term" placeholder="点击搜索宝贝" autocomplete="off">
+        <input type="submit" value="提交">
     </form>
     <div class="kong"></div>
 </div>
@@ -23,15 +24,9 @@
         热门搜索
     </div>
     <div class="search-all">
-        <a href="#" class="search-box">翡翠</a>
-        <a href="#" class="search-box">琥珀</a>
-        <a href="#" class="search-box">黄金饰品</a>
-        <a href="#" class="search-box">琥珀</a>
-        <a href="#" class="search-box">独山石头</a>
-        <a href="#" class="search-box">琥珀</a>
-        <a href="#" class="search-box">独山石头</a>
-        <a href="#" class="search-box">琥珀</a>
-        <a href="#" class="search-box">琥珀</a>
+        <c:forEach items="${categorys}" var="categorys">
+            <a href="searchProduct?term=${categorys.name}" class="search-box">${categorys.name}</a>
+        </c:forEach>
     </div>
     <a href="#" class="search-box1">清楚搜索历史纪录</a>
 </div>
