@@ -96,8 +96,8 @@ public class OrderService {
 	}
 
 
-	public boolean hasUnsubmitOrder(int userId) {
-		int amount = getOrderMapper().getUnsubmitOrderAmount(userId);
+	public boolean hasUncompleteOrder(int userId, int type) {
+		int amount = getOrderMapper().getUncompleteOrderAmount(userId, type);
 		return amount > 0;
 	}
 

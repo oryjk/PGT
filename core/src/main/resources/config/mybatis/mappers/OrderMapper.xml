@@ -41,8 +41,8 @@
         SELECT * FROM `ORDER` WHERE
     </select>
 
-    <select id="loadEasyBuyOrderByUserId" parameterType="string" resultMap="order">
-        SELECT * FROM `ORDER` WHERE user_id = #{userId} AND easy_buy = 1 and status =10 ORDER BY order_id DESC LIMIT 1
+    <select id="loadEasyBuyOrderByUserId"  resultMap="order">
+        SELECT * FROM `ORDER` WHERE user_id = #{userId} AND `TYPE` = #{type} AND easy_buy = 1 and status =10 ORDER BY order_id DESC LIMIT 1
     </select>
 
     <select id="selectCommerceItemByOrderId" parameterType="int" resultMap="commerceItem">
@@ -67,7 +67,7 @@
 		UPDATE `ORDER` SET status = #{status} WHERE order_id = #{id}
 	</update>
 
-    <select id="getUnsubmitOrderAmount" parameterType="int" resultType="int">
+    <select id="getUncompleteOrderAmount" parameterType="int" resultType="int">
         SELECT COUNT(ORDER_ID)
         FROM `ORDER`
         WHERE USER_ID = #{id} AND STATUS = 20;
