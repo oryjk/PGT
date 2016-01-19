@@ -66,8 +66,8 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	@Override
-	public List<Image> queryImageByBanner(Integer bannerId) {
-		return imageMapper.queryImageByBanner(bannerId);
+	public List<Image> queryImageByBanner(ImageCustom imageCustom) {
+		return imageMapper.queryImageByBanner(imageCustom);
 	}
 
 	@Override
