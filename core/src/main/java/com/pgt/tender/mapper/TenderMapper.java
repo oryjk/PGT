@@ -23,4 +23,6 @@ public interface TenderMapper extends SqlMapper {
 
     void deleteTender(@Param("tenderId") Integer tenderId);
 
+    List<Tender> queryAllTender();
+
 }

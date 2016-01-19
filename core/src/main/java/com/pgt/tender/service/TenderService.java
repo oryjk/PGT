@@ -23,6 +23,18 @@ public class TenderService {
     private TenderMapper tenderMapper;
 
 
+
+    public List<Tender> queryAllTender(){
+        List<Tender> tenders = tenderMapper.queryAllTender();
+        if (ObjectUtils.isEmpty(tenders)) {
+            LOGGER.debug("Can not find tenders");
+            return tenders;
+        }
+        LOGGER.debug("Find {} tenders.", tenders.size());
+        return tenders;
+    }
+
+
     public Tender queryTender(Integer tenderId, Boolean onlyActive) {
         LOGGER.debug("The tender id is {},onlyActive is {}.", tenderId, onlyActive);
         Tender tender = tenderMapper.queryTenderById(tenderId, onlyActive);

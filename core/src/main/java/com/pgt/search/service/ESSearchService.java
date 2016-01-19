@@ -96,6 +96,7 @@ public class ESSearchService {
         createProductMapping();
         createCategoryMapping();
         createHotSaleMapping();
+        createTenderMapping();
     }
 
     /**
@@ -779,6 +780,12 @@ public class ESSearchService {
         LOGGER.debug("Begin to create hot sale mapping.");
         createMapping(Constants.SITE_INDEX_NAME, Constants.HOT_PRODUCT_INDEX_TYPE, esConfiguration.getHotSaleAnalyzerFields());
         LOGGER.debug("End to create hot sale mapping.");
+    }
+
+    private void createTenderMapping() {
+        LOGGER.debug("Begin to create tender mapping.");
+        createMapping(Constants.SITE_INDEX_NAME, Constants.TENDER_INDEX_TYPE, esConfiguration.getTenderAnalyzerFields());
+        LOGGER.debug("End to create tender mapping.");
     }
 
 
