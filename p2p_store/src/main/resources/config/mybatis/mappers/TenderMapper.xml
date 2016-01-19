@@ -23,7 +23,7 @@
 
 	<select id="queryTenderById" resultMap="tenderResult">
 		SELECT * FROM TENDER WHERE ID=#{tenderId}
-		<if test="#{onlyActive}">
+		<if test="onlyActive">
 			AND DUE_DATE>now()
 		</if>
 	</select>
@@ -33,7 +33,7 @@
 		TENDER_CATEGORY tc ON
 		tc.CATEGORY_ID=#{categoryId} WHERE
 		t.ID=tc.TENDER_ID
-		<if test="#{onlyActive}">
+		<if test="onlyActive">
 			AND t.DUE_DATE>now()
 		</if>
 	</select>
