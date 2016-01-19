@@ -177,7 +177,7 @@
                                             <ul class="pagination" id="pagination">
 
                                                 <li class="paginate_button"><a
-                                                        href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=1">首页</a></li>
+                                                        href="/banner/queryBanner?bannerId=${banner.bannerId}&currentIndex=0">首页</a></li>
                                                 <c:choose>
                                                     <c:when test="${paginationBean.maxIndex>5}">
                                                         <c:if test="${paginationBean.currentIndex>2 and paginationBean.currentIndex<paginationBean.maxIndex-3}">

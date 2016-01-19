@@ -9,8 +9,7 @@
         <if test="paginationBean!=null">
             <if test="paginationBean.currentIndex != null">
                 <if test="paginationBean.capacity != null">
-                    limit #{paginationBean.currentIndex},
-                    #{paginationBean.capacity}
+                    limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
                 </if>
             </if>
         </if>
@@ -102,6 +101,7 @@
             resultMap="PageBackgroundResult">
         SELECT * FROM PAGE_BACKGROUND
         <include refid="bannerListWhere"/>
+        <include refid="pageBean"/>
     </select>
 
     <select id="queryPageBackgroundCount" parameterType="com.pgt.style.bean.PageBackgroundQuery"

@@ -175,14 +175,14 @@ public class PageBackgroundController {
 
         PaginationBean paginationBean = new PaginationBean();
         if (ObjectUtils.isEmpty(currentIndex)) {
-            currentIndex = 1;
+            currentIndex = 0;
         }
         paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
         if (!ObjectUtils.isEmpty(capacity)) {
             paginationBean.setCapacity(capacity);
         }
 
-        paginationBean.setCurrentIndex((currentIndex - 1) * paginationBean.getCapacity());
+        paginationBean.setCurrentIndex(currentIndex);
         PageBackgroundQuery pageBackgroundQuery = new PageBackgroundQuery();
         int total=pageBackgroundService.queryPageBackgroundCount(pageBackgroundQuery);
         paginationBean.setTotalAmount(total);
