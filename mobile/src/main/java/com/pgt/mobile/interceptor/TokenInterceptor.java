@@ -1,6 +1,6 @@
 package com.pgt.mobile.interceptor;
-import com.pgt.constant.Constants;
 import com.pgt.constant.PathConstant;
+import com.pgt.constant.UserConstant;
 import com.pgt.mobile.base.constans.MobileConstans;
 import com.pgt.token.bean.Token;
 import com.pgt.token.service.TokenService;
@@ -46,9 +46,16 @@ public class TokenInterceptor implements HandlerInterceptor {
         LOGGER.info("url:" + url);
 
         LOGGER.debug("TokenInterceptor has run");
-        User user= (User) request.getSession().getAttribute(Constants.USER);
+        User user= (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
         LOGGER.debug("The session createTime {}",request.getSession().getCreationTime());
         LOGGER.debug("The session lastAccessTime {}",request.getSession().getLastAccessedTime());
+
+
+        //不需要登陆的请求,放行
+        if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH)) {
+            LOGGER.debug("Not need interceptor.");
+            return true;
+        }
 
         //session中存在user信息,放行
         if(!ObjectUtils.isEmpty(user)){
@@ -56,11 +63,6 @@ public class TokenInterceptor implements HandlerInterceptor {
           return true;
         }
 
-        //不需要登陆的请求,放行
-        if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH)) {
-            LOGGER.debug("Not need interceptor.");
-            return true;
-        }
 
         String tokenNumber = request.getParameter("token");
         if(StringUtils.isEmpty(tokenNumber)){
@@ -93,7 +95,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         if(tokenNumber.endsWith(tokenResult.getTokenNumber())){
             //处理登陆
             User userResult = userService.authorize(username);
-            request.getSession().setAttribute(Constants.USER,userResult);
+            request.getSession().setAttribute(UserConstant.CURRENT_USER,userResult);
             return true;
         }else{
             jo.put("message","need.Login");

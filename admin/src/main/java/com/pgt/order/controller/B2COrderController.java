@@ -1,9 +1,16 @@
 package com.pgt.order.controller;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.pgt.cart.bean.*;
+import com.pgt.cart.bean.pagination.InternalPagination;
+import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
+import com.pgt.cart.service.ResponseBuilderFactory;
+import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.internal.bean.Role;
+import com.pgt.internal.constant.ResponseConstant;
+import com.pgt.internal.controller.InternalTransactionBaseController;
+import com.pgt.mail.service.MailService;
+import com.pgt.order.bean.B2COrderSearchVO;
+import com.pgt.order.service.B2COrderService;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,27 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pgt.cart.bean.CommerceItem;
-import com.pgt.cart.bean.Delivery;
-import com.pgt.cart.bean.Order;
-import com.pgt.cart.bean.OrderStatus;
-import com.pgt.cart.bean.ResponseBean;
-import com.pgt.cart.bean.ResponseBuilder;
-import com.pgt.cart.bean.pagination.InternalPagination;
-import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
-import com.pgt.cart.service.ResponseBuilderFactory;
-import com.pgt.cart.util.RepositoryUtils;
-import com.pgt.internal.constant.ResponseConstant;
-import com.pgt.internal.controller.InternalTransactionBaseController;
-import com.pgt.mail.service.MailService;
-import com.pgt.order.bean.B2COrderSearchVO;
-import com.pgt.order.service.B2COrderService;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Yove on 12/21/2015.
@@ -47,23 +39,28 @@ public class B2COrderController extends InternalTransactionBaseController implem
 
 	@Autowired
 	private ResponseBuilderFactory mResponseBuilderFactory;
-	
+
 	@Autowired
 	private MailService mMailService;
 
-	@RequestMapping(value = "/order-list")//, method = RequestMethod.GET)
-	public ModelAndView listB2COrders(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
-			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
-			@RequestParam(value = "sortFieldName", required = false) String sortFieldName,
-			@RequestParam(value = "asc", required = false, defaultValue = "true") boolean asc,
-			@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "userName", required = false) String userName,
-			@RequestParam(value = "priceBeg", required = false) String priceBeg,
-			@RequestParam(value = "priceEnd", required = false) String priceEnd,
-			@RequestParam(value = "submitTimeBeg", required = false) String submitTimeBeg,
-			@RequestParam(value = "submitTimeEnd", required = false) String submitTimeEnd
-	) {
+	@RequestMapping(value = "/order-list", method = RequestMethod.GET)
+	public ModelAndView listB2COrders (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                   @RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
+	                                   @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
+	                                   @RequestParam(value = "sortFieldName", required = false) String sortFieldName,
+	                                   @RequestParam(value = "asc", required = false, defaultValue = "true") boolean asc,
+	                                   @RequestParam(value = "id", required = false) String id,
+	                                   @RequestParam(value = "userName", required = false) String userName,
+	                                   @RequestParam(value = "priceBeg", required = false) String priceBeg,
+	                                   @RequestParam(value = "priceEnd", required = false) String priceEnd,
+	                                   @RequestParam(value = "submitTimeBeg", required = false) String submitTimeBeg,
+	                                   @RequestParam(value = "submitTimeEnd", required = false) String submitTimeEnd) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
 		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		LOGGER.debug("Query b2c-orders at index: {} with capacity: {} by sort filed: {} and asc: {}", ciLong, caLong, sortFieldName, asc);
@@ -79,9 +76,15 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		return mav;
 	}
 
-	@RequestMapping(value = "/order-info")//, method = RequestMethod.GET)
-	public ModelAndView loadOrderHistoryDetails(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "id") String orderId) {
+	@RequestMapping(value = "/order-info", method = RequestMethod.GET)
+	public ModelAndView loadOrderHistoryDetails (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                             @RequestParam(value = "id") String orderId) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		int orderIdInt = RepositoryUtils.safeParseId(orderId);
 		Order order = getB2COrderService().loadOrder(orderIdInt);
 		ModelAndView mav = new ModelAndView("/b2c-order/b2c-order");
@@ -90,9 +93,15 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	}
 
 	@RequestMapping(value = "/change-order-status")
-	public ModelAndView changeOrderStatus(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "id", required = true) String id,
-			@RequestParam(value = "status", required = true) String status) {
+	public ModelAndView changeOrderStatus (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                       @RequestParam(value = "id", required = true) String id,
+	                                       @RequestParam(value = "status", required = true) String status) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/b2c-order/b2c-orders");
 		int idInt = RepositoryUtils.safeParseId(id);
 		Order order = getB2COrderService().loadOrder(idInt);
@@ -132,10 +141,16 @@ public class B2COrderController extends InternalTransactionBaseController implem
 
 	@RequestMapping(value = "/ajax-change-order-status")
 	@ResponseBody
-	public ResponseEntity ajaxChangeOrderStatus(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "id", required = true) String id,
-			@RequestParam(value = "status", required = true) String status) {
+	public ResponseEntity ajaxChangeOrderStatus (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                             @RequestParam(value = "id", required = true) String id,
+	                                             @RequestParam(value = "status", required = true) String status) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// permission verify
+		boolean pass = verifyPermission(pRequest, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR);
+		if (!pass) {
+			return new ResponseEntity(rb.createResponse(), HttpStatus.FORBIDDEN);
+		}
+		// main logic
 		int idInt = RepositoryUtils.safeParseId(id);
 		Order order = getB2COrderService().loadOrder(idInt);
 		if (order == null) {
@@ -175,9 +190,15 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	}
 
 	@RequestMapping(value = "/delivery")
-	public ModelAndView redirect2DeliveryPage(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "id", required = true) String id,
-			@RequestParam(value = "cid", required = true) String cid) {
+	public ModelAndView redirect2DeliveryPage (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                           @RequestParam(value = "id", required = true) String id,
+	                                           @RequestParam(value = "cid", required = true) String cid) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/b2c-order/order-info?id=" + id);
 		int cidInt = RepositoryUtils.safeParseId(cid);
 		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
@@ -191,11 +212,17 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	}
 
 	@RequestMapping(value = "/make-delivery")
-	public ModelAndView makeDelivery(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "id", required = true) String id,
-			@RequestParam(value = "cid", required = true) String cid,
-			@RequestParam(value = "deliveryTimeStr", required = false) String deliveryTimeStr,
-			Delivery delivery) {
+	public ModelAndView makeDelivery (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                  @RequestParam(value = "id", required = true) String id,
+	                                  @RequestParam(value = "cid", required = true) String cid,
+	                                  @RequestParam(value = "deliveryTimeStr", required = false) String deliveryTimeStr,
+	                                  Delivery delivery) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/order/delivery?id=" + id + "&cid=" + cid);
 		int cidInt = RepositoryUtils.safeParseId(cid);
 		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
@@ -222,9 +249,15 @@ public class B2COrderController extends InternalTransactionBaseController implem
 	}
 
 	@RequestMapping(value = "/make-receive")
-	public ModelAndView makeReceive(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "id", required = true) String id,
-			@RequestParam(value = "cid", required = true) String cid) {
+	public ModelAndView makeReceive (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                 @RequestParam(value = "id", required = true) String id,
+	                                 @RequestParam(value = "cid", required = true) String cid) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		// main logic
 		ModelAndView mav = new ModelAndView("redirect:/order/order-info?id=" + id);
 		int cidInt = RepositoryUtils.safeParseId(cid);
 		CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
@@ -237,7 +270,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			if (!result) {
 				status.setRollbackOnly();
 			}
-			
+
 		} catch (Exception e) {
 			status.setRollbackOnly();
 			LOGGER.error("Cannot mark received for commerce item: {} of order: {}", cid, id, e);
@@ -247,28 +280,28 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		return mav;
 	}
 
-	public B2COrderService getB2COrderService() {
+	public B2COrderService getB2COrderService () {
 		return mB2COrderService;
 	}
 
-	public void setB2COrderService(final B2COrderService pB2COrderService) {
+	public void setB2COrderService (final B2COrderService pB2COrderService) {
 		mB2COrderService = pB2COrderService;
 	}
 
-	public ResponseBuilderFactory getResponseBuilderFactory() {
+	public ResponseBuilderFactory getResponseBuilderFactory () {
 		return mResponseBuilderFactory;
 	}
 
-	public void setResponseBuilderFactory(final ResponseBuilderFactory pResponseBuilderFactory) {
+	public void setResponseBuilderFactory (final ResponseBuilderFactory pResponseBuilderFactory) {
 		mResponseBuilderFactory = pResponseBuilderFactory;
 	}
 
-	public MailService getmMailService() {
+	public MailService getmMailService () {
 		return mMailService;
 	}
 
-	public void setmMailService(MailService mMailService) {
+	public void setmMailService (MailService mMailService) {
 		this.mMailService = mMailService;
 	}
-	
+
 }

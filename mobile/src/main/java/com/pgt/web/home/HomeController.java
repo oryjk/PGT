@@ -22,7 +22,7 @@ public class HomeController{
     @Autowired
     HomeMobileController homeMobileController;
 
-    @RequestMapping("home")
+    @RequestMapping("/web/home")
     public ModelAndView home(ModelAndView modelAndView){
         Map<String,Object> dataMap = homeMobileController.index();
         modelAndView.setViewName("home/home");

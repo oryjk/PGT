@@ -125,35 +125,72 @@
 							<li><span>排序方式</span></li>
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
 
-<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=creationDate<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">上架时间</a>
+<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=creationDate&key=true<c:if test='${empty sortOrder}'>&sortOrder=desc</c:if><c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">上架时间</a>
 
 								<c:if test="${sortKey eq 'creationDate'}">
-								<c:if test="${not empty sortOrder}">
-									<c:if test="${sortOrder eq 'desc'}">
-									<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+
+									<c:if test="${not empty sortOrder}">
+
+										<c:if test="${! empty page}">
+
+											<c:if test="${sortOrder eq 'desc'}">
+												<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+											</c:if>
+
+											<c:if test="${sortOrder eq 'asc'}">
+												<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
+											</c:if>
+
+										</c:if>
+
+										<c:if test="${ empty page}">
+
+											<c:if test="${sortOrder eq 'asc'}">
+												<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+											</c:if>
+
+											<c:if test="${sortOrder eq 'desc'}">
+												<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
+											</c:if>
+
+										</c:if>
 									</c:if>
 
-									<c:if test="${sortOrder eq 'asc'}">
-								<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
-								    </c:if>
-								</c:if>
 								</c:if>
 
 
 							</li>
 
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
-<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=salePrice<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">价格</a>
+<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=salePrice&key=true<c:if test='${ empty sortOrder}'>&sortOrder=desc</c:if><c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">价格</a>
 
 								<c:if test="${sortKey eq 'salePrice'}">
-								<c:if test="${not empty sortOrder}">
-									<c:if test="${sortOrder eq 'desc'}">
+
+									<c:if test="${not empty sortOrder}">
+
+										<c:if test="${! empty page}">
+
+										<c:if test="${sortOrder eq 'desc'}">
 										<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
 									</c:if>
 
 									<c:if test="${sortOrder eq 'asc'}">
 										<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
 									</c:if>
+
+											</c:if>
+
+										<c:if test="${ empty page}">
+
+											<c:if test="${sortOrder eq 'asc'}">
+												<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+											</c:if>
+
+											<c:if test="${sortOrder eq 'desc'}">
+												<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
+											</c:if>
+
+											</c:if>
 								</c:if>
 								</c:if>
 
@@ -250,11 +287,42 @@
 							<input type="hidden" name="priceEnd"
 								value="${priceEnd}">
 						</c:if>
-						
+
+
+
 						<c:if test="${! empty sortKey}">
 						<input type="hidden" name="sortKey"
 								value="${sortKey}">
 						</c:if>
+
+						<c:if test="${empty page}">
+
+							<c:if test="${! empty sortOrder}">
+								<input type="hidden" name="sortOrder"
+									   value="${sortOrder}">
+							</c:if>
+
+						</c:if>
+
+						<c:if test="${! empty page}">
+
+							<c:if test="${! empty sortOrder}">
+
+								<c:if test="${sortOrder eq 'desc'}">
+								<input type="hidden" name="sortOrder"
+									   value="asc">
+							    </c:if>
+
+								<c:if test="${sortOrder eq 'asc'}">
+									<input type="hidden" name="sortOrder"
+										   value="desc">
+								</c:if>
+
+								</c:if>
+
+						</c:if>
+
+
 						<jsp:include page="../core/pageView.jsp" />
 					</form>
 

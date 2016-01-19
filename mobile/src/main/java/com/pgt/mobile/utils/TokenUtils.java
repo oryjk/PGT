@@ -17,7 +17,7 @@ public class TokenUtils {
      public static String generateToken(String phoneId,String username){
          LOGGER.debug("The phoneId is{},and username is{}",phoneId,username);
          if(StringUtils.isEmpty(phoneId)){
-             LOGGER.debug("The serviceId is empty");
+             LOGGER.debug("The phoneId is empty");
              return null;
          }
          if(StringUtils.isEmpty(username)){

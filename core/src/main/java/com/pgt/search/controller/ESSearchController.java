@@ -58,6 +58,7 @@ public class ESSearchController {
                             @RequestParam(value = "sortOrder", required = false) String sortOrder,
                             @RequestParam(value = "priceStart", required = false) String priceStart,
                             @RequestParam(value = "priceEnd", required = false) String priceEnd,
+                            @RequestParam(value = "key", required = false) String key,
                             @RequestParam(value = "currentIndex", required = false) String currentIndex, ModelAndView modelAndView) {
         CommPaginationBean paginationBean = new CommPaginationBean();
         StringBuilder message = new StringBuilder();
@@ -84,7 +85,7 @@ public class ESSearchController {
             }
             term = buildESMatch(term, modelAndView, message, esMatches);
 
-            esSort= buildESSort(sortKey, sortOrder, modelAndView);
+            esSort= buildESSort(key,sortKey, sortOrder, modelAndView);
 
             if(!ObjectUtils.isEmpty(esSort)){
                 sortList.add(esSort);
@@ -206,7 +207,7 @@ public class ESSearchController {
         }
         return modelAndView;
     }
-    private  ESSort buildESSort(@RequestParam(value = "sortKey", required = false) String sortKey,
+    private  ESSort buildESSort(@RequestParam(value = "key", required = false) String key,@RequestParam(value = "sortKey", required = false) String sortKey,
                              @RequestParam(value = "sortOrder", required = false) String sortOrder, ModelAndView modelAndView) {
         ESSort esSort=null;
         if (!StringUtils.isEmpty(sortKey)) {
@@ -214,15 +215,33 @@ public class ESSearchController {
             esSort.setPropertyName(sortKey);
             // set default value first.
             esSort.setSortOrder(SortOrder.DESC);
-            if (sortOrder != null) {
-                if (sortOrder.endsWith(SortOrder.ASC.toString())) {
-                    esSort.setSortOrder(SortOrder.ASC);
-                    modelAndView.addObject("sortOrder", "desc");
+            if(!StringUtils.isEmpty(key)){
+
+                if (sortOrder != null) {
+                    if (sortOrder.endsWith(SortOrder.ASC.toString())) {
+                        esSort.setSortOrder(SortOrder.ASC);
+                        modelAndView.addObject("sortOrder", "desc");
+                    } else {
+                        modelAndView.addObject("sortOrder", "asc");
+                    }
                 } else {
                     modelAndView.addObject("sortOrder", "asc");
                 }
-            } else {
-                modelAndView.addObject("sortOrder", "asc");
+                modelAndView.addObject("page","page");
+
+            }else{
+
+                if (sortOrder != null) {
+
+                    if (sortOrder.endsWith(SortOrder.ASC.toString())) {
+                        esSort.setSortOrder(SortOrder.ASC);
+                        modelAndView.addObject("sortOrder", "asc");
+                    }else{
+                        modelAndView.addObject("sortOrder", "desc");
+                    }
+
+                }
+
             }
             modelAndView.addObject("sortKey", sortKey);
             LOGGER.debug("add sortKey to modelAndView", sortKey);
