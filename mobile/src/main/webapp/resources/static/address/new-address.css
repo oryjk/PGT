@@ -82,6 +82,11 @@ a{
 .menu5{
     background: url("../img/right-icon4.png") no-repeat;
 }
+
+.content{
+    background: #fff;
+    padding-bottom: 10%;
+}
 .name {
     margin-top: 1em;
     background: #fff;
@@ -121,16 +126,21 @@ a{
 .kong3 {
     flex: 0.25;
 }
-select{
+.sel{
+    flex: 3;
 }
-
-
-
-
-
-
-
+.text-new{
+    height: 10em;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex: 3;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
 .btn-clean{
+    width: 70%;
+    height: 10%;
     color: #ffffff;
     background: red;
     margin: 2em 6em;
@@ -140,6 +150,7 @@ select{
     border: 2px solid red;
     border-radius: 10px;
 }
+
 
 .footer{
     background: #fff;
