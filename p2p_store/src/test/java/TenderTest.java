@@ -36,7 +36,7 @@ public class TenderTest {
         tender.setDueDate(new Date());
         tender.setInterestRate(0.08);
         tender.setName("Tender name");
-        tender.setPawnshopId(100);
+        tender.setPawnShopId(100);
         tender.setPawnTicketId(1000);
         tender.setPostPeriod(10);
         tender.setPrePeriod(10000);
