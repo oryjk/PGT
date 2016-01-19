@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 1em;
+}
+
+body {
+    background: #F3F3F3;
+}
+
+h2 {
+    font-size: 1.1em;
+    display: block;
+    padding-left: 5%;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+p {
+    line-height: 1.2em;
+    margin-top: 5%;
+    padding: 0 5%;
+}
+
+img {
+    border: 0 solid #ddd;
+    outline: none;
+}
+
+.header {
+    position: relative;
+    background: #fff;
+    display: block;
+    display: -webkit-flex;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #cccccc;
+}
+
+.arrow {
+    margin-top: 2em;
+    flex: 1;
+    height: 36px;
+    background: url("../img/left-arrow.png") no-repeat center;
+}
+
+.font {
+    font-size: 1em;
+    margin-top: 2em;
+    text-align: center;
+    flex: 8;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+
+}
+.content{
+    margin: 3%;
+    border: 2px solid #ccc;
+    background: #fff;
+}
+.content-top{
+    padding: 5%;
+    display: -webkit-flex;
+    border-bottom: 2px solid #ccc;
+}
+.name{
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex: 1.5;
+}
+.phone{
+    color: #d11010;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex: 3;
+}
+.ad{
+    color: #d11010;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex: 2;
+}
+.content-mid{
+    display:-webkit-flex;
+    flex-direction: column;
+}
+.content-font{
+    padding: 5%;
+    flex: 3;
+}
+.content-change{
+    margin: 5% 0;
+    flex: 1;
+    display:-webkit-flex;
+}
+.kong3{
+    flex: 9;
+}
+.kong4{
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex: 1;
+}
+.content-font1{
+    flex: 1;
+    float: right;
+}
+.content-font2{
+    flex: 1;
+    float: right;
+}
+
+
+.btn-clean {
+    color: #ffffff;
+    background:#d11010;
+    margin: 2em 1em;
+    display: block;
+    padding: 1em;
+    text-align: center;
+    border: 2px solid #d11010;
+    border-radius: 10px;
+}
+
+.font0 {
+    background: #fff;
+    padding: 10% 0;
+}
+
+.footer {
+    background: #fff;
+    margin-top: 10em;
+    border-top: 1px solid #F3F3F3;
+
+}
+
+.footer-top {
+    padding-top: 1em;
+    display: -webkit-flex;
+}
+
+.f1 {
+    flex: 2;
+    color: #000;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    border-right: 1px solid #cccccc;
+}
+
+.kong1 {
+    flex: 2;
+}
+
+.kong {
+    flex: 3;
+}
+
+.footer-bottom {
+    padding-top: 1em;
+    font-size: 10px;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
