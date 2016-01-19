@@ -9,8 +9,7 @@
 		<if test="paginationBean!=null">
 			<if test="paginationBean.currentIndex != null">
 				<if test="paginationBean.capacity != null">
-					limit #{paginationBean.currentIndex},
-					#{paginationBean.capacity}
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
 				</if>
 			</if>
 		</if>
@@ -102,9 +101,10 @@
 	</select>
 
 
-	<select id="queryImageByBanner" parameterType="Integer"
+	<select id="queryImageByBanner" parameterType="com.pgt.common.bean.ImageCustom"
 			resultMap="ImageResult">
-		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID} ORDER BY LOCATION ASC
+		SELECT * FROM IMAGE WHERE BANNER_ID = #{banner.bannerId} ORDER BY LOCATION ASC
+		<include refid="pageBean"/>
 	</select>
 
 
