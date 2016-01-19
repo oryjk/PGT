@@ -10,6 +10,9 @@ import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
 import com.pgt.web.search.AbstractController.SearchBaseController;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +35,8 @@ import java.util.Map;
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
 public class SearchTest extends SearchBaseController{
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTest.class);
+    @Autowired
+    private ESSearchService esSearchService;
 
     @Test
     public void testeSearch() {
@@ -39,7 +44,14 @@ public class SearchTest extends SearchBaseController{
         paginationBean.setCurrentIndex(0);
         EssearchBean essearchBean = new EssearchBean();
         essearchBean.setTerm("玉");
-        LOGGER.debug("******************" + JSONObject.toJSONString(this.essearchService(essearchBean)));
-        LOGGER.debug("******************" + JSONObject.toJSONString(this.findCategories()));
+        //LOGGER.debug("******************" + JSONObject.toJSONString(this.essearchService(essearchBean)));
+        //LOGGER.debug("******************" + JSONObject.toJSONString(this.findCategories()));
+
+        List id = new ArrayList<>();
+        id.add("98");
+        SearchResponse r = esSearchService.findProductsByProductIds(id);
+        SearchHits hits = r.getHits();
+        SearchHit[] productsArr = hits.getHits();
+        LOGGER.debug("111111111111111111111111111" + JSONObject.toJSONString( productsArr[0].getSource()));
     }
 }

@@ -25,19 +25,23 @@ public class SearchController extends SearchBaseController{
 
     @RequestMapping("search")
     public ModelAndView search(ModelAndView modelAndView){
-        modelAndView.setViewName("search/search");
         List categorys = this.findCategories();
         modelAndView.addObject("categorys", categorys);
+        modelAndView.setViewName("search/search");
         return  modelAndView;
     }
 
     @RequestMapping("searchProduct")
     public ModelAndView SearchProduct(EssearchBean essearchBean,ModelAndView modelAndView){
-        modelAndView.setViewName("search/mycollection");
+        essearchBean.setMobileCapacity("5");
         Map<String, Object> map = new HashMap<String,Object>();
         map.put("products", this.essearchService(essearchBean).get("products"));
         modelAndView.addObject("bean", map);
         LOGGER.debug("*************************" + this.essearchService(essearchBean).get("products"));
+        LOGGER.debug("*************************" + JSONObject.toJSONString(this.essearchService(essearchBean).get("commPaginationBean")));
+        modelAndView.addObject("essearchBean",essearchBean);
+        modelAndView.addObject("page", this.essearchService(essearchBean).get("commPaginationBean"));
+        modelAndView.setViewName("search/mycollection");
         return modelAndView;
     }
 }
