@@ -19,7 +19,7 @@ public class P2POrderService extends OrderService {
 
     public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, int placeQuantity) {
         P2PInfo info = new P2PInfo();
-        info.setTenderId(tender.getId());
+        info.setTenderId(tender.getTenderId());
         info.setPawnShopOwnerId(tender.getPawnShopOwnerId());
         info.setPawnShopId(tender.getPawnShopId());
         info.setPostPeriod(tender.getPostPeriod());

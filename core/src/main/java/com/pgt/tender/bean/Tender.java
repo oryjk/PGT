@@ -11,7 +11,7 @@ import java.util.List;
  * Created by carlwang on 1/16/16.
  */
 public class Tender implements Serializable {
-    private Integer id;
+    private Integer tenderId;
     private Integer pawnShopId;
     private Integer pawnShopOwnerId;
     private Integer pawnTicketId;
@@ -33,7 +33,7 @@ public class Tender implements Serializable {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("tenderId:").append(tenderId);
         stringBuilder.append(",");
-        stringBuilder.append("pawnshopId:").append(pawnshopId);
+        stringBuilder.append("pawnshopId:").append(pawnShopId);
         stringBuilder.append(",");
         stringBuilder.append("pawnTicketId:").append(pawnTicketId);
         stringBuilder.append(",");
@@ -73,14 +73,6 @@ public class Tender implements Serializable {
         return 0;
     }
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getPawnShopId() {
         return pawnShopId;
@@ -200,5 +192,13 @@ public class Tender implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public void setTenderId(Integer tenderId) {
+        this.tenderId = tenderId;
+    }
+
+    public Integer getTenderId() {
+        return this.tenderId;
     }
 }
