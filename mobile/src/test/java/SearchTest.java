@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Created by liqiang on 16-1-18.
  */
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
 public class SearchTest extends SearchBaseController{

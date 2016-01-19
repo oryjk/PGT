@@ -6,6 +6,8 @@ import com.pgt.constant.Constants;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.Requests;
 import org.elasticsearch.client.transport.TransportClient;
@@ -118,6 +120,12 @@ public abstract class AbstractSearchEngineService {
         }
 
 
+    }
+
+    protected SearchRequestBuilder buildSearchRequestBuilder(String siteIndexName, String indexType) throws IOException {
+        return getSearchClient().prepareSearch(siteIndexName)
+                .setTypes(indexType)
+                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
     }
 
     public Configuration getConfiguration() {

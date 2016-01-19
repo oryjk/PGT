@@ -3,12 +3,22 @@ package com.pgt.search.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pgt.constant.Constants;
+import com.pgt.search.bean.ESAggregation;
+import com.pgt.search.bean.ESRange;
+import com.pgt.search.bean.ESSort;
+import com.pgt.search.bean.ESTerm;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
+import com.pgt.utils.PaginationBean;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +27,9 @@ import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.util.List;
+
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 /**
  * Created by carlwang on 1/19/16.
@@ -62,6 +75,29 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             e.printStackTrace();
         }
     }
+
+    public SearchResponse findProducts(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
+                                       PaginationBean paginationBean,
+                                       ESAggregation categoryIdAggregation, List<RangeQueryBuilder> rangeQueryBuilderList) {
+        SearchResponse response = null;
+        try {
+            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
+            BoolQueryBuilder qb = boolQuery();
+            searchRequestBuilder.setQuery(qb);
+            if (!ObjectUtils.isEmpty(esTerm)) {
+                //operator will add to configuration or from request
+                qb.must(termQuery(esTerm.getPropertyName(), esTerm.getTermValue()));
+            }
+//            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
+            response = searchRequestBuilder.execute()
+                    .actionGet();
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
 
     @Override
     public void update(Integer id) {
