@@ -1,6 +1,7 @@
 package com.pgt.tender.bean;
 
 import com.pgt.product.bean.Product;
+import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -26,6 +27,44 @@ public class Tender implements Serializable {
     private List<Product> products;
     private Date creationDate;
     private Date updateDate;
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("tenderId:").append(tenderId);
+        stringBuilder.append(",");
+        stringBuilder.append("pawnshopId:").append(pawnshopId);
+        stringBuilder.append(",");
+        stringBuilder.append("pawnTicketId:").append(pawnTicketId);
+        stringBuilder.append(",");
+        stringBuilder.append("tenderTotal:").append(tenderTotal);
+        stringBuilder.append(",");
+        stringBuilder.append("tenderQuantity:").append(tenderQuantity);
+        stringBuilder.append(",");
+        stringBuilder.append("publishDate:").append(publishDate);
+        stringBuilder.append(",");
+        stringBuilder.append("dueDate:").append(dueDate);
+        stringBuilder.append(",");
+        stringBuilder.append("interestRate:").append(interestRate);
+        stringBuilder.append(",");
+        stringBuilder.append("name:").append(name);
+        stringBuilder.append(",");
+        stringBuilder.append("description:").append(description);
+        stringBuilder.append(",");
+        stringBuilder.append("prePeriod:").append(prePeriod);
+        stringBuilder.append(",");
+        stringBuilder.append("postPeriod:").append(postPeriod);
+        stringBuilder.append(",");
+        stringBuilder.append("creationDate:").append(creationDate);
+        stringBuilder.append(",");
+        stringBuilder.append("updateDate:").append(updateDate);
+        stringBuilder.append(",");
+        stringBuilder.append("creationDate:");
+        if (!ObjectUtils.isEmpty(products)) {
+            products.stream().forEach(product -> stringBuilder.append(product.getProductId()).append(","));
+        }
+        return stringBuilder.toString();
+    }
 
     public double getUnitPrice() {
         if (tenderQuantity > 0) {
