@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by carlwang on 1/16/16.
  */
 public class P2PInfo implements Serializable {
-    private Integer p2pInfoId;
+    private Integer id;
     private Integer type;
     private Integer pawnShopId;
     private Integer pawnShopOwnerId;
@@ -19,6 +19,8 @@ public class P2PInfo implements Serializable {
     private Date publishDate;
     private Integer prePeriod;
     private Integer postPeriod;
+    private int placeQuantity;
+    private double unitPrice;
 
     public Date getCreationDate() {
         return creationDate;
@@ -38,14 +40,6 @@ public class P2PInfo implements Serializable {
 
     private Date creationDate;
     private Date updateDate;
-
-    public Integer getP2pInfoId() {
-        return p2pInfoId;
-    }
-
-    public void setP2pInfoId(Integer p2pInfoId) {
-        this.p2pInfoId = p2pInfoId;
-    }
 
     public Integer getType() {
         return type;
@@ -133,5 +127,21 @@ public class P2PInfo implements Serializable {
 
     public void setPostPeriod(Integer postPeriod) {
         this.postPeriod = postPeriod;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public int getPlaceQuantity() {
+        return placeQuantity;
+    }
+
+    public void setPlaceQuantity(int placeQuantity) {
+        this.placeQuantity = placeQuantity;
     }
 }

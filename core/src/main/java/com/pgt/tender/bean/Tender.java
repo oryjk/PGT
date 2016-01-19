@@ -11,8 +11,9 @@ import java.util.List;
  * Created by carlwang on 1/16/16.
  */
 public class Tender implements Serializable {
-    private Integer tenderId;
-    private Integer pawnshopId;
+    private Integer id;
+    private Integer pawnShopId;
+    private Integer pawnShopOwnerId;
     private Integer pawnTicketId;
     private Double tenderTotal;
     private Integer tenderQuantity;
@@ -73,20 +74,28 @@ public class Tender implements Serializable {
     }
 
 
-    public Integer getTenderId() {
-        return tenderId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setTenderId(Integer tenderId) {
-        this.tenderId = tenderId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getPawnshopId() {
-        return pawnshopId;
+    public Integer getPawnShopId() {
+        return pawnShopId;
     }
 
-    public void setPawnshopId(Integer pawnshopId) {
-        this.pawnshopId = pawnshopId;
+    public void setPawnShopId(Integer pawnShopId) {
+        this.pawnShopId = pawnShopId;
+    }
+
+    public Integer getPawnShopOwnerId() {
+        return pawnShopOwnerId;
+    }
+
+    public void setPawnShopOwnerId(Integer pawnShopOwnerId) {
+        this.pawnShopOwnerId = pawnShopOwnerId;
     }
 
     public Integer getPawnTicketId() {

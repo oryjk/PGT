@@ -89,6 +89,8 @@ a{
     padding-top: 5%;
 }
 .btn-clean{
+    width: 70%;
+    height: 10%;
     color: #ffffff;
     background: red;
     margin: 2em 6em;

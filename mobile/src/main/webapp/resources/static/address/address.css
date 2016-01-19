@@ -11,9 +11,21 @@ body {
     background: #F3F3F3;
 }
 
+h2 {
+    font-size: 1.1em;
+    display: block;
+    padding-left: 5%;
+}
+
 a {
     color: #000;
     text-decoration: none;
+}
+
+p {
+    line-height: 1.2em;
+    margin-top: 5%;
+    padding: 0 5%;
 }
 
 img {
@@ -47,101 +59,87 @@ img {
     display: -webkit-flex;
 
 }
-
-.dian {
-    margin-top: 2em;
-    display: block;
-    background: url("../img/list.png") no-repeat center;
-    flex: 2;
-}
-
-.name {
-    margin-top: 1em;
+.content{
+    margin: 3%;
+    border: 2px solid #ccc;
     background: #fff;
-    font-size: 1.2em;
-    display: -webkit-flex;
-    padding: 3% 0;
 }
-
-.name1 {
-    position: relative;
-    background: #fff;
-    font-size: 1.2em;
+.content-top{
+    padding: 5%;
     display: -webkit-flex;
-    padding: 3% 0;
+    border-bottom: 2px solid #ccc;
 }
-
-.text {
-    height: 4em;
+.name{
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex: 1.5;
+}
+.phone{
+    color: #d11010;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
     flex: 3;
-    border: 2px solid #ccc;
-    border-radius: 5px;
 }
-
-.pass {
-    color: red;
-    padding: 1%;
-    font-size: 1em;
-    border: 2px solid red;
-    position: absolute;
-    right: 22%;
-    bottom: 28%;
-}
-
-.kong2 {
-    flex: 1;
-}
-
-.check {
-    background: #f60;
-    margin-top: 5.5%;
-    margin-left: 20%;
-    float: left;
+.ad{
+    color: #d11010;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
+    flex: 2;
+}
+.content-mid{
+    display:-webkit-flex;
+    flex-direction: column;
+}
+.content-font{
+    padding: 5%;
+    flex: 3;
+}
+.content-change{
+    margin: 5% 0;
+    flex: 1;
+    display:-webkit-flex;
+}
+.kong3{
+    flex: 9;
+}
+.kong4{
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex: 1;
+}
+.content-font1{
+    flex: 1;
+    float: right;
+}
+.content-font2{
+    flex: 1;
+    float: right;
 }
 
-.login div {
-    padding-top: 5%;
-}
 
 .btn-clean {
-    width: 70%;
-    height: 10%;
     color: #ffffff;
-    background: red;
-    margin: 2em 5em;
+    background:#d11010;
+    margin: 2em 1em;
     display: block;
     padding: 1em;
     text-align: center;
-    border: 2px solid red;
+    border: 2px solid #d11010;
     border-radius: 10px;
 }
 
-.font-1 {
-    overflow: hidden;
-
-}
-
-.font1 {
-    padding-left: 10%;
-    float: left;
-    color: #F60;
-}
-
-.font2 {
-    padding-right: 10%;
-    float: right;
-    color: #F60;
+.font0 {
+    background: #fff;
+    padding: 10% 0;
 }
 
 .footer {
     background: #fff;
-    margin-top: 2em;
+    margin-top: 10em;
     border-top: 1px solid #F3F3F3;
 
 }

@@ -10,18 +10,12 @@ html {
 body {
     background: #F3F3F3;
 }
-
-a {
+a{
     color: #000;
-    text-decoration: none;
+    text-decoration:none;
 }
 
-img {
-    border: 0 solid #ddd;
-    outline: none;
-}
-
-.header {
+.header{
     position: relative;
     background: #fff;
     display: block;
@@ -29,32 +23,70 @@ img {
     padding-bottom: 1em;
     border-bottom: 2px solid #cccccc;
 }
-
-.arrow {
+.arrow{
     margin-top: 2em;
     flex: 1;
     height: 36px;
-    background: url("../img/left-arrow.png") no-repeat center;
+    background: url("../img/left-arrow.png")no-repeat  center;
 }
-
-.font {
+.font{
     font-size: 1em;
     margin-top: 2em;
     text-align: center;
-    flex: 8;
+    flex: 2;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
 
 }
-
-.dian {
+.dian{
     margin-top: 2em;
     display: block;
-    background: url("../img/list.png") no-repeat center;
-    flex: 2;
+    background: url("../img/list.png")no-repeat center;
+    flex: 1;
+}
+.menu {
+    color: #fff;
+    width: 7em;
+    background: #484f55;
+    position: absolute;
+    top: 5.3em;
+    right: 0;
+    border: 1px solid #484f55;
+    border-radius: 5px;
+}
+.menu li{
+    font-size: 1em;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1.5em;
+    padding-left: 2em;
+    list-style: none;
+    margin: 2em 0;
+    border-bottom: 2px solid #cccccc;
+}
+.menu .menu1{
+    margin: 2em 0 0 0;
+    border: none;
+    background: url("../img/right-icon3.png") no-repeat;
+}
+.menu2{
+    background: url("../img/right-icon1.png") no-repeat;
+}
+.menu3{
+    background: url("../img/right-icon2.png") no-repeat;
+}
+.menu4{
+    background: url("../img/right-icon3.png") no-repeat;
+}
+.menu5{
+    background: url("../img/right-icon4.png") no-repeat;
 }
 
+.content{
+    background: #fff;
+    padding-bottom: 10%;
+}
 .name {
     margin-top: 1em;
     background: #fff;
@@ -63,8 +95,14 @@ img {
     padding: 3% 0;
 }
 
+.name1 span,
+.name span {
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
+
 .name1 {
-    position: relative;
     background: #fff;
     font-size: 1.2em;
     display: -webkit-flex;
@@ -81,40 +119,31 @@ img {
     border-radius: 5px;
 }
 
-.pass {
-    color: red;
-    padding: 1%;
-    font-size: 1em;
-    border: 2px solid red;
-    position: absolute;
-    right: 22%;
-    bottom: 28%;
-}
-
 .kong2 {
-    flex: 1;
+    flex: 0.5;
 }
 
-.check {
-    background: #f60;
-    margin-top: 5.5%;
-    margin-left: 20%;
-    float: left;
+.kong3 {
+    flex: 0.25;
+}
+.sel{
+    flex: 3;
+}
+.text-new{
+    height: 10em;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
+    flex: 3;
+    border: 2px solid #ccc;
+    border-radius: 5px;
 }
-
-.login div {
-    padding-top: 5%;
-}
-
-.btn-clean {
+.btn-clean{
     width: 70%;
     height: 10%;
     color: #ffffff;
     background: red;
-    margin: 2em 5em;
+    margin: 2em 6em;
     display: block;
     padding: 1em;
     text-align: center;
@@ -122,53 +151,32 @@ img {
     border-radius: 10px;
 }
 
-.font-1 {
-    overflow: hidden;
 
-}
-
-.font1 {
-    padding-left: 10%;
-    float: left;
-    color: #F60;
-}
-
-.font2 {
-    padding-right: 10%;
-    float: right;
-    color: #F60;
-}
-
-.footer {
+.footer{
     background: #fff;
     margin-top: 2em;
     border-top: 1px solid #F3F3F3;
 
 }
-
-.footer-top {
+.footer-top{
     padding-top: 1em;
     display: -webkit-flex;
 }
-
-.f1 {
-    flex: 2;
+.f1{
+    flex:2;
     color: #000;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
     border-right: 1px solid #cccccc;
 }
-
-.kong1 {
+.kong1{
     flex: 2;
 }
-
-.kong {
+.kong{
     flex: 3;
 }
-
-.footer-bottom {
+.footer-bottom{
     padding-top: 1em;
     font-size: 10px;
     margin-top: 1em;
