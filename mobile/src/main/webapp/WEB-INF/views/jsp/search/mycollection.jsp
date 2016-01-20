@@ -20,14 +20,11 @@
     <c:forEach items="${bean.products}" var="products">
         <c:if test="${not empty products}">
             <div class="font">
+                <a href="searchProductDetails?id=${products.productId}">11111111111</a>
                 <span class="font1-1">${products.name}</span>
                 <span class="font1-2"> ${products.salePrice}</span>
             </div>
             <div class="kong2"></div>
-            <div  class="btn1">
-                <input type="button" class="delete-1" value="取消">
-                <input type="button" class="delete1-1" value="购物车">
-            </div>
         </c:if>
     </c:forEach>
 
@@ -38,10 +35,6 @@
         <a href="searchProduct?term=${essearchBean.term}&&currentIndex=${page.currentIndex+1}">下一页</a>
     </c:if>
 </div>
-
-<a class="btn-clean">
-    清空
-</a>
 
 </body>
 </html>
