@@ -16,12 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/1/16.
+ * Created by Samli on 2016/1/16.
  */
 public class P2PCheckoutController {
+    private static final int NO_ERROR = 0;
+    private static final int PRODUCT_NOT_EXIST = 1;
+    private static final int INVEST_TOTAL_NOT_ENOUGH = 2;
 
     private P2POrderService orderService;
-
 
     public ModelAndView createOrder(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 
@@ -51,8 +53,8 @@ public class P2PCheckoutController {
         List<Product> relatedProducts = null;
 
         // check productIds is valid
-        boolean isValid = isProductIdsValid(productIds, relatedProducts);
-        if(!isValid) {
+        int errorCode = isProductIdsValid(productIds, relatedProducts, tender, placeQuantity);
+        if(NO_ERROR != errorCode) {
             // TODO redirect to tendId
         }
         // check inventory
@@ -64,11 +66,22 @@ public class P2PCheckoutController {
         return null;
     }
 
-    private boolean isProductIdsValid(String [] productIds, List<Product> relatedProducts) {
+    /**
+     *
+     * @param productIds
+     * @param relatedProducts
+     * @param tender
+     * @param placeQuantity
+     * @return error code
+     */
+    private int isProductIdsValid(String[] productIds, List<Product> relatedProducts, Tender tender, int placeQuantity) {
         if (null != productIds) {
+            // check relatedProducts need contains productIds
             if (null == relatedProducts || relatedProducts.isEmpty()) {
-                return false;
+                // TODO LOG
+                return PRODUCT_NOT_EXIST;
             }
+            double total = 0D;
             for (String productId : productIds) {
                 if (null == productId) {
                     continue;
@@ -78,20 +91,33 @@ public class P2PCheckoutController {
                     id = Integer.valueOf(productId);
                 } catch (Exception e) {
                     // TODO log
-                    return false;
+                    return PRODUCT_NOT_EXIST;
                 }
-
+                boolean match = false;
                 for (Product relatedProduct : relatedProducts) {
                     if (null == relatedProduct || null == relatedProduct.getProductId()) {
                         continue;
                     }
-                    if (id != relatedProduct.getProductId()) {
-                        return false;
+                    if (id == relatedProduct.getProductId()) {
+                        match = true;
+                        total += relatedProduct.getSalePrice();
+                        // TODO ROUND
+                        break;
                     }
                 }
+                if (!match) {
+                    // TODO log
+                    return PRODUCT_NOT_EXIST;
+                }
             }
-        }
-        return true;
+            double investTotal = tender.getUnitPrice() * placeQuantity;
+            // TODO ROUND;
+            if (total > investTotal) {
+                // TODO log
+                return INVEST_TOTAL_NOT_ENOUGH;
+            }
+         }
+        return NO_ERROR;
     }
 
     public P2POrderService getOrderService() {

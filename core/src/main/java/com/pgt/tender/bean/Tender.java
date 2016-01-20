@@ -26,6 +26,7 @@ public class Tender implements Serializable {
     private List<Product> products;
     private Date creationDate;
     private Date updateDate;
+    private Double handlingFeeRate;
 
     public double getUnitPrice() {
         if (tenderQuantity > 0) {
@@ -161,5 +162,13 @@ public class Tender implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Double getHandlingFeeRate() {
+        return handlingFeeRate;
+    }
+
+    public void setHandlingFeeRate(Double handlingFeeRate) {
+        this.handlingFeeRate = handlingFeeRate;
     }
 }
