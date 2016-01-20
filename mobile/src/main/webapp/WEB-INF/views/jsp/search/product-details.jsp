@@ -1,7 +1,9 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -9,12 +11,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/jquery1.8.3/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/product-details/js/right.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/js/right.js"></script>
     <link type="text/css" href="${pageContext.request.contextPath}/resources/static/product-details/js.css" rel="stylesheet">
-    <link type="text/css" href="${pageContext.request.contextPath}/resources/static/product-details/product-details.css" rel="stylesheet">
+    <link type="text/css" href="${pageContext.request.contextPath}/resources/static/product-details/product-details1.css" rel="stylesheet">
 </head>
 <!DOCTYPE html>
 <body>
+        <div class="ding">
+            <a href="#" class="bg1">
+                <img src="${pageContext.request.contextPath}/resources/static/img/bg1.png" >
+                <span>收藏</span>
+            </a>
+            <a href="#" class="bg2">
+                <img src="${pageContext.request.contextPath}/resources/static/img/bg2.png" >
+                <span>购物车</span>
+            </a>
+            <div class="btn1">
+                立即购买
+            </div>
+            <div class="btn2">
+                加入购物车
+            </div>
+        </div>
+
+        <%@include file="../common/header.jsp"%>
 
         <div class="content">
             <div class="banner">
@@ -82,8 +102,22 @@
                 </div>
                 <a href="#" class="content4-3"></a>
             </div>
+            <div class="list">
+                <a href="#" class="b1">商品介绍</a>
+                <a href="#" class="b2">规格参数</a>
+                <a href="#" class="b3">猜你喜欢</a>
+            </div>
         </div>
 
+        <!--same-->
+        <c:forEach items="${product.mainMedias}" var="mainMedias">
+            <div class="box1">
+                <img src="/resources/${mainMedias.path}">
+            </div>
+        </c:forEach>
+
+        <%@include file="../common/footer.jsp"%>
+        <br><br><br><br><br>
 </body>
 <script type="text/javascript">
     $(document).ready(function () {
