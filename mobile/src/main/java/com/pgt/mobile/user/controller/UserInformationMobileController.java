@@ -32,26 +32,20 @@ public class UserInformationMobileController extends BaseMobileController {
 	@Autowired
 	private UserInformationService userInformationService;
 
-	@Autowired
-	private SimpleCacheManager cacheManager;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserInformationMobileController.class);
-
 
 	// 创建或修改一个用户信息
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public Map<String,Object> createUserInformation(UserInformation userInformation,String phoneId) {
+	public Map<String,Object> createUserInformation(UserInformation userInformation,String phoneId,HttpSession session) {
          Map<String,Object> responseMap=new HashMap<String,Object>();
 
 		if(StringUtils.isEmpty(phoneId)){
 			return responseMobileFail(responseMap, "PhoneId.empty");
 		}
-		Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
-		Cache.ValueWrapper valueWrapper = cache.get(phoneId);
-		if (ObjectUtils.isEmpty(valueWrapper)) {
+		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		if(ObjectUtils.isEmpty(user)){
 			return responseMobileFail(responseMap, "User.empty");
 		}
-		User user= (User) valueWrapper.get();
 
 		if(StringUtils.isEmpty(userInformation.getNickname())){
             return responseMobileFail(responseMap, "Error.empty.nickname");
@@ -83,12 +77,11 @@ public class UserInformationMobileController extends BaseMobileController {
 		if(StringUtils.isEmpty(phoneId)){
 			return responseMobileFail(responseMap, "PhoneId.empty");
 		}
-		Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
-		Cache.ValueWrapper valueWrapper = cache.get(phoneId);
-		if (ObjectUtils.isEmpty(valueWrapper)) {
+
+		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		if(ObjectUtils.isEmpty(user)){
 			return responseMobileFail(responseMap, "User.empty");
 		}
-		User user= (User) valueWrapper.get();
 
 	    UserInformation userInformation = userInformationService.queryUserInformation(user);
         if(ObjectUtils.isEmpty(userInformation)){

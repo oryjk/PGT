@@ -24,9 +24,9 @@
 <!--正文-->
 
 <div id="content" class="content-box" style="
-background:  url('<spring:url value="${juedangpinStaticPath}${pageBackground.headerMedia.path}"/>') center 500px no-repeat,
-url('<spring:url value="${juedangpinStaticPath}${pageBackground.footerMedia.path}"/>') center bottom no-repeat,
-url('<spring:url value="${juedangpinStaticPath}${pageBackground.middleMedia.path}"/>') center top repeat-y
+background:  url('<spring:url value="${pageBackground.middleMedia.path}"/>') center 500px no-repeat,
+url('<spring:url value="${pageBackground.footerMedia.path}"/>') center bottom no-repeat,
+url('<spring:url value="${pageBackground.headerMedia.path}"/>') center top repeat-y
 ">
 
     <c:if test="${ES==true}">

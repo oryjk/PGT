@@ -39,6 +39,7 @@ public interface ProductMapper extends SqlMapper {
     List<ProductMedia> queryProductMainMedias(@Param("productId") int pProductId);
 
     ProductMedia queryProductThumbnailMedias(@Param("productId") int pProductId);
+
     ProductMedia queryProductMobileDetailMedias(@Param("productId") int pProductId);
 
     ProductMedia queryProductExpertMedia(@Param("productId") int pProductId);
@@ -69,4 +70,6 @@ public interface ProductMapper extends SqlMapper {
     List<Product> queryProductByIds(List<Integer> pSupposeProductIds);
 
     Integer queryProductTotal(SearchPaginationBean searchPaginationBean);
+
+    List<Product> queryProductByTenderId(@Param("tenderId") Integer tenderId);
 }

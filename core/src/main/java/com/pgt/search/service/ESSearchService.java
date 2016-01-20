@@ -93,9 +93,9 @@ public class ESSearchService {
 
     public void initialIndex(Boolean override) {
         createIndex(Constants.SITE_INDEX_NAME, override);
-        createProductMapping(Constants.SITE_INDEX_NAME);
-        createCategoryMapping(Constants.SITE_INDEX_NAME);
-        createHotSaleMapping(Constants.SITE_INDEX_NAME);
+        createProductMapping();
+        createCategoryMapping();
+        createHotSaleMapping();
     }
 
     /**
@@ -278,7 +278,7 @@ public class ESSearchService {
                     LOGGER.debug("The root category id {categoryId}.", rootCategory.getId());
                     List<Product> products = hotProductHelper.findCategoryHotProductByRootCategoryId(rootCategory.getId());
 
-                    HashSet hSet  =   new HashSet(products);
+                    HashSet hSet = new HashSet(products);
                     products.clear();
                     products.addAll(hSet);
 
@@ -763,16 +763,22 @@ public class ESSearchService {
         }
     }
 
-    private void createProductMapping(String index) {
-        createMapping(index, Constants.PRODUCT_INDEX_TYPE, esConfiguration.getProductAnalyzerFields());
+    private void createProductMapping() {
+        LOGGER.debug("Begin create product mapping.");
+        createMapping(Constants.SITE_INDEX_NAME, Constants.PRODUCT_INDEX_TYPE, esConfiguration.getProductAnalyzerFields());
+        LOGGER.debug("End to create product mapping.");
     }
 
-    private void createCategoryMapping(String index) {
-        createMapping(index, Constants.CATEGORY_INDEX_TYPE, esConfiguration.getCategoryAnalyzerFields());
+    private void createCategoryMapping() {
+        LOGGER.debug("Begin to create category mapping");
+        createMapping(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE, esConfiguration.getCategoryAnalyzerFields());
+        LOGGER.debug("End to create category mapping.");
     }
 
-    private void createHotSaleMapping(String index) {
-        createMapping(index, Constants.HOT_PRODUCT_INDEX_TYPE, esConfiguration.getHotSaleAnalyzerFields());
+    private void createHotSaleMapping() {
+        LOGGER.debug("Begin to create hot sale mapping.");
+        createMapping(Constants.SITE_INDEX_NAME, Constants.HOT_PRODUCT_INDEX_TYPE, esConfiguration.getHotSaleAnalyzerFields());
+        LOGGER.debug("End to create hot sale mapping.");
     }
 
 

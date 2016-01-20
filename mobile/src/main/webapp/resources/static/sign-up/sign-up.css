@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 1em;
+}
+
+body {
+    background: #F3F3F3;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+img {
+    border: 0 solid #ddd;
+    outline: none;
+}
+
+.header {
+    position: relative;
+    background: #fff;
+    display: block;
+    display: -webkit-flex;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #cccccc;
+}
+
+.arrow {
+    margin-top: 2em;
+    flex: 1;
+    height: 36px;
+    background: url("../img/left-arrow.png") no-repeat center;
+}
+
+.font {
+    font-size: 1em;
+    margin-top: 2em;
+    text-align: center;
+    flex: 8;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+
+}
+
+.dian {
+    margin-top: 2em;
+    display: block;
+    background: url("../img/list.png") no-repeat center;
+    flex: 2;
+}
+
+.name {
+    margin-top: 1em;
+    background: #fff;
+    font-size: 1.2em;
+    display: -webkit-flex;
+    padding: 3% 0;
+}
+
+.name1 {
+    position: relative;
+    background: #fff;
+    font-size: 1.2em;
+    display: -webkit-flex;
+    padding: 3% 0;
+}
+
+.text {
+    height: 4em;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex: 3;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.pass {
+    color: red;
+    padding: 1%;
+    font-size: 1em;
+    border: 2px solid red;
+    position: absolute;
+    right: 22%;
+    bottom: 28%;
+}
+
+.kong2 {
+    flex: 1;
+}
+
+.check {
+    background: #f60;
+    margin-top: 5.5%;
+    margin-left: 20%;
+    float: left;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
+
+.login div {
+    padding-top: 5%;
+}
+
+.btn-clean {
+    width: 70%;
+    height: 10%;
+    color: #ffffff;
+    background: red;
+    margin: 2em 5em;
+    display: block;
+    padding: 1em;
+    text-align: center;
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.font-1 {
+    overflow: hidden;
+
+}
+
+.font1 {
+    padding-left: 10%;
+    float: left;
+    color: #F60;
+}
+
+.font2 {
+    padding-right: 10%;
+    float: right;
+    color: #F60;
+}
+
+.footer {
+    background: #fff;
+    margin-top: 2em;
+    border-top: 1px solid #F3F3F3;
+
+}
+
+.footer-top {
+    padding-top: 1em;
+    display: -webkit-flex;
+}
+
+.f1 {
+    flex: 2;
+    color: #000;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    border-right: 1px solid #cccccc;
+}
+
+.kong1 {
+    flex: 2;
+}
+
+.kong {
+    flex: 3;
+}
+
+.footer-bottom {
+    padding-top: 1em;
+    font-size: 10px;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}

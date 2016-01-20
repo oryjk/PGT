@@ -5,6 +5,7 @@ import com.pgt.payment.bean.PaymentGroup;
 import com.pgt.shipping.bean.ShippingVO;
 import org.springframework.util.CollectionUtils;
 
+import java.beans.Transient;
 import java.util.*;
 
 /**
@@ -28,6 +29,9 @@ public class Order implements OrderType, OrderStatus {
 	private Date mUpdateDate;
 	private Date mSubmitDate;
 	private boolean mEasyBuy;
+	private Integer p2pInfoId;
+	private String orderHolderAlias;
+	private Double shippingFee;
 
 	public Order() {
 
@@ -89,7 +93,8 @@ public class Order implements OrderType, OrderStatus {
 		return commerceItem;
 	}
 
-	public List<CommerceItem> getPersistedCommerceItems() {
+	@Transient
+	public List<CommerceItem> obtainPersistedCommerceItems () {
 		if (emptyOrder()) {
 			return Collections.EMPTY_LIST;
 		}
@@ -102,7 +107,7 @@ public class Order implements OrderType, OrderStatus {
 		return persistentCommerceItems;
 	}
 
-	public List<CommerceItem> getTransientCommerceItems() {
+	public List<CommerceItem> obtainTransientCommerceItems () {
 		if (emptyOrder()) {
 			return Collections.EMPTY_LIST;
 		}
@@ -279,5 +284,29 @@ public class Order implements OrderType, OrderStatus {
 
 	public void setPayment(final PaymentGroup pPayment) {
 		mPayment = pPayment;
+	}
+
+	public Integer getP2pInfoId() {
+		return p2pInfoId;
+	}
+
+	public void setP2pInfoId(Integer p2pInfoId) {
+		this.p2pInfoId = p2pInfoId;
+	}
+
+	public String getOrderHolderAlias() {
+		return orderHolderAlias;
+	}
+
+	public void setOrderHolderAlias(String orderHolderAlias) {
+		this.orderHolderAlias = orderHolderAlias;
+	}
+
+	public Double getShippingFee() {
+		return shippingFee;
+	}
+
+	public void setShippingFee(Double shippingFee) {
+		this.shippingFee = shippingFee;
 	}
 }

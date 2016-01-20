@@ -3,6 +3,7 @@ package com.pgt.shipping.controller;
 import com.pgt.address.bean.AddressInfo;
 import com.pgt.address.bean.Store;
 import com.pgt.address.service.AddressInfoService;
+import com.pgt.cart.OrderType;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.constant.CartConstant;
@@ -195,7 +196,7 @@ public class ShippingController implements CartMessages {
 			return mav;
 		}
 
-		if (getOrderService().hasUnsubmitOrder(user.getId().intValue())) {
+		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.B2C_ORDER)) {
 			mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
 			mav.addObject(CartConstant.ORDER_ID, order.getId());
 			mav.addObject("error", "HAS.UNSUBMIT.ORDER");
@@ -217,25 +218,24 @@ public class ShippingController implements CartMessages {
 			mav.addObject(CartConstant.ORDER_ID, order.getId());
 			return mav;
 		} else {
+			try {
+				getInventoryService().lockInventory(order);
+			} catch (LockInventoryException e) {
+				String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
+				mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
+
+				return mav;
+			} catch (Exception e) {
+				String message = CartMessages.ERROR_INV_CHECK_FAILED;
+				LOGGER.error("lock inventory failed", e);
+				mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
+				return mav;
+			}
 			order.setStatus(OrderStatus.FILLED_SHIPPING);
 			order.setSubmitDate(new Date());
 			getOrderService().updateOrder(order);
+			// FIXME add transaction
 		}
-
-		try {
-			getInventoryService().lockInventory(order);
-		} catch (LockInventoryException e) {
-			String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
-			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
-
-			return mav;
-		} catch (Exception e) {
-			String message = CartMessages.ERROR_INV_CHECK_FAILED;
-			LOGGER.error("lock inventory failed", e);
-			mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
-			return mav;
-		}
-
 		sendEmail(user, order);
 		request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
 		mav.setViewName("redirect:/payment/gateway");

@@ -9,8 +9,7 @@
 		<if test="paginationBean!=null">
 			<if test="paginationBean.currentIndex != null">
 				<if test="paginationBean.capacity != null">
-					limit #{paginationBean.currentIndex},
-					#{paginationBean.capacity}
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
 				</if>
 			</if>
 		</if>
@@ -80,7 +79,7 @@
 
 	<select id="queryAllImageByBannerId" parameterType="Integer"
 		resultMap="ImageResult">
-		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID} ORDER BY LOCATION ASC
+		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID} AND NOW() BETWEEN CREATE_DATE AND END_DATE ORDER BY LOCATION ASC
 	</select>
 
 	<!-- 查询总记录数 -->
@@ -99,6 +98,19 @@
 				LOCATION = #{location}
 			</if>
 		</where>
+	</select>
+
+
+	<select id="queryImageByBanner" parameterType="com.pgt.common.bean.ImageCustom"
+			resultMap="ImageResult">
+		SELECT * FROM IMAGE WHERE BANNER_ID = #{banner.bannerId} ORDER BY LOCATION ASC
+		<include refid="pageBean"/>
+	</select>
+
+
+	<select id="queryImageByBannerCount" parameterType="Integer"
+			resultType="Integer">
+		SELECT count(*) FROM IMAGE WHERE BANNER_ID = #{BANNER_ID}
 	</select>
 
 

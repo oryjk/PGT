@@ -2,22 +2,24 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
-        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
     <import resource="yeepay-config.xml"/>
     <import resource="alipay-config.xml"/>
+    <import resource="scheduling-job.xml"/>
     <context:component-scan base-package="com.*"/>
+
 
 
     <import resource="persistence3-db.xml"/>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath*:config/mybatis/mappers/*Mapper.xml"/>
-        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/> -->
+        <property name="mapperLocations" value="classpath:config/mybatis/mappers/*Mapper.xml"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
     <bean id="transactionManager"
@@ -58,7 +60,7 @@
         <property name="defaultEncoding" value="utf-8"></property>
         <property name="cacheSeconds" value="120"></property>
     </bean>
-    <bean id="configuration" class="com.pgt.configuration.Configuration">
+    <bean id="configuration" class="com.pgt.configuration.Configuration" scope="singleton">
         <property name="homeHotProductCount" value="5"/>
         <property name="onlyShowInStock" value="false"/>
         <property name="productListPageCapacity" value="20"/>
@@ -67,7 +69,8 @@
         <property name="useES" value="true"></property>
         <property name="resourcePath" value="/resources"></property>
         <property name="initialDataPath" value="/json"></property>
-
+        <property name="imagePath" value="/home/xiaodong/Projects/work/PGT/b2c_store/src/main/webapp"></property>
+        <property name="imageFolder" value="/resources/image/upload/"></property>
 
     </bean>
     <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
@@ -119,8 +122,8 @@
                 <value>sort</value>
             </list>
         </property>
-        <property name="needIndex" value="false"/>
-        <property name="clearIndex" value="false"/>
+        <property name="needIndex" value="true"/>
+        <property name="clearIndex" value="true"/>
     </bean>
 
     <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
@@ -129,14 +132,11 @@
                 <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
                     <property name="name" value="phoneCode"/>
                 </bean>
-                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
-                    <property name="name" value="user"/>
-                </bean>
             </set>
         </property>
     </bean>
-    <bean class="com.pgt.data.MigrateData">
-        <property name="dataSource" ref="dataSource"/>
+
+    <bean class="com.pgt.data.MigrateDataListener">
         <property name="esConfiguration" ref="esConfiguration"/>
         <property name="esSearchService" ref="esSearchService"/>
     </bean>

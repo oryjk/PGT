@@ -5,6 +5,7 @@ import com.pgt.communication.bean.Discuss;
 import com.pgt.communication.bean.DiscussCustom;
 import com.pgt.communication.service.DiscussService;
 import com.pgt.configuration.Configuration;
+import com.pgt.constant.UserConstant;
 import com.pgt.mobile.base.controller.BaseMobileController;
 import com.pgt.mobile.base.constans.MobileConstans;
 import com.pgt.product.bean.Product;
@@ -41,15 +42,13 @@ public class DiscussMobileController extends BaseMobileController{
 	@Autowired
 	private ProductService productService;
 
-	@Autowired
-	private SimpleCacheManager cacheManager;
 
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DiscussMobileController.class);
 
 
 	// 展示一个商品下面的讨论
-	@RequestMapping(value = "/query", method = RequestMethod.GET)
+	@RequestMapping(value = "/query", method = RequestMethod.POST)
 	public  Map<String,Object> queryDiscussByProductId(Integer productId, Long currentIndex) {
 
 		Map<String,Object> responseMap = new HashMap<String,Object>();
@@ -91,12 +90,10 @@ public class DiscussMobileController extends BaseMobileController{
 		if(StringUtils.isEmpty(phoneId)){
 			return responseMobileFail(responseMap, "PhoneId.empty");
 		}
-		Cache cache = cacheManager.getCache(MobileConstans.PHONE_USER);
-		Cache.ValueWrapper valueWrapper = cache.get(phoneId);
-		if (ObjectUtils.isEmpty(valueWrapper)) {
+		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		if(ObjectUtils.isEmpty(user)){
 			return responseMobileFail(responseMap, "User.empty");
 		}
-		User user= (User) valueWrapper.get();
 
 		discuss.setUser(user);
 		discuss.setProduct(product);

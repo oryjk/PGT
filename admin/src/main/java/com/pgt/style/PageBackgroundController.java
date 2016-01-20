@@ -34,9 +34,6 @@ public class PageBackgroundController {
     private PageBackgroundService pageBackgroundService;
 
     @Autowired
-    private URLConfiguration urlConfiguration;
-
-    @Autowired
     private MediaService mediaService;
 
     @Autowired
@@ -173,19 +170,19 @@ public class PageBackgroundController {
 
 
     @RequestMapping(value = "/queryPageBackground",method=RequestMethod.GET)
-    public ModelAndView queryPageBackground(ModelAndView modelAndView,	@RequestParam(value = "currentPage", required = false) Integer currentPage,
+    public ModelAndView queryPageBackground(ModelAndView modelAndView,	@RequestParam(value = "currentIndex", required = false) Integer currentIndex,
                                             @RequestParam(value = "capacity", required = false) Long capacity){
 
         PaginationBean paginationBean = new PaginationBean();
-        if (ObjectUtils.isEmpty(currentPage)) {
-            currentPage = 1;
+        if (ObjectUtils.isEmpty(currentIndex)) {
+            currentIndex = 0;
         }
         paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
         if (!ObjectUtils.isEmpty(capacity)) {
             paginationBean.setCapacity(capacity);
         }
 
-        paginationBean.setCurrentIndex((currentPage - 1) * paginationBean.getCapacity());
+        paginationBean.setCurrentIndex(currentIndex);
         PageBackgroundQuery pageBackgroundQuery = new PageBackgroundQuery();
         int total=pageBackgroundService.queryPageBackgroundCount(pageBackgroundQuery);
         paginationBean.setTotalAmount(total);

@@ -3,10 +3,10 @@ package com.pgt.cart.filter;
 import com.google.gson.Gson;
 import com.pgt.cart.bean.BrowsedProductVO;
 import com.pgt.cart.constant.CookieConstant;
-import com.pgt.cart.service.ProductBrowseTrackService;
-import com.pgt.constant.UserConstant;
 import com.pgt.cart.constant.SessionConstant;
+import com.pgt.cart.service.ProductBrowseTrackService;
 import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.constant.UserConstant;
 import com.pgt.user.bean.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -149,7 +149,7 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 		Cookie cookie = new Cookie(CookieConstant.BROWSED_PRODUCTS, getProductBrowseTrackService().getEncodeCookie(idString));
 		cookie.setMaxAge(getProductBrowseTrackService().getCookieExpiredTime());
 		// global path could share the cookie
-		cookie.setPath(pRequest.getContextPath());
+		cookie.setPath("/");
 		// set http only to avoid xss attack
 		// cookie.setHttpOnly(true);
 		pResponse.addCookie(cookie);

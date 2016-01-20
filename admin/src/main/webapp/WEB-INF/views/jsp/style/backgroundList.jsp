@@ -4,13 +4,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <admin:container id="backgroundList" pageJsPath="/resources/style/background-list.js" pageCssPath="/resources/style/background.css">
 
-    <c:set value="${searchPaginationBean.currentIndex}" var="currentIndex"/>
-    <c:set value="${searchPaginationBean.maxIndex}" var="maxIndex"/>
+    <c:set value="${paginationBean.currentIndex}" var="currentIndex"/>
+    <c:set value="${paginationBean.maxIndex}" var="maxIndex"/>
 
     <div class="page-content">
         <div class="container-fluid">
@@ -91,16 +92,20 @@
                                                 ${pageBackground.pageBackgroundId}
                                             </td>
                                             <td>
-                                                ${pageBackground.creationDate}
+
+                                                    <fmt:formatDate value="${pageBackground.creationDate}" type="both" />
                                             </td>
                                             <td>
-                                        ${pageBackground.updateDate}
+
+                                                       <fmt:formatDate value="${pageBackground.updateDate}" type="both" />
                                             </td>
                                             <td>
-                                                ${pageBackground.startDate}
+
+                                                    <fmt:formatDate value="${pageBackground.startDate}" type="both" />
                                             </td>
                                             <td>
-                                                ${pageBackground.endDate}
+
+                                                    <fmt:formatDate value="${pageBackground.endDate}" type="both" />
                                             </td>
                                             <td>
                                                 可用
@@ -155,19 +160,19 @@
                                                                 <a href="javascript:;">...</a>
                                                             </li>
                                                             <li class="paginate_button ">
-                                                                <a href="/pageBackground/queryPageBackground=${currentIndex-2}">${currentIndex-1}</a>
+                                                                <a href="/pageBackground/queryPageBackground?currentIndex=${currentIndex-2}">${currentIndex-1}</a>
                                                             </li>
                                                             <li class="paginate_button ">
-                                                                <a href="/pageBackground/queryPageBackground=${currentIndex-1}">${currentIndex}</a>
+                                                                <a href="/pageBackground/queryPageBackground?currentIndex=${currentIndex-1}">${currentIndex}</a>
                                                             </li>
                                                             <li class="paginate_button active">
-                                                                <a href="/pageBackground/queryPageBackground=${currentIndex}">${currentIndex+1}</a>
+                                                                <a href="/pageBackground/queryPageBackground?currentIndex=${currentIndex}">${currentIndex+1}</a>
                                                             </li>
                                                             <li class="paginate_button">
-                                                                <a href="/pageBackground/queryPageBackground=${currentIndex+1}">${currentIndex+2}</a>
+                                                                <a href="/pageBackground/queryPageBackground?currentIndex=${currentIndex+1}">${currentIndex+2}</a>
                                                             </li>
                                                             <li class="paginate_button">
-                                                                <a href="/pageBackground/queryPageBackground=${currentIndex+2}">${currentIndex+3}</a>
+                                                                <a href="/pageBackground/queryPageBackground?currentIndex=${currentIndex+2}">${currentIndex+3}</a>
                                                             </li>
                                                             <li class="paginate_button disabled">
                                                                 <a href="javascript:;">...</a>

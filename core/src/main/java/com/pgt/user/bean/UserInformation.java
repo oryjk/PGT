@@ -33,7 +33,7 @@ public class UserInformation implements Serializable {
 
 	private String gender;
 
-	@Pattern(regexp = "(^\\d{18}$)|(^\\d{15}$)", message = "{Error.userInformation.idCard.invalid}", groups = {
+	@Pattern(regexp = "(^\\d{17}[a-zA-Z0-9]$)|(^\\d{14}[a-zA-Z0-9]$)", message = "{Error.userInformation.idCard.invalid}", groups = {
 			AddUserInformationGroup.class })
 	private String idCard;
 

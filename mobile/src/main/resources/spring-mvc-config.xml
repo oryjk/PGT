@@ -29,6 +29,12 @@
 
     <mvc:interceptors>
 
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.pgt.mobile.interceptor.TokenInterceptor"></bean>
+        </mvc:interceptor>
+
+
         <!--Initial global config-->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -54,12 +60,14 @@
             <bean class="com.pgt.permission.LoginInterceptor"></bean>
         </mvc:interceptor>
 
+
+
+
+
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="com.pgt.cart.filter.ProductBrowseTracker"></bean>
         </mvc:interceptor>
-
-
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
