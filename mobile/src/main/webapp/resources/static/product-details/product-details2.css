@@ -318,15 +318,14 @@ img {
     display: -webkit-flex;
     border-bottom: 2px solid #cccccc;
 }
-.content .b1{
-    color: #f60;
+.b1{
     flex: 1;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
 }
- .b2{
-
+.content .b2{
+    color: #f60;
     flex: 1;
     justify-content: center;
     align-items: center;
@@ -380,6 +379,4 @@ img {
 /*same
 *************/
 
-.box1 img{
-    width: 100%;
-}
+
