@@ -1,0 +1,399 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 1em;
+}
+
+body {
+    background: #fff;
+}
+
+h2 {
+    font-size: 1.1em;
+    display: block;
+    padding-left: 5%;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+p {
+    line-height: 1.2em;
+    margin-top: 5%;
+    padding: 0 5%;
+}
+
+img {
+    border: 0 solid #ddd;
+    outline: none;
+}
+
+.ding{
+    font-size: 0.5em;
+    color: #fff;
+    height:10%;
+    width: 100%;
+    background: #32302c;
+    position: fixed;
+    bottom:0;
+    left: 0;
+
+    display: -webkit-flex;
+}
+.bg2,
+.bg1{
+    opacity:0.8;
+    padding-top: 1%;
+    flex-direction: column;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border-right: 2px solid #ccc;
+}
+.bg2{
+    border-right: none;
+}
+.bg2 img,
+.bg1 img{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    opacity:1;
+}
+.bg2 span,
+.bg1 span{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.btn1{
+    flex: 1;
+    background: #ffaa00;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn2{
+    flex: 1;
+    background: #d11a1a;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.header {
+    position: relative;
+    background: #fff;
+    display: block;
+    display: -webkit-flex;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #cccccc;
+}
+
+.arrow {
+    margin-top: 2em;
+    flex: 1;
+    height: 36px;
+    background: url("../img/left-arrow.png") no-repeat center;
+}
+
+.font {
+    font-size: 1em;
+    margin-top: 2em;
+    text-align: center;
+    flex: 8;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+
+}
+
+.dian {
+    margin-top: 2em;
+    display: block;
+    background: url("../img/list.png") no-repeat center;
+    flex: 2;
+}
+
+.menu {
+    color: #fff;
+    width: 7em;
+    background: #484f55;
+    position: absolute;
+    top: 5.3em;
+    right: 0;
+    border: 1px solid #484f55;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.menu li {
+    font-size: 1em;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1.5em;
+    padding-left: 2em;
+    list-style: none;
+    margin: 2em 0;
+    border-bottom: 2px solid #cccccc;
+}
+
+.menu .menu1 {
+    margin: 2em 0 0 0;
+    border: none;
+    background: url("../img/right-icon3.png") no-repeat;
+}
+
+.menu2 {
+    background: url("../img/right-icon1.png") no-repeat;
+}
+
+.menu3 {
+    background: url("../img/right-icon2.png") no-repeat;
+}
+
+.menu4 {
+    background: url("../img/right-icon3.png") no-repeat;
+}
+
+.menu5 {
+    background: url("../img/right-icon4.png") no-repeat;
+}
+
+
+.img1{
+    background: url("../img/banner0.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+.content a{
+    color: #000;
+}
+.content1{
+    margin:0 5%;
+    padding: 5% 0;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px dashed #ccc;
+}
+.content1-1{
+    color: #d11010;
+    font-size: 1.2em;
+    flex: 2;
+}
+.content1-2{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 3;
+}
+.content1-2 span{
+    text-decoration:line-through;
+}
+.content1-3{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+    background: #F60;
+    border-radius: 5px;
+    color: #fff;
+    flex: 2;
+}
+
+.content2{
+    margin:0 5% ;
+    padding: 5% 0;
+    display: -webkit-flex;
+    border-bottom: 2px dashed #ccc;
+}
+.content2-1{
+    flex: 5;
+}
+.content2-1-1{
+    font-size: 1em;
+}
+.content2-1-2{
+    padding-top: 5%;
+    font-size: 0.8em;
+}
+.content2-2{
+    flex: 1;
+    background: url("../img");
+}
+.content3{
+    padding: 5% 0;
+    margin: 0 5%;
+    border-bottom: 2px dashed #ccc;
+    display: -webkit-flex;
+}
+.content3-1{
+    flex: 1;
+    color: #ccc;
+}
+.content3-1-2{
+    padding-top: 0.5em;
+}
+.content4-1-2{
+    padding-top: 1.2em;
+}
+.content3-2{
+    flex: 3;
+}
+.content3-2-1{
+
+}
+.content3-2-2{
+    overflow: hidden;
+    margin-top: 0.5em;
+    display: -webkit-flex;
+}
+.content4-2-2{
+    padding-top: 2%;
+    font-size: 0.5em;
+    color: #d11010;
+}
+.content4-2-3{
+    padding-top: 2%;
+}
+
+.minus{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    float: left;
+    border-left: 2px solid #ccc;
+    border-top:2px solid #ccc ;
+    border-bottom:2px solid #ccc ;
+    padding-right: -5%;
+    border-radius: 3px;
+}
+.num{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+    float: left;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+}
+.plus{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    float: left;
+    border-right: 2px solid #ccc;
+    border-top:2px solid #ccc ;
+    border-bottom:2px solid #ccc ;
+    border-radius: 3px;
+}
+.kong-num{
+    flex: 3;
+}
+.content3-3{
+    float: left;
+    flex: 1;
+}
+.content4-3{
+    flex: 1;
+    background: url("../img/icon5.png")no-repeat right 0;
+}
+
+
+.list{
+    margin-top: 5%;
+    padding-bottom: 5%;
+    display: -webkit-flex;
+    border-bottom: 2px solid #cccccc;
+}
+.b1{
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
+.content .b2{
+    color: #ffaa00;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+}
+.b3{
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
+.footer {
+    background: #fff;
+    margin-top: 2em;
+    border-top: 1px solid #F3F3F3;
+
+}
+
+.footer-top {
+    padding-top: 1em;
+    display: -webkit-flex;
+}
+
+.f1 {
+    flex: 2;
+    color: #000;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    border-right: 1px solid #cccccc;
+}
+
+.kong1 {
+    flex: 2;
+}
+
+.kong {
+    flex: 3;
+}
+
+.footer-bottom {
+    padding-top: 1em;
+    font-size: 10px;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
+/*same
+*************/
+
+.main{
+    color: #ccc;
+    padding: 2% 0;
+    margin: 0 5%;
+    border-bottom: 2px dashed #ccc;
+}
+.main1{
+
+    display: -webkit-flex;
+}
+.main1 span{
+    margin-left: 3%;
+    padding-top: 3%;
+    flex: 1;
+}
+.main1 .main1-1{
+    flex: 5;
+}

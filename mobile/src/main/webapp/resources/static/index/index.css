@@ -147,18 +147,15 @@ a{
     flex-direction: column;
     display: -webkit-flex;
 }
-.img-top{
-    background: url("../img/img1.jpg") no-repeat;
-    background-size: 100% 100%;
-    background-position: center;
-    flex: 1;
+.img-top:first-child{
+    margin-top: 0;
 }
-.img-bottom{
+.img-top{
     margin-top: 0.5em;
-    flex: 1;
     background: url("../img/img1.jpg") no-repeat;
     background-size: 100% 100%;
     background-position: center;
+    flex: 1;
 }
 
 .like{

@@ -1,13 +1,13 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title></title>
-    <link rel="stylesheet" href="personal-information.css">
-    <script type="text/javascript" src="../jquery1.8.3/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="../js/right.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/static/personal-information/personal-information.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/jquery1.8.3/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/js/right.js"></script>
 </head>
 <body>
 <div class="header">
@@ -24,15 +24,16 @@
         </ul>
     </a>
 </div>
+
 <div class="content">
     <div class="background"></div>
-    <div class="my"><img src="../img/personal.png"></div>
+    <div class="my"><img src="${pageContext.request.contextPath }/resources/static/img/personal.png"></div>
 </div>
 <div class="list">
     <div class="kong"></div>
-    <a href="#" class="list1">我的收藏</a>
+    <a href="${pageContext.request.contextPath }/web/webFavourites" class="list1">我的收藏</a>
     <a href="#" class="list2">我的购物车</a>
-    <a href="#" class="list3">最近浏览</a>
+    <a href="${pageContext.request.contextPath }/web/recentBrowse" class="list3">最近浏览</a>
 
     <div class="kong"></div>
 </div>
@@ -63,7 +64,7 @@
 <div class="box1">
     <div class="box3">
         <span class="box1-top-left">地址管理</span>
-        <a href="#" class="box1-top-right">更多</a>
+        <a href="${pageContext.request.contextPath }/web/waddress" class="box1-top-right">更多</a>
     </div>
 </div>
 
@@ -80,22 +81,9 @@
     </div>
 </div>
 
-<input type="button" class="btn" value="退出账号">
+<input type="button" class="btn" onclick="javascript:window.location.href='${pageContext.request.contextPath }/web/wlogout'" value="退出账号">
 
-<div class="footer">
-    <div class="footer-top">
-        <div class="kong1"></div>
-        <a href="#" class="f1">请登录</a>
-        <a href="#" class="f1">请注册</a>
-        <a href="#" class="f1">客户端</a>
-        <a href="#" class="f1">电脑版</a>
-        <a href="#" class="f1">回顶部</a>
 
-        <div class="kong"></div>
-    </div>
-    <div class="footer-bottom">
-        蜀IPC备15022028号 dianjinzi, Inc. All rights reserved
-    </div>
-</div>
+    <%@include file="../common/footer.jsp" %>
 </body>
 </html>
