@@ -1,6 +1,5 @@
 package com.pgt.mobile.user.controller;
 
-import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.service.ProductBrowseTrackService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
