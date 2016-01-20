@@ -29,6 +29,12 @@
 
     <mvc:interceptors>
 
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.pgt.mobile.interceptor.TokenInterceptor"></bean>
+        </mvc:interceptor>
+
+
         <!--Initial global config-->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -55,10 +61,7 @@
         </mvc:interceptor>
 
 
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.pgt.mobile.interceptor.TokenInterceptor"></bean>
-        </mvc:interceptor>
+
 
 
         <mvc:interceptor>

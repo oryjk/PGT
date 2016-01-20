@@ -1,5 +1,6 @@
 package com.pgt.tender.bean;
 
+import com.pgt.category.bean.Category;
 import com.pgt.product.bean.Product;
 import org.springframework.util.ObjectUtils;
 
@@ -27,6 +28,7 @@ public class Tender implements Serializable {
     private List<Product> products;
     private Date creationDate;
     private Date updateDate;
+    private Category category;
 
     @Override
     public String toString() {
@@ -58,6 +60,8 @@ public class Tender implements Serializable {
         stringBuilder.append("creationDate:").append(creationDate);
         stringBuilder.append(",");
         stringBuilder.append("updateDate:").append(updateDate);
+        stringBuilder.append(",");
+        stringBuilder.append("categoryId:").append(category == null ? null : category.getId());
         stringBuilder.append(",");
         stringBuilder.append("creationDate:");
         if (!ObjectUtils.isEmpty(products)) {
@@ -200,5 +204,14 @@ public class Tender implements Serializable {
 
     public Integer getTenderId() {
         return this.tenderId;
+    }
+
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return this.category;
     }
 }

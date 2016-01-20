@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
-    <link type="text/css" href="style.css" rel="stylesheet"/>
-    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.event.drag-1.5.min.js"></script>
-    <script type="text/javascript" src="js/jquery.touchSlider.js"></script>
+
+    <script type="text/javascript" src="../jquery1.8.3/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../js/right.js"></script>
+    <link type="text/css" href="js.css" rel="stylesheet">
     <link type="text/css" href="product-details.css" rel="stylesheet">
 
 </head>
-
 <body>
-
 <div class="header">
     <a href="#" class="arrow"></a>
 
-    <div class="font">产品详情</div>
+    <div class="font">修改密码</div>
     <a href="#" class="dian">
         <ul class="menu">
             <li class="menu2"><a href="#">首页</a></li>
@@ -29,29 +26,19 @@
         </ul>
     </a>
 </div>
-<div class="banner">
-    <div class="main_visual">
-        <div class="flicking_con">
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-        </div>
-        <div class="main_image">
-            <ul>
-                <li><span class="img_3"></span></li>
-                <li><span class="img_4"></span></li>
-                <li><span class="img_1"></span></li>
-                <li><span class="img_2"></span></li>
-                <li><span class="img_5"></span></li>
-            </ul>
-            <a href="javascript:;" id="btn_prev"></a>
-            <a href="javascript:;" id="btn_next"></a>
-        </div>
-    </div>
-</div>
+
 <div class="content">
+    <div class="banner">
+        <div class="WSCSlideWrapper" id="WSCSlideWrapper">
+            <div>
+                <a href="http://www.baidu.com"><img src="../img/banner0.jpg"/></a>
+                <a href="http://m.tmall.com"><img src="../img/banner0.jpg"/></a>
+                <a href="http://huaban.com"><img src="../img/banner0.jpg"/></a>
+            </div>
+
+        </div>
+
+    </div>
     <div class="content1">
         <div class="content1-1">
             1800.00元
@@ -63,6 +50,53 @@
             下载客户端
         </div>
     </div>
+    <div class="content2">
+        <div class="content2-1">
+            <div class="content2-1-1">
+                天然A货翡翠粉地手镯（附证书）
+            </div>
+            <div class="content2-1-2">
+                象征统一、和谐、典雅以及女性的温柔
+            </div>
+        </div>
+        <div class="content2-2"></div>
+    </div>
+    <div class="content3">
+        <div class="content3-1">
+            <div class="content3-1-1">已选</div>
+            <div class="content3-1-2">数量</div>
+        </div>
+        <div class="content3-2">
+            <div class="content3-2-1">天然A货翡翠粉地手镯</div>
+            <div class="content3-2-2">
+                <a href="#" class="minus">－</a>
+
+                <div class="num">1</div>
+                <a href="#" class="plus">+</a>
+
+                <div class="kong-num"></div>
+            </div>
+        </div>
+        <div class="content3-3"></div>
+    </div>
+    <div class="content3">
+        <div class="content3-1">
+            <div class="content3-1-1">送至</div>
+            <div class="content4-1-2">提示</div>
+        </div>
+        <div class="content3-2">
+            <div class="content3-2-1">四川 成都 锦江区</div>
+            <div class="content4-2-2">
+                现货 免运费
+            </div>
+            <div class="content4-2-3">
+                支持7天无理由退货
+            </div>
+        </div>
+        <a href="#" class="content4-3"></a>
+    </div>
+
+
 </div>
 <div class="footer">
     <div class="footer-top">
@@ -83,61 +117,19 @@
 
 </body>
 <script type="text/javascript">
+
     $(document).ready(function () {
 
-        $(".main_visual").hover(function () {
-            $("#btn_prev,#btn_next").fadeIn()
-        }, function () {
-            $("#btn_prev,#btn_next").fadeOut()
+        $('.WSCSlideWrapper').height($('.WSCSlideWrapper').width() * 1);
+        $('#WSCSlideWrapperTwo').height($('#WSCSlideWrapperTwo').width() * 1.5);
+        $('.WSCSlideWrapper').touchslide({
+            timecontrol: 3000,
+            animatetime: 300,
+            direction: 'left',
+            navshow: true,
+            canvassuport: true
         });
-
-        $dragBln = false;
-
-        $(".main_image").touchSlider({
-            flexible: true,
-            speed: 200,
-            btn_prev: $("#btn_prev"),
-            btn_next: $("#btn_next"),
-            paging: $(".flicking_con a"),
-            counter: function (e) {
-                $(".flicking_con a").removeClass("on").eq(e.current - 1).addClass("on");
-            }
-        });
-
-        $(".main_image").bind("mousedown", function () {
-            $dragBln = false;
-        });
-
-        $(".main_image").bind("dragstart", function () {
-            $dragBln = true;
-        });
-
-        $(".main_image a").click(function () {
-            if ($dragBln) {
-                return false;
-            }
-        });
-
-        timer = setInterval(function () {
-            $("#btn_next").click();
-        }, 5000);
-
-        $(".main_visual").hover(function () {
-            clearInterval(timer);
-        }, function () {
-            timer = setInterval(function () {
-                $("#btn_next").click();
-            }, 5000);
-        });
-
-        $(".main_image").bind("touchstart", function () {
-            clearInterval(timer);
-        }).bind("touchend", function () {
-            timer = setInterval(function () {
-                $("#btn_next").click();
-            }, 5000);
-        });
-
     });
 </script>
+<script type="text/javascript" src="js/banner.js"></script>
 </html>

@@ -1,6 +1,7 @@
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.SearchPaginationBean;
+import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import org.junit.Assert;
@@ -28,6 +29,8 @@ public class TenderTest {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private TenderSearchEngineService tenderSearchEngineService;
     @Test
     public void createTender() {
         Tender tender = new Tender();
@@ -79,6 +82,12 @@ public class TenderTest {
         Tender tender = tenders.get(0);
         Assert.assertNotNull(tender);
         Assert.assertTrue(tender.getProducts().size() > 0);
+    }
+
+    @Test
+    public void indexTender(){
+        tenderSearchEngineService.initialIndex();
+        tenderSearchEngineService.index();
     }
 }
 
