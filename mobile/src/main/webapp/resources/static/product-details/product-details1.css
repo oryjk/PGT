@@ -18,7 +18,7 @@ h2 {
 }
 
 a {
-    color: #000;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -32,6 +32,59 @@ img {
     border: 0 solid #ddd;
     outline: none;
 }
+
+.ding{
+    color: #fff;
+    height:10%;
+    width: 100%;
+    background: #32302c;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    display: -webkit-flex;
+}
+.bg1{
+    opacity:0.8;
+    margin-top: 1%;
+    flex-direction: column;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border-right: 2px solid #ccc;
+}
+.bg2 img,
+.bg1 img{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    opacity:1;
+}
+.bg2 span,
+.bg1 span{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.btn1{
+    flex: 1;
+    background: #f60;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn2{
+    flex: 1;
+    background: #d11010;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .header {
     position: relative;
@@ -116,6 +169,9 @@ img {
 .img1{
     background: url("../img/banner0.jpg") no-repeat;
     background-size: 100% 100%;
+}
+.content a{
+    color: #000;
 }
 .content1{
     margin:0 5%;
@@ -251,16 +307,33 @@ img {
 }
 
 
-
-
-
-
-
-
-
-
-
-
+.list{
+    margin-top: 5%;
+    padding-bottom: 5%;
+    display: -webkit-flex;
+    border-bottom: 2px solid #cccccc;
+}
+.b1{
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
+.content .b2{
+    color: #f60;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+}
+.b3{
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
 .footer {
     background: #fff;
     margin-top: 2em;
@@ -297,4 +370,10 @@ img {
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
+}
+/*same
+*************/
+
+.box1 img{
+    width: 100%;
 }
