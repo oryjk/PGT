@@ -92,7 +92,7 @@ public class UploadController {
 	}
 
 	@RequestMapping(value = "/uploadPicByPhone")
-	public void uploadFck(HttpServletRequest request,HttpServletResponse response) {
+	public void uploadPicByPhone(HttpServletRequest request,HttpServletResponse response) {
 
         //接收上传的文件
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest) request;
@@ -113,7 +113,8 @@ public class UploadController {
 			for (int i = 0; i < 3; i++) {
 				picName += r.nextInt(10);
 			}
-			String basePath = request.getRealPath("/resources/image/upload/");
+			String basePath = configuration.getImagePath()+configuration.getImageFolder();
+			LOGGER.debug("The file basePath is {}.", basePath);
 			File filemkdir = new File(basePath);
 			if(!filemkdir.exists()){
 				filemkdir.mkdirs();
@@ -122,7 +123,8 @@ public class UploadController {
 			// 相对路径
 			String path = picName + "." + ext;
 			// 全路径
-			String url = basePath +"/"+path;
+			String url = basePath +path;
+			LOGGER.debug("The file url is {}.", url);
 			// 新图片
 			File file = new File(url);
 
@@ -142,6 +144,7 @@ public class UploadController {
 				e.printStackTrace();
 			}
 
+			LOGGER.debug("The file absolutePath is {}.",file.getAbsolutePath());
 			url = url.substring(url.indexOf("image"), url.length());
 
 			jo.put("url", url);

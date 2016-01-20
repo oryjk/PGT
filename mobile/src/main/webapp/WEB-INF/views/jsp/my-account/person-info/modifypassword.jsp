@@ -1,13 +1,13 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title></title>
-    <link href="Modify-password.css" rel="stylesheet">
-    <script type="text/javascript" src="../jquery1.8.3/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="../js/right.js"></script>
+    <link href="${pageContext.request.contextPath }/resources/static/Modify-password/Modify-password.css" rel="stylesheet">
+    <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/jquery1.8.3/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/js/right.js"></script>
 </head>
 <body>
 <div class="header">
@@ -24,21 +24,22 @@
     </a>
 </div>
 
+<form action="${pageContext.request.contextPath }/web/wupdatePasswordSubmit" method="post">
 <div class="name">
     <div class="kong2"></div>
-    <span>原密码：</span><input class="text" type="text" >
+    <span>原密码：</span><input name="oldpassword" class="text" type="password" >
     <div class="kong2"></div>
 </div>
 
 <div class="name1">
     <div class="kong2"></div>
-    <span>新密码：</span><input class="text" type="text" >
+    <span>新密码：</span><input name="password" class="text" type="password" >
     <div class="kong2"></div>
 </div>
 
 <div class="name1">
     <div class="kong3"></div>
-    <span>确认密码：</span><input class="text" type="text" >
+    <span>确认密码：</span><input name="password2" class="text" type="password" >
     <div class="kong2"></div>
 </div>
 <div class="font0">
@@ -57,22 +58,11 @@
     不应与旧密码相似。</p>
 </div>
 
-<input type="submit" class="btn-clean" value="保存">
 
-<div class="footer">
-    <div class="footer-top">
-        <div class="kong1"></div>
-        <a href="#" class="f1">请登录</a>
-        <a href="#" class="f1">请注册</a>
-        <a href="#" class="f1">客户端</a>
-        <a href="#" class="f1">电脑版</a>
-        <a href="#" class="f1">回顶部</a>
-        <div class="kong"></div>
-    </div>
-    <div class="footer-bottom">
-        蜀IPC备15022028号 dianjinzi, Inc. All rights reserved
-    </div>
-</div>
+    <input type="submit" class="btn-clean" value="保存">
+
+</form>
+<%@include file="../../common/footer.jsp" %>
 
 
 </body>
