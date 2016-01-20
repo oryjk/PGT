@@ -1,9 +1,6 @@
 /**
  * Created by carl on 15/10/30.
  */
-
-
-
 require.config({
     paths: {
         jquery: '../core/js/jquery.min'
@@ -64,11 +61,11 @@ require(['jquery'], function($) {
 
     function testUserPhone() {
         $('#userPhonePrompt').text('');
-        registInfo.usernameFlg = false;
+        registInfo.userphoneFlg = false;
 
         var str = $('#userPhone').val();
         if (/1\d{10}/.test(str) && str.length == 11) {
-            registInfo.usernameFlg = true;
+            registInfo.userphoneFlg = true;
         } else {
             $('#userPhonePrompt').text('格式不正确');
         }
@@ -132,21 +129,24 @@ require(['jquery'], function($) {
     }
 
     function getPhoneCom() {
-        $('#getPhoneCom').val('请稍等...')
-            .addClass('disable')
-            .prop('disabled', true);
+        testUserPhone();
+        if (registInfo.userphoneFlg) {
+            $('#getPhoneCom').val('请稍等...')
+                .addClass('disable')
+                .prop('disabled', true);
 
-        //发送ajax请求，在成功后调用以下setTimeout()
-        $.ajax({
-            type: 'get',
-            url: $('#smsPath').attr('data-value'),
-            data: {
-                phoneNumber: $('#userPhone').val()
-            },
-            success: function() {
-                setTimeout(numDown60, 1000);
-            }
-        });
+            //发送ajax请求在成功后调用以下setTimeout()
+            $.ajax({
+                type: 'get',
+                url: $('#smsPath').attr('data-value'),
+                data: {
+                    phoneNumber: $('#userPhone').val()
+                },
+                success: function() {
+                    setTimeout(numDown60, 1000);
+                }
+            });
+        }
     }
 
     function numDown60() {
@@ -160,17 +160,6 @@ require(['jquery'], function($) {
             $('#getPhoneCom').val('获取')
                 .removeClass('disable')
                 .prop('disabled', false);
-        }
-    }
-
-    function numDown5() {
-        success.time--;
-        $('#popTime').val(success.time);
-        if (success.time > 0) {
-            setTimeout(numDown60, 1000);
-        } else {
-            //结束循环.
-            window.location = ''
         }
     }
 
