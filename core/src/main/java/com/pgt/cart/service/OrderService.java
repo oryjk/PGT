@@ -62,6 +62,7 @@ public class OrderService {
 		if (cartOrder != null && orderId.equals(String.valueOf(cartOrder.getId()))) {
 			return cartOrder;
 		}
+
 		String orderKey = CartConstant.ORDER_KEY_PREFIX + orderId;
 		Order order = (Order) request.getSession().getAttribute(orderKey);
 		return order;
