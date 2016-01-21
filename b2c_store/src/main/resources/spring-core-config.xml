@@ -1,168 +1,167 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans     
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context.xsd ">
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <import resource="yeepay-config.xml"/>
-    <import resource="alipay-config.xml"/>
-    <import resource="scheduling-job.xml"/>
-    <context:component-scan base-package="com.*"/>
+	<import resource="yeepay-config.xml"/>
+	<import resource="alipay-config.xml"/>
+	<import resource="scheduling-job.xml"/>
+	<context:component-scan base-package="com.*"/>
+	<!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
 
+	<import resource="persistence3-db.xml"/>
 
-    <import resource="persistence3-db.xml"/>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:config/mybatis/mappers/*Mapper.xml"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+	</bean>
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:config/mybatis/mappers/*Mapper.xml"/>
-        <property name="configLocation" value="classpath:mybatis-config.xml"/>
-    </bean>
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
 
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory"/>
-    </bean>
+	<!-- Mapper interface scanner -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.*"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+		<property name="markerInterface" value="com.pgt.base.mapper.SqlMapper"/>
+	</bean>
 
-    <!-- Mapper interface scanner -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.*"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <property name="markerInterface" value="com.pgt.base.mapper.SqlMapper"/>
-    </bean>
+	<bean id="passwordRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
+		<!-- at least a char lower case, upper case and a number within 6 - 20
+			length -->
+		<property name="regexPattern" value="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$"/>
+	</bean>
+	<bean id="loginRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
+		<!-- allows number, lower case and upper case within 5 - 12 length -->
+		<property name="regexPattern" value="^[a-z0-9_]{5,12}$"/>
+	</bean>
+	<bean id="phoneRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
+		<property name="regexPattern"
+				  value="^(((13[0-9])|(15([0-9]))|(17([0-9]))|(18[0-9]))\d{8})|(0\d{2}-\d{8})|(0\d{3}-\d{7})$"/>
+	</bean>
+	<bean id="emailRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
+		<property name="regexPattern"
+				  value="^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,3})$"/>
+	</bean>
 
-    <bean id="passwordRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
-        <!-- at least a char lower case, upper case and a number within 6 - 20
-            length -->
-        <property name="regexPattern" value="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$"/>
-    </bean>
-    <bean id="loginRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
-        <!-- allows number, lower case and upper case within 5 - 12 length -->
-        <property name="regexPattern" value="^[a-z0-9_]{5,12}$"/>
-    </bean>
-    <bean id="phoneRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
-        <property name="regexPattern"
-                  value="^(((13[0-9])|(15([0-9]))|(17([0-9]))|(18[0-9]))\d{8})|(0\d{2}-\d{8})|(0\d{3}-\d{7})$"/>
-    </bean>
-    <bean id="emailRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
-        <property name="regexPattern"
-                  value="^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,3})$"/>
-    </bean>
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:customValidationMessages"></property>
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="cacheSeconds" value="120"></property>
+	</bean>
+	<bean id="configuration" class="com.pgt.configuration.Configuration" scope="singleton">
+		<property name="homeHotProductCount" value="5"/>
+		<property name="onlyShowInStock" value="false"/>
+		<property name="productListPageCapacity" value="20"/>
+		<property name="communicationCapacity" value="3"/>
+		<property name="plpCapacity" value="20"></property>
+		<property name="useES" value="true"></property>
+		<property name="resourcePath" value="/resources"></property>
+		<property name="initialDataPath" value="/json"></property>
+		<property name="imagePath" value="/home/xiaodong/Projects/work/PGT/b2c_store/src/main/webapp"></property>
+		<property name="imageFolder" value="/resources/image/upload/"></property>
 
-    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:customValidationMessages"></property>
-        <property name="defaultEncoding" value="utf-8"></property>
-        <property name="cacheSeconds" value="120"></property>
-    </bean>
-    <bean id="configuration" class="com.pgt.configuration.Configuration" scope="singleton">
-        <property name="homeHotProductCount" value="5"/>
-        <property name="onlyShowInStock" value="false"/>
-        <property name="productListPageCapacity" value="20"/>
-        <property name="communicationCapacity" value="3"/>
-        <property name="plpCapacity" value="20"></property>
-        <property name="useES" value="true"></property>
-        <property name="resourcePath" value="/resources"></property>
-        <property name="initialDataPath" value="/json"></property>
-        <property name="imagePath" value="/home/xiaodong/Projects/work/PGT/b2c_store/src/main/webapp"></property>
-        <property name="imageFolder" value="/resources/image/upload/"></property>
+	</bean>
+	<bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
+		<property name="categoryPage" value="/category"/>
+		<property name="homePage" value="/"/>
+		<property name="loginPage" value="/user/login"/>
+		<property name="logoutPage" value="/user/logout"/>
+		<property name="registerPage" value="/user/register"/>
+		<property name="addressBookPage" value="/my-account/person-info/address"/>
+		<property name="shoppingCartPage" value="/shoppingCart/cart"/>
+		<property name="myAccountPage" value="/myAccount/orderHistory"/>
+		<property name="shippingPage" value="/checkout/shipping"/>
+		<property name="pdpPage" value="/product"/>
+		<property name="plpPage" value="/category"/>
+		<property name="helpCenterPage" value="/helpcenter/query"/>
+	</bean>
+	<bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
+		<property name="host" value="localhost"/>
+		<property name="indexPort" value="9300"/>
+		<property name="searchPort" value="9300"/>
+		<property name="productAnalyzerFields">
+			<list value-type="java.lang.String">
+				<value>name</value>
+				<value>rootCategoryName</value>
+				<value>parentCategoryName</value>
+				<value>isNew</value>
+				<value>title</value>
+				<value>shortDescription</value>
+				<value>keyWord</value>
+			</list>
+		</property>
+		<property name="useToSearch">
+			<list value-type="java.lang.String">
+				<value>name</value>
+				<value>shortDescription</value>
+				<value>keyWord</value>
+			</list>
+		</property>
 
-    </bean>
-    <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
-        <property name="categoryPage" value="/category"/>
-        <property name="homePage" value="/"/>
-        <property name="loginPage" value="/user/login"/>
-        <property name="logoutPage" value="/user/logout"/>
-        <property name="registerPage" value="/user/register"/>
-        <property name="addressBookPage" value="/my-account/person-info/address"/>
-        <property name="shoppingCartPage" value="/shoppingCart/cart"/>
-        <property name="myAccountPage" value="/myAccount/orderHistory"/>
-        <property name="shippingPage" value="/checkout/shipping"/>
-        <property name="pdpPage" value="/product"/>
-        <property name="plpPage" value="/category"/>
-        <property name="helpCenterPage" value="/helpcenter/query"/>
-    </bean>
-    <bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
-        <property name="host" value="localhost"/>
-        <property name="indexPort" value="9300"/>
-        <property name="searchPort" value="9300"/>
-        <property name="productAnalyzerFields">
-            <list value-type="java.lang.String">
-                <value>name</value>
-                <value>rootCategoryName</value>
-                <value>parentCategoryName</value>
-                <value>isNew</value>
-                <value>title</value>
-                <value>shortDescription</value>
-                <value>keyWord</value>
-            </list>
-        </property>
-        <property name="useToSearch">
-            <list value-type="java.lang.String">
-                <value>name</value>
-                <value>shortDescription</value>
-                <value>keyWord</value>
-            </list>
-        </property>
+		<property name="categoryAnalyzerFields">
+			<list value-type="java.lang.String">
+				<value>name</value>
+				<value>sort</value>
+			</list>
+		</property>
+		<property name="hotSaleAnalyzerFields">
+			<list value-type="java.lang.String">
+				<value>name</value>
+				<value>sort</value>
+			</list>
+		</property>
+		<property name="needIndex" value="true"/>
+		<property name="clearIndex" value="true"/>
+	</bean>
 
-        <property name="categoryAnalyzerFields">
-            <list value-type="java.lang.String">
-                <value>name</value>
-                <value>sort</value>
-            </list>
-        </property>
-        <property name="hotSaleAnalyzerFields">
-            <list value-type="java.lang.String">
-                <value>name</value>
-                <value>sort</value>
-            </list>
-        </property>
-        <property name="needIndex" value="true"/>
-        <property name="clearIndex" value="true"/>
-    </bean>
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="phoneCode"/>
+				</bean>
+			</set>
+		</property>
+	</bean>
 
-    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-        <property name="caches">
-            <set>
-                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
-                    <property name="name" value="phoneCode"/>
-                </bean>
-            </set>
-        </property>
-    </bean>
+	<bean class="com.pgt.data.MigrateDataListener">
+		<property name="esConfiguration" ref="esConfiguration"/>
+		<property name="esSearchService" ref="esSearchService"/>
+	</bean>
 
-    <bean class="com.pgt.data.MigrateDataListener">
-        <property name="esConfiguration" ref="esConfiguration"/>
-        <property name="esSearchService" ref="esSearchService"/>
-    </bean>
+	<bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
 
-    <bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
-    
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-      <property name="host" value="smtp.mxhichina.com"/>
-      <property name="username" value="service@dianjinzi.com"/>
-      <property name="password" value="Zxhl123456"/>
-      <property name="javaMailProperties">  
-           <props>  
-               <prop key="mail.smtp.auth">true</prop>  
-               <prop key="mail.smtp.timeout">25000</prop>  
-           </props>  
-       </property>
-   </bean>
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.mxhichina.com"/>
+		<property name="username" value="service@dianjinzi.com"/>
+		<property name="password" value="Zxhl123456"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.timeout">25000</prop>
+			</props>
+		</property>
+	</bean>
 
-   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-      <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/" />
-      <property name="velocityProperties">
-            <props>
-               <prop key="default.contentType">text/html; charset=utf-8</prop>
-               <prop key="output.encoding">utf-8</prop>
-               <prop key="input.encoding">utf-8</prop>
-           </props>
-      </property>
-   </bean>
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/"/>
+		<property name="velocityProperties">
+			<props>
+				<prop key="default.contentType">text/html; charset=utf-8</prop>
+				<prop key="output.encoding">utf-8</prop>
+				<prop key="input.encoding">utf-8</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

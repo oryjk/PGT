@@ -1,9 +1,14 @@
+import com.google.common.collect.Lists;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
+import com.pgt.search.bean.ESTerm;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.bean.Tender;
+import com.pgt.tender.bean.TenderCategory;
+import com.pgt.tender.mapper.TenderCategoryMapper;
 import com.pgt.tender.service.TenderService;
+import org.elasticsearch.action.search.SearchResponse;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,9 +33,11 @@ public class TenderTest {
     private TenderService tenderService;
     @Autowired
     private ProductService productService;
-
+    @Autowired
+    private TenderCategoryMapper tenderCategoryMapper;
     @Autowired
     private TenderSearchEngineService tenderSearchEngineService;
+
     @Test
     public void createTender() {
         Tender tender = new Tender();
@@ -48,8 +55,24 @@ public class TenderTest {
         tender.setUpdateDate(new Date());
         tender.setPublishDate(new Date());
         Integer tenderId = tenderService.createTender(tender);
-
+        TenderCategory tenderCategory = new TenderCategory();
+        tenderCategory.setTenderId(tenderId);
+        tenderCategory.setCategoryId(44);
+        SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
+        searchPaginationBean.setCategoryId(44 + "");
+        searchPaginationBean.setCapacity(100);
+        List<Product> products = productService.queryProducts(searchPaginationBean);
+        tender.setProducts(products);
+        tenderCategoryMapper.createTenderCategory(tenderCategory);
         Assert.assertNotNull(tenderId);
+    }
+
+
+    @Test
+    public void createTenders() {
+        for (int i = 0; i < 100; i++) {
+            createTender();
+        }
     }
 
     @Test
@@ -85,9 +108,19 @@ public class TenderTest {
     }
 
     @Test
-    public void indexTender(){
+    public void indexTender() {
         tenderSearchEngineService.initialIndex();
         tenderSearchEngineService.index();
+    }
+
+    @Test
+    public void queryTenderByEs(){
+        ESTerm term = new ESTerm();
+        term.setPropertyName("tender.name");
+        term.setTermValue("Tender");
+
+        SearchResponse response =  tenderSearchEngineService.findTender(null, Lists.newArrayList(term), null, null, null, null, null);
+        Assert.assertNotNull(response);
     }
 }
 
