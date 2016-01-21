@@ -31,6 +31,7 @@ public class Order implements OrderType, OrderStatus {
 	private boolean mEasyBuy;
 	private Integer p2pInfoId;
 	private String orderHolderAlias;
+	private Double shippingFee;
 
 	public Order() {
 
@@ -299,5 +300,13 @@ public class Order implements OrderType, OrderStatus {
 
 	public void setOrderHolderAlias(String orderHolderAlias) {
 		this.orderHolderAlias = orderHolderAlias;
+	}
+
+	public Double getShippingFee() {
+		return shippingFee;
+	}
+
+	public void setShippingFee(Double shippingFee) {
+		this.shippingFee = shippingFee;
 	}
 }

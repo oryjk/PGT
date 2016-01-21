@@ -1,6 +1,8 @@
 package com.pgt.tender.bean;
 
+import com.pgt.category.bean.Category;
 import com.pgt.product.bean.Product;
+import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,7 +12,7 @@ import java.util.List;
  * Created by carlwang on 1/16/16.
  */
 public class Tender implements Serializable {
-    private Integer id;
+    private Integer tenderId;
     private Integer pawnShopId;
     private Integer pawnShopOwnerId;
     private Integer pawnTicketId;
@@ -26,7 +28,49 @@ public class Tender implements Serializable {
     private List<Product> products;
     private Date creationDate;
     private Date updateDate;
+    private Category category;
     private Double handlingFeeRate;
+
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("tenderId:").append(tenderId);
+        stringBuilder.append(",");
+        stringBuilder.append("pawnshopId:").append(pawnShopId);
+        stringBuilder.append(",");
+        stringBuilder.append("pawnTicketId:").append(pawnTicketId);
+        stringBuilder.append(",");
+        stringBuilder.append("tenderTotal:").append(tenderTotal);
+        stringBuilder.append(",");
+        stringBuilder.append("tenderQuantity:").append(tenderQuantity);
+        stringBuilder.append(",");
+        stringBuilder.append("publishDate:").append(publishDate);
+        stringBuilder.append(",");
+        stringBuilder.append("dueDate:").append(dueDate);
+        stringBuilder.append(",");
+        stringBuilder.append("interestRate:").append(interestRate);
+        stringBuilder.append(",");
+        stringBuilder.append("name:").append(name);
+        stringBuilder.append(",");
+        stringBuilder.append("description:").append(description);
+        stringBuilder.append(",");
+        stringBuilder.append("prePeriod:").append(prePeriod);
+        stringBuilder.append(",");
+        stringBuilder.append("postPeriod:").append(postPeriod);
+        stringBuilder.append(",");
+        stringBuilder.append("creationDate:").append(creationDate);
+        stringBuilder.append(",");
+        stringBuilder.append("updateDate:").append(updateDate);
+        stringBuilder.append(",");
+        stringBuilder.append("categoryId:").append(category == null ? null : category.getId());
+        stringBuilder.append(",");
+        stringBuilder.append("creationDate:");
+        if (!ObjectUtils.isEmpty(products)) {
+            products.stream().forEach(product -> stringBuilder.append(product.getProductId()).append(","));
+        }
+        return stringBuilder.toString();
+    }
 
     public double getUnitPrice() {
         if (tenderQuantity > 0) {
@@ -35,14 +79,6 @@ public class Tender implements Serializable {
         return 0;
     }
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getPawnShopId() {
         return pawnShopId;
@@ -162,6 +198,23 @@ public class Tender implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public void setTenderId(Integer tenderId) {
+        this.tenderId = tenderId;
+    }
+
+    public Integer getTenderId() {
+        return this.tenderId;
+    }
+
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return this.category;
     }
 
     public Double getHandlingFeeRate() {

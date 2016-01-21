@@ -2,21 +2,17 @@ package com.pgt.banner;
 
 import java.util.List;
 
-import com.pgt.common.bean.BannerQuery;
-import com.pgt.common.bean.Image;
+import com.pgt.common.bean.*;
 import com.pgt.common.service.ImageService;
 import com.pgt.configuration.Configuration;
-import com.pgt.style.bean.PageBackgroundQuery;
 import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import com.pgt.common.bean.Banner;
 import com.pgt.common.service.BannerService;
 import com.pgt.configuration.URLConfiguration;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -189,19 +185,23 @@ public class BannerController {
 			return modelAndView;
 		}
 
-		PaginationBean paginationBean = new PaginationBean();
+		PaginationBean paginationBean= new PaginationBean();
 		if (ObjectUtils.isEmpty(currentIndex)) {
-			currentIndex = 1;
+			currentIndex = 0;
 		}
 		paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
 		if (!ObjectUtils.isEmpty(capacity)) {
 			paginationBean.setCapacity(capacity);
 		}
-		paginationBean.setCurrentIndex((currentIndex - 1) * paginationBean.getCapacity());
+		paginationBean.setCurrentIndex(currentIndex);
 		int total=imageService.queryImageByBannerCount(bannerId);
 		paginationBean.setTotalAmount(total);
-		List<Image> imageList= imageService.queryImageByBanner(bannerId);
+
 		Banner banner =bannerService.queryBanner(bannerId);
+		ImageCustom imageCustom = new ImageCustom();
+		imageCustom.setBanner(banner);
+		imageCustom.setPaginationBean(paginationBean);
+		List<Image> imageList= imageService.queryImageByBanner(imageCustom);
 
 		modelAndView.addObject("banner",banner);
 		modelAndView.addObject("imageList",imageList);

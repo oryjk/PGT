@@ -38,6 +38,7 @@ public class Constants {
     public static final String PRODUCT_INDEX_TYPE = "product";
     public static final String HOT_PRODUCT_INDEX_TYPE = "hotProduct";
     public static final String CATEGORY_INDEX_TYPE = "category";
+    public static final String TENDER_INDEX_TYPE = "tender";
     public static final String ID = "id";
     public static final String CHILDREN = "children";
     public static final String TYPE = "type";

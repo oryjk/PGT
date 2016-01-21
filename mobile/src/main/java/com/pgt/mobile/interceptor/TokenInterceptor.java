@@ -50,9 +50,13 @@ public class TokenInterceptor implements HandlerInterceptor {
         LOGGER.debug("The session createTime {}",request.getSession().getCreationTime());
         LOGGER.debug("The session lastAccessTime {}",request.getSession().getLastAccessedTime());
 
+        if (url.matches(PathConstant.NO_LOGIN_INTERCEPTOR_PATH)) {
+            LOGGER.debug("Not need interceptor.");
+            return true;
+        }
 
         //不需要登陆的请求,放行
-        if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH)) {
+        if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH) || url.matches("/") ) {
             LOGGER.debug("Not need interceptor.");
             return true;
         }

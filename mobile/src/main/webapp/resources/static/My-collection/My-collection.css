@@ -55,6 +55,7 @@ a{
     right: 0;
     border: 1px solid #484f55;
     border-radius: 5px;
+    z-index: 3;
 }
 .menu li{
     font-size: 1em;
@@ -120,26 +121,28 @@ a{
     flex: 2;
 }
 .btn1{
+    width: 40%;
     position: absolute;
-    right: 20%;
+    right: 1%;
     bottom: 2%;
     justify-content: center;
     align-items: center;
     display: -webkit-flex;
 }
 .delete-1{
-    margin: 10%;
-    padding: 10%;
-    background: #ffffff;
+    padding: 8%;
+    margin-right: 10%;
+    background: #d11010;
     border: 2px solid #d11010;
     border-radius: 10px;
-    color: #d11010;
+    color: #fff;
 }
 .delete1-1{
-    background: #fff;
+    padding: 8%;
+    background: #ffaa00;
     border: 2px solid #ffaa00;
     border-radius: 10px;
-    color: #ffaa00;
+    color: #fff;
 }
 .btn-clean{
     color: #ffffff;

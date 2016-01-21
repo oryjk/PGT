@@ -1,6 +1,5 @@
 package com.pgt.mobile.user.controller;
 
-import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.service.ProductBrowseTrackService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
@@ -208,10 +207,7 @@ public class UserMobileController extends BaseMobileController {
             return responseMobileFail(responseMap, "PhoneId.empty");
         }
         HttpSession session=request.getSession();
-        session.removeAttribute(UserConstant.CURRENT_USER);
-        session.removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
-        session.removeAttribute(Constants.LOGIN_SESSION_SECURITY_CODE);
-        session.removeAttribute(CartConstant.CURRENT_ORDER);
+        session.invalidate();
 
         Token tokenQuery = new Token();
         tokenQuery.setUsername(username);

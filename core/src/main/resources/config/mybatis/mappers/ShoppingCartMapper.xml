@@ -65,7 +65,7 @@
 
 	<insert id="createOrder" parameterType="com.pgt.cart.bean.Order" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO `ORDER` (USER_ID, ORDER_TYPE, `STATUS`, SHIPPING_FEE, SUBTOTAL, TOTAL, CREATION_DATE, UPDATE_DATE, EASY_BUY, USER_COMMENTS)
-		VALUES ( #{userId}, #{orderType}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments} )
+		VALUES ( #{userId}, #{type}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments} )
 	</insert>
 
 	<update id="updateOrder" parameterType="com.pgt.cart.bean.Order">

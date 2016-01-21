@@ -16,6 +16,7 @@ public class ESConfiguration {
     private List<String> productAnalyzerFields = new ArrayList<>();
     private List<String> categoryAnalyzerFields = new ArrayList<>();
     private List<String> hotSaleAnalyzerFields = new ArrayList<>();
+    private List<String> tenderAnalyzerFields = new ArrayList<>();
     private boolean clearIndex=true;
     private boolean needIndex=true;
     private List<String> useToSearch=new ArrayList<>();
@@ -118,5 +119,13 @@ public class ESConfiguration {
 
     public void setUseToSearch(List<String> useToSearch) {
         this.useToSearch = useToSearch;
+    }
+
+    public List<String> getTenderAnalyzerFields() {
+        return tenderAnalyzerFields;
+    }
+
+    public void setTenderAnalyzerFields(List<String> tenderAnalyzerFields) {
+        this.tenderAnalyzerFields = tenderAnalyzerFields;
     }
 }
