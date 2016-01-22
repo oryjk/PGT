@@ -67,9 +67,9 @@
 		UPDATE `ORDER` SET status = #{status} WHERE order_id = #{id}
 	</update>
 
-    <select id="getUncompleteOrderAmount" parameterType="int" resultType="int">
+    <select id="getUncompleteOrderAmount" resultType="int">
         SELECT COUNT(ORDER_ID)
         FROM `ORDER`
-        WHERE USER_ID = #{id} AND STATUS = 20;
+        WHERE USER_ID = #{userId} AND `TYPE` = #{type} AND STATUS = 20;
     </select>
 </mapper>

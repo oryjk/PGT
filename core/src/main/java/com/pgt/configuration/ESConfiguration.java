@@ -1,5 +1,7 @@
 package com.pgt.configuration;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.Map;
 /**
  * Created by carlwang on 11/30/15.
  */
+@Component
 public class ESConfiguration {
     private String host = "localhost";
     private Integer indexPort = 9300;
@@ -17,9 +20,9 @@ public class ESConfiguration {
     private List<String> categoryAnalyzerFields = new ArrayList<>();
     private List<String> hotSaleAnalyzerFields = new ArrayList<>();
     private List<String> tenderAnalyzerFields = new ArrayList<>();
-    private boolean clearIndex=true;
-    private boolean needIndex=true;
-    private List<String> useToSearch=new ArrayList<>();
+    private boolean clearIndex = true;
+    private boolean needIndex = true;
+    private List<String> useToSearch = new ArrayList<>();
 
     private Map<String, Integer> priceAggrs = new HashMap<String, Integer>() {
         {

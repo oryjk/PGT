@@ -75,84 +75,84 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
 
         //分页
-        var pageObj = {
-            currentIndex: 0,
-            capacity: 5
-        };
-        var getOrderListUrl = Prd.baseUrl + '/myAccount/ajaxOrderHistory';
-
-        Cpn.page($('#orderList'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, false, rendering);
-
-        function rendering(param, list) {
-            var orderArr = param.data.result;
-            var str = '';
-            for (var i = 0; i < orderArr.length; i ++) {
-                var productArr = orderArr[i].commerceItems;
-
-                str += '<div class="each-order"> <div class="order-info"> <div class="operate"> </div> 下单时间: <span class="order-time">';
-                if (orderArr[i].submitDate) {
-                    str +=orderArr[i].submitDate;
-                }
-                str += '</span> 订单号: <span class="order-number">'
-                    + orderArr[i].id
-                    + '</span> 物流: <span>';
-                if (orderArr[i].status == 20) {
-                    str += '待付款';
-                } else if (orderArr[i].status == 30) {
-                    str += '待收货';
-                } else if (orderArr[i].status == 100) {
-                    str += '已完成';
-                }
-                str += '</span> <a class="link-btn" href="#"></a></div><table> ';
-
-                for (var j = 0; j < productArr.length; j ++) {
-                    str += '<tr> <td class="col1"><img src="'
-                        + Prd.baseUrl + '/resources' + productArr[j].snapshotMedia.path
-                        + '" alt="'
-                        + productArr[j].name
-                        + '"/> </td> <td class="col2"><a class="product-name" href="'
-                        + Prd.baseUrl + '/product/' + productArr[j].referenceId
-                        +'">'
-                        + productArr[j].name
-                        + '</a> </td> <td class="col3"> <span>'
-                        + productArr[j].quality
-                        + '</span></td>';
-
-                    if ( j == 0) {
-                        str += '<td class="col5" rowspan="100">'
-                            + orderArr[i].shippingVO.shippingAddress.name
-                            + '</td> <td class="col6" rowspan="100"><span>¥<span>'
-                            + orderArr[i].subtotal
-                            + '</span></span></td> <td class="col7" rowspan="100"> <span>';
-
-                        //if (orderArr[i].status == 1) {
-                        //    str += '待结算</span><a class="link-btn" href="#">结算</a> </td>';
-                        //} else if (orderArr[i].status == 2) {
-                        //    str += '待付款</span><a class="link-btn" href="#">付款</a> </td>';
-                        //} else if (orderArr[i].status == 3) {
-                        //    str += '已付款</span> </td>';
-                        //} else if (orderArr[i].status == 4) {
-                        //    str += '待确认完成</span> </td>';
-                        //} else if (orderArr[i].status == 5) {
-                        //    str += '已完成</span> </td>';
-                        //}
-                        if (orderArr[i].status == 20) {
-                            str += '待付款</span><a class="link-btn" href="#">付款</a> </td>';
-                        } else if (orderArr[i].status == 30) {
-                            str += '待收货</span> </td>';
-                        } else if (orderArr[i].status == 100) {
-                            str += '已完成</span> </td>';
-                        } else if (orderArr[i].status == -10) {
-                            str += '已取消</span> </td>';
-                        }
-                    }
-                }
-
-                str +='</tr> </table> </div>';
-            }
-            console.log(str);
-            list.html(str);
-        }
+        //var pageObj = {
+        //    currentIndex: 0,
+        //    capacity: 5
+        //};
+        //var getOrderListUrl = Prd.baseUrl + '/myAccount/ajaxOrderHistory';
+        //
+        //Cpn.page($('#orderList'), $('#previousPage'), $('#nextPage'), $('#pageCount'), $('#pageWhich'), $('#pageSub'), $('#pages'), getOrderListUrl, pageObj, false, rendering);
+        //
+        //function rendering(param, list) {
+        //    var orderArr = param.data.result;
+        //    var str = '';
+        //    for (var i = 0; i < orderArr.length; i ++) {
+        //        var productArr = orderArr[i].commerceItems;
+        //
+        //        str += '<div class="each-order"> <div class="order-info"> <div class="operate"> </div> 下单时间: <span class="order-time">';
+        //        if (orderArr[i].submitDate) {
+        //            str +=orderArr[i].submitDate;
+        //        }
+        //        str += '</span> 订单号: <span class="order-number">'
+        //            + orderArr[i].id
+        //            + '</span> 物流: <span>';
+        //        if (orderArr[i].status == 20) {
+        //            str += '待付款';
+        //        } else if (orderArr[i].status == 30) {
+        //            str += '待收货';
+        //        } else if (orderArr[i].status == 100) {
+        //            str += '已完成';
+        //        }
+        //        str += '</span> <a class="link-btn" href="#"></a></div><table> ';
+        //
+        //        for (var j = 0; j < productArr.length; j ++) {
+        //            str += '<tr> <td class="col1"><img src="'
+        //                + Prd.baseUrl + '/resources' + productArr[j].snapshotMedia.path
+        //                + '" alt="'
+        //                + productArr[j].name
+        //                + '"/> </td> <td class="col2"><a class="product-name" href="'
+        //                + Prd.baseUrl + '/product/' + productArr[j].referenceId
+        //                +'">'
+        //                + productArr[j].name
+        //                + '</a> </td> <td class="col3"> <span>'
+        //                + productArr[j].quality
+        //                + '</span></td>';
+        //
+        //            if ( j == 0) {
+        //                str += '<td class="col5" rowspan="100">'
+        //                    + orderArr[i].shippingVO.shippingAddress.name
+        //                    + '</td> <td class="col6" rowspan="100"><span>¥<span>'
+        //                    + orderArr[i].subtotal
+        //                    + '</span></span></td> <td class="col7" rowspan="100"> <span>';
+        //
+        //                //if (orderArr[i].status == 1) {
+        //                //    str += '待结算</span><a class="link-btn" href="#">结算</a> </td>';
+        //                //} else if (orderArr[i].status == 2) {
+        //                //    str += '待付款</span><a class="link-btn" href="#">付款</a> </td>';
+        //                //} else if (orderArr[i].status == 3) {
+        //                //    str += '已付款</span> </td>';
+        //                //} else if (orderArr[i].status == 4) {
+        //                //    str += '待确认完成</span> </td>';
+        //                //} else if (orderArr[i].status == 5) {
+        //                //    str += '已完成</span> </td>';
+        //                //}
+        //                if (orderArr[i].status == 20) {
+        //                    str += '待付款</span><a class="link-btn" href="#">付款</a> </td>';
+        //                } else if (orderArr[i].status == 30) {
+        //                    str += '待收货</span> </td>';
+        //                } else if (orderArr[i].status == 100) {
+        //                    str += '已完成</span> </td>';
+        //                } else if (orderArr[i].status == -10) {
+        //                    str += '已取消</span> </td>';
+        //                }
+        //            }
+        //        }
+        //
+        //        str +='</tr> </table> </div>';
+        //    }
+        //    console.log(str);
+        //    list.html(str);
+        //}
 
         // search order with order id or keyword
         function orderSearch(event) {

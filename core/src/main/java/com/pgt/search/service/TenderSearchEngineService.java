@@ -1,12 +1,16 @@
 package com.pgt.search.service;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pgt.category.bean.Category;
+import com.pgt.category.service.CategoryService;
 import com.pgt.constant.Constants;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
+import com.pgt.tender.bean.ESTender;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import com.pgt.utils.PaginationBean;
@@ -42,6 +46,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
     @Autowired
     private TenderService tenderService;
 
+
     @Override
     public void index() {
 
@@ -53,17 +58,23 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             List<Tender> tenders = tenderService.queryAllTender();
             if (!ObjectUtils.isEmpty(tenders)) {
                 tenders.stream().forEach(tender -> {
+                    Category category = tender.getCategory();
+                    Category rootCategory = null;
+                    if (!ObjectUtils.isEmpty(category)) {
+                        rootCategory = category.getParent();
+                    }
+                    ESTender esTender = new ESTender(tender, rootCategory);
                     ObjectMapper mapper = new ObjectMapper();
-                    byte[] bytes = new byte[0];
+                    String data = null;
                     try {
-                        bytes = mapper.writeValueAsBytes(tender);
+                        data = mapper.writeValueAsString(esTender);
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
                     IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants
                                     .TENDER_INDEX_TYPE,
                             tender.getTenderId() + "")
-                            .setSource(bytes);
+                            .setSource(data);
                     bulkRequest.add(indexRequestBuilder);
                 });
             }
@@ -76,19 +87,16 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         }
     }
 
-    public SearchResponse findProducts(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
-                                       PaginationBean paginationBean,
-                                       ESAggregation categoryIdAggregation, List<RangeQueryBuilder> rangeQueryBuilderList) {
+    public SearchResponse findTender(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
+                                     PaginationBean paginationBean,
+                                     ESAggregation categoryIdAggregation, List<RangeQueryBuilder> rangeQueryBuilderList) {
         SearchResponse response = null;
         try {
             SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
-            if (!ObjectUtils.isEmpty(esTerm)) {
-                //operator will add to configuration or from request
-                qb.must(termQuery(esTerm.getPropertyName(), esTerm.getTermValue()));
-            }
-//            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
+
+            buildQueryBuilder(esTerm, esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
             response = searchRequestBuilder.execute()
                     .actionGet();
             return response;
