@@ -15,10 +15,11 @@
     <link href="${pageContext.request.contextPath }/resources/static/My-collection/My-collection.css" rel="stylesheet">
     <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/jquery1.8.3/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/js/right.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/My-collection/favourites.js"></script>
 </head>
 <body>
 <div class="header">
-    <a href="${pageContext.request.contextPath }/web/personalInformation" class="arrow"></a>
+    <a href="<spring:url value="/userinformation/query"/>" class="arrow"></a>
     <div class="font">我的收藏</div>
     <a href="#" class="dian">
         <ul class="menu">
@@ -48,9 +49,9 @@
 
         <input type="button" class="delete1-1" value="购物车">--%>
 
-        <a class="delete-1" data-favourite-id="${fav.id}" href="#"><i class="foundicon-heart"></i>取消</a>
+        <a class="delete-1" data-favourite-id="${fav.id}" href="#" onclick="dislikeButton(${fav.id})">取消</a>
 
-        <a class="delete-1" data-vaule="${fav.productId}" href="#"><i class="foundicon-cart"></i>购物车</a>
+        <a class="delete-1" data-vaule="${fav.productId}" href="#" onclick="addShoppingCart(${fav.productId})">购物车</a>
     </div>
 </div>
 </c:forEach>

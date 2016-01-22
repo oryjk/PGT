@@ -20,7 +20,7 @@
 <body>
 
     <div class="header">
-        <a href="${pageContext.request.contextPath }/web/personalInformation" class="arrow"></a>
+        <a href="<spring:url value="/userinformation/query"/>" class="arrow"></a>
         <div class="font">最近浏览</div>
         <a href="#" class="dian">
             <ul class="menu">

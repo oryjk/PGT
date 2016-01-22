@@ -16,10 +16,10 @@
 </head>
 <body>
 <div class="header">
-    <a href="#" class="arrow"></a>
-    <div class="font">登录</div>
+    <a href="${pageContext.request.contextPath }/user/login" class="arrow"></a>
+    <div class="font">注册</div>
 </div>
-<form:form commandName="user" id="regist" method="post" action="${pageContext.request.contextPath }/web/wregister">
+<form:form commandName="user" id="regist" method="post" action="${pageContext.request.contextPath }/user/register">
 <div class="name">
     <div class="kong2"></div>
     <form:input id="username" name="username" path="username" class="text" type="text" placeholder="登录名:6-20位数字或字母"/>
@@ -30,9 +30,17 @@
     <form:input id="phoneNumber" name="phoneNumber" class="text" path="phoneNumber" type="text" placeholder="请输入手机号"/>
     <div class="kong2"></div>
 </div>
+
 <div class="name1">
     <div class="kong2"></div>
-    <input id="authCode" name="authCode" type="hidden" value="4df5" >
+    <form:input id="authCode" name="authCode" class="text" path="authCode" type="text" placeholder="请输入验证码"/>
+    <a  class="pass"><img id="loginCode" src="<spring:url value="/code/register"/>" alt="#"/></a>
+    <div class="kong2"></div>
+</div>
+
+
+<div class="name1">
+    <div class="kong2"></div>
     <form:input id="smsCode" name="smsCode" class="text" path="smsCode" type="text" placeholder="请输入验证码"/>
     <a  class="pass" id="getPhoneCom">获取验证码</a>
     <div class="kong2"></div>

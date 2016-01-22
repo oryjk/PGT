@@ -15,12 +15,11 @@
     <link href="${pageContext.request.contextPath }/resources/static/address/new-address.css" rel="stylesheet">
     <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/jquery1.8.3/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/js/right.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/address/addaddress.js"></script>
 
 </head>
 <body>
 <div class="header">
-    <a href="${pageContext.request.contextPath }/web/waddress" class="arrow"></a>
+    <a href="${pageContext.request.contextPath }/my-account/person-info/address" class="arrow"></a>
 
     <div class="font">新增地址</div>
     <a href="#" class="dian">
@@ -35,9 +34,8 @@
 </div>
 
 <div class="content">
-
-    <form action="${pageContext.request.contextPath }/web/updateAddress/${addressId}" method="post">
-        <%--<input id="addressId" name="addressId" type="hidden" value="${addressId}">--%>
+    <input type="hidden" id="addressIdTemp" name="addressIdTemp" value="${addressIdTemp}">
+    <a id="errorMessage"></a>
     <div class="name">
         <div class="kong2"></div>
         <span>姓名：</span><input id="name" name="name" class="text" type="text" value="${addressInfo.name}" >
@@ -81,11 +79,13 @@
 
         <div class="kong2"></div>
     </div>
-    <input type="submit" class="btn-clean" value="提交">
+    <div>
+        <a class="btn-clean" onclick="updateAddressSubmit()">提交</a>
+    </div>
     </form>
 </div>
 <%@include file="../../common/footer.jsp" %>
 
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/static/address/updateAddress.js"></script>
 </body>
 </html>

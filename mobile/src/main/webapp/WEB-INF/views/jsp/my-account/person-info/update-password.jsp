@@ -24,7 +24,7 @@
     </a>
 </div>
 
-<form action="${pageContext.request.contextPath }/web/wupdatePasswordSubmit" method="post">
+<form action="${pageContext.request.contextPath }/user/updatePasswordSubmit" method="post">
 <div class="name">
     <div class="kong2"></div>
     <span>原密码：</span><input name="oldpassword" class="text" type="password" >

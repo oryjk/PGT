@@ -1,4 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,9 +34,9 @@
 </div>
 <div class="list">
     <div class="kong"></div>
-    <a href="${pageContext.request.contextPath }/web/webFavourites" class="list1">我的收藏</a>
+    <a href="${pageContext.request.contextPath }/myAccount/favourites" class="list1">我的收藏</a>
     <a href="#" class="list2">我的购物车</a>
-    <a href="${pageContext.request.contextPath }/web/recentBrowse" class="list3">最近浏览</a>
+    <a href="${pageContext.request.contextPath }/myAccount/browsedProducts" class="list3">最近浏览</a>
 
     <div class="kong"></div>
 </div>
@@ -64,7 +67,8 @@
 <div class="box1">
     <div class="box3">
         <span class="box1-top-left">地址管理</span>
-        <a href="${pageContext.request.contextPath }/web/waddress" class="box1-top-right">更多</a>
+        <a class="box1-top-right" href="<spring:url value="/my-account/person-info/address"/>" >更多</a>
+
     </div>
 </div>
 
@@ -81,9 +85,7 @@
     </div>
 </div>
 
-<input type="button" class="btn" onclick="javascript:window.location.href='${pageContext.request.contextPath }/web/wlogout'" value="退出账号">
-
-
-    <%@include file="../common/footer.jsp" %>
+<input type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath }/user/logout'" value="退出账号">
+    <%@include file="../../common/footer.jsp" %>
 </body>
 </html>
