@@ -1,16 +1,16 @@
-package com.pgt.web.search.AbstractController;
+package com.pgt.search.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.pgt.base.constans.MobileConstants;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
-import com.pgt.base.constans.MobileConstants;
-import com.pgt.search.controller.EssearchBean;
+import com.pgt.base.controller.BaseMobileController;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
+import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,12 +19,13 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,10 +33,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by liqiang on 16-1-18.
+ * @author zhangxiaodong 2015年12月5日
  */
-public abstract class SearchBaseController{
-    private static final Logger LOGGER = LoggerFactory.getLogger(SearchBaseController.class);
+@RestController
+@RequestMapping("/mEssearch")
+public class ESSearchMobileController extends BaseMobileController{
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ESSearchMobileController.class);
     @Autowired
     private ESSearchService esSearchService;
     @Autowired
@@ -43,21 +47,24 @@ public abstract class SearchBaseController{
     @Autowired
     private ESConfiguration esConfiguration;
 
-    public Map<String,Object> essearchService(EssearchBean essearchBean){
-
-        Map<String,Object> responseMap= new HashMap<String,Object>();
-        CommPaginationBean paginationBean = new CommPaginationBean();
+    /**
+     * A method query productList for search
+     * @param categoryId,term,sortKey,sortOrder,priceStart,priceEnd,currentIndex,mobileCapacity
+     */
+    @RequestMapping(value = "/query",method = RequestMethod.POST)
+    public @ResponseBody Map<String, Object> query(EssearchBean essearchBean) {
+        LOGGER.debug("The method productList for search");
+        Map<String,Object> responseMap= new HashMap<>();
+        PaginationBean paginationBean = new PaginationBean();
         if (StringUtils.isEmpty(essearchBean.getCurrentIndex())) {
             paginationBean.setCurrentIndex(0);
             essearchBean.setCurrentIndex("0");
         }
-
         if(!StringUtils.isEmpty(essearchBean.getMobileCapacity())){
             paginationBean.setCapacity(Integer.parseInt(essearchBean.getMobileCapacity()));
         }else {
             paginationBean.setCapacity(configuration.getPlpCapacity());
         }
-
         ESSort esSort = null;
         ESRange esRange = null;
         ESTerm esterm = null;
@@ -100,7 +107,6 @@ public abstract class SearchBaseController{
                 searchResponse = esSearchService.findProducts(esterm, esMatches, esRange,sortList, paginationBean,
                         esAggregation, null);
             }
-
             SearchResponse categoryResponse= getCategoryHists(searchResponse);
 
             if(!ObjectUtils.isEmpty(categoryResponse)) {
@@ -113,7 +119,6 @@ public abstract class SearchBaseController{
             CommPaginationBean commPaginationBean = new CommPaginationBean(configuration.getPlpCapacity(),
                     Long.parseLong(essearchBean.getCurrentIndex()), total);
             responseMap.put("commPaginationBean",commPaginationBean);
-            LOGGER.debug("******************" + JSONObject.toJSONString(commPaginationBean.getTotalPage()));
 
             SearchHit[] searchHists = hits.getHits();
 
@@ -142,10 +147,10 @@ public abstract class SearchBaseController{
                 responseMap.put(MobileConstants.MOBILE_MESSAGE,"ESSsearch.empty");
             } else {
                 responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
-                if(!ObjectUtils.isEmpty(searchResponse)) {
-                    List products = searchConvertToList(searchResponse);
-                    responseMap.put("products", products);
-                }
+               if(!ObjectUtils.isEmpty(searchResponse)) {
+                   List products = searchConvertToList(searchResponse);
+                   responseMap.put("products", products);
+               }
             }
         } catch (Exception e) {
             LOGGER.debug("ESSsearch has some exception{}", e.getMessage());
@@ -159,19 +164,19 @@ public abstract class SearchBaseController{
         // 获取categoryId的聚合信息,出现的次数，以及id
         Map<String, Aggregation> aggMap = searchResponse.getAggregations().asMap();
         StringTerms gradeTerms = (StringTerms) aggMap.get("aggr");
-        List<Terms.Bucket> categories = gradeTerms.getBuckets();
+        List<Bucket> categories = gradeTerms.getBuckets();
         SearchResponse categoryResponse=null;
 
         if (CollectionUtils.isEmpty(categories)) {
             List<ESTerm> esTermList = new ArrayList<>();
-            for (Terms.Bucket bucket : categories) {
+            for (Bucket bucket : categories) {
                 ESTerm categoryTerm = new ESTerm();
                 categoryTerm.setPropertyName("id");
                 categoryTerm.setTermValue(bucket.getKey().toString());
                 esTermList.add(categoryTerm);
             }
             // 根据分类id获取相关分类
-            categoryResponse = esSearchService.findCategories(esTermList, null);
+             categoryResponse = esSearchService.findCategories(esTermList, null);
         }
         return categoryResponse;
     }
@@ -238,25 +243,4 @@ public abstract class SearchBaseController{
         return term;
     }
 
-    protected List  searchConvertToList(SearchResponse searchResponse){
-        SearchHit[] searchHits= searchResponse.getHits().getHits();
-        List message = new ArrayList();
-        for(SearchHit searchit:searchHits){
-            message.add(searchit.getSource());
-        }
-        return message;
-    }
-
-    //查找分类
-    public List findCategories(){
-        ESSort parentSort = new ESSort();
-        parentSort.setPropertyName("id");
-        parentSort.setSortOrder(SortOrder.ASC);
-        SearchResponse parentCategoryResponse = esSearchService.findCategories(null, parentSort);
-        if(!ObjectUtils.isEmpty(parentCategoryResponse)) {
-            List parentCategoryList = searchConvertToList(parentCategoryResponse);
-            return parentCategoryList;
-        }
-        return null;
-    }
 }
