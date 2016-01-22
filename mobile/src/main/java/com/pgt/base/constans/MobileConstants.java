@@ -13,6 +13,5 @@ public class MobileConstants {
 
     public static final String MOBILE_MESSAGE="message";
 
-    public static final String PHONE_USER = "user";
 
 }

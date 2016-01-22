@@ -1,6 +1,6 @@
 package com.pgt.base.controller;
 
-import com.pgt.base.constans.MobileConstans;
+import com.pgt.base.constans.MobileConstants;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 
@@ -15,8 +15,8 @@ public class BaseMobileController {
 
 
     protected Map<String, Object> responseMobileFail(Map<String, Object> responseMap, String value) {
-        responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-        responseMap.put(MobileConstans.MOBILE_MESSAGE, value);
+        responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_FAIL);
+        responseMap.put(MobileConstants.MOBILE_MESSAGE, value);
         return responseMap;
     }
 

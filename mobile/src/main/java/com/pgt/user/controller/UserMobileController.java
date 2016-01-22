@@ -1,6 +1,6 @@
 package com.pgt.user.controller;
 
-import com.pgt.base.constans.MobileConstans;
+import com.pgt.base.constans.MobileConstants;
 import com.pgt.cart.service.ProductBrowseTrackService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
@@ -120,7 +120,7 @@ public class UserMobileController extends BaseMobileController {
         tokenService.createToken(token);
         getTransactionManager().commit(status);
 
-        responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+        responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
         responseMap.put("user", userResult);
         responseMap.put("token",tokenNumber);
         HttpSession session=request.getSession();
@@ -157,7 +157,7 @@ public class UserMobileController extends BaseMobileController {
         }
         userServiceImp.saveUser(user);
         LOGGER.debug("success for register.");
-        responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+        responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
         return responseMap;
     }
 
@@ -195,7 +195,7 @@ public class UserMobileController extends BaseMobileController {
             user.setPassword2(newUserPassword.getPassword2());
             userServiceImp.updateUserPassword(user);
         }
-        responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+        responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
         return  responseMap;
     }
 
@@ -215,7 +215,7 @@ public class UserMobileController extends BaseMobileController {
         Token tokenResult =tokenService.queryToken(tokenQuery);
         tokenService.deleteTokenById(tokenResult.getId());
         LOGGER.debug("The logout userId is {} ",tokenQuery.getId());
-        responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+        responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
         return responseMap;
     }
 
@@ -256,7 +256,7 @@ public class UserMobileController extends BaseMobileController {
         //修改密码
         user.setPassword(resetUser.getPassword());
         userServiceImp.updateUserPassword(user);
-        responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+        responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
         return responseMap;
     }
 

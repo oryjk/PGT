@@ -1,6 +1,6 @@
 package com.pgt.communication.controller;
 
-import com.pgt.base.constans.MobileConstans;
+import com.pgt.base.constans.MobileConstants;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.communication.bean.Consulting;
 import com.pgt.communication.bean.ConsultingCustom;
@@ -63,7 +63,7 @@ public class ConsultingMobileController extends BaseMobileController{
 				currentIndex, total);
 		consultingCustom.setPaginationBean(paginationBean);
 		List<Consulting> consultings = consultingService.queryAllConsultingByProduct(productId, consultingCustom);
-		responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+		responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
 		responseMap.put("consultings",consultings);
 		responseMap.put("conPaginationBean",paginationBean);
 		return responseMap;
@@ -108,7 +108,7 @@ public class ConsultingMobileController extends BaseMobileController{
 			LOGGER.debug("The save consulitng is error");
 			return responseMobileFail(responseMap, "save.error");
 		}
-		responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+		responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
         return responseMap;
 	}
 }

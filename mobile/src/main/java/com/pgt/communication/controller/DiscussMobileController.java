@@ -1,6 +1,6 @@
 package com.pgt.communication.controller;
 
-import com.pgt.base.constans.MobileConstans;
+import com.pgt.base.constans.MobileConstants;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.communication.bean.Discuss;
 import com.pgt.communication.bean.DiscussCustom;
@@ -69,7 +69,7 @@ public class DiscussMobileController extends BaseMobileController{
 		discussCustom.setPaginationBean(paginationBean);
 		// 查询某个商品讨论列表 productId
 		List<Discuss> discussList = discussService.queryProductAllDiscuss(productId, discussCustom);
-		responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+		responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
 		responseMap.put("discussList",discussList);
 		responseMap.put("disPaginationBean",paginationBean);
 		return responseMap;
@@ -113,7 +113,7 @@ public class DiscussMobileController extends BaseMobileController{
 			LOGGER.debug("The save discuss is error");
 			return responseMobileFail(responseMap, "save.error");
 		}
-		responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+		responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
         return responseMap;
 	}
 

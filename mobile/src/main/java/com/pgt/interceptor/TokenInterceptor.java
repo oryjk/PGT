@@ -1,5 +1,5 @@
 package com.pgt.interceptor;
-import com.pgt.base.constans.MobileConstans;
+import com.pgt.base.constans.MobileConstants;
 import com.pgt.constant.PathConstant;
 import com.pgt.constant.UserConstant;
 import com.pgt.token.bean.Token;
@@ -7,6 +7,7 @@ import com.pgt.token.service.TokenService;
 import com.pgt.user.bean.User;
 import com.pgt.user.service.UserService;
 import com.pgt.utils.ResponseUtils;
+import com.pgt.utils.UserAgentUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,19 +45,22 @@ public class TokenInterceptor implements HandlerInterceptor {
         LOGGER.info("requestUri:" + requestUri);
         LOGGER.info("contextPath:" + contextPath);
         LOGGER.info("url:" + url);
+        String agent= request.getHeader("User-Agent").toLowerCase();
+        LOGGER.debug("The request agent is {}",agent);
+
+        if(UserAgentUtils.isWebBrowser(agent)==true){
+            LOGGER.debug("The mobile web Release");
+            return true;
+        }
 
         LOGGER.debug("TokenInterceptor has run");
         User user= (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
         LOGGER.debug("The session createTime {}",request.getSession().getCreationTime());
         LOGGER.debug("The session lastAccessTime {}",request.getSession().getLastAccessedTime());
 
-        if (url.matches(PathConstant.NO_LOGIN_INTERCEPTOR_PATH)) {
-            LOGGER.debug("Not need interceptor.");
-            return true;
-        }
 
         //不需要登陆的请求,放行
-        if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH) || url.matches("/") ) {
+        if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH)) {
             LOGGER.debug("Not need interceptor.");
             return true;
         }
@@ -97,17 +101,21 @@ public class TokenInterceptor implements HandlerInterceptor {
         Token tokenResult =tokenService.queryToken(tokenQuery);
 
         if(tokenNumber.endsWith(tokenResult.getTokenNumber())){
-            //处理登陆
+            //deal log
             User userResult = userService.authorize(username);
             request.getSession().setAttribute(UserConstant.CURRENT_USER,userResult);
             return true;
         }else{
             jo.put("message","need.Login");
-            jo.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+            jo.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
             ResponseUtils.renderJson(response, jo.toString());
             return false;
         }
     }
+
+
+
+
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {

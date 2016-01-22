@@ -2,7 +2,7 @@ package com.pgt.user.controller;
 
 import com.pgt.constant.UserConstant;
 import com.pgt.base.controller.BaseMobileController;
-import com.pgt.base.constans.MobileConstans;
+import com.pgt.base.constans.MobileConstants;
 import com.pgt.user.bean.User;
 import com.pgt.user.bean.UserInformation;
 import com.pgt.user.service.UserInformationService;
@@ -69,7 +69,7 @@ public class UserInformationMobileController extends BaseMobileController {
 			userInformationService.createInformation(userInformation);
 			LOGGER.debug("create a userInformation");
 		}
-		responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+		responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
 		return responseMap;
 	}
 
@@ -92,7 +92,7 @@ public class UserInformationMobileController extends BaseMobileController {
 			LOGGER.debug("UserInformation.empty");
 			return responseMobileFail(responseMap, "UserInformation.empty");
 		}
-		responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+		responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
 		responseMap.put("userInformation",userInformation);
 		return responseMap;
 	}

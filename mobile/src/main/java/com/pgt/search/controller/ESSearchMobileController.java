@@ -1,6 +1,6 @@
 package com.pgt.search.controller;
 
-import com.pgt.base.constans.MobileConstans;
+import com.pgt.base.constans.MobileConstants;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
@@ -143,10 +143,10 @@ public class ESSearchMobileController extends BaseMobileController{
 
             // 根据搜索是否有结果，设置页面显示内容
             if (ArrayUtils.isEmpty(searchHists)) {
-                responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-                responseMap.put(MobileConstans.MOBILE_MESSAGE,"ESSsearch.empty");
+                responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_FAIL);
+                responseMap.put(MobileConstants.MOBILE_MESSAGE,"ESSsearch.empty");
             } else {
-                responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+                responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
                if(!ObjectUtils.isEmpty(searchResponse)) {
                    List products = searchConvertToList(searchResponse);
                    responseMap.put("products", products);
@@ -154,8 +154,8 @@ public class ESSearchMobileController extends BaseMobileController{
             }
         } catch (Exception e) {
             LOGGER.debug("ESSsearch has some exception{}", e.getMessage());
-            responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-            responseMap.put(MobileConstans.MOBILE_MESSAGE,"ESSsearch.exception");
+            responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_FAIL);
+            responseMap.put(MobileConstants.MOBILE_MESSAGE,"ESSsearch.exception");
         }
         return responseMap;
     }
