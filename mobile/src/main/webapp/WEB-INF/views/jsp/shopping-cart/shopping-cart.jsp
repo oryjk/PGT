@@ -10,7 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <title></title>
     <link href="shopping-cart.css" rel="stylesheet">
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/jquery1.8.3/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/js/right.js"></script>
@@ -79,5 +78,14 @@
 </a>
 
 <%@include file="../common/footer.jsp"%>
+<script>
+    $(function(){
+        var url = "${pageContext.request.contextPath}/shoppingCart/ajaxCart";
+        alert(url);
+        $.get(url, function(result){
+            alert(JSON.stringify(result));
+        });
+    })
+</script>
 </body>
 </html>

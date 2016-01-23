@@ -141,7 +141,7 @@
     $(function(){
         $("#addCart").click(function(){
             var productId = ${product.productId};
-            $.post("/shoppingCart/ajaxAddItemToOrder",
+            $.post("${pageContext.request.contextPath}/shoppingCart/ajaxAddItemToOrder",
                     {
                         productId: productId
                     },
