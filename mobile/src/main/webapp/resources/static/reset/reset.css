@@ -156,14 +156,18 @@ img {
 }
 
 .btn-clean {
-    color: #ffffff;
-    background: red;
-    margin: 2em 1em;
-    display: block;
-    padding: 1em;
-    text-align: center;
-    border: 2px solid red;
+    color: white;
+    background: #d11010;
+    margin-top: 10%;
+    margin-left: 25%;
+    padding: 5% 20%;
+    font-size: 1.2em;
+    border: 2px solid #F3F3F3;
     border-radius: 10px;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 .btn1{
     justify-content: center;
