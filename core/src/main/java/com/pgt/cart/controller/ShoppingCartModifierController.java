@@ -144,6 +144,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 				return mav;
 			}
 			order = getEasyBuyOrder(pRequest);
+			order.setUserId(Long.valueOf(user.getId()).intValue());
 		} else {
 			// check and generate order
 			order = getCurrentOrder(pRequest, true);
@@ -170,6 +171,22 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			}
 			// persist changes to database
 			TransactionStatus status = ensureTransaction();
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
+			LOGGER.debug("order userId:" + order.getUserId());
 			try {
 				LOGGER.debug("Synchronized order to price and update order");
 				getPriceOrderService().priceOrder(order);
