@@ -56,7 +56,6 @@
             <div class="admin">
                 账户名：<input type="text" class="text" name="username">
             </div>
-            loginError:${loginError}
             <form:errors path="loginError"/>
             <div class="validate">
                 验证码：<input type="text" class="text" name="authCode">	
