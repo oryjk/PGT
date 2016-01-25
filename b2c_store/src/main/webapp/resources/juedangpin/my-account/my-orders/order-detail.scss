@@ -59,28 +59,6 @@
 
 .floor-2 {
   @extend %floor;
-
-  table {
-    font-size: 16px;
-    table-layout: fixed;
-  }
-
-  th {
-    text-align: left;
-  }
-
-  th,
-  td {
-    height: 23px;
-  }
-
-  .col-1 {
-    width: 340px;
-  }
-}
-
-.floor-3 {
-  @extend %floor;
   h3 {
     margin-bottom: 15px;
   }
@@ -109,12 +87,7 @@
   }
 }
 
-.floor-4 {
-  @extend %floor;
-  font-size: 16px;
-}
-
-.floor-5 {
+.floor-3 {
   @extend %floor;
 
   .each-order {
@@ -159,7 +132,7 @@
       padding: 5px;
     }
     .col1 {
-      width: 105px;
+      width: 70px;
       img {
         padding: 6px;
         border: 2px solid $lightGray;
@@ -168,15 +141,19 @@
       }
     }
     .col2 {
-      width: 390px;
+      width: 300px;
       text-align: left;
     }
     .col3 {
-      width: 85px;
+      width: 80px;
 
       span {
         display: block;
       }
+    }
+
+    .col4 {
+      width: 100px;
     }
 
     .col5,
@@ -199,6 +176,15 @@
       a,
       span {
         display: block;
+      }
+    }
+
+    .cost {
+      font-size: 16px;
+      color: $emColor;
+      span {
+        font-size: 16px;
+        color: $emColor;
       }
     }
   }
