@@ -47,7 +47,7 @@
                     <td><label>手机号码</label></td>
                     <td colspan="2"><form:input id="userPhone" path="phoneNumber" type="text"
                                                 placeholder="用于密码保护"/></td>
-                    <td class="prompt" id="userPhonePrompt"><form:errors path="phoneNumber"/></td>
+                    <td class="prompt" id="userPhonePrompt"><form:errors path="phoneNumber"/><form:errors path="phoneExist"/></td>
                 </tr>
                 <tr>
                     <td><label>登录密码</label></td>
