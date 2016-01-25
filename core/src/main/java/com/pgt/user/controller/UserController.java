@@ -306,14 +306,19 @@ public class UserController {
             modelAndView.getModel().put("error", UserConstant.PASSWORD_NOT_SAME);
             return modelAndView;
         }
-        boolean isExist = userServiceImp.checkExist(user.getUsername());
-        if (!isExist) {
-            isExist = userServiceImp.checkExist(user.getPhoneNumber());
-        }
-        if (isExist) {
+        boolean userExist = userServiceImp.checkExist(user.getUsername());
+        if (userExist) {
             modelAndView.setViewName(urlConfiguration.getRegisterPage());
             bindingResult
                     .addError(new FieldError("user", "userExist", ErrorMsgUtil.getMsg("Error.userExist", null, null)));
+            return modelAndView;
+        }
+        boolean phoneExist = userServiceImp.checkExist(user.getPhoneNumber());
+
+        if (phoneExist) {
+            modelAndView.setViewName(urlConfiguration.getRegisterPage());
+            bindingResult
+                    .addError(new FieldError("user", "phoneExist", ErrorMsgUtil.getMsg("Error.phoneExist", null, null)));
             return modelAndView;
         }
         userServiceImp.saveUser(user);
