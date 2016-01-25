@@ -20,7 +20,10 @@ public class P2PInfo implements Serializable {
     private Integer prePeriod;
     private Integer postPeriod;
     private int placeQuantity;
-    private double unitPrice;
+    private Double unitPrice;
+    private Double handlingFee;
+    private Double interestRate;
+    private Double handlingFeeRate;
 
     public Date getCreationDate() {
         return creationDate;
@@ -143,5 +146,37 @@ public class P2PInfo implements Serializable {
 
     public void setPlaceQuantity(int placeQuantity) {
         this.placeQuantity = placeQuantity;
+    }
+
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Double getHandlingFee() {
+        return handlingFee;
+    }
+
+    public void setHandlingFee(Double handlingFee) {
+        this.handlingFee = handlingFee;
+    }
+
+    public Double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(Double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public Double getHandlingFeeRate() {
+        return handlingFeeRate;
+    }
+
+    public void setHandlingFeeRate(Double handlingFeeRate) {
+        this.handlingFeeRate = handlingFeeRate;
     }
 }

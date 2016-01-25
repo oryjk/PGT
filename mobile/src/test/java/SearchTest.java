@@ -1,15 +1,8 @@
 import com.alibaba.fastjson.JSONObject;
 import com.pgt.common.bean.CommPaginationBean;
-import com.pgt.mobile.search.controller.ESSearchMobileController;
-import com.pgt.mobile.search.controller.EssearchBean;
-import com.pgt.search.bean.ESAggregation;
-import com.pgt.search.bean.ESRange;
-import com.pgt.search.bean.ESSort;
-import com.pgt.search.bean.ESTerm;
+import com.pgt.search.controller.EssearchBean;
 import com.pgt.search.service.ESSearchService;
-import com.pgt.utils.PaginationBean;
 import com.pgt.web.search.AbstractController.SearchBaseController;
-import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -23,9 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by liqiang on 16-1-18.

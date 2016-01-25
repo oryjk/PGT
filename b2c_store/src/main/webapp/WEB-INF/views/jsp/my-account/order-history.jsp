@@ -82,7 +82,7 @@
                         </tr>
                     </table>
 
-                <%--有订单时显示为.have-order 为display为block,否则为none--%>
+                        <%--有订单时显示为.have-order 为display为block,否则为none--%>
                     <div class="have-order" id="orderList" style="display: block">
                         <c:forEach var="order" items="${historyOrders.result}">
                             <div class="each-order">
@@ -94,7 +94,8 @@
                                     <a class="link-btn" href="#">取消订单</a>
                                 </c:if>
                                 </div>
-                                下单时间: <span class="order-time">${order.submitDate}</span>
+                                    下单时间: <span class="order-time"><fmt:formatDate value="${order.submitDate}"
+                                                                                   pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                 订单号: <span class="order-number">${order.id}</span>
                                 物流:
                                 <c:choose>
@@ -154,7 +155,7 @@
                             </table>
                             </div>
                         </c:forEach>
-                    </div >
+                    </div>
 
                     <div class="no-order" style="display: none">
                         <p class="no-order-text">没有订单 <a class="link-btn" href="#">去购物车结算</a> <a class="link-btn" href="#">回到首页</a></p>
@@ -163,17 +164,38 @@
                 <!-- 分页-->
                 <div class="page-box">
                     <ul>
-                        <li><a id="previousPage" href="#">上页</a></li>
+                        <c:if test="${historyOrders.currentIndex gt 0}">
+                            <li><a id="previousPage"
+                                   href="<spring:url value="/myAccount/orderHistory?keyword=${param.keyword}&currentIndex=${historyOrders.currentIndex - 1}"/>">上页</a>
+                            </li>
+                        </c:if>
                         <li class="page-list">
                             <ol id="pages">
-                                <li><a class="page-focus" href="#">1</a></li>
-                                <li><a href="#">2</a></li>
+                                <c:forEach var="pageNum" items="${historyOrders.pageNumbers}">
+                                    <c:choose>
+                                        <c:when test="${pageNum eq historyOrders.currentIndex}">
+                                            <li><a class="page-focus" href="#">${pageNum + 1}</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li>
+                                                <a href="<spring:url value="/myAccount/orderHistory?keyword=${param.keyword}&currentIndex=${pageNum}"/>">${pageNum + 1}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
                             </ol>
                         </li>
-                        <li><a id="nextPage" href="#">下页</a></li>
-                        <li class="page-count">共<span id="pageCount">6</span>页</li>
-                        <li class="page-which">跳转到第<input id="pageWhich" type="text" />页</li>
-                        <li><input class="d-btn" id="pageSub" type="button" value="确认" /></li>
+                        <c:if test="${historyOrders.currentIndex lt historyOrders.maxIndex}">
+                            <li><a id="nextPage"
+                                   href="<spring:url value="/myAccount/orderHistory?keyword=${param.keyword}&currentIndex=${historyOrders.currentIndex + 1}"/>">下页</a>
+                            </li>
+                        </c:if>
+                        <li class="page-count">共<span id="pageCount">${historyOrders.maxIndex + 1}</span>页</li>
+                        <form action="<spring:url value="/myAccount/orderHistory"/>" method="get">
+                            <input type="hidden" name="keyword" value="${param.keyword}"/>
+                            <li class="page-which">跳转到第<input name="currentIndex" type="text"/>页</li>
+                            <li><input class="d-btn" id="pageSub" type="submit" value="确认"/></li>
+                        </form>
                     </ul>
                 </div>
             </c:if>

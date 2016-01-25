@@ -9,6 +9,9 @@ import java.util.Date;
  */
 public class CommerceItem implements Comparable<CommerceItem> {
 
+	public static final int TYPE_B2C = 1;
+	public static final int TYPE_P2P_NOMAL = 2;
+	public static final int TYPE_P2P_MONEY = 3;
 	private int mId;
 	private int mOrderId;
 	private int mReferenceId;

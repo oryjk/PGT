@@ -24,10 +24,13 @@ import com.pgt.shipping.service.ShippingService;
 import com.pgt.user.bean.User;
 import com.pgt.user.bean.UserInformation;
 import com.pgt.user.service.UserInformationService;
+import com.pgt.utils.WebServiceConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -37,10 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author ethanli
@@ -71,6 +71,7 @@ public class ShippingController implements CartMessages {
 
 	@Resource(name = "shoppingCartService")
 	private ShoppingCartService mShoppingCartService;
+
 
 	@RequestMapping(value = "/shipping", method = { RequestMethod.GET })
 	public ModelAndView shipping(HttpServletRequest request, HttpSession session) {
@@ -125,6 +126,58 @@ public class ShippingController implements CartMessages {
 		}
 		return mav;
 	}
+
+
+	@RequestMapping(value = "/ajaxShipping", method = { RequestMethod.GET })
+	@ResponseBody
+	public ResponseEntity ajaxShipping(HttpServletRequest request, HttpSession session) {
+
+		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_SUCCESS);
+		if (user == null) {
+			// CODE NEED_LOGIN
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_NEED_LOGIN);
+			new ResponseEntity(result, HttpStatus.OK);
+		}
+		Order order = getOrderService().getSessionOrder(request);
+		if (getOrderService().isInvalidOrder(user, order)) {
+			// CODE NOT_YOUR_ORDER
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_NOT_YOUR_ORDER);
+			new ResponseEntity(result, HttpStatus.OK);
+		}
+		if (!getShoppingCartService().checkCartItemCount(order)) {
+			// CODE TO_MANY_ITEM
+			result.put(WebServiceConstants.NAME_CODE,  WebServiceConstants.CODE_TO_MANY_ITEM);
+			new ResponseEntity(result, HttpStatus.OK);
+		}
+		if (order.getShippingVO() == null) {
+			ShippingVO shipping = getShippingService().findShippingByOrderId(String.valueOf(order.getId()));
+			order.setShippingVO(shipping);
+		}
+		List<AddressInfo> addressInfoList = getAddressInfoService().queryAddressByUserId(user.getId().intValue());
+		if (user.getDefaultAddressId() != null) {
+			addressInfoList = getAddressInfoService().sortAddress(user.getDefaultAddressId(), addressInfoList);
+			AddressInfo defaultAddress = getAddressInfoService().findAddress(user.getDefaultAddressId());
+			result.put(WebServiceConstants.NAME_DEFAULT_ADDRESS, defaultAddress);
+			if (order.getShippingVO() == null) {
+				getShippingService().addAddress(user.getDefaultAddressId(), order);
+			}
+		}
+		List<Integer> productIds = getShippingService().getProductIdsFromOrder(order);
+		if (productIds != null && !productIds.isEmpty()) {
+			List<Store> stores = getShippingService().findStoreByProductIds(productIds);
+			result.put(WebServiceConstants.NAME_STORE_LIST, stores);
+		}
+
+		result.put(WebServiceConstants.NAME_ADDRESS_LIST, addressInfoList == null ? Collections.emptyList() : addressInfoList);
+		result.put(WebServiceConstants.NAME_ORDER_INFO, order);
+		return new ResponseEntity(result, HttpStatus.OK);
+	}
+
+
+
+
 
 	@RequestMapping(value = "/addAddressToOrder", method = { RequestMethod.POST })
 	@ResponseBody
@@ -239,6 +292,7 @@ public class ShippingController implements CartMessages {
 		sendEmail(user, order);
 		request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
 		mav.setViewName("redirect:/payment/gateway");
+		request.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
 		mav.addObject(CartConstant.ORDER_ID, order.getId());
 		return mav;
 	}

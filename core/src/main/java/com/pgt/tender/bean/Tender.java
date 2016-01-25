@@ -29,6 +29,8 @@ public class Tender implements Serializable {
     private Date creationDate;
     private Date updateDate;
     private Category category;
+    private Double handlingFeeRate;
+
 
     @Override
     public String toString() {
@@ -213,5 +215,13 @@ public class Tender implements Serializable {
 
     public Category getCategory() {
         return this.category;
+    }
+
+    public Double getHandlingFeeRate() {
+        return handlingFeeRate;
+    }
+
+    public void setHandlingFeeRate(Double handlingFeeRate) {
+        this.handlingFeeRate = handlingFeeRate;
     }
 }

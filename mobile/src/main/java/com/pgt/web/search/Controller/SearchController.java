@@ -1,8 +1,7 @@
 package com.pgt.web.search.Controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pgt.mobile.search.controller.ESSearchMobileController;
-import com.pgt.mobile.search.controller.EssearchBean;
+import com.pgt.search.controller.EssearchBean;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.web.search.AbstractController.SearchBaseController;
 import org.elasticsearch.action.search.SearchResponse;

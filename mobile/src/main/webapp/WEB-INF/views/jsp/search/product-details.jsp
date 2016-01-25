@@ -14,6 +14,11 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/js/right.js"></script>
     <link type="text/css" href="${pageContext.request.contextPath}/resources/static/product-details/js.css" rel="stylesheet">
     <link type="text/css" href="${pageContext.request.contextPath}/resources/static/product-details/product-details1.css" rel="stylesheet">
+    <style>
+        a{
+            cursor: pointer;
+        }
+    </style>
 </head>
 <!DOCTYPE html>
 <body>
@@ -29,9 +34,9 @@
             <div class="btn1">
                 立即购买
             </div>
-            <div class="btn2">
+            <a id="addCart" path="shoppingCart/ajaxAddItemToOrder" class="btn2">
                 加入购物车
-            </div>
+            </a>
         </div>
 
         <%@include file="../common/header.jsp"%>
@@ -131,6 +136,22 @@
             canvassuport: true
         });
     });
+</script>
+<script>
+    $(function(){
+        $("#addCart").click(function(){
+            var productId = ${product.productId};
+            $.post("${pageContext.request.contextPath}/shoppingCart/ajaxAddItemToOrder",
+                    {
+                        productId: productId
+                    },
+                    function(data,status){
+                       if(status == "success"){
+                           alert("添加成功！")
+                       }
+            });
+        })
+    })
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/product-details/js/banner.js"></script>
 </html>

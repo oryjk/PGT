@@ -5,7 +5,6 @@ import com.pgt.common.bean.Banner;
 import com.pgt.common.service.BannerService;
 import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
-import com.pgt.mobile.home.controller.HomeMobileController;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.service.ESSearchService;
@@ -20,7 +19,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

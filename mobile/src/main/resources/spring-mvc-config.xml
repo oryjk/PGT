@@ -31,7 +31,7 @@
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="com.pgt.mobile.interceptor.TokenInterceptor"></bean>
+            <bean class="com.pgt.interceptor.TokenInterceptor"></bean>
         </mvc:interceptor>
 
 

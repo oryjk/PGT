@@ -52,7 +52,9 @@ public class AlipayController {
 		ModelAndView model = null;
 		String orderId = request.getParameter("orderId");
 		Order order = getOrderService().loadOrder(Integer.parseInt(orderId));
-		if (order == null || order.getCommerceItemCount() == 0) {
+//		if (order == null || order.getCommerceItemCount() == 0) {
+		if (order == null) {
+			LOGGER.error("no order or commerceItem");
 			model = new ModelAndView("redirect:/payment/gateway");
 			return model;
 		}
@@ -76,6 +78,7 @@ public class AlipayController {
 			model.addObject("alipayParams", paramsMap);
 			model.addObject("formAction", alipayService.getAlipayConfig().getAlipayUrl());
 		} catch (Exception e) {
+			LOGGER.error("handle alipay error ", e);
 			model = new ModelAndView("/payment/gateway");
 			getPaymentService().setAsRollback();
 		} finally {

@@ -5,12 +5,14 @@ import com.pgt.user.bean.User;
 import com.pgt.user.dao.UserMapper;
 import com.pgt.user.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -66,8 +68,8 @@ public class UserServiceImp implements UserService {
         user.setPassword(encryptedPassword);
         userMapper.update(user);
     }
-    
-    
+
+
     @Override
     public void updateUser(User user) {
         userMapper.update(user);
@@ -80,7 +82,11 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User authorize(String username) {
-        return userMapper.authorize(username);
+        List<User> users = userMapper.authorize(username);
+        if (CollectionUtils.isEmpty(users)) {
+            return null;
+        }
+        return users.get(0);
     }
 
     @Override

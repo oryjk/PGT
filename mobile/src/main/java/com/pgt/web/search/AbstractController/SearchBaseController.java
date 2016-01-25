@@ -1,22 +1,16 @@
 package com.pgt.web.search.AbstractController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
-import com.pgt.category.bean.Category;
-import com.pgt.category.service.CategoryService;
-import com.pgt.common.BreadBuilder;
-import com.pgt.common.bean.BreadCrumb;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
-import com.pgt.mobile.base.constans.MobileConstans;
-import com.pgt.mobile.search.controller.EssearchBean;
+import com.pgt.base.constans.MobileConstants;
+import com.pgt.search.controller.EssearchBean;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
-import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,8 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,10 +138,10 @@ public abstract class SearchBaseController{
 
             // 根据搜索是否有结果，设置页面显示内容
             if (ArrayUtils.isEmpty(searchHists)) {
-                responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-                responseMap.put(MobileConstans.MOBILE_MESSAGE,"ESSsearch.empty");
+                responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_FAIL);
+                responseMap.put(MobileConstants.MOBILE_MESSAGE,"ESSsearch.empty");
             } else {
-                responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_SUCCESS);
+                responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_SUCCESS);
                 if(!ObjectUtils.isEmpty(searchResponse)) {
                     List products = searchConvertToList(searchResponse);
                     responseMap.put("products", products);
@@ -157,8 +149,8 @@ public abstract class SearchBaseController{
             }
         } catch (Exception e) {
             LOGGER.debug("ESSsearch has some exception{}", e.getMessage());
-            responseMap.put(MobileConstans.MOBILE_STATUS, MobileConstans.MOBILE_STATUS_FAIL);
-            responseMap.put(MobileConstans.MOBILE_MESSAGE,"ESSsearch.exception");
+            responseMap.put(MobileConstants.MOBILE_STATUS, MobileConstants.MOBILE_STATUS_FAIL);
+            responseMap.put(MobileConstants.MOBILE_MESSAGE,"ESSsearch.exception");
         }
         return responseMap;
     }
