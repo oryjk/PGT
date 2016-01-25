@@ -146,7 +146,9 @@
                         productId: productId
                     },
                     function(data,status){
-                        alert("数据：" + JSON.stringify(data) + "\n状态：" + status);
+                       if(status == "success"){
+                           alert("添加成功！")
+                       }
             });
         })
     })
