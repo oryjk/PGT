@@ -13,6 +13,11 @@
     <link href="${pageContext.request.contextPath}/resources/static/shopping-cart/shopping-cart.css" rel="stylesheet">
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/jquery1.8.3/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/js/right.js"></script>
+    <style>
+        .btn1{
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -43,13 +48,24 @@
                             "<span class='font1-1'>" + result.data.order.commerceItems[i].name + "</span>" +
                             "<span class='font1-2'>" + result.data.order.commerceItems[i].salePrice +"</span>" +
                         "</div>" +
-                        "<div class='btn1'>" +
+                        "<div class='btn1' productIds=" + result.data.order.commerceItems[i].referenceId + ">" +
                             "<img src=" + del_url + ">" +
                         "</div>" +
                     "</div>"
                 )
             }
         },'json');
+
+        $(".btn1").live("click",function(){
+            var del_url = '${pageContext.request.contextPath}/shoppingCart/ajaxRemoveItemFromOrder';
+            var productId = $(this).attr("productIds");
+            $.post(del_url, { productId: productId },
+                    function(data){
+                            if(data.success == 1) {
+                                window.location.reload();
+                            }
+            });
+        });
     })
 </script>
 </body>
