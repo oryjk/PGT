@@ -14,11 +14,11 @@
 		<property name="socketTimeout" value="15000" />
 		<!-- need change when go live -->
 		<property name="platformUserNoPrefix" value="pgtuatttt"></property>
-		<property name="requestNoPrefix" value="pgtuatttt"/>
+		<property name="requestNoPrefix" value="pgtuat_feature_one"/>
 		<property name="directRequestUrl" value="https://member.yeepay.com/member/bhaexter/bhaController" />
-		<property name="callbackUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayCallback" />
-		<property name="notifyUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayNotify"/>
-		<property name="completeTransactionNotifyUrl" value="http://localhost:8080/b2c_store/yeepay/completeTransactionNotify"/>
+		<property name="callbackUrl" value="http://www.dev_dianjinzi.com/yeepay/yeepayCallback" />
+		<property name="notifyUrl" value="http://www.dev_dianjinzi.com/yeepay/yeepayNotify"/>
+		<property name="completeTransactionNotifyUrl" value="http://www.dev_dianjinzi.com/yeepay/completeTransactionNotify"/>
 		<property name="targetPlatformUserNo" value="pgt14"/>
 		<property name="transactionExpiredMin" value="30"/>
 		<!-- need change when go live -->

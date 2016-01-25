@@ -1,4 +1,4 @@
-仏rget<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
@@ -56,7 +56,6 @@
             <div class="admin">
                 账户名：<input type="text" class="text" name="username">
             </div>
-            loginError:${loginError}
             <form:errors path="loginError"/>
             <div class="validate">
                 验证码：<input type="text" class="text" name="authCode">	
