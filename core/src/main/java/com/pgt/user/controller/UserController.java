@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pgt.cart.constant.SessionConstant;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -479,6 +480,7 @@ public class UserController {
         session.removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         session.removeAttribute(Constants.LOGIN_SESSION_SECURITY_CODE);
         session.removeAttribute(CartConstant.CURRENT_ORDER);
+        session.removeAttribute(SessionConstant.RECENT_PRODUCT_IDS);
         modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
         return modelAndView;
     }
