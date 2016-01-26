@@ -1,4 +1,4 @@
-package com.pgt.web.home;
+package com.pgt.home.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.pgt.common.bean.Banner;

@@ -1,9 +1,7 @@
-package com.pgt.web.search.Controller;
+package com.pgt.search.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pgt.search.controller.EssearchBean;
 import com.pgt.search.service.ESSearchService;
-import com.pgt.web.search.AbstractController.SearchBaseController;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -24,8 +22,8 @@ import java.util.Map;
  * Created by liqiang on 16-1-16.
  */
 @Controller
-@RequestMapping("web")
-public class SearchController extends SearchBaseController{
+@RequestMapping("product")
+public class SearchController extends SearchAbstractController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
 
     @Autowired
@@ -34,7 +32,9 @@ public class SearchController extends SearchBaseController{
     @RequestMapping("search")
     public ModelAndView search(ModelAndView modelAndView){
         List categorys = this.findCategories();
+        LOGGER.debug("categorys is{}", categorys);
         modelAndView.addObject("categorys", categorys);
+        LOGGER.debug("view is search page", categorys);
         modelAndView.setViewName("search/search");
         return  modelAndView;
     }
@@ -45,10 +45,11 @@ public class SearchController extends SearchBaseController{
         Map<String, Object> map = new HashMap<String,Object>();
         map.put("products", this.essearchService(essearchBean).get("products"));
         modelAndView.addObject("bean", map);
-        LOGGER.debug("***" + this.essearchService(essearchBean).get("products"));
-        LOGGER.debug("***" + JSONObject.toJSONString(this.essearchService(essearchBean).get("commPaginationBean")));
+        LOGGER.debug("es product is{}", this.essearchService(essearchBean).get("products"));
+        LOGGER.debug("es product commPaginationBean is{}", this.essearchService(essearchBean).get("commPaginationBean"));
         modelAndView.addObject("essearchBean",essearchBean);
         modelAndView.addObject("page", this.essearchService(essearchBean).get("commPaginationBean"));
+        LOGGER.debug("view is search products list page");
         modelAndView.setViewName("search/mycollection");
         return modelAndView;
     }
@@ -60,7 +61,7 @@ public class SearchController extends SearchBaseController{
         SearchResponse r = esSearchService.findProductsByProductIds(productIDList);
         SearchHits hits = r.getHits();
         SearchHit[] productsArr = hits.getHits();
-        LOGGER.debug("***" + JSONObject.toJSONString( productsArr[0].getSource()));
+        LOGGER.debug("product details is{}", productsArr[0].getSource());
         modelAndView.addObject("product", productsArr[0].getSource());
         modelAndView.setViewName("search/product-details");
         return modelAndView;

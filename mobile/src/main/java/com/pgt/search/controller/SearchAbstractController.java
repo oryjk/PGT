@@ -1,11 +1,10 @@
-package com.pgt.web.search.AbstractController;
+package com.pgt.search.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.base.constans.MobileConstants;
-import com.pgt.search.controller.EssearchBean;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESSort;
@@ -34,8 +33,8 @@ import java.util.Map;
 /**
  * Created by liqiang on 16-1-18.
  */
-public abstract class SearchBaseController{
-    private static final Logger LOGGER = LoggerFactory.getLogger(SearchBaseController.class);
+public abstract class SearchAbstractController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SearchAbstractController.class);
     @Autowired
     private ESSearchService esSearchService;
     @Autowired
@@ -113,7 +112,7 @@ public abstract class SearchBaseController{
             CommPaginationBean commPaginationBean = new CommPaginationBean(configuration.getPlpCapacity(),
                     Long.parseLong(essearchBean.getCurrentIndex()), total);
             responseMap.put("commPaginationBean",commPaginationBean);
-            LOGGER.debug("******************" + JSONObject.toJSONString(commPaginationBean.getTotalPage()));
+            LOGGER.debug("commPaginationBean is{}", commPaginationBean);
 
             SearchHit[] searchHists = hits.getHits();
 
