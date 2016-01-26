@@ -44,11 +44,11 @@
             <div class="main-right">
                 <div class="update-content">
 
-                    <form action="${pageContext.request.contextPath}/user/updatePasswordSubmit" method="post">
+                    <form:form modelAttribute="user" method="post" action="/user/updatePasswordSubmit" id="login">
                     <div class="update-content-top">
                         <div class="box1">
                             <label for="">旧密码 : </label>
-                            <input type="password" name="oldpassword">
+                            <input type="password" name="oldPassword">
                         </div>
                         <div class="box2">
                             <label for="">新密码 :</label>
@@ -59,13 +59,14 @@
                             <input type="password" name="password2">
                         </div>
                         <div class="box3">
+                            <form:errors path="loginError" /><br><br>
                             6-20个字符，由字母，数字和符号的两种以上组合
                         </div>
                         <div class="box5">
                             <input class="d-btn" type="submit" class="button" value="保存">
                         </div>
                     </div>
-                    </form>
+                    </form:form>
 
                     <div class="update-content-bottom">
                         <p><h4>密码设置技巧</h4></p>

@@ -394,38 +394,66 @@ public class UserController {
 
     @RequestMapping(value = "/updatePasswordSubmit", method = RequestMethod.POST)
     public ModelAndView updatePasswordSubmit(User newUserPassword, BindingResult bindingResult, ModelAndView modelAndView, HttpSession session,
-                                             String oldpassword) {
+                                             String oldPassword) {
 
         User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
         if (user == null) {
+            LOGGER.debug("The User is null,User should login firstly when accessing add address.");
             modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
             return modelAndView;
         }
+        LOGGER.debug("the user is: {},name is:{}",user,user.getUsername());
 
-        //旧密码为空
-        if (ObjectUtils.isEmpty(oldpassword)) {
+        if (ObjectUtils.isEmpty(oldPassword)) {
             bindingResult.addError(
-                    new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
             modelAndView.setViewName("my-account/person-info/update-password");
             return modelAndView;
         }
 
-        String oldMd5Password = DigestUtils.md5Hex(oldpassword + user.getSalt());
-        //旧密码输入不正确
+        String oldMd5Password = DigestUtils.md5Hex(oldPassword + user.getSalt());
+
         if (!oldMd5Password.endsWith(user.getPassword())) {
+            LOGGER.debug("the oldPassword is error");
             bindingResult.addError(
-                    new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("Error.internalUser.password.notMatch", null, null)));
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.internalUser.password.notMatch", null, null)));
             modelAndView.setViewName("my-account/person-info/update-password");
             return modelAndView;
         }
-        //修改密码
+
+        if (StringUtils.isBlank(newUserPassword.getPassword())) {
+            LOGGER.debug("the new password is null");
+            bindingResult.addError(
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
+            modelAndView.setViewName("my-account/person-info/update-password");
+            return modelAndView;
+        }
+
+        if (newUserPassword.getPassword().length()<6){
+            LOGGER.debug("the password need 6 ~ 20 digit");
+            bindingResult.addError(
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Size.user.password", null, null)));
+            modelAndView.setViewName("my-account/person-info/update-password");
+            return modelAndView;
+        }
+
+
+
         if (newUserPassword.getPassword().equals(newUserPassword.getPassword2())) {
             user.setPassword(newUserPassword.getPassword());
             user.setPassword2(newUserPassword.getPassword2());
             userServiceImp.updateUserPassword(user);
+            LOGGER.debug("updatePassword success!");
+            modelAndView.setViewName("redirect:/user/logout");
+            return modelAndView;
+        }else {
+            LOGGER.debug("the password is not equals password2");
+            bindingResult.addError(
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.user.passwordConfirm.invalid", null, null)));
         }
 
-        modelAndView.setViewName("redirect:/user/logout");
+
+        modelAndView.setViewName("my-account/person-info/update-password");
         return modelAndView;
     }
 
