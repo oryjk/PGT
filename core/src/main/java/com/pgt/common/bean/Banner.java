@@ -12,7 +12,6 @@ public class Banner {
 	private String type;
 	private Integer status;
 	private List<Image> images;
-
 	public String getName() {
 		return name;
 	}

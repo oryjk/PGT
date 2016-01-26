@@ -2,6 +2,7 @@ package com.pgt.category.bean;
 
 import java.util.List;
 
+import com.pgt.common.bean.Banner;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,6 +30,15 @@ public class Category extends BaseBean {
     private String description;
     private Integer categoryIndex;
     private Integer productTotal;
+    private Banner banner;
+
+    public Banner getBanner() {
+        return banner;
+    }
+
+    public void setBanner(Banner banner) {
+        this.banner = banner;
+    }
 
     public ProductMedia getFrontMedia() {
         return frontMedia;

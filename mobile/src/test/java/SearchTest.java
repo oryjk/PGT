@@ -1,8 +1,8 @@
 import com.alibaba.fastjson.JSONObject;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.search.controller.EssearchBean;
+import com.pgt.search.controller.SearchAbstractController;
 import com.pgt.search.service.ESSearchService;
-import com.pgt.web.search.AbstractController.SearchBaseController;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -24,7 +24,7 @@ import java.util.List;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
-public class SearchTest extends SearchBaseController{
+public class SearchTest extends SearchAbstractController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTest.class);
     @Autowired
     private ESSearchService esSearchService;

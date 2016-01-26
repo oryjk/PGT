@@ -15,6 +15,67 @@ a{
     text-decoration:none;
 }
 
+
+.ding{
+    font-size: 0.5em;
+    color: #fff;
+    height:10%;
+    width: 100%;
+    background: #32302c;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: -webkit-flex;
+}
+.che{
+    float: left;
+    flex: 1;
+}
+.bg2,
+.bg1{
+    color: #fff;
+    opacity:0.8;
+    padding-top: 1%;
+    flex-direction: column;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border-right: 2px solid #ccc;
+}
+.bg2{
+    font-size: 2em;
+    border-right: none;
+    flex: 3;
+}
+.bg2 div{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+.bg1 span{
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.btn1{
+    flex: 1;
+    background: #ffaa00;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn2{
+    flex: 1;
+    background: #d11a1a;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+}
 .header{
     position: relative;
     background: #fff;
@@ -125,7 +186,7 @@ a{
     justify-content: center;
     align-items: center;
 }
-.btn1{
+.btn11{
 
     width: 40%;
     position: absolute;
@@ -135,7 +196,7 @@ a{
     align-items: center;
     display: -webkit-flex;
 }
-.btn1 img{
+.btn11 img{
     width: 15%;
     padding-left: 55%;
 }

@@ -2,7 +2,11 @@ package com.pgt.category.service;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
+import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.BannerQuery;
+import com.pgt.common.service.BannerService;
 import com.pgt.utils.PaginationBean;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,8 @@ public class CategoryHelper {
 	@Autowired
 	private CategoryService categoryService;
 
+	@Autowired
+	private BannerService bannerService;
 
 	public List<Category> findCategoryByType(CategoryType categoryType) {
 		Category category = new Category();
@@ -29,8 +35,29 @@ public class CategoryHelper {
 	}
 
 	public List<Category> findRootCategories() {
-		return findCategories(CategoryType.ROOT);
+		List<Category>	categoryList=findCategories(CategoryType.ROOT);
+		List<Category>  newCategoryList= new ArrayList<>();
+		for (Category category:categoryList) {
+			BannerQuery bannerQuery= new BannerQuery();
+			bannerQuery.setType(category.getName()+":"+category.getId());
+			List<Banner> bannerList=bannerService.queryBannerByQuery(bannerQuery);
+			if(!CollectionUtils.isEmpty(bannerList)){
+				category.setBanner(bannerList.get(0));
+			}
+			newCategoryList.add(category);
+		}
+		return newCategoryList;
 	}
+
+	public List<String> findRootCategoriesName() {
+		List<Category>	categoryList=findCategories(CategoryType.ROOT);
+		List<String>   categoryNameList= new ArrayList<>();
+		for (Category category:categoryList) {
+			categoryNameList.add(category.getName()+":"+category.getId());
+		}
+		return categoryNameList;
+	}
+
 
 	public List<Category> findHelpCenterCategories() {
 		return findCategories(CategoryType.HELP_ROOT);

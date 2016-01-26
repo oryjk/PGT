@@ -82,9 +82,11 @@
 
                                             <div class="radio-list">${param.status eq 100 ? 'choose' : ''}
                                                 <select class="form-control input-medium" name="type">
+
                                                     <c:forEach items="${types}" var="type">
-                                                    <option value="${type}" ${banner.type eq type ? "selected='selected'" :''}>${type}</option>
+                                                        <option value="${type}" ${banner.type eq type ? "selected='selected'" :''}>${type}</option>
                                                     </c:forEach>
+
                                                 </select>
                                             </div>
 

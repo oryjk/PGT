@@ -1,0 +1,1317 @@
+/*
+html5doctor.com Reset Stylesheet
+v1.4.1
+2010-03-01
+Author: Richard Clark - http://richclarkdesign.com
+                               */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, menu, nav, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+
+    line-height: 1;
+    font-size: 14px;
+    color: #292722;
+}
+
+:focus {
+    outline: 1px;
+}
+
+article, aside, canvas, details, figcaption, figure,
+footer, header, menu, nav, section, summary {
+    display: block;
+}
+
+nav ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+ins {
+    background-color: #ff9;
+    color: #000;
+    text-decoration: none;
+}
+
+mark {
+    background-color: #ff9;
+    color: #000;
+    font-style: italic;
+    font-weight: bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom: 1px dotted #000;
+    cursor: help;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #cccccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+input, select {
+    vertical-align: middle;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 14px;
+}
+
+p {
+    font-size: 13px;
+    line-height: 200%;
+}
+
+a:link,
+a:visited {
+    color: #292722;
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    color: #d43139;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    font: 14px/1.5 "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+}
+
+/*          reset
+*****************************************/
+body {
+    background: #f8f8f8;
+}
+
+.right {
+
+    z-index: 3;
+    width: 45px;
+    background-color: #000;
+    padding-top: 100px;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.right a:link,
+.right a:visited {
+    color: white;
+}
+
+.right a:hover,
+.right a:active {
+    color: white;
+    background: #d43139;
+    text-decoration: none;
+    border: none;
+}
+
+.right1 {
+    padding: 4px 0;
+    margin-top: 20px;
+    display: block;
+    font-size: 1px;
+    text-align: center;
+    width: 45px;
+    position: relative;
+}
+.right-b{
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+}
+.right2{
+    font-size: 10px;
+    color: #000;
+    position: absolute;
+    top: 0;
+    left: -70px;
+    display: none;
+    width: 77px;
+    height: 33px;
+    z-index: 3;
+}
+.right2 .img-search{
+    float: right;
+    width: 7px;
+    height: 13px;
+    padding: 10px 0 0 0;
+}
+.right2 span{
+    line-height: 30px;
+    color: white;
+    background: #494949;
+    text-align: center;
+    float: left;
+    width: 70px;
+    height: 33px;
+}
+.right1:hover >.right2{
+    display: block;
+}
+.right1 img {
+    text-align: center;
+    padding-left: 13px;
+    padding-bottom: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.header {
+    padding: 2px 0;
+    width: 100%;
+    height: 20px;
+    background: #f5f5f5;
+}
+
+.header-content {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.nav {
+    overflow: hidden;
+}
+
+.nav li {
+    float: left;
+    font-size: 12px;
+}
+
+.nav-2 {
+    padding-left: 840px;
+}
+
+.nav-3 {
+    padding-left: 940px;
+}
+
+.nav-4
+ {
+    padding-left: 30px;
+}
+
+.nav-9 {
+    float: right;
+    padding-left: 175px;
+}
+
+/*  header
+*********************************/
+.content-top {
+    width: 1200px;
+    height: 108px;
+    margin: 0 auto;
+}
+.content-top-f1{
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    background: white;
+    width: 1200px;
+    margin: 0 auto;
+    height: 80px;
+}
+.logo {
+    float: left;
+    margin: 5px;
+    width: 215px;
+    height: 76px;
+    background: url("images/logo1.png") no-repeat;
+}
+.logo1{
+    float: left;
+    margin: 5px;
+    width: 107px;
+    height: 38px;
+}
+.logo1 img{
+    height: 38px;
+    width: 107px;
+}
+
+.search {
+    float: left;
+    margin: 30px 0 0 40px;
+    height: 70px;
+}
+
+.search1 {
+    float: left;
+    width: 583px;
+    height: 30px;
+    border: 2px solid #d43139;
+}
+
+.btn1 {
+    width: 96px;
+    height: 36px;
+    padding: 1px;
+    text-align: center;
+    float: left;
+    color: white;
+    border: 2px solid #d43139;
+    background: #d43139;
+}
+
+.btn1:link,
+.btn1:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.btn1:hover,
+.btn1:active {
+    color: white;
+    text-decoration: none;
+}
+
+.font1 {
+    margin-left: 10px;
+    height: 14px;
+
+}
+
+.font1 li {
+    text-align: center;
+    line-height: 14px;
+    font-size: 14px;
+    height: 14px;
+    float: left;
+    margin: 12px 0;
+    padding: 0 18px;
+    border-right: 1px solid #292722;
+}
+
+.btn2 {
+    text-align: center;
+    line-height: 30px;
+    width: 116px;
+    height: 32px;
+    float: left;
+    margin: 30px 0 0 78px;
+    border: 2px solid #d43139;
+    vertical-align: top;
+}
+
+.btn2 img {
+    padding-top: 5px;
+    padding-right: 5px;
+}
+
+.menu-top {
+    position: relative;
+    font-size: 15px;
+    width: 1200px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.menu-top1:link,
+.menu-top1:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.menu-top1:hover,
+.menu-top1:active {
+    color: white;
+    text-decoration: underline;
+}
+
+.menu-top1 {
+    text-align: center;
+    line-height: 40px;
+    width: 220px;
+    height: 40px;
+    float: left;
+    background: #d43139;
+    border-bottom: #f60;
+}
+
+.font2 {
+    float: left;
+    margin: 0 0 0 40px;
+    height: 40px;
+}
+
+.font2 li {
+    text-align: center;
+    line-height: 40px;
+    float: left;
+    padding: 0 18px;
+}
+
+.banner-all {
+    width: 100%;
+    height: 535px;
+}
+
+.banner1 {
+    position: relative;
+}
+
+.banner {
+    width: 100%;
+    height: 535px
+}
+
+.banner a {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-nav {
+    position: absolute;
+    right: 42%;
+    bottom: 3%;
+}
+
+.banner-nav li {
+    float: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 5px;
+    width: 30px;
+    height: 8px;
+    border-radius: 3px;
+    background: #666666;
+    text-indent: -5000px;
+    cursor: pointer;
+}
+
+.banner-box .banner-nav-now {
+    background: #f8f8f8;
+}
+
+.menu {
+    z-index: 3;
+    width: 220px;
+    height: 535px;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: #3f3f3f;
+    background: rgba(0, 0, 0, 0.7);
+
+}
+
+.menu-0 {
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+}
+
+.menu-0-1 {
+    padding-bottom: 10px;
+    height: 95px;
+}
+
+.menu-h {
+    padding-top: 10px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+}
+
+.menu-1 {
+    width: 160px;
+    margin: 0 30px;
+    overflow: hidden;
+    font-size: 10px;
+    text-align: center;
+}
+
+.menu-1 li {
+    display: inline;
+    border-right: 1px solid white;
+    margin: 5px 0;
+    padding: 0 8px;
+    float: left;
+    text-align: center;
+    line-height: 12px;
+}
+
+.menu-1 .li-l {
+    border: none;
+}
+
+.menu-1 li a {
+    height: 12px;
+}
+
+.menu-0 a:link,
+.menu-0-1 a:link,
+.menu-0 a:visited,
+.menu-0-1 a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.menu-0 a:hover,
+.menu-0-1 a:hover,
+.menu-0 a:active,
+.menu-0-1 a:active {
+    color: white;
+    text-decoration: underline;
+}
+
+/*
+http://www.cnblogs.com/PeunZhang/p/4089894.html
+@media \0screen\,screen\9 { /* 只支持IE6、7、8 */
+
+/* content
+*******************************/
+.content {
+    overflow: hidden;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.box1 {
+    height: 320px;
+    margin:20px 4px 0 4px;
+}
+
+.box1-1 {
+    float: left;
+    width: 274px;
+    height: 274px;
+    padding: 12px;
+    transition: all 0.8s;
+}
+
+.box1-1:hover {
+    transform: scale(1.05, 1.05);
+    -ms-transform: scale(1.05, 1.05); /* IE 9 */
+    -moz-transform: scale(1.05, 1.05); /* Firefox */
+    -webkit-transform: scale(1.05, 1.05); /* Safari 和 Chrome */
+    -o-transform: scale(1.05, 1.05);
+}
+
+.box2 {
+    height: 302px;
+    margin-top: 30px;
+}
+
+.box-font {
+    margin-bottom: 10px;
+    line-height: 22px;
+    font-size: 22px;
+    float: left;
+    width: 1200px;
+    height: 22px;
+    background: url("images/mingpin_30.png") no-repeat 100px 2px;
+}
+
+.span1 {
+    float: left;
+}
+
+.span2 {
+    font-size: 14px;
+    float: right;
+}
+.span2-1 {
+    padding: 0 10px;
+    border-right: 1px solid #292722;
+}
+
+.box2-1 {
+    margin-right: 4px;
+    float: left;
+    width: 395px;
+    height: 270px;
+    transition: all 0.8s;
+
+}
+
+.box2-1:hover {
+    transform: scale(1.05, 1.05);
+    -ms-transform: scale(1.05, 1.05); /* IE 9 */
+    -moz-transform: scale(1.05, 1.05); /* Firefox */
+    -webkit-transform: scale(1.05, 1.05); /* Safari 和 Chrome */
+    -o-transform: scale(1.05, 1.05);
+}
+
+.box-banner1 {
+    display: block;
+    margin-top: 30px;
+    width: 1200px;
+    height: 90px;
+    background-image: url("images/banner1.jpg");
+}
+
+.box4 {
+
+    height: 518px;
+    margin-top: 22px;
+}
+
+.box4-all {
+    float: left;
+}
+
+.box4-left {
+    float: left;
+    width: 444px;
+    height: 484px;
+    z-index: 1;
+
+}
+
+.box4-right {
+    border-top: 2px solid #232323;
+    height: 550px;
+}
+.box4-all1{
+    width: 250px;
+    height: 240px;
+float: left;
+    position: relative;
+}
+.box4-1 {
+    display: block;
+    border-right: 1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+    float: left;
+    width: 250px;
+    height: 240px;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.box4-1-1 {
+    display: block;
+    height: 180px;
+}
+
+.box4-1-2 {
+    float: left;
+    width: 150px;
+    padding-top: 20px;
+    color: #292722;
+    text-align: center;
+    height: 43px;
+}
+
+.box4-1-2-1 {
+    color: #d43139;
+}
+
+.box4-on {
+    display: none;
+    width: 251px;
+    height: 311px;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    z-index: 3;
+}
+
+.box4-1:hover > .box4-on {
+    display: block;
+}
+.box4-on-top {
+    display: block;
+    border-bottom: 1px solid #ccc;
+    width: 251px;
+    height: 241px;
+}
+.box4-on-bottom{
+    height: 70px;
+    background-color: white;
+}
+.box4-on-shop {
+    padding-top: 10px;
+    margin-left: 10px;
+    width: 20px;
+    height: 30px;
+    background: url("images/shopping-carts_03.png") no-repeat left 10px;
+}
+
+.box4-fa{
+    display: block;
+    padding: 20px 0 0 15px;
+    font-size: 10px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    float: left;
+}
+
+.box4-fa img{
+    padding-left: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+.box4-by{
+    display: block;
+    padding: 20px 0 0 0;
+    font-size: 10px;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    float: left;
+}
+.box4-by img{
+    padding-left: 13px;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+/*  footer
+*************************/
+
+.footer a:link,
+.footer a:visited {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer a:hover,
+.footer a:active {
+    color: #d43139;
+    text-decoration: none;
+}
+
+.footer {
+    border-top: 2px solid #232323;
+    margin-top: 50px;
+    background: #3f3f3f;
+}
+
+.goods-box {
+    background: #cccccc;
+}
+
+.us {
+    position: relative;
+    overflow: hidden;
+    *zoom: 1;
+}
+
+/*our-goods
+************************************************/
+.our-goods {
+    margin: 0 auto;
+    padding: 20px 0;
+    width: 1080px;
+    height: 70px;
+}
+
+.our-good {
+    float: left;
+    width: 20%;
+    height: 70px;
+}
+
+.our-good .icon-box {
+    float: left;
+    width: 70px;
+    height: 100%;
+    border-radius: 50px;
+    background: #d43139;
+    line-height: 70px;
+    text-align: center;
+}
+
+.our-good i {
+    color: white;
+    font-size: 35px;
+}
+
+/*2维码*/
+.two-dimension {
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0) \9;
+    position: absolute;
+    top: 0;
+    left: 100px;
+}
+
+.our-app a:hover .two-dimension {
+    opacity: 1;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100) \9;
+    transition: opacity 1s linear;
+}
+
+.good-text {
+    margin-left: 80px;
+    padding-top: 10px;
+}
+
+.good-text h4,
+.good-text p {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.good-text p {
+    color: #666666;
+}
+
+/*about-us
+************************************************/
+.about-us {
+    color: #ccc;
+    margin: 0 auto;
+    overflow: hidden;
+    *zoom: 1;
+    padding: 20px 0;
+    width: 1080px;
+}
+
+.about-us h3 {
+    color: #cccccc;
+}
+
+.about-us ul {
+    float: left;
+    padding: 0;
+    margin: 0;
+    width: 15%;
+    list-style: none;
+}
+
+.about-us li {
+    padding: 1px 0;
+}
+
+.about-us .us {
+    margin-left: 60%;
+}
+
+.about-us .our-app {
+    float: right;
+    width: 50%;
+}
+
+.about-us .apple-dimension,
+.about-us .android-dimension,
+.about-us .online-server,
+.about-us .online-server {
+    float: left;
+    display: block;
+    margin-bottom: 10px;
+    width: 50%;
+    text-align: center;
+}
+
+.about-us .apple-dimension img,
+.about-us .android-dimension img,
+.about-us .online-server img,
+.about-us .online-server img {
+    width: 30%;
+}
+
+/*approve-box
+************************************************/
+.approve-box {
+    color: #ccc;
+    background: #333333;
+    padding: 20px 0 5px;
+    text-align: center;
+}
+
+.approve {
+
+    overflow: hidden;
+    *zoom: 1;
+    margin: 0 auto;
+    width: 240px;
+}
+
+.approve a {
+    float: left;
+    padding-right: 20px;
+    width: 100px;
+    height: 30px;
+}
+
+.approve img {
+    width: 100%;
+    height: 100%;
+}
+
+/*
+************************/
+@font-face {
+    font-family: "GeneralFoundicons";
+    src: url("images/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.eot");
+    src: url("images/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.eot?#iefix") format("embedded-opentype"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.woff") format("woff"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.ttf") format("truetype"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.svg#GeneralFoundicons") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* global foundicon styles */
+[class*="foundicon-"] {
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: inherit;
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0 0;
+    background-repeat: repeat;
+}
+
+[class*="foundicon-"]:before {
+    font-family: "GeneralFoundicons";
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+}
+
+/* icons */
+.foundicon-settings:before {
+    content: "";
+}
+
+.foundicon-heart:before {
+    content: "";
+}
+
+.foundicon-star:before {
+    content: "";
+}
+
+.foundicon-plus:before {
+    content: "";
+}
+
+.foundicon-minus:before {
+    content: "";
+}
+
+.foundicon-checkmark:before {
+    content: "";
+}
+
+.foundicon-remove:before {
+    content: "";
+}
+
+.foundicon-mail:before {
+    content: "";
+}
+
+.foundicon-calendar:before {
+    content: "";
+}
+
+.foundicon-page:before {
+    content: "";
+}
+
+.foundicon-tools:before {
+    content: "";
+}
+
+.foundicon-globe:before {
+    content: "";
+}
+
+.foundicon-home:before {
+    content: "";
+}
+
+.foundicon-quote:before {
+    content: "";
+}
+
+.foundicon-people:before {
+    content: "";
+}
+
+.foundicon-monitor:before {
+    content: "";
+}
+
+.foundicon-laptop:before {
+    content: "";
+}
+
+.foundicon-phone:before {
+    content: "";
+}
+
+.foundicon-cloud:before {
+    content: "";
+}
+
+.foundicon-error:before {
+    content: "";
+}
+
+.foundicon-right-arrow:before {
+    content: "";
+}
+
+.foundicon-left-arrow:before {
+    content: "";
+}
+
+.foundicon-up-arrow:before {
+    content: "";
+}
+
+.foundicon-down-arrow:before {
+    content: "";
+}
+
+.foundicon-trash:before {
+    content: "";
+}
+
+.foundicon-add-doc:before {
+    content: "";
+}
+
+.foundicon-edit:before {
+    content: "";
+}
+
+.foundicon-lock:before {
+    content: "";
+}
+
+.foundicon-unlock:before {
+    content: "";
+}
+
+.foundicon-refresh:before {
+    content: "";
+}
+
+.foundicon-paper-clip:before {
+    content: "";
+}
+
+.foundicon-video:before {
+    content: "";
+}
+
+.foundicon-photo:before {
+    content: "";
+}
+
+.foundicon-graph:before {
+    content: "";
+}
+
+.foundicon-idea:before {
+    content: "";
+}
+
+.foundicon-mic:before {
+    content: "";
+}
+
+.foundicon-cart:before {
+    content: "";
+}
+
+.foundicon-address-book:before {
+    content: "";
+}
+
+.foundicon-compass:before {
+    content: "";
+}
+
+.foundicon-flag:before {
+    content: "";
+}
+
+.foundicon-location:before {
+    content: "";
+}
+
+.foundicon-clock:before {
+    content: "";
+}
+
+.foundicon-folder:before {
+    content: "";
+}
+
+.foundicon-inbox:before {
+    content: "";
+}
+
+.foundicon-website:before {
+    content: "";
+}
+
+.foundicon-smiley:before {
+    content: "";
+}
+
+.foundicon-search:before {
+    content: "";
+}
+
+/* general icons for IE7 */
+[class*="foundicon-"] {
+    font-family: "GeneralFoundicons";
+    font-weight: normal;
+    font-style: normal;
+}
+
+.foundicon-settings {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf000;");
+}
+
+.foundicon-heart {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf001;");
+}
+
+.foundicon-star {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf002;");
+}
+
+.foundicon-plus {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf003;");
+}
+
+.foundicon-minus {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf004;");
+}
+
+.foundicon-checkmark {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf005;");
+}
+
+.foundicon-remove {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf006;");
+}
+
+.foundicon-mail {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf007;");
+}
+
+.foundicon-calendar {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf008;");
+}
+
+.foundicon-page {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf009;");
+}
+
+.foundicon-tools {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00a;");
+}
+
+.foundicon-globe {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00b;");
+}
+
+.foundicon-home {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00c;");
+}
+
+.foundicon-quote {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00d;");
+}
+
+.foundicon-people {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00e;");
+}
+
+.foundicon-monitor {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00f;");
+}
+
+.foundicon-laptop {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf010;");
+}
+
+.foundicon-phone {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf011;");
+}
+
+.foundicon-cloud {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf012;");
+}
+
+.foundicon-error {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf013;");
+}
+
+.foundicon-right-arrow {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf014;");
+}
+
+.foundicon-left-arrow {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf015;");
+}
+
+.foundicon-up-arrow {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf016;");
+}
+
+.foundicon-down-arrow {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf017;");
+}
+
+.foundicon-trash {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf018;");
+}
+
+.foundicon-add-doc {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf019;");
+}
+
+.foundicon-edit {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01a;");
+}
+
+.foundicon-lock {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01b;");
+}
+
+.foundicon-unlock {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01c;");
+}
+
+.foundicon-refresh {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01d;");
+}
+
+.foundicon-paper-clip {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01e;");
+}
+
+.foundicon-video {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01f;");
+}
+
+.foundicon-photo {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf020;");
+}
+
+.foundicon-graph {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf021;");
+}
+
+.foundicon-idea {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf022;");
+}
+
+.foundicon-mic {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf023;");
+}
+
+.foundicon-cart {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf024;");
+}
+
+.foundicon-address-book {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf025;");
+}
+
+.foundicon-compass {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf026;");
+}
+
+.foundicon-flag {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf027;");
+}
+
+.foundicon-location {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf028;");
+}
+
+.foundicon-clock {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf029;");
+}
+
+.foundicon-folder {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02a;");
+}
+
+.foundicon-inbox {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02b;");
+}
+
+.foundicon-website {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02c;");
+}
+
+.foundicon-smiley {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02d;");
+}
+
+.foundicon-search {
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02e;");
+}

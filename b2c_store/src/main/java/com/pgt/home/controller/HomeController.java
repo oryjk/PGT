@@ -5,6 +5,7 @@ import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryHelper;
 import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.common.bean.Media;
 import com.pgt.common.service.BannerService;
 import com.pgt.configuration.Configuration;
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -71,8 +73,7 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(ModelAndView modelAndView) {
         modelAndView.addObject("urlConfiguration", urlConfiguration);
-
-
+        LOGGER.debug("HomeController is run");
         List<Category> copyWriter = categoryHelper.findCategoryByType(CategoryType.COPY_WRITER);
         if (!ObjectUtils.isEmpty(copyWriter)) {
             Media copyWriterMedia = mediaService.findCopyWriterMedia(copyWriter.get(0).getId());
@@ -100,7 +101,13 @@ public class HomeController {
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             modelAndView.addObject("hotSearchList", hotSearchList);
             modelAndView.addObject("banner", banner);
-            modelAndView.setViewName("/index/index");
+
+            SearchHit[] newProducts=getNewProduct();
+            if(!ArrayUtils.isEmpty(newProducts)){
+                modelAndView.addObject("newProducts",newProducts);
+            }
+
+            modelAndView.setViewName("/new-index/index");
         } else {
 
 
@@ -118,6 +125,23 @@ public class HomeController {
         return modelAndView;
 
     }
+
+
+    public SearchHit[] getNewProduct(){
+        List<ESSort> sortList=new ArrayList<>();
+        ESSort eSSort = new ESSort();
+        eSSort.setPropertyName("creationDate");
+        eSSort.setSortOrder(SortOrder.DESC);
+        sortList.add(eSSort);
+        CommPaginationBean paginationBean = new CommPaginationBean();
+        paginationBean.setCurrentIndex(0);
+        paginationBean.setCapacity(3);
+        SearchResponse searchProduct = esSearchService.findProducts(null, null, null,sortList, paginationBean, null, null);
+        SearchHits searchHits = searchProduct.getHits();
+        SearchHit[] newProducts = searchHits.getHits();
+        return newProducts;
+    }
+
 
     public CategoryHelper getCategoryHelper() {
         return categoryHelper;

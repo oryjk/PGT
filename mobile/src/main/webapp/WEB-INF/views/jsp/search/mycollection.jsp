@@ -1,7 +1,9 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -13,19 +15,8 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/static/js/right.js"></script>
 </head>
 <body>
-<div class="header">
-    <a href="#" class="arrow"></a>
-    <div class="font">搜索</div>
-    <a href="#" class="dian">
-        <ul class="menu">
-            <li class="menu2">首页</li>
-            <li class="menu3">分类</li>
-            <li class="menu4">搜索</li>
-            <li class="menu5">购物车</li>
-            <li class="menu1">我的账户</li>
-        </ul>
-    </a>
-</div>
+
+<%@include file="../common/header.jsp"%>
 
     <c:forEach items="${bean.products}" var="products">
         <div class="box">
