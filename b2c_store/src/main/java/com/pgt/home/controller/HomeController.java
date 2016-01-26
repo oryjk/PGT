@@ -16,13 +16,11 @@ import com.pgt.hot.service.HotProductHelper;
 import com.pgt.media.MediaService;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESSort;
-import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
 
 import com.pgt.style.bean.PageBackground;
 import com.pgt.style.bean.PageBackgroundQuery;
 import com.pgt.style.service.PageBackgroundService;
-import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.elasticsearch.action.search.SearchResponse;
@@ -75,8 +73,7 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(ModelAndView modelAndView) {
         modelAndView.addObject("urlConfiguration", urlConfiguration);
-
-
+        LOGGER.debug("HomeController is run");
         List<Category> copyWriter = categoryHelper.findCategoryByType(CategoryType.COPY_WRITER);
         if (!ObjectUtils.isEmpty(copyWriter)) {
             Media copyWriterMedia = mediaService.findCopyWriterMedia(copyWriter.get(0).getId());

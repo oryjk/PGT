@@ -1,119 +1,185 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/new-index/js/jquery-1.8.3.min.js"/>"></script>
+        <link href="<spring:url value="${juedangpinStaticPath}/new-index/dianjinzi.css"/>" rel="stylesheet">
+    </head>
+    <script>
+        $(function () {
+            var height = $('body').height();
+            $(".right").css("height", height);
+        });
+    </script>
+    <body>
 
-    <title></title>
-    <script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/new-index/js/jquery-1.8.3.min.js"/>"></script>
-    <script src="<spring:url value="${juedangpinStaticPath}/new-index/js/myfocus-2.0.4.min.js"/>" type="text/javascript"></script>
-    <script src="<spring:url value="${juedangpinStaticPath}/new-index/js/mf-pattern/mF_expo2010.js"/>" type="text/javascript"></script>
-    <link href="<spring:url value="${juedangpinStaticPath}/new-index/js/mf-pattern/mF_expo2010.css"/>" rel="stylesheet" type="text/css">
-    <link href="<spring:url value="${juedangpinStaticPath}/new-index/dianjinzi.css"/>" rel="stylesheet">
+    <!--侧边栏-->
+    <div class="right">
 
-</head>
-<script>
-    $(function(){
-        var height = $('body').height();
-        $(".right").css("height",height);
-    });
-</script>
-<body>
-<!--侧边栏-->
-<div class="right">
-    <a href="#" class="right1">
-        <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0002_SHOPPING-CAR.png"/>">
-        <div>购物车</div>
-    </a>
-    <a href="#" class="right1">
-        <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0000_NOTEPAD.png"/>">
-        <div>订单</div>
-    </a>
-    <a href="#" class="right1">
-        <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0004_yen.png"/>">
-        <div>账户</div>
-    </a>
-    <a href="#" class="right1">
-        <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0005_arrow-top.png"/>">
-        <div>返回顶部</div>
-    </a>
-</div>
-<!--header-->
-<div class="header">
-    <div class="header-content">
-        <ul class="nav">
-            <li class="nav-1"><a href="#"> 网站导航</a></li>
-            <li class="nav-2"><a href="#"> 消息</a></li>
-            <li class="nav-3"><a href="#"> 登录</a></li>
-            <li class="nav-4"><a href="#"> 注册</a></li>
-            <li class="nav-5"><a href="#"> 我的订单</a></li>
-            <li class="nav-6"><a href="#"> 我的绝当品</a></li>
-            <li class="nav-7"><a href="#"> 购物车</a></li>
-            <li class="nav-8"><a href="#"> 手机点金子</a></li>
-            <li class="nav-9"><a href="#"> 政企采购</a></li>
-            <li class="nav-0"><a href="#"> 服务中心</a></li>
-        </ul>
+        <a href="#" class="right1">
+            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/l-logo.png"/>">
+            主页
+        </a>
+        <a href="<spring:url value="/shoppingCart/cart" />" class="right1">
+            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0002_SHOPPING-CAR.png"/>">
+            购物车
+         <span>
+             <span class="count-number">0</span>
+                </span>
+        </a>
+        <a href="#" class="right1">
+            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0000_NOTEPAD.png"/>">
+
+            <div>订单</div>
+        </a>
+        <a href="#" class="right1">
+            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0004_yen.png"/>">
+
+            <div>账户</div>
+        </a>
+        <a href="#" class="right1">
+            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0005_arrow-top.png"/>">
+
+            <div>返回顶部</div>
+        </a>
     </div>
-</div>
-<!--header-b-->
-<div class="content-top">
-    <div class="logo"></div>
-    <div class="search">
-        <form action="${pageContext.request.contextPath}/essearch">
-        <input type="text" class="search1" name="term" value="${term}">
-        <a href="#" class="btn1">搜索</a>
-        </form>
+    <!--header-->
+    <input id="path" type="hidden" value="${pageContext.request.contextPath}">
+    <div class="header">
+        <div class="header-content">
+            <ul class="nav">
 
-        <ul class="font1">
-            <c:forEach items="${hotSearchList}" var="hotSearch" varStatus="status">
-            <li><a href="${pageContext.request.contextPath}/essearch?term=${hotSearch.term}">
-            ${hotSearch.term}</a></li>
+
+                <c:choose>
+                <c:when test="${currentUser==null}">
+                <ul class="will-login">
+                    <li class="nav-3"><a href="<spring:url value="${urlConfiguration.loginPage}"/>"> 登录</a></li>
+                    <li class="nav-4"><a href="<spring:url value="${urlConfiguration.registerPage}"/>"> 注册</a></li>
+                </ul>
+                </c:when>
+                <c:otherwise>
+
+                    <ul class="have-login">
+                    <li>
+                        <a href="<spring:url value="${urlConfiguration.myAccountPage}"/>"><span> 欢迎您：</span><span>${currentUser.username}</span></a>
+                    </li>
+                    <li><a href="<spring:url value="${urlConfiguration.myAccountPage}"/>">账户管理</a></li>
+                    <li><a href="<spring:url value="${urlConfiguration.logoutPage}"/>">退出登录</a></li>
+                </ul>
+
+                </c:otherwise>
+                </c:choose>
+
+
+            </ul>
+        </div>
+    </div>
+    <!--header-b-->
+    <div class="content-top">
+        <a href="#" class="logo" alt="sadhashdk"></a>
+
+        <div class="search">
+            <form action="${pageContext.request.contextPath}/essearch" method="get">
+            <input type="text" class="search1" name="term" value="${term}">
+            <input type="submit" class="btn1" value="搜索">
+            </form>
+            <ul class="font1">
+                <li><a href="${pageContext.request.contextPath}/essearch?term=玉镯">玉镯</a></li>
+                <li><a href="${pageContext.request.contextPath}/essearch?term=核桃糊">核桃糊</a></li>
+                <li><a href="${pageContext.request.contextPath}/essearch?term=琥珀">琥珀</a></li>
+                <li><a href="${pageContext.request.contextPath}/essearch?term=钻戒">钻戒</a></li>
+                <li><a href="${pageContext.request.contextPath}/essearch?term=玉镯">玉镯</a></li>
+            </ul>
+        </div>
+        <a href="<spring:url value="/shoppingCart/cart"/>" class="btn2"><img src="<spring:url value="${juedangpinStaticPath}/new-index/images/shoppingcart_03.png"/>">我的购物车</a>
+    </div>
+    <div class="menu-top">
+        <a href="#" class="menu-top1">全部绝当品分类</a>
+        <ul class="font2">
+            <c:forEach items="${rootHomeCategories}" var="category">
+            <c:set var="rootCategory" value="${category.source}"/>
+            <li><a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}">${rootCategory.name}</a></li>
+            </c:forEach>
+        </ul>
+
+        <ul class="menu">
+            <c:forEach items="${rootHomeCategories}" var="category" varStatus="status">
+
+                <c:set var="rootCategory" value="${category.source}"/>
+                <li class="menu-0" <c:if test="${status.last==true}">style="border: none"></c:if>>
+                    <a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}" class="menu-h">${rootCategory.name}</a>
+
+                    <ul class="menu-1">
+                        <c:forEach items="${rootCategory.children}" var="subCategory" varStatus="st">
+
+                            <li <c:if test="${st.last eq true}">class="li-l"></c:if>><a href="${pageContext.request.contextPath}/essearch?parentCategoryId=${subCategory.id}">${subCategory.name}</a></li>
+                        </c:forEach>
+                    </ul>
+                </li>
+
             </c:forEach>
         </ul>
     </div>
-    <a href="#" class="btn2"><img src="${juedangpinStaticPath}/new-index/images/shoppingcart_03.png">我的购物车</a>
-</div>
 
-<div class="menu-top">
-    <a href="#" class="menu-top1">全部绝当品分类</a>
-    <ul class="font2">
-        <c:forEach items="${rootHomeCategories}" var="category" varStatus="status">
-            <c:set var="rootCategory" value="${category.source}"/>
-            <li><a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}">${rootCategory.name}</a></li>
-        </c:forEach>
-    </ul>
-</div>
 
-<div class="banner-all">
-    <div class="banner">
-        <ul class="menu">
 
-            <c:forEach items="${rootHomeCategories}" var="category" varStatus="status">
 
-            <c:set var="rootCategory" value="${category.source}"/>
-                <li class="menu-0" <c:if test="${status.last==true}">style="border: none"></c:if>>
-                <a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}" class="menu-h">${rootCategory.name}</a>
+    <div class="banner-all">
+        <div class="banner1">
+            <div id="bannerBox" class="banner-box">
+                <div id="banner" class="banner">
+                    <c:forEach items="${banner.images}" var="image" varStatus="status">
 
-                <ul class="menu-1">
-                    <c:forEach items="${rootCategory.children}" var="subCategory" varStatus="st">
+                        <c:if test="${status.index=='0'}">
+                            <a href="${pageContext.request.contextPath}${image.url}" data-banner="${status.index}"
+                               style="background: url('${pageContext.request.contextPath}${image.path}') center center no-repeat; display: block"></a>
+                        </c:if>
 
-                    <li <c:if test="${st.last eq true}">class="li-l"></c:if>><a href="${pageContext.request.contextPath}/essearch?parentCategoryId=${subCategory.id}">${rootCategory.name}</a></li>
+                        <c:if test="${status.index!='0'}">
+                            <a href="${pageContext.request.contextPath}${image.url}" data-banner="${status.index}"
+                               style="background: url('${pageContext.request.contextPath}${image.path}') center center no-repeat ${image.color}"></a>
+                        </c:if>
                     </c:forEach>
-                </ul>
-               </li>
+                </div>
+                <ol id="bannerNav" class="banner-nav">
+                    <c:forEach items="${banner.images}" var="image" varStatus="status">
+                        <c:if test="${status.index=='0'}">
+                            <li class="banner-nav-now">${status.index}</li>
+                        </c:if>
+                        <c:if test="${status.index!='0'}">
+                            <li>${status.index}</li>
+                        </c:if>
+                    </c:forEach>
+                </ol>
+            </div>
 
-                </c:forEach>
-        </ul>
+        </div>
     </div>
-</div>
+
 <!--content-->
 <div class="content">
+    <div class="content-top-f1" style="display: none">
+        <a href="#" class="logo1" alt="sadhashdk">
+            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/logo1.png"/>">
+        </a>
 
+        <div class="search">
+            <input type="text" class="search1">
+            <input type="submit" class="btn1" value="搜索">
+        </div>
+        <a href="#" class="btn2"><img src="  <spring:url value="${juedangpinStaticPath}/new-index/images/shoppingcart_03.png"/>">我的购物车</a>
+
+
+
+    </div>
+    <spring:url value="${juedangpinStaticPath}/core/js/require.js"/>
     <div class="box1">
         <c:forEach items="${hotSearchList}" var="hotSearch" varStatus="status">
             <c:if test="${status.index<4}">
@@ -137,41 +203,57 @@
 
     <c:forEach items="${hotProducts}" var="homeCategory"
                varStatus="status">
-    <div class="box-banner1" style="background: url('${homeCategory.source.category.banner.images[0].path}') "></div>
+        <div class="box-banner1" style="background: url('${homeCategory.source.category.banner.images[0].path}') "></div>
     <div class="box4">
         <div class="box-font" style="color: ${homeCategory['source']['category']['color']}">
-        ${homeCategory['source']['category']['name']}
+            <span class="span1"><a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${homeCategory['source']['category']['id']}">${homeCategory['source']['category']['name']}</a> </span>
+
+            <span class="span2">
+                <c:forEach items="${homeCategory['source']['category']['children']}"
+                           var="subCategory">
+                <a href="<spring:url value="essearch?parentCategoryId=${subCategory.id}"/>" class="span2-1">${subCategory['name']}</a>
+                </c:forEach>
+            </span>
+
         </div>
         <div class="box4-all">
-            <div class="box4-left" style="background: url('${pageContext.request.contextPath}/resources${homeCategory['source']['category']['frontMedia']['path']}') no-repeat;"></div>
-
+            <a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${homeCategory['source']['category']['id']}" class="box4-left" style="background: url('${pageContext.request.contextPath}/resources${homeCategory['source']['category']['frontMedia']['path']}') no-repeat"></a>
             <div class="box4-right">
-
 
                 <c:forEach items="${homeCategory['source']['hotProduct']}" var="product"
                            varStatus="st">
-                    <c:if test="${st.index<6}">
+                <c:if test="${st.index<6}">
+                <div class="box4-all1">
+                    <div class="box4-1" style="background: url('${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}') no-repeat">
+                        <div class="box4-on" >
+                            <a href="product/${product['productId']}" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
+                            </a>
+                            <div class="box4-on-bottom">
+                                <div class="box4-1-2">
+                                        ${product['name']}
+                                    <div class="box4-1-2-1">
+                                        ￥<fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number"/>
+                                    </div>
+                                </div>
+                                <a onclick="addEnjoy('${product['productId']}')" class="box4-fa">
+                                    <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/favorite.png"/>">
+                                    收藏</a>
 
-                        <div class="box4-1">
-                        <a href="product/${product['productId']}" class="box4-1-1" style="background-image: url('${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}');display: block;">
-                        </a>
-                        <div class="box4-1-2">
-                        ${product['name']}
-                        <div class="box4-1-2-1">
-                            ￥<span><fmt:formatNumber value="${product.salePrice}" pattern="0.00" type="number"/></span>
-                        </div>
-                        </div>
-                        </div>
+                                <a onclick="addCart('${product['productId']}')" class="box4-by">
+                                    <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/shopping-cart.png"/>">
+                                    购物车</a>
 
-                    </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </c:if>
                 </c:forEach>
 
             </div>
         </div>
     </div>
-
     </c:forEach>
-
 
 </div>
 
@@ -179,4 +261,7 @@
 <jsp:include page="../core/footer-main.jsp"/>
 
 </body>
-</html>
+    <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/index/index.js"/>"></script>
+    <script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/new-index/js/index2.0.js"/>"></script>
+
+    </html>
