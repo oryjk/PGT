@@ -148,6 +148,7 @@ body {
     z-index: 3;
     width: 45px;
     background-color: #000;
+    padding-top: 100px;
     position: fixed;
     right: 0;
     top: 0;
@@ -546,7 +547,6 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     font-size: 14px;
     float: right;
 }
-
 .span2-1 {
     padding: 0 10px;
     border-right: 1px solid #292722;
@@ -570,10 +570,11 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
 }
 
 .box-banner1 {
+    display: block;
     margin-top: 30px;
     width: 1200px;
     height: 90px;
-    background: #ccc;
+    background-image: url("images/banner1.jpg");
 }
 
 .box4 {
@@ -596,10 +597,12 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
 
 .box4-right {
     border-top: 2px solid #232323;
-    height: 484px;
+    height: 550px;
 }
-.box4-all{
-
+.box4-all1{
+    width: 250px;
+    height: 240px;
+float: left;
     position: relative;
 }
 .box4-1 {
@@ -620,9 +623,12 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
 }
 
 .box4-1-2 {
-    color: white;
+    float: left;
+    width: 150px;
+    padding-top: 20px;
+    color: #292722;
     text-align: center;
-    height: 63px;
+    height: 43px;
 }
 
 .box4-1-2-1 {
@@ -631,25 +637,27 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
 
 .box4-on {
     display: none;
-    width: 271px;
-    height: 261px;
+    width: 251px;
+    height: 311px;
     position: absolute;
     top: -10px;
-    left: -10px;
-    background-color: rgba(0, 0, 0, 0.6);
+    left: 0;
     z-index: 3;
 }
 
 .box4-1:hover > .box4-on {
     display: block;
 }
-
 .box4-on-top {
-
-    width: 250px;
-    height: 180px;
+    display: block;
+    border-bottom: 1px solid #ccc;
+    width: 251px;
+    height: 241px;
 }
-
+.box4-on-bottom{
+    height: 70px;
+    background-color: white;
+}
 .box4-on-shop {
     padding-top: 10px;
     margin-left: 10px;
@@ -658,21 +666,37 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     background: url("images/shopping-carts_03.png") no-repeat left 10px;
 }
 
-.box4-buy {
+.box4-fa{
+    display: block;
+    padding: 20px 0 0 15px;
+    font-size: 10px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
     float: left;
-    margin-left: 40px;
-    width: 80px;
-    height: 40px;
-    background: #d43139;
 }
 
-.box4-sc {
-    float: left;
-    width: 80px;
-    height: 40px;
-    background: #292722;
+.box4-fa img{
+    padding-left: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
 }
-
+.box4-by{
+    display: block;
+    padding: 20px 0 0 0;
+    font-size: 10px;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    float: left;
+}
+.box4-by img{
+    padding-left: 13px;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
 /*  footer
 *************************/
 
