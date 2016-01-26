@@ -14,3 +14,19 @@ $(function(){
         $(this).children(".unit-hover").hide();
     });
 });
+
+$(function () {
+    var height = $('body').height();
+    $(".right").css("height", height);
+});
+
+$(function(){
+    $(".content-top-f1").hide();
+    $('.content').bind('mousewheel', function(event, delta) {
+        $(".content-top-f1").show(1);
+    });
+
+    $('.banner-all').bind('mousewheel', function(event, delta) {
+        $(".content-top-f1").hide(1);
+    });
+});

@@ -5,45 +5,48 @@
 
     <title></title>
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="dianjinzi.js"></script>
+    <script src="../core/js/require.js" data-main="../index/index.js"></script>
     <link href="dianjinzi.css" rel="stylesheet">
 
 </head>
-<script>
-    $(function () {
-        var height = $('body').height();
-        $(".right").css("height", height);
-    });
-</script>
 <body>
 
 <!--侧边栏-->
 <div class="right">
-    <a href="#" class="right1">
-        <img src="images/l-logo.png">
-        主页
+    <a href="#" class="right1" >
+        <img src="images/s-index.png">
+        <div class="right2"><span>主页</span><img class="img-search" src="images/search_17.png"></div>
     </a>
-    <a href="#" class="right1">
-        <img src="images/component/_0002_SHOPPING-CAR.png">
-        购物车
-         <span>
-             <span class="count-number">0</span>
-                </span>
-    </a>
-    <a href="#" class="right1">
-        <img src="images/component/_0000_NOTEPAD.png">
 
-        <div>订单</div>
+    <div class="right-b">
+    <a href="#" class="right1">
+        <img src="images/s-dd.png">
+        <div class="right2"><span>订单</span><img class="img-search" src="images/search_17.png">
+        </div>
     </a>
     <a href="#" class="right1">
-        <img src="images/component/_0004_yen.png">
-
-        <div>账户</div>
+        <img src="images/s-buy.png">
+        <div class="right2"><span>购物车</span><img class="img-search" src="images/search_17.png">
+        </div>
+    </a>
+    <a href="#" class="right1">
+        <img src="images/s-sc.png">
+        <div class="right2"><span>收藏</span><img class="img-search" src="images/search_17.png">
+        </div>
+    </a>
+    <a href="#" class="right1">
+        <img src="images/s-zh.png">
+        <div class="right2"><span>账户</span><img class="img-search" src="images/search_17.png">
+        </div>
     </a>
     <a href="#" class="right1">
         <img src="images/component/_0005_arrow-top.png">
-
-        <div>返回顶部</div>
+        <div class="right2"><span>回到顶部</span><img class="img-search" src="images/search_17.png">
+        </div>
     </a>
+    </div>
 </div>
 <!--header-->
 <div class="header">
@@ -140,9 +143,9 @@
                 <a href="#" data-banner="0"
                    style="background: url('images/new-banner1.jpg') center center no-repeat ;display: block"></a>
                 <a href="#" data-banner="1"
-                   style="background: url('images/new-banner1.jpg') center center no-repeat"></a>
+                   style="background: url('images/shang-banner.jpg') center center no-repeat"></a>
                 <a href="#" data-banner="2"
-                   style="background: url('images/new-banner1.jpg') center center no-repeat green"></a>
+                   style="background: url('images/new11-banner.jpg') center center no-repeat green"></a>
                 <a href="#" data-banner="3"
                    style="background: url('images/new-banner1.jpg') center center no-repeat blue"></a>
                 <a href="#" data-banner="4"
@@ -163,27 +166,18 @@
 </div>
 <!--content-->
 <div class="content">
-    <!--跟踪search-->
 
-    <div class="content-top-f1" style="display: none">
-        <a href="#" class="logo1" alt="sadhashdk">
-            <img src="images/logo1.png">
-        </a>
-
-        <div class="search">
-            <input type="text" class="search1">
-            <input type="submit" class="btn1" value="搜索">
-        </div>
-        <a href="#" class="btn2"><img src="images/shoppingcart_03.png">我的购物车</a>
-    </div>
     <div class="box1">
+        <div class="box-font" style="background: url('images/hot-sale_03.png')no-repeat 100px 0">
+            最近热卖
+        </div>
         <a href="#" class="box1-1" style="background: url('images/box1-1-1.jpg') no-repeat;"></a>
         <a href="#" class="box1-1" style="background: url('images/box1-1-1.jpg') no-repeat;"></a>
         <a href="#" class="box1-1" style="background: url('images/box1-1-1.jpg') no-repeat;"></a>
         <a href="#" class="box1-1" style="background: url('images/box1-1-1.jpg') no-repeat;"></a>
     </div>
     <div class="box2">
-        <div class="box-font">
+        <div class="box-font" style="background: url('images/yingwen_22.png')no-repeat 100px 0">
             最近上新
         </div>
         <a href="#" class="box2-1" style="background: url('images/new_21.jpg') no-repeat;"></a>
@@ -495,8 +489,5 @@
         <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
     </div>
 </div>
-
 </body>
-<script src="../core/js/require.js" data-main="../index/index.js"></script>
-
 </html>
