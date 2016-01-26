@@ -1,17 +1,20 @@
 package com.pgt.address.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
+import com.pgt.utils.WebServiceConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pgt.address.bean.AddressInfo;
@@ -65,6 +68,39 @@ public class UserAddressController {
         }
         mav.addObject("addressList", sortedAddressList);
         return mav;
+    }
+
+
+    @RequestMapping(value = "/ajaxAddress")
+    @ResponseBody
+    public ResponseEntity ajaxListAllAddress(HttpSession session) {
+        User currentUser = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        Map<String, Object> result = new HashMap<String, Object>();
+        if (currentUser == null) {
+            result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_NEED_LOGIN)
+            return new ResponseEntity(result, HttpStatus.OK);
+        }
+        List<AddressInfo> addressList = getAddressInfoService().queryAddressByUserId(currentUser.getId().intValue());
+        if (CollectionUtils.isEmpty(addressList) ) {
+            result.put(WebServiceConstants.NAME_ADDRESS_LIST, Collections.emptyList());
+            return  new ResponseEntity(result, HttpStatus.OK);
+        }
+        List<AddressInfo> sortedAddressList = new ArrayList<AddressInfo>();
+        sortedAddressList.add(null);
+        Integer defaultAddressId = currentUser.getDefaultAddressId();
+        for (AddressInfo address : addressList) {
+            if (ObjectUtils.isEmpty(defaultAddressId)) {
+                defaultAddressId = address.getId();
+            }
+            if (defaultAddressId.equals(address.getId())) {
+                sortedAddressList.set(0, address);
+            } else {
+                sortedAddressList.add(address);
+            }
+        }
+        result.put(WebServiceConstants.NAME_ADDRESS_LIST, sortedAddressList);
+
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     public AddressInfoService getAddressInfoService() {
