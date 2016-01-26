@@ -86,6 +86,7 @@
         <property name="pdpPage" value="/product"/>
         <property name="plpPage" value="/category"/>
         <property name="helpCenterPage" value="/helpcenter/query"/>
+        <property name="search" value="search/search"/>
     </bean>
     <bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
         <property name="host" value="localhost"/>
