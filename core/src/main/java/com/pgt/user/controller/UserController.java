@@ -423,6 +423,15 @@ public class UserController {
 
 
     private ModelAndView checkResetPasswordPhoneCode(User user, BindingResult bindingResult, ModelAndView modelAndView, HttpServletRequest request) {
+
+        if(ObjectUtils.isEmpty(user.getSmsCode())){
+            modelAndView.setViewName(Constants.RESET_PASSWORD);
+            return modelAndView;
+        }
+        if(ObjectUtils.isEmpty(request.getSession().getAttribute(Constants.RESET_PASSWOR_SESSION_PHONE_CODE))){
+            modelAndView.setViewName(Constants.RESET_PASSWORD);
+            return modelAndView;
+        }
         if (user.getSmsCode().equalsIgnoreCase((String) request.getSession().getAttribute(Constants.RESET_PASSWOR_SESSION_PHONE_CODE))) {
             request.getSession().setAttribute(Constants.STEP, ResetPasswordStep.SET_NEW_PASSWORD);
             modelAndView.setViewName(Constants.RESET_PASSWORD);
