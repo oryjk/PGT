@@ -89,6 +89,7 @@ public class HomeController {
             Banner banner = bannerService.queryBannerByType(Constants.BANNER_TYPE_HOME);
             if (!ArrayUtils.isEmpty(hotProducts)) {
                 modelAndView.addObject("hotProducts", hotProducts);
+                LOGGER.debug("add hotProducts to modelAndView");
             }
             //get Pagebackground
             PageBackgroundQuery pageBackgroundQuery = new PageBackgroundQuery();
@@ -99,15 +100,16 @@ public class HomeController {
             }
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
+            LOGGER.debug("add hotSearchList to modelAndView");
             modelAndView.addObject("hotSearchList", hotSearchList);
             modelAndView.addObject("banner", banner);
 
             SearchHit[] newProducts=getNewProduct();
             if(!ArrayUtils.isEmpty(newProducts)){
                 modelAndView.addObject("newProducts",newProducts);
+                LOGGER.debug("add newProducts to modelAndView");
             }
-
-            modelAndView.setViewName("/new-index/index");
+            modelAndView.setViewName("/index/index");
         } else {
 
 
