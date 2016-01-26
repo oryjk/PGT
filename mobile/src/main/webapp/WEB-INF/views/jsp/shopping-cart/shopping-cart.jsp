@@ -17,11 +17,24 @@
         .btn1{
             cursor: pointer;
         }
+        .btn2{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
 <%@include file="../common/header.jsp"%>
+
+<div class="ding">
+    <div class="bg2">
+        <div id="total"></div>
+        <div><span>运费：</span><span id="fee"></span></div>
+    </div>
+    <div class="btn2">
+        结算
+    </div>
+</div>
 
 <content></content>
 
@@ -34,6 +47,7 @@
 <%@include file="../common/footer.jsp"%>
 <script>
     $(function(){
+        var order = new Object();
         var url = "${pageContext.request.contextPath}/shoppingCart/ajaxCart";
         $.get(url, function(result){
             $("data").html(JSON.stringify(result));
@@ -42,7 +56,6 @@
                 var img = "background:url(/resources" + result.data.order.commerceItems[i].snapshotMedia.path + ") no-repeat center center;background-size:100% 100%";
                 $("content").append(
                     "<div class='box'>" +
-                        "<input type='checkbox'>" +
                         "<div class='img1' style='" + img +"'></div>" +
                         "<div class='font'>" +
                             "<span class='font1-1'>" + result.data.order.commerceItems[i].name + "</span>" +
@@ -54,6 +67,9 @@
                     "</div>"
                 )
             }
+            $("#fee").text(result.data.order.shippingFee);
+            $("#total").text(result.data.order.total);
+            order.orderId = result.data.order.id;
         },'json');
 
         $(".btn1").live("click",function(){
@@ -65,6 +81,13 @@
                                 window.location.reload();
                             }
             });
+        });
+
+        $(".btn2").live("click",function(){
+            var del_url = '${pageContext.request.contextPath}/checkout/shipping';
+            $.get(url, { orderId: order.orderId },function(result){
+                alert(JSON.stringify(result));
+            },'json');
         });
     })
 </script>

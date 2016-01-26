@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by liqiang on 16-1-22.
  */
 @Controller
-@RequestMapping("shopping")
+@RequestMapping("shoppingCart")
 public class ShoppingCartController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingCartController.class);
 
