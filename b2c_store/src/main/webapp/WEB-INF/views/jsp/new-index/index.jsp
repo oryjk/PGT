@@ -7,49 +7,55 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-
         <title></title>
         <script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/new-index/js/jquery-1.8.3.min.js"/>"></script>
         <link href="<spring:url value="${juedangpinStaticPath}/new-index/dianjinzi.css"/>" rel="stylesheet">
+        <script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/new-index/dianjinzi.js"/>"></script>
+
     </head>
-    <script>
-        $(function () {
-            var height = $('body').height();
-            $(".right").css("height", height);
-        });
-    </script>
+
     <body>
 
-    <!--侧边栏-->
+
     <div class="right">
+        <a href="#" class="right1" >
+            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/s-index.png"/>">
+            <div class="right2"><span>主页</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/new-index/images/search_17.png"/>"></div>
+        </a>
 
-        <a href="#" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/l-logo.png"/>">
-            主页
-        </a>
-        <a href="<spring:url value="/shoppingCart/cart" />" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0002_SHOPPING-CAR.png"/>">
-            购物车
-         <span>
-             <span class="count-number">0</span>
-                </span>
-        </a>
-        <a href="#" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0000_NOTEPAD.png"/>">
-
-            <div>订单</div>
-        </a>
-        <a href="#" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0004_yen.png"/>">
-
-            <div>账户</div>
-        </a>
-        <a href="#" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0005_arrow-top.png"/>">
-
-            <div>返回顶部</div>
-        </a>
+        <div class="right-b">
+            <a href="#" class="right1">
+                <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/s-dd.png"/>">
+                <div class="right2"><span>订单</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/new-index/images/search_17.png"/>">
+                </div>
+            </a>
+            <a href="#" class="right1">
+                <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/s-buy.png"/>">
+                <div class="right2"><span>购物车</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/new-index/images/search_17.png"/>">
+                </div>
+            </a>
+            <a href="#" class="right1">
+                <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/s-sc.png"/>">
+                <div class="right2"><span>收藏</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/new-index/images/search_17.png"/>">
+                </div>
+            </a>
+            <a href="#" class="right1">
+                <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/s-zh.png"/>">
+                <div class="right2"><span>账户</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/new-index/images/search_17.png"/>">
+                </div>
+            </a>
+            <a href="#" class="right1">
+                <img src="<spring:url value="${juedangpinStaticPath}/new-index/images/component/_0005_arrow-top.png"/>">
+                <div class="right2"><span>回到顶部</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/new-index/images/search_17.png"/>">
+                </div>
+            </a>
+        </div>
     </div>
+
+
+
+
+
     <!--header-->
     <input id="path" type="hidden" value="${pageContext.request.contextPath}">
     <div class="header">
@@ -100,6 +106,7 @@
         </div>
         <a href="<spring:url value="/shoppingCart/cart"/>" class="btn2"><img src="<spring:url value="${juedangpinStaticPath}/new-index/images/shoppingcart_03.png"/>">我的购物车</a>
     </div>
+
     <div class="menu-top">
         <a href="#" class="menu-top1">全部绝当品分类</a>
         <ul class="font2">
@@ -127,7 +134,6 @@
             </c:forEach>
         </ul>
     </div>
-
 
 
 
@@ -179,8 +185,11 @@
 
 
     </div>
-    <spring:url value="${juedangpinStaticPath}/core/js/require.js"/>
+
     <div class="box1">
+        <div class="box-font" style="background: url('<spring:url value="${juedangpinStaticPath}/new-index/images/hot-sale_03.png"/>')no-repeat 100px 0">
+            最近热卖
+        </div>
         <c:forEach items="${hotSearchList}" var="hotSearch" varStatus="status">
             <c:if test="${status.index<4}">
             <a  href="${pageContext.request.contextPath}/essearch?term=${hotSearch.term}" class="box1-1"
@@ -191,9 +200,9 @@
 
 
     <div class="box2">
-        <div class="box-font">
-            最近上新
-        </div>
+        <div class="box-font" style="background: url('<spring:url value="${juedangpinStaticPath}/new-index/images/yingwen_22.png"/>')no-repeat 100px 0">
+        最近上新
+       </div>
         <c:forEach items="${newProducts}" var="searchProduct">
             <c:set var="product" value="${searchProduct.source}"/>
         <a href="product/${product.productId}" class="box2-1" style="background: url('${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}') no-repeat;"></a>
@@ -226,7 +235,7 @@
                 <div class="box4-all1">
                     <div class="box4-1" style="background: url('${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}') no-repeat">
                         <div class="box4-on" >
-                            <a href="product/${product['productId']}" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
+                            <a href="product/${product['productId']}" class="box4-on-top" style="background: url('${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}') no-repeat">
                             </a>
                             <div class="box4-on-bottom">
                                 <div class="box4-1-2">
@@ -263,5 +272,4 @@
 </body>
     <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/index/index.js"/>"></script>
     <script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/new-index/js/index2.0.js"/>"></script>
-
     </html>
