@@ -30,6 +30,8 @@ public class Tender implements Serializable {
     private Date updateDate;
     private Category category;
     private Double handlingFeeRate;
+    private Boolean categoryHot;
+    private Boolean siteHot;
 
 
     @Override
@@ -223,5 +225,21 @@ public class Tender implements Serializable {
 
     public void setHandlingFeeRate(Double handlingFeeRate) {
         this.handlingFeeRate = handlingFeeRate;
+    }
+
+    public Boolean getCategoryHot() {
+        return categoryHot;
+    }
+
+    public void setCategoryHot(Boolean categoryHot) {
+        this.categoryHot = categoryHot;
+    }
+
+    public Boolean getSiteHot() {
+        return siteHot;
+    }
+
+    public void setSiteHot(Boolean siteHot) {
+        this.siteHot = siteHot;
     }
 }
