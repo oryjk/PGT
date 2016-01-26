@@ -1,7 +1,6 @@
 package com.pgt.search.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pgt.configuration.URLConfiguration;
 import com.pgt.search.service.ESSearchService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
@@ -28,9 +27,6 @@ public class SearchController extends SearchAbstractController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
 
     @Autowired
-    URLConfiguration urlConfiguration;
-
-    @Autowired
     private ESSearchService esSearchService;
 
     @RequestMapping("search")
@@ -39,7 +35,7 @@ public class SearchController extends SearchAbstractController {
         LOGGER.debug("categorys is{}", categorys);
         modelAndView.addObject("categorys", categorys);
         LOGGER.debug("view is search page", categorys);
-        modelAndView.setViewName(urlConfiguration.getSearch());
+        modelAndView.setViewName("search/search");
         return  modelAndView;
     }
 
