@@ -108,7 +108,8 @@ input, select {
 h2 {
     font-size: 18px;
 }
-h3{
+
+h3 {
     font-size: 14px;
 }
 
@@ -126,7 +127,7 @@ a:visited {
 a:hover,
 a:active {
     color: #d43139;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 li {
@@ -142,33 +143,46 @@ body {
 body {
     background: #f8f8f8;
 }
-.right{
+
+.right {
+    z-index: 3;
     width: 45px;
-    background-color:rgba(0,0,0,0.7);
+    background-color: #000;
+    padding-top: 100px;
     position: fixed;
     right: 0;
-    top:0;
+    top: 0;
 }
+
 .right a:link,
-.right a:visited{
+.right a:visited {
     color: white;
 }
+
 .right a:hover,
-.right a:active{
+.right a:active {
     color: white;
     background: #d43139;
     text-decoration: none;
     border: none;
 }
-.right1 img{
 
-}
-.right1{
-    overflow: hidden;
-    text-align: center;
-    padding: 5px 0;
+.right1 {
+    padding: 4px 0;
+    margin-top: 30px;
+    display: block;
     font-size: 1px;
+    text-align: center;
     width: 45px;
+}
+
+.right1 img {
+    text-align: center;
+    padding-left: 12px;
+    padding-bottom: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
 }
 
 .header {
@@ -221,15 +235,32 @@ body {
     width: 1200px;
     height: 108px;
     margin: 0 auto;
-
 }
-
+.content-top-f1{
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    background: white;
+    width: 1200px;
+    margin: 0 auto;
+    height: 80px;
+}
 .logo {
     float: left;
     margin: 5px;
     width: 215px;
     height: 76px;
     background: url("images/logo1.png") no-repeat;
+}
+.logo1{
+    float: left;
+    margin: 5px;
+    width: 107px;
+    height: 38px;
+}
+.logo1 img{
+    height: 38px;
+    width: 107px;
 }
 
 .search {
@@ -247,10 +278,9 @@ body {
 
 .btn1 {
     width: 96px;
+    height: 36px;
     padding: 1px;
     text-align: center;
-    line-height: 32px;
-    height: 30px;
     float: left;
     color: white;
     border: 2px solid #d43139;
@@ -266,14 +296,16 @@ body {
 .btn1:hover,
 .btn1:active {
     color: white;
-    text-decoration: underline;
+    text-decoration: none;
 }
-.font1{
+
+.font1 {
     margin-left: 10px;
     height: 14px;
 
 }
-.font1 li{
+
+.font1 li {
     text-align: center;
     line-height: 14px;
     font-size: 14px;
@@ -283,6 +315,7 @@ body {
     padding: 0 18px;
     border-right: 1px solid #292722;
 }
+
 .btn2 {
     text-align: center;
     line-height: 30px;
@@ -291,18 +324,22 @@ body {
     float: left;
     margin: 30px 0 0 78px;
     border: 2px solid #d43139;
-    vertical-align:top;
+    vertical-align: top;
 }
-.btn2 img{
+
+.btn2 img {
     padding-top: 5px;
     padding-right: 5px;
 }
-.menu-top{
+
+.menu-top {
+    position: relative;
     font-size: 15px;
     width: 1200px;
     height: 40px;
     margin: 0 auto;
 }
+
 .menu-top1:link,
 .menu-top1:visited {
     color: white;
@@ -314,7 +351,8 @@ body {
     color: white;
     text-decoration: underline;
 }
-.menu-top1{
+
+.menu-top1 {
     text-align: center;
     line-height: 40px;
     width: 220px;
@@ -323,61 +361,103 @@ body {
     background: #d43139;
     border-bottom: #f60;
 }
-.font2{
+
+.font2 {
     float: left;
     margin: 0 0 0 40px;
     height: 40px;
 }
-.font2 li{
+
+.font2 li {
     text-align: center;
     line-height: 40px;
     float: left;
     padding: 0 18px;
 }
 
-.banner-all{
+.banner-all {
     width: 100%;
     height: 535px;
-    background:url("images/new-banner1.jpg")no-repeat center ;
 }
-.banner{
-    width: 1200px;
-    height: 535px;
-    margin: 0 auto;
+
+.banner1 {
     position: relative;
 }
-.menu{
+
+.banner {
+    width: 100%;
+    height: 535px
+}
+
+.banner a {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-nav {
+    position: absolute;
+    right: 42%;
+    bottom: 3%;
+}
+
+.banner-nav li {
+    float: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 5px;
+    width: 30px;
+    height: 8px;
+    border-radius: 3px;
+    background: #666666;
+    text-indent: -5000px;
+    cursor: pointer;
+}
+
+.banner-box .banner-nav-now {
+    background: #f8f8f8;
+}
+
+.menu {
+    z-index: 3;
     width: 220px;
     height: 535px;
     position: absolute;
-    top: 0;
+    top: 40px;
     left: 0;
     background-color: #3f3f3f;
-    background:rgba(0,0,0,0.7) ;
+    background: rgba(0, 0, 0, 0.7);
 
 }
-.menu-0{
+
+.menu-0 {
     padding-bottom: 10px;
     border-bottom: 1px solid white;
 }
-.menu-0-1{
+
+.menu-0-1 {
     padding-bottom: 10px;
     height: 95px;
 }
-.menu-h{
+
+.menu-h {
     padding-top: 10px;
     display: block;
     text-align: center;
     line-height: 40px;
 }
-.menu-1{
+
+.menu-1 {
     width: 160px;
     margin: 0 30px;
     overflow: hidden;
     font-size: 10px;
     text-align: center;
 }
-.menu-1 li{
+
+.menu-1 li {
     display: inline;
     border-right: 1px solid white;
     margin: 5px 0;
@@ -386,12 +466,15 @@ body {
     text-align: center;
     line-height: 12px;
 }
-.menu-1 .li-l{
+
+.menu-1 .li-l {
     border: none;
 }
-.menu-1 li a{
+
+.menu-1 li a {
     height: 12px;
 }
+
 .menu-0 a:link,
 .menu-0-1 a:link,
 .menu-0 a:visited,
@@ -407,35 +490,46 @@ body {
     color: white;
     text-decoration: underline;
 }
+
 /*
 http://www.cnblogs.com/PeunZhang/p/4089894.html
 @media \0screen\,screen\9 { /* 只支持IE6、7、8 */
 
 /* content
 *******************************/
-.content{
+.content {
     overflow: hidden;
     width: 1200px;
     margin: 0 auto;
 }
-.box1{
-    overflow: hidden;
-    margin-top: 18px;
+
+.box1 {
+    height: 298px;
+    margin:18px 4px 0 4px;
 }
-.box1-1{
+
+.box1-1 {
     float: left;
-    width: 294px;
-    height: 294px;
-    margin-right: 4px;
+    width: 274px;
+    height: 274px;
+    padding: 12px;
+    transition: all 0.8s;
 }
 
+.box1-1:hover {
+    transform: scale(1.05, 1.05);
+    -ms-transform: scale(1.05, 1.05); /* IE 9 */
+    -moz-transform: scale(1.05, 1.05); /* Firefox */
+    -webkit-transform: scale(1.05, 1.05); /* Safari 和 Chrome */
+    -o-transform: scale(1.05, 1.05);
+}
 
-.box2{
-    overflow: hidden;
+.box2 {
+    height: 302px;
     margin-top: 30px;
 }
 
-.box-font{
+.box-font {
     margin-bottom: 10px;
     line-height: 22px;
     font-size: 22px;
@@ -444,86 +538,195 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     height: 22px;
     background: url("images/yingwen_22.png") no-repeat 100px 0;
 }
-.box2-1{
+
+.span1 {
+    float: left;
+}
+
+.span2 {
+    font-size: 14px;
+    float: right;
+}
+.span2-1 {
+    padding: 0 10px;
+    border-right: 1px solid #292722;
+}
+
+.box2-1 {
     margin-right: 4px;
     float: left;
     width: 395px;
     height: 270px;
+    transition: all 0.8s;
 
 }
-.box-banner1{
+
+.box2-1:hover {
+    transform: scale(1.05, 1.05);
+    -ms-transform: scale(1.05, 1.05); /* IE 9 */
+    -moz-transform: scale(1.05, 1.05); /* Firefox */
+    -webkit-transform: scale(1.05, 1.05); /* Safari 和 Chrome */
+    -o-transform: scale(1.05, 1.05);
+}
+
+.box-banner1 {
+    display: block;
     margin-top: 30px;
     width: 1200px;
     height: 90px;
-    background: #ccc;
+    background-image: url("images/banner1.jpg");
 }
-.box4{
 
-    overflow: hidden;
+.box4 {
+
+    height: 518px;
     margin-top: 22px;
 }
-.box4-all{
+
+.box4-all {
     float: left;
 }
-.box4-left{
+
+.box4-left {
     float: left;
     width: 444px;
     height: 484px;
+    z-index: 1;
 
 }
-.box4-right{
+
+.box4-right {
     border-top: 2px solid #232323;
-    overflow: hidden;
+    height: 550px;
 }
-.box4-1{
+.box4-all1{
+    width: 250px;
+    height: 240px;
+float: left;
+    position: relative;
+}
+.box4-1 {
+    display: block;
     border-right: 1px solid #dadada;
-    border-bottom:1px solid #dadada ;
+    border-bottom: 1px solid #dadada;
     float: left;
     width: 250px;
-    height: 242px;
-    background-color: white;
+    height: 240px;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-position: 0 0;
 }
-.box4-1-1{
 
+.box4-1-1 {
+    display: block;
     height: 180px;
-    background-repeat:no-repeat ;
-    background-position: 40px 0;
+}
 
-    background-color: white;
-}
-.box4-1-2{
+.box4-1-2 {
+    float: left;
+    width: 150px;
+    padding-top: 20px;
+    color: #292722;
     text-align: center;
-    height: 63px;
+    height: 43px;
 }
-.box4-1-2-1{
+
+.box4-1-2-1 {
     color: #d43139;
 }
 
+.box4-on {
+    display: none;
+    width: 251px;
+    height: 311px;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    z-index: 3;
+}
+
+.box4-1:hover > .box4-on {
+    display: block;
+}
+.box4-on-top {
+    display: block;
+    border-bottom: 1px solid #ccc;
+    width: 251px;
+    height: 241px;
+}
+.box4-on-bottom{
+    height: 70px;
+    background-color: white;
+}
+.box4-on-shop {
+    padding-top: 10px;
+    margin-left: 10px;
+    width: 20px;
+    height: 30px;
+    background: url("images/shopping-carts_03.png") no-repeat left 10px;
+}
+
+.box4-fa{
+    display: block;
+    padding: 20px 0 0 15px;
+    font-size: 10px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    float: left;
+}
+
+.box4-fa img{
+    padding-left: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+.box4-by{
+    display: block;
+    padding: 20px 0 0 0;
+    font-size: 10px;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    float: left;
+}
+.box4-by img{
+    padding-left: 13px;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
 /*  footer
 *************************/
 
 .footer a:link,
-.footer a:visited{
-    color: #292722;
+.footer a:visited {
+    color: #ccc;
     text-decoration: none;
 }
+
 .footer a:hover,
-.footer a:active{
+.footer a:active {
     color: #d43139;
     text-decoration: none;
 }
+
 .footer {
     border-top: 2px solid #232323;
     margin-top: 50px;
-    background: #3f3f3f; }
+    background: #3f3f3f;
+}
 
 .goods-box {
-    background: #cccccc; }
+    background: #cccccc;
+}
 
 .us {
     position: relative;
     overflow: hidden;
-    *zoom: 1; }
+    *zoom: 1;
+}
 
 /*our-goods
 ************************************************/
@@ -531,12 +734,15 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     margin: 0 auto;
     padding: 20px 0;
     width: 1080px;
-    height: 70px; }
+    height: 70px;
+}
 
 .our-good {
     float: left;
     width: 20%;
-    height: 70px; }
+    height: 70px;
+}
+
 .our-good .icon-box {
     float: left;
     width: 70px;
@@ -544,10 +750,13 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     border-radius: 50px;
     background: #d43139;
     line-height: 70px;
-    text-align: center; }
+    text-align: center;
+}
+
 .our-good i {
     color: white;
-    font-size: 35px; }
+    font-size: 35px;
+}
 
 /*2维码*/
 .two-dimension {
@@ -555,47 +764,67 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0) \9;
     position: absolute;
     top: 0;
-    left: 100px; }
+    left: 100px;
+}
 
 .our-app a:hover .two-dimension {
     opacity: 1;
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100) \9;
-    transition: opacity 1s linear; }
+    transition: opacity 1s linear;
+}
 
 .good-text {
     margin-left: 80px;
-    padding-top: 10px; }
+    padding-top: 10px;
+}
+
 .good-text h4,
 .good-text p {
     padding: 0;
     margin: 0;
-    font-size: 14px; }
+    font-size: 14px;
+}
+
 .good-text p {
-    color: #666666; }
+    color: #666666;
+}
 
 /*about-us
 ************************************************/
 .about-us {
+    color: #ccc;
     margin: 0 auto;
     overflow: hidden;
     *zoom: 1;
     padding: 20px 0;
-    width: 1080px; }
+    width: 1080px;
+}
+
 .about-us h3 {
-    color: #cccccc; }
+    color: #cccccc;
+}
+
 .about-us ul {
     float: left;
     padding: 0;
     margin: 0;
     width: 15%;
-    list-style: none; }
+    list-style: none;
+}
+
 .about-us li {
-    padding: 1px 0; }
+    padding: 1px 0;
+}
+
 .about-us .us {
-    margin-left: 60%; }
+    margin-left: 60%;
+}
+
 .about-us .our-app {
     float: right;
-    width: 50%; }
+    width: 50%;
+}
+
 .about-us .apple-dimension,
 .about-us .android-dimension,
 .about-us .online-server,
@@ -604,35 +833,44 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     display: block;
     margin-bottom: 10px;
     width: 50%;
-    text-align: center; }
+    text-align: center;
+}
+
 .about-us .apple-dimension img,
 .about-us .android-dimension img,
 .about-us .online-server img,
 .about-us .online-server img {
-    width: 30%; }
+    width: 30%;
+}
 
 /*approve-box
 ************************************************/
 .approve-box {
+    color: #ccc;
     background: #333333;
     padding: 20px 0 5px;
-    text-align: center; }
+    text-align: center;
+}
 
 .approve {
+
     overflow: hidden;
     *zoom: 1;
     margin: 0 auto;
-    width: 240px; }
+    width: 240px;
+}
+
 .approve a {
     float: left;
     padding-right: 20px;
     width: 100px;
-    height: 30px; }
+    height: 30px;
+}
+
 .approve img {
     width: 100%;
-    height: 100%; }
-
-
+    height: 100%;
+}
 
 /*
 ************************/
@@ -641,7 +879,8 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     src: url("images/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.eot");
     src: url("images/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.eot?#iefix") format("embedded-opentype"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.woff") format("woff"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.ttf") format("truetype"), url("../core/foundation_icons_all/foundation_icons_general/fonts/general_foundicons.svg#GeneralFoundicons") format("svg");
     font-weight: normal;
-    font-style: normal; }
+    font-style: normal;
+}
 
 /* global foundicon styles */
 [class*="foundicon-"] {
@@ -652,299 +891,396 @@ http://www.cnblogs.com/PeunZhang/p/4089894.html
     vertical-align: baseline;
     background-image: none;
     background-position: 0 0;
-    background-repeat: repeat; }
+    background-repeat: repeat;
+}
 
 [class*="foundicon-"]:before {
     font-family: "GeneralFoundicons";
     font-weight: normal;
     font-style: normal;
-    text-decoration: inherit; }
+    text-decoration: inherit;
+}
 
 /* icons */
 .foundicon-settings:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-heart:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-star:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-plus:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-minus:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-checkmark:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-remove:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-mail:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-calendar:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-page:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-tools:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-globe:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-home:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-quote:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-people:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-monitor:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-laptop:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-phone:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-cloud:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-error:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-right-arrow:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-left-arrow:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-up-arrow:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-down-arrow:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-trash:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-add-doc:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-edit:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-lock:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-unlock:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-refresh:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-paper-clip:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-video:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-photo:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-graph:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-idea:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-mic:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-cart:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-address-book:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-compass:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-flag:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-location:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-clock:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-folder:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-inbox:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-website:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-smiley:before {
-    content: ""; }
+    content: "";
+}
 
 .foundicon-search:before {
-    content: ""; }
+    content: "";
+}
 
 /* general icons for IE7 */
 [class*="foundicon-"] {
     font-family: "GeneralFoundicons";
     font-weight: normal;
-    font-style: normal; }
+    font-style: normal;
+}
 
 .foundicon-settings {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf000;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf000;");
+}
 
 .foundicon-heart {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf001;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf001;");
+}
 
 .foundicon-star {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf002;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf002;");
+}
 
 .foundicon-plus {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf003;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf003;");
+}
 
 .foundicon-minus {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf004;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf004;");
+}
 
 .foundicon-checkmark {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf005;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf005;");
+}
 
 .foundicon-remove {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf006;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf006;");
+}
 
 .foundicon-mail {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf007;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf007;");
+}
 
 .foundicon-calendar {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf008;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf008;");
+}
 
 .foundicon-page {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf009;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf009;");
+}
 
 .foundicon-tools {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00a;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00a;");
+}
 
 .foundicon-globe {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00b;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00b;");
+}
 
 .foundicon-home {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00c;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00c;");
+}
 
 .foundicon-quote {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00d;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00d;");
+}
 
 .foundicon-people {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00e;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00e;");
+}
 
 .foundicon-monitor {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00f;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf00f;");
+}
 
 .foundicon-laptop {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf010;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf010;");
+}
 
 .foundicon-phone {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf011;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf011;");
+}
 
 .foundicon-cloud {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf012;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf012;");
+}
 
 .foundicon-error {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf013;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf013;");
+}
 
 .foundicon-right-arrow {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf014;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf014;");
+}
 
 .foundicon-left-arrow {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf015;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf015;");
+}
 
 .foundicon-up-arrow {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf016;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf016;");
+}
 
 .foundicon-down-arrow {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf017;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf017;");
+}
 
 .foundicon-trash {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf018;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf018;");
+}
 
 .foundicon-add-doc {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf019;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf019;");
+}
 
 .foundicon-edit {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01a;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01a;");
+}
 
 .foundicon-lock {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01b;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01b;");
+}
 
 .foundicon-unlock {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01c;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01c;");
+}
 
 .foundicon-refresh {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01d;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01d;");
+}
 
 .foundicon-paper-clip {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01e;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01e;");
+}
 
 .foundicon-video {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01f;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf01f;");
+}
 
 .foundicon-photo {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf020;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf020;");
+}
 
 .foundicon-graph {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf021;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf021;");
+}
 
 .foundicon-idea {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf022;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf022;");
+}
 
 .foundicon-mic {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf023;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf023;");
+}
 
 .foundicon-cart {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf024;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf024;");
+}
 
 .foundicon-address-book {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf025;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf025;");
+}
 
 .foundicon-compass {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf026;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf026;");
+}
 
 .foundicon-flag {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf027;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf027;");
+}
 
 .foundicon-location {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf028;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf028;");
+}
 
 .foundicon-clock {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf029;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf029;");
+}
 
 .foundicon-folder {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02a;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02a;");
+}
 
 .foundicon-inbox {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02b;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02b;");
+}
 
 .foundicon-website {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02c;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02c;");
+}
 
 .foundicon-smiley {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02d;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02d;");
+}
 
 .foundicon-search {
-    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02e;"); }
+    *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02e;");
+}
