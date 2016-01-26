@@ -1,9 +1,6 @@
 package com.pgt.cart.controller;
 
-import com.pgt.cart.bean.CommerceItem;
-import com.pgt.cart.bean.Order;
-import com.pgt.cart.bean.ResponseBean;
-import com.pgt.cart.bean.ResponseBuilder;
+import com.pgt.cart.bean.*;
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.exception.PriceOrderException;
@@ -173,6 +170,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			}
 			// persist changes to database
 			TransactionStatus status = ensureTransaction();
+			LOGGER.debug("order userId:" + order.getUserId());
 			try {
 				LOGGER.debug("Synchronized order to price and update order");
 				getPriceOrderService().priceOrder(order);
@@ -585,7 +583,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		Order order = getOrderService().loadEasyBuyOrderWithoutItem(String.valueOf(currentUser.getId()));
 		if (order == null) {
 			LOGGER.debug("Get empty easy buy order by user id.");
-			order = new Order(currentUser.getId().intValue());
+			order = new Order(currentUser.getId().intValue(), OrderType.B2C_ORDER);
 			order.setEasyBuy(true);
 		}
 		return order;

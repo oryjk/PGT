@@ -57,7 +57,7 @@
 
 <div class="font-1">
 <a href="${pageContext.request.contextPath }/user/register" class="font1">免费注册</a>
-<a href="#" class="font2">忘记密码</a>
+<a href="${pageContext.request.contextPath }/user/resetPassword" class="font2">忘记密码</a>
 </div>
 
 <%@include file="../common/footer.jsp" %>

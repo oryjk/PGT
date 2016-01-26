@@ -89,7 +89,7 @@
                                 </td>
                                 <td>
                                     <c:if test="${not empty currentUser}">
-                                        <p><a class="link-btn" href="<spring:url value="//myAccount/favouriteItemFromCart?productId=${commerceItem.referenceId}"/>">移入收藏</a></p>
+                                        <p><a class="link-btn" href="<spring:url value="/myAccount/favouriteItemFromCart?productId=${commerceItem.referenceId}"/>">移入收藏</a></p>
                                     </c:if>
                                     <p><a class="link-btn" href="<spring:url value="/shoppingCart/removeItemFromOrder?productId=${commerceItem.referenceId}"/>">删除</a></p>
                                 </td>

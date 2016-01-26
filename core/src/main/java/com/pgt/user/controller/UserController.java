@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pgt.cart.constant.SessionConstant;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -72,10 +73,10 @@ public class UserController {
 
     @Autowired
     private SimpleCacheManager cacheManager;
-    
+
     @Autowired
-	private MailService			mailService;
-    
+    private MailService mailService;
+
     @Autowired
     private Configuration configuration;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -84,8 +85,8 @@ public class UserController {
     public ModelAndView login(ModelAndView modelAndView, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
         String code = (String) request.getSession().getAttribute(Constants.LOGIN_SESSION_SECURITY_CODE);
-        if(!StringUtils.isBlank(code)){
-            modelAndView.addObject("code",code);
+        if (!StringUtils.isBlank(code)) {
+            modelAndView.addObject("code", code);
         }
         if (user != null) {
             LOGGER.debug("Redirect home page.");
@@ -193,7 +194,7 @@ public class UserController {
                 bindingResult.addError(
                         new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.authCode", null, null)));
                 modelAndView.addObject("user", user);
-                modelAndView.addObject("code",code);
+                modelAndView.addObject("code", code);
                 return modelAndView;
             }
         }
@@ -240,10 +241,10 @@ public class UserController {
         response.addCookie(cookie);
         user.setCount(0);
         modelAndView.setViewName("/user/successLogin");
-        modelAndView.addObject("redirect","/");
+        modelAndView.addObject("redirect", "/");
         if (!StringUtils.isEmpty(redirect)) {
             LOGGER.debug("Need redirect to {}.", redirect);
-            modelAndView.addObject("redirect",redirect);
+            modelAndView.addObject("redirect", redirect);
         }
 
         return modelAndView;
@@ -276,7 +277,7 @@ public class UserController {
             modelAndView.getModel().put("error", UserConstant.UNKNOWN_ERROR);
             return modelAndView;
         }
-        
+
         String code = (String) request.getSession().getAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         if (!StringUtils.isBlank(code)) {
             String authCode = user.getAuthCode();
@@ -305,11 +306,19 @@ public class UserController {
             modelAndView.getModel().put("error", UserConstant.PASSWORD_NOT_SAME);
             return modelAndView;
         }
-        boolean isExist = userServiceImp.checkExist(user.getUsername());
-        if (isExist) {
+        boolean userExist = userServiceImp.checkExist(user.getUsername());
+        if (userExist) {
             modelAndView.setViewName(urlConfiguration.getRegisterPage());
             bindingResult
                     .addError(new FieldError("user", "userExist", ErrorMsgUtil.getMsg("Error.userExist", null, null)));
+            return modelAndView;
+        }
+        boolean phoneExist = userServiceImp.checkExist(user.getPhoneNumber());
+
+        if (phoneExist) {
+            modelAndView.setViewName(urlConfiguration.getRegisterPage());
+            bindingResult
+                    .addError(new FieldError("user", "phoneExist", ErrorMsgUtil.getMsg("Error.phoneExist", null, null)));
             return modelAndView;
         }
         userServiceImp.saveUser(user);
@@ -359,10 +368,10 @@ public class UserController {
             modelAndView.addObject("user", user);
         }
         if (user.getPassword().equals(user.getPassword2())) {
-            User userResult=(User) request.getSession().getAttribute("userResult");
+            User userResult = (User) request.getSession().getAttribute("userResult");
             userResult.setPassword(user.getPassword());
             userResult.setPassword2(user.getPassword2());
-        	userServiceImp.updateUserPassword(userResult);
+            userServiceImp.updateUserPassword(userResult);
             request.getSession().setAttribute(Constants.STEP, ResetPasswordStep.COMPLETE);
 
         }
@@ -372,7 +381,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/updatePassword", method = RequestMethod.GET)
-    public ModelAndView updatePassword(ModelAndView modelAndView,HttpSession session){
+    public ModelAndView updatePassword(ModelAndView modelAndView, HttpSession session) {
 
         User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
         if (user == null) {
@@ -384,7 +393,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/updatePasswordSubmit", method = RequestMethod.POST)
-    public ModelAndView updatePasswordSubmit(User newUserPassword,BindingResult bindingResult,ModelAndView modelAndView,HttpSession session,String oldpassword){
+    public ModelAndView updatePasswordSubmit(User newUserPassword, BindingResult bindingResult, ModelAndView modelAndView, HttpSession session,
+                                             String oldpassword) {
 
         User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
         if (user == null) {
@@ -393,16 +403,16 @@ public class UserController {
         }
 
         //旧密码为空
-        if(ObjectUtils.isEmpty(oldpassword)){
+        if (ObjectUtils.isEmpty(oldpassword)) {
             bindingResult.addError(
                     new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
-             modelAndView.setViewName("my-account/person-info/update-password");
-             return modelAndView;
+            modelAndView.setViewName("my-account/person-info/update-password");
+            return modelAndView;
         }
 
-        String oldMd5Password = DigestUtils.md5Hex(oldpassword+ user.getSalt());
+        String oldMd5Password = DigestUtils.md5Hex(oldpassword + user.getSalt());
         //旧密码输入不正确
-        if(!oldMd5Password.endsWith(user.getPassword())){
+        if (!oldMd5Password.endsWith(user.getPassword())) {
             bindingResult.addError(
                     new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("Error.internalUser.password.notMatch", null, null)));
             modelAndView.setViewName("my-account/person-info/update-password");
@@ -410,16 +420,14 @@ public class UserController {
         }
         //修改密码
         if (newUserPassword.getPassword().equals(newUserPassword.getPassword2())) {
-                user.setPassword(newUserPassword.getPassword());
-                user.setPassword2(newUserPassword.getPassword2());
-                userServiceImp.updateUserPassword(user);
+            user.setPassword(newUserPassword.getPassword());
+            user.setPassword2(newUserPassword.getPassword2());
+            userServiceImp.updateUserPassword(user);
         }
 
         modelAndView.setViewName("redirect:/user/logout");
         return modelAndView;
     }
-
-
 
 
     private ModelAndView checkResetPasswordPhoneCode(User user, BindingResult bindingResult, ModelAndView modelAndView, HttpServletRequest request) {
@@ -465,7 +473,7 @@ public class UserController {
             request.getSession().setAttribute(Constants.STEP, ResetPasswordStep.CHECK_PHONE_CODE);
             modelAndView.setViewName(Constants.RESET_PASSWORD);
             modelAndView.addObject(Constants.USER, user);
-            request.getSession().setAttribute("userResult",userResult);
+            request.getSession().setAttribute("userResult", userResult);
             return modelAndView;
         }
         LOGGER.debug("The user is not exist.");
@@ -488,6 +496,7 @@ public class UserController {
         session.removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         session.removeAttribute(Constants.LOGIN_SESSION_SECURITY_CODE);
         session.removeAttribute(CartConstant.CURRENT_ORDER);
+        session.removeAttribute(SessionConstant.RECENT_PRODUCT_IDS);
         modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
         return modelAndView;
     }
@@ -503,7 +512,7 @@ public class UserController {
         // reload user
         user = userServiceImp.authorize(user.getUsername());
         if (YeePayConstants.REGISTOR_STATUS_SUCCESS == user.getYeepayStatus()) {
-        	Map<String, Object> params = new HashMap();
+            Map<String, Object> params = new HashMap();
             params.put(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
             params.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
                     YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId()));
@@ -521,10 +530,10 @@ public class UserController {
                 return mav;
             }
         } else {
-        	 ModelAndView mav = new ModelAndView("/my-account/yeepay/accountInfoUnregistor");
-             return mav;
+            ModelAndView mav = new ModelAndView("/my-account/yeepay/accountInfoUnregistor");
+            return mav;
         }
-        
+
     }
 
     @Autowired
@@ -590,13 +599,13 @@ public class UserController {
     }
 
 
-	public MailService getMailService() {
-		return mailService;
-	}
+    public MailService getMailService() {
+        return mailService;
+    }
 
 
-	public void setMailService(MailService mailService) {
-		this.mailService = mailService;
-	}
-    
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
+
 }
