@@ -2,6 +2,8 @@
 @import "globleVariable";
 @import "component";
 
+$viceColor: #d43139;
+
 /*all style
 ************************************************/
 .header {
@@ -165,7 +167,7 @@
     h1 {
       margin: 0;
       @include wh(100%, 115px);
-      background: url("../core/images/header/images/big-logo_text.jpg")  no-repeat 91px 10px;
+      background: url("../core/images/header/logo-red.jpg")  no-repeat 0 25px;
     }
 
     //a {
@@ -235,12 +237,12 @@
         background: url("../core/images/header/golds.png") no-repeat 0 -500px;
       }
 
-      &:hover {
-        img {
-          -webkit-animation: mylogo 1s .5s;
-          animation: mylogo 1s .5s;
-        }
-      }
+      //&:hover {
+      //  img {
+      //    -webkit-animation: mylogo 1s .5s;
+      //    animation: mylogo 1s .5s;
+      //  }
+      //}
     }
   }
 
@@ -474,7 +476,7 @@
   @include be-position;
   z-index: 2;
   float: left;
-  @include wh($c2, 45px);
+  @include wh(220px, 45px);
   line-height: 45px;
 }
 
@@ -484,41 +486,89 @@
   background: $mainColor;
   line-height: 45px;
   text-decoration: none;
+  text-align: center;
 
   span {
-    padding-left: 20px;
     @extend %menu-a;
   }
 }
 
-.menu-list {
-  @include be-position(absolute, 0, 47px);
-  @include o;
-  width: $c2;
-  list-style: none;
-  background: $darkGray;
-  line-height: 25px;
-
-  a {
-    @extend %menu-a;
+//小土豪代码
+.menu {
+  ul {
+    @include o;
   }
 
-  li {
-    padding: 10px 20px;
+  .menu-list {
+    z-index: 3;
+    width: 220px;
+    height: 535px;
+    position: absolute;
+    top: 47px;
+    left: 0;
+    background-color: #3f3f3f;
+    background: rgba(0, 0, 0, 0.7);
+    list-style: none;
 
-    &:hover {
-      background: $viceColor;
-      a {
-        color: $mainColor;
-      }
-    }
   }
 
-  .menu-list-detail {
-    a {
-      font-size: 13px;
-      padding-right: 4px;
-    }
+  .menu-0 {
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+  }
+
+  .menu-0-1 {
+    padding-bottom: 10px;
+    height: 95px;
+  }
+
+  .menu-h {
+    padding-top: 10px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+  }
+
+  .menu-1 {
+    width: 160px;
+    margin: 0 30px;
+    overflow: hidden;
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .menu-1 li {
+    display: inline;
+    border-right: 1px solid white;
+    margin: 5px 0;
+    padding: 0 8px;
+    float: left;
+    text-align: center;
+    line-height: 12px;
+  }
+
+  .menu-1 .li-l {
+    border: none;
+  }
+
+  .menu-1 li a {
+    height: 12px;
+  }
+
+  .menu-0 a:link,
+  .menu-0-1 a:link,
+  .menu-0 a:visited,
+  .menu-0-1 a:visited {
+    color: white;
+    text-decoration: none;
+  }
+
+  .menu-0 a:hover,
+  .menu-0-1 a:hover,
+  .menu-0 a:active,
+  .menu-0-1 a:active {
+    color: white;
+    text-decoration: underline;
   }
 }
 

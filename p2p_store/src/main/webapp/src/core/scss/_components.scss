@@ -1,0 +1,26 @@
+//反色按钮
+@mixin btn($color, $radius:3px) {
+  border: $color;
+  border-radius: $radius;
+  background: transparent;
+  color: $color;
+
+  &:hover {
+    background: $color;
+    color: white;
+  }
+}
+
+//包图链接
+@mixin img-box($w:100%) {
+  width: $w;
+  display: block;
+  @if $w != 100% {
+    margin: 0 auto;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}

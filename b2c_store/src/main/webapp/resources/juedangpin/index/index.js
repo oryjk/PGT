@@ -10,13 +10,18 @@ require.config({
 });
 
 require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
+
     $(document).ready(function() {
 
         //调整banner的高度,让他适应menu
-        $('#bannerBox').css({
-            //height: $('#menuList').height() - 10 + 'px'
-            height: $('#menuList').height()  + 'px'
-        });
+        //$('#bannerBox').css({
+        //    //height: $('#menuList').height() - 10 + 'px'
+        //    height: $('#menuList').height()  + 'px'
+        //});
+        //right全屏幕高
+        var height = $('body').height();
+        console.log(height);
+        $(".right").css("height", height);
 
         //轮播图
         Cpn.slider({
