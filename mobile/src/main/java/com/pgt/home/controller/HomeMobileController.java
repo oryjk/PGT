@@ -1,6 +1,7 @@
 package com.pgt.home.controller;
 
 import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.BannerWebSite;
 import com.pgt.common.service.BannerService;
 import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
@@ -64,7 +65,7 @@ public class HomeMobileController extends BaseMobileController{
                 LOGGER.debug("add hotSearchList to json");
                responseMap.put("hotSearchList",hotSearchList);
              }
-             Banner banner = bannerService.queryBannerByType(Constants.BANNER_TYPE_HOME);
+             Banner banner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME, BannerWebSite.B2C_STORE.toString());
              if(!ObjectUtils.isEmpty(banner)){
                  LOGGER.debug("add banner to json for id {}",banner.getBannerId());
                  responseMap.put("banner",banner);

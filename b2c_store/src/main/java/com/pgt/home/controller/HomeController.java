@@ -4,9 +4,7 @@ import com.pgt.category.bean.Category;
 
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryHelper;
-import com.pgt.common.bean.Banner;
-import com.pgt.common.bean.CommPaginationBean;
-import com.pgt.common.bean.Media;
+import com.pgt.common.bean.*;
 import com.pgt.common.service.BannerService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
@@ -86,9 +84,9 @@ public class HomeController {
             SearchResponse searchResponse = esSearchService.findHotSales(esSort);
             SearchHits searchHits = searchResponse.getHits();
             SearchHit[] hotProducts = searchHits.getHits();
-            Banner banner = bannerService.queryBannerByType(Constants.BANNER_TYPE_HOME);
             if (!ArrayUtils.isEmpty(hotProducts)) {
                 modelAndView.addObject("hotProducts", hotProducts);
+                LOGGER.debug("add hotProducts to modelAndView");
             }
             //get Pagebackground
             PageBackgroundQuery pageBackgroundQuery = new PageBackgroundQuery();
@@ -99,22 +97,26 @@ public class HomeController {
             }
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
+            LOGGER.debug("add hotSearchList to modelAndView");
             modelAndView.addObject("hotSearchList", hotSearchList);
-            modelAndView.addObject("banner", banner);
 
+            Banner banner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME,BannerWebSite.B2C_STORE.toString());
+            if(!ObjectUtils.isEmpty(banner)){
+                LOGGER.debug("The query banner id is {}",banner.getBannerId());
+                modelAndView.addObject("banner", banner);
+            }
             SearchHit[] newProducts=getNewProduct();
             if(!ArrayUtils.isEmpty(newProducts)){
                 modelAndView.addObject("newProducts",newProducts);
+                LOGGER.debug("add newProducts to modelAndView");
             }
-
-            modelAndView.setViewName("/new-index/index");
+            modelAndView.setViewName("/index/index");
         } else {
-
 
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             modelAndView.addObject("hotSearchList", hotSearchList);
-            Banner banner = bannerService.queryBannerByType(Constants.BANNER_TYPE_HOME);
+            Banner banner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME,BannerWebSite.B2C_STORE.toString());
             modelAndView.addObject("banner", banner);
             modelAndView.setViewName("/index/index");
 

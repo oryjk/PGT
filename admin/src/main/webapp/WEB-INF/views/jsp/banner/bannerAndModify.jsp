@@ -100,6 +100,20 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">所属网站</label>
+                                        <div class="col-md-9">
+                                            <div class="radio-list">
+                                                <select class="form-control input-medium" name="site">
+                                                 <c:forEach items="${webSites}" var="website">
+                                                    <option value="${website}" ${banner.site eq website? "selected='selected'" :''}>${website}</option>
+                                                 </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="control-label col-md-3">状态</label>
                                         <div class="col-md-9">

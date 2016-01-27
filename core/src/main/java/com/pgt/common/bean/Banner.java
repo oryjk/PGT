@@ -11,6 +11,14 @@ public class Banner {
 	private String name;
 	private String type;
 	private Integer status;
+	private String site;
+
+	public String getSite() {
+		return site;
+	}
+	public void setSite(String site) {
+		this.site = site;
+	}
 	private List<Image> images;
 	public String getName() {
 		return name;

@@ -185,13 +185,14 @@ public class PageBackgroundController {
         paginationBean.setCurrentIndex(currentIndex);
         PageBackgroundQuery pageBackgroundQuery = new PageBackgroundQuery();
         int total=pageBackgroundService.queryPageBackgroundCount(pageBackgroundQuery);
-        paginationBean.setTotalAmount(total);
-
-        pageBackgroundQuery.setPaginationBean(paginationBean);
-        List<PageBackground> pageBackgroundList = pageBackgroundService.queryPageBackground(pageBackgroundQuery);
-        modelAndView.addObject("pageBackgroundList",pageBackgroundList);
-        modelAndView.addObject("paginationBean",paginationBean);
-        modelAndView.setViewName("/style/backgroundList");
+        if(total!=0) {
+            paginationBean.setTotalAmount(total);
+            pageBackgroundQuery.setPaginationBean(paginationBean);
+            List<PageBackground> pageBackgroundList = pageBackgroundService.queryPageBackground(pageBackgroundQuery);
+            modelAndView.addObject("pageBackgroundList", pageBackgroundList);
+            modelAndView.addObject("paginationBean", paginationBean);
+        }
+            modelAndView.setViewName("/style/backgroundList");
         return modelAndView;
     }
 
