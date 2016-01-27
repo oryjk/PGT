@@ -4,7 +4,9 @@ import com.pgt.cart.OrderType;
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.service.OrderService;
+import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.com.pgt.order.bean.P2PInfo;
 import com.pgt.product.bean.Product;
 import com.pgt.tender.bean.Tender;
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,10 +29,15 @@ public class P2POrderService extends OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(P2POrderService.class);
 
+
     public static final long MILLISECOND_ONE_DAY = 1000 * 60 * 60 * 24;
     public static final long DAYS_ONE_YEAR = 365;
 
-    public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, int placeQuantity) {
+    private ShoppingCartService shoppingCartService;
+
+    public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, int placeQuantity) throws OrderPersistentException {
+        LOGGER.debug("==================== Start method createP2POrder ====================");
+        LOGGER.debug("tender : " + tender.toString());
         P2PInfo info = new P2PInfo();
         info.setTenderId(tender.getTenderId());
         info.setPawnShopOwnerId(tender.getPawnShopOwnerId());
@@ -44,19 +52,22 @@ public class P2POrderService extends OrderService {
         info.setHandlingFeeRate(tender.getHandlingFeeRate());
         calculateP2PInfo(info);
         persistenceP2PInfo(info);
+        LOGGER.debug("persistenceP2PInfo infoId: " + info.getId());
 
         Order order = new Order();
+        order.setStatus(OrderStatus.INITIAL);
         order.setType(OrderType.P2P_ORDER);
         order.setUserId(user.getId().intValue());
         order.setStatus(OrderStatus.INITIAL);
         order.setP2pInfoId(info.getId());
 
-        // TODO persistence order
-
         // create commerceItem
         maintainCommerceItem(order, info, relatedProducts, productIds);
 //        calculateCommerceItem(order, info);
         calculateOrder(order, info);
+        // persistence order
+        getShoppingCartService().persistInitialOrder(order);
+        LOGGER.debug("==================== end method createP2POrder ====================");
         return Pair.of(order, info);
     }
 
@@ -81,7 +92,7 @@ public class P2POrderService extends OrderService {
                 }
                 ci.setAmount(relatedProduct.getSalePrice() == null ? relatedProduct.getListPrice() : relatedProduct.getSalePrice());
                 ci.setIndex(count);
-                ci.setOrderId(order.getId());
+//                ci.setOrderId(order.getId());
                 ci.setListPrice(relatedProduct.getListPrice());
                 ci.setName(relatedProduct.getName());
                 ci.setQuantity(1);
@@ -103,7 +114,7 @@ public class P2POrderService extends OrderService {
             CommerceItem ci = new CommerceItem();
             ci.setAmount(moneyOnlyAmount);
             ci.setIndex(count);
-            ci.setOrderId(order.getId());
+//            ci.setOrderId(order.getId());
             ci.setListPrice(moneyOnlyAmount);
             ci.setName("投资");
             ci.setQuantity(1);
@@ -124,11 +135,14 @@ public class P2POrderService extends OrderService {
         List<CommerceItem> commerceItems = order.getCommerceItems();
         double orderTotal = 0D;
         for (CommerceItem item : commerceItems) {
+            LOGGER.debug("item id=" + item.getId() + "; item type=" + item.getType() + "; amount=" + item.getAmount());
             orderTotal += item.getAmount();
         }
         // TODO ROUND
+        LOGGER.debug("order subtotal=" + orderTotal);
         order.setSubtotal(orderTotal);
         double shippingFee = order.getShippingFee() == null ? 0D : order.getShippingFee();
+        LOGGER.debug("order shippingFee=" + shippingFee);
         order.setTotal(order.getSubtotal() + shippingFee);
     }
 
@@ -137,7 +151,6 @@ public class P2POrderService extends OrderService {
     }
 
     private void calculateP2PInfo(P2PInfo info) {
-        LOGGER.debug("calculate P2PInfo. tender(id-" + info.getTenderId() + ")");
         double incoming = calculateIncoming(info.getPublishDate(), info.getExpectDueDate(), info.getPrePeriod(), info.getUnitPrice(), info.getPlaceQuantity(), info.getInterestRate());
         info.setExpectIncoming(incoming);
         double handlingFee = calculateHandlingFee(info);
@@ -153,9 +166,11 @@ public class P2POrderService extends OrderService {
             LOGGER.error("NO handling fee rate for p2p info.tender(id=" + info.getTenderId() + ")");
             throw new IllegalArgumentException("INVALID.TENDER");
         }
+        LOGGER.debug("unitPrice=" + info.getUnitPrice()  + "; placeQuantity=" + info.getPlaceQuantity() + "; HandlingFee=" + info.getHandlingFeeRate());
         double total = info.getUnitPrice() * info.getPlaceQuantity();
         double result = total * info.getHandlingFeeRate();
         // TODO ROUND
+        LOGGER.debug(" HandlingFee result=" + result);
         return result;
     }
 
@@ -192,17 +207,34 @@ public class P2POrderService extends OrderService {
             LOGGER.error("expectDueDate before publish date. expectDueDate(" + expectDueDate + "); publishDate(" + publishDate+ ")");
             throw new IllegalArgumentException("INVALID.TENDER");
         }
+
+        LOGGER.debug("publishDate: " + publishDate + "; expectDueDate" + expectDueDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(expectDueDate);
+        calendar.add(Calendar.DATE, 1);
+
         // TODO date start time
-        int dateGap = (int) ((expectDueDate.getTime() - publishDate.getTime()) / MILLISECOND_ONE_DAY);
+        int dateGap = (int) ((calendar.getTimeInMillis() - publishDate.getTime()) / MILLISECOND_ONE_DAY);
         if (dateGap < prePeriod) {
             LOGGER.error("dateGap < prePeriod. dateGap(" + dateGap +"); prePeriod(" + prePeriod + "); expectDueDate(" + expectDueDate + "); publishDate(" + publishDate+ ")");
             throw new IllegalArgumentException("INVALID.TENDER");
         }
-
+        LOGGER.debug("unitPrice=" + unitPrice  + "; placeQuantity=" + placeQuantity + "; interestRate=" + interestRate);
         double total = unitPrice * placeQuantity * ( 1 + interestRate);
         int effectDates = dateGap - prePeriod;
+        LOGGER.debug("total=" + total  + "; dateGap=" + dateGap + "; prePeriod=" + prePeriod + "; effectDates=" + effectDates );
         double result = total * effectDates / DAYS_ONE_YEAR;
         // TODO ROUND
+        LOGGER.debug("Incoming result=" + result );
         return result;
+    }
+
+
+    public ShoppingCartService getShoppingCartService() {
+        return shoppingCartService;
+    }
+
+    public void setShoppingCartService(ShoppingCartService shoppingCartService) {
+        this.shoppingCartService = shoppingCartService;
     }
 }
