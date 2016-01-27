@@ -18,6 +18,8 @@ import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
 import com.pgt.mail.MailConstants;
 import com.pgt.mail.service.MailService;
+import com.pgt.payment.bean.TransactionLog;
+import com.pgt.payment.service.TransactionLogService;
 import com.pgt.shipping.bean.ShippingMethod;
 import com.pgt.shipping.bean.ShippingVO;
 import com.pgt.shipping.service.ShippingService;
@@ -71,6 +73,9 @@ public class ShippingController implements CartMessages {
 
 	@Resource(name = "shoppingCartService")
 	private ShoppingCartService mShoppingCartService;
+
+	@Resource(name = "transactionLogService")
+	private TransactionLogService transactionLogService;
 
 
 	@RequestMapping(value = "/shipping", method = { RequestMethod.GET })
@@ -148,7 +153,7 @@ public class ShippingController implements CartMessages {
 		}
 		if (!getShoppingCartService().checkCartItemCount(order)) {
 			// CODE TO_MANY_ITEM
-			result.put(WebServiceConstants.NAME_CODE,  WebServiceConstants.CODE_TO_MANY_ITEM);
+			result.put(WebServiceConstants.NAME_CODE,  WebServiceConstants.CODE_TOO_MANY_ITEM);
 			new ResponseEntity(result, HttpStatus.OK);
 		}
 		if (order.getShippingVO() == null) {
@@ -271,8 +276,12 @@ public class ShippingController implements CartMessages {
 			mav.addObject(CartConstant.ORDER_ID, order.getId());
 			return mav;
 		} else {
+			getInventoryService().ensureTransaction();
 			try {
 				getInventoryService().lockInventory(order);
+				order.setStatus(OrderStatus.FILLED_SHIPPING);
+				order.setSubmitDate(new Date());
+				getOrderService().updateOrder(order);
 			} catch (LockInventoryException e) {
 				String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
 				mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
@@ -283,11 +292,9 @@ public class ShippingController implements CartMessages {
 				LOGGER.error("lock inventory failed", e);
 				mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
 				return mav;
+			} finally {
+				getInventoryService().commit();
 			}
-			order.setStatus(OrderStatus.FILLED_SHIPPING);
-			order.setSubmitDate(new Date());
-			getOrderService().updateOrder(order);
-			// FIXME add transaction
 		}
 		sendEmail(user, order);
 		request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
@@ -295,6 +302,77 @@ public class ShippingController implements CartMessages {
 		request.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
 		mav.addObject(CartConstant.ORDER_ID, order.getId());
 		return mav;
+	}
+
+	@RequestMapping(value = "/ajaxRedirectToPayment", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity ajaxRedirectToPayment(HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+		Map<String, Object> result = new HashMap<String, Object>();
+		if (null == user) {
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_NEED_LOGIN);
+			return new ResponseEntity(result, HttpStatus.OK);
+		}
+		Order order = getOrderService().getSessionOrder(request);
+		if (null == order) {
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_BACK_TO_CART);
+			return new ResponseEntity(result, HttpStatus.OK);
+		}
+
+		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.B2C_ORDER)) {
+			LOGGER.error("Has incomplete order.");
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_HAS_INCOMPLETE_ORDER);
+			return new ResponseEntity(result, HttpStatus.OK);
+		}
+
+		if (getOrderService().isInvalidOrder(user, order)) {
+			LOGGER.error("Current order is invalid and will redirect to shopping cart.");
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_NOT_YOUR_ORDER);
+			return new ResponseEntity(result, HttpStatus.OK);
+		}
+		if (!getShoppingCartService().checkCartItemCount(order)) {
+			LOGGER.error("TOO MANY ITEM IN ORDER");
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_TOO_MANY_ITEM);
+			return new ResponseEntity(result, HttpStatus.OK);
+		}
+		if (!hasShippingOnOrder(order)) {
+			LOGGER.error("No shipping.");
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_NO_SHIPPING);
+			return new ResponseEntity(result, HttpStatus.OK);
+		} else {
+			getInventoryService().ensureTransaction();
+			try {
+				getInventoryService().lockInventory(order);
+				order.setStatus(OrderStatus.FILLED_SHIPPING);
+				order.setSubmitDate(new Date());
+				getOrderService().updateOrder(order);
+				TransactionLog transactionLog = new TransactionLog();
+				transactionLog.setOrderId(Long.valueOf(order.getId()));
+				transactionLog.setUserId(Long.valueOf(order.getUserId()));
+				getTransactionLogService().createTransactionLog(transactionLog);
+				result.put(WebServiceConstants.NAME_ORDER_INFO, order);
+
+				result.put(WebServiceConstants.NAME_TRANSACTION_ID, transactionLog.getOrderId());
+
+			} catch (LockInventoryException e) {
+				String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
+				result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_NO_INVENTORY);
+				return new ResponseEntity(result, HttpStatus.OK);
+			} catch (Exception e) {
+				String message = CartMessages.ERROR_INV_CHECK_FAILED;
+				LOGGER.error("lock inventory failed", e);
+				result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_CHECK_INVENTORY_FAILED);
+				return new ResponseEntity(result, HttpStatus.OK);
+			} finally {
+				getInventoryService().commit();
+			}
+		}
+		result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_SUCCESS);
+		sendEmail(user, order);
+		request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
+		request.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
+		return new ResponseEntity(result, HttpStatus.OK);
 	}
 
 	public boolean hasShippingOnOrder(Order order) {
@@ -394,5 +472,13 @@ public class ShippingController implements CartMessages {
 
 	public void setUserInformationService(final UserInformationService pUserInformationService) {
 		userInformationService = pUserInformationService;
+	}
+
+	public TransactionLogService getTransactionLogService() {
+		return transactionLogService;
+	}
+
+	public void setTransactionLogService(TransactionLogService transactionLogService) {
+		this.transactionLogService = transactionLogService;
 	}
 }

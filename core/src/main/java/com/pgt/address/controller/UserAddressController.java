@@ -1,9 +1,6 @@
 package com.pgt.address.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.service.ResponseBuilderFactory;
+import com.pgt.utils.WebServiceConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pgt.address.bean.AddressInfo;
@@ -79,24 +78,20 @@ public class UserAddressController {
         return mav;
     }
 
-    @RequestMapping(value = "/ajaxAddress", method = RequestMethod.GET)
-    public ResponseEntity listAllAddress(HttpServletRequest request) {
-        ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(true);
-        Map<String, Object> data = new HashMap<>();
-        rb.setData(data);
-        User currentUser = (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
+    @RequestMapping(value = "/ajaxAddress")
+    @ResponseBody
+    public ResponseEntity ajaxListAllAddress(HttpSession session) {
+        User currentUser = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        Map<String, Object> result = new HashMap<String, Object>();
         if (currentUser == null) {
-            LOGGER.debug("User should login firstly when accessing address book.");
-            data.put("errorMsg", "current user is empty.");
-            data.put("error", true);
-            return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+            result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_NEED_LOGIN);
+            return new ResponseEntity(result, HttpStatus.OK);
         }
-        List<Province> provinceList = getCityService().getAllProvince();
-        data.put("provinceList", provinceList);
         List<AddressInfo> addressList = getAddressInfoService().queryAddressByUserId(currentUser.getId().intValue());
-        if (CollectionUtils.isEmpty(addressList) || addressList.size() == 1) {
-            data.put("addressList", addressList);
-            return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+        if (CollectionUtils.isEmpty(addressList) ) {
+            result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_SUCCESS);
+            result.put(WebServiceConstants.NAME_ADDRESS_LIST, Collections.emptyList());
+            return  new ResponseEntity(result, HttpStatus.OK);
         }
         List<AddressInfo> sortedAddressList = new ArrayList<AddressInfo>();
         sortedAddressList.add(null);
@@ -111,9 +106,10 @@ public class UserAddressController {
                 sortedAddressList.add(address);
             }
         }
-        data.put("addressList", sortedAddressList);
+        result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_SUCCESS);
+        result.put(WebServiceConstants.NAME_ADDRESS_LIST, sortedAddressList);
 
-        return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     public AddressInfoService getAddressInfoService() {

@@ -64,22 +64,22 @@
 	</select>
 
 	<insert id="createOrder" parameterType="com.pgt.cart.bean.Order" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO `ORDER` (USER_ID, ORDER_TYPE, `STATUS`, SHIPPING_FEE, SUBTOTAL, TOTAL, CREATION_DATE, UPDATE_DATE, EASY_BUY, USER_COMMENTS)
-		VALUES ( #{userId}, #{type}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments} )
+		INSERT INTO `ORDER` (USER_ID, ORDER_TYPE, `STATUS`, SHIPPING_FEE, SUBTOTAL, TOTAL, CREATION_DATE, UPDATE_DATE, EASY_BUY, USER_COMMENTS,`TYPE` )
+		VALUES ( #{userId}, #{type}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments}, #{type})
 	</insert>
 
 	<update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
 		UPDATE `ORDER`
 		<set>
-			`STATUS` = #{status}, SHIPPING_FEE = #{shippingFee}, SUBTOTAL = #{subtotal}, TOTAL = #{total}, USER_COMMENTS = #{userComments},
+			`STATUS` = #{status}, SHIPPING_FEE = #{shippingFee}, SUBTOTAL = #{subtotal}, TOTAL = #{total}, USER_COMMENTS = #{userComments},`TYPE` = #{type}
 			SUBMIT_DATE = #{submitDate}, UPDATE_DATE = now()
 		</set>
 		WHERE ORDER_ID = #{id}
 	</update>
 
 	<insert id="createCommerceItem" parameterType="com.pgt.cart.bean.CommerceItem" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO COMMERCE_ITEM (ORDER_ID, REFERENCE_ID, `NAME`, QUALITY, LIST_PRICE, SALE_PRICE, QUANTITY, AMOUNT, SNAPSHOT_ID, `INDEX`, MERCHANT, CREATION_DATE, UPDATE_DATE)
-		VALUES ( #{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, #{merchant}, now(), now() )
+		INSERT INTO COMMERCE_ITEM (ORDER_ID, REFERENCE_ID, `NAME`, QUALITY, LIST_PRICE, SALE_PRICE, QUANTITY, AMOUNT, SNAPSHOT_ID, `INDEX`, MERCHANT, CREATION_DATE, UPDATE_DATE,`TYPE` )
+		VALUES ( #{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, #{merchant}, now(), now(), #{type} )
 	</insert>
 
 	<update id="updateCommerceItems" parameterType="list">
@@ -88,7 +88,7 @@
 			<set>
 				ORDER_ID = #{item.orderId}, REFERENCE_ID = #{item.referenceId}, `NAME` = #{item.name}, QUALITY = #{item.quality}, LIST_PRICE = #{item.listPrice},
 				SALE_PRICE = #{item.salePrice}, QUANTITY = #{item.quantity}, AMOUNT = #{item.amount}, SNAPSHOT_ID = #{item.snapshotId}, MERCHANT = #{item.merchant},
-				`INDEX` = #{item.index}, UPDATE_DATE = now()
+				`INDEX` = #{item.index}, UPDATE_DATE = now(), `TYPE` = #{type}
 			</set>
 			WHERE COMMERCE_ITEM_ID = #{item.id}
 		</foreach>

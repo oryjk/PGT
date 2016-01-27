@@ -1,6 +1,7 @@
 package com.pgt.checkout.controller;
 
 import com.pgt.cart.OrderType;
+import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.service.OrderService;
 import com.pgt.order.P2POrderService;
 import com.pgt.product.bean.Product;
@@ -8,6 +9,8 @@ import com.pgt.session.SessionHelper;
 import com.pgt.tender.bean.Tender;
 import com.pgt.user.bean.User;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,8 +28,9 @@ public class P2PCheckoutController {
 
     private P2POrderService orderService;
 
-    public ModelAndView createOrder(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+    private static final Logger LOGGER = LoggerFactory.getLogger(P2PCheckoutController.class);
 
+    public ModelAndView createOrder(HttpServletRequest pRequest, HttpServletResponse pResponse) {
         User user = SessionHelper.getUser(pRequest, pResponse);
         if (null == user) {
             //  TODO REDIRECT TO LOGIN
@@ -60,7 +64,12 @@ public class P2PCheckoutController {
         // check inventory
 
         // create order
-        getOrderService().createP2POrder(user, tender, relatedProducts, productIds, placeQuantity);
+        // TODO EXCEIPTOIN
+        try {
+            getOrderService().createP2POrder(user, tender, relatedProducts, productIds, placeQuantity);
+        } catch (OrderPersistentException e) {
+            e.printStackTrace();
+        }
 
 
         return null;
