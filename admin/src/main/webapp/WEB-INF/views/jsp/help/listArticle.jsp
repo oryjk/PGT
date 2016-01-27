@@ -90,6 +90,9 @@
                                             <th>
                                                 文章标题
                                             </th>
+                                            <th>
+                                                显示网站
+                                            </th>
                                             <!-- <th>
                                                 状态
                                             </th> -->
@@ -107,6 +110,11 @@
 	                                            <td>${helpCenter.category.name}</td>
 	                                            <td>${helpCenter.id }</td>
 	                                            <td>${helpCenter.title }</td>
+                                                <td>
+                                                    <c:if test="${helpCenter.site eq 'B2C_STORE'}">绝当淘</c:if>
+                                                    <c:if test="${helpCenter.site eq 'P2P_STORE'}">淘在当</c:if>
+                                                    <c:if test="${helpCenter.site eq 'DEFAULT'}">默认</c:if>
+                                                </td>
 	                                            <!-- <td>
 	                                                <div class="btn-group">
 	                                                    <a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">

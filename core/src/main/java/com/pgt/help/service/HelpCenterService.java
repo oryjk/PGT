@@ -20,6 +20,8 @@ public interface HelpCenterService {
 	List<HelpCategoryVo> findAllHelpCategoryVo();
 
 
+	List<HelpCategoryVo> findAllHelpByQuery(HelpCenter helpCenter);
+
 	Integer createHelpCenter(HelpCenter helpCenter);
 
 

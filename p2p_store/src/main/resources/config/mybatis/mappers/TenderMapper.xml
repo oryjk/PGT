@@ -20,7 +20,8 @@
 		<result column="UPDATE_DATE" property="updateDate"/>
 		<result column="CATEGORY_HOT" property="categoryHot"/>
 		<result column="SITE_HOT" property="siteHot"/>
-		<association property="category" column="ID" select="com.pgt.category.dao.CategoryMapper.queryCategoryByTenderId"/>
+		<association property="category" column="ID"
+					 select="com.pgt.category.dao.CategoryMapper.queryCategoryByTenderId"/>
 		<collection property="products" column="ID" select="com.pgt.product.dao.ProductMapper.queryProductByTenderId"/>
 	</resultMap>
 
@@ -44,6 +45,22 @@
 	<select id="queryAllTender" resultMap="tenderResult">
 		SELECT * FROM TENDER
 	</select>
+	<select id="queryTenders" resultMap="tenderResult" parameterType="com.pgt.tender.bean.Tender">
+		SELECT * FROM TENDER t
+		<choose>
+			<when test="#{categoryId!=null}">
+				LEFT JOIN
+				TENDER_CATEGORY tc ON
+				tc.CATEGORY_ID=#{categoryId} WHERE
+				t.ID=tc.TENDER_ID
+			</when>
+			<otherwise>
+				WHERE 1=1
+			</otherwise>
+		</choose>
+		AND CATEGORY_HOT=#{categoryHot} AND SITE_HOT=#{siteHot}
+
+	</select>
 
 	<insert id="createTender" parameterType="com.pgt.tender.bean.Tender" keyProperty="tenderId" useGeneratedKeys="true">
         INSERT INTO TENDER(PAWN_SHOP_ID,PAWN_TICKET_ID,TENDER_TOTAL,TENDER_QUANTITY,PUBLISH_DATE,DUE_DATE,INTEREST_RATE,
@@ -60,7 +77,6 @@
 	<delete id="deleteTender" parameterType="int">
 		DELETE FROM TENDER WHERE ID=#{tenderId}
 	</delete>
-
 
 
 </mapper>

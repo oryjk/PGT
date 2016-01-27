@@ -15,7 +15,7 @@ subprojects {
     apply plugin: 'jetty'
     apply plugin: 'idea'
     apply plugin: 'org.flywaydb.flyway'
-    version = '1.0'
+//    version = '1.0'
     // JVM 版本号要求
     sourceCompatibility = 1.8
     targetCompatibility = 1.8

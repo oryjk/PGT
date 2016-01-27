@@ -1,4 +1,5 @@
 import com.google.common.collect.Lists;
+import com.pgt.constant.Constants;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESTerm;
@@ -88,7 +89,7 @@ public class TenderTest {
             productService.updateProduct(product);
         });
 
-        Tender tender = tenderService.queryTender(2, false);
+        Tender tender = tenderService.queryTenderById(2, false);
         Assert.assertNotNull(tender);
         Assert.assertNotNull(tender.getName());
         Assert.assertNotNull(tender.getProducts());
@@ -114,13 +115,27 @@ public class TenderTest {
     }
 
     @Test
-    public void queryTenderByEs(){
+    public void queryTenderByEs() {
         ESTerm term = new ESTerm();
         term.setPropertyName("tender.name");
         term.setTermValue("Tender");
 
-        SearchResponse response =  tenderSearchEngineService.findTender(null, Lists.newArrayList(term), null, null, null, null, null);
+        SearchResponse response = tenderSearchEngineService.findTender(null, Lists.newArrayList(term), null, null, null, null, Constants
+                .TENDER_INDEX_TYPE);
         Assert.assertNotNull(response);
     }
+
+    @Test
+    public void queryCategoryHot() {
+        SearchResponse response = tenderSearchEngineService.findCategoryHotTender();
+        Assert.assertNotNull(response);
+    }
+
+    @Test
+    public void querySiteHot() {
+        SearchResponse response = tenderSearchEngineService.findSiteHotTender();
+        Assert.assertNotNull(response);
+    }
+
 }
 

@@ -60,7 +60,9 @@
                                             <th>
                                                 BannerId
                                             </th>
-
+                                            <th>
+                                                所属网站
+                                            </th>
                                             <th>
                                                 状态
                                             </th>
@@ -85,6 +87,9 @@
                                                 </td>
                                                 <td>
                                                     ${banner.bannerId}
+                                                </td>
+                                                <td>
+                                                     ${banner.site}
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">

@@ -13,25 +13,84 @@ import java.util.List;
  */
 public class Tender implements Serializable {
     private Integer tenderId;
+    /**
+     * 当铺的id
+     */
     private Integer pawnShopId;
+    /**
+     * 当铺所有者的id
+     */
     private Integer pawnShopOwnerId;
+    /**
+     * 当票编号
+     */
     private Integer pawnTicketId;
+    /**
+     * 投资总金额
+     */
     private Double tenderTotal;
+    /**
+     * 可以投资的份数
+     */
     private Integer tenderQuantity;
+    /**
+     * 开标时间
+     */
     private Date publishDate;
+    /**
+     * 截至时间
+     */
     private Date dueDate;
+    /**
+     * 收益率
+     */
     private Double interestRate;
+    /**
+     * 投资名称
+     */
     private String name;
+    /**
+     * 投资的详情
+     */
     private String description;
+    /**
+     * 投资后多久天后开始算收益
+     */
     private Integer prePeriod;
+    /**
+     * 无息天数
+     */
     private Integer postPeriod;
+    /**
+     * 被投资的产品
+     */
     private List<Product> products;
+    /**
+     * 投资创建日期
+     */
     private Date creationDate;
+    /**
+     * 投资更新日期
+     */
     private Date updateDate;
+    /**
+     * 投资所属分类
+     */
     private Category category;
+    /**
+     * 手续费费率
+     */
     private Double handlingFeeRate;
-    private Boolean categoryHot;
-    private Boolean siteHot;
+    /**
+     * 是否是分类的热门
+     */
+    private Boolean categoryHot = false;
+    /**
+     * 是否是网站的热门
+     */
+    private Boolean siteHot = false;
+
+    private Integer categoryId;
 
 
     @Override
@@ -241,5 +300,13 @@ public class Tender implements Serializable {
 
     public void setSiteHot(Boolean siteHot) {
         this.siteHot = siteHot;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }

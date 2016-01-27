@@ -61,6 +61,7 @@ public class ESSearchController {
                             @RequestParam(value = "key", required = false) String key,
                             @RequestParam(value = "currentIndex", required = false) String currentIndex, ModelAndView modelAndView) {
         CommPaginationBean paginationBean = new CommPaginationBean();
+        LOGGER.debug("use essearchController");
         StringBuilder message = new StringBuilder();
         if (StringUtils.isEmpty(currentIndex)) {
             paginationBean.setCurrentIndex(0);
@@ -82,11 +83,10 @@ public class ESSearchController {
             // 设置查询条件
             if (!ObjectUtils.isEmpty(currentIndex)) {
                 paginationBean.setCurrentIndex(Long.valueOf(currentIndex));
+                LOGGER.debug("The currentIndex is {}",currentIndex);
             }
             term = buildESMatch(term, modelAndView, message, esMatches);
-
             esSort= buildESSort(key,sortKey, sortOrder, modelAndView);
-
             if(!ObjectUtils.isEmpty(esSort)){
                 sortList.add(esSort);
             }
@@ -135,13 +135,16 @@ public class ESSearchController {
             if (!StringUtils.isEmpty(parentCategoryId)) {
                 searchResponse = esSearchService.findProductsByCategoryId(parentCategoryId, esMatches, esRange,
                         paginationBean, esAggregation, sortList);
+                LOGGER.debug("The find products for parentCategory method");
             } else if (!StringUtils.isEmpty(rootCategoryId)) {
                 searchResponse = esSearchService.findProductsByCategoryId(rootCategoryId, esMatches, esRange,
                         paginationBean, esAggregation, sortList);
+                LOGGER.debug("The find products for rootCategory method");
             } else {
                 // 查找出所有的商品普通方法
                 searchResponse = esSearchService.findProducts(esterm, esMatches, esRange,sortList, paginationBean,
                         esAggregation, null);
+                LOGGER.debug("The find products for ordinary method");
             }
             // 获取categoryId的聚合信息,出现的次数，以及id
             Map<String, Aggregation> aggMap = searchResponse.getAggregations().asMap();
@@ -198,7 +201,7 @@ public class ESSearchController {
                 modelAndView.addObject("searchHists", searchHists);
             }
         } catch (Exception e) {
-            LOGGER.debug("ESSsarch has some exception", e.getMessage());
+            LOGGER.error("ESSsarch has some exception", e.getMessage());
             result[0] = "none";
             result[1] = "block";
         } finally {

@@ -17,6 +17,8 @@ public interface TenderMapper extends SqlMapper {
 
     List<Tender> queryTendersByCategoryId(@Param("categoryId") Integer categoryId, @Param("onlyActive") Boolean onlyActive);
 
+    List<Tender> queryTenders(Tender tender);
+
     void createTender(Tender tender);
 
     void updateTender(Tender tender);
