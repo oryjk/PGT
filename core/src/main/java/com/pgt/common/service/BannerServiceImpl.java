@@ -5,6 +5,11 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.pgt.common.bean.BannerQuery;
+import com.pgt.common.bean.BannerWebSite;
+import com.pgt.constant.Constants;
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,8 @@ import com.pgt.common.dao.BannerMapper;
 @Transactional
 public class BannerServiceImpl implements BannerService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(BannerService.class);
+
 	@Autowired
 	private BannerMapper bannerMapper;
 
@@ -25,6 +32,22 @@ public class BannerServiceImpl implements BannerService {
 
 		bannerMapper.createBanner(banner);
 		return banner.getBannerId();
+	}
+
+
+	public Banner queryBannerByTypeAndWebSite(String type,String webSite){
+
+		LOGGER.debug("The query banner type is {} and website is {}",type,webSite);
+		BannerQuery bannerQuery = new BannerQuery();
+		bannerQuery.setType(type);
+		bannerQuery.setSite( webSite);
+		List<Banner> bannerList=bannerMapper.queryBannerByQuery(bannerQuery);
+		if(!CollectionUtils.isEmpty(bannerList)){
+			LOGGER.debug("The banner query id is ",bannerList.get(0).getBannerId());
+			return bannerList.get(0);
+		}
+        LOGGER.debug("The banner query is empty");
+		return null;
 	}
 
 	@Override

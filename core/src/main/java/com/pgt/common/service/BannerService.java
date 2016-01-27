@@ -24,5 +24,7 @@ public interface BannerService {
     List<Banner> queryBannerByQuery(BannerQuery bannerQuery);
 
     Integer queryBannerCount(BannerQuery bannerQuery);
+
+    Banner queryBannerByTypeAndWebSite(String type,String webSite);
 	
 }

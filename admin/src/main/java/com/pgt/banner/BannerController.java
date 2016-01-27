@@ -3,7 +3,6 @@ package com.pgt.banner;
 import java.util.List;
 
 import com.pgt.category.service.CategoryHelper;
-import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.*;
 import com.pgt.common.service.ImageService;
 import com.pgt.configuration.Configuration;
@@ -97,6 +96,8 @@ public class BannerController {
 			categoryName.add(banner.toString());
 		}
 		modelAndView.addObject("types",categoryName);
+		BannerWebSite[] webSites=   BannerWebSite.values();
+		modelAndView.addObject("webSites",webSites);
 		return modelAndView;
 	}
 
@@ -128,7 +129,7 @@ public class BannerController {
 			return modelAndView;
 		}
 
-		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
+		Banner oldBanner=bannerService.queryBannerByTypeAndWebSite(banner.getType(),banner.getSite());
         if(!ObjectUtils.isEmpty(oldBanner)){
 			modelAndView.addObject("error","已经有该位置的Banner,无法添加");
 
@@ -139,6 +140,8 @@ public class BannerController {
 			}
 			modelAndView.addObject("types",categoryName);
 			LOGGER.debug("The banner status is extis");
+			BannerWebSite[] webSites=   BannerWebSite.values();
+			modelAndView.addObject("webSites",webSites);
 			modelAndView.setViewName("/banner/bannerAndModify");
 			return modelAndView;
 		}
@@ -169,6 +172,8 @@ public class BannerController {
 			categoryName.add(type.toString());
 		}
 		modelAndView.addObject("types",categoryName);
+		BannerWebSite[] webSites= BannerWebSite.values();
+		modelAndView.addObject("webSites",webSites);
 		modelAndView.setViewName("/banner/bannerAndModify");
 		return modelAndView;
 	}
@@ -198,7 +203,7 @@ public class BannerController {
 			return modelAndView;
 		}
 
-		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
+		Banner oldBanner=bannerService.queryBannerByTypeAndWebSite(banner.getType(),banner.getSite());
 		if(!ObjectUtils.isEmpty(oldBanner)&&oldBanner.getBannerId()!=banner.getBannerId()){
 			modelAndView.addObject("error","已经有该位置的Banner,无法修改位置");
 
@@ -208,6 +213,8 @@ public class BannerController {
 				categoryName.add(type.toString());
 			}
 			modelAndView.addObject("types",categoryName);
+			BannerWebSite[] webSites=   BannerWebSite.values();
+			modelAndView.addObject("webSites",webSites);
 
 			LOGGER.debug("The banner type is extis");
 			modelAndView.setViewName("/banner/bannerAndModify");
