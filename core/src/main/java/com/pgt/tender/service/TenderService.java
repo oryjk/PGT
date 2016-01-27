@@ -1,6 +1,7 @@
 package com.pgt.tender.service;
 
 import com.pgt.tender.bean.Tender;
+import com.pgt.tender.bean.TenderQuery;
 import com.pgt.tender.mapper.TenderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,14 @@ public class TenderService {
     @Autowired
     private TenderMapper tenderMapper;
 
+   public List<Tender> queryTenderByQuery(TenderQuery tenderQuery){
+        List<Tender> tenderList= tenderMapper.queryTenderByQuery(tenderQuery);
+        if(ObjectUtils.isEmpty(tenderList)){
+            LOGGER.debug("Can not find tenderList");
+            return tenderList;
+        }
+         return tenderList;
+    }
 
     public List<Tender> queryAllTender() {
         List<Tender> tenders = tenderMapper.queryAllTender();

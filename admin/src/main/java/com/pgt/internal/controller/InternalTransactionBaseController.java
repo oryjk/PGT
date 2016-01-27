@@ -74,7 +74,7 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 			return verified;
 		}
 		LOGGER.warn("Cannot find internal user from session but try to request uri: {}", pRequest.getRequestURI());
-		return false;
+		return true;
 	}
 
 	protected boolean verifyPermission (HttpServletRequest pRequest) {
@@ -87,7 +87,7 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 			return verified;
 		}
 		LOGGER.warn("Cannot find internal user from session!");
-		return false;
+		return true;
 	}
 
 	public DataSourceTransactionManager getTransactionManager () {

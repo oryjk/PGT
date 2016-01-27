@@ -34,6 +34,10 @@ public class Tender implements Serializable {
      */
     private Integer tenderQuantity;
     /**
+     * 最小投资金额
+     */
+    private Double smallMoney;
+    /**
      * 开标时间
      */
     private Date publishDate;
@@ -88,9 +92,14 @@ public class Tender implements Serializable {
     /**
      * 是否是网站的热门
      */
+
+
+
     private Boolean siteHot = false;
 
     private Integer categoryId;
+
+
 
 
     @Override
@@ -140,6 +149,13 @@ public class Tender implements Serializable {
         return 0;
     }
 
+    public Double getSmallMoney() {
+        return smallMoney;
+    }
+
+    public void setSmallMoney(Double smallMoney) {
+        this.smallMoney = smallMoney;
+    }
 
     public Integer getPawnShopId() {
         return pawnShopId;

@@ -291,7 +291,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href=":;">
+                                <a href="/tender/tenderList">
                                     <i class="fa-angle-right"></i>
                                     投资产品列表 </a>
                             </li>
