@@ -25,6 +25,9 @@
 			<if test="status!=null">
 				and STATUS =#{status}
 			</if>
+			<if test="site!=null">
+				and SITE =#{site}
+			</if>
 		</where>
 	</sql>
 
@@ -46,6 +49,7 @@
 		<result column="TYPE" property="type" />
 		<result column="STATUS" property="status" />
 		<result column="NAME" property="name" />
+		<result column="SITE" property="site"/>
 		<collection column="BANNER_ID" property="images"
 			select="com.pgt.common.dao.ImageMapper.queryAllImageByBannerId"/>
 	</resultMap>
@@ -54,14 +58,14 @@
 	<insert id="createBanner" parameterType="com.pgt.common.bean.Banner"
 		keyProperty="bannerId" useGeneratedKeys="true">
 		INSERT INTO
-		BANNER(TYPE,STATUS,NAME)VALUES(#{type},#{status},#{name})
+		BANNER(TYPE,STATUS,NAME,SITE)VALUES(#{type},#{status},#{name},#{site})
 	</insert>
 
 	<!-- update a banner bean -->
 	<update id="updateBanner" parameterType="com.pgt.common.bean.Banner"
 		keyProperty="bannerId" useGeneratedKeys="true">
 		UPDATE BANNER SET
-		TYPE=#{type},STATUS=#{status},NAME=#{name}
+		TYPE=#{type},STATUS=#{status},NAME=#{name},SITE=#{site}
 		WHERE BANNER_ID=#{bannerId}
 	</update>
 

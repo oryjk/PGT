@@ -104,6 +104,7 @@
                                     </div>
                                     <input id="pgt-banner-img" type="hidden" name="path" value="${image.path}">
 
+
                                     <div class="form-group">
                                         <label class="control-label col-md-3">状态</label>
                                         <div class="col-md-9">

@@ -42,6 +42,8 @@ public interface CategoryMapper extends SqlMapper {
     Integer queryCategoryTotal(Category category);
 
     List<Category> queryRootCategories();
+    List<Category> queryRootTenderCategories();
+
 
     Category queryCategoryByTenderId(@Param("tenderId")Integer tenderId);
 

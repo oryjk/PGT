@@ -14,6 +14,8 @@ public interface HelpCenterMapper extends SqlMapper {
 
 	List<HelpCenter> findHelpCentersByCategoryId(Integer relatedCategoryId);
 
+	List<HelpCenter> findHelpCentersByQuery(HelpCenter helpCenter);
+
 	Integer createHelpCenter(HelpCenter helpCenter);
 
 	Integer updateHelpCenter(HelpCenter helpCenter);

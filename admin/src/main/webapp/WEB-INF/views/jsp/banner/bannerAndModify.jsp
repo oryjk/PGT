@@ -82,9 +82,11 @@
 
                                             <div class="radio-list">${param.status eq 100 ? 'choose' : ''}
                                                 <select class="form-control input-medium" name="type">
+
                                                     <c:forEach items="${types}" var="type">
-                                                    <option value="${type}" ${banner.type eq type ? "selected='selected'" :''}>${type}</option>
+                                                        <option value="${type}" ${banner.type eq type ? "selected='selected'" :''}>${type}</option>
                                                     </c:forEach>
+
                                                 </select>
                                             </div>
 
@@ -95,6 +97,20 @@
                                         <label class="col-md-3 control-label">名称</label>
                                         <div class="col-md-4">
                                                 <input type="input" value="${banner.name}" name="name" class="form-control" placeholder="Banner的名称">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">所属网站</label>
+                                        <div class="col-md-9">
+                                            <div class="radio-list">
+                                                <select class="form-control input-medium" name="site">
+                                                 <c:forEach items="${webSites}" var="website">
+                                                    <option value="${website}" ${banner.site eq website? "selected='selected'" :''}>${website}</option>
+                                                 </c:forEach>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 

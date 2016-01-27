@@ -10,7 +10,7 @@
 				<c:forEach items="${banner.images}" var="image" varStatus="status">
 
 					<c:if test="${status.index=='0'}">
-						<a href="${pageContext.request.contextPath}${image.url}" data-banner="${stauts.index}"
+						<a href="${pageContext.request.contextPath}${image.url}" data-banner="${status.index}"
 						   style="background: url('${pageContext.request.contextPath}${image.path}') center center no-repeat ${image.color}; display: block"></a>
 					</c:if>
 
@@ -18,7 +18,6 @@
 						<a href="${pageContext.request.contextPath}${image.url}" data-banner="${status.index}"
 						   style="background: url('${pageContext.request.contextPath}${image.path}') center center no-repeat ${image.color}"></a>
 					</c:if>
-
 				</c:forEach>
 
 			</div>

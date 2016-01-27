@@ -6,6 +6,7 @@ com.pgt.address.dao
 com.pgt.address.service
 com.pgt.banner
 com.pgt.base.bean
+com.pgt.base.constans
 com.pgt.base.controller
 com.pgt.base.mapper
 com.pgt.base.service
@@ -57,12 +58,13 @@ com.pgt.executor.processor
 com.pgt.filter
 com.pgt.global.interceptor
 com.pgt.help
-com.pgt.help.Interceptor
 com.pgt.help.bean
 com.pgt.help.controller
 com.pgt.help.dao
+com.pgt.help.interceptor
 com.pgt.help.service
 com.pgt.help.service.imp
+com.pgt.home
 com.pgt.home.bean
 com.pgt.home.controller
 com.pgt.hot.bean
@@ -74,6 +76,7 @@ com.pgt.integration.alipay.dao
 com.pgt.integration.yeepay
 com.pgt.integration.yeepay.direct.service
 com.pgt.integration.yeepay.notification.service
+com.pgt.interceptor
 com.pgt.internal.bean
 com.pgt.internal.constant
 com.pgt.internal.controller
@@ -93,17 +96,6 @@ com.pgt.mail.service
 com.pgt.media
 com.pgt.media.bean
 com.pgt.media.controller
-com.pgt.mobile.address.controller
-com.pgt.mobile.banner.controller
-com.pgt.mobile.base.constans
-com.pgt.mobile.base.controller
-com.pgt.mobile.communication.controller
-com.pgt.mobile.home.controller
-com.pgt.mobile.interceptor
-com.pgt.mobile.product.controller
-com.pgt.mobile.search.controller
-com.pgt.mobile.user.controller
-com.pgt.mobile.utils
 com.pgt.order
 com.pgt.order.bean
 com.pgt.order.controller
@@ -133,6 +125,7 @@ com.pgt.shipping.bean
 com.pgt.shipping.controller
 com.pgt.shipping.dao
 com.pgt.shipping.service
+com.pgt.shopping
 com.pgt.sms.controller
 com.pgt.sms.service
 com.pgt.style
@@ -152,10 +145,6 @@ com.pgt.user.service
 com.pgt.user.service.imp
 com.pgt.user.validation.group
 com.pgt.utils
-com.pgt.web.home
-com.pgt.web.search.AbstractController
-com.pgt.web.search.Controller
-com.pgt.web.user.controller
 com.pgt.xss
 com.yeepay.g3.utils.security.cfca
 common

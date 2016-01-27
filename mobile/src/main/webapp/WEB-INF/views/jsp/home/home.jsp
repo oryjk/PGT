@@ -19,7 +19,7 @@
 <div class="header">
     <div class="logo"></div>
     <div class="search"><input class="input1" type="search" placeholder="搜索" autocomplete="off"></div>
-    <form action = "web/searchProduct">
+    <form action = "product/searchProduct">
          <div class="search"><input class="input1" type="search" placeholder="搜索" autocomplete="off"></div>
     </form>
     <div class="in"><a href="#">登录</a></div>
@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="classification">
-        <a href="web/search" class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon1.png">
+        <a href="product/search" class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon1.png">
             <div>分类查询</div>
         </a>
         <a class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon2.png">
@@ -63,7 +63,7 @@
             <div style="width:50%;flex:1;float:left">
                 <div style="width:100%;">
                     <div class="box3">
-                        <a href="web/searchProduct?term=${hotSearchList.term}" class="img1-left" style="background:url(/resources${hotSearchList.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
+                        <a href="product/searchProduct?term=${hotSearchList.term}" class="img1-left" style="background:url(/resources${hotSearchList.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                <div class="img-right">
                <c:forEach items="${hotProducts.hotProduct}" var="hotProduct" varStatus="s">
                   <c:if test="${s.index < 2}">
-                      <a href="web/searchProductDetails?id=${hotProduct.productId}" class="img-top" style="background:url(/resources${hotProduct.thumbnailMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
+                      <a href="product/searchProductDetails?id=${hotProduct.productId}" class="img-top" style="background:url(/resources${hotProduct.thumbnailMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
                   </c:if>
                </c:forEach>
                </div>

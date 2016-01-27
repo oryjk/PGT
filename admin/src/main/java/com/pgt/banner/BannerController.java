@@ -2,6 +2,7 @@ package com.pgt.banner;
 
 import java.util.List;
 
+import com.pgt.category.service.CategoryHelper;
 import com.pgt.common.bean.*;
 import com.pgt.common.service.ImageService;
 import com.pgt.configuration.Configuration;
@@ -36,6 +37,18 @@ public class BannerController {
 	@Autowired
 	private Configuration configuration;
 
+	@Autowired
+	private CategoryHelper categoryHelper;
+
+	/**
+	 * query bannerList
+	 * @param modelAndView
+	 * @param redirectAttributes
+	 * @param currentPage
+	 * @param capacity
+	 * @param bannerQuery
+     * @return
+     */
 	@RequestMapping(value="/bannerList",method = RequestMethod.GET)
 	public ModelAndView bannerList(ModelAndView modelAndView, RedirectAttributes redirectAttributes,
 								   @RequestParam(value = "currentPage", required = false) Integer currentPage,
@@ -68,15 +81,32 @@ public class BannerController {
 		return modelAndView;
 	}
 
+	/**
+	 * add BannerUI
+	 * @param modelAndView
+	 * @return
+     */
 	@RequestMapping(value="/addBanner",method = RequestMethod.GET)
 	public ModelAndView addBanner(ModelAndView modelAndView){
 
 		modelAndView.setViewName("/banner/bannerAndModify");
 		BannerType[] types=BannerType.values();
-		modelAndView.addObject("types",types);
+		List<String> categoryName=categoryHelper.findRootCategoriesName();
+		for (BannerType banner:types) {
+			categoryName.add(banner.toString());
+		}
+		modelAndView.addObject("types",categoryName);
+		BannerWebSite[] webSites=   BannerWebSite.values();
+		modelAndView.addObject("webSites",webSites);
 		return modelAndView;
 	}
 
+	/**
+	 * add BannerSubmit
+	 * @param modelAndView
+	 * @param banner
+     * @return
+     */
 	@RequestMapping(value="/addBannerSubmit",method = RequestMethod.POST)
     public ModelAndView addBannerSubmit(ModelAndView modelAndView, Banner banner){
 
@@ -99,12 +129,19 @@ public class BannerController {
 			return modelAndView;
 		}
 
-		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
+		Banner oldBanner=bannerService.queryBannerByTypeAndWebSite(banner.getType(),banner.getSite());
         if(!ObjectUtils.isEmpty(oldBanner)){
 			modelAndView.addObject("error","已经有该位置的Banner,无法添加");
+
 			BannerType[] types=BannerType.values();
-			modelAndView.addObject("types",types);
+			List<String> categoryName=categoryHelper.findRootCategoriesName();
+			for (BannerType type:types) {
+				categoryName.add(type.toString());
+			}
+			modelAndView.addObject("types",categoryName);
 			LOGGER.debug("The banner status is extis");
+			BannerWebSite[] webSites=   BannerWebSite.values();
+			modelAndView.addObject("webSites",webSites);
 			modelAndView.setViewName("/banner/bannerAndModify");
 			return modelAndView;
 		}
@@ -113,6 +150,12 @@ public class BannerController {
 		return modelAndView;
 	}
 
+	/**
+	 * update bannerUI
+	 * @param bannerId
+	 * @param modelAndView
+     * @return
+     */
     @RequestMapping(value="/updateBanner/{bannerId}",method = RequestMethod.GET)
 	public ModelAndView updateBanner(@PathVariable("bannerId") Integer bannerId, ModelAndView modelAndView) {
 
@@ -122,12 +165,25 @@ public class BannerController {
 			return modelAndView;
 		}
 		modelAndView.addObject("banner",banner);
+
 		BannerType[] types=BannerType.values();
-		modelAndView.addObject("types",types);
+		List<String> categoryName=categoryHelper.findRootCategoriesName();
+		for (BannerType type:types) {
+			categoryName.add(type.toString());
+		}
+		modelAndView.addObject("types",categoryName);
+		BannerWebSite[] webSites= BannerWebSite.values();
+		modelAndView.addObject("webSites",webSites);
 		modelAndView.setViewName("/banner/bannerAndModify");
 		return modelAndView;
 	}
 
+	/**
+	 * update BannerSubmit
+	 * @param modelAndView
+	 * @param banner
+     * @return
+     */
 	@RequestMapping(value="/updateBannerSubmit",method = RequestMethod.POST)
 	public ModelAndView updateBannerSubmit(ModelAndView modelAndView, Banner banner) {
 
@@ -147,11 +203,19 @@ public class BannerController {
 			return modelAndView;
 		}
 
-		Banner oldBanner=bannerService.queryBannerByType(banner.getType());
+		Banner oldBanner=bannerService.queryBannerByTypeAndWebSite(banner.getType(),banner.getSite());
 		if(!ObjectUtils.isEmpty(oldBanner)&&oldBanner.getBannerId()!=banner.getBannerId()){
 			modelAndView.addObject("error","已经有该位置的Banner,无法修改位置");
+
 			BannerType[] types=BannerType.values();
-			modelAndView.addObject("types",types);
+			List<String> categoryName=categoryHelper.findRootCategoriesName();
+			for (BannerType type:types) {
+				categoryName.add(type.toString());
+			}
+			modelAndView.addObject("types",categoryName);
+			BannerWebSite[] webSites=   BannerWebSite.values();
+			modelAndView.addObject("webSites",webSites);
+
 			LOGGER.debug("The banner type is extis");
 			modelAndView.setViewName("/banner/bannerAndModify");
 			return modelAndView;
@@ -162,6 +226,12 @@ public class BannerController {
 		return modelAndView;
 	}
 
+	/**
+	 * delete BannerById
+	 * @param bannerId
+	 * @param modelAndView
+     * @return
+     */
 	@RequestMapping(value="/deleteBannerById/{bannerId}",method= RequestMethod.GET)
 	public ModelAndView deleteBannerById(@PathVariable("bannerId") Integer bannerId,ModelAndView modelAndView) {
 
@@ -176,6 +246,14 @@ public class BannerController {
 	}
 
 
+	/**
+	 * query Banner
+	 * @param bannerId
+	 * @param currentIndex
+	 * @param capacity
+	 * @param modelAndView
+     * @return
+     */
 	@RequestMapping(value ="/queryBanner",method=RequestMethod.GET)
 	public ModelAndView queryBanner(@RequestParam(value = "bannerId", required = true) Integer bannerId,@RequestParam(value = "currentIndex", required = false) Integer currentIndex,
 									@RequestParam(value = "capacity", required = false) Long capacity,ModelAndView modelAndView){
@@ -195,24 +273,22 @@ public class BannerController {
 		}
 		paginationBean.setCurrentIndex(currentIndex);
 		int total=imageService.queryImageByBannerCount(bannerId);
-		paginationBean.setTotalAmount(total);
+		Banner banner = bannerService.queryBanner(bannerId);
+		if(total!=0) {
+			paginationBean.setTotalAmount(total);
 
-		Banner banner =bannerService.queryBanner(bannerId);
-		ImageCustom imageCustom = new ImageCustom();
-		imageCustom.setBanner(banner);
-		imageCustom.setPaginationBean(paginationBean);
-		List<Image> imageList= imageService.queryImageByBanner(imageCustom);
-
+			ImageCustom imageCustom = new ImageCustom();
+			imageCustom.setBanner(banner);
+			imageCustom.setPaginationBean(paginationBean);
+			List<Image> imageList = imageService.queryImageByBanner(imageCustom);
+			modelAndView.addObject("imageList",imageList);
+			modelAndView.addObject("paginationBean",paginationBean);
+		}
 		modelAndView.addObject("banner",banner);
-		modelAndView.addObject("imageList",imageList);
-		modelAndView.addObject("paginationBean",paginationBean);
+
 		modelAndView.setViewName("/banner/bannerImagelist");
 		return modelAndView;
 	}
-
-
-
-
 
 
 	public BannerService getBannerService() {

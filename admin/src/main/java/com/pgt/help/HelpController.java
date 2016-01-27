@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.pgt.help.bean.HelpCenterSites;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -212,6 +213,8 @@ public class HelpController {
 		List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
 		modelAndView.addObject("helpCategorVoList", HelpCategorVoList);
 		modelAndView.setViewName("/help/addOrModifyArticle");
+		HelpCenterSites[] helpCenterSites= HelpCenterSites.values();
+		modelAndView.addObject("helpCenterSites",helpCenterSites);
 		modelAndView.addObject("actionUrl", "addArticle");
 		return modelAndView;
 	}
@@ -223,6 +226,8 @@ public class HelpController {
 		modelAndView.setViewName("/help/addOrModifyArticle");
 		HelpCenter helpCenter = helpCenterService.findHelpCenterById(Integer.parseInt(helpCenterId));
 		modelAndView.addObject("helpCenter", helpCenter);
+		HelpCenterSites[] helpCenterSites= HelpCenterSites.values();
+		modelAndView.addObject("helpCenterSites",helpCenterSites);
 		modelAndView.addObject("actionUrl", "../updateArticle");
 		return modelAndView;
 	}

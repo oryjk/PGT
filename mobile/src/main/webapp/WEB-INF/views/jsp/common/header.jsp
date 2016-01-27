@@ -8,10 +8,10 @@
     <div class="font">我的点金子</div>
     <a href="#" class="dian">
         <ul class="menu">
-            <li class="menu2"><a href="#">首页</a></li>
+            <li class="menu2"><a href="${pageContext.request.contextPath}/">首页</a></li>
             <li class="menu3"><a href="#">分类</a></li>
-            <li class="menu4"><a href="#">搜索</a></li>
-            <li class="menu5"><a href="${pageContext.request.contextPath}/shoppingCartList">购物车</a></li>
+            <li class="menu4"><a href="${pageContext.request.contextPath}/product/search">搜索</a></li>
+            <li class="menu5"><a href="${pageContext.request.contextPath}/shoppingCart/shoppingCartList">购物车</a></li>
             <li class="menu1"><a href="#">我的账户</a></li>
         </ul>
     </a>

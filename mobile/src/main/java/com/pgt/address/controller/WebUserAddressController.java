@@ -51,7 +51,13 @@ public class WebUserAddressController {
                     + urlConfiguration.getAddressBookPage();
             return new ModelAndView(redirectUrl);
         }
+        LOGGER.debug("the User is :{},Username is {}, " ,user,user.getUsername());
         List<Province> provinceList = getCityService().getAllProvince();
+        if(provinceList!=null){
+            LOGGER.debug("the provinceList size : {}", provinceList.size());
+        }else {
+            LOGGER.debug("the provinceList is null ");
+        }
         modelAndView.addObject("provinceList", provinceList);
 
         modelAndView.setViewName("my-account/person-info/addAddress");
@@ -71,18 +77,26 @@ public class WebUserAddressController {
 
         User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
         if (user == null) {
-            LOGGER.debug(" error:User should login firstly when accessing add address.");
+            LOGGER.debug(" error:The User is null,User should login firstly when accessing add address.");
             String redirectUrl = "redirect:" + urlConfiguration.getLoginPage() + "?redirect="
                     + urlConfiguration.getAddressBookPage();
             return new ModelAndView(redirectUrl);
         }
+        LOGGER.debug("the User is :{},Username is {}, " ,user,user.getUsername());
         if (StringUtils.isBlank(addressId)){
             LOGGER.debug("error:addressId Can not empty.");
             modelAndView.setViewName("/my-account/person-info/address");
             return modelAndView;
         }
+        LOGGER.debug("the addressId is :{} " ,addressId);
         int addressIdTemp =  Integer.parseInt(addressId);
         List<Province> provinceList = getCityService().getAllProvince();
+        if(provinceList!=null){
+            LOGGER.debug("the provinceList size : {}", provinceList.size());
+        }else {
+            LOGGER.debug("the provinceList is null ");
+        }
+        
         modelAndView.addObject("provinceList", provinceList);
         modelAndView.addObject("addressIdTemp", addressIdTemp);
 

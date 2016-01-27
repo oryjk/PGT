@@ -12,13 +12,15 @@ import com.pgt.utils.PaginationBean;
 public interface CategoryService {
 
     String createCategory(Category category);
-    String createCategory(Category category,Integer mediaId);
+
+    String createCategory(Category category, Integer mediaId);
 
     Integer updateCategory(Category category);
 
     Integer deleteCategory(Integer categoryId);
 
     Category queryCategory(Integer categoryId);
+
     Integer queryCategoryByCode(String code);
 
     Category queryParentCategoryByProductId(Integer productId);
@@ -26,13 +28,17 @@ public interface CategoryService {
     Category queryRootCategoryByProductId(Integer productId);
 
     List<Category> queryAllParentCategories();
+
     List<Category> queryRootCategories();
 
+    List<Category> queryRootTenderCategories();
+
     List<Category> queryCategories(Category category, PaginationBean paginationBean);
+
     Integer queryCategoryTotal(Category category);
 
     CategoryHierarchy queryCategoryHierarchy(Integer categoryId);
-    
+
     Integer getHelpCategoryCount();
 
     List<Category> querySubCategories(Integer rootCategoryId);

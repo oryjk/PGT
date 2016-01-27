@@ -28,12 +28,6 @@
             <bean class="com.pgt.permission.PersistentInterceptor"></bean>
         </mvc:interceptor>
 
-        <mvc:interceptor>
-            <mvc:mapping path="/shoppingCart/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
-            <bean class="com.pgt.cart.filter.ShoppingCartHandlerInterceptor"></bean>
-        </mvc:interceptor>
-
         <!-- check the user login -->
         <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
@@ -48,7 +42,7 @@
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="com.pgt.help.Interceptor.HelpCenterInterceptor"></bean>
+            <bean class="com.pgt.help.interceptor.HelpCenterInterceptor"></bean>
         </mvc:interceptor>
 
     </mvc:interceptors>

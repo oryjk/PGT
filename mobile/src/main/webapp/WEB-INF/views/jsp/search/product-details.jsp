@@ -146,8 +146,10 @@
                         productId: productId
                     },
                     function(data,status){
-                       if(status == "success"){
-                           alert("添加成功！")
+                       if(data.success == 1){
+                           alert("添加成功！" + JSON.stringify(data))
+                       }else{
+                           alert("添加失败！" + JSON.stringify(data))
                        }
             });
         })

@@ -62,6 +62,8 @@ public class User implements Serializable {
     private String yeepayUserId;
     private String authCodeError;
     private String smsError;
+    private String phoneExist;
+
 
     public Date getCreateDate() {
         return createDate;
@@ -270,4 +272,8 @@ public class User implements Serializable {
     public void setSmsError(String smsError) {
         this.smsError = smsError;
     }
+
+    public String getPhoneExist(){ return phoneExist;}
+
+    public void setPhoneExist(){ this.phoneExist = phoneExist; }
 }

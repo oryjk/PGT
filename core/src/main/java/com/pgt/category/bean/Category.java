@@ -2,6 +2,8 @@ package com.pgt.category.bean;
 
 import java.util.List;
 
+import com.pgt.common.bean.Banner;
+import com.pgt.tender.bean.Tender;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,6 +31,17 @@ public class Category extends BaseBean {
     private String description;
     private Integer categoryIndex;
     private Integer productTotal;
+    private Banner banner;
+    private CategoryType type;
+    private List<Product> products;
+
+    public Banner getBanner() {
+        return banner;
+    }
+
+    public void setBanner(Banner banner) {
+        this.banner = banner;
+    }
 
     public ProductMedia getFrontMedia() {
         return frontMedia;
@@ -46,8 +59,7 @@ public class Category extends BaseBean {
         this.color = color;
     }
 
-    private CategoryType type;
-    private List<Product> products;
+
 
     public Integer getId() {
         return id;
@@ -144,4 +156,6 @@ public class Category extends BaseBean {
     public void setProductTotal(Integer productTotal) {
         this.productTotal = productTotal;
     }
+
+
 }
