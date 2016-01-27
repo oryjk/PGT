@@ -39,6 +39,7 @@ public class Constants {
     public static final String HOT_PRODUCT_INDEX_TYPE = "hotProduct";
     public static final String CATEGORY_INDEX_TYPE = "category";
     public static final String TENDER_INDEX_TYPE = "tender";
+    public static final String HOME_TENDER_INDEX_TYPE = "homeTender";
     public static final String ID = "id";
     public static final String CHILDREN = "children";
     public static final String TYPE = "type";
@@ -70,4 +71,11 @@ public class Constants {
     public static final String HOT_SEARCH_LIST = "hotSearchList";
     public static final String ERROR = "error";
     public static final String TRUE = "true";
+
+
+    //Tender
+    public static final String CATEGORY_HOT="categoryHot";
+    public static final String SITE_HOT="siteHot";
+    public static final String SITE_HOT_PROPERTY="tender.siteHot";
+
 }
