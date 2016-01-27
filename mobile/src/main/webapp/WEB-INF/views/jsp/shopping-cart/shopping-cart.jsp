@@ -84,10 +84,8 @@
         });
 
         $(".btn2").live("click",function(){
-            var del_url = '${pageContext.request.contextPath}/checkout/shipping';
-            $.get(url, { orderId: order.orderId },function(result){
-                alert(JSON.stringify(result));
-            },'json');
+            var url = '${pageContext.request.contextPath}/checkout/shipping';
+            window.location.href = url + "?orderId=" + order.orderId;
         });
     })
 </script>
