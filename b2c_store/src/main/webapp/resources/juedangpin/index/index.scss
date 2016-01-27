@@ -265,6 +265,49 @@ small {
   font-size: 16px;
 }
 
+/*classify-product-list
+*******************************************************/
+.classify-product-box {
+  display: none;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 50px 0;
+  @include wh(100%, 100%);
+  background: rgba(0,0,0,.4);
+
+  .classify-product-content {
+    margin: 0 auto;
+    width: $mainWidth - 20px;
+    background: white;
+    box-shadow: black 0 0 20px;
+
+  }
+
+  .product-list {
+    padding: 0 10px 10px 10px;
+    @include list(20%,13px, 18px, 12px, 168px);
+    &:after,
+    &:before {
+      clear: both;
+      content: " ";
+      display: table;
+    }
+  }
+
+  .close {
+    text-align: right;
+    padding: 10px 30px 0 0;
+  }
+
+  .link-btn {
+    @extend %link-btn;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
+
 
 
 /*for js

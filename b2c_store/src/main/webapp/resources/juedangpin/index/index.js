@@ -40,6 +40,12 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         //显示购物车数量
         Prd.getOrderItemCount($('#asideCartCount, #fixedCartCount, #cartCount'));
+
+        //弹出框
+        Cpn.pop({
+            popUp: $('#classifyPop'),
+            close: $('#closeClassifyPop')
+        });
         
         //content部分点击事件委托
         $('#content').click(function(event) {
@@ -71,6 +77,14 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                     Prd.addItemToFavourite(productId, productMessage);
                 }
             }
+        });
+
+        $(document).on('click', '.each-classify', function(event) {
+            event.preventDefault();
+
+            $('#classifyPopCentent').load('classify.html', function() {
+                $('#classifyPop').fadeIn(300);
+            })
         })
 
     });
