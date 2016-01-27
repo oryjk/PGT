@@ -5,7 +5,6 @@ import com.pgt.tender.mapper.TenderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -23,8 +22,7 @@ public class TenderService {
     private TenderMapper tenderMapper;
 
 
-
-    public List<Tender> queryAllTender(){
+    public List<Tender> queryAllTender() {
         List<Tender> tenders = tenderMapper.queryAllTender();
         if (ObjectUtils.isEmpty(tenders)) {
             LOGGER.debug("Can not find tenders");
@@ -35,12 +33,17 @@ public class TenderService {
     }
 
 
-    public Tender queryTender(Integer tenderId, Boolean onlyActive) {
+    public Tender queryTenderById(Integer tenderId, Boolean onlyActive) {
         LOGGER.debug("The tender id is {},onlyActive is {}.", tenderId, onlyActive);
         Tender tender = tenderMapper.queryTenderById(tenderId, onlyActive);
         LOGGER.debug("The tender is {}.", tender);
         return tender;
     }
+
+    public List<Tender> queryTenders(Tender tender) {
+        return tenderMapper.queryTenders(tender);
+    }
+
 
     public List<Tender> queryTendersByCategoryId(Integer categoryId, Boolean onlyActive) {
         LOGGER.debug("The category id is {},onlyActive is {}.", categoryId, onlyActive);

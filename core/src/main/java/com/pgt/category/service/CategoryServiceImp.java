@@ -65,7 +65,7 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
             LOGGER.debug("Begin create category.");
             categoryMapper.createCategory(category);
             Media media = mediaService.findMedia(mediaId, MediaType.category);
-            if(!ObjectUtils.isEmpty(media)){
+            if (!ObjectUtils.isEmpty(media)) {
                 media.setReferenceId(category.getId());
                 mediaService.updateMedia(media);
             }
@@ -123,6 +123,12 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     @Override
     public List<Category> queryRootCategories() {
         return categoryMapper.queryRootCategories();
+    }
+
+    @Override
+    public List<Category> queryRootTenderCategories() {
+        LOGGER.debug("Begin to query root tender category.");
+        return categoryMapper.queryRootTenderCategories();
     }
 
     @Override

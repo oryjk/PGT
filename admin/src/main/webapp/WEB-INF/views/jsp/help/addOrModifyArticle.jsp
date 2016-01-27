@@ -101,6 +101,22 @@
 	                                                    </select></label>
 	                                            </div>
 	                                        </div>
+											<div class="col-md-offset-7 col-xs-2">
+												<div class="dataTables_length">
+													<label>显示网站:
+														<select name="site" aria-controls="sample_3"
+																class="form-control input-small input-inline select2-offscreen"
+																tabindex="-1" title="">
+															<c:forEach items="${helpCenterSites}" var="site">
+																<option value="${site}" ${helpCenter.site eq site ? 'selected' : ''}>
+																	<c:if test="${site eq 'B2C_STORE'}">绝当淘</c:if>
+																	<c:if test="${site eq 'P2P_STORE'}">淘在当</c:if>
+																	<c:if test="${site eq 'DEFAULT'}">默认</c:if>
+																</option>
+															</c:forEach>
+														</select></label>
+												</div>
+											</div>
 	                                        <div class="col-md-2">
 	                                            <button type="submit" class="btn blue-hoki">确认</button>
 	                                            <button type="button" class="btn default">取消</button>

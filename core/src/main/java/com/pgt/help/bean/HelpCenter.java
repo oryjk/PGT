@@ -23,8 +23,14 @@ public class HelpCenter implements Serializable {
 	private Media frontMedia;
 	private String type;
 	private HelpCenter parent;
+    private String site;
 
-
+	public String getSite() {
+		return site;
+	}
+	public void setSite(String site) {
+		this.site = site;
+	}
 	public Category getCategory() {
 		return category;
 	}

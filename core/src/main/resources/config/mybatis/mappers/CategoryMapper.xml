@@ -157,6 +157,9 @@
 	<select id="queryRootCategories" resultMap="CategoryResult">
     SELECT * FROM CATEGORIES WHERE TYPE='ROOT'
     </select>
+	<select id="queryRootTenderCategories" resultMap="CategoryResult">
+    SELECT * FROM CATEGORIES WHERE TYPE='ROOT_TENDER'
+    </select>
 
 	<select id="queryCategoryByTenderId" resultMap="CategoryResult">
         SELECT * FROM CATEGORIES c LEFT JOIN TENDER_CATEGORY tc  ON c.CATEGORY_ID=tc.CATEGORY_ID WHERE tc.tender_id=#{tenderId}

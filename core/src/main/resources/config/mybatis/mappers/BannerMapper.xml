@@ -25,6 +25,9 @@
 			<if test="status!=null">
 				and STATUS =#{status}
 			</if>
+			<if test="site!=null">
+				and SITE =#{site}
+			</if>
 		</where>
 	</sql>
 
