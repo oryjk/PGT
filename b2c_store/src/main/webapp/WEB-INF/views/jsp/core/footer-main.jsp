@@ -120,12 +120,12 @@
        name="jSDgnQDcuKCy2w4jyIuu952ZsXPj0vMz8rXjiARpUBepRIVAEt"><img
             src="http://zhanzhang.anquan.org/static/common/images/zhanzhang.png" alt="安全联盟站长平台" width="114" height="41"></a>
   </div>
-  <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
+  <p>蜀ICP备15022028号 © 2016 dianjinzi, Inc. All rights reserved.</p>
 </div>
 </div>
 
-<!--fixed侧边栏-->
-<div class="right">
+  <!--fixed侧边栏-->
+  <div class="side-bar" id="side-bar">
   <a href="<spring:url value=""/>" class="right1" >
     <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/pig.png"/>">
     <div class="right2"><span>主页</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>"></div>

@@ -38,12 +38,18 @@
             </c:choose>
         </div>
     </div>
+
     <div class="top-banner">
+
+
         <div class="top-banner-box">
-            <a href="#">
-                <img src="../core/images/header/top-banner.png" alt=""/>
+
+            <a href="${pageContext.request.contextPath}${TopBanner.images[0].url}">
+                <img src="${pageContext.request.contextPath}${TopBanner.images[0].path}" alt="${TopBanner.images[0].title}"/>
             </a>
+
         </div>
+
     </div>
 </div>
 
