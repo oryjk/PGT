@@ -341,8 +341,10 @@
 			</jsp:include>
 		</div>
 	</div>
+	<%--
 			<jsp:include page="../core/helpSide.jsp"/>
-			<jsp:include page="../core/footer-main.jsp" />
+		--%>
+				<jsp:include page="../core/footer-main.jsp" />
 
 </body>
 
