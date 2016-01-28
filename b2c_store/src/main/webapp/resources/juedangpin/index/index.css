@@ -389,7 +389,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -401,16 +401,16 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .products-nav a {
   color: #666666;
   font-size: 18px;
   text-decoration: none; }
   .products-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -423,7 +423,7 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .classify-product-box .product-list .list-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -433,7 +433,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .classify-product-box .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -490,7 +490,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -502,16 +502,16 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .products-nav a {
   color: #666666;
   font-size: 18px;
   text-decoration: none; }
   .products-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -524,7 +524,7 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .classify-product-box .product-list .list-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -534,7 +534,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .classify-product-box .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -579,7 +579,7 @@ span {
 /*all style
 ************************************************/
 .header {
-  border-bottom: 2px solid #3f3f3f; }
+  border-bottom: 2px solid #d43139; }
   .header span,
   .header i,
   .header a,
@@ -749,14 +749,14 @@ span {
     width: 80%;
     height: 30px;
     padding: 3px 10px;
-    border: 2px solid #3f3f3f;
+    border: 2px solid #d43139;
     font-size: 18px;
     outline: none; }
   .head-box .search-sub {
     width: 15%;
     height: 40px;
     border: none;
-    background: #3f3f3f;
+    background: #d43139;
     color: white;
     font-size: 18px; }
   .head-box .search-tips {
@@ -764,7 +764,7 @@ span {
     display: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #3f3f3f;
+    border: 1px solid #d43139;
     border-top: none;
     width: 486px;
     height: 100px;
@@ -850,14 +850,14 @@ span {
     width: 80%;
     height: 30px;
     padding: 3px 10px;
-    border: 2px solid #3f3f3f;
+    border: 2px solid #d43139;
     font-size: 18px;
     outline: none; }
   .fixed-head-box .search-sub {
     width: 15%;
     height: 40px;
     border: none;
-    background: #3f3f3f;
+    background: #d43139;
     color: white;
     font-size: 18px; }
   .fixed-head-box .search-tips {
@@ -865,7 +865,7 @@ span {
     display: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #3f3f3f;
+    border: 1px solid #d43139;
     border-top: none;
     width: 565px;
     height: 100px;
@@ -926,7 +926,7 @@ span {
   display: block;
   width: 100%;
   height: 100%;
-  background: #3f3f3f;
+  background: #d43139;
   line-height: 45px;
   text-decoration: none;
   text-align: center; }
@@ -962,10 +962,10 @@ span {
   line-height: 40px; }
 
 .menu .menu-1 {
-  font-size: 14px;
   width: 160px;
   margin: 0 30px;
   overflow: hidden;
+  font-size: 14px;
   text-align: center; }
 
 .menu .menu-1 li {
@@ -1063,7 +1063,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -1075,16 +1075,16 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .products-nav a {
   color: #666666;
   font-size: 18px;
   text-decoration: none; }
   .products-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -1097,7 +1097,7 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .classify-product-box .product-list .list-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -1107,7 +1107,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .classify-product-box .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -1177,7 +1177,7 @@ span {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ffaa00;
+    background: #d43139;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -1269,16 +1269,14 @@ span {
 
 /*fixed-aside
 *******************************************************/
-body .right {
+body .side-bar {
   z-index: 3;
-  width: 35px;
-  height: 100%;
+  width: 345px;
   background-color: #000;
   padding-top: 100px;
   position: fixed;
-  right: 0;
-  top: 0;
-  padding-right: 10px; }
+  right: -300px;
+  top: 0; }
 
 body .right a:link,
 body .right a:visited {
@@ -1291,6 +1289,7 @@ body .right a:active {
   text-decoration: none;
   border: none; }
 
+body .right1-2,
 body .right1 {
   padding: 4px 0;
   margin-top: 20px;
@@ -1301,6 +1300,7 @@ body .right1 {
   position: relative; }
 
 body .right-b {
+  float: left;
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ccc; }
@@ -1331,9 +1331,11 @@ body .right2 span {
   width: 70px;
   height: 33px; }
 
+body .right1-2:hover > .right2,
 body .right1:hover > .right2 {
   display: block; }
 
+body .right1-2 img,
 body .right1 img {
   text-align: center;
   padding-left: 13px;
@@ -1341,6 +1343,17 @@ body .right1 img {
   display: block;
   width: 20px;
   height: 20px; }
+
+body .right-menu {
+  overflow: scroll;
+  margin-top: 65px;
+  background: #fff;
+  width: 300px;
+  float: right; }
+
+body .right-a {
+  float: left;
+  width: 45px; }
 
 /*color*/
 /*col*/
@@ -1378,7 +1391,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -1390,16 +1403,16 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .products-nav a {
   color: #666666;
   font-size: 18px;
   text-decoration: none; }
   .products-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -1412,7 +1425,7 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .classify-product-box .product-list .list-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -1422,7 +1435,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .classify-product-box .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -1953,7 +1966,7 @@ small {
     font-size: 14px;
     background: transparent; }
     .products-list-cardinal input:hover {
-      color: #ffaa00;
+      color: #d43139;
       background: white; }
   .products-list-cardinal img {
     width: 100%;
@@ -2033,7 +2046,7 @@ small {
     font-size: 14px;
     background: transparent; }
     .products-list-even input:hover {
-      color: #ffaa00;
+      color: #d43139;
       background: white; }
   .products-list-even img {
     width: 100%;
@@ -2138,7 +2151,7 @@ small {
       .classify-product-box .product-list .product-handle a {
         font-size: 12px;
         padding: 3px;
-        background: #ffaa00;
+        background: #d43139;
         color: white;
         text-decoration: none;
         vertical-align: top; }

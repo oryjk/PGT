@@ -390,7 +390,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .regist-protocol:hover, .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -444,7 +444,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .regist-protocol:hover, .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -629,7 +629,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .regist-protocol:hover, .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -703,7 +703,7 @@ input[type=password] {
   width: 90%; }
   input[type=text]:focus,
   input[type=password]:focus {
-    border: 1px solid #ffaa00; }
+    border: 1px solid #d43139; }
 
 .registSub,
 .getPhoneCom {

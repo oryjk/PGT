@@ -20,58 +20,34 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             tabTarget: $('#tab h2')
         });
 
-        //弹出框
-        Cpn.pop({
-            popUp: $('#popUp'),
-            close: $('#popClose, #popReset')
-        });
-        $('.link-btn').click(function() {
-            $('#popUp').fadeIn(300);
-        });
-
-        var areaObj = {
-            province: $('#province'),
-            city: $('#city'),
-            country: $('#country')
-        };
-
-
-        //省->市
-        Cpn.select2(areaObj.province, function(id) {
-            var url = Prd.baseUrl + '/getCityByProvinceId/' + id;
-            $.ajax({
-                url: url,
-                data: null,
-                success: function(param) {
-                    var str = '';
-                    $.each($.parseJSON(param), function() {
-                        str += '<li><a class="option-view" data-value="'+ this.id+'" href="#">'+ this.name+'</a></li>'
-                    });
-                    $('#city').children('.selected').html('请选择').end().siblings('.options').html(str).next('.select-value').val('');
-                    $('#country').children('.selected').html('请选择').end().siblings('.options').html('').next('.select-value').val('');
+        $('#popSubmit').click(function(e){
+            e.preventDefault();
+            var $this = $(this);
+            if($this.data('pending')){
+                return false;
+            }
+            $this.data('pending',true);
+            var form = $('#popForm'),
+                action = form.attr('action'),
+                data = form.serialize();
+            form.find('span.js-error-msg').remove();
+            $.post(action,data).done(function(result){
+                if(result.success == 'true'){
+                    window.location.reload();
+                }else{
+                    if(result.redirectUrl){
+                        window.location.href = result.redirectUrl;
+                    }else{
+                        var errors = result.errors;
+                        $.each(errors,function(key,value){
+                            form.find('[name='+key+']').closest('div').append('<span class="js-error-msg">'+value+'</span>');
+                        });
+                    }
                 }
-            })
+                $this.data('pending',false);
+            });
         });
 
-        //市->区
-        Cpn.select2(areaObj.city, function(id) {
-            var url = Prd.baseUrl + '/getAreaByCityId/' + id;
-            $.ajax({
-                type: 'get',
-                url: url,
-                data: null,
-                success: function(param) {
-                    var str = '';
-                    $.each($.parseJSON(param), function() {
-                        str += '<li><a class="option-view" data-value="'+ this.id+'" href="#">'+ this.name+'</a></li>'
-                    });
-                    $('#country').children('.selected').html('请选择').end().siblings('.options').html(str).next('.select-value').val('');
-                }
-            })
-        });
-
-        //区
-        Cpn.select2(areaObj.country);
 
         //三个rowList的水平移动
         Cpn.rowList({

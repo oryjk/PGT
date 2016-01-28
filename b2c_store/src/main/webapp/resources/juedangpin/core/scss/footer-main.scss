@@ -168,17 +168,14 @@
 
 //小土豪代码
 body {
-  .right {
-
+  .side-bar{
     z-index: 3;
-    width: 35px;
-    height: 100%;
+    width: 345px;
     background-color: #000;
     padding-top: 100px;
     position: fixed;
-    right: 0;
+    right: -300px;
     top: 0;
-    padding-right: 10px;
   }
 
   .right a:link,
@@ -193,7 +190,7 @@ body {
     text-decoration: none;
     border: none;
   }
-
+  .right1-2,
   .right1 {
     padding: 4px 0;
     margin-top: 20px;
@@ -201,9 +198,11 @@ body {
     font-size: 1px;
     text-align: center;
     width: 45px;
+
     position: relative;
   }
   .right-b{
+    float: left;
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #ccc;
@@ -234,9 +233,11 @@ body {
     width: 70px;
     height: 33px;
   }
+  .right1-2:hover >.right2,
   .right1:hover >.right2{
     display: block;
   }
+  .right1-2 img,
   .right1 img {
     text-align: center;
     padding-left: 13px;
@@ -245,6 +246,20 @@ body {
     width: 20px;
     height: 20px;
   }
+  .right-menu{
+    overflow: scroll;
+    margin-top: 65px;
+    background: #fff;
+    width: 300px;
+    float: right;
+  }
+  .right-a{
+    float: left;
+    width: 45px;
+  }
+
+
+
 }
 
 
