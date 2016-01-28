@@ -119,7 +119,7 @@
                     		</c:if>
                     	</c:forEach>
                     </span>
-                    <a class="link-btn js-change-shipping" href="javascript:void(0)" ${empty selectedPickup.id ? 'style="display:none"' : ''}>更改</a>
+
                 </div>
                 </c:if>
                 <div class="drop-area" style="display:none">
@@ -255,7 +255,7 @@
             <span id="popTitle" class="pop-title">填写收货信息</span>
             <span id="popClose" class="close">X</span>
         </h3>
-        <form id="popForm" class="pop-content" action="addAddress">
+        <form id="popForm" class="pop-content" action="../my-account/person-info/addAddress">
 
             <div class="row1">
                 <label for="#">
