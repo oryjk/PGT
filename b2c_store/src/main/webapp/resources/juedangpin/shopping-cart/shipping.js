@@ -72,13 +72,23 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 		}
 
 		//为仿select绑定事件
-		//省->市
+		//弹出框
+		Cpn.pop({
+			popUp: $('#popUp'),
+			close: $('#popClose, #popReset')
+		});
+		$('.link-btn').click(function() {
+			$('#popUp').fadeIn(300);
+		});
+
 		var areaObj = {
 			province: $('#province'),
 			city: $('#city'),
 			country: $('#country')
 		};
 
+
+		//省->市
 		Cpn.select2(areaObj.province, function(id) {
 			var url = Prd.baseUrl + '/getCityByProvinceId/' + id;
 			$.ajax({
@@ -114,7 +124,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
 		//区
 		Cpn.select2(areaObj.country);
-
 	});
     
     

@@ -384,7 +384,7 @@ h2 {
 
 .info-box h2 {
   font-size: 15px;
-  color: #ffaa00; }
+  color: #d43139; }
 
 /*paragraph*/
 p {
@@ -401,7 +401,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -413,16 +413,16 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .bread-nav a {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -435,14 +435,14 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .style a:hover, .aside .aside-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .concreteness input[type=button],
 .concreteness input[type=submit] {
@@ -450,16 +450,16 @@ a {
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
+  background: #d43139;
   border: none; }
 
 .page-box .page-focus {
   padding: 5px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00; }
+  background: #d43139; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -476,16 +476,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -548,7 +548,7 @@ h2 {
 
 .info-box h2 {
   font-size: 15px;
-  color: #ffaa00; }
+  color: #d43139; }
 
 /*paragraph*/
 p {
@@ -565,7 +565,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -577,16 +577,16 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .bread-nav a {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -599,14 +599,14 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .style a:hover, .aside .aside-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .concreteness input[type=button],
 .concreteness input[type=submit] {
@@ -614,16 +614,16 @@ a {
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
+  background: #d43139;
   border: none; }
 
 .page-box .page-focus {
   padding: 5px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00; }
+  background: #d43139; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -640,16 +640,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -705,7 +705,7 @@ span {
 /*all style
 ************************************************/
 .header {
-  border-bottom: 2px solid #3f3f3f; }
+  border-bottom: 2px solid #d43139; }
   .header span,
   .header i,
   .header a,
@@ -875,14 +875,14 @@ span {
     width: 80%;
     height: 30px;
     padding: 3px 10px;
-    border: 2px solid #3f3f3f;
+    border: 2px solid #d43139;
     font-size: 18px;
     outline: none; }
   .head-box .search-sub {
     width: 15%;
     height: 40px;
     border: none;
-    background: #3f3f3f;
+    background: #d43139;
     color: white;
     font-size: 18px; }
   .head-box .search-tips {
@@ -890,7 +890,7 @@ span {
     display: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #3f3f3f;
+    border: 1px solid #d43139;
     border-top: none;
     width: 486px;
     height: 100px;
@@ -976,14 +976,14 @@ span {
     width: 80%;
     height: 30px;
     padding: 3px 10px;
-    border: 2px solid #3f3f3f;
+    border: 2px solid #d43139;
     font-size: 18px;
     outline: none; }
   .fixed-head-box .search-sub {
     width: 15%;
     height: 40px;
     border: none;
-    background: #3f3f3f;
+    background: #d43139;
     color: white;
     font-size: 18px; }
   .fixed-head-box .search-tips {
@@ -991,7 +991,7 @@ span {
     display: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #3f3f3f;
+    border: 1px solid #d43139;
     border-top: none;
     width: 565px;
     height: 100px;
@@ -1052,7 +1052,7 @@ span {
   display: block;
   width: 100%;
   height: 100%;
-  background: #3f3f3f;
+  background: #d43139;
   line-height: 45px;
   text-decoration: none;
   text-align: center; }
@@ -1081,6 +1081,7 @@ span {
   height: 95px; }
 
 .menu .menu-h {
+  font-size: 15px;
   padding-top: 10px;
   display: block;
   text-align: center;
@@ -1090,7 +1091,7 @@ span {
   width: 160px;
   margin: 0 30px;
   overflow: hidden;
-  font-size: 10px;
+  font-size: 14px;
   text-align: center; }
 
 .menu .menu-1 li {
@@ -1183,7 +1184,7 @@ h2 {
 
 .info-box h2 {
   font-size: 15px;
-  color: #ffaa00; }
+  color: #d43139; }
 
 /*paragraph*/
 p {
@@ -1200,7 +1201,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -1212,16 +1213,16 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .bread-nav a {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -1234,14 +1235,14 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .style a:hover, .aside .aside-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .concreteness input[type=button],
 .concreteness input[type=submit] {
@@ -1249,16 +1250,16 @@ a {
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
+  background: #d43139;
   border: none; }
 
 .page-box .page-focus {
   padding: 5px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00; }
+  background: #d43139; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -1275,16 +1276,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -1365,7 +1366,7 @@ span {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ffaa00;
+    background: #d43139;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -1457,16 +1458,14 @@ span {
 
 /*fixed-aside
 *******************************************************/
-body .right {
+body .side-bar {
   z-index: 3;
-  width: 35px;
-  height: 100%;
+  width: 345px;
   background-color: #000;
   padding-top: 100px;
   position: fixed;
-  right: 0;
-  top: 0;
-  padding-right: 10px; }
+  right: -300px;
+  top: 0; }
 
 body .right a:link,
 body .right a:visited {
@@ -1479,6 +1478,7 @@ body .right a:active {
   text-decoration: none;
   border: none; }
 
+body .right1-2,
 body .right1 {
   padding: 4px 0;
   margin-top: 20px;
@@ -1489,6 +1489,7 @@ body .right1 {
   position: relative; }
 
 body .right-b {
+  float: left;
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ccc; }
@@ -1519,9 +1520,11 @@ body .right2 span {
   width: 70px;
   height: 33px; }
 
+body .right1-2:hover > .right2,
 body .right1:hover > .right2 {
   display: block; }
 
+body .right1-2 img,
 body .right1 img {
   text-align: center;
   padding-left: 13px;
@@ -1529,6 +1532,17 @@ body .right1 img {
   display: block;
   width: 20px;
   height: 20px; }
+
+body .right-menu {
+  overflow: scroll;
+  margin-top: 65px;
+  background: #fff;
+  width: 300px;
+  float: right; }
+
+body .right-a {
+  float: left;
+  width: 45px; }
 
 /*color*/
 /*col*/
@@ -1561,7 +1575,7 @@ h2 {
 
 .info-box h2 {
   font-size: 15px;
-  color: #ffaa00; }
+  color: #d43139; }
 
 /*paragraph*/
 p {
@@ -1578,7 +1592,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -1590,16 +1604,16 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .bread-nav a {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -1612,14 +1626,14 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .style a:hover, .aside .aside-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .concreteness input[type=button],
 .concreteness input[type=submit] {
@@ -1627,16 +1641,16 @@ a {
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00;
+  background: #d43139;
   border: none; }
 
 .page-box .page-focus {
   padding: 5px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00; }
+  background: #d43139; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -1653,16 +1667,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -2153,9 +2167,9 @@ span {
 
 .collect a {
   text-decoration: none;
-  color: #3f3f3f; }
+  color: #d43139; }
   .collect a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .collect .has-collect {
   color: #c20008; }
@@ -2179,7 +2193,7 @@ span {
   .aside h2 {
     margin: 0 auto 3px;
     padding: 15px 0 10px;
-    border-bottom: 1px solid #ffaa00;
+    border-bottom: 1px solid #d43139;
     width: 160px;
     text-align: center;
     font-size: 22px; }
@@ -2197,7 +2211,7 @@ span {
     display: block;
     margin: 0 10px;
     height: 15px;
-    background: #ffaa00;
+    background: #d43139;
     line-height: 15px;
     text-align: center;
     text-decoration: none; }
@@ -2246,7 +2260,7 @@ span {
       display: inline;
       font-size: 16px;
       padding: 3px;
-      color: #ffaa00;
+      color: #d43139;
       text-decoration: none;
       vertical-align: top; }
       .aside .product-handle a:hover {
@@ -2303,9 +2317,9 @@ span {
     cursor: pointer; }
   .tab .choose {
     cursor: auto;
-    border-color: #ffaa00; }
+    border-color: #d43139; }
     .tab .choose h2 {
-      color: #ffaa00; }
+      color: #d43139; }
   .tab h2 {
     margin: 0;
     padding: 0; }
@@ -2326,7 +2340,7 @@ span {
     z-index: 1;
     margin: 0 -20px;
     padding: 15px 30px 10px;
-    border-bottom: 1px solid #ffaa00; }
+    border-bottom: 1px solid #d43139; }
   .similar-box .move-left-box,
   .similar-box .move-right-box {
     position: absolute;
@@ -2341,8 +2355,8 @@ span {
       margin-top: -25px;
       width: 26px;
       height: 48px;
-      border: 2px solid #ffaa00;
-      color: #ffaa00;
+      border: 2px solid #d43139;
+      color: #d43139;
       text-align: center;
       text-decoration: none;
       font-size: 20px;
@@ -2350,7 +2364,7 @@ span {
       font-weight: 400; }
       .similar-box .move-left-box a:hover,
       .similar-box .move-right-box a:hover {
-        background: #ffaa00;
+        background: #d43139;
         color: white; }
   .similar-box .move-left-box {
     left: 0; }
@@ -2407,7 +2421,7 @@ span {
       display: inline;
       font-size: 18px;
       padding: 3px;
-      color: #ffaa00;
+      color: #d43139;
       text-decoration: none;
       vertical-align: top; }
       .similar-box .product-handle a:hover {
@@ -2480,9 +2494,9 @@ span {
     width: 15%;
     line-height: 60px; }
   .question .question-a {
-    color: #ffaa00; }
+    color: #d43139; }
     .question .question-a span {
-      color: #ffaa00; }
+      color: #d43139; }
   .question .question-name {
     display: inline-block;
     width: 15%;
@@ -2490,7 +2504,7 @@ span {
   .question form {
     margin-left: 20px; }
     .question form span {
-      color: #ffaa00; }
+      color: #d43139; }
 
 .page-box {
   overflow: hidden;
@@ -2516,7 +2530,7 @@ span {
   .page-box a {
     border: 1px solid #cccccc; }
     .page-box a:hover {
-      color: #ffaa00; }
+      color: #d43139; }
   .page-box .page-list {
     margin: 0; }
   .page-box .page-which {
@@ -2526,7 +2540,7 @@ span {
   .page-box .page-count {
     margin-left: 20px; }
     .page-box .page-count span {
-      color: #ffaa00; }
+      color: #d43139; }
   .page-box .page-focus {
     cursor: text; }
     .page-box .page-focus:hover {
@@ -2552,7 +2566,7 @@ span {
       width: 15%;
       text-align: center;
       border-right: 1px solid #cccccc;
-      color: #ffaa00;
+      color: #d43139;
       font-size: 16px; }
     .talking .talking-list .talking-text {
       float: left;
@@ -2567,7 +2581,7 @@ span {
 
 .talking-total {
   margin: 0 auto;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   width: 820px;
   height: 110px; }
   .talking-total p {
@@ -2583,13 +2597,13 @@ span {
     .talking-total .talking-btn-box input {
       margin: 15px 40px 0 0; }
   .talking-total .vice {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .score-star i {
   color: #cccccc; }
 
 .score-star .vice-star {
-  color: #ffaa00; }
+  color: #d43139; }
 
 .talking-area {
   margin: 20px 0 0 20px; }
@@ -2627,7 +2641,7 @@ span {
     padding: 0;
     margin: 0;
     padding: 10px 20px;
-    background: #ffaa00;
+    background: #d43139;
     color: white; }
     .pop-up h3 .pop-title {
       color: white;

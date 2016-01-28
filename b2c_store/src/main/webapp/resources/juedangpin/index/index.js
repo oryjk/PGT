@@ -21,7 +21,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         //right全屏幕高
         var height = $('body').height();
         console.log(height);
-        $(".right").css("height", height);
+        $(".side-bar").css("height", height);
 
         //轮播图
         Cpn.slider({
@@ -37,6 +37,28 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             height: 800,
             time: 200
         });
+
+        //right-box
+        $(function(){
+
+            var flag = 0;
+            var status = "";
+            $(".right1").click(function(){
+                var m_status = $(this).attr("title");
+                if(status != m_status || flag == 0){
+                    $("#side-bar").animate({right:"0"});
+                    var url = $(this).attr("path");
+                    status = $(this).attr("title");
+                    $("#side-bar").show();
+                    $("#right-menu").load(url);
+                    flag = 1;
+                }else if(flag == 1 && status == m_status){
+                    $("#side-bar").animate({right:"-300px"});
+                    flag = 0;
+                }
+            });
+        });
+
 
         //显示购物车数量
         Prd.getOrderItemCount($('#asideCartCount, #fixedCartCount, #cartCount'));
@@ -80,11 +102,11 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         });
 
         $(document).on('click', '.each-classify', function(event) {
-            event.preventDefault();
-            $('#classifyPopCentent').load('classify.html', function() {
-                $('#classifyPop').fadeIn(300);
-            })
+        event.preventDefault();
+        $('#classifyPopCentent').load('classify.html', function() {
+            $('#classifyPop').fadeIn(300);
         })
+    })
 
-    });
+});
 });
