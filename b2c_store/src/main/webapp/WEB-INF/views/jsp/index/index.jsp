@@ -184,7 +184,9 @@
 </div>
 
 <!--脚部-->
-<jsp:include page="../core/footer-main.jsp"/>
+<jsp:include page="../core/footer-main.jsp">
+    <jsp:param name="useleft" value="true" />
+</jsp:include>
 <div class="classify-product-box" id="classifyPop">
     <div class="classify-product-content">
         <p class="close"><span class="link-btn" id="closeClassifyPop">关闭分类</span></p>

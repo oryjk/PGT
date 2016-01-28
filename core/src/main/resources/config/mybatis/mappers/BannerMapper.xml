@@ -9,8 +9,7 @@
 		<if test="paginationBean!=null">
 			<if test="paginationBean.currentIndex != null">
 				<if test="paginationBean.capacity != null">
-					limit #{paginationBean.currentIndex},
-					#{paginationBean.capacity}
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
 				</if>
 			</if>
 		</if>

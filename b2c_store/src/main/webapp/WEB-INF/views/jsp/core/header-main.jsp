@@ -38,12 +38,18 @@
             </c:choose>
         </div>
     </div>
+
     <div class="top-banner">
+
+
         <div class="top-banner-box">
-            <a href="#">
-                <img src="../core/images/header/top-banner.png" alt=""/>
+
+            <a href="${pageContext.request.contextPath}${TopBanner.images[0].url}">
+                <img src="${pageContext.request.contextPath}${TopBanner.images[0].path}" alt="${TopBanner.images[0].title}"/>
             </a>
+
         </div>
+
     </div>
 </div>
 
@@ -114,7 +120,7 @@
             <a href="<spring:url value="/shoppingCart/cart" />" class="cart">
                 <i class="foundicon-cart"></i>
                 <span>我的购物车</span>
-                <span class="cart-count">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
+                <span class="cart-count" id="fixedCartCount">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
             </a>
         </div>
     </div>

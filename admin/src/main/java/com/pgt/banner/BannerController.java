@@ -50,33 +50,32 @@ public class BannerController {
      * @return
      */
 	@RequestMapping(value="/bannerList",method = RequestMethod.GET)
-	public ModelAndView bannerList(ModelAndView modelAndView, RedirectAttributes redirectAttributes,
-								   @RequestParam(value = "currentPage", required = false) Integer currentPage,
+	public ModelAndView bannerList(ModelAndView modelAndView,
+								   @RequestParam(value = "currentIndex", required = false) Integer currentIndex,
 								   @RequestParam(value = "capacity", required = false) Long capacity,BannerQuery bannerQuery) {
 
 		PaginationBean paginationBean = new PaginationBean();
-        if(ObjectUtils.isEmpty(currentPage)){
-           currentPage=1;
+        if(ObjectUtils.isEmpty(currentIndex)){
+			currentIndex=1;
 		}
 		paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
 		if(!ObjectUtils.isEmpty(capacity)){
 			paginationBean.setCapacity(capacity);
 			LOGGER.debug("The capacity is {}",capacity);
 		}
-
 		BannerQuery bannerCountQuery = new BannerQuery();
 		bannerCountQuery.setFields("count(*)");
 		Integer total=bannerService.queryBannerCount(bannerCountQuery);
 		LOGGER.debug("The banner total is {}",total);
-		paginationBean.setTotalAmount(total);
-
-		paginationBean.setCurrentIndex((currentPage-1)*paginationBean.getCapacity());
-		bannerQuery.setPaginationBean(paginationBean);
-		List<Banner> bannerList= bannerService.queryBannerByQuery(bannerQuery);
-		paginationBean.setTotalAmount(bannerList.size());
-
-		modelAndView.addObject("bannerList",bannerList);
-        modelAndView.addObject("paginationBean",paginationBean);
+        if(total!=0) {
+			paginationBean.setTotalAmount(total);
+			paginationBean.setCurrentIndex(currentIndex);
+			bannerQuery.setPaginationBean(paginationBean);
+			List<Banner> bannerList = bannerService.queryBannerByQuery(bannerQuery);
+			paginationBean.setTotalAmount(bannerList.size());
+			modelAndView.addObject("bannerList", bannerList);
+			modelAndView.addObject("paginationBean", paginationBean);
+		}
         modelAndView.setViewName("/banner/listBanner");
 		return modelAndView;
 	}

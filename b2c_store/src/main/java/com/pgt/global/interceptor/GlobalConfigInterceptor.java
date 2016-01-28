@@ -2,6 +2,8 @@ package com.pgt.global.interceptor;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryHelper;
+import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.BannerWebSite;
 import com.pgt.common.service.BannerService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
@@ -117,6 +119,12 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
 
             }
 
+            Banner TopBanner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
+            if(!ObjectUtils.isEmpty(TopBanner)){
+                LOGGER.debug("The query TopBanner id is {}",TopBanner.getBannerId());
+                modelAndView.addObject("TopBanner", TopBanner);
+            }
+
 
         } else {
             if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
@@ -147,6 +155,13 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
             if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_PRODUCTS))) {
                 List<HotSearch> hotSearchList = productService.queryAllHotsearch();
                 applicationContext.setAttribute(Constants.HOT_SEARCH_LIST, hotSearchList);
+            }
+
+
+            Banner TopBanner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
+            if(!ObjectUtils.isEmpty(TopBanner)){
+                LOGGER.debug("The query TopBanner id is {}",TopBanner.getBannerId());
+                modelAndView.addObject("TopBanner", TopBanner);
             }
 
 
