@@ -125,6 +125,7 @@
 </div>
 
 <!--fixed侧边栏-->
+
 <div class="right">
   <a href="<spring:url value=""/>" class="right1" >
     <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/pig.png"/>">

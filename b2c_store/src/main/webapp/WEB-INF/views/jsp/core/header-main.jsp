@@ -50,7 +50,7 @@
 <div class="head-box">
     <div class="logo-box">
         <h1>
-            <a href="../index/index.jsp">
+            <a href="/">
                 点金子绝当品——欢迎登陆
                 <!--<img src="../core/images/header/images/big-logo_pig.jpg" alt="#"/>-->
                 <!--<div class="golds"></div>-->
