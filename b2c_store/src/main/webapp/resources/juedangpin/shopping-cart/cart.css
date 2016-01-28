@@ -452,6 +452,12 @@ span {
   clear: both;
   margin-bottom: 20px; }
 
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
+
 /*color*/
 /*col*/
 /*color*/
@@ -552,6 +558,12 @@ span {
 .clear-float {
   clear: both;
   margin-bottom: 20px; }
+
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
 
 /*主列表
 ****************************************************/
@@ -880,6 +892,12 @@ span {
 .clear-float {
   clear: both;
   margin-bottom: 20px; }
+
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
 
 /*主列表
 ****************************************************/
@@ -1509,6 +1527,7 @@ td img {
     position: absolute;
     display: none;
     overflow: scroll;
+    max-height: 295px;
     top: 105%;
     left: 0;
     padding: 0;
@@ -1962,8 +1981,6 @@ td img {
     margin: 150px auto;
     width: 600px;
     border-radius: 8px;
-    overflow: hidden;
-    *zoom: 1;
     border: 1px solid #666666;
     box-shadow: black 0 0 20px;
     background: white;
@@ -1987,9 +2004,7 @@ td img {
         color: #cccccc; }
   .pop-up .pop-content {
     width: 480px;
-    margin: 20px auto 40px;
-    overflow: hidden;
-    *zoom: 1; }
+    margin: 20px auto 40px; }
   .pop-up input[type=text] {
     width: 220px;
     height: 23px; }

@@ -77,9 +77,9 @@ require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
             popUp: $('#popUp'),
             close: $('#popClose, #popReset')
         });
-        $('.link-btn').click(function () {
-            $('#popUp').fadeIn(300);
-        });
+        //$('.js-update-address').click(function () {
+        //
+        //});
 
         var areaObj = {
             province: $('#province'),
@@ -193,29 +193,55 @@ require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
         });
     });
 
-    $('.js-update-address').click(function (e) {
+    //$('.js-update-address').click(function (e) {
+    //    e.preventDefault();
+    //    var $this = $(this),
+    //        form = $('#addAddressForm');
+    //    $('#popUp').fadeIn(300);
+    //    if ($this.data('pending')) {
+    //        return false;
+    //    }
+    //    $this.data('pending', true);
+    //    $('#js-address-form-area').show();
+    //    form.find('span.js-error-msg').empty();
+    //    form.attr('action', $this.data('href'));
+    //    $.get($this.data('find-adress-url')).done(function (result) {
+    //        if (result.success == 'true') {
+    //            var data = JSON.parse(result.data);
+    //            $.each(data, function (key, value) {
+    //                var el = form.find('[name=' + key + ']');
+    //                if (el) {
+    //                    el.val(value);
+    //                }
+    //            });
+    //            $this.data('pending', false);
+    //        }
+    //        $this.data('pending', false);
+    //    });
+    //});
+
+    $('.js-update-address').click(function(e) {
         e.preventDefault();
         var $this = $(this),
-            form = $('#addAddressForm');
-        if ($this.data('pending')) {
+            form = $('#popForm');
+        if($this.data('pending')){
             return false;
         }
-        $this.data('pending', true);
-        $('#js-address-form-area').show();
-        form.find('span.js-error-msg').empty();
-        form.attr('action', $this.data('href'));
-        $.get($this.data('find-adress-url')).done(function (result) {
-            if (result.success == 'true') {
+        $this.data('pending',true);
+        form.attr('action',$this.data('href'));
+        console.log($this.data('data-find-adress-url'));
+        $.get($this.attr('data-find-adress-url')).done(function(result){
+            if(result.success == 'true'){
                 var data = JSON.parse(result.data);
-                $.each(data, function (key, value) {
-                    var el = form.find('[name=' + key + ']');
-                    if (el) {
+                $.each(data, function(key,value){
+                    var el = form.find('[name='+key+']');
+                    if(el){
                         el.val(value);
                     }
                 });
-                $this.data('pending', false);
+                $('#popUp').fadeIn(300);
+                $this.data('pending',false);
             }
-            $this.data('pending', false);
         });
     });
 
@@ -310,10 +336,13 @@ require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
             $('#js-pickup-area').show();
         }
     });
+
     $('#show-address-form').click(function () {
-        $('#addAddressForm')[0].reset();
-        $('#addAddressForm').attr('action', '../my-account/person-info/addAddress');
-        $('#js-address-form-area').show();
+        $('#popForm').get(0).reset();
+        $('#popForm').attr('action', '/my-account/person-info/addAddress');
+        $('#popUp').fadeIn(300);
+
+        //$('#js-address-form-area').show();
     });
     $('#js-hide-address-form').click(function () {
         $('#js-address-form-area').hide();

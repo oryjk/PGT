@@ -515,6 +515,12 @@ span {
   clear: both;
   margin-bottom: 20px; }
 
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
+
 /*color*/
 /*col*/
 /*color*/
@@ -678,6 +684,12 @@ span {
 .clear-float {
   clear: both;
   margin-bottom: 20px; }
+
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
 
 /*主列表
 ****************************************************/
@@ -1315,6 +1327,12 @@ span {
   clear: both;
   margin-bottom: 20px; }
 
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
+
 /*主列表
 ****************************************************/
 /*纵向商品列表
@@ -1705,6 +1723,12 @@ span {
 .clear-float {
   clear: both;
   margin-bottom: 20px; }
+
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
 
 /*主列表
 ****************************************************/
@@ -2631,8 +2655,6 @@ span {
     margin: 150px auto;
     width: 400px;
     border-radius: 8px;
-    overflow: hidden;
-    *zoom: 1;
     border: 1px solid #666666;
     box-shadow: black 0 0 20px;
     background: white;
@@ -2656,8 +2678,6 @@ span {
         color: #cccccc; }
   .pop-up .pop-content {
     width: 280px;
-    margin: 20px auto 40px;
-    overflow: hidden;
-    *zoom: 1; }
+    margin: 20px auto 40px; }
   .pop-up .row1 span {
     font-size: 16px; }

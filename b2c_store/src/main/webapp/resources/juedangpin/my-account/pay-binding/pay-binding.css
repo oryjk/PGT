@@ -973,6 +973,7 @@ span {
       position: absolute;
       display: none;
       overflow: scroll;
+      max-height: 295px;
       top: 105%;
       left: 0;
       padding: 0;

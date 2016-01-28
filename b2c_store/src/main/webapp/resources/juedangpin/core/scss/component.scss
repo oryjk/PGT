@@ -668,7 +668,7 @@
     margin: 150px auto;
     width: $width;
     border-radius: 8px;
-    @include bfc;
+    @extend %clear;
     border: 1px solid $middleGray;
     box-shadow: black 0 0 20px;
     background: white;
@@ -702,7 +702,7 @@
   .pop-content {
     width: $width - 120px;
     margin: 20px auto 40px;
-    @include bfc;
+    @extend %clear;
   }
 }
 
@@ -951,7 +951,7 @@
     position: absolute;
     display: none;
     overflow: scroll;
-    //height: 95px;
+    max-height: 295px;
     top: 105%;
     left: 0;
     @include o;
