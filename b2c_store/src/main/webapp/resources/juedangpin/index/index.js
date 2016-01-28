@@ -81,7 +81,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         $(document).on('click', '.each-classify', function(event) {
             event.preventDefault();
-
             $('#classifyPopCentent').load('classify.html', function() {
                 $('#classifyPop').fadeIn(300);
             })
