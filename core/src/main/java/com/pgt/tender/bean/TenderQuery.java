@@ -31,6 +31,19 @@ public class TenderQuery extends Tender {
         this.nameLike = nameLike;
     }
 
+
+
+    /**
+     * 任意排序条件
+     * @param isAsc 是否升序
+     * @return
+     */
+    public TenderQuery orderbyCondition(boolean isAsc,String condition) {
+        orderFields.add(new OrderField(condition, isAsc ? "ASC" : "DESC"));
+        return this;
+    }
+
+
     /**
      * 序号
      * @param isAsc 是否升序
