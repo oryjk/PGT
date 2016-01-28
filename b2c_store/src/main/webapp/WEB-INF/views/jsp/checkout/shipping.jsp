@@ -277,7 +277,7 @@
                 </label>
 
                 <div class="text">
-                    <div class="province" id="province">
+                    <div class="province">
                         <a id="province" class="select-view"  href="#">
                             <span class="selected">请选择</span>
                             <i class="foundicon-down-arrow"></i>
@@ -290,23 +290,23 @@
                         <input class="select-value" name="province" type="hidden" value=""/>
                     </div>
                     省
-                    <div class="city" id="city">
-                        <a class="select-view"  href="#">
+                    <div class="city" >
+                        <a id="city" class="select-view"  href="#">
                             <span class="selected">请选择</span>
                             <i class="foundicon-down-arrow"></i>
                         </a>
-                        <ul>
+                        <ul class="options">
 
                         </ul>
                         <input class="select-value" name="city" type="hidden" value=""/>
                     </div>
                     市
-                    <div class="county" id="county">
-                        <a class="select-view"  href="#">
+                    <div class="country" >
+                        <a id="country" class="select-view"  href="#">
                             <span class="selected">请选择</span>
                             <i class="foundicon-down-arrow"></i>
                         </a>
-                        <ul>
+                        <ul class="options">
 
                         </ul>
                         <input class="select-value" name="district" type="hidden" value=""/>
@@ -370,6 +370,6 @@
     </div>
 </div>
 
-<script src="${staticPath}/core/js/require.js" defer async="true" data-main="${staticPath}/shopping-cart/shopping-cart.js"></script>
+<script src="${staticPath}/core/js/require.js" defer async="true" data-main="${staticPath}/shopping-cart/shipping.js"></script>
 
 </html>

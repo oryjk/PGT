@@ -35,6 +35,10 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             country: $('#country')
         };
 
+        $('#addAddress').click(function() {
+            $('#popUp').fadeIn(300);
+        });
+
 
         //省->市
         Cpn.select2(areaObj.province, function(id) {
