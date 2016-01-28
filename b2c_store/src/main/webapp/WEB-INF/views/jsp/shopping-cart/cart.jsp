@@ -69,7 +69,7 @@
                                 <td class="img-box">
                                     <c:if test="${not commerceItem.inStock}">
                                         <c:set var="invalidItemCount" value="${invalidItemCount + 1}" />
-                                        <img src="<spring:url value="/${juedangpinStaticPath}/core/images/productList/out-of-stock-s.png" />"
+                                        <img src="<spring:url value="${juedangpinStaticPath}/core/images/productList/out-of-stock-s.png" />"
                                              class="out-of-stock" />
                                     </c:if>
                                     <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
