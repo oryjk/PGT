@@ -51,8 +51,8 @@
             <div class="classify">
                 <c:forEach items="${hotSearchList}" var="hotSearch" varStatus="status">
                     <c:if test="${status.index<4}">
-                        <a  href="${pageContext.request.contextPath}/essearch?term=${hotSearch.term}" class="box1-1 each-classify"
-                            style="background: url('${pageContext.request.contextPath}/resources${hotSearch.frontMedia.path}') no-repeat;"></a>
+                        <a  data-value="${pageContext.request.contextPath}/homeSearch?term=${hotSearch.term}" class="box1-1 each-classify"
+                            style="background-image: url('${pageContext.request.contextPath}/resources${hotSearch.frontMedia.path}');"></a>
                     </c:if>
                 </c:forEach>
             </div>
@@ -185,49 +185,14 @@
 
 <!--脚部-->
 <jsp:include page="../core/footer-main.jsp"/>
-<!--fixed侧边栏-->
-<div class="right">
-    <a href="<spring:url value=""/>" class="right1" >
-        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/pig.png"/>">
-        <div class="right2"><span>主页</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>"></div>
-    </a>
-
-    <div class="right-b">
-        <a href="<spring:url value="/myAccount/orderHistory" />" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-dd.png"/>">
-            <div class="right2"><span>订单</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-            </div>
-        </a>
-        <a href="<spring:url value="/shoppingCart/cart" />" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-buy.png"/>">
-            <div class="right2"><span>购物车</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-            </div>
-        </a>
-        <a href="<spring:url value="/myAccount/favourites" />" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-sc.png"/>">
-            <div class="right2"><span>收藏</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-            </div>
-        </a>
-        <a href="<spring:url value="${urlConfiguration.myAccountPage}"/>" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-zh.png"/>">
-            <div class="right2"><span>账户</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-            </div>
-        </a>
-        <a href="#" class="right1">
-            <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/_0005_arrow-top.png"/>">
-            <div class="right2"><span>回到顶部</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-            </div>
-        </a>
-</div>
-
 <div class="classify-product-box" id="classifyPop">
     <div class="classify-product-content">
         <p class="close"><span class="link-btn" id="closeClassifyPop">关闭分类</span></p>
         <div id="classifyPopCentent"></div>
     </div>
 </div>
+</body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/index/index.js"/>"></script>
 
-</body>
 
 </html>
