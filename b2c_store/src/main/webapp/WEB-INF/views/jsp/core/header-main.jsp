@@ -120,7 +120,7 @@
             <a href="<spring:url value="/shoppingCart/cart" />" class="cart">
                 <i class="foundicon-cart"></i>
                 <span>我的购物车</span>
-                <span class="cart-count">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
+                <span class="cart-count" id="fixedCartCount">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
             </a>
         </div>
     </div>
