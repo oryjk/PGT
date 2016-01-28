@@ -843,13 +843,14 @@ span {
 *******************************************************/
 body .right {
   z-index: 3;
-  width: 45px;
+  width: 35px;
   height: 100%;
   background-color: #000;
   padding-top: 100px;
   position: fixed;
   right: 0;
-  top: 0; }
+  top: 0;
+  padding-right: 10px; }
 
 body .right a:link,
 body .right a:visited {

@@ -51,8 +51,8 @@
             <div class="classify">
                 <c:forEach items="${hotSearchList}" var="hotSearch" varStatus="status">
                     <c:if test="${status.index<4}">
-                        <a  href="${pageContext.request.contextPath}/essearch?term=${hotSearch.term}" class="box1-1 each-classify"
-                            style="background: url('${pageContext.request.contextPath}/resources${hotSearch.frontMedia.path}') no-repeat;"></a>
+                        <a  data-value="${pageContext.request.contextPath}/homeSearch?term=${hotSearch.term}" class="box1-1 each-classify"
+                            style="background-image: url('${pageContext.request.contextPath}/resources${hotSearch.frontMedia.path}');"></a>
                     </c:if>
                 </c:forEach>
             </div>
