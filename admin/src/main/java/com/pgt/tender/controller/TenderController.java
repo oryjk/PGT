@@ -63,18 +63,8 @@ public class TenderController {
         }
         //封装排序
         if(!StringUtils.isEmpty(sortProperty)){
-            if(sortProperty=="id"){
-              tenderQuery.orderbyId(sortValue.endsWith("ASC")?true:false);
-            }
-            if(sortProperty=="pawnShopId"){
-                tenderQuery.orderbyPawnShopId(sortValue.endsWith("ASC")?true:false);
-            }
-            if(sortProperty=="pawnTicketId"){
-                tenderQuery.orderbyPawnTicketId(sortValue.endsWith("ASC")?true:false);
-            }
-            if(sortProperty=="publishDate"){
-                tenderQuery.orderbyPublishDate(sortValue.endsWith("ASC")?true:false);
-            }
+            LOGGER.debug("The sortProerty is {} and sortValve is {}",sortProperty,sortValue);
+            tenderQuery.orderbyCondition(sortValue.endsWith("ASC")?true:false,sortProperty);
         }
 
         List<Tender> tenderAll=tenderService.queryTenderByQuery(tenderQuery);
