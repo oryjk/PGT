@@ -1446,7 +1446,7 @@ td img {
 
 .province,
 .city,
-.county,
+.country,
 .invoice-title {
   position: relative;
   display: inline-block;
@@ -1456,14 +1456,14 @@ td img {
   .province a,
   .city i,
   .city a,
-  .county i,
-  .county a,
+  .country i,
+  .country a,
   .invoice-title i,
   .invoice-title a {
     font-size: 14px; }
   .province i,
   .city i,
-  .county i,
+  .country i,
   .invoice-title i {
     position: absolute;
     top: 0;
@@ -1476,14 +1476,14 @@ td img {
     color: white; }
   .province a,
   .city a,
-  .county a,
+  .country a,
   .invoice-title a {
     display: block;
     text-decoration: none;
     text-align: center; }
   .province .select-view,
   .city .select-view,
-  .county .select-view,
+  .country .select-view,
   .invoice-title .select-view {
     display: block;
     width: 100%;
@@ -1494,17 +1494,17 @@ td img {
     line-height: 25px; }
     .province .select-view:hover,
     .city .select-view:hover,
-    .county .select-view:hover,
+    .country .select-view:hover,
     .invoice-title .select-view:hover {
       background: #ce8221; }
     .province .select-view span,
     .city .select-view span,
-    .county .select-view span,
+    .country .select-view span,
     .invoice-title .select-view span {
       color: white; }
   .province ul,
   .city ul,
-  .county ul,
+  .country ul,
   .invoice-title ul {
     position: absolute;
     display: none;
@@ -1520,22 +1520,22 @@ td img {
     list-style: none; }
   .province li,
   .city li,
-  .county li,
+  .country li,
   .invoice-title li {
     margin: 3px 0; }
     .province li a,
     .city li a,
-    .county li a,
+    .country li a,
     .invoice-title li a {
       color: #d43139; }
     .province li:hover,
     .city li:hover,
-    .county li:hover,
+    .country li:hover,
     .invoice-title li:hover {
       background: #d43139; }
       .province li:hover a,
       .city li:hover a,
-      .county li:hover a,
+      .country li:hover a,
       .invoice-title li:hover a {
         color: white; }
 

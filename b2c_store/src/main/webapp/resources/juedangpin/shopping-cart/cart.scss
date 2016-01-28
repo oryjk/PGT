@@ -306,6 +306,7 @@ td {
 .country,
 .invoice-title {
   @include like-select(100px, 25px, 14px);
+
 }
 
 .error {
