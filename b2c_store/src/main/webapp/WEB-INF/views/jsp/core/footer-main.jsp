@@ -96,10 +96,10 @@
         <img class="two-dimension" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/weixinerweima.jpg"/>" alt="二维码"/>
   </a>
       <a class="online-server" href="#">
-        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/weibo.png"/>" alt="新浪官方微博"/>
-        <h3>新浪官方微博</h3>
-        <img class="two-dimension" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/erweima.jpg"/>" alt="二维码"/>
-  </a>
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/dianjinzi.png"/>" alt="点金子在线投资"/>
+        <h3>点金子投资</h3>
+      </a>
+
     </div>
     <div class="our-info">
       <h3>点金子总部地址</h3>

@@ -955,16 +955,17 @@ span {
   height: 95px; }
 
 .menu .menu-h {
+  font-size: 15px;
   padding-top: 10px;
   display: block;
   text-align: center;
   line-height: 40px; }
 
 .menu .menu-1 {
+  font-size: 14px;
   width: 160px;
   margin: 0 30px;
   overflow: hidden;
-  font-size: 10px;
   text-align: center; }
 
 .menu .menu-1 li {
@@ -1277,8 +1278,7 @@ body .right {
   position: fixed;
   right: 0;
   top: 0;
-  padding-right: 10px;
-}
+  padding-right: 10px; }
 
 body .right a:link,
 body .right a:visited {
@@ -1833,9 +1833,8 @@ h2 {
   margin-top: 20px; }
   .classify-box .box1-1 {
     float: left;
-    width: 271px;
-    height: 271px;
-    padding: 10px;
+    width: 291px;
+    height: 291px;
     margin: 2px;
     transition: all 0.8s;
     background-repeat: no-repeat;
