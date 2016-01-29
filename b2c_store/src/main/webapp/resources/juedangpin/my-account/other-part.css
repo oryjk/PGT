@@ -34,7 +34,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -46,9 +46,9 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -111,7 +111,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -123,9 +123,9 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -176,7 +176,7 @@ span {
 /*all style
 ************************************************/
 .header {
-  border-bottom: 2px solid #3f3f3f; }
+  border-bottom: 2px solid #d43139; }
   .header span,
   .header i,
   .header a,
@@ -346,14 +346,14 @@ span {
     width: 80%;
     height: 30px;
     padding: 3px 10px;
-    border: 2px solid #3f3f3f;
+    border: 2px solid #d43139;
     font-size: 18px;
     outline: none; }
   .head-box .search-sub {
     width: 15%;
     height: 40px;
     border: none;
-    background: #3f3f3f;
+    background: #d43139;
     color: white;
     font-size: 18px; }
   .head-box .search-tips {
@@ -361,7 +361,7 @@ span {
     display: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #3f3f3f;
+    border: 1px solid #d43139;
     border-top: none;
     width: 486px;
     height: 100px;
@@ -447,14 +447,14 @@ span {
     width: 80%;
     height: 30px;
     padding: 3px 10px;
-    border: 2px solid #3f3f3f;
+    border: 2px solid #d43139;
     font-size: 18px;
     outline: none; }
   .fixed-head-box .search-sub {
     width: 15%;
     height: 40px;
     border: none;
-    background: #3f3f3f;
+    background: #d43139;
     color: white;
     font-size: 18px; }
   .fixed-head-box .search-tips {
@@ -462,7 +462,7 @@ span {
     display: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #3f3f3f;
+    border: 1px solid #d43139;
     border-top: none;
     width: 565px;
     height: 100px;
@@ -523,7 +523,7 @@ span {
   display: block;
   width: 100%;
   height: 100%;
-  background: #3f3f3f;
+  background: #d43139;
   line-height: 45px;
   text-decoration: none;
   text-align: center; }
@@ -552,6 +552,7 @@ span {
   height: 95px; }
 
 .menu .menu-h {
+  font-size: 15px;
   padding-top: 10px;
   display: block;
   text-align: center;
@@ -561,7 +562,7 @@ span {
   width: 160px;
   margin: 0 30px;
   overflow: hidden;
-  font-size: 10px;
+  font-size: 14px;
   text-align: center; }
 
 .menu .menu-1 li {
@@ -659,7 +660,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover, .head-box .hot-words a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .menu-head span {
   color: #f8f8f8;
@@ -671,9 +672,9 @@ a {
   text-decoration: none;
   font-size: 18px; }
   .nav a:hover {
-    color: #ffaa00;
+    color: #d43139;
     padding-bottom: 2px;
-    border-bottom: 2px solid #ffaa00; }
+    border-bottom: 2px solid #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -749,7 +750,7 @@ span {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ffaa00;
+    background: #d43139;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -841,14 +842,14 @@ span {
 
 /*fixed-aside
 *******************************************************/
-body .right {
+body .side-bar {
   z-index: 3;
-  width: 45px;
+  width: 345px;
   height: 100%;
   background-color: #000;
   padding-top: 100px;
   position: fixed;
-  right: 0;
+  right: -300px;
   top: 0; }
 
 body .right a:link,
@@ -862,6 +863,7 @@ body .right a:active {
   text-decoration: none;
   border: none; }
 
+body .right1-2,
 body .right1 {
   padding: 4px 0;
   margin-top: 20px;
@@ -872,6 +874,7 @@ body .right1 {
   position: relative; }
 
 body .right-b {
+  float: left;
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ccc; }
@@ -902,9 +905,11 @@ body .right2 span {
   width: 70px;
   height: 33px; }
 
+body .right1-2:hover > .right2,
 body .right1:hover > .right2 {
   display: block; }
 
+body .right1-2 img,
 body .right1 img {
   text-align: center;
   padding-left: 13px;
@@ -912,6 +917,17 @@ body .right1 img {
   display: block;
   width: 20px;
   height: 20px; }
+
+body .right-menu {
+  overflow: scroll;
+  margin-top: 65px;
+  background: #fff;
+  width: 300px;
+  float: right; }
+
+body .right-a {
+  float: left;
+  width: 45px; }
 
 /* font-face */
 @font-face {

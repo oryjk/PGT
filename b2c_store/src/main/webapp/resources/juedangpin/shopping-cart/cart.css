@@ -389,7 +389,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -402,14 +402,14 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .content-1 tbody a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .recommend .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -420,16 +420,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -451,6 +451,12 @@ span {
 .clear-float {
   clear: both;
   margin-bottom: 20px; }
+
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
 
 /*color*/
 /*col*/
@@ -490,7 +496,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -503,14 +509,14 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .content-1 tbody a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .recommend .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -521,16 +527,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -552,6 +558,12 @@ span {
 .clear-float {
   clear: both;
   margin-bottom: 20px; }
+
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
 
 /*主列表
 ****************************************************/
@@ -604,7 +616,7 @@ span {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ffaa00;
+    background: #d43139;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -696,14 +708,14 @@ span {
 
 /*fixed-aside
 *******************************************************/
-body .right {
+body .side-bar {
   z-index: 3;
-  width: 45px;
+  width: 345px;
   height: 100%;
   background-color: #000;
   padding-top: 100px;
   position: fixed;
-  right: 0;
+  right: -300px;
   top: 0; }
 
 body .right a:link,
@@ -717,6 +729,7 @@ body .right a:active {
   text-decoration: none;
   border: none; }
 
+body .right1-2,
 body .right1 {
   padding: 4px 0;
   margin-top: 20px;
@@ -727,6 +740,7 @@ body .right1 {
   position: relative; }
 
 body .right-b {
+  float: left;
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ccc; }
@@ -757,9 +771,11 @@ body .right2 span {
   width: 70px;
   height: 33px; }
 
+body .right1-2:hover > .right2,
 body .right1:hover > .right2 {
   display: block; }
 
+body .right1-2 img,
 body .right1 img {
   text-align: center;
   padding-left: 13px;
@@ -767,6 +783,17 @@ body .right1 img {
   display: block;
   width: 20px;
   height: 20px; }
+
+body .right-menu {
+  overflow: scroll;
+  margin-top: 65px;
+  background: #fff;
+  width: 300px;
+  float: right; }
+
+body .right-a {
+  float: left;
+  width: 45px; }
 
 /*color*/
 /*col*/
@@ -804,7 +831,7 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .about-us a {
   color: #cccccc;
@@ -817,14 +844,14 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .content-1 tbody a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .recommend .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -835,16 +862,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -866,6 +893,12 @@ span {
 .clear-float {
   clear: both;
   margin-bottom: 20px; }
+
+.pop-up .inner:after, .pop-up .pop-content:after, .pop-up .inner:before, .pop-up .pop-content:before {
+  content: ' ';
+  display: table;
+  clear: both;
+  height: 0; }
 
 /*主列表
 ****************************************************/
@@ -1380,7 +1413,7 @@ span {
   text-decoration: none;
   color: #0286ce; }
   .content-box .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .d-btn {
   font-size: 16px; }
@@ -1416,7 +1449,7 @@ td img {
   margin: 0 auto;
   width: 1180px;
   height: 40px;
-  border-bottom: 3px solid #ffaa00;
+  border-bottom: 3px solid #d43139;
   line-height: 40px;
   font-size: 16px; }
   .content-title h2 {
@@ -1432,7 +1465,7 @@ td img {
 
 .province,
 .city,
-.county,
+.country,
 .invoice-title {
   position: relative;
   display: inline-block;
@@ -1442,14 +1475,14 @@ td img {
   .province a,
   .city i,
   .city a,
-  .county i,
-  .county a,
+  .country i,
+  .country a,
   .invoice-title i,
   .invoice-title a {
     font-size: 14px; }
   .province i,
   .city i,
-  .county i,
+  .country i,
   .invoice-title i {
     position: absolute;
     top: 0;
@@ -1462,66 +1495,66 @@ td img {
     color: white; }
   .province a,
   .city a,
-  .county a,
+  .country a,
   .invoice-title a {
     display: block;
     text-decoration: none;
     text-align: center; }
   .province .select-view,
   .city .select-view,
-  .county .select-view,
+  .country .select-view,
   .invoice-title .select-view {
     display: block;
     width: 100%;
     height: 100%;
     color: white;
-    background: #ffaa00;
+    background: #d43139;
     border-radius: 3px;
     line-height: 25px; }
     .province .select-view:hover,
     .city .select-view:hover,
-    .county .select-view:hover,
+    .country .select-view:hover,
     .invoice-title .select-view:hover {
       background: #ce8221; }
     .province .select-view span,
     .city .select-view span,
-    .county .select-view span,
+    .country .select-view span,
     .invoice-title .select-view span {
       color: white; }
   .province ul,
   .city ul,
-  .county ul,
+  .country ul,
   .invoice-title ul {
     position: absolute;
     display: none;
     overflow: scroll;
-    height: 95px;
+    max-height: 295px;
     top: 105%;
     left: 0;
     padding: 0;
     margin: 0;
-    border: 1px solid #ffaa00;
+    border: 1px solid #d43139;
     width: 98px;
     background: white;
     list-style: none; }
   .province li,
   .city li,
-  .county li,
+  .country li,
   .invoice-title li {
     margin: 3px 0; }
     .province li a,
     .city li a,
-    .county li a,
+    .country li a,
     .invoice-title li a {
-      color: #ffaa00; }
+      color: #d43139; }
     .province li:hover,
     .city li:hover,
-    .county li:hover,
+    .country li:hover,
     .invoice-title li:hover {
-      background: #ffaa00; }
+      background: #d43139; }
       .province li:hover a,
       .city li:hover a,
-      .county li:hover a,
+      .country li:hover a,
       .invoice-title li:hover a {
         color: white; }
 
@@ -1553,7 +1586,7 @@ td img {
   width: 100px; }
 
 .content-1 tbody .level {
-  color: #ffaa00; }
+  color: #d43139; }
 
 .content-1 tbody .product-old-cost {
   font-size: 18px;
@@ -1787,9 +1820,9 @@ td img {
       cursor: pointer; }
     .recommend .tab .choose {
       cursor: auto;
-      border-color: #ffaa00; }
+      border-color: #d43139; }
       .recommend .tab .choose h2 {
-        color: #ffaa00; }
+        color: #d43139; }
     .recommend .tab h2 {
       margin: 0;
       padding: 0; }
@@ -1810,7 +1843,7 @@ td img {
       z-index: 1;
       margin: 0 -20px;
       padding: 15px 30px 10px;
-      border-bottom: 1px solid #ffaa00; }
+      border-bottom: 1px solid #d43139; }
     .recommend .similar-box .move-left-box,
     .recommend .similar-box .move-right-box {
       position: absolute;
@@ -1825,8 +1858,8 @@ td img {
         margin-top: -25px;
         width: 26px;
         height: 48px;
-        border: 2px solid #ffaa00;
-        color: #ffaa00;
+        border: 2px solid #d43139;
+        color: #d43139;
         text-align: center;
         text-decoration: none;
         font-size: 20px;
@@ -1834,7 +1867,7 @@ td img {
         font-weight: 400; }
         .recommend .similar-box .move-left-box a:hover,
         .recommend .similar-box .move-right-box a:hover {
-          background: #ffaa00;
+          background: #d43139;
           color: white; }
     .recommend .similar-box .move-left-box {
       left: 0; }
@@ -1891,7 +1924,7 @@ td img {
         display: inline;
         font-size: 18px;
         padding: 3px;
-        color: #ffaa00;
+        color: #d43139;
         text-decoration: none;
         vertical-align: top; }
         .recommend .similar-box .product-handle a:hover {
@@ -1927,11 +1960,11 @@ td img {
 /*for js
 *************************************************************************************/
 .logo-box .this-step {
-  border-top: 1px solid #ffaa00;
+  border-top: 1px solid #d43139;
   height: 5px;
-  background: #ffaa00; }
+  background: #d43139; }
   .logo-box .this-step span {
-    background: #ffaa00;
+    background: #d43139;
     border-radius: 12px;
     color: white; }
 
@@ -1949,8 +1982,6 @@ td img {
     margin: 150px auto;
     width: 600px;
     border-radius: 8px;
-    overflow: hidden;
-    *zoom: 1;
     border: 1px solid #666666;
     box-shadow: black 0 0 20px;
     background: white;
@@ -1959,7 +1990,7 @@ td img {
     padding: 0;
     margin: 0;
     padding: 10px 20px;
-    background: #ffaa00;
+    background: #d43139;
     color: white; }
     .pop-up h3 .pop-title {
       color: white;
@@ -1974,14 +2005,12 @@ td img {
         color: #cccccc; }
   .pop-up .pop-content {
     width: 480px;
-    margin: 20px auto 40px;
-    overflow: hidden;
-    *zoom: 1; }
+    margin: 20px auto 40px; }
   .pop-up input[type=text] {
     width: 220px;
     height: 23px; }
     .pop-up input[type=text]:focus {
-      border: 2px solid #ffaa00; }
+      border: 2px solid #d43139; }
   .pop-up .must-write,
   .pop-up .pop-tips {
     color: #c20008; }

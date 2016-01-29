@@ -38,19 +38,25 @@
             </c:choose>
         </div>
     </div>
+
     <div class="top-banner">
+
+
         <div class="top-banner-box">
-            <a href="#">
-                <img src="../core/images/header/top-banner.png" alt=""/>
+
+            <a href="${pageContext.request.contextPath}${TopBanner.images[0].url}">
+                <img src="${pageContext.request.contextPath}${TopBanner.images[0].path}" alt="${TopBanner.images[0].title}"/>
             </a>
+
         </div>
+
     </div>
 </div>
 
 <div class="head-box">
     <div class="logo-box">
         <h1>
-            <a href="../index/index.jsp">
+            <a href="/">
                 点金子绝当品——欢迎登陆
                 <!--<img src="../core/images/header/images/big-logo_pig.jpg" alt="#"/>-->
                 <!--<div class="golds"></div>-->
@@ -114,7 +120,7 @@
             <a href="<spring:url value="/shoppingCart/cart" />" class="cart">
                 <i class="foundicon-cart"></i>
                 <span>我的购物车</span>
-                <span class="cart-count">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
+                <span class="cart-count" id="fixedCartCount">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
             </a>
         </div>
     </div>
