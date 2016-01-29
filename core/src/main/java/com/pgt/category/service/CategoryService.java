@@ -42,4 +42,6 @@ public interface CategoryService {
     Integer getHelpCategoryCount();
 
     List<Category> querySubCategories(Integer rootCategoryId);
+
+    List<Category> queryOnlinePawnCategories();
 }

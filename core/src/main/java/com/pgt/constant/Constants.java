@@ -54,6 +54,7 @@ public class Constants {
     public static final String LOGIN_SESSION_PHONE_CODE = "loginSessionSmsCode";
     public static final String REGISTER_SESSION_PHONE_CODE = "registerSessionSmsCode";
     public static final String RESET_PASSWOR_SESSION_PHONE_CODE = "registerSessionSmsCode";
+    public static final String ONLINEPAWN_SESSION_PHONE_CODE = "onlinePawnSessionSmsCode";
     public static final String PHONE_CODE = "phoneCode";
 
     //user workflow
@@ -77,5 +78,10 @@ public class Constants {
     public static final String CATEGORY_HOT="categoryHot";
     public static final String SITE_HOT="siteHot";
     public static final String SITE_HOT_PROPERTY="tender.siteHot";
+
+    //OnlinePawn
+    public static final String ONLINE_PAWN_ADD = "";
+    public static final String ONLINE_PAWN_FINDALL = "";
+    public static final String ONLINE_PAWN_UPDATE = "";
 
 }
