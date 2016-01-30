@@ -38,7 +38,7 @@ $(function(){
 
 
 $(function () {
-    var height = $('body').height();
+    var height = window.screen.height;
     $(".right").css("height", height);
 });
 

@@ -1,7 +1,6 @@
 .n-all {
-  overflow: hidden;
-  width: 300px;
-  height: 3600px; }
+  overflow-y: scroll;
+  width: 300px; }
 
 .n-header {
   color: #000;
@@ -53,6 +52,7 @@
   height: 70px;
   width: 300px; }
   .n-footer .n-btn0 {
+    padding-top: 10px;
     width: 300px;
     height: 30px; }
   .n-footer .n-btn {
@@ -74,4 +74,5 @@
 
 .n-content a:link,
 .n-content a:visited {
+  text-decoration: none;
   background: none; }

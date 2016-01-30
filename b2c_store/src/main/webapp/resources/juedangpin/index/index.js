@@ -19,7 +19,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         //    height: $('#menuList').height()  + 'px'
         //});
         //right全屏幕高
-        var height = $('body').height();
+        var height = window.screen.height;
         console.log(height);
         $(".side-bar").css("height", height);
 
