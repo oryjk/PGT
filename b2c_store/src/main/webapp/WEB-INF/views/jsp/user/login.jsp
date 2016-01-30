@@ -7,6 +7,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/user/login.css"/>"/>
 </head>
 <body>
