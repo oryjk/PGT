@@ -14,7 +14,6 @@
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 		<result column="easy_buy" property="easyBuy" />
-        <collection column="order_id" property="commerceItems" select="loadCommerceItemsFromOrderWithRealTimePrice" />
 	</resultMap>
 
 	<resultMap id="commerceItem" type="com.pgt.cart.bean.CommerceItem">

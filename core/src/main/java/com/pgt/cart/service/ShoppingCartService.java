@@ -49,11 +49,23 @@ public class ShoppingCartService {
 
 
 	public Order loadInitialOrder (final int pUserId) {
-		return getShoppingCartDao().loadInitialOrderByUserId(pUserId);
+		Order order = getShoppingCartDao().loadInitialOrderByUserId(pUserId);
+		if (order != null && RepositoryUtils.idIsValid(order.getId())) {
+			List<CommerceItem> commerceItems = getShoppingCartDao()
+					.loadCommerceItemsFromOrderWithRealTimePrice(order.getId());
+			order.setCommerceItems(commerceItems);
+		}
+		return order;
 	}
 
 	public List<Order> loadInitialOrders (final int pUserId) {
-		return getShoppingCartDao().loadInitialOrdersByUserId(pUserId);
+		List<Order> orders = getShoppingCartDao().loadInitialOrdersByUserId(pUserId);
+		for (Order order : orders) {
+			List<CommerceItem> commerceItems = getShoppingCartDao()
+					.loadCommerceItemsFromOrderWithRealTimePrice(order.getId());
+			order.setCommerceItems(commerceItems);
+		}
+		return orders;
 	}
 
 	public Order mergeOrder (final Order pDestinationOrder, final Order pPendingMergeOrder) {

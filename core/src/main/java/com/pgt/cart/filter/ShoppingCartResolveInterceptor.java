@@ -52,7 +52,11 @@ public class ShoppingCartResolveInterceptor implements HandlerInterceptor {
 
 		if (CollectionUtils.isEmpty(initialOrders)) {
 			// if no initial orders persisted, new order and persist
-			finalInitialOrder = sessionOrder;
+			if (sessionOrder != null) {
+				finalInitialOrder = sessionOrder;
+			} else {
+				finalInitialOrder = new Order(userId, getShoppingCartService().getShoppingCartConfiguration().getDefaultOrderType());
+			}
 			finalInitialOrder.setUserId(userId);
 			getPriceOrderService().priceOrder(finalInitialOrder);
 			// persist new order
