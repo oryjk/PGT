@@ -25,10 +25,10 @@
 
     <div class="n-box1">
         <a href="#">
-            <img data-value="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>" src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}">
+            <img data-value="${commerceItem.referenceId}" src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}">
             <div class="n-box1-font">${commerceItem.name}</div>
             <div class="n-box1-font1"> ¥ <span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span></div>
-            <a href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>" class="n-box1-img" ><img data-value="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>" src="<spring:url value="${juedangpinStaticPath}/core/images/header/s-del2.png"/>"></a>
+            <a data-value="${commerceItem.referenceId}" class="n-box1-img" ><img data-value="${commerceItem.referenceId}" src="<spring:url value="${juedangpinStaticPath}/core/images/header/s-del2.png"/>"></a>
         </a>
     </div>
 

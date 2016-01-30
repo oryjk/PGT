@@ -22,13 +22,13 @@
 
         <c:forEach var="fav" items="${favourites.result}">
         <div class="n-box1">
-            <a href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>">
-                <img data-value="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>" src="${pageContext.request.contextPath}/resources${fav['snapshotMedia']['path']}">
+            <a data-value="${fav.productId}" href="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>">
+                <img data-value="${fav.productId}" src="${pageContext.request.contextPath}/resources${fav['snapshotMedia']['path']}">
 
                 <div class="n-box1-font">${fav.name}</div>
                 <div class="n-box1-font1"><fmt:formatNumber value="${fav.finalPrice}" pattern="0.00" type="number" /></div>
-                <a href="#" data-value="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>" class="n-box1-img"><img src="<spring:url value="${juedangpinStaticPath}/core/images/header/s-del2.png"/>"></a>
-                <a href="#" data-value="<spring:url value="${urlConfiguration.pdpPage}/${fav.productId}"/>" class="n-box1-img1"><img src="<spring:url value="${juedangpinStaticPath}/core/images/header/ss-buy.png"/>"></a>
+                <a href="#" data-value="${fav.productId}" class="n-box1-img"><img src="<spring:url value="${juedangpinStaticPath}/core/images/header/s-del2.png"/>"></a>
+                <a href="#" data-value="${fav.productId}" class="n-box1-img1"><img src="<spring:url value="${juedangpinStaticPath}/core/images/header/ss-buy.png"/>"></a>
             </a>
         </div>
         </c:forEach>

@@ -33,6 +33,15 @@
 					 select="queryHotProductFrontMedia"/>
 	</resultMap>
 
+
+	<select id="queryHotProductFrontMedia" parameterType="int" resultMap="com.pgt.product.dao.ProductMapper.productMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{HOT_SEARCH_ID} AND TYPE='hot'
+		ORDER BY 'index'
+		asc
+	</select>
+
 	<!-- insert a hotSearch bean -->
 	<insert id="createHotSearch" parameterType="com.pgt.hot.bean.HotSearch"
 		keyProperty="hotSearchId" useGeneratedKeys="true">
@@ -56,7 +65,7 @@
 	</delete>
 
 	<select id="queryHotSearchByQuery" parameterType="com.pgt.hot.bean.HotSearch" resultMap="hotSearch">
-        SELECT * FROM
+        SELECT * FROM HOT_SEARCH
 		<include refid="hotSearchListWhere"/>
 		<include refid="pageBean"/>
 	</select>
