@@ -25,12 +25,12 @@
 
         <div class="n-box1">
             <a href="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>">
-                <img src="${pageContext.request.contextPath}/resources${product.source.frontMedia.path}">
+                <img data-value="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>" src="${pageContext.request.contextPath}/resources${product.source.frontMedia.path}">
 
                 <div class="n-box1-font">${product.source.name}</div>
                 <div class="n-box1-font1"><fmt:formatNumber value="${product.source.salePrice}" pattern="0.00" type="number" /></div>
-                <a href="#" class="n-box1-img"><img src="<spring:url value="${juedangpinStaticPath}/core/images/header/ss-sc.png"/>"></a>
-                <a href="#" class="n-box1-img1"><img src=" <spring:url value="${juedangpinStaticPath}/core/images/header/ss-buy.png"/>"></a>
+                <a href="#" data-value="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>" class="n-box1-img"><img src="<spring:url value="${juedangpinStaticPath}/core/images/header/ss-sc.png"/>"></a>
+                <a href="#" data-value="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>" class="n-box1-img1"><img src=" <spring:url value="${juedangpinStaticPath}/core/images/header/ss-buy.png"/>"></a>
             </a>
 
 
