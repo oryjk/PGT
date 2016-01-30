@@ -159,6 +159,10 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     public List<Category> querySubCategories(Integer rootCategoryId) {
         return categoryMapper.querySubCategories(rootCategoryId);
     }
+    @Override
+    public List<Category> queryOnlinePawnCategories(){
+        return categoryMapper.queryOnlinePawnCategories();
+    }
 
     public CategoryMapper getCategoryMapper() {
         return categoryMapper;
