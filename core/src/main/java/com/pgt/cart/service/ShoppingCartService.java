@@ -41,7 +41,7 @@ public class ShoppingCartService {
 	@Autowired
 	private ProductService mProductService;
 
-	private int mMaxItemCount4Cart = 2;
+	private int mMaxItemCount4Cart = 3;
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
