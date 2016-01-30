@@ -57,7 +57,8 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                 }
             });
 
-            $('#header, #content, #footer').click(function() {
+            $('#header, #content, #footer').click(function(event) {
+                if ($(event.target).attr('data-btn') != 'addCart')
                 $("#side-bar").animate({right:"-300px"});
                 flag = 0;
             })
@@ -88,6 +89,8 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                 if (targetType == 'addCart') {
                     //加入购物车
                     Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'));
+                    $("#right-menu").load('/product/buy');
+
                     $('.right-buy1').css({
                         'transform': 'scale(4)',
                         'opacity': '.5'
@@ -113,7 +116,72 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             $('#classifyPopCentent').load(href, function() {
                 $('#classifyPop').fadeIn(300);
             })
-        })
+        });
+
+        $(document).on('click', '.sideAddCart', sideAddCart);
+        $(document).on('click', '.sideRemoveCart', sideRemoveCart);
+        $(document).on('click', '.sideAddEnjoy', sideAddEnjoy);
+        $(document).on('click', '.sideDisEnjoy', sideDisEnjoy);
+
+
+
+
+        //加入购物车
+        function sideAddCart(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+
+            event.preventDefault();
+
+            Prd.addItemToOrder(productId, null, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function(param) {
+                if (param.success == 1) {
+                    $("#right-menu").load('/product/buy');
+                }
+            });
+        }
+
+        //删除购物车
+        function sideRemoveCart(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+
+            event.preventDefault();
+            Prd.removeItemFromOrder(productId, null, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function(param) {
+                if (param.success == 1) {
+                    $("#right-menu").load('/product/buy');
+                }
+            });
+        }
+
+
+        //添加收藏
+        function sideAddEnjoy(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+
+            event.preventDefault();
+
+            Prd.addItemToFavourite(productId, null);
+        }
+
+        //添加收藏
+        function sideDisEnjoy(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+
+            event.preventDefault();
+
+            Prd.removeFavourite(productId, null, null, function(param) {
+                if (param.success == 1) {
+                    that.parent().hide();
+                }
+            });
+        }
+
+
+
+
+
     })
 
 });
