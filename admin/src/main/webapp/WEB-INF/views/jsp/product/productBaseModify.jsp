@@ -160,7 +160,7 @@
 								<label class="col-xs-3 control-label">库存</label>
 
 								<div class="col-xs-4">
-									<form:input path="stock" class="form-control" placeholder="不超过20字" value="1"/>
+									<form:input path="stock" class="form-control" placeholder="不超过20字" value=""/>
 								</div>
 							</div>
 							<div class="form-group">

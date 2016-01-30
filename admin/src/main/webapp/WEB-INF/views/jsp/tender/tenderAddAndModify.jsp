@@ -11,7 +11,8 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<admin:container id="tenderList" pageJsPath="/resources/product/product-base.js">
+<script src="/resources/assets/global/scripts/avalon.js"></script>
+<admin:container id="tenderList" pageJsPath="/resources/tender/tender.js">
 	<style>
 		.pgt-error {
 			color: red;
@@ -55,7 +56,7 @@
 				</div>
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
-					<form action="/tender/${tender.tenderId eq null ? 'create' : 'update'} " method="post" class="form-horizontal">
+					<form ms-controller="tenderForm" action="/tender/${tender.tenderId eq null ? 'create' : 'update'} " method="post" class="form-horizontal">
 						<div class="form-body">
 							<!-- 只有在修改时才显示id行-->
 							<c:if test="${!empty tender.tenderId}">
@@ -72,10 +73,10 @@
 							</c:if>
 
 							<div class="form-group">
-								<label class="col-xs-3 control-label">当铺的ID:</label>
+								<label class="col-xs-3 control-label">当铺的编号:</label>
 
 								<div class="col-xs-4">
-									<input path="pawnShopId" name="pawnShopId"  value="${tender.pawnShopId}" placeholder="" class="form-control  pgt-requisite-name"/>
+									<input ms-duplex="pawnShopId" path="pawnShopId" name="pawnShopId"  value="${tender.pawnShopId}" placeholder="" class="form-control  pgt-requisite-name"/>
 								</div>
 								<div class="col-xs-4">
 									<p class="form-control-static pgt-error">
@@ -88,7 +89,7 @@
 								<label class="col-xs-3 control-label">当票编号:</label>
 
 								<div class="col-xs-4">
-									<input path="pawnTicketId" name="pawnTicketId" value="${tender.pawnTicketId}" placeholder="" class="form-control  pgt-requisite-name"/>
+									<input ms-duplex="pawnTicketId" path="pawnTicketId" name="pawnTicketId" value="${tender.pawnTicketId}" placeholder="" class="form-control  pgt-requisite-name"/>
 								</div>
 								<div class="col-xs-4">
 									<p class="form-control-static pgt-error">
@@ -100,28 +101,28 @@
 								<label class="col-xs-3 control-label">投资总金额</label>
 
 								<div class="col-xs-4">
-									<input path="tenderTotal" name="tenderTotal" value="${tender.tenderTotal}" type="text" class="form-control" placeholder="商家id"/>
+									<input ms-duplex-limit="tenderTotal" data-duplex-totalLimit="8" name="tenderTotal" value="${tender.tenderTotal}" type="text" class="form-control" placeholder="商家id"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">最小投资金额</label>
 
 								<div class="col-xs-4">
-									<input path="smallMoney" name="smallMoney" value="${tender.smallMoney}" class="form-control" placeholder="不超过20字"/>
+									<input  ms-duplex-limit="smallMoney" data-duplex-totalLimit="8" name="smallMoney" value="${tender.smallMoney}" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">开始时间:</label>
 								<div class="col-md-4">
-									<input type="text" name="publishDate" value="<fmt:formatDate value="${tender.publishDate}" type="both" />" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
+									<input ms-duplex="publishDate" type="text" name="publishDate" value="<fmt:formatDate value="${tender.publishDate}" type="both" />" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">截止时间:</label>
 								<div class="col-md-4">
-									<input type="text" name="dueDate" value="<fmt:formatDate value="${tender.dueDate}" type="both" />" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
+									<input ms-duplex="dueDate" type="text" name="dueDate" value="<fmt:formatDate value="${tender.dueDate}" type="both" />" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
 								</div>
 							</div>
 
@@ -130,14 +131,14 @@
 								<label class="col-xs-3 control-label">收益率:</label>
 
 								<div class="col-xs-4">
-									<input path="interestRate" name="interestRate" value="${tender.interestRate}" class="form-control" placeholder=""/>
+									<input ms-duplex="interestRate" name="interestRate" value="${tender.interestRate}" class="form-control" placeholder=""/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">投资名称</label>
 
 								<div class="col-xs-4">
-									<input path="name" name="name" value="${tender.name}" class="form-control" placeholder="不超过20字"/>
+									<input ms-duplex="name" name="name" value="${tender.name}" class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 
@@ -145,22 +146,22 @@
 								<label class="col-xs-3 control-label">投资的详情</label>
 
 								<div class="col-xs-4">
-									<input path="description" name="description" value="${tender.description}"  class="form-control" placeholder="不超过20字"/>
+									<input ms-duplex="description" name="description" value="${tender.description}"  class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="col-xs-3 control-label">开始算收益天数</label>
+								<label class="col-xs-3 control-label">付款后多少天开始算收益</label>
 
 								<div class="col-xs-4">
-									<input path=" prePeriod" name="prePeriod" value="${tender.prePeriod}"  class="form-control" placeholder="不超过20字"/>
+									<input ms-duplex="prePeriod" name="prePeriod" value="${tender.prePeriod}"  class="form-control" placeholder="不超过20字"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-xs-3 control-label">无息天数:</label>
+								<label class="col-xs-3 control-label">无息天数</label>
 
 								<div class="col-xs-4">
-									<input path="postPeriod" name="postPeriod" value="${tender.postPeriod}" class="form-control" placeholder="不超过10字"/>
+									<input ms-duplex="postPeriod" name="postPeriod" value="${tender.postPeriod}" class="form-control" placeholder="不超过10字"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -168,7 +169,7 @@
 
 								<div class="col-xs-9">
 									<div class="radio-list">
-										<select path="categoryHot" name="categoryHot" class="form-control input-medium">
+										<select ms-duplex="categoryHot" name="categoryHot" class="form-control input-medium">
 											<option value="1">是</option>
 											<option value="0">否</option>
 										</select>
@@ -180,7 +181,7 @@
 
 								<div class="col-xs-9">
 									<div class="radio-list">
-										<select path="status" name="siteHot" class="form-control input-medium">
+										<select ms-duplex="status" name="siteHot" class="form-control input-medium">
 											<option value="1">是</option>
 											<option value="0">否</option>
 										</select>
