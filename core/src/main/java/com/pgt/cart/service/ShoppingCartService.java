@@ -38,15 +38,17 @@ public class ShoppingCartService {
 	@Resource(name = "priceOrderService")
 	private PriceOrderService mPriceOrderService;
 
+	@Resource(name = "shoppingCartConfiguration")
+	private ShoppingCartConfiguration mShoppingCartConfiguration;
+
 	@Autowired
 	private ProductService mProductService;
-
-	private int mMaxItemCount4Cart = 2;
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
 
-	public Order loadInitialOrder(final int pUserId) {
+
+	public Order loadInitialOrder (final int pUserId) {
 		Order order = getShoppingCartDao().loadInitialOrderByUserId(pUserId);
 		if (order != null && RepositoryUtils.idIsValid(order.getId())) {
 			List<CommerceItem> commerceItems = getShoppingCartDao()
@@ -56,7 +58,11 @@ public class ShoppingCartService {
 		return order;
 	}
 
-	public Order mergeOrder(final Order pSourceOrder, final Order pDestinationOrder) {
+	public List<Order> loadInitialOrders (final int pUserId) {
+		return getShoppingCartDao().loadInitialOrdersByUserId(pUserId);
+	}
+
+	public Order mergeOrder (final Order pSourceOrder, final Order pDestinationOrder) {
 		if (pSourceOrder.emptyOrder()) {
 			return pDestinationOrder;
 		}
@@ -68,7 +74,7 @@ public class ShoppingCartService {
 		return pDestinationOrder;
 	}
 
-	public boolean persistInitialOrder(final Order pOrder) throws OrderPersistentException {
+	public boolean persistInitialOrder (final Order pOrder) throws OrderPersistentException {
 		synchronized (pOrder) {
 			// check order ready to persist
 			if (pOrder == null || pOrder.getStatus() != (OrderStatus.INITIAL)) {
@@ -126,17 +132,17 @@ public class ShoppingCartService {
 		}
 	}
 
-	public CommerceItemBuilder convertProductToCommerceItemBuilder(final Product pProduct) {
+	public CommerceItemBuilder convertProductToCommerceItemBuilder (final Product pProduct) {
 		CommerceItemBuilder cib = new CommerceItemBuilder().setName(pProduct.getName()).setQuality(pProduct.getIsNew())
 				.setReferenceId(pProduct.getProductId()).setMerchant(pProduct.getMerchant());
 		return cib.setListPrice(pProduct.getListPrice()).setSalePrice(pProduct.getSalePrice());
 	}
 
-	public boolean deleteCommerceItem(final int pCommerceItemId) {
+	public boolean deleteCommerceItem (final int pCommerceItemId) {
 		return getShoppingCartDao().deleteCommerceItem(pCommerceItemId) > 0;
 	}
 
-	public boolean purchaseProduct(Order pOrder, Product pProduct) {
+	public boolean purchaseProduct (Order pOrder, Product pProduct) {
 		int productId = pProduct.getProductId();
 		// check existence of commerce item that wrapped same product
 		CommerceItem purchaseCommerceItem = pOrder.getCommerceItemByProduct(productId);
@@ -183,7 +189,7 @@ public class ShoppingCartService {
 		return true;
 	}
 
-	public boolean checkProductValidity(Product pProduct) {
+	public boolean checkProductValidity (Product pProduct) {
 		if (pProduct == null) {
 			LOGGER.debug("Cannot find product.");
 			return false;
@@ -199,23 +205,23 @@ public class ShoppingCartService {
 		return true;
 	}
 
-	public boolean checkCartItemCount(Order pOrder) {
-		return pOrder.getCommerceItemCount() <= getMaxItemCount4Cart();
+	public boolean checkCartItemCount (Order pOrder) {
+		return pOrder.getCommerceItemCount() <= getShoppingCartConfiguration().getMaxItemCount4Cart();
 	}
 
-	public boolean ensureCartItemCapacity(Order pOrder) {
-		return pOrder.getCommerceItemCount() < getMaxItemCount4Cart();
+	public boolean ensureCartItemCapacity (Order pOrder) {
+		return pOrder.getCommerceItemCount() < getShoppingCartConfiguration().getMaxItemCount4Cart();
 	}
 
-	public void updateOrder(Order pOrder) {
+	public void updateOrder (Order pOrder) {
 		getShoppingCartDao().updateOrder(pOrder);
 	}
 
-	public boolean deleteCommerceItems(final List<Integer> pCommerceItemIds) {
+	public boolean deleteCommerceItems (final List<Integer> pCommerceItemIds) {
 		return getShoppingCartDao().deleteCommerceItems(pCommerceItemIds) > 0;
 	}
 
-	public void checkInventory(Order pOrder) {
+	public void checkInventory (Order pOrder) {
 		if (pOrder.emptyOrder()) {
 			return;
 		}
@@ -232,7 +238,7 @@ public class ShoppingCartService {
 		}
 	}
 
-	public String convertProductIdsToProductNames(String pProductIds, String pSplit) {
+	public String convertProductIdsToProductNames (String pProductIds, String pSplit) {
 		String[] prodIds = pProductIds.split(pSplit);
 		String productNames = StringUtils.EMPTY;
 		int count = 0;
@@ -250,47 +256,48 @@ public class ShoppingCartService {
 		return productNames;
 	}
 
-	public void deleteAllCommerceItems(final int pOrderId) {
+	public void deleteAllCommerceItems (final int pOrderId) {
 		getShoppingCartDao().deleteAllCommerceItems(pOrderId);
 	}
 
-	public ShoppingCartDao getShoppingCartDao() {
+	public ShoppingCartDao getShoppingCartDao () {
 		return mShoppingCartDao;
 	}
 
-	public void setShoppingCartDao(ShoppingCartDao pShoppingCartDao) {
+	public void setShoppingCartDao (ShoppingCartDao pShoppingCartDao) {
 		mShoppingCartDao = pShoppingCartDao;
 	}
 
-	public PriceOrderService getPriceOrderService() {
+	public PriceOrderService getPriceOrderService () {
 		return mPriceOrderService;
 	}
 
-	public void setPriceOrderService(PriceOrderService pPriceOrderService) {
+	public void setPriceOrderService (PriceOrderService pPriceOrderService) {
 		mPriceOrderService = pPriceOrderService;
 	}
 
-	public ProductService getProductService() {
+	public ShoppingCartConfiguration getShoppingCartConfiguration () {
+		return mShoppingCartConfiguration;
+	}
+
+	public void setShoppingCartConfiguration (final ShoppingCartConfiguration pShoppingCartConfiguration) {
+		mShoppingCartConfiguration = pShoppingCartConfiguration;
+	}
+
+	public ProductService getProductService () {
 		return mProductService;
 	}
 
-	public void setProductService(ProductService pProductService) {
+	public void setProductService (ProductService pProductService) {
 		mProductService = pProductService;
 	}
 
-	public DataSourceTransactionManager getTransactionManager() {
+	public DataSourceTransactionManager getTransactionManager () {
 		return mTransactionManager;
 	}
 
-	public void setTransactionManager(DataSourceTransactionManager pTransactionManager) {
+	public void setTransactionManager (DataSourceTransactionManager pTransactionManager) {
 		mTransactionManager = pTransactionManager;
 	}
 
-	public int getMaxItemCount4Cart() {
-		return mMaxItemCount4Cart;
-	}
-
-	public void setMaxItemCount4Cart(final int pMaxItemCount4Cart) {
-		mMaxItemCount4Cart = pMaxItemCount4Cart;
-	}
 }

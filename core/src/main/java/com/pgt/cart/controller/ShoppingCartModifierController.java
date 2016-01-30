@@ -1,6 +1,9 @@
 package com.pgt.cart.controller;
 
-import com.pgt.cart.bean.*;
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.ResponseBean;
+import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.exception.PriceOrderException;
@@ -40,27 +43,35 @@ import java.util.*;
 @RestController
 public class ShoppingCartModifierController extends TransactionBaseController implements CartMessages, CartProperties {
 
-	public static final  String CART   = "/shoppingCart/cart";
-	private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingCartModifierController.class);
+	public static final String CART = "/shoppingCart/cart";
+
+	public static final Logger LOGGER = LoggerFactory.getLogger(ShoppingCartModifierController.class);
+
 	@Resource(name = "shoppingCartService")
 	private ShoppingCartService    mShoppingCartService;
+
 	@Resource(name = "priceOrderService")
 	private PriceOrderService      mPriceOrderService;
+
 	@Autowired
 	private ProductService         mProductService;
+
 	@Autowired
-	private OrderService           orderService;
+	private OrderService mOrderService;
+
 	@Autowired
-	private URLConfiguration       urlConfiguration;
+	private URLConfiguration mURLConfiguration;
+
 	@Resource(name = "responseBuilderFactory")
 	private ResponseBuilderFactory mResponseBuilderFactory;
+
 	@Autowired
 	private URLMapping             mURLMapping;
 
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView redirect2Cart (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView("shopping-cart/cart");
-		mav.addObject(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getMaxItemCount4Cart());
+		mav.addObject(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart());
 		Order order = getCurrentOrder(pRequest);
 		if (!ObjectUtils.isEmpty(order)) {
 			synchronized (order) {
@@ -93,7 +104,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	public ResponseEntity ajaxCart (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(true);
 		Map<String, Object> data = new HashMap<>();
-		data.put(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getMaxItemCount4Cart());
+		data.put(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart());
 		Order order = getCurrentOrder(pRequest);
 		data.put(CartConstant.CURRENT_ORDER, order);
 		if (!ObjectUtils.isEmpty(order)) {
@@ -138,8 +149,8 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		if (easyBuy > 0) {
 			User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 			if (user == null) {
-				String redirectUrl = getUrlConfiguration().getLoginPage() + "?redirect="
-						+ getUrlConfiguration().getPdpPage() + "/" + productId;
+				String redirectUrl = getURLConfiguration().getLoginPage() + "?redirect="
+						+ getURLConfiguration().getPdpPage() + "/" + productId;
 				mav.setViewName("redirect:" + redirectUrl);
 				return mav;
 			}
@@ -583,7 +594,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		Order order = getOrderService().loadEasyBuyOrderWithoutItem(String.valueOf(currentUser.getId()));
 		if (order == null) {
 			LOGGER.debug("Get empty easy buy order by user id.");
-			order = new Order(currentUser.getId().intValue(), OrderType.B2C_ORDER);
+			order = new Order(currentUser.getId().intValue(), getDefaultOrderType());
 			order.setEasyBuy(true);
 		}
 		return order;
@@ -630,19 +641,19 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	}
 
 	public OrderService getOrderService () {
-		return orderService;
+		return mOrderService;
 	}
 
 	public void setOrderService (OrderService orderService) {
-		this.orderService = orderService;
+		this.mOrderService = orderService;
 	}
 
-	public URLConfiguration getUrlConfiguration () {
-		return urlConfiguration;
+	public URLConfiguration getURLConfiguration () {
+		return mURLConfiguration;
 	}
 
-	public void setUrlConfiguration (URLConfiguration urlConfiguration) {
-		this.urlConfiguration = urlConfiguration;
+	public void setURLConfiguration (URLConfiguration urlConfiguration) {
+		this.mURLConfiguration = urlConfiguration;
 	}
 
 }

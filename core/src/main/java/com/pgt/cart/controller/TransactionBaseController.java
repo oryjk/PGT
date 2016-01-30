@@ -1,8 +1,8 @@
 package com.pgt.cart.controller;
 
 import com.pgt.cart.bean.Order;
-import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.service.ShoppingCartConfiguration;
 import com.pgt.constant.UserConstant;
 import com.pgt.user.bean.User;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +15,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
@@ -25,13 +26,16 @@ public class TransactionBaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionBaseController.class);
 
+	private static final String REDIRECT = "redirect:";
+
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
 
 	@Autowired
 	private ReloadableResourceBundleMessageSource mMessageSource;
 
-	private static final String REDIRECT = "redirect:";
+	@Resource(name = "shoppingCartConfiguration")
+	private ShoppingCartConfiguration mShoppingCartConfiguration;
 
 	protected TransactionStatus ensureTransaction() {
 		return ensureTransaction(TransactionDefinition.PROPAGATION_REQUIRED);
@@ -44,6 +48,13 @@ public class TransactionBaseController {
 		return status;
 	}
 
+	protected int getDefaultOrderType () {
+		return getShoppingCartConfiguration().getDefaultOrderType();
+	}
+
+	protected int getMaxItemCount () {
+		return getShoppingCartConfiguration().getMaxItemCount4Cart();
+	}
 
 	protected User getCurrentUser(HttpServletRequest pRequest) {
 		return (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
@@ -54,10 +65,10 @@ public class TransactionBaseController {
 	}
 
 	protected Order getCurrentOrder(HttpServletRequest pRequest, boolean pCreateIfAbsent) {
-		Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
+		Order order = (Order) pRequest.getAttribute(CartConstant.CURRENT_ORDER);
 		if (pCreateIfAbsent && order == null) {
 			LOGGER.debug("Get empty order from session, re-generate order.");
-			order = new Order(OrderType.B2C_ORDER);
+			order = new Order(getDefaultOrderType());
 			User currentUser = getCurrentUser(pRequest);
 			if (currentUser != null && currentUser.getId() != null) {
 				order.setUserId(currentUser.getId().intValue());
@@ -83,6 +94,10 @@ public class TransactionBaseController {
 		return mTransactionManager;
 	}
 
+	public void setTransactionManager (final DataSourceTransactionManager pTransactionManager) {
+		mTransactionManager = pTransactionManager;
+	}
+
 	public ReloadableResourceBundleMessageSource getMessageSource() {
 		return mMessageSource;
 	}
@@ -91,7 +106,11 @@ public class TransactionBaseController {
 		mMessageSource = pMessageSource;
 	}
 
-	public void setTransactionManager(final DataSourceTransactionManager pTransactionManager) {
-		mTransactionManager = pTransactionManager;
+	public ShoppingCartConfiguration getShoppingCartConfiguration () {
+		return mShoppingCartConfiguration;
+	}
+
+	public void setShoppingCartConfiguration (final ShoppingCartConfiguration pShoppingCartConfiguration) {
+		mShoppingCartConfiguration = pShoppingCartConfiguration;
 	}
 }

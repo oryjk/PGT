@@ -1,12 +1,11 @@
 package com.pgt.cart.filter;
 
 import com.pgt.cart.bean.Order;
-import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.service.PriceOrderService;
 import com.pgt.cart.service.ShoppingCartService;
-import com.pgt.constant.UserConstant;
 import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.constant.UserConstant;
 import com.pgt.user.bean.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +60,7 @@ public class ShoppingCartHandlerInterceptor implements HandlerInterceptor {
             // session order is empty too
             if (so == null) {
                 // let's create a new order and put to session
-                so = new Order(user.getId().intValue(), OrderType.B2C_ORDER);
+                so = new Order(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration().getDefaultOrderType());
             }
             getShoppingCartService().persistInitialOrder(so);
             request.getSession().setAttribute(CartConstant.CURRENT_ORDER, so);

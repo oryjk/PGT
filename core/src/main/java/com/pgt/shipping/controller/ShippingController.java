@@ -3,7 +3,6 @@ package com.pgt.shipping.controller;
 import com.pgt.address.bean.AddressInfo;
 import com.pgt.address.bean.Store;
 import com.pgt.address.service.AddressInfoService;
-import com.pgt.cart.OrderType;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.constant.CartConstant;
@@ -52,19 +51,19 @@ import java.util.*;
 public class ShippingController implements CartMessages {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShippingController.class);
 	@Autowired
-	private URLConfiguration urlConfiguration;
+	private URLConfiguration       urlConfiguration;
 	@Autowired
-	private AddressInfoService addressInfoService;
+	private AddressInfoService     addressInfoService;
 	@Autowired
-	private ShippingService shippingService;
+	private ShippingService        shippingService;
 	@Autowired
-	private ShoppingCartService shoppingCartService;
+	private ShoppingCartService    shoppingCartService;
 	@Autowired
-	private OrderService orderService;
+	private OrderService           orderService;
 	@Autowired
-	private CityService cityService;
+	private CityService            cityService;
 	@Autowired
-	private MailService mailService;
+	private MailService            mailService;
 	@Autowired
 	private UserInformationService userInformationService;
 
@@ -79,7 +78,7 @@ public class ShippingController implements CartMessages {
 
 
 	@RequestMapping(value = "/shipping", method = { RequestMethod.GET })
-	public ModelAndView shipping(HttpServletRequest request, HttpSession session) {
+	public ModelAndView shipping (HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
 		if (user == null) {
@@ -135,7 +134,7 @@ public class ShippingController implements CartMessages {
 
 	@RequestMapping(value = "/ajaxShipping", method = { RequestMethod.GET })
 	@ResponseBody
-	public ResponseEntity ajaxShipping(HttpServletRequest request, HttpSession session) {
+	public ResponseEntity ajaxShipping (HttpServletRequest request, HttpSession session) {
 
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -153,7 +152,7 @@ public class ShippingController implements CartMessages {
 		}
 		if (!getShoppingCartService().checkCartItemCount(order)) {
 			// CODE TO_MANY_ITEM
-			result.put(WebServiceConstants.NAME_CODE,  WebServiceConstants.CODE_TOO_MANY_ITEM);
+			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_TOO_MANY_ITEM);
 			new ResponseEntity(result, HttpStatus.OK);
 		}
 		if (order.getShippingVO() == null) {
@@ -181,13 +180,10 @@ public class ShippingController implements CartMessages {
 	}
 
 
-
-
-
 	@RequestMapping(value = "/addAddressToOrder", method = { RequestMethod.POST })
 	@ResponseBody
-	public Map<String, Object> addAddressToOrder(@RequestParam("addressInfoId") String addressInfoId,
-			HttpServletRequest request, HttpSession session) {
+	public Map<String, Object> addAddressToOrder (@RequestParam("addressInfoId") String addressInfoId,
+	                                              HttpServletRequest request, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
 		Order order = getOrderService().getSessionOrder(request);
@@ -213,8 +209,8 @@ public class ShippingController implements CartMessages {
 
 	@RequestMapping(value = "/addPickup", method = { RequestMethod.POST })
 	@ResponseBody
-	public Map<String, Object> addPickup(@Validated ShippingMethod shippingMethod, BindingResult bindingResult,
-			HttpServletRequest request, HttpSession session) {
+	public Map<String, Object> addPickup (@Validated ShippingMethod shippingMethod, BindingResult bindingResult,
+	                                      HttpServletRequest request, HttpSession session) {
 		LOGGER.debug("Starting to add a pick up shipping.");
 		Map<String, Object> map = new HashMap<String, Object>();
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
@@ -241,7 +237,7 @@ public class ShippingController implements CartMessages {
 	}
 
 	@RequestMapping(value = "/redirectToPayment", method = RequestMethod.GET)
-	public ModelAndView redirectToPayment(HttpServletRequest request, HttpSession session) {
+	public ModelAndView redirectToPayment (HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
 		if (null == user) {
@@ -254,7 +250,7 @@ public class ShippingController implements CartMessages {
 			return mav;
 		}
 
-		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.B2C_ORDER)) {
+		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart())) {
 			mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
 			mav.addObject(CartConstant.ORDER_ID, order.getId());
 			mav.addObject("error", "HAS.UNSUBMIT.ORDER");
@@ -306,7 +302,7 @@ public class ShippingController implements CartMessages {
 
 	@RequestMapping(value = "/ajaxRedirectToPayment", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity ajaxRedirectToPayment(HttpServletRequest request, HttpSession session) {
+	public ResponseEntity ajaxRedirectToPayment (HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -320,7 +316,7 @@ public class ShippingController implements CartMessages {
 			return new ResponseEntity(result, HttpStatus.OK);
 		}
 
-		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.B2C_ORDER)) {
+		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart())) {
 			LOGGER.error("Has incomplete order.");
 			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_HAS_INCOMPLETE_ORDER);
 			return new ResponseEntity(result, HttpStatus.OK);
@@ -375,7 +371,7 @@ public class ShippingController implements CartMessages {
 		return new ResponseEntity(result, HttpStatus.OK);
 	}
 
-	public boolean hasShippingOnOrder(Order order) {
+	public boolean hasShippingOnOrder (Order order) {
 		if (order == null) {
 			return false;
 		}
@@ -385,13 +381,10 @@ public class ShippingController implements CartMessages {
 		if (order.getShippingVO().getShippingAddress() != null) {
 			return true;
 		}
-		if (order.getShippingVO().getShippingMethod() != null) {
-			return true;
-		}
-		return false;
+		return order.getShippingVO().getShippingMethod() != null;
 	}
 
-	public void sendEmail(User user, Order order) {
+	public void sendEmail (User user, Order order) {
 		try {
 			UserInformation userInformation = userInformationService.queryUserInformation(user);
 			if (userInformation == null || userInformation.getPersonEmail() == null) {
@@ -410,75 +403,75 @@ public class ShippingController implements CartMessages {
 		}
 	}
 
-	public AddressInfoService getAddressInfoService() {
+	public AddressInfoService getAddressInfoService () {
 		return addressInfoService;
 	}
 
-	public void setAddressInfoService(AddressInfoService addressInfoService) {
+	public void setAddressInfoService (AddressInfoService addressInfoService) {
 		this.addressInfoService = addressInfoService;
 	}
 
-	public ShippingService getShippingService() {
+	public ShippingService getShippingService () {
 		return shippingService;
 	}
 
-	public void setShippingService(ShippingService shippingService) {
+	public void setShippingService (ShippingService shippingService) {
 		this.shippingService = shippingService;
 	}
 
-	public CityService getCityService() {
+	public CityService getCityService () {
 		return cityService;
 	}
 
-	public void setCityService(CityService cityService) {
+	public void setCityService (CityService cityService) {
 		this.cityService = cityService;
 	}
 
-	public ShoppingCartService getShoppingCartService() {
+	public ShoppingCartService getShoppingCartService () {
 		return shoppingCartService;
 	}
 
-	public void setShoppingCartService(ShoppingCartService shoppingCartService) {
+	public void setShoppingCartService (ShoppingCartService shoppingCartService) {
 		this.shoppingCartService = shoppingCartService;
 	}
 
-	public OrderService getOrderService() {
+	public OrderService getOrderService () {
 		return orderService;
 	}
 
-	public void setOrderService(OrderService orderService) {
+	public void setOrderService (OrderService orderService) {
 		this.orderService = orderService;
 	}
 
-	public InventoryService getInventoryService() {
+	public InventoryService getInventoryService () {
 		return inventoryService;
 	}
 
-	public void setInventoryService(InventoryService inventoryService) {
+	public void setInventoryService (InventoryService inventoryService) {
 		this.inventoryService = inventoryService;
 	}
 
-	public MailService getMailService() {
+	public MailService getMailService () {
 		return mailService;
 	}
 
-	public void setMailService(MailService mailService) {
+	public void setMailService (MailService mailService) {
 		this.mailService = mailService;
 	}
 
-	public UserInformationService getUserInformationService() {
+	public UserInformationService getUserInformationService () {
 		return userInformationService;
 	}
 
-	public void setUserInformationService(final UserInformationService pUserInformationService) {
+	public void setUserInformationService (final UserInformationService pUserInformationService) {
 		userInformationService = pUserInformationService;
 	}
 
-	public TransactionLogService getTransactionLogService() {
+	public TransactionLogService getTransactionLogService () {
 		return transactionLogService;
 	}
 
-	public void setTransactionLogService(TransactionLogService transactionLogService) {
+	public void setTransactionLogService (TransactionLogService transactionLogService) {
 		this.transactionLogService = transactionLogService;
 	}
 }
