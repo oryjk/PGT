@@ -166,7 +166,7 @@
                                                         <td>${ci.name}</td>
                                                         <td>¥&nbsp;<span><fmt:formatNumber value="${ci.salePrice}" pattern="0.00" type="number" /></span></td>
                                                         <td class="productlist-face-box">
-                                                            <img src="${pageContext.request.contextPath}/resources${ci['snapshotMedia']['path']}"
+                                                            <img src="/resources${ci['snapshotMedia']['path']}"
                                                                  alt="${empty ci['snapshotMedia']['title'] ? ci.name : ci['snapshotMedia']['title']}" />
                                                         </td>
                                                         <td>${ci.merchant}</td>
