@@ -112,10 +112,12 @@
                             <table>
                             <c:forEach var="commerceItem" items="${order.commerceItems}" varStatus="ci_index">
                                 <tr>
-                                <td class="col1">
-                                <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
-                                alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
-                                </td>
+                                    <td class="col1">
+                                        <a href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">
+                                            <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
+                                                 alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}"/>
+                                        </a>
+                                    </td>
                                 <td class="col2">
                                 <a class="product-name" href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">${commerceItem.name}</a>
                                 </td>
