@@ -234,6 +234,8 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		try {
 			getB2COrderService().createDelivery(delivery);
 			Order order = getB2COrderService().loadOrder(ci.getOrderId());
+            //add by carl wang
+//			getB2COrderService().updateOrder2TransitStatus(order);
 			getmMailService().sendDeliveryEmail(order, ci, delivery);
 		} catch (Exception e) {
 			status.setRollbackOnly();
@@ -245,6 +247,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 			getTransactionManager().commit(status);
 		}
 		mav.addObject(ResponseConstant.COMMERCE_ITEM, ci);
+        mav.setViewName("/b2c-order/b2c-order-list");
 		return mav;
 	}
 

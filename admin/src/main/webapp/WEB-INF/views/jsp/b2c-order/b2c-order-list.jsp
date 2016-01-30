@@ -192,7 +192,10 @@
                                                         <span>待完成支付</span>
                                                     </c:when>
                                                     <c:when test="${order.status eq 30}">
-                                                        <span>待收货</span>
+                                                        <span>已付款</span>
+                                                    </c:when>
+                                                    <c:when test="${order.status eq 40}">
+                                                        <span>已发货</span>
                                                     </c:when>
                                                     <c:when test="${order.status eq 100}">
                                                         <span>已完成</span>
