@@ -11,7 +11,7 @@
             <a class="list-img-box" href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}"><img src="${pageContext.request.contextPath}/resources/${searchHit.source['frontMedia']['path']}" alt="${searchHit.source['name']}"/></a>
             <div class="list-price-box">¥ <span><fmt:formatNumber value="${searchHit.source['salePrice']}" pattern="0.00"
                                                                   type="number"/></span></div>
-            <p  class="product-link"><a href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}">[新品上市]${searchHit.source['name']}</a></p>
+            <p  class="product-link"><a href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}">[热门民品]${searchHit.source['name']}</a></p>
             <p>已有<span></span>评价</p>
             <div class="product-message">添加成功</div>
             <div class="product-handle">

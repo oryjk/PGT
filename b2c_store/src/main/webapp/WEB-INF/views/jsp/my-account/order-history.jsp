@@ -99,15 +99,18 @@
                                                                                    pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                 订单号: <span class="order-number">${order.id}</span>
                                 物流:
-                                <c:choose>
-                                    <c:when test="${order.status gt 3}">
-                                        <span>已送达</span>
-                                        <a class="link-btn" href="#"></a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span>尚未出库</span>
-                                    </c:otherwise>
-                                </c:choose>
+                                    <c:choose>
+                                        <c:when test="${order.status == 100}">
+                                            <span>已送达</span>
+                                            <a class="link-btn" href="#"></a>
+                                        </c:when>
+                                        <c:when test="${order.status==40}">
+                                            <span>运输途中</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span>尚未出库</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </c:if>
                             <table>
