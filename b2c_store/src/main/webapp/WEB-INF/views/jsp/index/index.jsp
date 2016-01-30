@@ -185,7 +185,7 @@
 
 <!--脚部-->
 <jsp:include page="../core/footer-main.jsp">
-    <jsp:param name="useleft" value="true" />
+    <jsp:param name="useside" value="true" />
 </jsp:include>
 <div class="classify-product-box" id="classifyPop">
     <div class="classify-product-content">
