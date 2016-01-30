@@ -20,7 +20,9 @@ $(function(){
 
     var flag = 0;
     var status = "";
-    $(".right1").click(function(){
+    $(".right1").click(function(event){
+        event.preventDefault();
+
         var m_status = $(this).attr("title");
         if(status != m_status || flag == 0){
             $("#right").animate({right:"0"});
@@ -33,6 +35,8 @@ $(function(){
             $("#right").animate({right:"-300px"});
             flag = 0;
         }
+
+        return false;
     });
 });
 

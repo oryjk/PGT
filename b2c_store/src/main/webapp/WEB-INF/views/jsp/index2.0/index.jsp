@@ -243,7 +243,6 @@
     </c:forEach>
 
 </div>
-
 <!--footer-->
 <jsp:include page="../core/footer-main.jsp"/>
 

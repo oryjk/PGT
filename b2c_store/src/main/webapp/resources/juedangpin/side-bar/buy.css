@@ -1,5 +1,5 @@
 .n-all {
-  overflow-y: scroll;
+  overflow: scroll;
   width: 300px; }
 
 .n-header {
@@ -76,3 +76,6 @@
 .n-content a:visited {
   text-decoration: none;
   background: none; }
+
+.n-other {
+  height: 1000px; }

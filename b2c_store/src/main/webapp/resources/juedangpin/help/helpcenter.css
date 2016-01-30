@@ -1626,6 +1626,7 @@ span {
 .side-bar {
   z-index: 3;
   width: 345px;
+  height: 100%;
   background-color: #000;
   position: fixed;
   right: -300px;
