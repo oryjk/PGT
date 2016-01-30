@@ -18,8 +18,22 @@ require(['jquery'], function($) {
 			  //window.location.href= smsPath;
 		  });
 
-		  $('#getSmsPath').click(function() {
+		  //$('#getSmsPath').click(function() {
+			//  getPhoneCom($(this));
+		  //});
+
+		  $(document).on('click','#getSmsPath', function() {
 			  getPhoneCom($(this));
+
+		  });
+
+		  $('#getAuthCode').on('click', function() {
+			  $(this).attr('src', '/code/resetPassword?'+Math.ceil(Math.random()*100000000000000));
+		  });
+
+		  $('#changeAuthCode').on('click', function(event) {
+			  event.preventDefault();
+			  $('#getAuthCode').attr('src', '/code/resetPassword?'+Math.ceil(Math.random()*100000000000000));
 		  });
 
 		  function getPhoneCom(that) {

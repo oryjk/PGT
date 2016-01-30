@@ -14,7 +14,7 @@
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>" />
     <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/my-orders.css"/>" />
+          href="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/order-detail.css"/>" />
 </head>
 <body>
 <!--主头部-->

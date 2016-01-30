@@ -6,14 +6,10 @@
   &:before {
     content: " ";
     display: table;
+    clear: both;
   }
 
   *zoom: 1;
-}
-
-//左浮动导航,建议设置在li上
-%be-nav {
-  float: left;
 }
 
 //纯链接

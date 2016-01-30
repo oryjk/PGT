@@ -20,7 +20,7 @@ gulp.task('style', function() {
 
 // 监听
 gulp.task('watch', function() {
-    gulp.watch('./src/*/*.scss', ['style']);
+    gulp.watch('./src/**/*.scss', ['style']);
 });
 
 //把监听设为默认任务

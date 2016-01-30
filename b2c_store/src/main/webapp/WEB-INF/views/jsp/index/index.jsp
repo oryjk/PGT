@@ -182,7 +182,6 @@
         </c:forEach>
     </div>
 </div>
-
 <!--脚部-->
 <jsp:include page="../core/footer-main.jsp">
     <jsp:param name="useleft" value="true" />
