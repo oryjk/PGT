@@ -5,8 +5,8 @@ package com.pgt.pawn.constant;
  */
 public class OnlinePawnConstant {
 
-    public static final Integer PHONENUMBER_LENGTH = 11;
+	public static final Integer PHONENUMBER_LENGTH = 11;
 
-    public static final String MY_PHONENUMBER = "18602858961";
+	public static final String MY_PHONENUMBER = "18602858961";
 
 }

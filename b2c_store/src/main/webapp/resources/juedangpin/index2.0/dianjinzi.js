@@ -4,33 +4,33 @@
 $(function(){
     $(".unit-hover").hide();
     $(".unit").mouseover(function(){
-        $(this).attr("title","none")
+        $(this).attr("title", "none");
         $(this).parent().children(".unit[title=box]").css("zoom","1.2");
         $(this).children(".unit-hover").show();
     });
     $(".unit").mouseout(function(){
-        $(".unit").attr("title","box")
+        $(".unit").attr("title", "box");
         $(".unit").css("zoom","1");
         $(this).children(".unit-hover").hide();
     });
 });
 
 //right-box
-$(function(){
+$(function () {
 
     var flag = 0;
     var status = "";
-    $(".right1").click(function(){
+    $(".right1").click(function () {
         var m_status = $(this).attr("title");
-        if(status != m_status || flag == 0){
-            $("#right").animate({right:"0"});
+        if (status != m_status || flag == 0) {
+            $("#right").animate({right: "0"});
             var url = $(this).attr("path");
             status = $(this).attr("title");
             $("#right").show();
             $("#right-menu").load(url);
             flag = 1;
-        }else if(flag == 1 && status == m_status){
-            $("#right").animate({right:"-300px"});
+        } else if (flag == 1 && status == m_status) {
+            $("#right").animate({right: "-300px"});
             flag = 0;
         }
     });

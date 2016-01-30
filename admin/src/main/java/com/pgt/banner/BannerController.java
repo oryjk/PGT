@@ -1,11 +1,11 @@
 package com.pgt.banner;
 
-import java.util.List;
-
 import com.pgt.category.service.CategoryHelper;
 import com.pgt.common.bean.*;
+import com.pgt.common.service.BannerService;
 import com.pgt.common.service.ImageService;
 import com.pgt.configuration.Configuration;
+import com.pgt.configuration.URLConfiguration;
 import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +14,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import com.pgt.common.service.BannerService;
-import com.pgt.configuration.URLConfiguration;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 
 @RestController
@@ -50,13 +49,13 @@ public class BannerController {
      * @return
      */
 	@RequestMapping(value="/bannerList",method = RequestMethod.GET)
-	public ModelAndView bannerList(ModelAndView modelAndView,
-								   @RequestParam(value = "currentIndex", required = false) Integer currentIndex,
-								   @RequestParam(value = "capacity", required = false) Long capacity,BannerQuery bannerQuery) {
+	public ModelAndView bannerList (ModelAndView modelAndView,
+	                                @RequestParam(value = "currentIndex", required = false) Integer currentIndex,
+	                                @RequestParam(value = "capacity", required = false) Long capacity, BannerQuery bannerQuery) {
 
 		PaginationBean paginationBean = new PaginationBean();
-        if(ObjectUtils.isEmpty(currentIndex)){
-			currentIndex=1;
+		if (ObjectUtils.isEmpty(currentIndex)) {
+			currentIndex = 1;
 		}
 		paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
 		if(!ObjectUtils.isEmpty(capacity)){
@@ -67,7 +66,7 @@ public class BannerController {
 		bannerCountQuery.setFields("count(*)");
 		Integer total=bannerService.queryBannerCount(bannerCountQuery);
 		LOGGER.debug("The banner total is {}",total);
-        if(total!=0) {
+		if (total != 0) {
 			paginationBean.setTotalAmount(total);
 			paginationBean.setCurrentIndex(currentIndex);
 			bannerQuery.setPaginationBean(paginationBean);
@@ -76,7 +75,7 @@ public class BannerController {
 			modelAndView.addObject("bannerList", bannerList);
 			modelAndView.addObject("paginationBean", paginationBean);
 		}
-        modelAndView.setViewName("/banner/listBanner");
+		modelAndView.setViewName("/banner/listBanner");
 		return modelAndView;
 	}
 

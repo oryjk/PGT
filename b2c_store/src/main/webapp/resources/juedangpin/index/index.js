@@ -39,21 +39,21 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         });
 
         //right-box
-        $(function(){
+        $(function () {
 
             var flag = 0;
             var status = "";
-            $(".right1").click(function(){
+            $(".right1").click(function () {
                 var m_status = $(this).attr("title");
-                if(status != m_status || flag == 0){
-                    $("#side-bar").animate({right:"0"});
+                if (status != m_status || flag == 0) {
+                    $("#side-bar").animate({right: "0"});
                     var url = $(this).attr("path");
                     status = $(this).attr("title");
                     $("#side-bar").show();
                     $("#right-menu").load(url);
                     flag = 1;
-                }else if(flag == 1 && status == m_status){
-                    $("#side-bar").animate({right:"-300px"});
+                } else if (flag == 1 && status == m_status) {
+                    $("#side-bar").animate({right: "-300px"});
                     flag = 0;
                 }
             });
@@ -70,7 +70,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         });
         
         //content部分点击事件委托
-        $('#content,#classifyPop').click(function(event) {
+        $('#content,#classifyPop').click(function (event) {
             var target = $(event.target);
             var targetType = target.attr('data-btn');
 
@@ -101,12 +101,12 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             }
         });
 
-        $(document).on('click', '.each-classify', function(event) {
+        $(document).on('click', '.each-classify', function (event) {
 
             var target = $(event.target);
-            var href=target.attr("data-value");
+            var href = target.attr("data-value");
             event.preventDefault();
-            $('#classifyPopCentent').load(href, function() {
+            $('#classifyPopCentent').load(href, function () {
                 $('#classifyPop').fadeIn(300);
             })
         })

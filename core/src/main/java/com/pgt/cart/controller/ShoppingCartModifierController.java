@@ -48,13 +48,13 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	public static final Logger LOGGER = LoggerFactory.getLogger(ShoppingCartModifierController.class);
 
 	@Resource(name = "shoppingCartService")
-	private ShoppingCartService    mShoppingCartService;
+	private ShoppingCartService mShoppingCartService;
 
 	@Resource(name = "priceOrderService")
-	private PriceOrderService      mPriceOrderService;
+	private PriceOrderService mPriceOrderService;
 
 	@Autowired
-	private ProductService         mProductService;
+	private ProductService mProductService;
 
 	@Autowired
 	private OrderService mOrderService;
@@ -66,13 +66,13 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	private ResponseBuilderFactory mResponseBuilderFactory;
 
 	@Autowired
-	private URLMapping             mURLMapping;
+	private URLMapping mURLMapping;
 
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView redirect2Cart (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView("shopping-cart/cart");
 		mav.addObject(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart());
-		Order order = getCurrentOrder(pRequest);
+		Order order = getCurrentOrder(pRequest, true);
 		if (!ObjectUtils.isEmpty(order)) {
 			synchronized (order) {
 				getShoppingCartService().checkInventory(order);
@@ -105,7 +105,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(true);
 		Map<String, Object> data = new HashMap<>();
 		data.put(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart());
-		Order order = getCurrentOrder(pRequest);
+		Order order = getCurrentOrder(pRequest, true);
 		data.put(CartConstant.CURRENT_ORDER, order);
 		if (!ObjectUtils.isEmpty(order)) {
 			synchronized (order) {
@@ -179,13 +179,12 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_OUT_STOCK, StringUtils.EMPTY));
 				return mav;
 			}
-            getShoppingCartService().checkInventory(order);
-            if (!getShoppingCartService().checkCartItemCount(order)) {
-                LOGGER.debug("redirect to cart page because cart item count had been reached limit");
-                mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
-                return mav;
-            }
-
+			getShoppingCartService().checkInventory(order);
+			if (!getShoppingCartService().checkCartItemCount(order)) {
+				LOGGER.debug("redirect to cart page because cart item count had been reached limit");
+				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
+				return mav;
+			}
 
 			// persist changes to database
 			TransactionStatus status = ensureTransaction();

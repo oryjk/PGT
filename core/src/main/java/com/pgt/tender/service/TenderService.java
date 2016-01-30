@@ -22,13 +22,13 @@ public class TenderService {
     @Autowired
     private TenderMapper tenderMapper;
 
-   public List<Tender> queryTenderByQuery(TenderQuery tenderQuery){
-        List<Tender> tenderList= tenderMapper.queryTenderByQuery(tenderQuery);
-        if(ObjectUtils.isEmpty(tenderList)){
+    public List<Tender> queryTenderByQuery (TenderQuery tenderQuery) {
+        List<Tender> tenderList = tenderMapper.queryTenderByQuery(tenderQuery);
+        if (ObjectUtils.isEmpty(tenderList)) {
             LOGGER.debug("Can not find tenderList");
             return tenderList;
         }
-         return tenderList;
+        return tenderList;
     }
 
     public List<Tender> queryAllTender() {

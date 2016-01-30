@@ -1,9 +1,9 @@
 package com.pgt.order;
 
-import com.pgt.cart.OrderType;
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
@@ -27,11 +27,11 @@ import java.util.List;
 // TODO log debug
 public class P2POrderService extends OrderService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(P2POrderService.class);
-
-
     public static final long MILLISECOND_ONE_DAY = 1000 * 60 * 60 * 24;
+
     public static final long DAYS_ONE_YEAR = 365;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(P2POrderService.class);
 
     private ShoppingCartService shoppingCartService;
 

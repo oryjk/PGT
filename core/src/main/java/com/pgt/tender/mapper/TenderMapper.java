@@ -28,6 +28,6 @@ public interface TenderMapper extends SqlMapper {
 
     List<Tender> queryAllTender();
 
-    List<Tender> queryTenderByQuery(TenderQuery tenderQuery);
+    List<Tender> queryTenderByQuery (TenderQuery tenderQuery);
 
 }

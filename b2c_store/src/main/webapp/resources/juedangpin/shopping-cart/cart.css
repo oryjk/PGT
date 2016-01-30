@@ -389,7 +389,8 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 .about-us a {
   color: #cccccc;
@@ -402,14 +403,16 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .content-1 tbody a:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 .recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .recommend .similar-box .similar-name:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 /*btn*/
 input:focus {
@@ -456,7 +459,8 @@ span {
   content: ' ';
   display: table;
   clear: both;
-  height: 0; }
+  height: 0;
+}
 
 /*color*/
 /*col*/
@@ -496,7 +500,8 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 .about-us a {
   color: #cccccc;
@@ -509,14 +514,16 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .content-1 tbody a:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 .recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .recommend .similar-box .similar-name:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 /*btn*/
 input:focus {
@@ -563,7 +570,8 @@ span {
   content: ' ';
   display: table;
   clear: both;
-  height: 0; }
+  height: 0;
+}
 
 /*主列表
 ****************************************************/
@@ -716,18 +724,21 @@ body .side-bar {
   padding-top: 100px;
   position: fixed;
   right: -300px;
-  top: 0; }
+  top: 0;
+}
 
 body .right a:link,
 body .right a:visited {
-  color: white; }
+  color: white;
+}
 
 body .right a:hover,
 body .right a:active {
   color: white;
   background: #d43139;
   text-decoration: none;
-  border: none; }
+  border: none;
+}
 
 body .right1-2,
 body .right1 {
@@ -737,13 +748,15 @@ body .right1 {
   font-size: 1px;
   text-align: center;
   width: 45px;
-  position: relative; }
+  position: relative;
+}
 
 body .right-b {
   float: left;
   margin-top: 10px;
   padding-top: 10px;
-  border-top: 1px solid #ccc; }
+  border-top: 1px solid #ccc;
+}
 
 body .right2 {
   font-size: 10px;
@@ -754,13 +767,15 @@ body .right2 {
   display: none;
   width: 77px;
   height: 33px;
-  z-index: 3; }
+  z-index: 3;
+}
 
 body .right2 .img-search {
   float: right;
   width: 7px;
   height: 13px;
-  padding: 10px 0 0 0; }
+  padding: 10px 0 0 0;
+}
 
 body .right2 span {
   line-height: 30px;
@@ -769,11 +784,13 @@ body .right2 span {
   text-align: center;
   float: left;
   width: 70px;
-  height: 33px; }
+  height: 33px;
+}
 
 body .right1-2:hover > .right2,
 body .right1:hover > .right2 {
-  display: block; }
+  display: block;
+}
 
 body .right1-2 img,
 body .right1 img {
@@ -782,18 +799,21 @@ body .right1 img {
   padding-bottom: 5px;
   display: block;
   width: 20px;
-  height: 20px; }
+  height: 20px;
+}
 
 body .right-menu {
   overflow: scroll;
   margin-top: 65px;
   background: #fff;
   width: 300px;
-  float: right; }
+  float: right;
+}
 
 body .right-a {
   float: left;
-  width: 45px; }
+  width: 45px;
+}
 
 /*color*/
 /*col*/
@@ -831,7 +851,8 @@ a {
   color: #666666;
   text-decoration: none; }
   .top-status a:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 .about-us a {
   color: #cccccc;
@@ -844,14 +865,16 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .content-1 tbody a:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 .recommend .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .recommend .similar-box .similar-name:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 /*btn*/
 input:focus {
@@ -898,7 +921,8 @@ span {
   content: ' ';
   display: table;
   clear: both;
-  height: 0; }
+  height: 0;
+}
 
 /*主列表
 ****************************************************/
@@ -1413,7 +1437,8 @@ span {
   text-decoration: none;
   color: #0286ce; }
   .content-box .link-btn:hover {
-    color: #d43139; }
+    color: #d43139;
+  }
 
 .d-btn {
   font-size: 16px; }
@@ -1546,12 +1571,14 @@ td img {
     .city li a,
     .country li a,
     .invoice-title li a {
-      color: #d43139; }
+      color: #d43139;
+    }
     .province li:hover,
     .city li:hover,
     .country li:hover,
     .invoice-title li:hover {
-      background: #d43139; }
+      background: #d43139;
+    }
       .province li:hover a,
       .city li:hover a,
       .country li:hover a,
@@ -1586,7 +1613,8 @@ td img {
   width: 100px; }
 
 .content-1 tbody .level {
-  color: #d43139; }
+  color: #d43139;
+}
 
 .content-1 tbody .product-old-cost {
   font-size: 18px;
@@ -1820,9 +1848,11 @@ td img {
       cursor: pointer; }
     .recommend .tab .choose {
       cursor: auto;
-      border-color: #d43139; }
+      border-color: #d43139;
+    }
       .recommend .tab .choose h2 {
-        color: #d43139; }
+        color: #d43139;
+      }
     .recommend .tab h2 {
       margin: 0;
       padding: 0; }
@@ -1843,7 +1873,8 @@ td img {
       z-index: 1;
       margin: 0 -20px;
       padding: 15px 30px 10px;
-      border-bottom: 1px solid #d43139; }
+      border-bottom: 1px solid #d43139;
+    }
     .recommend .similar-box .move-left-box,
     .recommend .similar-box .move-right-box {
       position: absolute;
@@ -1962,7 +1993,8 @@ td img {
 .logo-box .this-step {
   border-top: 1px solid #d43139;
   height: 5px;
-  background: #d43139; }
+  background: #d43139;
+}
   .logo-box .this-step span {
     background: #d43139;
     border-radius: 12px;
@@ -1977,61 +2009,92 @@ td img {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  display: none; }
-  .pop-up .inner {
-    margin: 150px auto;
-    width: 600px;
-    border-radius: 8px;
-    border: 1px solid #666666;
-    box-shadow: black 0 0 20px;
-    background: white;
-    font-size: 14px; }
-  .pop-up h3 {
-    padding: 0;
-    margin: 0;
-    padding: 10px 20px;
-    background: #d43139;
-    color: white; }
-    .pop-up h3 .pop-title {
-      color: white;
-      font-size: 20px; }
-    .pop-up h3 .close {
-      float: right;
-      margin-right: 20px;
-      color: white;
-      cursor: pointer;
-      font-weight: 100; }
-      .pop-up h3 .close:hover {
-        color: #cccccc; }
-  .pop-up .pop-content {
-    width: 480px;
-    margin: 20px auto 40px; }
-  .pop-up input[type=text] {
-    width: 220px;
-    height: 23px; }
-    .pop-up input[type=text]:focus {
-      border: 2px solid #d43139; }
-  .pop-up .must-write,
-  .pop-up .pop-tips {
-    color: #c20008; }
-  .pop-up label {
-    display: block;
-    padding-bottom: 3px; }
-  .pop-up .row1,
-  .pop-up .row2,
-  .pop-up .row3,
-  .pop-up .row4,
-  .pop-up .row5,
-  .pop-up .row6,
-  .pop-up .row7 {
-    padding-top: 15px; }
-  .pop-up .row3 input {
-    width: 460px; }
-  .pop-up .row4,
-  .pop-up .row5 {
-    float: left;
-    width: 240px; }
-  .pop-up .row6 {
-    clear: both; }
-  .pop-up .row7 {
-    float: right; }
+  display: none;
+}
+
+.pop-up .inner {
+  margin: 150px auto;
+  width: 600px;
+  border-radius: 8px;
+  border: 1px solid #666666;
+  box-shadow: black 0 0 20px;
+  background: white;
+  font-size: 14px;
+}
+
+.pop-up h3 {
+  padding: 0;
+  margin: 0;
+  padding: 10px 20px;
+  background: #d43139;
+  color: white;
+}
+
+.pop-up h3 .pop-title {
+  color: white;
+  font-size: 20px;
+}
+
+.pop-up h3 .close {
+  float: right;
+  margin-right: 20px;
+  color: white;
+  cursor: pointer;
+  font-weight: 100;
+}
+
+.pop-up h3 .close:hover {
+  color: #cccccc;
+}
+
+.pop-up .pop-content {
+  width: 480px;
+  margin: 20px auto 40px;
+}
+
+.pop-up input[type=text] {
+  width: 220px;
+  height: 23px;
+}
+
+.pop-up input[type=text]:focus {
+  border: 2px solid #d43139;
+}
+
+.pop-up .must-write,
+.pop-up .pop-tips {
+  color: #c20008;
+}
+
+.pop-up label {
+  display: block;
+  padding-bottom: 3px;
+}
+
+.pop-up .row1,
+.pop-up .row2,
+.pop-up .row3,
+.pop-up .row4,
+.pop-up .row5,
+.pop-up .row6,
+.pop-up .row7 {
+  padding-top: 15px;
+}
+
+.pop-up .row3 input {
+  width: 460px;
+}
+
+.pop-up .row4,
+.pop-up .row5 {
+  float: left;
+  width: 240px;
+}
+
+.pop-up .row6 {
+  clear: both;
+}
+
+.pop-up .row7 {
+  float: right;
+}

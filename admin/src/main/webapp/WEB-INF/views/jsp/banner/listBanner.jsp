@@ -42,7 +42,10 @@
                                 <span class="caption-subject font-green-sharp bold uppercase">表格</span>
                             </div>
                             <div class="actions btn-set">
-                                <button class="btn green-haze btn-circle"  onclick="javascript:window.location.href='/banner/addBanner/';"><i class="fa fa-plus"></i> 新增</button>
+                                <button class="btn green-haze btn-circle"
+                                        onclick="window.location.href='/banner/addBanner/';"><i class="fa fa-plus"></i>
+                                    新增
+                                </button>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -110,11 +113,20 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-xs green btn-circle" onclick="javascript:window.location.href='/banner/updateBanner/${banner.bannerId}'">修改状态</button>
+                                                    <button class="btn btn-xs green btn-circle"
+                                                            onclick="window.location.href='/banner/updateBanner/${banner.bannerId}'">
+                                                        修改状态
+                                                    </button>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-xs green btn-circle" onclick="javascript:window.location.href='/bannerImage/createImageUI/${banner.bannerId}'" >新增</button>
-                                                    <button class="btn btn-xs red btn-circle" onclick="javascript:window.location.href='/banner/queryBanner?bannerId=${banner.bannerId}'">列表</button>
+                                                    <button class="btn btn-xs green btn-circle"
+                                                            onclick="window.location.href='/bannerImage/createImageUI/${banner.bannerId}'">
+                                                        新增
+                                                    </button>
+                                                    <button class="btn btn-xs red btn-circle"
+                                                            onclick="window.location.href='/banner/queryBanner?bannerId=${banner.bannerId}'">
+                                                        列表
+                                                    </button>
                                                 </td>
                                             </tr>
 
@@ -130,7 +142,8 @@
                                 <div class="row">
                                     <link rel="stylesheet" href="/resources/core/css/page.css"/>
                                     <div class="col-xs-2">
-                                        <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
+                                        <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status"
+                                             aria-live="polite">
                                             第
                                             <span>${paginationBean.sqlStartIndex+1}</span>
                                             条 到 第
@@ -211,7 +224,8 @@
                                                             <li class="paginate_button">
                                                                 <a href="/banner/bannerList?currentIndex=${currentIndex-1}">${currentIndex-1}</a>
                                                             </li>
-                                                            <c:forEach var="current" begin="${currentIndex+1}" end="${maxIndex+1}">
+                                                            <c:forEach var="current" begin="${currentIndex+1}"
+                                                                       end="${maxIndex+1}">
                                                                 <li class="paginate_button <c:if test="${paginationBean.currentIndex+1==current}">active</c:if> ">
                                                                     <a href="/banner/bannerList?currentIndex=${current-1}">${current}</a>
                                                                 </li>
@@ -219,7 +233,8 @@
                                                         </c:if>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <c:forEach var="current" begin="1" end="${paginationBean.maxIndex+1}">
+                                                        <c:forEach var="current" begin="1"
+                                                                   end="${paginationBean.maxIndex+1}">
 
                                                             <li class="paginate_button <c:if test="${paginationBean.currentIndex+1==current}">active</c:if> ">
                                                                 <a href="/banner/bannerList?currentIndex=${current-1}">${current}</a>
@@ -230,15 +245,18 @@
 
 
                                                 <li class="paginate_button"><a
-                                                        href="/banner/bannerList?currentIndex=${paginationBean.maxIndex}">末页</a></li>
+                                                        href="/banner/bannerList?currentIndex=${paginationBean.maxIndex}">末页</a>
+                                                </li>
 
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-xs-2">
-                                        <form class="dataTables_filter pgt-goto-page" action="/banner/bannerList" method="get">
+                                        <form class="dataTables_filter pgt-goto-page" action="/banner/bannerList"
+                                              method="get">
                                             <label>
-                                                <input type="search" value="${currentIndex+1}" name="currentIndex" class="form-control input-xsmall input-inline" placeholder="第几页">
+                                                <input type="search" value="${currentIndex+1}" name="currentIndex"
+                                                       class="form-control input-xsmall input-inline" placeholder="第几页">
                                                 <input type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
                                             </label>
                                         </form>

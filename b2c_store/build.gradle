@@ -10,14 +10,14 @@ dependencies {
 
 // Embeded Jetty for testing
 jettyRun {
-    contextPath = ""
+    contextPath = "b2c_store"
     reload = "automatic"
     scanIntervalSeconds = 1
     httpPort = 8080
 }
 
 jettyRunWar {
-    contextPath = "/"
+    contextPath = "b2c_store"
     httpPort = 8080
 }
 

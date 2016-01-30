@@ -10,6 +10,6 @@ app.set('port', 8888);
 
 app.use(express.static(__dirname + '/resources/juedangpin'));
 
-http.createServer(app).listen(app.get('port'), function() {
+http.createServer(app).listen(app.get('port'), function () {
     console.log('begin!');
 });

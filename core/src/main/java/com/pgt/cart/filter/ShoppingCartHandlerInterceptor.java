@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by Yove on 10/27/2015.
  */
+@Deprecated
 public class ShoppingCartHandlerInterceptor implements HandlerInterceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingCartHandlerInterceptor.class);

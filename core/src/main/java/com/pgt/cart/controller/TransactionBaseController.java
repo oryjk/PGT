@@ -37,11 +37,11 @@ public class TransactionBaseController {
 	@Resource(name = "shoppingCartConfiguration")
 	private ShoppingCartConfiguration mShoppingCartConfiguration;
 
-	protected TransactionStatus ensureTransaction() {
+	protected TransactionStatus ensureTransaction () {
 		return ensureTransaction(TransactionDefinition.PROPAGATION_REQUIRED);
 	}
 
-	protected TransactionStatus ensureTransaction(int pPropagationBehavior) {
+	protected TransactionStatus ensureTransaction (int pPropagationBehavior) {
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		TransactionStatus status = getTransactionManager().getTransaction(def);
 		def.setPropagationBehavior(pPropagationBehavior);
@@ -56,29 +56,37 @@ public class TransactionBaseController {
 		return getShoppingCartConfiguration().getMaxItemCount4Cart();
 	}
 
-	protected User getCurrentUser(HttpServletRequest pRequest) {
+	protected User getCurrentUser (HttpServletRequest pRequest) {
 		return (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 	}
 
-	protected Order getCurrentOrder(HttpServletRequest pRequest) {
-		return (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
-	}
+	protected Order getCurrentOrder (HttpServletRequest pRequest, boolean pCreateIfAbsent) {
+		User currentUser = getCurrentUser(pRequest);
 
-	protected Order getCurrentOrder(HttpServletRequest pRequest, boolean pCreateIfAbsent) {
-		Order order = (Order) pRequest.getAttribute(CartConstant.CURRENT_ORDER);
-		if (pCreateIfAbsent && order == null) {
-			LOGGER.debug("Get empty order from session, re-generate order.");
-			order = new Order(getDefaultOrderType());
-			User currentUser = getCurrentUser(pRequest);
-			if (currentUser != null && currentUser.getId() != null) {
-				order.setUserId(currentUser.getId().intValue());
+		if (currentUser == null) {
+			// get order from session if it's anonymous user
+			Order order = (Order) pRequest.getSession().getAttribute(CartConstant.CURRENT_ORDER);
+			if (pCreateIfAbsent && order == null) {
+				order = new Order();
+				pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, order);
 			}
-			pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, order);
+			return order;
+		} else {
+			// login user will ignore session order but use request order
+			Order order = (Order) pRequest.getAttribute(CartConstant.CURRENT_ORDER);
+			if (pCreateIfAbsent && order == null) {
+				LOGGER.debug("Get empty order from session, re-generate order.");
+				order = new Order(getDefaultOrderType());
+				if (currentUser != null && currentUser.getId() != null) {
+					order.setUserId(currentUser.getId().intValue());
+				}
+				pRequest.setAttribute(CartConstant.CURRENT_ORDER, order);
+			}
+			return order;
 		}
-		return order;
 	}
 
-	protected String getMessageValue(String pKey, String pDefaultMessage) {
+	protected String getMessageValue (String pKey, String pDefaultMessage) {
 		if (StringUtils.isNotBlank(pKey)) {
 			return mMessageSource.getMessage(pKey, null, pDefaultMessage, Locale.getDefault());
 		} else {
@@ -86,11 +94,11 @@ public class TransactionBaseController {
 		}
 	}
 
-	protected String getRedirectView(String pViewName) {
+	protected String getRedirectView (String pViewName) {
 		return new StringBuilder(REDIRECT).append(pViewName).toString();
 	}
 
-	public DataSourceTransactionManager getTransactionManager() {
+	public DataSourceTransactionManager getTransactionManager () {
 		return mTransactionManager;
 	}
 
@@ -98,11 +106,11 @@ public class TransactionBaseController {
 		mTransactionManager = pTransactionManager;
 	}
 
-	public ReloadableResourceBundleMessageSource getMessageSource() {
+	public ReloadableResourceBundleMessageSource getMessageSource () {
 		return mMessageSource;
 	}
 
-	public void setMessageSource(final ReloadableResourceBundleMessageSource pMessageSource) {
+	public void setMessageSource (final ReloadableResourceBundleMessageSource pMessageSource) {
 		mMessageSource = pMessageSource;
 	}
 

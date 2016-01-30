@@ -119,9 +119,9 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
 
             }
 
-            Banner TopBanner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
-            if(!ObjectUtils.isEmpty(TopBanner)){
-                LOGGER.debug("The query TopBanner id is {}",TopBanner.getBannerId());
+            Banner TopBanner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
+            if (!ObjectUtils.isEmpty(TopBanner)) {
+                LOGGER.debug("The query TopBanner id is {}", TopBanner.getBannerId());
                 applicationContext.setAttribute("TopBanner", TopBanner);
             }
 
@@ -158,9 +158,9 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
             }
 
 
-            Banner TopBanner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
-            if(!ObjectUtils.isEmpty(TopBanner)){
-                LOGGER.debug("The query TopBanner id is {}",TopBanner.getBannerId());
+            Banner TopBanner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
+            if (!ObjectUtils.isEmpty(TopBanner)) {
+                LOGGER.debug("The query TopBanner id is {}", TopBanner.getBannerId());
                 applicationContext.setAttribute("TopBanner", TopBanner);
             }
 

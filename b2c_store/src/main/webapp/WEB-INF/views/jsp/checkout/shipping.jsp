@@ -180,14 +180,15 @@
                 </p>
 
                 <!--<p class="choose-has" ${empty defaultAddress ? 'style="display:none"':''}>-->
-                    <!--<a id="show-address-form" class="link-btn" href="javascript:void(0)">新增配送地址</a>-->
+                <!--<a id="show-address-form" class="link-btn" href="javascript:void(0)">新增配送地址</a>-->
                 <!--</p>-->
                 <c:forEach items="${addressInfoList }" var="addressInfo">
                 	<div class="row">
 	                    <input type="radio" class="js-address-item" name="addressInfoId" ${addressInfo.id eq selectedAddress.addressInfoId ? 'checked' :''} value="${addressInfo.id}"/>
 	                    <span>${addressInfo.name} ${addressInfo.phone} ${addressInfo.province}${addressInfo.city}${addressInfo.district} ${addressInfo.address}</span>
-	                    <a class="link-btn js-update-address" href="javascript:void(0)" data-href="../my-account/person-info/updateAddress/${addressInfo.id}"
-	                    data-find-adress-url="/my-account/person-info/findAddress/${addressInfo.id}">修改</a>
+                        <a class="link-btn js-update-address" href="javascript:void(0)"
+                           data-href="../my-account/person-info/updateAddress/${addressInfo.id}"
+                           data-find-adress-url="/my-account/person-info/findAddress/${addressInfo.id}">修改</a>
 	                    <a class="link-btn js-delete-address" href="javascript:void(0)" data-href="../my-account/person-info/deleteAddress/${addressInfo.id}">删除</a>
 	                </div>
                 </c:forEach>
@@ -211,7 +212,8 @@
 		                        <td class="img-box">
                                     <c:if test="${not commerceItem.inStock}">
                                         <c:set var="invalidItemCount" value="${invalidItemCount + 1}" />
-                                        <img src="${pageContext.request.contextPath}/resources/juedangpin/core/images/productList/out-of-stock-s.png" class="out-of-stock" />
+                                        <img src="${pageContext.request.contextPath}/resources/juedangpin/core/images/productList/out-of-stock-s.png"
+                                             class="out-of-stock"/>
                                     </c:if>
                                     <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
 	                                         alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
@@ -239,7 +241,8 @@
 	        <div class="sub-box">
 	        	<input type="hidden" name="orderId" value="${checkoutOrder.id }"/>
 	            <input class="d-btn" type="submit" value="提交订单"/>
-	            <input class="l-btn" type="button" value="返回我的购物车" onclick="javascript:window.location.href='..${urlConfiguration.shoppingCartPage}'"/>
+                <input class="l-btn" type="button" value="返回我的购物车"
+                       onclick="window.location.href='..${urlConfiguration.shoppingCartPage}'"/>
 	        </div>
         </form>
     </div>
@@ -250,124 +253,124 @@
 </body>
 <!-- 弹出框-->
 <!--<div id="popUp" class="pop-up">-->
-    <!--<div class="inner">-->
-        <!--<h3>-->
-            <!--<span id="popTitle" class="pop-title">填写收货信息</span>-->
-            <!--<span id="popClose" class="close">X</span>-->
-        <!--</h3>-->
-        <!--<form id="popForm" class="pop-content" action="../my-account/person-info/addAddress">-->
+<!--<div class="inner">-->
+<!--<h3>-->
+<!--<span id="popTitle" class="pop-title">填写收货信息</span>-->
+<!--<span id="popClose" class="close">X</span>-->
+<!--</h3>-->
+<!--<form id="popForm" class="pop-content" action="../my-account/person-info/addAddress">-->
 
-            <!--<div class="row1">-->
-                <!--<label for="#">-->
-                    <!--<span class="must-write">*</span>&lt;!&ndash;-->
-                            <!--&ndash;&gt;<span>收货人:</span>-->
-                    <!--<span class="pop-tips"></span>-->
-                <!--</label>-->
+<!--<div class="row1">-->
+<!--<label for="#">-->
+<!--<span class="must-write">*</span>&lt;!&ndash;-->
+<!--&ndash;&gt;<span>收货人:</span>-->
+<!--<span class="pop-tips"></span>-->
+<!--</label>-->
 
-                <!--<div class="text">-->
-                    <!--<input type="text" name="name" maxlength="50"/>-->
-                <!--</div>-->
-            <!--</div>-->
+<!--<div class="text">-->
+<!--<input type="text" name="name" maxlength="50"/>-->
+<!--</div>-->
+<!--</div>-->
 
-            <!--<div class="row2">-->
-                <!--<label for="#">-->
-                    <!--<span class="must-write">*</span>&lt;!&ndash;-->
-                            <!--&ndash;&gt;<span>所在区域:</span>-->
-                    <!--<span class="pop-tips"></span>-->
-                <!--</label>-->
+<!--<div class="row2">-->
+<!--<label for="#">-->
+<!--<span class="must-write">*</span>&lt;!&ndash;-->
+<!--&ndash;&gt;<span>所在区域:</span>-->
+<!--<span class="pop-tips"></span>-->
+<!--</label>-->
 
-                <!--<div class="text">-->
-                    <!--<div class="province">-->
-                        <!--<a id="province" class="select-view"  href="#">-->
-                            <!--<span class="selected">请选择</span>-->
-                            <!--<i class="foundicon-down-arrow"></i>-->
-                        <!--</a>-->
-                        <!--<ul class="options">-->
-                            <!--<c:forEach items="${provinceList}" var="province">-->
-                                <!--<li><a class="option-view" data-value="${province.id}" href="#">${province.name}</a></li>-->
-                            <!--</c:forEach>-->
-                        <!--</ul>-->
-                        <!--<input class="select-value" name="province" type="hidden" value=""/>-->
-                    <!--</div>-->
-                    <!--省-->
-                    <!--<div class="city" >-->
-                        <!--<a id="city" class="select-view"  href="#">-->
-                            <!--<span class="selected">请选择</span>-->
-                            <!--<i class="foundicon-down-arrow"></i>-->
-                        <!--</a>-->
-                        <!--<ul class="options">-->
+<!--<div class="text">-->
+<!--<div class="province">-->
+<!--<a id="province" class="select-view"  href="#">-->
+<!--<span class="selected">请选择</span>-->
+<!--<i class="foundicon-down-arrow"></i>-->
+<!--</a>-->
+<!--<ul class="options">-->
+<!--<c:forEach items="${provinceList}" var="province">-->
+<!--<li><a class="option-view" data-value="${province.id}" href="#">${province.name}</a></li>-->
+<!--</c:forEach>-->
+<!--</ul>-->
+<!--<input class="select-value" name="province" type="hidden" value=""/>-->
+<!--</div>-->
+<!--省-->
+<!--<div class="city" >-->
+<!--<a id="city" class="select-view"  href="#">-->
+<!--<span class="selected">请选择</span>-->
+<!--<i class="foundicon-down-arrow"></i>-->
+<!--</a>-->
+<!--<ul class="options">-->
 
-                        <!--</ul>-->
-                        <!--<input class="select-value" name="city" type="hidden" value=""/>-->
-                    <!--</div>-->
-                    <!--市-->
-                    <!--<div class="country" >-->
-                        <!--<a id="country" class="select-view"  href="#">-->
-                            <!--<span class="selected">请选择</span>-->
-                            <!--<i class="foundicon-down-arrow"></i>-->
-                        <!--</a>-->
-                        <!--<ul class="options">-->
+<!--</ul>-->
+<!--<input class="select-value" name="city" type="hidden" value=""/>-->
+<!--</div>-->
+<!--市-->
+<!--<div class="country" >-->
+<!--<a id="country" class="select-view"  href="#">-->
+<!--<span class="selected">请选择</span>-->
+<!--<i class="foundicon-down-arrow"></i>-->
+<!--</a>-->
+<!--<ul class="options">-->
 
-                        <!--</ul>-->
-                        <!--<input class="select-value" name="district" type="hidden" value=""/>-->
-                    <!--</div>-->
-                    <!--区\县-->
-                <!--</div>-->
-            <!--</div>-->
+<!--</ul>-->
+<!--<input class="select-value" name="district" type="hidden" value=""/>-->
+<!--</div>-->
+<!--区\县-->
+<!--</div>-->
+<!--</div>-->
 
-            <!--<div class="row3">-->
-                <!--<label for="#">-->
-                    <!--<span class="must-write">*</span>&lt;!&ndash;-->
-                            <!--&ndash;&gt;<span>详细地址:</span>-->
-                    <!--<span class="pop-tips"></span>-->
-                <!--</label>-->
+<!--<div class="row3">-->
+<!--<label for="#">-->
+<!--<span class="must-write">*</span>&lt;!&ndash;-->
+<!--&ndash;&gt;<span>详细地址:</span>-->
+<!--<span class="pop-tips"></span>-->
+<!--</label>-->
 
-                <!--<div class="text">-->
-                    <!--<input type="text" name="address" maxlength="100"/>-->
-                <!--</div>-->
-            <!--</div>-->
+<!--<div class="text">-->
+<!--<input type="text" name="address" maxlength="100"/>-->
+<!--</div>-->
+<!--</div>-->
 
-            <!--<div class="row4">-->
-                <!--<label for="#">-->
-                    <!--<span class="must-write">*</span>&lt;!&ndash;-->
-                            <!--&ndash;&gt;<span>手机号码:</span>-->
-                    <!--<span class="pop-tips"></span>-->
-                <!--</label>-->
+<!--<div class="row4">-->
+<!--<label for="#">-->
+<!--<span class="must-write">*</span>&lt;!&ndash;-->
+<!--&ndash;&gt;<span>手机号码:</span>-->
+<!--<span class="pop-tips"></span>-->
+<!--</label>-->
 
-                <!--<div class="text">-->
-                    <!--<input type="text" name="phone" maxlength="11"/>-->
-                <!--</div>-->
-            <!--</div>-->
+<!--<div class="text">-->
+<!--<input type="text" name="phone" maxlength="11"/>-->
+<!--</div>-->
+<!--</div>-->
 
-            <!--<div class="row5">-->
-                <!--<label for="#">-->
-                    <!--<span>固定号码:</span>-->
-                    <!--<span class="pop-tips"></span>-->
-                <!--</label>-->
+<!--<div class="row5">-->
+<!--<label for="#">-->
+<!--<span>固定号码:</span>-->
+<!--<span class="pop-tips"></span>-->
+<!--</label>-->
 
-                <!--<div class="text">-->
-                    <!--<input type="text" name="telephone" maxlength="20"/>-->
-                <!--</div>-->
-            <!--</div>-->
+<!--<div class="text">-->
+<!--<input type="text" name="telephone" maxlength="20"/>-->
+<!--</div>-->
+<!--</div>-->
 
-            <!--<div class="row6">-->
-                <!--<label for="#">-->
-                    <!--<span>邮箱:</span>-->
-                    <!--<span class="pop-tips"></span>-->
-                <!--</label>-->
+<!--<div class="row6">-->
+<!--<label for="#">-->
+<!--<span>邮箱:</span>-->
+<!--<span class="pop-tips"></span>-->
+<!--</label>-->
 
-                <!--<div class="text">-->
-                    <!--<input type="text" name="email" maxlength="100"/>-->
-                <!--</div>-->
-            <!--</div>-->
+<!--<div class="text">-->
+<!--<input type="text" name="email" maxlength="100"/>-->
+<!--</div>-->
+<!--</div>-->
 
 
-            <!--<div class="row7">-->
-                <!--<input id="popSubmit"  class="d-btn" type="button" value="确定"/>-->
-                <!--<input id="popReset" class="l-btn" type="reset" value="取消"/>-->
-            <!--</div>-->
-        <!--</form>-->
-    <!--</div>-->
+<!--<div class="row7">-->
+<!--<input id="popSubmit"  class="d-btn" type="button" value="确定"/>-->
+<!--<input id="popReset" class="l-btn" type="reset" value="取消"/>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
 <!--</div>-->
 
 <div id="popUp" class="pop-up">
@@ -400,21 +403,23 @@
                 <div class="text">
                     <!-- 仿select-->
                     <div class="province">
-                        <a id="province" class="select-view"  href="#">
+                        <a id="province" class="select-view" href="#">
                             <span class="selected">请选择</span>
                             <i class="foundicon-down-arrow"></i>
                         </a>
                         <ul class="options">
                             <c:forEach items="${provinceList}" var="province">
-                                <li><a class="option-view" data-value="${province.id}" href="#">${province.name}</a></li>
+                                <li><a class="option-view" data-value="${province.id}" href="#">${province.name}</a>
+                                </li>
                             </c:forEach>
                         </ul>
                         <input class="select-value" name="province" type="hidden" value=""/>
-                    </div>省
+                    </div>
+                    省
 
                     <!-- 仿select-->
                     <div class="city">
-                        <a id="city" class="select-view"  href="#">
+                        <a id="city" class="select-view" href="#">
                             <span class="selected">请选择</span>
                             <i class="foundicon-down-arrow"></i>
                         </a>
@@ -422,18 +427,20 @@
 
                         </ul>
                         <input class="select-value" name="city" type="hidden" value=""/>
-                    </div>市
+                    </div>
+                    市
 
                     <!-- 仿select-->
                     <div class="country">
-                        <a id="country" class="select-view"  href="#">
+                        <a id="country" class="select-view" href="#">
                             <span class="selected">请选择</span>
                             <i class="foundicon-down-arrow"></i>
                         </a>
                         <ul class="options">
                         </ul>
                         <input class="select-value" name="district" type="hidden" value=""/>
-                    </div>区/县
+                    </div>
+                    区/县
                 </div>
             </div>
 
@@ -484,7 +491,7 @@
             </div>
 
             <div class="row7">
-                <input id="popSubmit"  class="d-btn" type="button" value="确定"/>
+                <input id="popSubmit" class="d-btn" type="button" value="确定"/>
                 <input id="popReset" class="l-btn" type="reset" value="取消"/>
             </div>
         </form>

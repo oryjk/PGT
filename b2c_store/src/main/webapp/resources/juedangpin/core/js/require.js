@@ -41,8 +41,7 @@ var requirejs, require, define;
 
     function V(b, c, d, g) {
         c && B(c, function (c, h) {
-            if (d || !s(b, h))g && "object" === typeof c && c && !H(c) && !G(c) && !(c instanceof
-            RegExp) ? (b[h] || (b[h] = {}), V(b[h], c, d, g)) : b[h] = c
+            if (d || !s(b, h))g && "object" === typeof c && c && !H(c) && !G(c) && !(c instanceof RegExp) ? (b[h] || (b[h] = {}), V(b[h], c, d, g)) : b[h] = c
         });
         return b
     }

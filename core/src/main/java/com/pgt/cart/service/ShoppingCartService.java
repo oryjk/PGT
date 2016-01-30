@@ -7,6 +7,7 @@ import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.common.bean.Media;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -49,29 +49,68 @@ public class ShoppingCartService {
 
 
 	public Order loadInitialOrder (final int pUserId) {
-		Order order = getShoppingCartDao().loadInitialOrderByUserId(pUserId);
-		if (order != null && RepositoryUtils.idIsValid(order.getId())) {
-			List<CommerceItem> commerceItems = getShoppingCartDao()
-					.loadCommerceItemsFromOrderWithRealTimePrice(order.getId());
-			order.setCommerceItems(commerceItems);
-		}
-		return order;
+		return getShoppingCartDao().loadInitialOrderByUserId(pUserId);
 	}
 
 	public List<Order> loadInitialOrders (final int pUserId) {
 		return getShoppingCartDao().loadInitialOrdersByUserId(pUserId);
 	}
 
-	public Order mergeOrder (final Order pSourceOrder, final Order pDestinationOrder) {
-		if (pSourceOrder.emptyOrder()) {
+	public Order mergeOrder (final Order pDestinationOrder, final Order pPendingMergeOrder) {
+		if (pDestinationOrder.emptyOrder()) {
 			return pDestinationOrder;
 		}
-		pDestinationOrder.getCommerceItems().addAll(pSourceOrder.getCommerceItems());
+		for (CommerceItem commerceItem : pPendingMergeOrder.getCommerceItems()) {
+			int productId = commerceItem.getReferenceId();
+			if (!RepositoryUtils.idIsValid(productId)) {
+				continue;
+			}
+			if (pDestinationOrder.getCommerceItemByProduct(productId) == null) {
+				pDestinationOrder.getCommerceItems().add(commerceItem);
+			}
+		}
 		pDestinationOrder.resetCommerceItemIndex();
 		pDestinationOrder.getCommerceItems().forEach(ci -> {
 			ci.setOrderId(pDestinationOrder.getId());
 		});
 		return pDestinationOrder;
+	}
+
+
+	public void mergeOrders (final Order pDestinationOrder, final List<Order> pPendingMergeOrders) {
+		if (CollectionUtils.isEmpty(pPendingMergeOrders)) {
+			return;
+		}
+		for (Order pendingMergeOrder : pPendingMergeOrders) {
+			for (CommerceItem commerceItem : pendingMergeOrder.getCommerceItems()) {
+				int productId = commerceItem.getReferenceId();
+				if (!RepositoryUtils.idIsValid(productId)) {
+					continue;
+				}
+				if (pDestinationOrder.getCommerceItemByProduct(productId) == null) {
+					pDestinationOrder.getCommerceItems().add(commerceItem);
+				}
+			}
+		}
+		pDestinationOrder.resetCommerceItemIndex();
+		pDestinationOrder.getCommerceItems().forEach(ci -> {
+			ci.setOrderId(pDestinationOrder.getId());
+		});
+	}
+
+	public void deleteOrders (final List<Integer> pOrderIds) {
+		// start transaction
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		TransactionStatus status = getTransactionManager().getTransaction(def);
+		try {
+			getShoppingCartDao().deleteOrders(pOrderIds);
+		} catch (Exception e) {
+			String msg = String.format("Delete orders by ids: {} failed", pOrderIds);
+			LOGGER.error(msg, e);
+		} finally {
+			getTransactionManager().commit(status);
+		}
 	}
 
 	public boolean persistInitialOrder (final Order pOrder) throws OrderPersistentException {
@@ -91,6 +130,7 @@ public class ShoppingCartService {
 			TransactionStatus status = getTransactionManager().getTransaction(def);
 			boolean result;
 			try {
+				LOGGER.debug("Start to persist order for user: {}", pOrder.getUserId());
 				if (RepositoryUtils.idIsValid(pOrder.getId())) {
 					result = getShoppingCartDao().updateOrder(pOrder) > 0;
 				} else {
@@ -98,6 +138,7 @@ public class ShoppingCartService {
 				}
 				// persist transient commerce items first
 				if (result) {
+					LOGGER.debug("Start to create transient items for order: {} of user: {}", pOrder.getId(), pOrder.getUserId());
 					List<CommerceItem> transientItems = pOrder.obtainTransientCommerceItems();
 					if (!CollectionUtils.isEmpty(transientItems)) {
 						for (CommerceItem ci : transientItems) {
@@ -108,6 +149,7 @@ public class ShoppingCartService {
 				}
 				// update commerce items
 				if (result) {
+					LOGGER.debug("Start to update persisted items for order: {} of user: {}", pOrder.getId(), pOrder.getUserId());
 					List<CommerceItem> persistentItems = pOrder.obtainPersistedCommerceItems();
 					if (!CollectionUtils.isEmpty(persistentItems)) {
 						persistentItems.forEach(ci -> {
@@ -118,10 +160,11 @@ public class ShoppingCartService {
 				}
 				// check result to set roll back
 				if (!result) {
+					LOGGER.debug("Persist initial order for user: {} failed, set transaction rollback.", pOrder.getUserId());
 					status.setRollbackOnly();
 				}
 			} catch (Exception e) {
-				String msg = String.format("Update initial order: %d of user: %d failed", pOrder.getId(),
+				String msg = String.format("Persist initial order: %d of user: %d failed", pOrder.getId(),
 						pOrder.getUserId());
 				LOGGER.error(msg, e);
 				throw new OrderPersistentException(msg, e);

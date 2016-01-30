@@ -1,10 +1,10 @@
 package com.pgt.category.service;
 
-import java.util.List;
-
 import com.pgt.category.bean.Category;
 import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.utils.PaginationBean;
+
+import java.util.List;
 
 /**
  * Created by carlwang on 11/13/15.
@@ -43,5 +43,5 @@ public interface CategoryService {
 
     List<Category> querySubCategories(Integer rootCategoryId);
 
-    List<Category> queryOnlinePawnCategories();
+    List<Category> queryOnlinePawnCategories ();
 }

@@ -125,33 +125,33 @@ require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
         //区
         Cpn.select2(areaObj.country);
 
-    $('#popSubmit').click(function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        if ($this.data('pending')) {
-            return false;
-        }
-        $this.data('pending', true);
-        var form = $('#popForm'),
-            action = form.attr('action'),
-            data = form.serialize();
-        form.find('span.js-error-msg').remove();
-        $.post(action, data).done(function (result) {
-            if (result.success == 'true') {
-                window.location.reload();
-            } else {
-                if (result.redirectUrl) {
-                    window.location.href = result.redirectUrl;
-                } else {
-                    var errors = result.errors;
-                    $.each(errors, function (key, value) {
-                        form.find('[name=' + key + ']').closest('div').append('<span class="js-error-msg">' + value + '</span>');
-                    });
-                }
+        $('#popSubmit').click(function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            if ($this.data('pending')) {
+                return false;
             }
-            $this.data('pending', false);
+            $this.data('pending', true);
+            var form = $('#popForm'),
+                action = form.attr('action'),
+                data = form.serialize();
+            form.find('span.js-error-msg').remove();
+            $.post(action, data).done(function (result) {
+                if (result.success == 'true') {
+                    window.location.reload();
+                } else {
+                    if (result.redirectUrl) {
+                        window.location.href = result.redirectUrl;
+                    } else {
+                        var errors = result.errors;
+                        $.each(errors, function (key, value) {
+                            form.find('[name=' + key + ']').closest('div').append('<span class="js-error-msg">' + value + '</span>');
+                        });
+                    }
+                }
+                $this.data('pending', false);
+            });
         });
-    });
 
     });
     //===============shipping page begin======================
@@ -224,23 +224,23 @@ require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
         e.preventDefault();
         var $this = $(this),
             form = $('#popForm');
-        if($this.data('pending')){
+        if ($this.data('pending')) {
             return false;
         }
-        $this.data('pending',true);
-        form.attr('action',$this.data('href'));
+        $this.data('pending', true);
+        form.attr('action', $this.data('href'));
         console.log($this.data('data-find-adress-url'));
-        $.get($this.attr('data-find-adress-url')).done(function(result){
-            if(result.success == 'true'){
+        $.get($this.attr('data-find-adress-url')).done(function (result) {
+            if (result.success == 'true') {
                 var data = JSON.parse(result.data);
-                $.each(data, function(key,value){
-                    var el = form.find('[name='+key+']');
-                    if(el){
+                $.each(data, function (key, value) {
+                    var el = form.find('[name=' + key + ']');
+                    if (el) {
                         el.val(value);
                     }
                 });
                 $('#popUp').fadeIn(300);
-                $this.data('pending',false);
+                $this.data('pending', false);
             }
         });
     });
@@ -281,7 +281,6 @@ require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
                     var errors = result.errors;
                     $.each(errors, function (key, value) {
                         form.find('[name=' + key + ']').closest('div').append('<span class="js-error-msg">' + value + '</span>');
-                        ;
                     });
                 }
             }

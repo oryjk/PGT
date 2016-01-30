@@ -2,7 +2,6 @@ package com.pgt.sms.service;
 
 import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
-import com.pgt.integration.yeepay.YeePayConstants;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +57,7 @@ public class SmsService {
     }
 
 
-    public String sendOnlinePawnSms(String phoneNumber, String code) {
+    public String sendOnlinePawnSms (String phoneNumber, String code) {
         try {
             return sendSms(phoneNumber, configuration.getSmsOnlinePawnContent(), code);
         } catch (IOException e) {
@@ -68,7 +66,7 @@ public class SmsService {
         return "error";
     }
 
-    public String sendOnlinePawnSmsToMe(String phoneNumber, String content) {
+    public String sendOnlinePawnSmsToMe (String phoneNumber, String content) {
         try {
             return sendSms(phoneNumber, content, null);
         } catch (IOException e) {

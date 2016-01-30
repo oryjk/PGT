@@ -163,7 +163,7 @@ h2 {
     margin: 2px;
     transition: all 0.8s;
     background-repeat: no-repeat;
-    background-size:100% 100%;
+    background-size: 100% 100%;
   }
   .box1-1:hover {
     transform: scale(0.94, 0.94);
@@ -274,7 +274,7 @@ small {
   left: 0;
   padding: 50px 0;
   @include wh(100%, 100%);
-  background: rgba(0,0,0,.4);
+  background: rgba(0, 0, 0, .4);
 
   .classify-product-content {
     margin: 0 auto;
@@ -286,7 +286,7 @@ small {
 
   .product-list {
     padding: 0 10px 10px 10px;
-    @include list(20%,13px, 18px, 12px, 168px);
+    @include list(20%, 13px, 18px, 12px, 168px);
     &:after,
     &:before {
       clear: both;

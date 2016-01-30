@@ -128,7 +128,8 @@
                                     <input class="d-btn" type="button" value="最多一次购买${orderItemLimit}个商品" />
                                 </c:when>
                                 <c:otherwise>
-                                    <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'"/>
+                                    <input class="d-btn" type="button" value="去结算"
+                                           onclick="window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'"/>
                                 </c:otherwise>
                             </c:choose>
                         </div>

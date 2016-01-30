@@ -6,49 +6,53 @@ import java.io.Serializable;
  * Created by carlwang on 1/28/16.
  */
 public class OnlinePawn implements Serializable {
-    private Integer id;
-    private Integer categoryId;
-    private Integer durationDate;
-    private Double pawnTotal;
-    private String phoneNumber;
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	private Integer categoryId;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	private Integer durationDate;
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
+	private Double pawnTotal;
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
+	private String phoneNumber;
 
-    public Integer getDurationDate() {
-        return durationDate;
-    }
+	public Integer getId () {
+		return id;
+	}
 
-    public void setDurationDate(Integer durationDate) {
-        this.durationDate = durationDate;
-    }
+	public void setId (Integer id) {
+		this.id = id;
+	}
 
-    public Double getPawnTotal() {
-        return pawnTotal;
-    }
+	public Integer getCategoryId () {
+		return categoryId;
+	}
 
-    public void setPawnTotal(Double pawnTotal) {
-        this.pawnTotal = pawnTotal;
-    }
+	public void setCategoryId (Integer categoryId) {
+		this.categoryId = categoryId;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public Integer getDurationDate () {
+		return durationDate;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public void setDurationDate (Integer durationDate) {
+		this.durationDate = durationDate;
+	}
+
+	public Double getPawnTotal () {
+		return pawnTotal;
+	}
+
+	public void setPawnTotal (Double pawnTotal) {
+		this.pawnTotal = pawnTotal;
+	}
+
+	public String getPhoneNumber () {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber (String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 }

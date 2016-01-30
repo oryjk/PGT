@@ -6,20 +6,20 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 
 //创建style任务
-gulp.task('style', function() {
+gulp.task('style', function () {
     //源路径
-     gulp.src('./src/*/*.scss')
-         .pipe(sourcemaps.init())
-         //进行sass编译
+    gulp.src('./src/*/*.scss')
+        .pipe(sourcemaps.init())
+        //进行sass编译
         .pipe(sass())
-         //生成map文件
-         .pipe(sourcemaps.write('../maps'))
-         //生成css文件在目标路径
+        //生成map文件
+        .pipe(sourcemaps.write('../maps'))
+        //生成css文件在目标路径
         .pipe(gulp.dest('./src'));
 });
 
 // 监听
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch('./src/*/*.scss', ['style']);
 });
 

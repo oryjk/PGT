@@ -1,23 +1,23 @@
 package com.pgt.home.controller;
 
 import com.pgt.category.bean.Category;
-
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryHelper;
-import com.pgt.common.bean.*;
+import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.BannerWebSite;
+import com.pgt.common.bean.CommPaginationBean;
+import com.pgt.common.bean.Media;
 import com.pgt.common.service.BannerService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
-import com.pgt.hot.service.HotProductHelper;
 import com.pgt.media.MediaService;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
-
 import com.pgt.style.bean.PageBackground;
 import com.pgt.style.bean.PageBackgroundQuery;
 import com.pgt.style.service.PageBackgroundService;
@@ -72,7 +72,7 @@ public class HomeController {
     @Autowired
     private PageBackgroundService pageBackgroundService;
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(ModelAndView modelAndView) {
         modelAndView.addObject("urlConfiguration", urlConfiguration);
         LOGGER.debug("HomeController is run");
@@ -132,27 +132,27 @@ public class HomeController {
 
     }
 
-    @RequestMapping(value = "/homeSearch",method = RequestMethod.GET)
-    public ModelAndView homeSearch(@RequestParam(value = "term", required = false) String term,ModelAndView modelAndView){
+    @RequestMapping(value = "/homeSearch", method = RequestMethod.GET)
+    public ModelAndView homeSearch (@RequestParam(value = "term", required = false) String term, ModelAndView modelAndView) {
 
         LOGGER.debug("The method is to homeSearch");
         List<ESTerm> esMatches = new ArrayList<>();
         LOGGER.debug("add term to ESMatch");
-        buildESMatch(term,esMatches);
-        SearchResponse  searchResponse = esSearchService.findProducts(null, esMatches,null,null,null,
+        buildESMatch(term, esMatches);
+        SearchResponse searchResponse = esSearchService.findProducts(null, esMatches, null, null, null,
                 null, null);
         SearchHits hits = searchResponse.getHits();
         SearchHit[] productList = hits.getHits();
-        if(!ArrayUtils.isEmpty(productList)){
-         LOGGER.debug("add productList to model total is {}",productList.length);
-            modelAndView.addObject("productList",productList);
+        if (!ArrayUtils.isEmpty(productList)) {
+            LOGGER.debug("add productList to model total is {}", productList.length);
+            modelAndView.addObject("productList", productList);
         }
         modelAndView.setViewName("/index/classify");
         return modelAndView;
     }
 
-    private void buildESMatch(@RequestParam(value = "term", required = false) String term,
-                                List<ESTerm> esMatches) {
+    private void buildESMatch (@RequestParam(value = "term", required = false) String term,
+                               List<ESTerm> esMatches) {
         if (!StringUtils.isEmpty(term)) {
             term = term.trim();
             List<String> useToSearch = esConfiguration.getUseToSearch();
@@ -160,7 +160,7 @@ public class HomeController {
                 final String finalTerm = term;
                 useToSearch.stream().forEach(s -> {
                     ESTerm esMatch = new ESTerm();
-                    LOGGER.debug("The propertyName is {}",s);
+                    LOGGER.debug("The propertyName is {}", s);
                     esMatch.setPropertyName(s);
                     esMatch.setTermValue(finalTerm);
                     esMatches.add(esMatch);

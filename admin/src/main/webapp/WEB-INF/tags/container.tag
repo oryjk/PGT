@@ -39,11 +39,14 @@
 	<meta content="" name="author">
 	<!-- BEGIN GLOBAL MANDATORY STYLES -->
 	<!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">-->
-	<link href="${ctx}/resources/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="${ctx}/resources/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		  type="text/css">
 	<link href="${ctx}/resources/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
 		  type="text/css">
-	<link href="${ctx}/resources/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="${ctx}/resources/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+	<link href="${ctx}/resources/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+		  type="text/css">
+	<link href="${ctx}/resources/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet"
+		  type="text/css">
 	<!-- END GLOBAL MANDATORY STYLES -->
 	<!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
 	<link href="${ctx}/resources/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css">
@@ -54,10 +57,12 @@
 	<!-- END PAGE STYLES -->
 	<!-- BEGIN THEME STYLES -->
 	<!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
-	<link href="${ctx}/resources/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
+	<link href="${ctx}/resources/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet"
+		  type="text/css">
 	<link href="${ctx}/resources/assets/global/css/plugins.css" rel="stylesheet" type="text/css">
 	<link href="${ctx}/resources/assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
-	<link href="${ctx}/resources/assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color">
+	<link href="${ctx}/resources/assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css"
+		  id="style_color">
 	<link href="${ctx}/resources/assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="${ctx}/resources/core/css/table.css"/>
 	<link rel="stylesheet" href="${ctx}/resources/core/css/page.css"/>
@@ -96,11 +101,11 @@
 					<c:choose>
 						<c:when test="${not empty internalUser}">
 							<li class="dropdown dropdown-extended dropdown-dark dropdown-inbox" id="header_inbox_bar">
-								<%--<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-								   data-close-others="true">
-									<span class="circle">3</span>
-									<span class="corner"></span>
-								</a>--%>
+									<%--<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                       data-close-others="true">
+                                        <span class="circle">3</span>
+                                        <span class="corner"></span>
+                                    </a>--%>
 								<ul class="dropdown-menu">
 									<li>
 										<p>
@@ -202,9 +207,11 @@
 							<!-- END INBOX DROPDOWN -->
 							<!-- BEGIN USER LOGIN DROPDOWN -->
 							<li class="dropdown dropdown-user dropdown-dark">
-								<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+								<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"
+								   data-hover="dropdown"
 								   data-close-others="true">
-									<img alt="" class="img-circle" src="${ctx}/resources/assets/admin/layout3/img/avatar9.jpg">
+									<img alt="" class="img-circle"
+										 src="${ctx}/resources/assets/admin/layout3/img/avatar9.jpg">
 									<span class="username username-hide-mobile">${empty internalUser.name ? internalUser.login : internalUser.name}</span>
 								</a>
 								<ul class="dropdown-menu dropdown-menu-default">
@@ -212,20 +219,20 @@
 										<a href="/internal/mine">
 											<i class="icon-user"></i> 我的资料 </a>
 									</li>
-								<%--	<li>
-										<a href="javascript:;">
-											<i class="icon-calendar"></i> 我的收益 </a>
-									</li>
-									<li>
-										<a href="javascript:;">
-											<i class="icon-rocket"></i> 我的产品
-										</a>
-									</li>--%>
-								<%--	<li>
-										<a href="inbox.html">
-											<i class="icon-envelope-open"></i> 系统信息 <span class="badge badge-danger">3 </span>
-										</a>
-									</li>--%>
+										<%--	<li>
+                                                <a href="javascript:;">
+                                                    <i class="icon-calendar"></i> 我的收益 </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <i class="icon-rocket"></i> 我的产品
+                                                </a>
+                                            </li>--%>
+										<%--	<li>
+                                                <a href="inbox.html">
+                                                    <i class="icon-envelope-open"></i> 系统信息 <span class="badge badge-danger">3 </span>
+                                                </a>
+                                            </li>--%>
 									<li class="divider">
 									</li>
 									<li>
@@ -484,7 +491,8 @@
 	<script src="${ctx}/resources/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${ctx}/resources/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
 			type="text/javascript"></script>
-	<script src="${ctx}/resources/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+	<script src="${ctx}/resources/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
+			type="text/javascript"></script>
 	<script src="${ctx}/resources/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 	<script src="${ctx}/resources/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 	<script src="${ctx}/resources/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>

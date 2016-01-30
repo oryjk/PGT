@@ -277,7 +277,7 @@
 											<img src="${staticServer}${product.thumbnailMedia.path}" alt=""/>
 										</td>
 										<td>
-											${product.stock}
+												${product.stock}
 										</td>
 										<td>
 											<c:choose>

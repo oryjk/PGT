@@ -45,7 +45,8 @@
         <div class="top-banner-box">
 
             <a href="${pageContext.request.contextPath}${TopBanner.images[0].url}">
-                <img src="${pageContext.request.contextPath}${TopBanner.images[0].path}" alt="${TopBanner.images[0].title}"/>
+                <img src="${pageContext.request.contextPath}${TopBanner.images[0].path}"
+                     alt="${TopBanner.images[0].title}"/>
             </a>
 
         </div>
@@ -99,7 +100,8 @@
         <div class="logo-box">
             <h1>
                 <a href="<spring:url value="" />">
-                    <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/logo-red.jpg"/>" alt="点金子名品"/>
+                    <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/logo-red.jpg"/>"
+                         alt="点金子名品"/>
                 </a>
             </h1>
         </div>
@@ -120,7 +122,8 @@
             <a href="<spring:url value="/shoppingCart/cart" />" class="cart">
                 <i class="foundicon-cart"></i>
                 <span>我的购物车</span>
-                <span class="cart-count" id="fixedCartCount">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
+                <span class="cart-count"
+                      id="fixedCartCount">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
             </a>
         </div>
     </div>
@@ -136,10 +139,13 @@
             <c:forEach items="${rootHomeCategories}" var="category" varStatus="status">
                 <c:set var="rootCategory" value="${category.source}"/>
                 <li class="menu-0<c:if test="${status.last eq true}">-1</c:if>">
-                    <a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}" class="menu-h">${rootCategory.name}</a>
+                    <a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}"
+                       class="menu-h">${rootCategory.name}</a>
                     <ul class="menu-1">
                         <c:forEach items="${rootCategory.children}" var="subCategory" varStatus="st">
-                            <li <c:if test="${st.last eq true}">class="li-l"</c:if>> <a href="${pageContext.request.contextPath}/essearch?parentCategoryId=${subCategory.id}">${subCategory.name}</a></li>
+                            <li <c:if test="${st.last eq true}">class="li-l"</c:if>><a
+                                    href="${pageContext.request.contextPath}/essearch?parentCategoryId=${subCategory.id}">${subCategory.name}</a>
+                            </li>
                         </c:forEach>
                     </ul>
                 </li>

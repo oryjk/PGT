@@ -20,31 +20,31 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             tabTarget: $('#tab h2')
         });
 
-        $('#popSubmit').click(function(e){
+        $('#popSubmit').click(function (e) {
             e.preventDefault();
             var $this = $(this);
-            if($this.data('pending')){
+            if ($this.data('pending')) {
                 return false;
             }
-            $this.data('pending',true);
+            $this.data('pending', true);
             var form = $('#popForm'),
                 action = form.attr('action'),
                 data = form.serialize();
             form.find('span.js-error-msg').remove();
-            $.post(action,data).done(function(result){
-                if(result.success == 'true'){
+            $.post(action, data).done(function (result) {
+                if (result.success == 'true') {
                     window.location.reload();
-                }else{
-                    if(result.redirectUrl){
+                } else {
+                    if (result.redirectUrl) {
                         window.location.href = result.redirectUrl;
-                    }else{
+                    } else {
                         var errors = result.errors;
-                        $.each(errors,function(key,value){
-                            form.find('[name='+key+']').closest('div').append('<span class="js-error-msg">'+value+'</span>');
+                        $.each(errors, function (key, value) {
+                            form.find('[name=' + key + ']').closest('div').append('<span class="js-error-msg">' + value + '</span>');
                         });
                     }
                 }
-                $this.data('pending',false);
+                $this.data('pending', false);
             });
         });
 

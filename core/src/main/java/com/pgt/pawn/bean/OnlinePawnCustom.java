@@ -5,24 +5,35 @@ package com.pgt.pawn.bean;
  */
 public class OnlinePawnCustom extends OnlinePawn {
 
-    private OnlinePawn onlinePawn;
+	private OnlinePawn onlinePawn;
 
-    private String smsCode;
+	private String smsCode;
 
-    private String error;
+	private String error;
 
+	public OnlinePawn getOnlinePawn () {
+		return onlinePawn;
+	}
 
-    public void setOnlinePawn(OnlinePawn onlinePawn){ this.onlinePawn = onlinePawn; }
+	public void setOnlinePawn (OnlinePawn onlinePawn) {
+		this.onlinePawn = onlinePawn;
+	}
 
-    public OnlinePawn getOnlinePawn(){ return onlinePawn;}
+	public String getSmsCode () {
+		return smsCode;
+	}
 
-    public void setSmsCode(String smsCode){ this.smsCode = smsCode; }
+	public void setSmsCode (String smsCode) {
+		this.smsCode = smsCode;
+	}
 
-    public String getSmsCode(){ return smsCode;}
+	public String getError () {
+		return error;
+	}
 
-    public void setError(String error){ this.error = error; }
-
-    public String getError(){ return error;}
+	public void setError (String error) {
+		this.error = error;
+	}
 
 
 }

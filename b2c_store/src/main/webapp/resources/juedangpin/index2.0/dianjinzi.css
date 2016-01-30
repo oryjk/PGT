@@ -166,6 +166,7 @@ body {
     text-decoration: none;
     border: none;
 }
+
 .right1-2,
 .right1 {
     padding: 4px 0;
@@ -208,10 +209,12 @@ body {
     width: 70px;
     height: 33px;
 }
-.right1-2:hover >.right2,
+
+.right1-2:hover > .right2,
 .right1:hover >.right2{
     display: block;
 }
+
 .right1-2 img,
 .right1 img {
     text-align: center;
@@ -221,26 +224,19 @@ body {
     width: 20px;
     height: 20px;
 }
-.right-menu{
+
+.right-menu {
     overflow: scroll;
     margin-top: 65px;
     background: #fff;
     width: 300px;
     float: right;
 }
-.right-a{
+
+.right-a {
     float: left;
     width: 45px;
 }
-
-
-
-
-
-
-
-
-
 
 .header {
     padding: 2px 0;

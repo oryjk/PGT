@@ -18,17 +18,17 @@ var vm = avalon.define({
     categoryHot: '',
     status: ''
 
-})
+});
 
-avalon.duplexHooks.limit={
-    get:function(str,data){
-        var limit=parseFloat(data.element.getAttribute('data-duplex-totalLimit'))
-        if(str.length>limit){
-            return data.element.value=str.slice(0,limit);
+avalon.duplexHooks.limit = {
+    get: function (str, data) {
+        var limit = parseFloat(data.element.getAttribute('data-duplex-totalLimit'));
+        if (str.length > limit) {
+            return data.element.value = str.slice(0, limit);
         }
         return str;
     }
-}
+};
 
 
 $('#newStep').click(function (event) {

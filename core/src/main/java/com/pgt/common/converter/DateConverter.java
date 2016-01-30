@@ -18,7 +18,7 @@ public class DateConverter implements Converter<String, Date> {
     @Override
     public Date convert(String source) {
 
-        if(StringUtils.isEmpty(source)){
+        if (StringUtils.isEmpty(source)) {
             return null;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -26,7 +26,7 @@ public class DateConverter implements Converter<String, Date> {
         try {
             return simpleDateFormat.parse(source);
         } catch (ParseException e) {
-            LOGGER.error("ParseException when parse date type,message is {}.",e.getMessage());
+            LOGGER.error("ParseException when parse date type,message is {}.", e.getMessage());
         }
         return null;
     }

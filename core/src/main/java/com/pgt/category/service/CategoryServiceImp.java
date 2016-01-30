@@ -1,9 +1,14 @@
 package com.pgt.category.service;
 
-import java.util.List;
-
 import com.pgt.base.service.TransactionService;
+import com.pgt.category.bean.Category;
+import com.pgt.category.dao.CategoryMapper;
+import com.pgt.common.bean.Media;
+import com.pgt.common.dao.MediaMapper;
 import com.pgt.media.MediaService;
+import com.pgt.media.bean.MediaType;
+import com.pgt.product.bean.CategoryHierarchy;
+import com.pgt.utils.PaginationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.util.ObjectUtils;
 
-import com.pgt.category.bean.Category;
-import com.pgt.category.dao.CategoryMapper;
-import com.pgt.common.bean.Media;
-import com.pgt.common.dao.MediaMapper;
-import com.pgt.media.bean.MediaType;
-import com.pgt.product.bean.CategoryHierarchy;
-import com.pgt.utils.PaginationBean;
+import java.util.List;
 
 /**
  * Created by carlwang on 11/13/15.
@@ -159,8 +158,9 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     public List<Category> querySubCategories(Integer rootCategoryId) {
         return categoryMapper.querySubCategories(rootCategoryId);
     }
+
     @Override
-    public List<Category> queryOnlinePawnCategories(){
+    public List<Category> queryOnlinePawnCategories () {
         return categoryMapper.queryOnlinePawnCategories();
     }
 

@@ -9,14 +9,14 @@ import java.util.List;
  */
 public interface OnlinePawnService {
 
-    Integer add(OnlinePawn onlinePawn);
+	Integer add (OnlinePawn onlinePawn);
 
-    OnlinePawn select(Integer id);
+	OnlinePawn select (Integer id);
 
-    Integer update(OnlinePawn onlinePawn);
+	Integer update (OnlinePawn onlinePawn);
 
-    Integer delete(Integer id);
+	Integer delete (Integer id);
 
-    List<OnlinePawn> findByPhoneNumber(String phoneNumber);
+	List<OnlinePawn> findByPhoneNumber (String phoneNumber);
 
 }

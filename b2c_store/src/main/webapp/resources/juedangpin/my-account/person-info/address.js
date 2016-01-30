@@ -143,7 +143,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         	e.preventDefault();
         	var $this = $(this);
         	$.post($this.data('href')).done(function(result){
-        		if(result.successS == 'true'){
+				if (result.successS == 'true') {
         			window.location.reload();
         		}
         	});

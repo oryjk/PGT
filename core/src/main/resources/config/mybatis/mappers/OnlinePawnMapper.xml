@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pgt.pawn.dao.OnlinePawnMapper">
     <resultMap id="onlinePawn" type="com.pgt.pawn.bean.OnlinePawn">
-        <id column="ID" property="id" />
-        <result column="CATEGORY_ID" property="categoryId" />
-        <result column="DURATION_DATE" property="durationDate" />
-        <result column="PAWN_TOTAL" property="pawnTotal" />
-        <result column="PHONE_NUMBER" property="phoneNumber" />
+        <id column="ID" property="id"/>
+        <result column="CATEGORY_ID" property="categoryId"/>
+        <result column="DURATION_DATE" property="durationDate"/>
+        <result column="PAWN_TOTAL" property="pawnTotal"/>
+        <result column="PHONE_NUMBER" property="phoneNumber"/>
     </resultMap>
     <parameterMap id="paramOnlinePawn" type="com.pgt.pawn.bean.OnlinePawn">
     </parameterMap>

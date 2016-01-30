@@ -23,5 +23,6 @@
 
 @mixin opacity($o) {
   opacity: $o;
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity= $o * 100 ) \9;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=$o * 100) \9
+;
 }

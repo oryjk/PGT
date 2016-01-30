@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service(value = "shoppingCartConfiguration")
 public class ShoppingCartConfiguration {
 
-	private int mMaxItemCount4Cart = 2;
+	private int mMaxItemCount4Cart = 3;
 
 	private int mDefaultOrderType = OrderType.B2C_ORDER;
 

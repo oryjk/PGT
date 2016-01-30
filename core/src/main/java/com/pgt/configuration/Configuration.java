@@ -7,13 +7,19 @@ public class Configuration {
 	private Integer homeHotProductCount;
 	private Boolean onlyShowInStock;
 	private Integer productListPageCapacity;
-	private String smsUrl = "http://www.tosms.cn/Api/SendSms.ashx";
-	private String smsUsername = "dianjinzi";
-	private String smsPassword = "E10ADC3949BA59ABBE56E057F20F883E";
-	private String smsLoginContent = "点金子登录验证码是:";
-	private String smsRegisterContent = "点金子注册验证码是:";
+
+	private String smsUrl                  = "http://www.tosms.cn/Api/SendSms.ashx";
+
+	private String smsUsername             = "dianjinzi";
+
+	private String smsPassword             = "E10ADC3949BA59ABBE56E057F20F883E";
+
+	private String smsLoginContent         = "点金子登录验证码是:";
+
+	private String smsRegisterContent      = "点金子注册验证码是:";
 	private String smsResetPasswordContent = "点金子重设密码验证码是:";
-    private String smsOnlinePawnContent = "点金子在线典当验证码是:";
+
+	private String smsOnlinePawnContent = "点金子在线典当验证码是:";
 	private Integer communicationCapacity;
 	private Boolean useES = false;
 	private Integer plpCapacity;
@@ -26,6 +32,8 @@ public class Configuration {
 	private String staticServer="http://www.pgt_admin.com";
 	private boolean useProxy=true;
 
+	private boolean smsMock = false;
+
 	public Integer getPlpCapacity() {
 		return plpCapacity;
 	}
@@ -33,8 +41,6 @@ public class Configuration {
 	public void setPlpCapacity(Integer plpCapacity) {
 		this.plpCapacity = plpCapacity;
 	}
-
-	private boolean smsMock = false;
 
 	public Integer getCommunicationCapacity() {
 		return communicationCapacity;
@@ -196,7 +202,11 @@ public class Configuration {
 		this.useProxy = useProxy;
 	}
 
-    public void setSmsOnlinePawnContent(String smsOnlinePawnContent){ this.smsOnlinePawnContent = smsOnlinePawnContent;}
+	public String getSmsOnlinePawnContent () {
+		return smsOnlinePawnContent;
+	}
 
-    public String getSmsOnlinePawnContent(){ return smsOnlinePawnContent;}
+	public void setSmsOnlinePawnContent (String smsOnlinePawnContent) {
+		this.smsOnlinePawnContent = smsOnlinePawnContent;
+	}
 }

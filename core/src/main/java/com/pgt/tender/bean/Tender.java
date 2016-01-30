@@ -36,7 +36,8 @@ public class Tender implements Serializable {
     /**
      * 最小投资金额
      */
-    private Double smallMoney;
+    private Double  smallMoney;
+
     /**
      * 开标时间
      */
@@ -94,12 +95,9 @@ public class Tender implements Serializable {
      */
 
 
-
     private Boolean siteHot = false;
 
     private Integer categoryId;
-
-
 
 
     @Override
@@ -149,11 +147,11 @@ public class Tender implements Serializable {
         return 0;
     }
 
-    public Double getSmallMoney() {
+    public Double getSmallMoney () {
         return smallMoney;
     }
 
-    public void setSmallMoney(Double smallMoney) {
+    public void setSmallMoney (Double smallMoney) {
         this.smallMoney = smallMoney;
     }
 
@@ -277,21 +275,20 @@ public class Tender implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public void setTenderId(Integer tenderId) {
-        this.tenderId = tenderId;
-    }
-
     public Integer getTenderId() {
         return this.tenderId;
     }
 
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setTenderId (Integer tenderId) {
+        this.tenderId = tenderId;
     }
 
     public Category getCategory() {
         return this.category;
+    }
+
+    public void setCategory (Category category) {
+        this.category = category;
     }
 
     public Double getHandlingFeeRate() {

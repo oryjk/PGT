@@ -44,4 +44,5 @@ public interface ShoppingCartDao extends SqlMapper {
 	@MapKey("productId")
 	Map<Integer, ProductInventoryVector> loadProductInventory (Integer[] pProductIds);
 
+	void deleteOrders (List<Integer> pOrderIds);
 }
