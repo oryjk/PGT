@@ -122,7 +122,7 @@
                                 <td class="col2">
                                 <a class="product-name" href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">${commerceItem.name}</a>
                                 </td>
-                                    <c:if test="${order.status > 30}">
+                                    <c:if test="${order.status >= 30}">
                                         <td class="col3"><a href="${pageContext.request.contextPath}/myAccount/orderHistoryDetails?orderId=${order.id}"
                                                             class="product-name">订单详情</a></td>
                                         </td>
