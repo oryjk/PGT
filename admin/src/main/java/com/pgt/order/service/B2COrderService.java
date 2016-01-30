@@ -34,6 +34,7 @@ public class B2COrderService implements OrderStatus {
 	private int mCompleteStatus = NO_PENDING_ACTION;
 	private int[] mPreStatus4CancelOrder = new int[] { INITIAL, FILLED_SHIPPING, PAID };
 	private int mCancelStatus = CANCEL;
+	private int mTransitStatus = TRANSIT;
 
 	public List<Order> queryB2COrderPage(final B2COrderSearchVO pB2COrderSearchVO, final InternalPagination pPagination) {
 		long count = getB2COrderDao().queryB2COrderCount(pB2COrderSearchVO, pPagination);
@@ -82,6 +83,15 @@ public class B2COrderService implements OrderStatus {
 		return false;
 	}
 
+	public boolean updateOrder2TransitStatus(Order pOrder) {
+		for (int status : getPreStatus4CancelOrder()) {
+			if (status == pOrder.getStatus()) {
+				return getB2COrderDao().updateOrder2Status(pOrder.getId(), getTransitStatus()) > 0;
+			}
+		}
+		LOGGER.debug("Failed to change order: {} to cancel status for current status: {}", pOrder.getId(), pOrder.getStatus());
+		return false;
+	}
 	public boolean createDelivery(final Delivery pDelivery) {
 		return getB2COrderDao().createDelivery(pDelivery) > 0;
 	}
@@ -156,5 +166,13 @@ public class B2COrderService implements OrderStatus {
 
 	public void setCancelStatus(final int pCancelStatus) {
 		mCancelStatus = pCancelStatus;
+	}
+
+	public int getTransitStatus() {
+		return mTransitStatus;
+	}
+
+	public void setTransitStatus(int mTransitStatus) {
+		this.mTransitStatus = mTransitStatus;
 	}
 }

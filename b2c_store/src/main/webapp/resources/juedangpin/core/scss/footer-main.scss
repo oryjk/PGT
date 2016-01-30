@@ -167,25 +167,23 @@
 //}
 
 //小土豪代码
-body {
   .side-bar {
     z-index: 3;
     width: 345px;
     height: 100%;
     background-color: #000;
-    padding-top: 100px;
     position: fixed;
     right: -300px;
     top: 0;
   }
 
-  .right a:link,
-  .right a:visited {
+  .side-bar  a:link,
+  .side-bar  a:visited {
     color: white;
   }
 
-  .right a:hover,
-  .right a:active {
+  .side-bar  a:hover,
+  .side-bar  a:active {
     color: white;
     background: #d43139;
     text-decoration: none;
@@ -199,16 +197,24 @@ body {
     font-size: 1px;
     text-align: center;
     width: 45px;
-
     position: relative;
   }
-  .right-b {
+  .right-b{
     float: left;
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #ccc;
+    position: relative;
   }
-  .right2 {
+  .right-buy1{
+    font-size: 5px;
+    color: white;
+    position: absolute;
+    top: 115px;
+    left: 18px;
+  }
+
+  .right2{
     font-size: 10px;
     color: #000;
     position: absolute;
@@ -219,13 +225,13 @@ body {
     height: 33px;
     z-index: 3;
   }
-  .right2 .img-search {
+  .right2 .img-search{
     float: right;
     width: 7px;
     height: 13px;
     padding: 10px 0 0 0;
   }
-  .right2 span {
+  .right2 span{
     line-height: 30px;
     color: white;
     background: #494949;
@@ -234,8 +240,8 @@ body {
     width: 70px;
     height: 33px;
   }
-  .right1-2:hover > .right2,
-  .right1:hover > .right2 {
+  .right1-2:hover >.right2,
+  .right1:hover >.right2{
     display: block;
   }
   .right1-2 img,
@@ -247,20 +253,16 @@ body {
     width: 20px;
     height: 20px;
   }
-  .right-menu {
+  .right-menu{
     overflow: scroll;
-    margin-top: 65px;
-    background: #fff;
+    background: #e6e6e6;
     width: 300px;
+    height: 100%;
     float: right;
   }
   .right-a {
+    padding-top: 55px;
     float: left;
-    width: 45px;
   }
-
-
-
-}
 
 

@@ -164,6 +164,7 @@ public class PageBackgroundController {
        }
         LOGGER.debug("Delete the pageBackground with id  is {}.",pageBackgroundId);
         pageBackgroundService.deletePageBackgroundById(Integer.parseInt(pageBackgroundId));
+
         modelAndView.setViewName("redirect:/pageBackground/queryPageBackground");
         return modelAndView;
     }

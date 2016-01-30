@@ -52,10 +52,10 @@
                             <form action="/pageBackground/${pageBackground.pageBackgroundId eq null ? 'createPageBackground' : 'updatePageBackground'}/ " class="form-horizontal" method="post">
                                 <div class="form-body">
                                     <input type="hidden" name="pageBackgroundId" value="${pageBackground.pageBackgroundId}">
-                                    <c:if test="${!empty ppageBackground.pageBackgroundId}">
+                                    <c:if test="${!empty pageBackground.pageBackgroundId}">
                                     <!-- 只有在修改时才出现id行-->
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">id</label>
+                                        <label class="col-md-3 control-label">${pageBackground.pageBackgroundId}</label>
                                         <div class="col-md-4">
                                             <p class="form-control-static">
                                                 012

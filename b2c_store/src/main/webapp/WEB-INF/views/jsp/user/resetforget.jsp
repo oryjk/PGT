@@ -16,8 +16,6 @@
         <div class="logo-box">
             <h1>
                 <a href="<spring:url value="/"/>">点金子绝当品——欢迎登录
-                    <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
-                    <div class="golds"></div>
                     <div class="light"></div>
                 </a>
             </h1>
@@ -60,8 +58,8 @@
             <div class="validate">
                 验证码：<input type="text" class="text" name="authCode">	
                 <div class="validate-img">
-                    <img src="<spring:url value="/code/resetPassword"/>"> 看不清楚？ <a
-                        class="link-btn" href="#">换一张</a>
+                    <img id="getAuthCode" src="<spring:url value="/code/resetPassword"/>"> 看不清楚？ <a
+                        class="link-btn" id="changeAuthCode" href="#">换一张</a>
                 </div>
             </div>
             <div class="error-box-1"></div>

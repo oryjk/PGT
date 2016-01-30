@@ -131,7 +131,7 @@
     float: left;
     @include o;
     @include wh(260px, 160px);
-    background: url("../core/images/header/images/logo-t-pig_02.png") no-repeat 91px 25px;
+    background: url("../core/images/header/logo-red.jpg") no-repeat 0 40px;
 
     a {
       display: block;
@@ -623,7 +623,7 @@ td {
 
   .right-a {
     float: right;
-    margin-right: 100px;
+    //margin-right: 100px;
   }
 }
 

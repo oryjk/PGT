@@ -1,11 +1,99 @@
-@import "../core/scss/normalize";
-@import "../core/scss/commonMixin";
-@import "../core/scss/globleVariable";
-@import "../core/scss/fontGeneral";
-@import "../core/scss/header-main";
-@import "../core/scss/footer-main";
-@import "../core/scss/component";
+.n-all {
+  overflow:scroll;
+  width: 300px;
+}
+.n-header {
+  color: #000;
+  width: 300px;
+  height: 38px;
 
-body {
-  width: 280px;
+  .n-header-left {
+    border-bottom: 1px solid #ccc;
+    padding-left: 10px;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    float: left;
+    img {
+      width: 30px;
+      height: 30px;
+
+    }
+  }
+}
+
+.n-content {
+  color: #000;
+  width: 300px;
+  .n-box1 {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    margin-top: 5px;
+    padding-top: 5px;
+    width: 300px;
+    position: relative;
+    img {
+      width: 180px;
+      height: 180px;
+      margin-left: 60px;
+    }
+    .n-box1-font {
+      text-align: center;
+    }
+    .n-box1-font1 {
+      color: #d43139;
+      text-align: center;
+    }
+    .n-box1-img {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      img {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}
+.n-footer{
+  margin-top: 10px;
+  background: white;
+  height: 70px;
+    width: 300px;
+  .n-btn0{
+    padding-top: 10px;
+    width: 300px;
+    height: 30px;
+  }
+  .n-btn{
+    padding-left: 30px;
+    float: left;
+  }
+  .n-btn1{
+    padding-right: 30px;
+    float: right;
+  }
+  .n-btn2{
+    margin-left: 100px;
+    text-align: center;
+    width: 100px;
+    padding: 10px 30px;
+    background:#d43139;
+  }
+}
+
+.n-box1 a:link,
+.n-box1 a:visited{
+  color: #000;
+}
+.n-content a:link,
+.n-content a:visited {
+  text-decoration: none;
+  background: none;
+}
+
+.n-other {
+  height: 1000px;
 }

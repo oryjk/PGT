@@ -222,15 +222,16 @@ public class UserFavouriteController extends TransactionBaseController implement
 		}
 		// check user has already add this item as favourite
 		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId);
+		Order order = getCurrentOrder(pRequest, true);
 		if (favourite != null && RepositoryUtils.idIsValid(favourite.getId())) {
 			LOGGER.debug("User had added product: {} as favourite: {}", productId, favourite.getId());
 			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(WARN_FAVOURITE_DUPLICATE, StringUtils.EMPTY));
+			removeItemFromOrder(productId, mav, order);
 			return mav;
 		}
 		// create favourite
 		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product);
 		// check and generate order
-		Order order = getCurrentOrder(pRequest, true);
 		synchronized (order) {
 			LOGGER.debug("Synchronized order to add favourite and update order");
 			// check order contains commerce item
@@ -288,6 +289,60 @@ public class UserFavouriteController extends TransactionBaseController implement
 			}
 		}
 		return mav;
+	}
+
+	private boolean removeItemFromOrder(@RequestParam(value = "productId", required = true) int productId, ModelAndView mav, Order order) {
+		synchronized (order) {
+            LOGGER.debug("Synchronized order to add favourite and update order");
+            // check order contains commerce item
+            CommerceItem purchasedCommerceItem = order.getCommerceItemByProduct(productId);
+            if (purchasedCommerceItem == null) {
+                LOGGER.debug("Cannot find commerce item with product id: {}", productId);
+                mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_COMMERCE_ITEM_INVALID, StringUtils.EMPTY));
+				return true;
+            }
+            // remove commerce item
+            purchasedCommerceItem = order.removeCommerceItemByProduct(productId);
+            // persist changes to database
+            TransactionStatus status = ensureTransaction();
+            try {
+                boolean result = true;
+                getPriceOrderService().priceOrder(order);
+                // anonymous user could only add item to cart but not persisted
+                if (RepositoryUtils.idIsValid(order.getUserId())) {
+                    if (purchasedCommerceItem != null && RepositoryUtils.idIsValid(purchasedCommerceItem.getId())) {
+                        result = getShoppingCartService().deleteCommerceItem(purchasedCommerceItem.getId());
+                    }
+                    if (result) {
+                        result = getShoppingCartService().persistInitialOrder(order);
+                        LOGGER.debug("Persist order with result: {}", result ? "success" : "failed");
+                        if (!result) {
+                            status.setRollbackOnly();
+                            throw new OrderPersistentException("Persist order failed, stop favourite item from cart.");
+                        }
+                    }
+                }
+            } catch (PriceOrderException e) {
+                LOGGER.error(String.format("Favourite item from cart with product id: %d failed for price order exception.",
+                        productId), e);
+                status.setRollbackOnly();
+            } catch (OrderPersistentException e) {
+                LOGGER.error(String.format("Favourite item from with product id: %d failed for persist order exception.",
+                        productId), e);
+                status.setRollbackOnly();
+            } catch (Exception e) {
+                LOGGER.error(String.format("Favourite item from with product id: %d failed.", productId), e);
+                status.setRollbackOnly();
+            } finally {
+                if (status.isRollbackOnly()) {
+                    LOGGER.debug("Transaction had been set as roll back during Favourite item from cart for product: {}",
+                            productId);
+                    mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_GENERAL_FAVOURITE_FROM_CART_FAILED, StringUtils.EMPTY));
+                }
+                getTransactionManager().commit(status);
+            }
+        }
+		return false;
 	}
 
 	@RequestMapping(value = "/ajaxFavouriteItemFromCart")

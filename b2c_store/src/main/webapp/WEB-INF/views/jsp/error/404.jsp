@@ -14,6 +14,7 @@
 <head>
     <title>绝当品</title>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/searchPage/searchPage.css"/>"/>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
 </head>
 <body>
 <div class="header" id="header">

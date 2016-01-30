@@ -5,11 +5,12 @@ package com.pgt.cart.bean;
  */
 public interface OrderStatus {
 
-	int	INITIAL 			= 10;
-	int	FILLED_SHIPPING 	= 20;
-	int START_PAY           = 25;
-	int	PAID  				= 30;
-	int	NO_PENDING_ACTION	= 100;
-	int	CANCEL 				= -10;
+    int INITIAL = 10;
+    int FILLED_SHIPPING = 20;
+    int START_PAY = 25;
+    int PAID = 30;
+    int TRANSIT = 40;
+    int NO_PENDING_ACTION = 100;
+    int CANCEL = -10;
 
 }
