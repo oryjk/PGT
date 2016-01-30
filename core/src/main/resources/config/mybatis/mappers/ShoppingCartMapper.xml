@@ -78,7 +78,7 @@
 	<update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
 		UPDATE `ORDER`
 		<set>
-			`STATUS` = #{status}, SHIPPING_FEE = #{shippingFee}, SUBTOTAL = #{subtotal}, TOTAL = #{total}, USER_COMMENTS = #{userComments},`TYPE` = #{type}
+			`STATUS` = #{status}, SHIPPING_FEE = #{shippingFee}, SUBTOTAL = #{subtotal}, TOTAL = #{total}, USER_COMMENTS = #{userComments},`TYPE` = #{type},
 			SUBMIT_DATE = #{submitDate}, UPDATE_DATE = now()
 		</set>
 		WHERE ORDER_ID = #{id}

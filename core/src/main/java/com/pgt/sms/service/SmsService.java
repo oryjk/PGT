@@ -59,6 +59,27 @@ public class SmsService {
     }
 
 
+    public String sendOnlinePawnSms(String phoneNumber, String code) {
+        try {
+            return sendSms(phoneNumber, configuration.getSmsOnlinePawnContent(), code);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
+    public String sendOnlinePawnSmsToMe(String phoneNumber, String content) {
+        try {
+            return sendSms(phoneNumber, content, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
+
+
+
     private String sendSms(String phoneNumber, String content, String code) throws IOException {
         String requestUrl = configuration.getSmsUrl();
 

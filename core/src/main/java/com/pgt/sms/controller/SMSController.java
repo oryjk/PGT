@@ -60,6 +60,16 @@ public class SMSController {
         smsService.sendResetPasswordSms(phoneNumber, phoneCode);
     }
 
+    @RequestMapping(value = "/onlinePawn", method = RequestMethod.GET)
+    public void sendOnlinePawnSms(@RequestParam(value = "phoneNumber", required = true) String phoneNumber,
+                                @RequestParam(value = "phoneId", required = false) String phoneId, HttpServletRequest request) {
+        LOGGER.debug("The phone number is {},phone id is {},", phoneNumber, phoneId);
+        String phoneCode = generate();
+        LOGGER.debug("The phone code is {}", phoneCode);
+        savePhoneCode(request, phoneCode, Constants.ONLINEPAWN_SESSION_PHONE_CODE, phoneId);
+        smsService.sendOnlinePawnSms(phoneNumber, phoneCode);
+    }
+
 
     private void savePhoneCode(HttpServletRequest request, String phoneCode, String codeKey, String phoneId) {
         if (!StringUtils.isBlank(phoneId)) {

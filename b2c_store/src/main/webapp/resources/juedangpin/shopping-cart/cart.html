@@ -1043,7 +1043,137 @@
         <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
     </div>
 </div>
+<!-- 弹出框-->
+<div id="popUp" class="pop-up">
+    <div class="inner">
+        <h3>
+            <span id="popTitle" class="pop-title">填写收货信息</span>
+            <span id="popClose" class="close">X</span>
+        </h3>
+        <form id="popForm" class="pop-content">
+
+            <div class="row1">
+                <label for="#">
+                    <span class="must-write">*</span><!--
+                            --><span>收货人:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row2">
+                <label for="#">
+                    <span class="must-write">*</span><!--
+                            --><span>所在区域:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <div class="province" id="province">
+                        <a class="select-view"  href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul>
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    省
+                    <div class="city" id="city">
+                        <a class="select-view"  href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul>
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    市
+                    <div class="county" id="county">
+                        <a class="select-view"  href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul>
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    区\县
+                </div>
+            </div>
+
+            <div class="row3">
+                <label for="#">
+                    <span class="must-write">*</span><!--
+                            --><span>详细地址:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row4">
+                <label for="#">
+                    <span class="must-write">*</span><!--
+                            --><span>手机号码:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row5">
+                <label for="#">
+                    <span>固定号码:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row6">
+                <label for="#">
+                    <span>邮箱:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <tr>
+                <th></th>
+                <td><input type="checkbox"/>设置为默认收货地址</td>
+                <td></td>
+            </tr>
+
+            <div class="row7">
+                <input id="popSubmit"  class="d-btn" type="button" value="确定"/>
+                <input id="popReset" class="l-btn" type="reset" value="取消"/>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
-<script src="../core/js/require.js" defer async="true" data-main="../shopping-cart/cart"></script>
+<script src="../core/js/require.js" defer async="true" data-main="../shopping-cart/shopping-cart"></script>
 
 </html>

@@ -46,7 +46,6 @@
     <link href="${ctx}/resources/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="${ctx}/resources/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
     <!-- END THEME STYLES -->
-    <link rel="stylesheet" href="login.css" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

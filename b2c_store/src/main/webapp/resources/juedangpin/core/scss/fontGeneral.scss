@@ -263,3 +263,13 @@ span {
   clear: both;
   margin-bottom: $colSpace;
 }
+
+%clear {
+  &:after,
+  &:before {
+    content: ' ';
+    display: table;
+    clear: both;
+    height: 0;
+  }
+}

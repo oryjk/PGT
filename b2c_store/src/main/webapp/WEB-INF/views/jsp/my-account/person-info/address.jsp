@@ -43,7 +43,7 @@
             <span id="popTitle" class="pop-title">填写收货信息</span>
             <span id="popClose" class="close">X</span>
         </h3>
-        <form id="popForm" class="pop-content" action="addAddress">
+        <form id="popForm" class="pop-content" action="/my-account/person-info/addAddress">
 
             <div class="row1">
                 <label for="#">

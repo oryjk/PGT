@@ -6,7 +6,7 @@
     <title></title>
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
-    <script type="text/javascript" src="dianjinzi.js" ></script>
+    <script type="text/javascript" src="dianjinzi.js"></script>
     <script src="../core/js/require.js" data-main="../index/index.js"></script>
     <link href="dianjinzi.css" rel="stylesheet">
 
@@ -14,40 +14,57 @@
 <body>
 
 <!--侧边栏-->
-<div class="right">
-    <a href="#" class="right1" >
+<div class="right" id="right">
+    <div class="right-a">
+    <a href="#" class="right1-2">
         <img src="images/pig.png">
+
         <div class="right2"><span>主页</span><img class="img-search" src="images/search_17.png"></div>
     </a>
-
     <div class="right-b">
-    <a href="#" class="right1">
-        <img src="images/s-dd.png">
-        <div class="right2"><span>订单</span><img class="img-search" src="images/search_17.png">
-        </div>
-    </a>
-    <a href="#" class="right1">
-        <img src="images/s-buy.png">
-        <div class="right2"><span>购物车</span><img class="img-search" src="images/search_17.png">
-        </div>
-    </a>
-    <a href="#" class="right1">
-        <img src="images/s-sc.png">
-        <div class="right2"><span>收藏</span><img class="img-search" src="images/search_17.png">
-        </div>
-    </a>
-    <a href="#" class="right1">
-        <img src="images/s-zh.png">
-        <div class="right2"><span>账户</span><img class="img-search" src="images/search_17.png">
-        </div>
-    </a>
-    <a href="#" class="right1">
-        <img src="images/component/_0005_arrow-top.png">
-        <div class="right2"><span>回到顶部</span><img class="img-search" src="images/search_17.png">
-        </div>
-    </a>
+        <a href="#" class="right1-2" >
+            <img src="images/s-dd.png">
+
+            <div class="right2"><span>订单</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a path="dome.html" class="right1" title="2">
+            <img src="images/s-buy.png">
+
+            <div class="right2"><span>购物车</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a path="http:www.baidu.com" class="right1" title="3">
+            <img src="images/s-sc.png">
+
+            <div class="right2"><span>收藏</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a path="dome.html" class="right1" title="4">
+            <img src="images/s-ls.png">
+
+            <div class="right2"><span>历史</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a href="#" class="right1-2">
+            <img src="images/s-zh.png">
+
+            <div class="right2"><span>账户</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a href="#" class="right1-2">
+            <img src="images/component/_0005_arrow-top.png">
+
+            <div class="right2"><span>回到顶部</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+    </div>
+    </div>
+    <div class="right-menu" id="right-menu">
+
     </div>
 </div>
+
 <!--header-->
 <div class="header">
     <div class="header-content">
@@ -55,7 +72,7 @@
         <ul class="nav">
             <li class="nav-3"><a href="#"> 登录</a></li>
             <li class="nav-4"><a href="#"> 注册</a></li>
-            <li class="nav-4"><a href="#"> 帮助中心</a> </li>
+            <li class="nav-4"><a href="#"> 帮助中心</a></li>
         </ul>
 
         <!--
@@ -191,6 +208,7 @@
     </div>
 
     <a href="#" class="box-banner1"></a>
+
     <div class="box4">
         <div class="box-font" style="color: black">
             <span class="span1"><a href="#">文玩杂项</a> </span>
@@ -204,12 +222,14 @@
         </div>
         <div class="box4-all">
             <a href="#" class="box4-left" style="background: url('images/catagory2_25.jpg') no-repeat"></a>
+
             <div class="box4-right">
                 <div class="box4-all1">
                     <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
-                        <div class="box4-on" >
+                        <div class="box4-on">
                             <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
                             </a>
+
                             <div class="box4-on-bottom">
                                 <div class="box4-1-2">
                                     橄榄核雕钟馗抓鬼
@@ -230,9 +250,10 @@
                 </div>
                 <div class="box4-all1">
                     <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
-                        <div class="box4-on" >
+                        <div class="box4-on">
                             <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
                             </a>
+
                             <div class="box4-on-bottom">
                                 <div class="box4-1-2">
                                     橄榄核雕钟馗抓鬼
@@ -253,9 +274,10 @@
                 </div>
                 <div class="box4-all1">
                     <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
-                        <div class="box4-on" >
+                        <div class="box4-on">
                             <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
                             </a>
+
                             <div class="box4-on-bottom">
                                 <div class="box4-1-2">
                                     橄榄核雕钟馗抓鬼
@@ -276,9 +298,10 @@
                 </div>
                 <div class="box4-all1">
                     <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
-                        <div class="box4-on" >
+                        <div class="box4-on">
                             <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
                             </a>
+
                             <div class="box4-on-bottom">
                                 <div class="box4-1-2">
                                     橄榄核雕钟馗抓鬼
@@ -299,9 +322,10 @@
                 </div>
                 <div class="box4-all1">
                     <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
-                        <div class="box4-on" >
+                        <div class="box4-on">
                             <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
                             </a>
+
                             <div class="box4-on-bottom">
                                 <div class="box4-1-2">
                                     橄榄核雕钟馗抓鬼
@@ -322,9 +346,10 @@
                 </div>
                 <div class="box4-all1">
                     <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
-                        <div class="box4-on" >
+                        <div class="box4-on">
                             <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
                             </a>
+
                             <div class="box4-on-bottom">
                                 <div class="box4-1-2">
                                     橄榄核雕钟馗抓鬼
@@ -347,7 +372,6 @@
             </div>
         </div>
     </div>
-
 
 
 </div>

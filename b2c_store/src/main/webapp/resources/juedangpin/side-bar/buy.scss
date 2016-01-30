@@ -1,0 +1,12 @@
+
+@import "../core/scss/normalize";
+@import "../core/scss/commonMixin";
+@import "../core/scss/globleVariable";
+@import "../core/scss/fontGeneral";
+@import "../core/scss/header-main";
+@import "../core/scss/footer-main";
+@import "../core/scss/component";
+
+body{
+  width: 280px;
+}

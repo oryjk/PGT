@@ -162,7 +162,105 @@
 
 /*fixed-aside
 *******************************************************/
-.fixed-aside-1 {
-  @include fixed-aside-one;
+//.fixed-aside-1 {
+//  @include fixed-aside-one;
+//}
+
+//小土豪代码
+body {
+  .side-bar{
+    z-index: 3;
+    width: 345px;
+    height: 100%;
+    background-color: #000;
+    padding-top: 100px;
+    position: fixed;
+    right: -300px;
+    top: 0;
+  }
+
+  .right a:link,
+  .right a:visited {
+    color: white;
+  }
+
+  .right a:hover,
+  .right a:active {
+    color: white;
+    background: #d43139;
+    text-decoration: none;
+    border: none;
+  }
+  .right1-2,
+  .right1 {
+    padding: 4px 0;
+    margin-top: 20px;
+    display: block;
+    font-size: 1px;
+    text-align: center;
+    width: 45px;
+
+    position: relative;
+  }
+  .right-b{
+    float: left;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+  }
+  .right2{
+    font-size: 10px;
+    color: #000;
+    position: absolute;
+    top: 0;
+    left: -70px;
+    display: none;
+    width: 77px;
+    height: 33px;
+    z-index: 3;
+  }
+  .right2 .img-search{
+    float: right;
+    width: 7px;
+    height: 13px;
+    padding: 10px 0 0 0;
+  }
+  .right2 span{
+    line-height: 30px;
+    color: white;
+    background: #494949;
+    text-align: center;
+    float: left;
+    width: 70px;
+    height: 33px;
+  }
+  .right1-2:hover >.right2,
+  .right1:hover >.right2{
+    display: block;
+  }
+  .right1-2 img,
+  .right1 img {
+    text-align: center;
+    padding-left: 13px;
+    padding-bottom: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+  .right-menu{
+    overflow: scroll;
+    margin-top: 65px;
+    background: #fff;
+    width: 300px;
+    float: right;
+  }
+  .right-a{
+    float: left;
+    width: 45px;
+  }
+
+
+
 }
+
 

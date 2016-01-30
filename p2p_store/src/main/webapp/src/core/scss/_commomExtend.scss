@@ -1,0 +1,30 @@
+@import "variable";
+
+//清除外边距折叠以及浮动后父元素压缩的问题
+%clear {
+  &:after,
+  &:before {
+    content: " ";
+    display: table;
+  }
+
+  *zoom: 1;
+}
+
+//左浮动导航,建议设置在li上
+%be-nav {
+  float: left;
+}
+
+//纯链接
+%link {
+  color: $main;
+
+  &:hover {
+    color: $main-dark;
+    text-decoration: underline;
+  }
+}
+
+
+

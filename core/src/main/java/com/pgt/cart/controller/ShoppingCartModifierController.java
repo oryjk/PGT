@@ -179,6 +179,14 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_OUT_STOCK, StringUtils.EMPTY));
 				return mav;
 			}
+            getShoppingCartService().checkInventory(order);
+            if (!getShoppingCartService().checkCartItemCount(order)) {
+                LOGGER.debug("redirect to cart page because cart item count had been reached limit");
+                mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
+                return mav;
+            }
+
+
 			// persist changes to database
 			TransactionStatus status = ensureTransaction();
 			LOGGER.debug("order userId:" + order.getUserId());

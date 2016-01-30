@@ -2,6 +2,7 @@ package com.pgt.tender.mapper;
 
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.tender.bean.Tender;
+import com.pgt.tender.bean.TenderQuery;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -26,5 +27,7 @@ public interface TenderMapper extends SqlMapper {
     void deleteTender(@Param("tenderId") Integer tenderId);
 
     List<Tender> queryAllTender();
+
+    List<Tender> queryTenderByQuery(TenderQuery tenderQuery);
 
 }

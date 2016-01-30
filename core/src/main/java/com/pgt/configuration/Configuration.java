@@ -13,6 +13,7 @@ public class Configuration {
 	private String smsLoginContent = "点金子登录验证码是:";
 	private String smsRegisterContent = "点金子注册验证码是:";
 	private String smsResetPasswordContent = "点金子重设密码验证码是:";
+    private String smsOnlinePawnContent = "点金子在线典当验证码是:";
 	private Integer communicationCapacity;
 	private Boolean useES = false;
 	private Integer plpCapacity;
@@ -194,4 +195,8 @@ public class Configuration {
 	public void setUseProxy(boolean useProxy) {
 		this.useProxy = useProxy;
 	}
+
+    public void setSmsOnlinePawnContent(String smsOnlinePawnContent){ this.smsOnlinePawnContent = smsOnlinePawnContent;}
+
+    public String getSmsOnlinePawnContent(){ return smsOnlinePawnContent;}
 }
