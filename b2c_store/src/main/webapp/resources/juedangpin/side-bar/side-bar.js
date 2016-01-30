@@ -3,5 +3,5 @@
  */
  $(function(){
      var height = window.screen.height;
-    $('.n-all').css('height',height-5);
+    $('.n-all').css('height',height-200);
  });
