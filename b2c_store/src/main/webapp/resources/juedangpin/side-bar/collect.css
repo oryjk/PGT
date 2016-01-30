@@ -46,6 +46,13 @@
       .n-content .n-box1 .n-box1-img img {
         width: 10px;
         height: 10px; }
+    .n-content .n-box1 .n-box1-img1 {
+      position: absolute;
+      top: 60px;
+      right: 15px; }
+      .n-content .n-box1 .n-box1-img1 img {
+        width: 20px;
+        height: 20px; }
 
 .n-footer {
   margin-top: 10px;
