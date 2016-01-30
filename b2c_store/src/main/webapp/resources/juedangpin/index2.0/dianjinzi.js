@@ -41,10 +41,10 @@ $(function(){
 });
 
 
-$(function () {
-    var height = window.screen.height;
-    $(".right").css("height", height);
-});
+//$(function () {
+//    var height = window.screen.height;
+//    $(".right").css("height", height);
+//});
 
 $(function(){
     $(".content-top-f1").hide();

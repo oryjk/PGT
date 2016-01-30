@@ -4,17 +4,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>绝当品</title>
     <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
+<<<<<<< HEAD
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>" />
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/order-detail.css"/>" />
+=======
+    <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/order-detail.css"/>"/>
+    <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>"/>
+>>>>>>> e015c85203980a21556a4d25f4a6c08229c5d160
 </head>
 <body>
 <!--主头部-->
@@ -34,14 +38,30 @@
 
         <!-- 详细内容列表-->
         <!-- 根据订单的具体情况,添加step-x-->
-        <div id="main" class="main-box  step-5">
+        <c:set value="" var="step"/>
+        <c:choose>
+            <c:when test="${historyOrder.status==20}">
+                <c:set value="1" var="step"/>
+            </c:when>
+            <c:when test="${historyOrder.status==30}">
+                <c:set value="2" var="step"/>
+            </c:when>
+            <c:when test="${historyOrder.status==40}">
+                <c:set value="4" var="step"/>
+            </c:when>
+            <c:when test="${historyOrder.status==100}">
+                <c:set value="5" var="step"/>
+            </c:when>
+            <c:otherwise>
+                <c:set value="1" var="step"/>
+            </c:otherwise>
+        </c:choose>
+        <div id="main" class="main-box  step-${step}">
 
             <!--面包屑-->
             <div class="bread-nav">
                 <p>
-                    <a href="#">个人中心</a>
-                    >
-                    <a href="<spring:url value="/myAccount/orderHistory"/>">订单详情</a>
+                    <a href="#">订单详情</a>
                 </p>
             </div>
 
@@ -51,240 +71,183 @@
                 <div class="floor-content">
                     <div class="detail-status"></div>
                     <ul>
-                        <c:choose>
-                            <c:when test="${b2cOrder.status eq 10}">
-                                <span>待提交</span>
-                            </c:when>
-                            <c:when test="${b2cOrder.status eq 20}">
-                                <span>待付款</span>
-                            </c:when>
-                            <c:when test="${b2cOrder.status eq 30}">
-                                <span>待收货</span>
-                            </c:when>
-                            <c:when test="${b2cOrder.status eq 100}">
-                                <span>已完成</span>
-                            </c:when>
-                            <c:when test="${b2cOrder.status eq -10}">
-                                <span>已取消</span>
-                            </c:when>
-                        </c:choose>
+                        <li>
+                            <p class="step-name">提交订单</p>
+
+                            <p class="step-time">${historyOrder.submitDate}</p>
+
+                        </li>
+                        <li>
+                            <p class="step-name">付款成功</p>
+
+                            <p class="step-time"></p>
+
+                            <p class="step-time"></p>
+                        </li>
+                        <li>
+                            <p class="step-name">商品出库</p>
+
+                            <p class="step-time"></p>
+
+                            <p class="step-time"></p>
+                        </li>
+                        <li>
+                            <p class="step-name">等待收货</p>
+
+                            <c:if test="${historyOrder.status==40}">
+                                <p class="step-time">运单号</p>
+
+                                <p class="step-time">${historyOrder.shippingVO.trackingNumber}</p>
+                            </c:if>
+                        </li>
+                        <li>
+                            <p class="step-name">交易完成</p>
+
+                            <p class="step-time"></p>
+
+                            <p class="step-time"></p>
+                        </li>
                     </ul>
                 </div>
             </div>
 
+            <div class="floor-2">
+                <h3>收货信息</h3>
 
+                <div class="floor-content-wrap">
+                    <div class="floor-content">
+                        <h4>收货人信息</h4>
+                        <div class="floor-row">
+                            <div class="floor-col">收货人: <span>${historyOrder.shippingVO.shippingAddress.name}</span></div>
+                            <div class="floor-col">手机号码: <span>${historyOrder.shippingVO.shippingAddress.phone}</span></div>
+                        </div>
+                        <div class="floor-row">地址:
+                            <span>${historyOrder.shippingVO.shippingAddress.province} ${historyOrder.shippingVO.shippingAddress.city} ${historyOrder.shippingVO.shippingAddress.district} ${historyOrder.shippingVO.shippingAddress.address} </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="floor-content-wrap">
+                    <div class="floor-content">
+                        <h4>支付和配货方式</h4>
 
-            <!-- 商品信息-->
-            <div>
-                <h3 class="form-section">
-                    商品信息
-                </h3>
+                        <div class="floor-row">
+                            <div class="floor-col">支付方式:<span>
+                                <c:choose>
+                                    <c:when test="${historyOrder.payment.type==1}">
+                                        易宝支付
+                                    </c:when>
+                                    <c:when test="${historyOrder.payment.type==2}">
+                                    支付宝支付
+                                </c:when>
+                                </c:choose>
+                            </span></div>
+                            <div class="floor-col">订单号:<span>${historyOrder.id}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <div class="pgt-scan">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   role="grid" aria-describedby="sample_3_info">
-                                <thead>
-                                <tr role="row">
-                                    <th> 商品ID </th>
-                                    <th> 商品名称 </th>
-                                    <th> 绝当价 </th>
-                                    <th> 略缩图 </th>
-                                    <th> 商家 </th>
-                                    <th> 发货时间 </th>
-                                    <th> 物流公司 </th>
-                                    <th> 物流单号 </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="ci" items="${b2cOrder.commerceItems}">
-                                    <tr class="gradeX odd" role="row">
-                                        <td>${ci.id}</td>
-                                        <td>${ci.name}</td>
-                                        <td>¥&nbsp;<span><fmt:formatNumber value="${ci.salePrice}" pattern="0.00" type="number" /></span></td>
-                                        <td class="productlist-face-box">
-                                            <img src="${pageContext.request.contextPath}/resources${ci['snapshotMedia']['path']}"
-                                                 alt="${empty ci['snapshotMedia']['title'] ? ci.name : ci['snapshotMedia']['title']}" />
+            <div class="floor-3">
+                <h3>商品信息</h3>
+
+                <div class="each-order">
+                    <table>
+                        <c:forEach var="item" items="${historyOrder.commerceItems}">
+                            <tr>
+                                <td class="col1">
+                                    <img src="${item.snapshotMedia.path}" alt=""/>
+                                </td>
+                                <td class="col2">
+                                    <a class="product-name" href="#">${item.name}</a>
+                                </td>
+                                <td class="col3">
+                                    <span>${item.quality}</span>
+                                </td>
+                                <c:choose>
+                                    <c:when test="${historyOrder.status>30}">
+                                        <td class="col4">
+                                            <p>顺丰快递</p>
+
+                                            <p>${historyOrder.shippingVO.trackingNumber}</p>
                                         </td>
-                                        <td>${ci.merchant}</td>
-                                        <td>${ci.delivery.deliveryTime}</td>
-                                        <td>${ci.delivery.logistics}</td>
-                                        <td>${ci.delivery.trackingNo}</td>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                    </c:when>
+                                </c:choose>
+                                <td class="col6" rowspan="100">
+                                    <p>数量:<span>${historyOrder.commerceItemCount}</span>件</p>
+
+                                    <p>金额:<span class="cost">¥<span>${historyOrder.total}</span></span></p>
+                                    <!-- 付款链接只有在未付款状态才显示-->
+                                    <c:choose>
+                                        <c:when test="${historyOrder.status>=40}">
+                                            已付款
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a class="link-btn" href="/payment/gateway?orderId=${historyOrder.id}">付款</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <!-- 已收货状态显示-->
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+
                 </div>
             </div>
-
-
-            <!-- 收货人信息-->
-            <div>
-                <h3 class="form-section">
-                    收货人信息
-                    <%--<button class="btn btn-xs green" id="modifySwitch">修改</button>--%>
-                </h3>
-                <div class="pgt-scan">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-4">姓名：</label>
-
-                                <div class="col-md-8">
-                                    <p class="form-control-static">
-                                        ${b2cOrder.shippingVO.shippingAddress.name}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-4">手机：</label>
-
-                                <div class="col-md-8">
-                                    <p class="form-control-static">
-                                        ${b2cOrder.shippingVO.shippingAddress.telephone}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-4">电话：</label>
-
-                                <div class="col-md-8">
-                                    <p class="form-control-static">
-                                        ${b2cOrder.shippingVO.shippingAddress.phone}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-4">配送区域：</label>
-
-                                <div class="col-md-8">
-                                    <p class="form-control-static">
-                                        ${b2cOrder.shippingVO.shippingAddress.province} -
-                                        ${b2cOrder.shippingVO.shippingAddress.city} -
-                                        ${b2cOrder.shippingVO.shippingAddress.district}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="control-label col-md-2">配送地址：</label>
-
-                                <div class="col-md-10">
-                                    <p class="form-control-static">
-                                        ${b2cOrder.shippingVO.shippingAddress.address}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <form class="pgt-modify" style="display: none">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">姓名</label>
-
-                                <div class="col-md-9">
-                                    <input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_3">
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">手机</label>
-
-                                <div class="col-md-9">
-                                    <input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_3">
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">电话</label>
-
-                                <div class="col-md-9">
-                                    <input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_3">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">配送区域</label>
-
-                                <div class="col-md-9">
-                                    <select name="sample_3_length" aria-controls="sample_3" class="form-control input-xsmall input-inline select2-offscreen"
-                                            tabindex="-1" title="">
-                                        <option value="10">10</option>
-                                        <option value="30">30</option>
-                                        <option value="100">100</option>
-                                        <option value="-1">所有</option>
-                                    </select>省
-                                    <select name="sample_3_length" aria-controls="sample_3" class="form-control input-xsmall input-inline select2-offscreen"
-                                            tabindex="-1" title="">
-                                        <option value="10">10</option>
-                                        <option value="30">30</option>
-                                        <option value="100">100</option>
-                                        <option value="-1">所有</option>
-                                    </select>市
-                                    <select name="sample_3_length" aria-controls="sample_3" class="form-control input-xsmall input-inline select2-offscreen"
-                                            tabindex="-1" title="">
-                                        <option value="10">10</option>
-                                        <option value="30">30</option>
-                                        <option value="100">100</option>
-                                        <option value="-1">所有</option>
-                                    </select>县
-                                </div>
-
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="control-label col-md-2">配送地址</label>
-
-                                <div class="col-md-10">
-                                    <input type="search" class="form-control input-large input-inline" placeholder="" aria-controls="sample_3">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-offset-1 col-md-9">
-                            <button type="submit" class="btn blue-hoki">确认</button>
-                            <button type="button" class="btn default">取消</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        </div>
 
 
 
 
-            <jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp" />
+        <div class="clear-float"></div>
+        <!-- 类似商品-->
+        <jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp" />
     </div>
 </div>
 
-    <!--主脚部-->
-    <jsp:include page="../core/footer-main.jsp" />
+<!--主脚部-->
+<jsp:include page="../core/footer-main.jsp" />
 
+<%--<!-- 弹出框-->
+<div class="pop-up">
+    <div class="inner">
+        <h3>
+            申请退货
+            <span class="close">X</span>
+        </h3>
+        <form class="pop-content">
+
+            <div class="row1">
+                <label for="#">
+                    <span>联系电话:</span>
+                    <span class="pop-tips"></span>
+                </label>
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row1">
+                <label for="#">
+                    <span>退货原因:</span>
+                </label>
+                <div class="text">
+                    <textarea name="" id="" cols="50" rows="4"></textarea>
+                </div>
+            </div>
+
+            <div class="row1">
+                <div class="text">
+                    <span>请准确填写联系电话, 并详细说明退货原因. 我们将尽快与您联系. 绝当淘祝您购物愉快!</span>
+                </div>
+            </div>
+
+            <div class="row2">
+                <input class="d-btn" type="button" value="保存"/>
+                <input class="l-btn" type="reset" value="取消"/>
+            </div>
+        </form>
+    </div>
+</div>--%>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" defer async="true" data-main="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/my-orders"/>"></script>
 </html>
