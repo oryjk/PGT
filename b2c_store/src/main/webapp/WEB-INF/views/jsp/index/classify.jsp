@@ -13,6 +13,7 @@
                                                                   type="number"/></span></div>
             <p  class="product-link"><a href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}">[新品上市]${searchHit.source['name']}</a></p>
             <p>已有<span></span>评价</p>
+            <div class="product-message">添加成功</div>
             <div class="product-handle">
                 <a class="addEnjoy" data-btn="addEnjoy"
                    data-value="${searchHit.source['productId']}" href="#"><i
