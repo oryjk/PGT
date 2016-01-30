@@ -86,17 +86,20 @@
                     <div class="have-order" id="orderList" style="display: block">
                         <c:forEach var="order" items="${historyOrders.result}">
                             <div class="each-order">
-                            <c:if test="${order.status gt 1}">
+                            <c:if test="${order.status gt 10 or order.status lt 0}">
                                 <div class="order-info">
                                 <div class="operate">
-                                <c:if test="${order.status lt 3}">
+                                <%--
+                                <c:if test="${order.status lt 30}">
                                     <!-- 取消订单链接只有在未付款状态才显示-->
                                     <a class="link-btn" href="#">取消订单</a>
                                 </c:if>
+                                --%>
                                 </div>
                                     下单时间: <span class="order-time"><fmt:formatDate value="${order.submitDate}"
                                                                                    pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                 订单号: <span class="order-number">${order.id}</span>
+                                <%--
                                 物流:
                                     <c:choose>
                                         <c:when test="${order.status == 100}">
@@ -110,6 +113,7 @@
                                             <span>尚未出库</span>
                                         </c:otherwise>
                                     </c:choose>
+                                --%>
                                 </div>
                             </c:if>
                             <table>

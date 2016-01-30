@@ -10,15 +10,8 @@
     <meta charset="UTF-8">
     <title>绝当品</title>
     <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
-<<<<<<< HEAD
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>" />
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/order-detail.css"/>" />
-=======
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/order-detail.css"/>"/>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>"/>
->>>>>>> e015c85203980a21556a4d25f4a6c08229c5d160
 </head>
 <body>
 <!--主头部-->
