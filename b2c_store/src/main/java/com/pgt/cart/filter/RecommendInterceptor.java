@@ -12,6 +12,7 @@ import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.user.bean.User;
 import com.pgt.user.service.RecentlyViewService;
+import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,12 +47,24 @@ public class RecommendInterceptor implements HandlerInterceptor {
 	private UserFavouriteService mUserFavouriteService;
 
 
+	@Resource(name = "productBrowseTrackService")
+	private ProductBrowseTrackService mProductBrowseTrackService;
+
+
 	@Override
 	public boolean preHandle(final HttpServletRequest pRequest, final HttpServletResponse pResponse, final Object pHandler) throws Exception {
 		if (!getRecommendService().recommend(pRequest)) {
 			return true;
 		}
 		List<Integer> productIds = (List<Integer>) pRequest.getSession().getAttribute(SessionConstant.RECENT_PRODUCT_IDS);
+		if(CollectionUtils.isEmpty(productIds)){
+			productIds= new ArrayList<>();
+			LinkedList<String> browsedProductIds = getProductBrowseTrackService().getBrowsedProductIdsFromCookies(pRequest);
+			for (String id:browsedProductIds) {
+                productIds.add(Integer.parseInt(id));
+			}
+			pRequest.getSession().setAttribute(SessionConstant.RECENT_PRODUCT_IDS,productIds);
+		}
 		LOGGER.debug("Get recently browsed products: " + productIds);
 		String idString = getBrowseTrackService().getRequestedProductId(pRequest);
 		int currentProductId = RepositoryUtils.safeParseId(idString);
@@ -113,5 +128,13 @@ public class RecommendInterceptor implements HandlerInterceptor {
 
 	public void setUserFavouriteService(final UserFavouriteService pUserFavouriteService) {
 		mUserFavouriteService = pUserFavouriteService;
+	}
+
+	public ProductBrowseTrackService getProductBrowseTrackService() {
+		return mProductBrowseTrackService;
+	}
+
+	public void setProductBrowseTrackService(final ProductBrowseTrackService pProductBrowseTrackService) {
+		mProductBrowseTrackService = pProductBrowseTrackService;
 	}
 }
