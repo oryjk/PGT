@@ -147,6 +147,7 @@ body {
 .right {
     z-index: 3;
     width: 345px;
+    height: 100%;
     background-color: #000;
     position: fixed;
     right: -300px;
@@ -188,6 +189,10 @@ body {
     position: absolute;
     top: 115px;
     left: 18px;
+
+    transform:scale(1);
+    opacity: 1;
+    transition: all .5s linear;
 }
 
 .right2{

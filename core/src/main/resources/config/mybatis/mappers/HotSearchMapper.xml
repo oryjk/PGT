@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.common.dao.HotSearchMapper">
+
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+    <!--查询条件 -->
+	<sql id="hotSearchListWhere">
+		<where>
+			<if test="term!=null">
+				and Term =#{term}
+			</if>
+		</where>
+	</sql>
+
+
+	<!--hotSearch result map -->
+	<resultMap type="com.pgt.hot.bean.HotSearch" id="hotSearch">
+		<id column="HOT_SEARCH_ID" property="hotSearchId"/>
+		<result column="TERM" property="term"/>
+		<association property="frontMedia" column="HOT_SEARCH_ID"
+					 select="queryHotProductFrontMedia"/>
+	</resultMap>
+
+
+	<select id="queryHotProductFrontMedia" parameterType="int" resultMap="com.pgt.product.dao.ProductMapper.productMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{HOT_SEARCH_ID} AND TYPE='hot'
+		ORDER BY 'index'
+		asc
+	</select>
+
+	<!-- insert a hotSearch bean -->
+	<insert id="createHotSearch" parameterType="com.pgt.hot.bean.HotSearch"
+		keyProperty="hotSearchId" useGeneratedKeys="true">
+		INSERT INTO
+		HOT_SEARCH(TERM,MEDIA_ID)VALUES(#{term},#{frontMedia.id})
+	</insert>
+
+	<!-- update a hotSearch bean -->
+	<update id="updateHotSearch" parameterType="com.pgt.hot.bean.HotSearch"
+		keyProperty="hotSearchId" useGeneratedKeys="true">
+		UPDATE HOT_SEARCH SET
+		TERM=#{term},SITE=#{site}
+		WHERE HOT_SEARCH_ID=#{hotSearchId}
+	</update>
+
+	<!-- delete a HotSearch bean -->
+	<delete id="deleteHotSearchById">
+		DELETE FROM
+		HOT_SEARCH WHERE
+		HOT_SEARCH_ID=#{hotSearchId}
+	</delete>
+
+	<select id="queryHotSearchByQuery" parameterType="com.pgt.hot.bean.HotSearch" resultMap="hotSearch">
+        SELECT * FROM HOT_SEARCH
+		<include refid="hotSearchListWhere"/>
+		<include refid="pageBean"/>
+	</select>
+
+</mapper>

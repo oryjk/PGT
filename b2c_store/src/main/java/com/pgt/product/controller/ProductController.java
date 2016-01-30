@@ -1,5 +1,6 @@
 package com.pgt.product.controller;
 
+import com.pgt.cart.bean.Order;
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.BreadBuilder;
@@ -236,6 +237,30 @@ public class ProductController {
         return modelAndView;
 
     }
+
+    @RequestMapping(value = "/buy",method = RequestMethod.GET)
+    public ModelAndView buy(ModelAndView modelAndView){
+        LOGGER.debug("The method site-bar access buy");
+        modelAndView.setViewName("/site-bar/buy");
+        return modelAndView;
+   }
+
+    @RequestMapping(value = "/collection",method = RequestMethod.GET)
+    public ModelAndView collection(ModelAndView modelAndView){
+        LOGGER.debug("The method site-bar access collection");
+        modelAndView.setViewName("/site-bar/collection");
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/history",method = RequestMethod.GET)
+    public ModelAndView history(ModelAndView modelAndView){
+        LOGGER.debug("The method site-bar access history");
+        modelAndView.setViewName("/site-bar/history");
+        return modelAndView;
+    }
+
+
 
     public BreadBuilder getBreadBuilder() {
         return breadBuilder;

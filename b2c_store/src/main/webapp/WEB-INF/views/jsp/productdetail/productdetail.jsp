@@ -56,7 +56,10 @@
 	</div>
 	</div>
 	</div>
-	<jsp:include page="../core/footer-main.jsp" />
+
+	<jsp:include page="../core/footer-main.jsp" >
+		<jsp:param name="useside" value="true" />
+	</jsp:include>
 	<!--弹出框-->
 	<div id="popUp" class="pop-up">
 		<div class="inner">

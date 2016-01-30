@@ -13,8 +13,8 @@
   <h1 class="logo">
     <a href="<spring:url value="${urlConfiguration.homePage}"/>">
     点金子绝当品——欢迎登录
-    <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
-    <div class="golds"></div>
+    <!--<img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>-->
+    <!--<div class="golds"></div>-->
     <div class="light"></div>
     </a>
   </h1>

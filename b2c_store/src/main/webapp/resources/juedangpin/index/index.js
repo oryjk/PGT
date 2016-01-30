@@ -13,15 +13,15 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
     $(document).ready(function() {
 
+
         //调整banner的高度,让他适应menu
         //$('#bannerBox').css({
         //    //height: $('#menuList').height() - 10 + 'px'
         //    height: $('#menuList').height()  + 'px'
         //});
         //right全屏幕高
-        var height = window.screen.height;
-        console.log(height);
-        $(".side-bar").css("height", height);
+        //var height = window.screen.height;
+        //$(".side-bar").css("height", height);
 
         //轮播图
         Cpn.slider({
@@ -40,7 +40,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         //right-box
         $(function(){
-
             var flag = 0;
             var status = "";
             $(".right1").click(function(){
@@ -57,11 +56,16 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                     flag = 0;
                 }
             });
+
+            $('#header, #content, #footer').click(function() {
+                $("#side-bar").animate({right:"-300px"});
+                flag = 0;
+            })
         });
 
 
         //显示购物车数量
-        Prd.getOrderItemCount($('#asideCartCount, #fixedCartCount, #cartCount'));
+        Prd.getOrderItemCount($('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'));
 
         //弹出框
         Cpn.pop({
@@ -83,13 +87,13 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
                 if (targetType == 'addCart') {
                     //加入购物车
-                    Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
-                    $('#asideCartCount').parent().css({
+                    Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'));
+                    $('.right-buy1').css({
                         'transform': 'scale(4)',
                         'opacity': '.5'
                     });
                     setTimeout(function() {
-                        $('#asideCartCount').parent().css({
+                        $('.right-buy1').css({
                             'transform': 'scale(1)',
                             'opacity': '1'
                         });

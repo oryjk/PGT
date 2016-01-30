@@ -125,39 +125,66 @@
 </div>
 
 
-  <div class="side-bar" id="side-bar">
+<!--fixed侧边栏-->
 
-  <a href="<spring:url value=""/>" class="right1" >
-    <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/pig.png"/>">
-    <div class="right2"><span>主页</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>"></div>
-  </a>
+<c:if test="${param.useside eq 'true' }">
+<div class="side-bar" id="side-bar">
+  <div class="right-a">
+    <a href="<spring:url value=""/>" class="right1-2">
+      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/pig.png"/>">
+      <div class="right2"><span>主页</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>"></div>
+    </a>
 
-  <div class="right-b">
-    <a href="<spring:url value="/myAccount/orderHistory" />" class="right1">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-dd.png"/>">
-      <div class="right2"><span>订单</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-      </div>
-    </a>
-    <a href="<spring:url value="/shoppingCart/cart" />" class="right1">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-buy.png"/>">
-      <div class="right2"><span>购物车</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-      </div>
-    </a>
-    <a href="<spring:url value="/myAccount/favourites" />" class="right1">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-sc.png"/>">
-      <div class="right2"><span>收藏</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-      </div>
-    </a>
-    <a href="<spring:url value="${urlConfiguration.myAccountPage}"/>" class="right1">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-zh.png"/>">
-      <div class="right2"><span>账户</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-      </div>
-    </a>
-    <a href="#" class="right1">
-      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/_0005_arrow-top.png"/>">
-      <div class="right2"><span>回到顶部</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/search_17.png"/>">
-      </div>
-    </a>
+    <div class="right-b">
+      <div class="right-buy1">0</div>
+      <a href="<spring:url value="/myAccount/orderHistory" />" class="right1-2">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-dd.png"/>">
+
+        <div class="right2"><span>订单</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+      <a path="<spring:url value="/product/buy" />" class="right1" title="2">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-buy.png"/>">
+
+        <div class="right2"><span>购物车</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+      <a path="<spring:url value="/product/collection"/>" class="right1" title="3">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-sc.png"/>">
+
+        <div class="right2"><span>收藏</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+
+      <a path="<spring:url value="/product/history" />" class="right1" title="4">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-ls.png"/>">
+
+        <div class="right2"><span>历史</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+
+      <a href="#" class="right1-2">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-zh.png"/>">
+
+        <div class="right2"><span>账户</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+      <a href="#" class="right1-2">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/_0005_arrow-top.png"/>">
+
+        <div class="right2"><span>回到顶部</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+    </div>
   </div>
+  <div class="right-menu" id="right-menu">
 
+  </div>
 </div>
+</c:if>
+
+
+
+
+
+

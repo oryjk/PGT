@@ -345,7 +345,9 @@
 	<%--
 			<jsp:include page="../core/helpSide.jsp"/>
 		--%>
-				<jsp:include page="../core/footer-main.jsp" />
+				<jsp:include page="../core/footer-main.jsp" >
+					<jsp:param name="useside" value="true" />
+				</jsp:include>
 
 </body>
 
