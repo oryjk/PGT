@@ -950,7 +950,7 @@ span {
 /*top-bannner
 ************************************************/
 .top-banner {
-  background: #cc7849; }
+  background: #fff; }
 
 .top-banner-box {
   margin: 0 auto;
@@ -2255,7 +2255,7 @@ body .right-a {
     top: 30%;
     height: 40px;
     width: 100%;
-    background: linear-gradient(to right, rgba(100, 100, 100, 0.2) 0%, rgba(100, 100, 100, 0.9) 50%, rgba(100, 100, 100, 0.2) 100%);
+    background: linear-gradient(to right, rgba(212, 49, 57, 0.2) 0%, rgba(212, 49, 57, 0.9) 50%, rgba(212, 49, 57, 0.2) 100%);
     color: white;
     text-align: center;
     line-height: 40px;

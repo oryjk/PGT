@@ -148,7 +148,6 @@ body {
     z-index: 3;
     width: 345px;
     background-color: #000;
-    padding-top: 100px;
     position: fixed;
     right: -300px;
     top: 0;
@@ -223,12 +222,13 @@ body {
 }
 .right-menu{
     overflow: scroll;
-    margin-top: 65px;
-    background: #fff;
+    background: #e6e6e6;
     width: 300px;
+    height: 100%;
     float: right;
 }
 .right-a{
+    padding-top: 55px;
     float: left;
     width: 45px;
 }
