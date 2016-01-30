@@ -36,4 +36,9 @@ public class HotSearchServiceImpl  implements HotSearchService{
     public List<HotSearch> queryHotSearchByQuery(HotSearch hotSearch) {
         return hotSearchMapper.queryHotSearchByQuery(hotSearch);
     }
+
+    @Override
+    public HotSearch queryHotSearchById(Integer hotSearchId) {
+        return hotSearchMapper.queryHotSearchById(hotSearchId);
+    }
 }

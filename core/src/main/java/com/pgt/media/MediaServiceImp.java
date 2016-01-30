@@ -2,7 +2,9 @@ package com.pgt.media;
 
 import com.pgt.base.service.TransactionService;
 import com.pgt.common.bean.Media;
+import com.pgt.common.dao.HotSearchMapper;
 import com.pgt.common.dao.MediaMapper;
+import com.pgt.common.service.HotSearchService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
@@ -28,6 +30,8 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     private MediaMapper mediaMapper;
     @Autowired
     private PageBackgroundMapper pageBackgroundMapper;
+    @Autowired
+    private HotSearchMapper hotSearchMapper;
 
     @Override
     public ProductMedia findFrontMediaByProductId(String productId) {
@@ -152,6 +156,11 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     @Override
     public Media queryPageBackgroundHeaderMedia(Integer pageBackgroundId) {
         return pageBackgroundMapper.queryPageBackgroundHeaderMedia(pageBackgroundId);
+    }
+
+    @Override
+    public Media queryHotProductFrontMedia(Integer hotSearchId) {
+        return hotSearchMapper.queryHotProductFrontMedia(hotSearchId) ;
     }
 
     @Override

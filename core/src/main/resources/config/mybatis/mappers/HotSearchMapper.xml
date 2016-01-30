@@ -21,6 +21,9 @@
 			<if test="term!=null">
 				and Term =#{term}
 			</if>
+			<if test="term!=null">
+				and Term =#{term}
+			</if>
 		</where>
 	</sql>
 
@@ -53,7 +56,7 @@
 	<update id="updateHotSearch" parameterType="com.pgt.hot.bean.HotSearch"
 		keyProperty="hotSearchId" useGeneratedKeys="true">
 		UPDATE HOT_SEARCH SET
-		TERM=#{term},SITE=#{site}
+		TERM=#{term}
 		WHERE HOT_SEARCH_ID=#{hotSearchId}
 	</update>
 
@@ -69,5 +72,10 @@
 		<include refid="hotSearchListWhere"/>
 		<include refid="pageBean"/>
 	</select>
+
+	<select id="queryHotSearchById" parameterType="Integer" resultMap="hotSearch">
+		SELECT * FROM HOT_SEARCH WHERE HOT_SEARCH_ID=#{hotSearchId}
+	</select>
+
 
 </mapper>

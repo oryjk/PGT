@@ -17,4 +17,6 @@ public interface HotSearchService {
 
     List<HotSearch> queryHotSearchByQuery(HotSearch hotSearch);
 
+    HotSearch  queryHotSearchById(Integer hotSearchId);
+
 }

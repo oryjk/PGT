@@ -17,6 +17,7 @@ public class HotSearch implements Serializable {
 
 	private PaginationBean paginationBean;
 
+
 	public PaginationBean getPaginationBean() {
 		return paginationBean;
 	}

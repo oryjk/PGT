@@ -346,6 +346,11 @@
 									<i class="fa-angle-right"></i>
 									背景管理 </a>
 							</li>
+							<li>
+								<a href="/hotSearch/query">
+									<i class="fa-angle-right"></i>
+									热门搜索管理 </a>
+							</li>
 
 						</ul>
 					</li>
