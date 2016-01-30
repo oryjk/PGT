@@ -139,7 +139,7 @@
                                     </td>
                                     <td class="col7" rowspan="100">
                                     <c:choose>
-                                        <c:when test="${order.status eq 20}">
+                                        <c:when test="${order.status eq 20||order.status eq 25}">
                                             <span>待付款</span>
                                             <a class="link-btn" href="<spring:url value="/payment/gateway?orderId=${order.id}"/>">付款</a>
                                         </c:when>
