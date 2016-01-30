@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/side-bar/collect.css"/>"/>
-<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/index2.0/js/jquery-1.8.3.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/side-bar/side-bar.js"/>" ></script>
+<!--<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/index2.0/js/jquery-1.8.3.min.js"/>"></script>-->
+<!--<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/side-bar/side-bar.js"/>" ></script>-->
 
 
 <div class="n-all">

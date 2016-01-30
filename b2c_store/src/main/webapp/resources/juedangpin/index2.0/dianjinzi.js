@@ -38,6 +38,11 @@ $(function(){
 
         return false;
     });
+
+    $('#header, #content, #footer').click(function() {
+        $("#right").animate({right:"-300px"});
+        flag = 0;
+    })
 });
 
 

@@ -189,6 +189,10 @@ body {
     position: absolute;
     top: 115px;
     left: 18px;
+
+    transform:scale(1);
+    opacity: 1;
+    transition: all .5s linear;
 }
 
 .right2{
