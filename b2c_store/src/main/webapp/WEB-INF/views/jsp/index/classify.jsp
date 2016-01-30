@@ -14,10 +14,10 @@
             <p  class="product-link"><a href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}">[新品上市]${searchHit.source['name']}</a></p>
             <p>已有<span></span>评价</p>
             <div class="product-handle">
-                <a class="addEnjoy"
+                <a class="addEnjoy" data-btn="addEnjoy"
                    data-value="${searchHit.source['productId']}" href="#"><i
                         class="foundicon-heart" data-value="${product.productId}"></i>收藏</a>
-                <a class="addCart" href="#"
+                <a class="addCart" href="#" data-btn="addCart"
                    data-value="${searchHit.source['productId']}"
                    data-url="<spring:url value="/shoppingCart/ajaxAddItemToOrder"/>"><i
                         class="foundicon-cart"></i>购物车</a>

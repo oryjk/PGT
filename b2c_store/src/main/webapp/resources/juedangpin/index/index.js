@@ -70,7 +70,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         });
         
         //content部分点击事件委托
-        $('#content').click(function(event) {
+        $('#content,#classifyPop').click(function(event) {
             var target = $(event.target);
             var targetType = target.attr('data-btn');
 
