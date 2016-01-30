@@ -44,7 +44,7 @@ define(function() {
 
                 } else if (param.success === 0) {
                     productMessage
-                        .html('对不起,该商品已卖完!')
+                        .html(param.errorMessage.default)
                         .fadeIn(1000)
                         .delay(3000)
                         .fadeOut(2000);
