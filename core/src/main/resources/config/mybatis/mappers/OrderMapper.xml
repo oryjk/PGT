@@ -14,6 +14,7 @@
         <result column="creation_date" property="creationDate"/>
         <result column="update_date" property="updateDate"/>
         <result column="easy_buy" property="easyBuy"/>
+        <result column="SUBMIT_DATE" property="submitDate"/>
         <association property="shippingVO" column="shipping_id"
                      select="com.pgt.shipping.dao.ShippingVOMapper.findShipping"/>
         <collection property="commerceItems" column="order_id" select="selectCommerceItemByOrderId"/>
