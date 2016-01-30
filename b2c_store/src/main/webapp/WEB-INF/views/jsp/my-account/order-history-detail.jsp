@@ -286,5 +286,5 @@
     <jsp:include page="../core/footer-main.jsp" />
 
 </body>
-<script src="../../core/js/require.js" defer async="true" data-main="my-order"></script>
+<script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" defer async="true" data-main="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/my-orders"/>"></script>
 </html>
