@@ -201,7 +201,7 @@ public class PaymentController implements CartMessages {
 			double total = order.getTotal();
 			modelAndView.addObject("orderId", orderId);
 			modelAndView.addObject("orderTotal", total);
-			pRequest.getSession().setAttribute(CartConstant.CURRENT_ORDER, null);
+			pRequest.setAttribute(CartConstant.CURRENT_ORDER, null);
 			sendEmail(user, order, paidSuccessFlag);
 		} else {
 			modelAndView = new ModelAndView("redirect:/shoppingCart/cart");

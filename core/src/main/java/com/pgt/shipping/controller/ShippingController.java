@@ -293,7 +293,7 @@ public class ShippingController implements CartMessages {
 			}
 		}
 		sendEmail(user, order);
-		request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
+		request.removeAttribute(CartConstant.CURRENT_ORDER);
 		mav.setViewName("redirect:/payment/gateway");
 		request.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
 		mav.addObject(CartConstant.ORDER_ID, order.getId());
@@ -366,7 +366,7 @@ public class ShippingController implements CartMessages {
 		}
 		result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_SUCCESS);
 		sendEmail(user, order);
-		request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
+		request.removeAttribute(CartConstant.CURRENT_ORDER);
 		request.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
 		return new ResponseEntity(result, HttpStatus.OK);
 	}

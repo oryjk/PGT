@@ -96,7 +96,7 @@ public class ShoppingCartResolveInterceptor implements HandlerInterceptor {
 		request.setAttribute(CartConstant.CURRENT_ORDER, finalInitialOrder);
 		// clean session order
 		if (sessionOrder != null) {
-			request.getSession().setAttribute(CartConstant.CURRENT_ORDER, null);
+			request.getSession().removeAttribute(CartConstant.CURRENT_ORDER);
 		}
 		return true;
 	}
