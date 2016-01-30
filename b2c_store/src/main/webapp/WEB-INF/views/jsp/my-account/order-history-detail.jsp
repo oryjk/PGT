@@ -10,6 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>绝当品</title>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>" />
     <link rel="stylesheet"
