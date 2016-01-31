@@ -163,7 +163,7 @@
         </div>
       </a>
 
-      <a href="#" class="right1-2">
+      <a href="/user/yeepayAccountInfo" class="right1-2">
         <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-zh.png"/>">
 
         <div class="right2"><span>账户</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
