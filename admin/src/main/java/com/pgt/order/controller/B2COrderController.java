@@ -216,7 +216,6 @@ public class B2COrderController extends InternalTransactionBaseController implem
     @RequestMapping(value = "/make-delivery")
     public ModelAndView makeDelivery(HttpServletRequest pRequest, HttpServletResponse pResponse,
                                      @RequestParam(value = "id", required = true) String id,
-                                     @RequestParam(value = "cid", required = true) String cid,
                                      @RequestParam(value = "deliveryTimeStr", required = false) String deliveryTimeStr,
                                      Delivery delivery) {
         // permission verify
@@ -225,9 +224,8 @@ public class B2COrderController extends InternalTransactionBaseController implem
             return new ModelAndView(PERMISSION_DENIED);
         }
         // main logic
-        ModelAndView mav = new ModelAndView("redirect:/order/delivery?id=" + id + "&cid=" + cid);
-        int cidInt = RepositoryUtils.safeParseId(cid);
-        CommerceItem ci = getB2COrderService().loadCommerceItem(cidInt);
+        ModelAndView mav = new ModelAndView("redirect:/order/delivery?id=" + id + "&cid=" + delivery.getCommerceItemId());
+        CommerceItem ci = getB2COrderService().loadCommerceItem(delivery.getCommerceItemId());
         if (ci == null) {
             return mav;
         }
@@ -242,7 +240,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
             getmMailService().sendDeliveryEmail(order, ci, delivery);
         } catch (Exception e) {
             status.setRollbackOnly();
-            LOGGER.error("Cannot make delivery for commerce item: {} of order: {}", cid, id, e);
+            LOGGER.error("Cannot make delivery for commerce item: {} of order: {}", delivery.getCommerceItemId(), id, e);
         } finally {
             if (!status.isRollbackOnly()) {
                 ci.setDelivery(delivery);

@@ -5,7 +5,9 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,7 +17,7 @@ public class Delivery {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Delivery.class);
 
-	private static final FastDateFormat DT_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd");
+	private static final DateFormat DT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	private int mCommerceItemId;
 	private String mConsignor;
@@ -69,6 +71,10 @@ public class Delivery {
 		return mDeliveryTime;
 	}
 
+	public String getDeliveryTimeStr() {
+		return DT_FORMAT.format(mDeliveryTime);
+	}
+
 	public void setDeliveryTime(final Date pDeliveryTime) {
 		mDeliveryTime = pDeliveryTime;
 	}
@@ -84,7 +90,7 @@ public class Delivery {
 	public void setDeliveryTime(final String pDeliveryTimeString) {
 		if (StringUtils.isNotBlank(pDeliveryTimeString)) {
 			try {
-				mDeliveryTime = DT_FORMAT.getInstance().parse(pDeliveryTimeString);
+				mDeliveryTime = DT_FORMAT.parse(pDeliveryTimeString);
 			} catch (ParseException pe) {
 				StackTraceElement[] elements = pe.getStackTrace();
 				LOGGER.error("{}#{} (line: {})", elements[3].getClassName(), elements[3].getMethodName(), elements[3].getLineNumber());
