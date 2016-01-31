@@ -64,6 +64,7 @@ public class ProductListController extends InternalTransactionBaseController {
 		CategoryHierarchy categoryHierarchy = categoryService.queryCategoryHierarchy(categoryId);
 		if (!ObjectUtils.isEmpty(categoryHierarchy)) {
 			LOGGER.debug("Can not find the categoryHierarchy with id is {}.", categoryId);
+
 			Integer rootCategoryId = categoryHierarchy.getCategoryId();
 			if (!ObjectUtils.isEmpty(categoryHierarchy.getParentCategory())) {
 				rootCategoryId = categoryHierarchy.getParentCategory().getCategoryId();

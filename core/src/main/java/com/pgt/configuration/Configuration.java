@@ -1,5 +1,8 @@
 package com.pgt.configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by carlwang on 11/19/15.
  */
@@ -34,6 +37,8 @@ public class Configuration {
 
 	private boolean smsMock = false;
 
+	private List<String> serviceTels=new ArrayList<>();
+	private String smsOrderContent="收到成功支付订单，请尽快去管理系统查看，订单号为：";
 	public Integer getPlpCapacity() {
 		return plpCapacity;
 	}
@@ -208,5 +213,21 @@ public class Configuration {
 
 	public void setSmsOnlinePawnContent (String smsOnlinePawnContent) {
 		this.smsOnlinePawnContent = smsOnlinePawnContent;
+	}
+
+	public List<String> getServiceTels() {
+		return serviceTels;
+	}
+
+	public void setServiceTels(List<String> serviceTels) {
+		this.serviceTels = serviceTels;
+	}
+
+	public String getSmsOrderContent() {
+		return smsOrderContent;
+	}
+
+	public void setSmsOrderContent(String smsOrderContent) {
+		this.smsOrderContent = smsOrderContent;
 	}
 }

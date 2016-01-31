@@ -19,9 +19,11 @@ import com.pgt.payment.bean.PaymentGroup;
 import com.pgt.payment.bean.Transaction;
 import com.pgt.payment.bean.TransactionLog;
 import com.pgt.payment.service.PaymentService;
+import com.pgt.sms.service.SmsService;
 import com.pgt.utils.Transactionable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CompleteTransactionNotificationHandler extends Transactionable implements YeepayNotificationHandler {
 
@@ -36,6 +38,11 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 	private UserOrderDao userOrderDao;
 
 	private InventoryService inventoryService;
+
+
+
+	@Autowired
+	private SmsService smsService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CompleteTransactionNotificationHandler.class);
 
@@ -102,6 +109,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 				order.setStatus(OrderStatus.PAID);
 				order.setUpdateDate(now);
 				getShoppingCartDao().updateOrder(order);
+				smsService.sendPaidOrderMessage(order);
 			}
 			
 			// update payment group status
@@ -180,5 +188,12 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	public void setInventoryService(InventoryService inventoryService) {
 		this.inventoryService = inventoryService;
+	}
+	public SmsService getSmsService() {
+		return smsService;
+	}
+
+	public void setSmsService(SmsService smsService) {
+		this.smsService = smsService;
 	}
 }

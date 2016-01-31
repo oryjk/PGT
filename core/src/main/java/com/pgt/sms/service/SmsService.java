@@ -1,7 +1,9 @@
 package com.pgt.sms.service;
 
+import com.pgt.cart.bean.Order;
 import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -12,6 +14,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +28,7 @@ import java.util.List;
  */
 @Service
 public class SmsService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(SmsService.class);
     @Autowired
     private Configuration configuration;
 
@@ -57,7 +61,7 @@ public class SmsService {
     }
 
 
-    public String sendOnlinePawnSms (String phoneNumber, String code) {
+    public String sendOnlinePawnSms(String phoneNumber, String code) {
         try {
             return sendSms(phoneNumber, configuration.getSmsOnlinePawnContent(), code);
         } catch (IOException e) {
@@ -66,7 +70,7 @@ public class SmsService {
         return "error";
     }
 
-    public String sendOnlinePawnSmsToMe (String phoneNumber, String content) {
+    public String sendOnlinePawnSmsToMe(String phoneNumber, String content) {
         try {
             return sendSms(phoneNumber, content, null);
         } catch (IOException e) {
@@ -75,7 +79,21 @@ public class SmsService {
         return "error";
     }
 
-
+    public void sendPaidOrderMessage(Order order) {
+        List<String> serviceTels = configuration.getServiceTels();
+        if (CollectionUtils.isEmpty(serviceTels)) {
+            LOGGER.debug("The service tels is empty, can not send the order message.");
+            return;
+        }
+        serviceTels.stream().forEach(s -> {
+            try {
+                sendSms(s, configuration.getSmsOrderContent(), String.valueOf(order.getId()));
+            } catch (IOException e) {
+                LOGGER.error("Send order message has IO error.{}.", e.getMessage());
+                e.printStackTrace();
+            }
+        });
+    }
 
 
     private String sendSms(String phoneNumber, String content, String code) throws IOException {
@@ -109,4 +127,6 @@ public class SmsService {
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
     }
+
+
 }

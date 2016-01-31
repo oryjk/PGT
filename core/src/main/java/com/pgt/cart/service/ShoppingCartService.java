@@ -20,6 +20,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -68,9 +69,10 @@ public class ShoppingCartService {
 		return orders;
 	}
 
-	public Order mergeOrder (final Order pDestinationOrder, final Order pPendingMergeOrder) {
+	public List<Integer> mergeOrder (final Order pDestinationOrder, final Order pPendingMergeOrder) {
+		List<Integer> pendingRemovedCommerceItemIds = new ArrayList<>();
 		if (pDestinationOrder.emptyOrder()) {
-			return pDestinationOrder;
+			return pendingRemovedCommerceItemIds;
 		}
 		for (CommerceItem commerceItem : pPendingMergeOrder.getCommerceItems()) {
 			int productId = commerceItem.getReferenceId();
@@ -80,18 +82,22 @@ public class ShoppingCartService {
 			if (pDestinationOrder.getCommerceItemByProduct(productId) == null) {
 				pDestinationOrder.getCommerceItems().add(commerceItem);
 			}
+			if (RepositoryUtils.idIsValid(commerceItem.getId())) {
+				pendingRemovedCommerceItemIds.add(commerceItem.getId());
+			}
 		}
 		pDestinationOrder.resetCommerceItemIndex();
 		pDestinationOrder.getCommerceItems().forEach(ci -> {
 			ci.setOrderId(pDestinationOrder.getId());
 		});
-		return pDestinationOrder;
+		return pendingRemovedCommerceItemIds;
 	}
 
 
-	public void mergeOrders (final Order pDestinationOrder, final List<Order> pPendingMergeOrders) {
+	public List<Integer> mergeOrders (final Order pDestinationOrder, final List<Order> pPendingMergeOrders) {
+		List<Integer> pendingRemovedCommerceItemIds = new ArrayList<>();
 		if (CollectionUtils.isEmpty(pPendingMergeOrders)) {
-			return;
+			return pendingRemovedCommerceItemIds;
 		}
 		for (Order pendingMergeOrder : pPendingMergeOrders) {
 			for (CommerceItem commerceItem : pendingMergeOrder.getCommerceItems()) {
@@ -101,6 +107,10 @@ public class ShoppingCartService {
 				}
 				if (pDestinationOrder.getCommerceItemByProduct(productId) == null) {
 					pDestinationOrder.getCommerceItems().add(commerceItem);
+					continue;
+				}
+				if (RepositoryUtils.idIsValid(commerceItem.getId())) {
+					pendingRemovedCommerceItemIds.add(commerceItem.getId());
 				}
 			}
 		}
@@ -108,6 +118,7 @@ public class ShoppingCartService {
 		pDestinationOrder.getCommerceItems().forEach(ci -> {
 			ci.setOrderId(pDestinationOrder.getId());
 		});
+		return pendingRemovedCommerceItemIds;
 	}
 
 	public void deleteOrders (final List<Integer> pOrderIds) {
@@ -118,8 +129,7 @@ public class ShoppingCartService {
 		try {
 			getShoppingCartDao().deleteOrders(pOrderIds);
 		} catch (Exception e) {
-			String msg = String.format("Delete orders by ids: {} failed", pOrderIds);
-			LOGGER.error(msg, e);
+			LOGGER.error(String.format("Delete orders by ids: %s failed", pOrderIds), e);
 		} finally {
 			getTransactionManager().commit(status);
 		}

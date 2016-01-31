@@ -55,7 +55,7 @@
         SELECT DISTINCT(o.ORDER_ID)
         FROM INVENTORY_LOCK AS l
         INNER JOIN `ORDER` AS o ON o.order_id = l.ORDER_ID
-        WHERE l.EXPIRE_DATE < now() and (o.status <> 100 or o.status <> 30 or o.status <> 40)
+        WHERE l.EXPIRE_DATE < now() and o.status < 30
         ]]>
     </select>
 

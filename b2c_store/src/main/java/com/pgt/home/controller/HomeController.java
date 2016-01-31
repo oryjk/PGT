@@ -92,27 +92,38 @@ public class HomeController {
                 modelAndView.addObject("hotProducts", hotProducts);
                 LOGGER.debug("add hotProducts to modelAndView");
             }
+            List<Category> navigationCategories = categoryHelper.findNavigationCategories();
+            modelAndView.addObject(Constants.NAVIFATION_CATEGORIES, navigationCategories);
+
+            buildRootCategory(modelAndView);
+
+
             //get Pagebackground
             PageBackgroundQuery pageBackgroundQuery = new PageBackgroundQuery();
             pageBackgroundQuery.setNowDate(new Date());
-            List<PageBackground> pageBackgroundList=pageBackgroundService.queryPageBackground(pageBackgroundQuery);
-            if(!CollectionUtils.isEmpty(pageBackgroundList)){
-                modelAndView.addObject("pageBackground",pageBackgroundList.get(0));
+            List<PageBackground> pageBackgroundList = pageBackgroundService.queryPageBackground(pageBackgroundQuery);
+            if (!CollectionUtils.isEmpty(pageBackgroundList)) {
+                modelAndView.addObject("pageBackground", pageBackgroundList.get(0));
             }
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             LOGGER.debug("add hotSearchList to modelAndView");
             modelAndView.addObject("hotSearchList", hotSearchList);
 
-            Banner banner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME,BannerWebSite.B2C_STORE.toString());
-            if(!ObjectUtils.isEmpty(banner)){
-                LOGGER.debug("The query banner id is {}",banner.getBannerId());
+            Banner banner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME, BannerWebSite.B2C_STORE.toString());
+            if (!ObjectUtils.isEmpty(banner)) {
+                LOGGER.debug("The query banner id is {}", banner.getBannerId());
                 modelAndView.addObject("banner", banner);
             }
-            SearchHit[] newProducts=getNewProduct();
-            if(!ArrayUtils.isEmpty(newProducts)){
-                modelAndView.addObject("newProducts",newProducts);
+            SearchHit[] newProducts = getNewProduct();
+            if (!ArrayUtils.isEmpty(newProducts)) {
+                modelAndView.addObject("newProducts", newProducts);
                 LOGGER.debug("add newProducts to modelAndView");
+            }
+            Banner TopBanner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
+            if (!ObjectUtils.isEmpty(TopBanner)) {
+                LOGGER.debug("The query TopBanner id is {}", TopBanner.getBannerId());
+                modelAndView.addObject("TopBanner", TopBanner);
             }
             modelAndView.setViewName("/index/index");
         } else {
@@ -120,7 +131,7 @@ public class HomeController {
             // get hot search
             List<HotSearch> hotSearchList = productService.queryAllHotsearch();
             modelAndView.addObject("hotSearchList", hotSearchList);
-            Banner banner=  bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME,BannerWebSite.B2C_STORE.toString());
+            Banner banner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME, BannerWebSite.B2C_STORE.toString());
             modelAndView.addObject("banner", banner);
             modelAndView.setViewName("/index/index");
 
@@ -132,8 +143,20 @@ public class HomeController {
 
     }
 
+    public void buildRootCategory(ModelAndView modelAndView) {
+        SearchResponse rootSearchResponse = esSearchService.findRootCategory();
+        if (!ObjectUtils.isEmpty(rootSearchResponse)) {
+            SearchHits searchHits = rootSearchResponse.getHits();
+            if (!ObjectUtils.isEmpty(searchHits)) {
+                SearchHit[] rootCategory = searchHits.getHits();
+                LOGGER.debug("The root category size is {}.", ObjectUtils.isEmpty(rootCategory) ? 0 : rootCategory.length);
+                modelAndView.addObject(Constants.ROOT_CATEGORIES, rootCategory);
+            }
+        }
+    }
+
     @RequestMapping(value = "/homeSearch", method = RequestMethod.GET)
-    public ModelAndView homeSearch (@RequestParam(value = "term", required = false) String term, ModelAndView modelAndView) {
+    public ModelAndView homeSearch(@RequestParam(value = "term", required = false) String term, ModelAndView modelAndView) {
 
         LOGGER.debug("The method is to homeSearch");
         List<ESTerm> esMatches = new ArrayList<>();
@@ -151,8 +174,8 @@ public class HomeController {
         return modelAndView;
     }
 
-    private void buildESMatch (@RequestParam(value = "term", required = false) String term,
-                               List<ESTerm> esMatches) {
+    private void buildESMatch(@RequestParam(value = "term", required = false) String term,
+                              List<ESTerm> esMatches) {
         if (!StringUtils.isEmpty(term)) {
             term = term.trim();
             List<String> useToSearch = esConfiguration.getUseToSearch();
@@ -171,8 +194,8 @@ public class HomeController {
     }
 
 
-    public SearchHit[] getNewProduct(){
-        List<ESSort> sortList=new ArrayList<>();
+    public SearchHit[] getNewProduct() {
+        List<ESSort> sortList = new ArrayList<>();
         ESSort eSSort = new ESSort();
         eSSort.setPropertyName("creationDate");
         eSSort.setSortOrder(SortOrder.DESC);
@@ -180,7 +203,7 @@ public class HomeController {
         CommPaginationBean paginationBean = new CommPaginationBean();
         paginationBean.setCurrentIndex(0);
         paginationBean.setCapacity(3);
-        SearchResponse searchProduct = esSearchService.findProducts(null, null, null,sortList, paginationBean, null, null);
+        SearchResponse searchProduct = esSearchService.findProducts(null, null, null, sortList, paginationBean, null, null);
         SearchHits searchHits = searchProduct.getHits();
         SearchHit[] newProducts = searchHits.getHits();
         return newProducts;

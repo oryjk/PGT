@@ -69,7 +69,9 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+        if (ObjectUtils.isEmpty(modelAndView)) {
+            return;
+        }
 
         //not interceptor static files.
         if (request.getRequestURI().contains(request.getContextPath() + configuration.getResourcePath())) {
@@ -78,54 +80,7 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
 
 
         if (configuration.getUseES() == true) {
-            // get root categories
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
-                SearchResponse rootSearchResponse = esSearchService.findRootCategory();
-                if (!ObjectUtils.isEmpty(rootSearchResponse)) {
-                    SearchHits searchHits = rootSearchResponse.getHits();
-                    if (!ObjectUtils.isEmpty(searchHits)) {
-                        SearchHit[] rootCategory = searchHits.getHits();
-                        LOGGER.debug("The root category size is {}.", ObjectUtils.isEmpty(rootCategory) ? 0 : rootCategory.length);
-                        applicationContext.setAttribute(Constants.ROOT_CATEGORIES, rootCategory);
-                    }
-                }
-            }
-
-
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_PRODUCTS))) {
-                ESSort esSort = new ESSort();
-                esSort.setPropertyName(Constants.SORT);
-                esSort.setSortOrder(SortOrder.ASC);
-                SearchResponse searchResponse = esSearchService.findHotSales(esSort);
-                SearchHits searchHits = searchResponse.getHits();
-                SearchHit[] hotProducts = searchHits.getHits();
-                if (hotProducts.length != 0) {
-                    applicationContext.setAttribute(Constants.HOT_PRODUCTS, hotProducts);
-                }
-
-            }
-
-
-            // get navigation categories
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.NAVIFATION_CATEGORIES))) {
-                List<Category> navigationCategories = categoryHelper.findNavigationCategories();
-                applicationContext.setAttribute(Constants.NAVIFATION_CATEGORIES, navigationCategories);
-            }
-
-            // get hot search
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_SEARCH_LIST))) {
-                List<HotSearch> hotSearchList = productService.queryAllHotsearch();
-                applicationContext.setAttribute(Constants.HOT_SEARCH_LIST, hotSearchList);
-
-            }
-
-            Banner TopBanner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
-            if (!ObjectUtils.isEmpty(TopBanner)) {
-                LOGGER.debug("The query TopBanner id is {}", TopBanner.getBannerId());
-                applicationContext.setAttribute("TopBanner", TopBanner);
-            }
-
-
+// discard
         } else {
             if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
                 // get root categories

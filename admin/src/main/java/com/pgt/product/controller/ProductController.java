@@ -158,6 +158,7 @@ public class ProductController extends InternalTransactionBaseController {
             }
 
             esSearchService.updateProductIndex(product);
+            esSearchService.hotSaleIndex();
             responseEntity.getBody().put("success", true);
             responseEntity.getBody().put("mediaId", mediaId);
             return responseEntity;

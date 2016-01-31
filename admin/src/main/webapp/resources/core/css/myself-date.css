@@ -1,8 +1,9 @@
 .pgt-date-divide {
-    margin-left: -45px;
-    width: 20px !important;
+    margin-left: -20px;
+    width: 60px !important;
     line-height: 33px;
 }
+
 .pgt-date-divide span {
     font-size: 14px;
 }
@@ -16,6 +17,7 @@
 .pgt-begin-date {
     margin-left: -60px;
 }
+
 .pgt-time {
     margin-left: -42px;
 }

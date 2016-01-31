@@ -81,7 +81,7 @@ public class ShoppingCartResolveInterceptor implements HandlerInterceptor {
 				initialOrders.add(sessionOrder);
 			}
 			// merge other orders to order which has minimum id
-			getShoppingCartService().mergeOrders(finalInitialOrder, initialOrders);
+			List<Integer> pendingRemovedCommerceItemIds = getShoppingCartService().mergeOrders(finalInitialOrder, initialOrders);
 			getPriceOrderService().priceOrder(finalInitialOrder);
 			// persist order changes
 			getShoppingCartService().persistInitialOrder(finalInitialOrder);
@@ -89,6 +89,9 @@ public class ShoppingCartResolveInterceptor implements HandlerInterceptor {
 			List<Integer> pendingRemovedOrderIds = extraOrderIds(initialOrders);
 			if (CollectionUtils.isNotEmpty(pendingRemovedOrderIds)) {
 				getShoppingCartService().deleteOrders(pendingRemovedOrderIds);
+			}
+			if (CollectionUtils.isNotEmpty(pendingRemovedCommerceItemIds)) {
+				getShoppingCartService().deleteCommerceItems(pendingRemovedCommerceItemIds);
 			}
 		}
 
