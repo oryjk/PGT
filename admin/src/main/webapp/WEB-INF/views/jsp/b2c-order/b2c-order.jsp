@@ -173,7 +173,7 @@
                                                         </td>
                                                         <td>${ci.merchant}</td>
                                                         <td>${ci.delivery.consignor}</td>
-                                                        <td>${ci.delivery.deliveryTime}</td>
+                                                        <td>${ci.delivery.deliveryTimeStr}</td>
                                                         <td>${ci.delivery.logistics}</td>
                                                         <td>${ci.delivery.trackingNo}</td>
                                                         <td><a href="/order/delivery?id=${b2cOrder.id}&cid=${ci.id}"><c:choose>

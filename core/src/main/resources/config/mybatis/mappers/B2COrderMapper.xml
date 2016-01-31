@@ -41,6 +41,8 @@
 		FROM `ORDER` o
 		LEFT JOIN `USERS` u ON u.USER_ID = o.USER_ID
 		WHERE 1 = 1
+		AND o.TYPE = 1
+		AND o.STATUS &gt; 10
 		<include refid="query-order-condition" />
 	</select>
 
@@ -48,7 +50,9 @@
 		SELECT o.*
 		FROM `ORDER` o
 		LEFT JOIN `USERS` u ON u.USER_ID = o.USER_ID
-		WHERE 1 = 1 AND o.STATUS &gt; 10
+		WHERE 1 = 1
+		AND o.TYPE = 1
+		AND o.STATUS &gt; 10
 		<include refid="query-order-condition" />
 		<include refid="limit-split-page" />
 	</select>
