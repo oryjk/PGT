@@ -6,6 +6,15 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:global.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
 	<import resource="yeepay-config.xml"/>
 	<import resource="alipay-config.xml"/>
 	<import resource="scheduling-job.xml"/>
@@ -68,8 +77,13 @@
 		<property name="useES" value="true"></property>
 		<property name="resourcePath" value="/resources"></property>
 		<property name="initialDataPath" value="/json"></property>
-		<property name="imagePath" value="/home/xiaodong/Projects/work/PGT/b2c_store/src/main/webapp"></property>
-		<property name="imageFolder" value="/resources/image/upload/"></property>
+		<property name="imagePath" value="${imagePath}"></property>
+		<property name="imageFolder" value="${imageFolder}"></property>
+		<property name="serviceTels">
+			<list value-type="java.lang.String">
+				<value>18602812970</value>
+			</list>
+		</property>
 
 	</bean>
 	<bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
