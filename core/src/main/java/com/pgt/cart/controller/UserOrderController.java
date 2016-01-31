@@ -50,7 +50,7 @@ public class UserOrderController extends TransactionBaseController implements Us
 		User currentUser = getCurrentUser(pRequest);
 		if (currentUser == null) {
 			LOGGER.debug("Current session user has not sign, skip load order history.");
-			return new ModelAndView("redirect:/user/login");
+			return new ModelAndView("redirect:/user/login?redirect=/myAccount/orderHistory");
 		}
 		LOGGER.debug("Query order history of user: {}", currentUser.getId());
 		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);

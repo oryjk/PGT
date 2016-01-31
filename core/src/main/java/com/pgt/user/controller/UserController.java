@@ -245,6 +245,7 @@ public class UserController {
         if (!StringUtils.isEmpty(redirect)) {
             LOGGER.debug("Need redirect to {}.", redirect);
             modelAndView.addObject("redirect", redirect);
+            modelAndView.setViewName("redirect:"+redirect);
         }
 
         return modelAndView;
@@ -534,7 +535,7 @@ public class UserController {
 
         User user = (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
         if (null == user) {
-            ModelAndView mav = new ModelAndView("redirect:" + urlConfiguration.getLoginPage());
+            ModelAndView mav = new ModelAndView("redirect:" + urlConfiguration.getLoginPage()+"?redirect=/user/yeepayAccountInfo");
             return mav;
         }
         // reload user
