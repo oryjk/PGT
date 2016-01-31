@@ -317,7 +317,7 @@ public class ShippingController implements CartMessages {
 			return new ResponseEntity(result, HttpStatus.OK);
 		}
 
-		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart())) {
+		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration().getDefaultOrderType())) {
 			LOGGER.error("Has incomplete order.");
 			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_HAS_INCOMPLETE_ORDER);
 			return new ResponseEntity(result, HttpStatus.OK);
