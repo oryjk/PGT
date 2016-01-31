@@ -387,24 +387,21 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .product-name {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .product-name:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .page-box .page-focus {
   padding: 5px;
@@ -412,8 +409,7 @@ a {
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #d43139;
-}
+  background: #d43139; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -449,8 +445,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .link-btn:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -473,8 +468,7 @@ span {
   content: ' ';
   display: table;
   clear: both;
-  height: 0;
-}
+  height: 0; }
 
 /*color*/
 /*col*/
@@ -510,24 +504,21 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .product-name {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .product-name:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .page-box .page-focus {
   padding: 5px;
@@ -535,8 +526,7 @@ a {
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #d43139;
-}
+  background: #d43139; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -572,8 +562,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .link-btn:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -596,8 +585,7 @@ span {
   content: ' ';
   display: table;
   clear: both;
-  height: 0;
-}
+  height: 0; }
 
 /*主列表
 ****************************************************/
@@ -721,11 +709,9 @@ span {
       cursor: pointer; }
     .recommend .tab .choose {
       cursor: auto;
-      border-color: #d43139;
-    }
+      border-color: #d43139; }
       .recommend .tab .choose h2 {
-        color: #d43139;
-      }
+        color: #d43139; }
     .recommend .tab h2 {
       margin: 0;
       padding: 0; }
@@ -747,8 +733,7 @@ span {
     z-index: 1;
     margin: 0 -20px;
     padding: 15px 30px 10px;
-    border-bottom: 1px solid #d43139;
-  }
+    border-bottom: 1px solid #d43139; }
   .similar-box .move-left-box,
   .similar-box .move-right-box {
     position: absolute;
@@ -901,8 +886,7 @@ span {
     margin: 0;
     color: #666666; }
   .message-box span {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 /*address-box
 ****************************************************/
@@ -940,11 +924,9 @@ span {
   color: #666666;
   cursor: pointer; }
   .add-address:hover {
-    border-color: #d43139;
-  }
+    border-color: #d43139; }
     .add-address:hover * {
-      color: #d43139;
-    }
+      color: #d43139; }
   .add-address .row1 {
     padding-top: 35px;
     font-size: 40px; }
@@ -975,8 +957,7 @@ span {
   .page-box a {
     border: 1px solid #cccccc; }
     .page-box a:hover {
-      color: #d43139;
-    }
+      color: #d43139; }
   .page-box .page-list {
     margin: 0; }
   .page-box .page-which {
@@ -986,8 +967,7 @@ span {
   .page-box .page-count {
     margin-left: 20px; }
     .page-box .page-count span {
-      color: #d43139;
-    }
+      color: #d43139; }
   .page-box .page-focus {
     cursor: text; }
     .page-box .page-focus:hover {
@@ -1032,14 +1012,12 @@ span {
         color: #cccccc; }
   .pop-up .pop-content {
     width: 480px;
-    margin: 20px auto 40px;
-  }
+    margin: 20px auto 40px; }
   .pop-up input[type=text] {
     width: 220px;
     height: 23px; }
     .pop-up input[type=text]:focus {
-      border: 2px solid #d43139;
-    }
+      border: 2px solid #d43139; }
   .pop-up .must-write,
   .pop-up .pop-tips {
     color: #c20008; }
@@ -1148,14 +1126,12 @@ span {
     .city li a,
     .country li a,
     .invoice-title li a {
-      color: #d43139;
-    }
+      color: #d43139; }
     .province li:hover,
     .city li:hover,
     .country li:hover,
     .invoice-title li:hover {
-      background: #d43139;
-    }
+      background: #d43139; }
       .province li:hover a,
       .city li:hover a,
       .country li:hover a,
