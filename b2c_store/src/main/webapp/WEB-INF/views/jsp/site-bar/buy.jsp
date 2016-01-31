@@ -36,10 +36,11 @@
 
 </div>
     <div class="n-footer">
-        <div class="n-btn0">
-        <div class="n-btn">已选1件</div>
-        <div class="n-btn1"><fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></div>
-        </div>
         <a class="n-btn2"  onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'">结算</a>
+
+        <div class="n-btn0">
+            <div class="n-btn">已选1件</div>
+            <div class="n-btn1">¥<fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></div>
+        </div>
     </div>
 </div>

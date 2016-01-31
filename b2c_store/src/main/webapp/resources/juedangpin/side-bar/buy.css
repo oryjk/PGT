@@ -57,25 +57,24 @@
     background: white; }
 
 .n-footer {
-  margin-top: 10px;
+  position: absolute;
+  bottom: 0;
   background: white;
-  height: 70px;
   width: 300px; }
   .n-footer .n-btn0 {
-    padding-top: 10px;
-    width: 300px;
-    height: 30px; }
-  .n-footer .n-btn {
-    padding-left: 30px;
-    float: left; }
+    padding: 10px 0 10px 30px;
+    width: 300px; }
   .n-footer .n-btn1 {
-    padding-right: 30px;
-    float: right; }
+    color: #d43139;
+    padding-top: 8px; }
   .n-footer .n-btn2 {
-    margin-left: 100px;
+    margin: 10px;
+    float: right;
     text-align: center;
-    width: 100px;
+    width: 50px;
     padding: 10px 30px;
+    color: white;
+    font-size: 15px;
     background: #d43139; }
 
 .n-box1 a:link,

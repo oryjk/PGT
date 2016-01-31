@@ -2684,3 +2684,15 @@ span {
     margin: 20px auto 40px; }
   .pop-up .row1 span {
     font-size: 16px; }
+
+.product-message {
+  display: none;
+  position: absolute;
+  top: 30%;
+  height: 40px;
+  width: 100%;
+  background: linear-gradient(to right, rgba(100, 100, 100, 0.2) 0%, rgba(100, 100, 100, 0.9) 50%, rgba(100, 100, 100, 0.2) 100%);
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px; }

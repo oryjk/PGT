@@ -239,6 +239,14 @@ require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
                         el.val(value);
                     }
                 });
+
+                var province = $('.province');
+                var city = $('.city');
+                var country = $('.country');
+                province.find('.selected').html(province.find('.select-value').val());
+                city.find('.selected').html(city.find('.select-value').val());
+                country.find('.selected').html(country.find('.select-value').val());
+
                 $('#popUp').fadeIn(300);
                 $this.data('pending', false);
             }
