@@ -37,6 +37,7 @@
                     <!-- BEGIN FORM-->
                     <form action="/order/make-delivery" class="form-horizontal" method="post">
                         <input type="hidden" name="id" value="${param.id}" />
+                        <input type="hidden" name="cid" value="${param.cid}" />
                         <input type="hidden" name="commerceItemId" value="${commerceItem.delivery.commerceItemId}" />
                         <div class="form-body">
                             <c:if test="${commerceItem.delivery.commerceItemId gt 0}">
