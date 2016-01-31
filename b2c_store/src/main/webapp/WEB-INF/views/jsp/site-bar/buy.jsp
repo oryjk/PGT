@@ -24,11 +24,11 @@
     <c:forEach var="commerceItem" items="${order.commerceItems}">
 
     <div class="n-box1">
-        <a href="#">
-            <img data-value="${commerceItem.referenceId}" src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}">
+        <a class="cart-product" href="#">
+            <img class="cart-thumnail" data-value="${commerceItem.referenceId}" src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}">
             <div class="n-box1-font">${commerceItem.name}</div>
             <div class="n-box1-font1"> ¥ <span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span></div>
-            <a data-value="${commerceItem.referenceId}" class="n-box1-img sideRemoveCart" ><img  data-value="${commerceItem.referenceId}" src="<spring:url value="${juedangpinStaticPath}/core/images/header/s-del2.png"/>"></a>
+            <a data-value="${commerceItem.referenceId}" class="n-box1-img sideRemoveCart" ><img class="remove-cart"  data-value="${commerceItem.referenceId}" src="<spring:url value="${juedangpinStaticPath}/core/images/header/s-del2.png"/>"></a>
         </a>
     </div>
 

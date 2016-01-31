@@ -27,24 +27,34 @@
     background: #fff;
     margin-top: 5px;
     padding-top: 5px;
-    width: 300px;
     position: relative; }
-    .n-content .n-box1 img {
-      width: 180px;
-      height: 180px;
-      margin-left: 60px; }
-    .n-content .n-box1 .n-box1-font {
-      text-align: center; }
-    .n-content .n-box1 .n-box1-font1 {
-      color: #d43139;
-      text-align: center; }
-    .n-content .n-box1 .n-box1-img {
-      position: absolute;
-      top: 20px;
-      right: 20px; }
-      .n-content .n-box1 .n-box1-img img {
-        width: 10px;
-        height: 10px; }
+  .n-content .cart-product {
+    overflow: hidden;
+    padding: 0 0 10px 10px;
+    display: block;
+    width: 240px; }
+  .n-content .cart-thumnail {
+    float: left;
+    width: 60px;
+    height: 60px; }
+  .n-content .n-box1-font {
+    margin-left: 70px;
+    height: 40px; }
+  .n-content .n-box1-font1 {
+    color: #d43139;
+    font-size: 14px;
+    margin-left: 70px; }
+    .n-content .n-box1-font1 span {
+      color: #d43139; }
+  .n-content .n-box1-img {
+    position: absolute;
+    top: 20px;
+    right: 20px; }
+    .n-content .n-box1-img img {
+      width: 10px;
+      height: 10px; }
+  .n-content .sideRemoveCart:hover {
+    background: white; }
 
 .n-footer {
   margin-top: 10px;

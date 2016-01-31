@@ -153,6 +153,9 @@
                                             <a class="link-btn" href="<spring:url value="/payment/gateway?orderId=${order.id}"/>">付款</a>
                                         </c:when>
                                         <c:when test="${order.status eq 30}">
+                                            <span>已付款</span>
+                                        </c:when>
+                                        <c:when test="${order.status eq 40}">
                                             <span>待收货</span>
                                         </c:when>
                                         <c:when test="${order.status eq 100}">

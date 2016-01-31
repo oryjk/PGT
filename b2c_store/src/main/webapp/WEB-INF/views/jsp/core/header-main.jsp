@@ -38,20 +38,19 @@
             </c:choose>
         </div>
     </div>
+    <c:if test="${TopBanner.images!=null}">
+        <div class="top-banner">
+            <div class="top-banner-box">
 
-    <div class="top-banner">
+                <a href="${pageContext.request.contextPath}${TopBanner.images[0].url}">
+                    <img src="${pageContext.request.contextPath}${TopBanner.images[0].path}"
+                         alt="${TopBanner.images[0].title}"/>
+                </a>
 
-
-        <div class="top-banner-box">
-
-            <a href="${pageContext.request.contextPath}${TopBanner.images[0].url}">
-                <img src="${pageContext.request.contextPath}${TopBanner.images[0].path}"
-                     alt="${TopBanner.images[0].title}"/>
-            </a>
+            </div>
 
         </div>
-
-    </div>
+    </c:if>
 </div>
 
 <div class="head-box">

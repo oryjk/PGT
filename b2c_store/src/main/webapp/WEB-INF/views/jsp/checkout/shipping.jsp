@@ -49,8 +49,6 @@
         <h1>
             <a href="..${urlConfiguration.shoppingCartPage}">
                 购物车
-                <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
-                <div class="golds"></div>
                 <div class="light"></div>
             </a>
         </h1>

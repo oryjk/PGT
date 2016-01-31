@@ -59,7 +59,6 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">商品数量：</label>
-
                                                 <div class="col-md-8">
                                                     <p class="form-control-static">${b2cOrder.commerceItemCount}</p>
                                                 </div>
@@ -105,6 +104,9 @@
                                                                 <span>待付款</span>
                                                             </c:when>
                                                             <c:when test="${b2cOrder.status eq 30}">
+                                                                <span>已付款</span>
+                                                            </c:when>
+                                                            <c:when test="${b2cOrder.status eq 40}">
                                                                 <span>待收货</span>
                                                             </c:when>
                                                             <c:when test="${b2cOrder.status eq 100}">
