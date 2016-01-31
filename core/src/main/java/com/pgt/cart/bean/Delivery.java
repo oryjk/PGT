@@ -1,7 +1,6 @@
 package com.pgt.cart.bean;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,74 +19,83 @@ public class Delivery {
 	private static final DateFormat DT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	private int mCommerceItemId;
+
 	private String mConsignor;
+
 	private boolean mDelivered;
+
 	private boolean mReceived;
+
 	private String mLogistics;
+
 	private Date mDeliveryTime;
+
 	private String mTrackingNo;
 
-	public int getCommerceItemId() {
+	public int getCommerceItemId () {
 		return mCommerceItemId;
 	}
 
-	public void setCommerceItemId(final int pCommerceItemId) {
+	public void setCommerceItemId (final int pCommerceItemId) {
 		mCommerceItemId = pCommerceItemId;
 	}
 
-	public String getConsignor() {
+	public String getConsignor () {
 		return mConsignor;
 	}
 
-	public void setConsignor(final String pConsignor) {
+	public void setConsignor (final String pConsignor) {
 		mConsignor = pConsignor;
 	}
 
-	public boolean isDelivered() {
+	public boolean isDelivered () {
 		return mDelivered;
 	}
 
-	public void setDelivered(final boolean pDelivered) {
+	public void setDelivered (final boolean pDelivered) {
 		mDelivered = pDelivered;
 	}
 
-	public boolean isReceived() {
+	public boolean isReceived () {
 		return mReceived;
 	}
 
-	public void setReceived(final boolean pReceived) {
+	public void setReceived (final boolean pReceived) {
 		mReceived = pReceived;
 	}
 
-	public String getLogistics() {
+	public String getLogistics () {
 		return mLogistics;
 	}
 
-	public void setLogistics(final String pLogistics) {
+	public void setLogistics (final String pLogistics) {
 		mLogistics = pLogistics;
 	}
 
-	public Date getDeliveryTime() {
+	public Date getDeliveryTime () {
 		return mDeliveryTime;
 	}
 
-	public String getDeliveryTimeStr() {
-		return DT_FORMAT.format(mDeliveryTime);
+	public String getDeliveryTimeStr () {
+		if (mDeliveryTime != null) {
+			return DT_FORMAT.format(mDeliveryTime);
+		}
+		return StringUtils.EMPTY;
 	}
 
-	public void setDeliveryTime(final Date pDeliveryTime) {
+	public void setDeliveryTime (final Date pDeliveryTime) {
 		mDeliveryTime = pDeliveryTime;
 	}
 
-	public String getTrackingNo() {
+	public String getTrackingNo () {
 		return mTrackingNo;
 	}
 
-	public void setTrackingNo(final String pTrackingNo) {
+	public void setTrackingNo (final String pTrackingNo) {
 		mTrackingNo = pTrackingNo;
 	}
 
-	public void setDeliveryTime(final String pDeliveryTimeString) {
+	public void setDeliveryTime (final String pDeliveryTimeString) {
 		if (StringUtils.isNotBlank(pDeliveryTimeString)) {
 			try {
 				mDeliveryTime = DT_FORMAT.parse(pDeliveryTimeString);
