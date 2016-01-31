@@ -40,7 +40,7 @@
 		SELECT COUNT(o.ORDER_ID)
 		FROM `ORDER` o
 		LEFT JOIN `USERS` u ON u.USER_ID = o.USER_ID
-		WHERE 1 = 1
+		WHERE 1 = 1 AND o.STATUS &gt; 10
 		<include refid="query-order-condition" />
 	</select>
 
