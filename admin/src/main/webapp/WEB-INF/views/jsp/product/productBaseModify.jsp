@@ -9,6 +9,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList" pageJsPath="/resources/product/product-base.js">
 	<style>
@@ -167,7 +168,8 @@
 								<label class="col-xs-3 control-label">市场价</label>
 
 								<div class="col-xs-4">
-									<form:input path="listPrice" class="form-control pgt-requisite-price1" placeholder="格式为xxxx.xx"/>
+
+									<input name="listPrice" class="form-control pgt-requisite-price1" placeholder="格式为xxxx.xx" value="<fmt:formatNumber value="${product.listPrice}" type="currency" pattern="#0.00"/>"/>
 								</div>
 								<div class="col-xs-4">
 									<p class="form-control-static pgt-error">
@@ -178,7 +180,7 @@
 								<label class="col-xs-3 control-label">绝当价</label>
 
 								<div class="col-xs-4">
-									<form:input path="salePrice" class="form-control pgt-requisite-price2" placeholder="格式为xxxx.xx"/>
+									<input name="salePrice" class="form-control pgt-requisite-price2" placeholder="格式为xxxx.xx" value="<fmt:formatNumber value="${product.salePrice}" type="currency" pattern="#0.00"/>"/>
 								</div>
 								<div class="col-xs-4">
 									<p class="form-control-static pgt-error">

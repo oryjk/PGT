@@ -79,20 +79,21 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
 
         if (configuration.getUseES() == true) {
             // get root categories
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
+//            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
                 SearchResponse rootSearchResponse = esSearchService.findRootCategory();
                 if (!ObjectUtils.isEmpty(rootSearchResponse)) {
                     SearchHits searchHits = rootSearchResponse.getHits();
                     if (!ObjectUtils.isEmpty(searchHits)) {
                         SearchHit[] rootCategory = searchHits.getHits();
                         LOGGER.debug("The root category size is {}.", ObjectUtils.isEmpty(rootCategory) ? 0 : rootCategory.length);
-                        applicationContext.setAttribute(Constants.ROOT_CATEGORIES, rootCategory);
+//                        applicationContext.setAttribute(Constants.ROOT_CATEGORIES, rootCategory);
+                        modelAndView.addObject(Constants.ROOT_CATEGORIES,rootCategory);
                     }
                 }
-            }
+//            }
 
 
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_PRODUCTS))) {
+//            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_PRODUCTS))) {
                 ESSort esSort = new ESSort();
                 esSort.setPropertyName(Constants.SORT);
                 esSort.setSortOrder(SortOrder.ASC);
@@ -100,29 +101,32 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
                 SearchHits searchHits = searchResponse.getHits();
                 SearchHit[] hotProducts = searchHits.getHits();
                 if (hotProducts.length != 0) {
-                    applicationContext.setAttribute(Constants.HOT_PRODUCTS, hotProducts);
+//                    applicationContext.setAttribute(Constants.HOT_PRODUCTS, hotProducts);
+                    modelAndView.addObject(Constants.HOT_PRODUCTS,hotProducts);
                 }
 
-            }
+//            }
 
 
             // get navigation categories
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.NAVIFATION_CATEGORIES))) {
+//            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.NAVIFATION_CATEGORIES))) {
                 List<Category> navigationCategories = categoryHelper.findNavigationCategories();
-                applicationContext.setAttribute(Constants.NAVIFATION_CATEGORIES, navigationCategories);
-            }
+//                applicationContext.setAttribute(Constants.NAVIFATION_CATEGORIES, navigationCategories);
+                modelAndView.addObject(Constants.NAVIFATION_CATEGORIES,navigationCategories);
+//            }
 
             // get hot search
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_SEARCH_LIST))) {
+//            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_SEARCH_LIST))) {
                 List<HotSearch> hotSearchList = productService.queryAllHotsearch();
-                applicationContext.setAttribute(Constants.HOT_SEARCH_LIST, hotSearchList);
-
-            }
+//                applicationContext.setAttribute(Constants.HOT_SEARCH_LIST, hotSearchList);
+                modelAndView.addObject(Constants.HOT_SEARCH_LIST,hotSearchList);
+//            }
 
             Banner TopBanner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
             if (!ObjectUtils.isEmpty(TopBanner)) {
                 LOGGER.debug("The query TopBanner id is {}", TopBanner.getBannerId());
-                applicationContext.setAttribute("TopBanner", TopBanner);
+//                applicationContext.setAttribute("TopBanner", TopBanner);
+                modelAndView.addObject("TopBanner",TopBanner);
             }
 
 
