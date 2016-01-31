@@ -14,6 +14,8 @@
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 		<result column="easy_buy" property="easyBuy" />
+		<association column="order_id" property="shippingVO" select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
+		<association column="order_id" property="payment" select="com.pgt.payment.dao.PaymentMapper.findPaymentGroupByOrderId" />
 	</resultMap>
 
 	<resultMap id="commerceItem" type="com.pgt.cart.bean.CommerceItem">
