@@ -79,7 +79,7 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
         }
 
 
-        if (configuration.getUseES() == true && ObjectUtils.isEmpty(modelAndView)) {
+        if (configuration.getUseES() == true && !ObjectUtils.isEmpty(modelAndView)) {
             buildRootCategory(modelAndView);
 // discard
         } else {
