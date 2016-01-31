@@ -37,6 +37,7 @@
                     <!-- BEGIN FORM-->
                     <form action="/order/make-delivery" class="form-horizontal" method="post">
                         <input type="hidden" name="id" value="${param.id}" />
+                        <input type="hidden" name="cid" value="${param.cid}" />
                         <input type="hidden" name="commerceItemId" value="${commerceItem.delivery.commerceItemId}" />
                         <div class="form-body">
                             <c:if test="${commerceItem.delivery.commerceItemId gt 0}">
@@ -71,10 +72,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">发货日期：</label>
+                                <label class="col-md-3 control-label">发货时间：</label>
 
                                 <div class="col-md-4">
-                                    <input name="deliveryTimeStr" value="${commerceItem.delivery.deliveryTimeStr}" class="form-control input-small input-inline" maxlength="16"
+                                    <input name="deliveryTimeStr" value="${commerceItem.delivery.deliveryTimeStr}" class="form-control input-middle input-inline" maxlength="16"
                                            onfocus="$(this).calendar()">
                                 </div>
                             </div>
