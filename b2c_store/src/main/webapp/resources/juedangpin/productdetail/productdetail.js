@@ -106,7 +106,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
             event.preventDefault();
 
-            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'), function() {
+            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function() {
                 that.html('<span><i class="foundicon-checkmark"></i> 已加入</span>');
                 $("#right-menu").load('/product/buy');
             });
