@@ -539,6 +539,7 @@
 
 	<c:if test="${loadJsDateInput}">
 	<link rel="stylesheet" href="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.css"/>
+	<link rel="stylesheet" href="${ctx}/resources/core/css/myself-date.css"/>
 	<script src="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.js"></script>
 	</c:if>
 	<c:if test="${dashboard}">

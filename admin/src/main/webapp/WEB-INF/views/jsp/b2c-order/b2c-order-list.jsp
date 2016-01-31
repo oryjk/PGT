@@ -11,10 +11,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="pagination" value="${b2cOrderPage}" scope="request" />
+<c:set var="pagination" value="${b2cOrderPage}" scope="request"/>
 
 <pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/order-list.js">
-    <jsp:include page="include/bread-crumb-row.jspf" />
+    <jsp:include page="include/bread-crumb-row.jspf"/>
     <div class="row" style="display: none;">
         <div class="col-xs-12">
             <div class="Metronic-alerts alert alert-danger fade in">
@@ -36,8 +36,8 @@
                 </div>
                 <div class="portlet-body">
                     <form action="/order/order-list">
-                        <input type="hidden" name="currentIndex" value="${param.currentIndex}" />
-                        <input type="hidden" name="capacity" value="${param.capacity}" />
+                        <input type="hidden" name="currentIndex" value="${param.currentIndex}"/>
+                        <input type="hidden" name="capacity" value="${param.capacity}"/>
 
                         <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                             <div class="row">
@@ -45,7 +45,8 @@
                                     <div class="dataTables_filter">
                                         <label>订单ID:
                                             <input type="search" name="id" value="${param.id}"
-                                                   class="form-control input-small input-inline" placeholder="订单ID" aria-controls="sample_3" />
+                                                   class="form-control input-small input-inline" placeholder="订单ID"
+                                                   aria-controls="sample_3"/>
                                         </label>
                                     </div>
                                 </div>
@@ -53,7 +54,8 @@
                                     <div class="dataTables_filter">
                                         <label>用户名:
                                             <input type="search" name="userName" value="${param.userName}"
-                                                   class="form-control input-small input-inline" placeholder="昵称或账号" aria-controls="sample_3">
+                                                   class="form-control input-small input-inline" placeholder="昵称或账号"
+                                                   aria-controls="sample_3">
                                         </label>
                                     </div>
                                 </div>
@@ -62,41 +64,38 @@
                                         <label>金额:
                                             <input type="search" name="priceBeg" value="${param.priceBeg}"
                                                    class="form-control input-xsmall input-inline"
-                                                   placeholder="最低" aria-controls="sample_3" />
-                                               -
+                                                   placeholder="最低" aria-controls="sample_3"/>
+                                            -
                                             <input type="search" name="priceEnd" value="${param.priceEnd}"
                                                    class="form-control input-xsmall input-inline"
-                                                   placeholder="最高" aria-controls="sample_3" />
+                                                   placeholder="最高" aria-controls="sample_3"/>
                                         </label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-10">
+                                <div class="col-xs-4">
                                     <div class="dataTables_filter">
                                         <div class="row">
-                                            <div class="col-xs-1 pgt-time-tittle">
+                                            <div class="col-xs-2 pgt-time-tittle">
                                                 <span>时间: </span>
                                             </div>
-                                            <div class="col-xs-2 pgt-begin-date" style="position: relative">
-                                                <input name="submitTimeBeg" value="${param.submitTimeBeg}" class="form-control input-small input-inline" maxlength="16"
+                                            <div class="col-xs-4 pgt-begin-date" style="position: relative">
+                                                <input name="submitTimeBeg" value="${param.submitTimeBeg}"
+                                                       class="jcDate jcDateIco form-control input-middle input-inline" maxlength="16"
                                                        onfocus="$(this).calendar()">
                                             </div>
-
-
-                                            <div class="col-xs-1 pgt-date-divide">
-                                                <span style="padding-left: 20px;">至</span>
+                                            <div class="col-xs-4 pgt-date-divide">
+                                                <span style="padding-left: 30px;">至</span>
                                             </div>
-                                            <div class="col-xs-2">
-                                                <input name="submitTimeEnd" value="${param.submitTimeEnd}" class="form-control input-small input-inline" maxlength="16"
+                                            <div class="col-xs-4">
+                                                <input name="submitTimeEnd" value="${param.submitTimeEnd}"
+                                                       class="jcDate jcDateIco form-control input-middle input-inline" maxlength="16"
                                                        onfocus="$(this).calendar()">
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-1">
-                                    <input type="submit" class="btn blue" value="搜索" />
+                                    <input type="submit" class="btn blue" value="搜索"/>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +106,8 @@
                             <thead>
                             <tr role="row">
                                 <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
-                                    colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
+                                    colspan="1" aria-sort="ascending"
+                                    aria-label="Username : activate to sort column ascending">
                                     订单号
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
@@ -173,14 +173,16 @@
                             <c:forEach var="order" items="${b2cOrderPage.result}">
                                 <tr class="gradeX odd" role="row">
                                     <td class="sorting_1">${order.id}</td>
-                                    <td><fmt:formatDate value="${order.submitDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                    <td><fmt:formatDate value="${order.submitDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                     <td>${order.commerceItemCount}</td>
-                                    <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></td>
+                                    <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number"/></td>
                                     <td>${order.userId}</td>
-                                    <td><a href="/order/order-info?id=${order.id}" class="btn btn-xs btn-circle">查看</a></td>
+                                    <td><a href="/order/order-info?id=${order.id}" class="btn btn-xs btn-circle">查看</a>
+                                    </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-xs blue" href="javascript:;" ${order.status ne -10 ? 'data-toggle="dropdown"' : ''}>
+                                            <a class="btn btn-xs blue"
+                                               href="javascript:;" ${order.status ne -10 ? 'data-toggle="dropdown"' : ''}>
                                                 <c:choose>
                                                     <c:when test="${order.status eq 10}">
                                                         <span>待提交</span>
@@ -209,19 +211,22 @@
                                             <ul class="dropdown-menu pull-right">
                                                 <c:if test="${order.status eq 30}">
                                                     <li>
-                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="20" data-order-id="${order.id}">
+                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="20"
+                                                           data-order-id="${order.id}">
                                                             待付款 </a>
                                                     </li>
                                                 </c:if>
                                                 <c:if test="${order.status eq 10 or order.status eq 20 or order.status eq 30}">
                                                     <li>
-                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="100" data-order-id="${order.id}">
+                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="100"
+                                                           data-order-id="${order.id}">
                                                             已完成 </a>
                                                     </li>
                                                 </c:if>
                                                 <c:if test="${order.status eq 10 or order.status eq 20 or order.status eq 30}">
                                                     <li>
-                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="-10" data-order-id="${order.id}">
+                                                        <a href="javascript:;" data-pgt-btn="modify" data-status="-10"
+                                                           data-order-id="${order.id}">
                                                             已取消 </a>
                                                     </li>
                                                 </c:if>
@@ -244,15 +249,15 @@
                         <div class="row">
                             <jsp:include page="include/pagination-capacity-selection.jsp">
                                 <jsp:param name="paginationURL"
-                                           value="/order/order-list?id=${param.id}&userName=${param.userName}&priceBeg=${param.priceBeg}&priceEnd=${param.priceEnd}&submitTimeBeg=${param.submitTimeBeg}&submitTimeEnd=${param.submitTimeEnd}" />
+                                           value="/order/order-list?id=${param.id}&userName=${param.userName}&priceBeg=${param.priceBeg}&priceEnd=${param.priceEnd}&submitTimeBeg=${param.submitTimeBeg}&submitTimeEnd=${param.submitTimeEnd}"/>
                             </jsp:include>
                         </div>
-                        <input type="hidden" name="id" value="${param.id}" />
-                        <input type="hidden" name="userName" value="${param.userName}" />
-                        <input type="hidden" name="priceBeg" value="${param.priceBeg}" />
-                        <input type="hidden" name="priceEnd" value="${param.priceEnd}" />
-                        <input type="hidden" name="submitTimeBeg" value="${param.submitTimeBeg}" />
-                        <input type="hidden" name="submitTimeEnd" value="${param.submitTimeEnd}" />
+                        <input type="hidden" name="id" value="${param.id}"/>
+                        <input type="hidden" name="userName" value="${param.userName}"/>
+                        <input type="hidden" name="priceBeg" value="${param.priceBeg}"/>
+                        <input type="hidden" name="priceEnd" value="${param.priceEnd}"/>
+                        <input type="hidden" name="submitTimeBeg" value="${param.submitTimeBeg}"/>
+                        <input type="hidden" name="submitTimeEnd" value="${param.submitTimeEnd}"/>
                     </form>
                 </div>
             </div>
@@ -260,7 +265,8 @@
     </div>
 
     <!--super: 确认操作modal-->
-    <div class="modal fade bs-modal-sm" id="confirmModal" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+    <div class="modal fade bs-modal-sm" id="confirmModal" tabindex="-1" role="basic" aria-hidden="true"
+         style="display: none;">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
