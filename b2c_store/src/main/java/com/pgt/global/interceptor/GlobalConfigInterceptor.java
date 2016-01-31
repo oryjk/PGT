@@ -79,7 +79,8 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
         }
 
 
-        if (configuration.getUseES() == true) {
+        if (configuration.getUseES() == true && ObjectUtils.isEmpty(modelAndView)) {
+            buildRootCategory(modelAndView);
 // discard
         } else {
             if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
@@ -126,6 +127,20 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
+    }
+
+
+    private void buildRootCategory(ModelAndView modelAndView) {
+
+        SearchResponse rootSearchResponse = esSearchService.findRootCategory();
+        if (!ObjectUtils.isEmpty(rootSearchResponse)) {
+            SearchHits searchHits = rootSearchResponse.getHits();
+            if (!ObjectUtils.isEmpty(searchHits)) {
+                SearchHit[] rootCategory = searchHits.getHits();
+                LOGGER.debug("The root category size is {}.", ObjectUtils.isEmpty(rootCategory) ? 0 : rootCategory.length);
+                modelAndView.addObject(Constants.ROOT_CATEGORIES, rootCategory);
+            }
+        }
     }
 
     public URLConfiguration getUrlConfiguration() {

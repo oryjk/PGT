@@ -143,7 +143,7 @@ public class HomeController {
 
     }
 
-    public void buildRootCategory(ModelAndView modelAndView) {
+    private void buildRootCategory(ModelAndView modelAndView) {
         SearchResponse rootSearchResponse = esSearchService.findRootCategory();
         if (!ObjectUtils.isEmpty(rootSearchResponse)) {
             SearchHits searchHits = rootSearchResponse.getHits();
