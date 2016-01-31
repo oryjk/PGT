@@ -88,8 +88,9 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
                 if (targetType == 'addCart') {
                     //加入购物车
-                    Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'));
-                    $("#right-menu").load('/product/buy');
+                    Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function(param) {
+                        $("#right-menu").load('/product/buy');
+                    });
 
                     $('.right-buy1').css({
                         'transform': 'scale(4)',
@@ -122,9 +123,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         $(document).on('click', '.sideRemoveCart', sideRemoveCart);
         $(document).on('click', '.sideAddEnjoy', sideAddEnjoy);
         $(document).on('click', '.sideDisEnjoy', sideDisEnjoy);
-
-
-
 
         //加入购物车
         function sideAddCart(event) {
@@ -177,10 +175,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                 }
             });
         }
-
-
-
-
 
     })
 
