@@ -90,6 +90,7 @@ public class ShippingController implements CartMessages {
 			return mav;
 		}
 		Order order = getOrderService().getSessionOrder(request);
+		getShoppingCartService().checkInventory(order);
 		if (getOrderService().isInvalidOrder(user, order)) {
 			String redirectUrl = "redirect:" + urlConfiguration.getShoppingCartPage();
 			mav.setViewName(redirectUrl);

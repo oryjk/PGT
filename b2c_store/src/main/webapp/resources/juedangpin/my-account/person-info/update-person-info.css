@@ -387,24 +387,21 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .product-name {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .product-name:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -434,8 +431,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .link-btn:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -488,24 +484,21 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .product-name {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .product-name:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 /*btn*/
 input:focus {
@@ -535,8 +528,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .link-btn:hover {
-    color: #d43139;
-  }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -677,11 +669,9 @@ span {
       cursor: pointer; }
     .recommend .tab .choose {
       cursor: auto;
-      border-color: #d43139;
-    }
+      border-color: #d43139; }
       .recommend .tab .choose h2 {
-        color: #d43139;
-      }
+        color: #d43139; }
     .recommend .tab h2 {
       margin: 0;
       padding: 0; }
@@ -703,8 +693,7 @@ span {
     z-index: 1;
     margin: 0 -20px;
     padding: 15px 30px 10px;
-    border-bottom: 1px solid #d43139;
-  }
+    border-bottom: 1px solid #d43139; }
   .similar-box .move-left-box,
   .similar-box .move-right-box {
     position: absolute;
