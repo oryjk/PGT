@@ -58,7 +58,7 @@ public class ProductController extends InternalTransactionBaseController {
     private Configuration configuration;
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
-    public ModelAndView findProduct (@PathVariable("productId") String productId, ModelAndView modelAndView) {
+    public ModelAndView findProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
         LOGGER.debug("search the product with id {productId}.", productId);
         Product product = productService.queryProduct(Integer.valueOf(productId));
         if (product == null) {
@@ -72,7 +72,7 @@ public class ProductController extends InternalTransactionBaseController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView createProduct (HttpServletRequest pRequest, ModelAndView modelAndView) {
+    public ModelAndView createProduct(HttpServletRequest pRequest, ModelAndView modelAndView) {
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
@@ -88,7 +88,7 @@ public class ProductController extends InternalTransactionBaseController {
 
 
     @RequestMapping(value = "/create/stepBase", method = RequestMethod.POST)
-    public ModelAndView createStepBase (HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+    public ModelAndView createStepBase(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
@@ -118,7 +118,7 @@ public class ProductController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/create/stepImage", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity createProductMedias (ProductMedia productMedia) {
+    public ResponseEntity createProductMedias(ProductMedia productMedia) {
         TransactionStatus status = ensureTransaction();
         try {
             ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
@@ -172,7 +172,7 @@ public class ProductController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView createProduct (HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+    public ModelAndView createProduct(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
@@ -200,7 +200,7 @@ public class ProductController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/delete/{productId}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity deleteProduct (HttpServletRequest pRequest, @PathVariable("productId") String productId, ModelAndView modelAndView) {
+    public ResponseEntity deleteProduct(HttpServletRequest pRequest, @PathVariable("productId") String productId, ModelAndView modelAndView) {
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
@@ -234,7 +234,7 @@ public class ProductController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/delete/list", method = RequestMethod.POST)
-    public ResponseEntity deleteProducts (HttpServletRequest pRequest, List<String> products) {
+    public ResponseEntity deleteProducts(HttpServletRequest pRequest, List<String> products) {
         ResponseEntity responseEntity = new ResponseEntity(HttpStatus.OK);
         TransactionStatus status = ensureTransaction();
         try {// verify permission
@@ -258,7 +258,7 @@ public class ProductController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/update/{productId}", method = RequestMethod.GET)
-    public ModelAndView updateProduct (HttpServletRequest pRequest, @PathVariable("productId") Integer productId, ModelAndView modelAndView) {
+    public ModelAndView updateProduct(HttpServletRequest pRequest, @PathVariable("productId") Integer productId, ModelAndView modelAndView) {
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
@@ -279,40 +279,41 @@ public class ProductController extends InternalTransactionBaseController {
 
 
     @RequestMapping(value = "/update/stepBase", method = RequestMethod.POST)
-    public ModelAndView updateStepBase (HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+    public ModelAndView updateStepBase(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
+        // main logic
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty.");
+            return modelAndView;
+        }
         TransactionStatus status = ensureTransaction();
         try {
-            // verify permission
-            if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
-                return new ModelAndView(PERMISSION_DENIED);
-            }
-            // main logic
-            if (ObjectUtils.isEmpty(product)) {
-                LOGGER.debug("The product is empty.");
-                return modelAndView;
-            }
             product.setUpdateDate(new Date());
             productService.updateProductBase(product);
-            product = productService.queryProduct(product.getProductId());
-            modelAndView.addObject("product", product);
-            modelAndView.addObject("staticServer", configuration.getStaticServer());
-            modelAndView.setViewName("/product/productImageModify");
-            if (product.getStatus() == 0) {
-                esSearchService.deleteProductIndex(String.valueOf(product.getProductId()));
-                return modelAndView;
-            }
-            esSearchService.updateProductIndex(product);
-            return modelAndView;
+
         } catch (Exception e) {
             status.setRollbackOnly();
         } finally {
             getTransactionManager().commit(status);
         }
+        product = productService.queryProduct(product.getProductId());
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.setViewName("/product/productImageModify");
+        if (product.getStatus() == 0) {
+            esSearchService.deleteProductIndex(String.valueOf(product.getProductId()));
+            return modelAndView;
+        }
+        esSearchService.updateProductIndex(product);
         return modelAndView;
+
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ModelAndView updateProduct (HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+    public ModelAndView updateProduct(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
         TransactionStatus status = ensureTransaction();
         try {
             // verify permission
@@ -337,8 +338,8 @@ public class ProductController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView searchProducts (@RequestParam(required = false, value = "term") String term,
-                                        @RequestParam(required = false, value = "currentIndex") Integer currentIndex, ModelAndView modelAndView) {
+    public ModelAndView searchProducts(@RequestParam(required = false, value = "term") String term,
+                                       @RequestParam(required = false, value = "currentIndex") Integer currentIndex, ModelAndView modelAndView) {
         SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
         searchPaginationBean.setCurrentIndex(currentIndex);
         searchPaginationBean.setTerm(term);

@@ -8,13 +8,13 @@
     <parameterMap id="paramProduct" type="com.pgt.product.bean.Product">
     </parameterMap>
 
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache">
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
         <property name="timeToIdleSeconds" value="3600"/>
         <property name="timeToLiveSeconds" value="3600"/>
         <property name="maxEntriesLocalHeap" value="1000"/>
         <property name="maxEntriesLocalDisk" value="10000000"/>
         <property name="memoryStoreEvictionPolicy" value="LRU"/>
-    </cache>
+    </cache>-->
 
     <!--product result map -->
     <resultMap id="resultProduct" type="com.pgt.product.bean.Product">
@@ -34,6 +34,7 @@
         <result column="TITLE" property="title"/>
         <result column="KEY_WORD" property="keyWord"/>
         <result column="MERCHANT" property="merchant"/>
+        <result column="IS_HOT" property="isHot"/>
         <association property="relatedCategoryId" column="PRODUCT_ID"
                      select="queryRelatedCategoryId"/>
         <association property="shippingAddress" column="PRODUCT_ID"
