@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/side-bar/buy.css"/>"/>
@@ -39,7 +40,7 @@
         <a class="n-btn2"  onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'">结算</a>
 
         <div class="n-btn0">
-            <div class="n-btn">已选1件</div>
+            <div class="n-btn">已选${fn:length(order.commerceItems)}件</div>
             <div class="n-btn1">¥<fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></div>
         </div>
     </div>
