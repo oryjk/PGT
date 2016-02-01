@@ -126,6 +126,12 @@ $('#side-bar').scroll(function () {
                     $("#side-bar").animate({right:"-300px"});
                 flag = 0;
             })
+            $("#right-menu").mouseover(function(){
+                $("body").css("overflow",'hidden')
+            })
+            $("#right-menu").mouseout(function(){
+                $("body").css("overflow",'scroll')
+            })
         });
 
         //加入购物车
