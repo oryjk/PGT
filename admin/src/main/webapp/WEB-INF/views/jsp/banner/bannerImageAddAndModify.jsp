@@ -73,14 +73,14 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">开始时间:</label>
                                 <div class="col-md-4">
-                                    <input type="text" name="createDate" value="<fmt:formatDate value="${image.createDate}" type="both" />" class="form-control" placeholder="" maxlength="25" onfocus="$(this).calendar()">
+                                    <input type="text" name="createDate" value="<fmt:formatDate value="${image.createDate}" type="both" pattern="yyyy-MM-dd hh:mm" />" class="form-control" placeholder="" maxlength="25" onfocus="$(this).calendar()">
                                     </p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">结束时间:</label>
                                 <div class="col-md-4">
-                                    <input type="text" name="endDate" value="<fmt:formatDate value="${image.endDate}" type="both" />" class="form-control" placeholder="" maxlength="25" onfocus="$(this).calendar()">
+                                    <input type="text" name="endDate" value="<fmt:formatDate value="${image.endDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>" class="form-control" placeholder="" maxlength="25" onfocus="$(this).calendar()">
                                     </p>
                                 </div>
                             </div>

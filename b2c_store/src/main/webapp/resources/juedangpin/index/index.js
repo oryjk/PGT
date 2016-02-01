@@ -98,17 +98,16 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             var sideBar = $('.side-bar');
 
             scollElm.css({
-                padding: '10px 0'
+                padding: '20px 0'
             });
             var h = scollElm.innerHeight() - sideBar.innerHeight();
-            console.log(h)
-            if (scollPrt.scrollTop() > h-10) {
-                scollPrt.scrollTop(h-10);
-            }
-            if (scollPrt.scrollTop() < 10) {
-                scollPrt.scrollTop(10);
-            }
 
+            if (scollPrt.scrollTop() > h-20) {
+                scollPrt.scrollTop(h-20);
+            }
+            if (scollPrt.scrollTop() < 20) {
+                scollPrt.scrollTop(20);
+            }
         });
 
 
@@ -147,8 +146,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
                     $("#side-bar").animate({right:"-300px"});
                 flag = 0;
             })
-
-
         });
 
         //加入购物车
