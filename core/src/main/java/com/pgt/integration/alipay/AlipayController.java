@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pgt.payment.bean.TransactionLog;
 import com.pgt.sms.service.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +66,7 @@ public class AlipayController {
         try {
             getPaymentService().ensureTransaction();
             PaymentGroup paymentGroup = getPaymentService().maintainPaymentGroup(order, PaymentConstants.METHOD_ALIPAY);
-            Map<String, String> paramsMap = getAlipayService().buildRequestMap(order);
+
             Transaction transaction = new Transaction();
             transaction.setAmount(order.getTotal());
             transaction.setCreationDate(new Date());
@@ -74,8 +76,11 @@ public class AlipayController {
             transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
             transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_ALIPAY);
             getPaymentService().createTransaction(transaction);
-            getAlipayService().createAlipayTransactionLog(transaction.getId(), session, order, paymentGroup, paramsMap);
-
+            TransactionLog transactionLog = getAlipayService().createAlipayTransactionLog(transaction.getId(), session, order, paymentGroup);
+            Map<String, String> paramsMap = getAlipayService().buildRequestMap(order, transactionLog.getId());
+            ObjectMapper mapper = new ObjectMapper();
+            transactionLog.setOutbound(mapper.writeValueAsString(paramsMap));
+            getAlipayService().updateAlipayTransactionLog(transactionLog);
             LOGGER.debug("Collected all required parameters and submit form to alipay payment gateway.");
             model = new ModelAndView("checkout/alipayForm");
             model.addObject("alipayParams", paramsMap);

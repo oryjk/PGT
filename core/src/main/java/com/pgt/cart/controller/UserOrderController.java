@@ -44,7 +44,7 @@ public class UserOrderController extends TransactionBaseController implements Us
 			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
 			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
 			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
+			@RequestParam(value = "asc", required = false, defaultValue = "false") String asc,
 			@RequestParam(value = "status", required = false, defaultValue = "0") int status) {
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
