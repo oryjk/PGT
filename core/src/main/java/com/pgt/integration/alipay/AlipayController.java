@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pgt.cart.controller.TransactionBaseController;
 import com.pgt.payment.bean.TransactionLog;
 import com.pgt.sms.service.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,7 +38,7 @@ import com.pgt.payment.service.PaymentService;
 
 @Controller
 @RequestMapping("/alipay")
-public class AlipayController {
+public class AlipayController extends TransactionBaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AlipayController.class);
     @Autowired
     private AlipayService alipayService;
@@ -105,7 +107,7 @@ public class AlipayController {
         LOGGER.debug("{} for Alipay.", success);
         ModelAndView mav = new ModelAndView();
         if (success) {
-            handleSuccessfulAlipayNotify(request, order);
+            handleSuccessfulAlipayNotify(request, order, false);
             mav.setViewName("redirect:/payment/complete?orderId=" + orderId);
             redirectAttributes.addFlashAttribute(PaymentConstants.PAID_SUCCESS_FLAG, Constants.TRUE);
             return mav;
@@ -127,7 +129,7 @@ public class AlipayController {
         LOGGER.debug("{} for Alipay.", success);
         if (success) {
             try {
-                handleSuccessfulAlipayNotify(request, order);
+                handleSuccessfulAlipayNotify(request, order, true);
                 PrintWriter writer = response.getWriter();
                 writer.print("success");
                 writer.flush();
@@ -140,28 +142,43 @@ public class AlipayController {
 
     }
 
-    public void handleSuccessfulAlipayNotify(HttpServletRequest request, Order order) {
-        Integer orderId = getAlipayService().getOrderIdFromNotify(request);
-        PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(orderId);
-        if (paymentGroup == null) {
-            LOGGER.error("Cannot get paymentgroup by order id-{} after successing to pay the order by alipay.",
-                    orderId);
-            return;
+    public void handleSuccessfulAlipayNotify(HttpServletRequest request, Order order, Boolean isNotify) {
+        TransactionStatus status = ensureTransaction();
+        try {
+
+            Integer orderId = getAlipayService().getOrderIdFromNotify(request);
+            PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(orderId);
+            if (isNotify) {
+                Transaction transaction = getPaymentService().findTransactionByTrackingNumber(request.getParameter(AlipayConstants.OUT_TRADE_NO));
+                transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
+            }
+
+
+            if (paymentGroup == null) {
+                LOGGER.error("Cannot get paymentgroup by order id-{} after successing to pay the order by alipay.",
+                        orderId);
+                return;
+            }
+            if (PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
+                LOGGER.info("Had saved alipay result for order-{} before.", orderId);
+                return;
+            }
+            getAlipayService().updateAlipayTransactionLog(request);
+            getAlipayService().saveAlipayResult(request);
+            paymentGroup.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
+            getPaymentService().updatePaymentGroup(paymentGroup);
+            if (order != null) {
+                order.setStatus(OrderStatus.PAID);
+                getShoppingCartService().updateOrder(order);
+                smsService.sendPaidOrderMessage(order);
+            }
+            LOGGER.info("Successed to pay order-{} by alipay.", orderId);
+        } catch (Exception e) {
+            LOGGER.error("The error message is {}.", e.getMessage());
+            getTransactionManager().rollback(status);
+        } finally {
+            getTransactionManager().commit(status);
         }
-        if (PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
-            LOGGER.info("Had saved alipay result for order-{} before.", orderId);
-            return;
-        }
-        getAlipayService().updateAlipayTransactionLog(request);
-        getAlipayService().saveAlipayResult(request);
-        paymentGroup.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
-        getPaymentService().updatePaymentGroup(paymentGroup);
-        if (order != null) {
-            order.setStatus(OrderStatus.PAID);
-            getShoppingCartService().updateOrder(order);
-            smsService.sendPaidOrderMessage(order);
-        }
-        LOGGER.info("Successed to pay order-{} by alipay.", orderId);
     }
 
     public AlipayService getAlipayService() {
