@@ -37,7 +37,7 @@
                         <li><h2 data-tab="1">最近浏览</h2></li>
                     </c:when>
                     <c:otherwise>
-                        <li><h2 class="choose" data-tab="1">最近浏览</h2></li>
+                        <li class="choose"><h2 class="choose" data-tab="1">最近浏览</h2></li>
                     </c:otherwise>
                 </c:choose>
             </c:if>
@@ -47,7 +47,7 @@
                         <li><h2 data-tab="2">我的收藏</h2></li>
                     </c:when>
                     <c:otherwise>
-                        <li><h2 class="choose" data-tab="2">最近浏览</h2></li>
+                        <li class="choose"><h2 class="choose" data-tab="2">最近浏览</h2></li>
                     </c:otherwise>
                 </c:choose>
             </c:if>

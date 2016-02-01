@@ -43,6 +43,12 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             right: $('#moveLeft3')
         });
 
+        Cpn.tab({
+            tabArea: $('#recommend>div'),
+            tabLi: $('#tab>li'),
+            tabTarget: $('#tab h2')
+        });
+
         //纵向列表高度和右边内容一致
         $('#verticalList').parent().css({
             maxHeight: $('#main').outerHeight(true) - 124 + 'px'
