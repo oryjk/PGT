@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>绝当品</title>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/shopping-cart/cart.css"/>" />
 </head>
@@ -38,26 +39,28 @@
             </div>
         </div>
     </div>
-    <div class="logo-box">
-        <h1>
-            <a href="#">
-                购物车
-            </a>
-        </h1>
-        <ul id="step" class="step4">
-            <li>
-                <h3 class="step1-text">我的购物车</h3>
-            </li>
-            <li>
-                <h3 class="step2-text">确认订单</h3>
-            </li>
-            <li>
-                <h3 class="step3-text">选择支付方式</h3>
-            </li>
-            <li>
-                <h3 class="step4-text">支付成功</h3>
-            </li>
-        </ul>
+    <div class="head-box">
+        <div class="logo-box">
+            <h1>
+                <a href="#">
+                    购物车
+                </a>
+            </h1>
+            <ul id="step" class="step4">
+                <li>
+                    <h3 class="step1-text">我的购物车</h3>
+                </li>
+                <li>
+                    <h3 class="step2-text">确认订单</h3>
+                </li>
+                <li>
+                    <h3 class="step3-text">选择支付方式</h3>
+                </li>
+                <li>
+                    <h3 class="step4-text">支付成功</h3>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 

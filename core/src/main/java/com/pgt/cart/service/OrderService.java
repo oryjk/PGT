@@ -58,7 +58,7 @@ public class OrderService {
         if (StringUtils.isBlank(orderId)) {
             return null;
         }
-        Order cartOrder = (Order) request.getSession().getAttribute(CartConstant.CURRENT_ORDER);
+        Order cartOrder = (Order) request.getAttribute(CartConstant.CURRENT_ORDER);
         if (cartOrder != null && orderId.equals(String.valueOf(cartOrder.getId()))) {
             return cartOrder;
         }

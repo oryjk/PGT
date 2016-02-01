@@ -6,7 +6,13 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd ">
-
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:global.properties</value>
+            </list>
+        </property>
+    </bean>
     <import resource="yeepay-config.xml"/>
     <import resource="alipay-config.xml"/>
     <context:component-scan base-package="com.*"/>
@@ -55,7 +61,7 @@
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:customValidationMessages"></property>
+        <property name="basename" value="classpath*:customValidationMessages"></property>
         <property name="defaultEncoding" value="utf-8"></property>
         <property name="cacheSeconds" value="120"></property>
     </bean>
@@ -162,13 +168,6 @@
         </property>
     </bean>
 
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath*:customProperties.properties</value>
-            </list>
-        </property>
-    </bean>
 
     <bean id="B2COrderService" class="com.pgt.order.service.B2COrderService">
         <property name="orderStatusMapping">

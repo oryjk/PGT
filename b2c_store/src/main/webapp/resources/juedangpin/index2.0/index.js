@@ -50,7 +50,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
                 if (targetType == 'addCart') {
                     //加入购物车
-                    Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount'));
+                    Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, .right-buy1, #cartCount'));
                     $('#asideCartCount').parent().css({
                         'transform': 'scale(4)',
                         'opacity': '.5'

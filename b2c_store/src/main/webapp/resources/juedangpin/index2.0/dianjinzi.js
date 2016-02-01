@@ -15,10 +15,41 @@ $(function(){
     });
 });
 
-$(function () {
-    var height = $('body').height();
-    $(".right").css("height", height);
+//right-box
+$(function(){
+
+    var flag = 0;
+    var status = "";
+    $(".right1").click(function(event){
+        event.preventDefault();
+
+        var m_status = $(this).attr("title");
+        if(status != m_status || flag == 0){
+            $("#right").animate({right:"0"});
+            var url = $(this).attr("path");
+            status = $(this).attr("title");
+            $("#right").show();
+            $("#right-menu").load(url);
+            flag = 1;
+        }else if(flag == 1 && status == m_status){
+            $("#right").animate({right:"-300px"});
+            flag = 0;
+        }
+
+        return false;
+    });
+
+    $('#header, #content, #footer').click(function() {
+        $("#right").animate({right:"-300px"});
+        flag = 0;
+    })
 });
+
+
+//$(function () {
+//    var height = window.screen.height;
+//    $(".right").css("height", height);
+//});
 
 $(function(){
     $(".content-top-f1").hide();

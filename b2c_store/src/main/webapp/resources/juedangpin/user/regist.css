@@ -390,7 +390,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .regist-protocol:hover, .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -444,7 +444,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .regist-protocol:hover, .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -538,7 +538,7 @@ span {
   .logo-box .logo {
     float: left;
     width: 280px;
-    background: url("../core/images/header/images/big-logo_text.jpg") no-repeat 91px 10px; }
+    background: url("../core/images/header/logo-red.jpg") no-repeat 0 25px; }
   .logo-box a {
     display: block;
     width: 100%;
@@ -573,9 +573,6 @@ span {
       width: 50px;
       height: 60px;
       background: url("../core/images/header/golds.png") no-repeat 0 -500px; }
-    .logo-box a:hover img {
-      -webkit-animation: mylogo 1s .5s;
-      animation: mylogo 1s .5s; }
   .logo-box h1 {
     padding: 0;
     margin: 0;
@@ -629,7 +626,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .regist-protocol:hover, .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -703,7 +700,7 @@ input[type=password] {
   width: 90%; }
   input[type=text]:focus,
   input[type=password]:focus {
-    border: 1px solid #ffaa00; }
+    border: 1px solid #d43139; }
 
 .registSub,
 .getPhoneCom {

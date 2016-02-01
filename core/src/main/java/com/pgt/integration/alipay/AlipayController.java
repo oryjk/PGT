@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pgt.sms.service.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class AlipayController {
     private OrderService orderService;
     @Autowired
     private URLConfiguration urlConfiguration;
+    @Autowired
+    private SmsService smsService;
 
     @Resource(name = "paymentService")
     private PaymentService paymentService;
@@ -151,6 +154,7 @@ public class AlipayController {
         if (order != null) {
             order.setStatus(OrderStatus.PAID);
             getShoppingCartService().updateOrder(order);
+            smsService.sendPaidOrderMessage(order);
         }
         LOGGER.info("Successed to pay order-{} by alipay.", orderId);
     }

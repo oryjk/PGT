@@ -1,0 +1,89 @@
+.n-all {
+  overflow: scroll;
+  width: 300px; }
+
+.n-header {
+  color: #000;
+  width: 300px;
+  height: 38px; }
+  .n-header .n-header-left {
+    border-bottom: 1px solid #ccc;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    float: left; }
+    .n-header .n-header-left img {
+      width: 30px;
+      height: 30px; }
+
+.n-content {
+  color: #000;
+  width: 300px; }
+  .n-content .n-box1 {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    margin-top: 5px;
+    padding-top: 5px;
+    position: relative; }
+  .n-content .cart-product {
+    overflow: hidden;
+    padding: 0 0 10px 10px;
+    display: block;
+    width: 240px; }
+  .n-content .cart-thumnail {
+    float: left;
+    width: 60px;
+    height: 60px; }
+  .n-content .n-box1-font {
+    margin-left: 70px;
+    height: 40px; }
+  .n-content .n-box1-font1 {
+    color: #d43139;
+    font-size: 14px;
+    margin-left: 70px; }
+    .n-content .n-box1-font1 span {
+      color: #d43139; }
+  .n-content .n-box1-img {
+    position: absolute;
+    top: 20px;
+    right: 20px; }
+    .n-content .n-box1-img img {
+      width: 10px;
+      height: 10px; }
+  .n-content .sideRemoveCart:hover {
+    background: white; }
+
+.n-footer {
+  position: absolute;
+  bottom: 0;
+  background: white;
+  width: 300px; }
+  .n-footer .n-btn0 {
+    padding: 10px 0 10px 30px;
+    width: 300px; }
+  .n-footer .n-btn1 {
+    color: #d43139;
+    padding-top: 8px; }
+  .n-footer .n-btn2 {
+    margin: 10px;
+    float: right;
+    text-align: center;
+    width: 50px;
+    padding: 10px 30px;
+    color: white;
+    font-size: 15px;
+    background: #d43139; }
+
+.n-box1 a:link,
+.n-box1 a:visited {
+  color: #000; }
+
+.n-content a:link,
+.n-content a:visited {
+  text-decoration: none;
+  background: none; }
+
+.n-other {
+  height: 1000px; }

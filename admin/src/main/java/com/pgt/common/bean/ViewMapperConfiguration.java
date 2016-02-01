@@ -7,8 +7,17 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ViewMapperConfiguration {
-    private String productListPage="/product/productList";
+    private String productListPage ="/product/productList";
 
+    private String tenderListPage  = "/tender/tenderList";
+
+    public String getTenderListPage () {
+        return tenderListPage;
+    }
+
+    public void setTenderListPage (String tenderListPage) {
+        this.tenderListPage = tenderListPage;
+    }
     public String getProductListPage() {
         return productListPage;
     }

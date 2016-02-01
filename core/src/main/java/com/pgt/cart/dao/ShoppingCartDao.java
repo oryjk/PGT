@@ -18,27 +18,31 @@ import java.util.Map;
 @Repository(value = "shoppingCartDao")
 public interface ShoppingCartDao extends SqlMapper {
 
-	Order loadInitialOrderByUserId(@Param("userId") final int pUserId);
+	Order loadInitialOrderByUserId (@Param("userId") final int pUserId);
 
-	int createOrder(Order pOrder);
+	List<Order> loadInitialOrdersByUserId (@Param("userId") final int pUserId);
 
-	int updateOrder(Order pOrder);
+	int createOrder (Order pOrder);
 
-	int createCommerceItem(CommerceItem pTransientItem);
+	int updateOrder (Order pOrder);
 
-	int updateCommerceItems(List<CommerceItem> pPersistentItems);
+	int createCommerceItem (CommerceItem pTransientItem);
 
-	List<CommerceItem> loadCommerceItemsFromOrderWithRealTimePrice(@Param("orderId") int pOrderId);
+	int updateCommerceItems (List<CommerceItem> pPersistentItems);
 
-	@MapKey("productId")
-	Map<Integer, ProductPriceVector> loadProductPrice(Integer[] pProductIds);
-
-	int deleteCommerceItem(@Param("commerceItemId") int pCommerceItemId);
-
-	void deleteAllCommerceItems(@Param("orderId") int pOrderId);
-
-	int deleteCommerceItems(List<Integer> pCommerceItemIds);
+	List<CommerceItem> loadCommerceItemsFromOrderWithRealTimePrice (@Param("orderId") int pOrderId);
 
 	@MapKey("productId")
-	Map<Integer, ProductInventoryVector> loadProductInventory(Integer[] pProductIds);
+	Map<Integer, ProductPriceVector> loadProductPrice (Integer[] pProductIds);
+
+	int deleteCommerceItem (@Param("commerceItemId") int pCommerceItemId);
+
+	void deleteAllCommerceItems (@Param("orderId") int pOrderId);
+
+	int deleteCommerceItems (List<Integer> pCommerceItemIds);
+
+	@MapKey("productId")
+	Map<Integer, ProductInventoryVector> loadProductInventory (Integer[] pProductIds);
+
+	void deleteOrders (List<Integer> pOrderIds);
 }

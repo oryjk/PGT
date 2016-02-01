@@ -13,7 +13,7 @@
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<pgt:container id="content">
+<pgt:container id="content" loadJsDateInput="true" >
     <jsp:include page="include/bread-crumb-row.jspf">
         <jsp:param name="step" value="delivery" />
     </jsp:include>
@@ -72,22 +72,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">发货日期：</label>
-
-                                <div class="col-md-4">
-                                    <input class="jcDate jcDateIco form-control input-small input-inline" name="deliveryTimeStr" value="<fmt:formatDate
-                                    value="${commerceItem.delivery.deliveryTime}"
-                                    pattern="yyyy-MM-dd" />">
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-md-3 control-label">发货时间：</label>
 
                                 <div class="col-md-4">
-                                    <input type="search" class="form-control input-xsmall input-inline" placeholder="小时">
-                                    :
-                                    <input type="search" class="form-control input-xsmall input-inline" placeholder="分钟">
-
+                                    <input name="deliveryTimeStr" value="${commerceItem.delivery.deliveryTimeStr}" class="form-control input-middle input-inline" maxlength="16"
+                                           onfocus="$(this).calendar()">
                                 </div>
                             </div>
                             <div class="form-group">

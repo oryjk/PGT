@@ -11,6 +11,7 @@
 <title>绝当品</title>
 <link rel="stylesheet"
 	href="<spring:url value="${juedangpinStaticPath}/searchPage/searchPage.css"/>" />
+	<link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
 <script
 	src="<spring:url value="${juedangpinStaticPath}/core/js/pageView.js"/>"></script>
 </head>
@@ -341,8 +342,12 @@
 			</jsp:include>
 		</div>
 	</div>
+	<%--
 			<jsp:include page="../core/helpSide.jsp"/>
-			<jsp:include page="../core/footer-main.jsp" />
+		--%>
+				<jsp:include page="../core/footer-main.jsp" >
+					<jsp:param name="useside" value="true" />
+				</jsp:include>
 
 </body>
 

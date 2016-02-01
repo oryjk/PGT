@@ -96,10 +96,10 @@
         <img class="two-dimension" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/weixinerweima.jpg"/>" alt="二维码"/>
   </a>
       <a class="online-server" href="#">
-        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/weibo.png"/>" alt="新浪官方微博"/>
-        <h3>新浪官方微博</h3>
-        <img class="two-dimension" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/erweima.jpg"/>" alt="二维码"/>
-  </a>
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/dianjinzi.png"/>" alt="点金子在线投资"/>
+        <h3>点金子投资</h3>
+      </a>
+
     </div>
     <div class="our-info">
       <h3>点金子总部地址</h3>
@@ -120,6 +120,71 @@
        name="jSDgnQDcuKCy2w4jyIuu952ZsXPj0vMz8rXjiARpUBepRIVAEt"><img
             src="http://zhanzhang.anquan.org/static/common/images/zhanzhang.png" alt="安全联盟站长平台" width="114" height="41"></a>
   </div>
-  <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
+  <p>蜀ICP备15022028号 © 2016 dianjinzi, Inc. All rights reserved.</p>
 </div>
 </div>
+
+
+<!--fixed侧边栏-->
+
+<c:if test="${param.useside eq 'true' }">
+<div class="side-bar" id="side-bar">
+  <div class="right-a">
+    <a href="<spring:url value=""/>" class="right1-2">
+      <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/pig.png"/>">
+      <div class="right2"><span>主页</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>"></div>
+    </a>
+
+    <div class="right-b">
+      <div class="right-buy1">0</div>
+      <a href="<spring:url value="/myAccount/orderHistory" />" class="right1-2">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-dd.png"/>">
+
+        <div class="right2"><span>订单</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+      <a path="<spring:url value="/product/buy" />" class="right1" title="2">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-buy.png"/>">
+
+        <div class="right2"><span>购物车</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+      <a path="<spring:url value="/product/collection"/>" class="right1" title="3">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-sc.png"/>">
+
+        <div class="right2"><span>收藏</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+
+      <a path="<spring:url value="/product/history" />" class="right1" title="4">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-ls.png"/>">
+
+        <div class="right2"><span>历史</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+
+      <a href="/user/yeepayAccountInfo" class="right1-2">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/s-zh.png"/>">
+
+        <div class="right2"><span>账户</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+      <a href="#" class="right1-2">
+        <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/_0005_arrow-top.png"/>">
+
+        <div class="right2"><span>回到顶部</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>">
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="right-menu" id="right-menu">
+
+  </div>
+</div>
+</c:if>
+
+
+
+
+
+

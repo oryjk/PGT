@@ -11,8 +11,8 @@
 		<property name="inputCharset" value="utf-8" />
 		<property name="signType" value="MD5" />
 		<property name="paymentType" value="1" />
-		<property name="returnUrl" value="http://www.dev_dianjinzi.com/alipay/return" />
-		<property name="notifyUrl" value="http://www.dev_dianjinzi.com/alipay/notify" />
+		<property name="returnUrl" value="${b2c_store_host}/alipay/return" />
+		<property name="notifyUrl" value="${b2c_store_host}/alipay/notify" />
 		<property name="alipayUrl" value="https://mapi.alipay.com/gateway.do" />
 		<property name="orderIdPrefix" value="test01" />
 	</bean>

@@ -1,0 +1,26 @@
+@import "variable";
+
+//清除外边距折叠以及浮动后父元素压缩的问题
+%clear {
+  &:after,
+  &:before {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+
+  *zoom: 1;
+}
+
+//纯链接
+%link {
+  color: $main;
+
+  &:hover {
+    color: $main-dark;
+    text-decoration: underline;
+  }
+}
+
+
+

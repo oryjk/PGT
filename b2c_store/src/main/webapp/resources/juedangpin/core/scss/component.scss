@@ -127,7 +127,7 @@
     left: 0;
     height: 40px;
     width: 100%;
-    background: linear-gradient(to right, rgba(100,100,100,.2) 0% , rgba(100,100,100,.9) 50%, rgba(100,100,100,.2) 100%);
+    background: linear-gradient(to right, rgba(212, 49, 57,.2) 0% , rgba(212, 49, 57,.9) 50%, rgba(212, 49, 57,.2) 100%);
     color: white;
     text-align: center;
     line-height: 40px;
@@ -309,7 +309,7 @@
     top: 30%;
     height: 40px;
     width: 150px;
-    background: linear-gradient(to right, rgba(100,100,100,.2) 0% , rgba(100,100,100,.9) 50%, rgba(100,100,100,.2) 100%);
+    background: linear-gradient(to right, rgba(212, 49, 57,.2) 0% , rgba(212, 49, 57,.9) 50%, rgba(212, 49, 57,.2) 100%);
     color: white;
     text-align: center;
     line-height: 40px;
@@ -502,7 +502,7 @@
     top: 30%;
     height: 40px;
     width: 100%;
-    background: linear-gradient(to right, rgba(100,100,100,.2) 0% , rgba(100,100,100,.9) 50%, rgba(100,100,100,.2) 100%);
+    background: linear-gradient(to right, rgba(212, 49, 57,.2) 0% , rgba(212, 49, 57,.9) 50%, rgba(212, 49, 57,.2) 100%);
     color: white;
     text-align: center;
     line-height: 40px;
@@ -668,7 +668,7 @@
     margin: 150px auto;
     width: $width;
     border-radius: 8px;
-    @include bfc;
+    @extend %clear;
     border: 1px solid $middleGray;
     box-shadow: black 0 0 20px;
     background: white;
@@ -702,7 +702,7 @@
   .pop-content {
     width: $width - 120px;
     margin: 20px auto 40px;
-    @include bfc;
+    @extend %clear;
   }
 }
 
@@ -951,7 +951,7 @@
     position: absolute;
     display: none;
     overflow: scroll;
-    height: 95px;
+    max-height: 295px;
     top: 105%;
     left: 0;
     @include o;

@@ -59,7 +59,6 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">商品数量：</label>
-
                                                 <div class="col-md-8">
                                                     <p class="form-control-static">${b2cOrder.commerceItemCount}</p>
                                                 </div>
@@ -105,6 +104,9 @@
                                                                 <span>待付款</span>
                                                             </c:when>
                                                             <c:when test="${b2cOrder.status eq 30}">
+                                                                <span>已付款</span>
+                                                            </c:when>
+                                                            <c:when test="${b2cOrder.status eq 40}">
                                                                 <span>待收货</span>
                                                             </c:when>
                                                             <c:when test="${b2cOrder.status eq 100}">
@@ -166,12 +168,12 @@
                                                         <td>${ci.name}</td>
                                                         <td>¥&nbsp;<span><fmt:formatNumber value="${ci.salePrice}" pattern="0.00" type="number" /></span></td>
                                                         <td class="productlist-face-box">
-                                                            <img src="${pageContext.request.contextPath}/resources${ci['snapshotMedia']['path']}"
+                                                            <img src="/resources${ci['snapshotMedia']['path']}"
                                                                  alt="${empty ci['snapshotMedia']['title'] ? ci.name : ci['snapshotMedia']['title']}" />
                                                         </td>
                                                         <td>${ci.merchant}</td>
                                                         <td>${ci.delivery.consignor}</td>
-                                                        <td>${ci.delivery.deliveryTime}</td>
+                                                        <td>${ci.delivery.deliveryTimeStr}</td>
                                                         <td>${ci.delivery.logistics}</td>
                                                         <td>${ci.delivery.trackingNo}</td>
                                                         <td><a href="/order/delivery?id=${b2cOrder.id}&cid=${ci.id}"><c:choose>

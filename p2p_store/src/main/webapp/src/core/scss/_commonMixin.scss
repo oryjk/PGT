@@ -1,0 +1,14 @@
+//设置宽高,高可以省略
+@mixin wh($w, $h:auto) {
+  width: $w;
+  @if $h != auto {
+    height: $h;
+  }
+}
+
+//透明度,兼容ie
+@mixin opacity($o) {
+  opacity: $o;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=$o * 100) \9
+;
+}

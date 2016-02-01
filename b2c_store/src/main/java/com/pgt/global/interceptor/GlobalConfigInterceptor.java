@@ -2,6 +2,8 @@ package com.pgt.global.interceptor;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryHelper;
+import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.BannerWebSite;
 import com.pgt.common.service.BannerService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
@@ -67,7 +69,9 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+        if (ObjectUtils.isEmpty(modelAndView)) {
+            return;
+        }
 
         //not interceptor static files.
         if (request.getRequestURI().contains(request.getContextPath() + configuration.getResourcePath())) {
@@ -75,49 +79,9 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
         }
 
 
-        if (configuration.getUseES() == true) {
-            // get root categories
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
-                SearchResponse rootSearchResponse = esSearchService.findRootCategory();
-                if (!ObjectUtils.isEmpty(rootSearchResponse)) {
-                    SearchHits searchHits = rootSearchResponse.getHits();
-                    if (!ObjectUtils.isEmpty(searchHits)) {
-                        SearchHit[] rootCategory = searchHits.getHits();
-                        LOGGER.debug("The root category size is {}.", ObjectUtils.isEmpty(rootCategory) ? 0 : rootCategory.length);
-                        applicationContext.setAttribute(Constants.ROOT_CATEGORIES, rootCategory);
-                    }
-                }
-            }
-
-
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_PRODUCTS))) {
-                ESSort esSort = new ESSort();
-                esSort.setPropertyName(Constants.SORT);
-                esSort.setSortOrder(SortOrder.ASC);
-                SearchResponse searchResponse = esSearchService.findHotSales(esSort);
-                SearchHits searchHits = searchResponse.getHits();
-                SearchHit[] hotProducts = searchHits.getHits();
-                if (hotProducts.length != 0) {
-                    applicationContext.setAttribute(Constants.HOT_PRODUCTS, hotProducts);
-                }
-
-            }
-
-
-            // get navigation categories
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.NAVIFATION_CATEGORIES))) {
-                List<Category> navigationCategories = categoryHelper.findNavigationCategories();
-                applicationContext.setAttribute(Constants.NAVIFATION_CATEGORIES, navigationCategories);
-            }
-
-            // get hot search
-            if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_SEARCH_LIST))) {
-                List<HotSearch> hotSearchList = productService.queryAllHotsearch();
-                applicationContext.setAttribute(Constants.HOT_SEARCH_LIST, hotSearchList);
-
-            }
-
-
+        if (configuration.getUseES() == true && !ObjectUtils.isEmpty(modelAndView)) {
+            buildRootCategory(modelAndView);
+// discard
         } else {
             if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
                 // get root categories
@@ -150,12 +114,33 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
             }
 
 
+            Banner TopBanner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
+            if (!ObjectUtils.isEmpty(TopBanner)) {
+                LOGGER.debug("The query TopBanner id is {}", TopBanner.getBannerId());
+                applicationContext.setAttribute("TopBanner", TopBanner);
+            }
+
+
         }
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
+    }
+
+
+    private void buildRootCategory(ModelAndView modelAndView) {
+
+        SearchResponse rootSearchResponse = esSearchService.findRootCategory();
+        if (!ObjectUtils.isEmpty(rootSearchResponse)) {
+            SearchHits searchHits = rootSearchResponse.getHits();
+            if (!ObjectUtils.isEmpty(searchHits)) {
+                SearchHit[] rootCategory = searchHits.getHits();
+                LOGGER.debug("The root category size is {}.", ObjectUtils.isEmpty(rootCategory) ? 0 : rootCategory.length);
+                modelAndView.addObject(Constants.ROOT_CATEGORIES, rootCategory);
+            }
+        }
     }
 
     public URLConfiguration getUrlConfiguration() {

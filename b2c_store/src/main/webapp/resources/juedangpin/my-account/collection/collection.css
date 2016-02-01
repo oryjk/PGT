@@ -387,29 +387,29 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .product-name, .product-list .list-product p a {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .product-name:hover, .product-list .list-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .page-box .page-focus {
   padding: 5px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00; }
+  background: #d43139; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -426,16 +426,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -445,7 +445,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -502,29 +502,29 @@ a {
   font-size: 14px;
   text-decoration: none; }
   .bread-nav a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .product-name, .product-list .list-product p a {
   color: #666666;
   font-size: 14px;
   text-decoration: none; }
   .product-name:hover, .product-list .list-product p a:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .similar-box .similar-name {
   color: #666666;
   font-size: 12px;
   text-decoration: none; }
   .similar-box .similar-name:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 .page-box .page-focus {
   padding: 5px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   color: white;
   font-size: 16px;
   text-decoration: none;
-  background: #ffaa00; }
+  background: #d43139; }
 
 .page-box li, .page-box span, .page-box a {
   padding: 5px;
@@ -541,16 +541,16 @@ input:focus {
   border: none;
   color: white;
   line-height: 1.5;
-  background: #ffaa00;
+  background: #d43139;
   border-radius: 3px; }
   .d-btn:hover {
     background: #ce8221; }
 
 .l-btn {
   padding: 1px 5px 2px;
-  border: 1px solid #ffaa00;
+  border: 1px solid #d43139;
   border-radius: 3px;
-  color: #ffaa00;
+  color: #d43139;
   line-height: 1.5;
   background: white; }
   .l-btn:hover {
@@ -560,7 +560,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -658,7 +658,7 @@ span {
     text-decoration: none;
     color: black; }
     .aside a:hover {
-      background: #ffaa00;
+      background: #d43139;
       color: white; }
   .aside .menu-level-1 {
     background: url("../../core/images/myaccount/square.png") no-repeat 30px center; }
@@ -667,7 +667,7 @@ span {
   .aside .menu-level-end {
     color: #666666; }
   .aside .current-page {
-    background-color: #ffaa00;
+    background-color: #d43139;
     color: white; }
 
 /*bread-nav
@@ -705,9 +705,9 @@ span {
       cursor: pointer; }
     .recommend .tab .choose {
       cursor: auto;
-      border-color: #ffaa00; }
+      border-color: #d43139; }
       .recommend .tab .choose h2 {
-        color: #ffaa00; }
+        color: #d43139; }
     .recommend .tab h2 {
       margin: 0;
       padding: 0; }
@@ -729,7 +729,7 @@ span {
     z-index: 1;
     margin: 0 -20px;
     padding: 15px 30px 10px;
-    border-bottom: 1px solid #ffaa00; }
+    border-bottom: 1px solid #d43139; }
   .similar-box .move-left-box,
   .similar-box .move-right-box {
     position: absolute;
@@ -744,8 +744,8 @@ span {
       margin-top: -25px;
       width: 26px;
       height: 48px;
-      border: 2px solid #ffaa00;
-      color: #ffaa00;
+      border: 2px solid #d43139;
+      color: #d43139;
       text-align: center;
       text-decoration: none;
       font-size: 20px;
@@ -753,7 +753,7 @@ span {
       font-weight: 400; }
       .similar-box .move-left-box a:hover,
       .similar-box .move-right-box a:hover {
-        background: #ffaa00;
+        background: #d43139;
         color: white; }
   .similar-box .move-left-box {
     left: 0; }
@@ -810,7 +810,7 @@ span {
       display: inline;
       font-size: 18px;
       padding: 3px;
-      color: #ffaa00;
+      color: #d43139;
       text-decoration: none;
       vertical-align: top; }
       .similar-box .product-handle a:hover {
@@ -837,7 +837,7 @@ span {
     top: 30%;
     height: 40px;
     width: 100%;
-    background: linear-gradient(to right, rgba(100, 100, 100, 0.2) 0%, rgba(100, 100, 100, 0.9) 50%, rgba(100, 100, 100, 0.2) 100%);
+    background: linear-gradient(to right, rgba(212, 49, 57, 0.2) 0%, rgba(212, 49, 57, 0.9) 50%, rgba(212, 49, 57, 0.2) 100%);
     color: white;
     text-align: center;
     line-height: 40px;
@@ -908,7 +908,7 @@ span {
   .product-list .product-handle a {
     font-size: 12px;
     padding: 3px;
-    background: #ffaa00;
+    background: #d43139;
     color: white;
     text-decoration: none;
     vertical-align: top; }
@@ -942,7 +942,7 @@ span {
   left: 0;
   height: 40px;
   width: 100%;
-  background: linear-gradient(to right, rgba(100, 100, 100, 0.2) 0%, rgba(100, 100, 100, 0.9) 50%, rgba(100, 100, 100, 0.2) 100%);
+  background: linear-gradient(to right, rgba(212, 49, 57, 0.2) 0%, rgba(212, 49, 57, 0.9) 50%, rgba(212, 49, 57, 0.2) 100%);
   color: white;
   text-align: center;
   line-height: 40px;
@@ -976,7 +976,7 @@ span {
   .page-box a {
     border: 1px solid #cccccc; }
     .page-box a:hover {
-      color: #ffaa00; }
+      color: #d43139; }
   .page-box .page-list {
     margin: 0; }
   .page-box .page-which {
@@ -986,7 +986,7 @@ span {
   .page-box .page-count {
     margin-left: 20px; }
     .page-box .page-count span {
-      color: #ffaa00; }
+      color: #d43139; }
   .page-box .page-focus {
     cursor: text; }
     .page-box .page-focus:hover {
@@ -1006,10 +1006,10 @@ span {
     vertical-align: middle;
     outline: none; }
     .content-search .content-search:focus {
-      border-color: #ffaa00; }
+      border-color: #d43139; }
       .content-search .content-search:focus + a {
-        background: #ffaa00;
-        border-color: #ffaa00; }
+        background: #d43139;
+        border-color: #d43139; }
   .content-search .search-link-btn {
     display: inline-block;
     padding: 2px;

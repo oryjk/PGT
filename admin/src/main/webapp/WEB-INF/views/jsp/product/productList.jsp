@@ -10,7 +10,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 
 
 <admin:container id="productList" pageJsPath="/resources/product/product-list.js">
@@ -268,16 +270,16 @@
 										<td></td>
 										<td></td>
 										<td>
-												${product.listPrice}
+											<fmt:formatNumber value="${product.listPrice}" type="currency" pattern="#0.00"/>
 										</td>
 										<td>
-												${product.salePrice}
+											<fmt:formatNumber value="${product.salePrice}" type="currency" pattern="#0.00"/>
 										</td>
 										<td class="face-box">
 											<img src="${staticServer}${product.thumbnailMedia.path}" alt=""/>
 										</td>
 										<td>
-											1
+												${product.stock}
 										</td>
 										<td>
 											<c:choose>

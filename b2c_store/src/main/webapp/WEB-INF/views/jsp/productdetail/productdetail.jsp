@@ -6,14 +6,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>绝当淘商城</title>
-<link rel="stylesheet"
-	href="<spring:url value="${juedangpinStaticPath}/productdetail/productdetail.css"/>" />
-<script type="text/javascript"
-	src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.min.js"/>">
-	
-</script>
+	<meta charset="UTF-8">
+	<title>绝当淘商城</title>
+	<link rel="Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
+	<link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/productdetail/productdetail.css"/>"/>
+	<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.min.js"/>"></script>
 </head>
 <script
 	src="<spring:url value="${juedangpinStaticPath}/productdetail/queryConsulitngAndDiscuss.js"/>"></script>
@@ -56,8 +53,10 @@
 	</div>
 	</div>
 	</div>
-	<jsp:include page="../core/helpSide.jsp"/>
-	<jsp:include page="../core/footer-main.jsp" />
+
+	<jsp:include page="../core/footer-main.jsp" >
+		<jsp:param name="useside" value="true" />
+	</jsp:include>
 	<!--弹出框-->
 	<div id="popUp" class="pop-up">
 		<div class="inner">

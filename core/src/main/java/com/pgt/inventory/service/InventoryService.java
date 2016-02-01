@@ -3,8 +3,8 @@ package com.pgt.inventory.service;
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
-import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.dao.OrderMapper;
+import com.pgt.cart.service.ShoppingCartConfiguration;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.bean.InventoryLock;
 import com.pgt.inventory.dao.InventoryLockMapper;
@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -30,6 +31,10 @@ public class InventoryService extends Transactionable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryService.class);
 
+    private static final int INVENTORY_LOCK_MIN_COMMIT_ORDER = 15;
+
+    private static final int INVENTORY_LOCK_MIN_START_PAYMENT = 35;
+
     @Autowired
     private ESSearchService esSearchService;
 
@@ -39,9 +44,8 @@ public class InventoryService extends Transactionable {
     @Autowired
     private OrderMapper orderMapper;
 
-    private static final int INVENTORY_LOCK_MIN_COMMIT_ORDER = 15;
-
-    private static final int INVENTORY_LOCK_MIN_START_PAYMENT = 35;
+    @Resource(name = "shoppingCartConfiguration")
+    private ShoppingCartConfiguration mShoppingCartConfiguration;
 
     public void lockInventory(final Order order) throws LockInventoryException {
 
@@ -154,7 +158,7 @@ public class InventoryService extends Transactionable {
 
     private void cancelOrder(int orderId) {
         LOGGER.debug("Update order status to cancel. order(id= " + orderId + ")");
-        Order order = new Order(OrderType.P2P_ORDER);
+        Order order = new Order(getShoppingCartConfiguration().getDefaultOrderType());
         order.setId(orderId);
         order.setStatus(OrderStatus.CANCEL);
         getOrderMapper().updateOrderStatus(order);
@@ -403,5 +407,13 @@ public class InventoryService extends Transactionable {
 
     public void setEsSearchService(ESSearchService esSearchService) {
         this.esSearchService = esSearchService;
+    }
+
+    public ShoppingCartConfiguration getShoppingCartConfiguration () {
+        return mShoppingCartConfiguration;
+    }
+
+    public void setShoppingCartConfiguration (final ShoppingCartConfiguration pShoppingCartConfiguration) {
+        mShoppingCartConfiguration = pShoppingCartConfiguration;
     }
 }

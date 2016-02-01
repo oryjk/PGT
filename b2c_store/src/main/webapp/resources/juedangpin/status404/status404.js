@@ -89,6 +89,92 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             }
         }
 
+        //显示购物车数量
+        Prd.getOrderItemCount($('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'));
+
+        //侧边栏的功能些
+        $(document).on('click', '.sideAddCart', sideAddCart);
+        $(document).on('click', '.sideRemoveCart', sideRemoveCart);
+        $(document).on('click', '.sideAddEnjoy', sideAddEnjoy);
+        $(document).on('click', '.sideDisEnjoy', sideDisEnjoy);
+
+        //right-box
+        $(function(){
+            var flag = 0;
+            var status = "";
+            $(".right1").click(function(){
+                var m_status = $(this).attr("title");
+                if(status != m_status || flag == 0){
+                    $("#side-bar").animate({right:"0"});
+                    var url = $(this).attr("path");
+                    status = $(this).attr("title");
+                    $("#side-bar").show();
+                    $("#right-menu").load(url);
+                    flag = 1;
+                }else if(flag == 1 && status == m_status){
+                    $("#side-bar").animate({right:"-300px"});
+                    flag = 0;
+                }
+            });
+
+            $('#header, #content, #footer').click(function(event) {
+                if ($(event.target).attr('data-btn') != 'addCart')
+                    $("#side-bar").animate({right:"-300px"});
+                flag = 0;
+            })
+        });
+
+        //加入购物车
+        function sideAddCart(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+            var productMessage = that.siblings().children('.product-message');
+
+
+            event.preventDefault();
+
+            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'));
+        }
+
+        //删除购物车
+        function sideRemoveCart(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+
+            event.preventDefault();
+            Prd.removeItemFromOrder(productId, null, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function(param) {
+                if (param.success == 1) {
+                    $("#right-menu").load('/product/buy');
+                }
+            });
+        }
+
+        //添加收藏
+        function sideAddEnjoy(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+            var productMessage = that.siblings().children('.product-message');;
+
+
+            event.preventDefault();
+
+            Prd.addItemToFavourite(productId, productMessage);
+        }
+
+        //取消收藏
+        function sideDisEnjoy(event) {
+            var that = $(this);
+            var productId = that.attr('data-value');
+
+            event.preventDefault();
+
+            Prd.removeFavourite(productId, null, null, function(param) {
+                if (param.success == 1) {
+                    that.parent().hide();
+                }
+            });
+        }
+
 
 
     });

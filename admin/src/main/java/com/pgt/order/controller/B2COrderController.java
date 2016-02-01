@@ -69,7 +69,8 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		searchVO.setSubmitTimeBeg(submitTimeBeg).setSubmitTimeEnd(submitTimeEnd);
 		LOGGER.debug("Query b2c-orders with search conditions: {}", searchVO);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder();
-		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setSortFieldName(sortFieldName).setAsc(asc).createInternalPagination();
+		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setSortFieldName(sortFieldName).setAsc(asc)
+				.createInternalPagination();
 		getB2COrderService().queryB2COrderPage(searchVO, pagination);
 		ModelAndView mav = new ModelAndView("/b2c-order/b2c-order-list");
 		mav.addObject(ResponseConstant.B2C_ORDER_PAGE, pagination);

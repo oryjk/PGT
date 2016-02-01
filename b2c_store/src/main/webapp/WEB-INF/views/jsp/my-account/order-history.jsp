@@ -11,12 +11,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>绝当品</title>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.css"/>" />
     <link rel="stylesheet"
@@ -86,45 +86,56 @@
                     <div class="have-order" id="orderList" style="display: block">
                         <c:forEach var="order" items="${historyOrders.result}">
                             <div class="each-order">
-                            <c:if test="${order.status gt 1}">
+                            <c:if test="${order.status gt 10 or order.status lt 0}">
                                 <div class="order-info">
                                 <div class="operate">
-                                <c:if test="${order.status lt 3}">
+                                <%--
+                                <c:if test="${order.status lt 30}">
                                     <!-- 取消订单链接只有在未付款状态才显示-->
                                     <a class="link-btn" href="#">取消订单</a>
                                 </c:if>
+                                --%>
                                 </div>
                                     下单时间: <span class="order-time"><fmt:formatDate value="${order.submitDate}"
                                                                                    pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                 订单号: <span class="order-number">${order.id}</span>
+                                <%--
                                 物流:
-                                <c:choose>
-                                    <c:when test="${order.status gt 3}">
-                                        <span>已送达</span>
-                                        <a class="link-btn" href="#"></a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span>尚未出库</span>
-                                    </c:otherwise>
-                                </c:choose>
+                                    <c:choose>
+                                        <c:when test="${order.status == 100}">
+                                            <span>已送达</span>
+                                            <a class="link-btn" href="#"></a>
+                                        </c:when>
+                                        <c:when test="${order.status==40}">
+                                            <span>运输途中</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span>尚未出库</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                --%>
                                 </div>
                             </c:if>
                             <table>
                             <c:forEach var="commerceItem" items="${order.commerceItems}" varStatus="ci_index">
                                 <tr>
-                                <td class="col1">
-                                <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
-                                alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
-                                </td>
+                                    <td class="col1">
+                                        <a href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">
+                                            <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
+                                                 alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}"/>
+                                        </a>
+                                    </td>
                                 <td class="col2">
                                 <a class="product-name" href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">${commerceItem.name}</a>
                                 </td>
-
-                                    <td class="col3"><a href="${pageContext.request.contextPath}/myAccount/orderHistoryDetails?orderId=${order.id}" class="product-name">订单详情</a></td>
-                                    </td>
+                                    <c:if test="${order.status >= 20}">
+                                        <td class="col3"><a href="${pageContext.request.contextPath}/myAccount/orderHistoryDetails?orderId=${order.id}"
+                                                            class="product-name">订单详情</a></td>
+                                        </td>
+                                    </c:if>
                                     <td class="col3">
-                                <span>${commerceItem.quality}</span>
-                                </td>
+                                        <span>${commerceItem.quality}</span>
+                                    </td>
                                 <td class="col4">
                                 <%--
                                 <a class="link-btn" href="#">申请退换货</a>
@@ -137,11 +148,14 @@
                                     </td>
                                     <td class="col7" rowspan="100">
                                     <c:choose>
-                                        <c:when test="${order.status eq 20}">
+                                        <c:when test="${order.status eq 20||order.status eq 25}">
                                             <span>待付款</span>
                                             <a class="link-btn" href="<spring:url value="/payment/gateway?orderId=${order.id}"/>">付款</a>
                                         </c:when>
                                         <c:when test="${order.status eq 30}">
+                                            <span>已付款</span>
+                                        </c:when>
+                                        <c:when test="${order.status eq 40}">
                                             <span>待收货</span>
                                         </c:when>
                                         <c:when test="${order.status eq 100}">

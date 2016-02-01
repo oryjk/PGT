@@ -45,6 +45,7 @@ public interface MediaService {
 
     Media queryPageBackgroundFooterMedia(Integer pageBackgroundId);
 
+    Media queryHotProductFrontMedia(Integer hotSearchId);
 
     Integer createMedia(Media media);
 }

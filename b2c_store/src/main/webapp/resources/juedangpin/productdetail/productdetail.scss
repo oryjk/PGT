@@ -63,7 +63,6 @@
 .middle-pic {
   position: relative;
   @include wh($c4, $c4);
-  border: 1px solid $ashGray;
 
   img {
     width: 100%;
@@ -90,17 +89,15 @@
   @include o;
   padding: 5px 0;
   @include wh($c4, $c1);
-  border: 1px solid $ashGray;
   border-top: none;
 
   li {
     @include be-nav(left);
     width: 18%;
     margin: 1%;
-    outline: 1px solid $ashGray;
 
     &:hover {
-      outline: 1px solid  $emColor;
+
     }
   }
 
@@ -448,4 +445,17 @@
       font-size: 16px;
     }
   }
+}
+
+.product-message {
+  display: none;
+  position: absolute;
+  top: 30%;
+  height: 40px;
+  width: 100%;
+  background: linear-gradient(to right, rgba(100,100,100,.2) 0% , rgba(100,100,100,.9) 50%, rgba(100,100,100,.2) 100%);
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px;
 }

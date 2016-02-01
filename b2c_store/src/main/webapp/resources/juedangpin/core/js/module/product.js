@@ -30,10 +30,12 @@ define(function() {
             },
             success: function(param) {
                 if (param.success === 1) {
-                    productMessage
-                        .html('成功加入购物车!')
-                        .fadeIn(1000)
-                        .fadeOut(2000);
+                    if (productMessage) {
+                        productMessage
+                            .html('成功加入购物车!')
+                            .fadeIn(1000)
+                            .fadeOut(2000);
+                    }
                     //购物车显示数量
                     if (cartCount) {
                         getOrderItemCount(cartCount);
@@ -43,18 +45,58 @@ define(function() {
                     }
 
                 } else if (param.success === 0) {
-                    productMessage
-                        .html('对不起,该商品已卖完!')
-                        .fadeIn(1000)
-                        .delay(3000)
-                        .fadeOut(2000);
+                    if (productMessage) {
+                        productMessage
+                            .html(param.errorMessage.default)
+                            .fadeIn(1000)
+                            .delay(3000)
+                            .fadeOut(2000);
+                    }
+                }
+            }
+        });
+    };
+
+    //删除购物车 productId:产品id, productMessage:提示标签的jq, cartCount:购物车数字的jq
+    var removeItemFromOrder = function(productId, productMessage, cartCount, callbackFunction) {
+        $.ajax({
+            type: 'get',
+            url: baseUrl + '/shoppingCart/ajaxRemoveItemFromOrder',
+            data: {
+                'productId': productId
+            },
+            success: function(param) {
+                if (param.success === 1) {
+                    if (productMessage) {
+                        productMessage
+                            .html('成功删除购物车!')
+                            .fadeIn(1000)
+                            .fadeOut(2000);
+                    }
+                    //购物车显示数量
+                    if (cartCount) {
+                        getOrderItemCount(cartCount);
+                    }
+
+                } else if (param.success === 0) {
+                    if (productMessage) {
+                        productMessage
+                            .html(param.errorMessage.default)
+                            .fadeIn(1000)
+                            .delay(3000)
+                            .fadeOut(2000);
+                    }
+                }
+
+                if (callbackFunction) {
+                    callbackFunction(param);
                 }
             }
         });
     };
 
     //加入收藏 favouriteId:收藏id, productMessage:提示标签的jq, [that]:this的jq填入则可以进行收藏及取消的切换
-    var addItemToFavourite = function(productId, productMessage, that) {
+    var addItemToFavourite = function(productId, productMessage, that, callback) {
         $.ajax({
             type: 'GET',
             url: baseUrl + '/myAccount/favourite',
@@ -63,10 +105,13 @@ define(function() {
             },
             success: function(param) {
                 if (param.success === 1) {
-                    productMessage
-                        .html('添加收藏成功!')
-                        .fadeIn(1000)
-                        .fadeOut(2000);
+                    if (productMessage) {
+                        productMessage
+                            .html('添加收藏成功!')
+                            .fadeIn(1000)
+                            .fadeOut(2000);
+                    }
+
                     //收藏取消切换
                     if (that) {
                         that
@@ -78,18 +123,24 @@ define(function() {
                     }
 
                 } else if (param.success === 0) {
-                    productMessage
-                        .html(param.errorMessage.default)
-                        .fadeIn(1000)
-                        .delay(3000)
-                        .fadeOut(2000);
+                    if (productMessage) {
+                        productMessage
+                            .html(param.errorMessage.default)
+                            .fadeIn(1000)
+                            .delay(3000)
+                            .fadeOut(2000);
+                    }
+                }
+
+                if (callback) {
+                    callback(param);
                 }
             }
         });
     };
 
     //取消收藏,favouriteId:收藏id, productMessage:提示标签的jq, that:this的jq
-    var removeFavourite = function(favouriteId, productMessage, that) {
+    var removeFavourite = function(favouriteId, productMessage, that, callback) {
         $.ajax({
             type: 'GET',
             url: baseUrl + '/myAccount/dislike',
@@ -98,32 +149,46 @@ define(function() {
             },
             success: function(param) {
                 if (param.success === 1) {
-                    productMessage
-                        .html('取消收藏成功!')
-                        .fadeIn(1000)
-                        .fadeOut(2000);
+                    if (productMessage) {
+                        productMessage
+                            .html('取消收藏成功!')
+                            .fadeIn(1000)
+                            .fadeOut(2000);
+                    }
+
                     //收藏取消切换
-                    that
-                        .hide()
-                        .siblings()
-                        .filter('.addEnjoy')
-                        .show();
+                    if (that) {
+                        that
+                            .hide()
+                            .siblings()
+                            .filter('.addEnjoy')
+                            .show();
+                    }
 
 
                 } else if (param.success === 0) {
-                    productMessage
-                        .html(param.errorMessage.default)
-                        .fadeIn(1000)
-                        .delay(3000)
-                        .fadeOut(2000);
+                    if (productMessage) {
+                        productMessage
+                            .html(param.errorMessage.default)
+                            .fadeIn(1000)
+                            .delay(3000)
+                            .fadeOut(2000);
+                    }
+                }
+
+                if (callback) {
+                    callback(param);
                 }
             }
         })
     };
 
+    //'/shoppingCart/ajaxRemoveItemFromOrder
+
 
     return {
         addItemToOrder: addItemToOrder,
+        removeItemFromOrder: removeItemFromOrder,
         addItemToFavourite: addItemToFavourite,
         getOrderItemCount: getOrderItemCount,
         removeFavourite: removeFavourite,

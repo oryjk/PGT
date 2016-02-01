@@ -20,3 +20,9 @@
   overflow: hidden;
   *zoom: 1;
 }
+
+@mixin opacity($o) {
+  opacity: $o;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=$o * 100) \9
+;
+}

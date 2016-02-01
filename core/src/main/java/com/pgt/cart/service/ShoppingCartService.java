@@ -7,6 +7,7 @@ import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.common.bean.Media;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -38,15 +39,17 @@ public class ShoppingCartService {
 	@Resource(name = "priceOrderService")
 	private PriceOrderService mPriceOrderService;
 
+	@Resource(name = "shoppingCartConfiguration")
+	private ShoppingCartConfiguration mShoppingCartConfiguration;
+
 	@Autowired
 	private ProductService mProductService;
-
-	private int mMaxItemCount4Cart = 2;
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
 
-	public Order loadInitialOrder(final int pUserId) {
+
+	public Order loadInitialOrder (final int pUserId) {
 		Order order = getShoppingCartDao().loadInitialOrderByUserId(pUserId);
 		if (order != null && RepositoryUtils.idIsValid(order.getId())) {
 			List<CommerceItem> commerceItems = getShoppingCartDao()
@@ -56,19 +59,83 @@ public class ShoppingCartService {
 		return order;
 	}
 
-	public Order mergeOrder(final Order pSourceOrder, final Order pDestinationOrder) {
-		if (pSourceOrder.emptyOrder()) {
-			return pDestinationOrder;
+	public List<Order> loadInitialOrders (final int pUserId) {
+		List<Order> orders = getShoppingCartDao().loadInitialOrdersByUserId(pUserId);
+		for (Order order : orders) {
+			List<CommerceItem> commerceItems = getShoppingCartDao()
+					.loadCommerceItemsFromOrderWithRealTimePrice(order.getId());
+			order.setCommerceItems(commerceItems);
 		}
-		pDestinationOrder.getCommerceItems().addAll(pSourceOrder.getCommerceItems());
+		return orders;
+	}
+
+	public List<Integer> mergeOrder (final Order pDestinationOrder, final Order pPendingMergeOrder) {
+		List<Integer> pendingRemovedCommerceItemIds = new ArrayList<>();
+		if (pDestinationOrder.emptyOrder()) {
+			return pendingRemovedCommerceItemIds;
+		}
+		for (CommerceItem commerceItem : pPendingMergeOrder.getCommerceItems()) {
+			int productId = commerceItem.getReferenceId();
+			if (!RepositoryUtils.idIsValid(productId)) {
+				continue;
+			}
+			if (pDestinationOrder.getCommerceItemByProduct(productId) == null) {
+				pDestinationOrder.getCommerceItems().add(commerceItem);
+			}
+			if (RepositoryUtils.idIsValid(commerceItem.getId())) {
+				pendingRemovedCommerceItemIds.add(commerceItem.getId());
+			}
+		}
 		pDestinationOrder.resetCommerceItemIndex();
 		pDestinationOrder.getCommerceItems().forEach(ci -> {
 			ci.setOrderId(pDestinationOrder.getId());
 		});
-		return pDestinationOrder;
+		return pendingRemovedCommerceItemIds;
 	}
 
-	public boolean persistInitialOrder(final Order pOrder) throws OrderPersistentException {
+
+	public List<Integer> mergeOrders (final Order pDestinationOrder, final List<Order> pPendingMergeOrders) {
+		List<Integer> pendingRemovedCommerceItemIds = new ArrayList<>();
+		if (CollectionUtils.isEmpty(pPendingMergeOrders)) {
+			return pendingRemovedCommerceItemIds;
+		}
+		for (Order pendingMergeOrder : pPendingMergeOrders) {
+			for (CommerceItem commerceItem : pendingMergeOrder.getCommerceItems()) {
+				int productId = commerceItem.getReferenceId();
+				if (!RepositoryUtils.idIsValid(productId)) {
+					continue;
+				}
+				if (pDestinationOrder.getCommerceItemByProduct(productId) == null) {
+					pDestinationOrder.getCommerceItems().add(commerceItem);
+					continue;
+				}
+				if (RepositoryUtils.idIsValid(commerceItem.getId())) {
+					pendingRemovedCommerceItemIds.add(commerceItem.getId());
+				}
+			}
+		}
+		pDestinationOrder.resetCommerceItemIndex();
+		pDestinationOrder.getCommerceItems().forEach(ci -> {
+			ci.setOrderId(pDestinationOrder.getId());
+		});
+		return pendingRemovedCommerceItemIds;
+	}
+
+	public void deleteOrders (final List<Integer> pOrderIds) {
+		// start transaction
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		TransactionStatus status = getTransactionManager().getTransaction(def);
+		try {
+			getShoppingCartDao().deleteOrders(pOrderIds);
+		} catch (Exception e) {
+			LOGGER.error(String.format("Delete orders by ids: %s failed", pOrderIds), e);
+		} finally {
+			getTransactionManager().commit(status);
+		}
+	}
+
+	public boolean persistInitialOrder (final Order pOrder) throws OrderPersistentException {
 		synchronized (pOrder) {
 			// check order ready to persist
 			if (pOrder == null || pOrder.getStatus() != (OrderStatus.INITIAL)) {
@@ -85,6 +152,7 @@ public class ShoppingCartService {
 			TransactionStatus status = getTransactionManager().getTransaction(def);
 			boolean result;
 			try {
+				LOGGER.debug("Start to persist order for user: {}", pOrder.getUserId());
 				if (RepositoryUtils.idIsValid(pOrder.getId())) {
 					result = getShoppingCartDao().updateOrder(pOrder) > 0;
 				} else {
@@ -92,6 +160,7 @@ public class ShoppingCartService {
 				}
 				// persist transient commerce items first
 				if (result) {
+					LOGGER.debug("Start to create transient items for order: {} of user: {}", pOrder.getId(), pOrder.getUserId());
 					List<CommerceItem> transientItems = pOrder.obtainTransientCommerceItems();
 					if (!CollectionUtils.isEmpty(transientItems)) {
 						for (CommerceItem ci : transientItems) {
@@ -102,6 +171,7 @@ public class ShoppingCartService {
 				}
 				// update commerce items
 				if (result) {
+					LOGGER.debug("Start to update persisted items for order: {} of user: {}", pOrder.getId(), pOrder.getUserId());
 					List<CommerceItem> persistentItems = pOrder.obtainPersistedCommerceItems();
 					if (!CollectionUtils.isEmpty(persistentItems)) {
 						persistentItems.forEach(ci -> {
@@ -112,10 +182,11 @@ public class ShoppingCartService {
 				}
 				// check result to set roll back
 				if (!result) {
+					LOGGER.debug("Persist initial order for user: {} failed, set transaction rollback.", pOrder.getUserId());
 					status.setRollbackOnly();
 				}
 			} catch (Exception e) {
-				String msg = String.format("Update initial order: %d of user: %d failed", pOrder.getId(),
+				String msg = String.format("Persist initial order: %d of user: %d failed", pOrder.getId(),
 						pOrder.getUserId());
 				LOGGER.error(msg, e);
 				throw new OrderPersistentException(msg, e);
@@ -126,17 +197,17 @@ public class ShoppingCartService {
 		}
 	}
 
-	public CommerceItemBuilder convertProductToCommerceItemBuilder(final Product pProduct) {
+	public CommerceItemBuilder convertProductToCommerceItemBuilder (final Product pProduct) {
 		CommerceItemBuilder cib = new CommerceItemBuilder().setName(pProduct.getName()).setQuality(pProduct.getIsNew())
 				.setReferenceId(pProduct.getProductId()).setMerchant(pProduct.getMerchant());
 		return cib.setListPrice(pProduct.getListPrice()).setSalePrice(pProduct.getSalePrice());
 	}
 
-	public boolean deleteCommerceItem(final int pCommerceItemId) {
+	public boolean deleteCommerceItem (final int pCommerceItemId) {
 		return getShoppingCartDao().deleteCommerceItem(pCommerceItemId) > 0;
 	}
 
-	public boolean purchaseProduct(Order pOrder, Product pProduct) {
+	public boolean purchaseProduct (Order pOrder, Product pProduct) {
 		int productId = pProduct.getProductId();
 		// check existence of commerce item that wrapped same product
 		CommerceItem purchaseCommerceItem = pOrder.getCommerceItemByProduct(productId);
@@ -183,7 +254,7 @@ public class ShoppingCartService {
 		return true;
 	}
 
-	public boolean checkProductValidity(Product pProduct) {
+	public boolean checkProductValidity (Product pProduct) {
 		if (pProduct == null) {
 			LOGGER.debug("Cannot find product.");
 			return false;
@@ -199,23 +270,23 @@ public class ShoppingCartService {
 		return true;
 	}
 
-	public boolean checkCartItemCount(Order pOrder) {
-		return pOrder.getCommerceItemCount() <= getMaxItemCount4Cart();
+	public boolean checkCartItemCount (Order pOrder) {
+		return pOrder.getCommerceItemCount() <= getShoppingCartConfiguration().getMaxItemCount4Cart();
 	}
 
-	public boolean ensureCartItemCapacity(Order pOrder) {
-		return pOrder.getCommerceItemCount() < getMaxItemCount4Cart();
+	public boolean ensureCartItemCapacity (Order pOrder) {
+		return pOrder.getCommerceItemCount() < getShoppingCartConfiguration().getMaxItemCount4Cart();
 	}
 
-	public void updateOrder(Order pOrder) {
+	public void updateOrder (Order pOrder) {
 		getShoppingCartDao().updateOrder(pOrder);
 	}
 
-	public boolean deleteCommerceItems(final List<Integer> pCommerceItemIds) {
+	public boolean deleteCommerceItems (final List<Integer> pCommerceItemIds) {
 		return getShoppingCartDao().deleteCommerceItems(pCommerceItemIds) > 0;
 	}
 
-	public void checkInventory(Order pOrder) {
+	public void checkInventory (Order pOrder) {
 		if (pOrder.emptyOrder()) {
 			return;
 		}
@@ -232,7 +303,7 @@ public class ShoppingCartService {
 		}
 	}
 
-	public String convertProductIdsToProductNames(String pProductIds, String pSplit) {
+	public String convertProductIdsToProductNames (String pProductIds, String pSplit) {
 		String[] prodIds = pProductIds.split(pSplit);
 		String productNames = StringUtils.EMPTY;
 		int count = 0;
@@ -250,47 +321,48 @@ public class ShoppingCartService {
 		return productNames;
 	}
 
-	public void deleteAllCommerceItems(final int pOrderId) {
+	public void deleteAllCommerceItems (final int pOrderId) {
 		getShoppingCartDao().deleteAllCommerceItems(pOrderId);
 	}
 
-	public ShoppingCartDao getShoppingCartDao() {
+	public ShoppingCartDao getShoppingCartDao () {
 		return mShoppingCartDao;
 	}
 
-	public void setShoppingCartDao(ShoppingCartDao pShoppingCartDao) {
+	public void setShoppingCartDao (ShoppingCartDao pShoppingCartDao) {
 		mShoppingCartDao = pShoppingCartDao;
 	}
 
-	public PriceOrderService getPriceOrderService() {
+	public PriceOrderService getPriceOrderService () {
 		return mPriceOrderService;
 	}
 
-	public void setPriceOrderService(PriceOrderService pPriceOrderService) {
+	public void setPriceOrderService (PriceOrderService pPriceOrderService) {
 		mPriceOrderService = pPriceOrderService;
 	}
 
-	public ProductService getProductService() {
+	public ShoppingCartConfiguration getShoppingCartConfiguration () {
+		return mShoppingCartConfiguration;
+	}
+
+	public void setShoppingCartConfiguration (final ShoppingCartConfiguration pShoppingCartConfiguration) {
+		mShoppingCartConfiguration = pShoppingCartConfiguration;
+	}
+
+	public ProductService getProductService () {
 		return mProductService;
 	}
 
-	public void setProductService(ProductService pProductService) {
+	public void setProductService (ProductService pProductService) {
 		mProductService = pProductService;
 	}
 
-	public DataSourceTransactionManager getTransactionManager() {
+	public DataSourceTransactionManager getTransactionManager () {
 		return mTransactionManager;
 	}
 
-	public void setTransactionManager(DataSourceTransactionManager pTransactionManager) {
+	public void setTransactionManager (DataSourceTransactionManager pTransactionManager) {
 		mTransactionManager = pTransactionManager;
 	}
 
-	public int getMaxItemCount4Cart() {
-		return mMaxItemCount4Cart;
-	}
-
-	public void setMaxItemCount4Cart(final int pMaxItemCount4Cart) {
-		mMaxItemCount4Cart = pMaxItemCount4Cart;
-	}
 }
