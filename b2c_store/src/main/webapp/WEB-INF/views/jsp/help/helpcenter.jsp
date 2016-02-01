@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绝当品</title>
+    <title>点金子绝当淘商城</title>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/help/helpcenter.css"/>"/>
 </head>
 <body>

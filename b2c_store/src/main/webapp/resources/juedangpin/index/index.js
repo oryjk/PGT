@@ -13,7 +13,9 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
     $(document).ready(function() {
 
-
+$('#side-bar').scroll(function () {
+    alert("meeage");
+})
         //调整banner的高度,让他适应menu
         //$('#bannerBox').css({
         //    //height: $('#menuList').height() - 10 + 'px'

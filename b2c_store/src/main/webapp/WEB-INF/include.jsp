@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绝当品</title>
+    <title>点金子绝当淘商城</title>
     <link rel="stylesheet" href="../index/index.css"/>
 </head>
 <body>
@@ -20,7 +20,7 @@
             <div class="status-box">
                 <ul class="top-nav">
                     <li>
-                        <a href="#">手机绝当品</a>
+                        <a href="#">手机点金子绝当淘商城</a>
                     </li>
                     <li><a href="#">帮助中心</a></li>
                     <li><a href="#">网站导航</a></li>
