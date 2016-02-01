@@ -113,10 +113,10 @@
                                                ${image.imageId}
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${image.createDate}" type="both" />
+                                                <fmt:formatDate value="${image.createDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${image.endDate}" type="both" />
+                                                <fmt:formatDate value="${image.endDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>
                                             </td>
                                             <td>
                                                 ${image.url}

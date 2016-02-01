@@ -62,37 +62,52 @@ public class ImageController {
 	@RequestMapping(value="/createIamge",method = RequestMethod.POST)
 	public ModelAndView createIamge(Image image, ModelAndView modelAndView, Integer bannerId) {
 
-		if(ObjectUtils.isEmpty(bannerId)){
-			LOGGER.debug("The bannerId is empty");
+		if(ObjectUtils.isEmpty(image)){
+			LOGGER.debug(" image is empty");
+			modelAndView.addObject("error","image is empty");
 			modelAndView.setViewName("/banner/bannerImageAddAndModify");
 			return modelAndView;
 		}
+
+        LOGGER.debug("image imageId is{}, createDate is {}, color is {},endDate is {}," +
+				"location is {},path is {},title is {},type is {},url is{}",image.getImageId(),
+				image.getCreateDate(),image.getColor(),
+				image.getEndDate(),image.getLocation(),
+				image.getPath(),image.getTitle(),image.getType(),
+				image.getUrl());
+
+		if(ObjectUtils.isEmpty(bannerId)){
+			LOGGER.debug("The bannerId is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			modelAndView.addObject("error","bannerId is empty");
+			return modelAndView;
+		}
+
+		Banner banner= bannerService.queryBanner(bannerId);
+		if(ObjectUtils.isEmpty(banner)){
+			LOGGER.debug("The banner is empty for createBannerImage");
+			modelAndView.setViewName("redirect:/banner/bannerList");
+			modelAndView.addObject("error","banner is empty");
+			return modelAndView;
+		}
+		modelAndView.addObject("banner",banner);
 
 		if(ObjectUtils.isEmpty(image.getPath())){
 			LOGGER.debug("The imagePath is empty");
 			modelAndView.setViewName("/banner/bannerImageAddAndModify");
-			return modelAndView;
-		}
-		if(ObjectUtils.isEmpty(image.getLocation())){
-			LOGGER.debug("The location is empty");
-			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			modelAndView.addObject("error","image path is empty");
 			return modelAndView;
 		}
 
-		if(ObjectUtils.isEmpty(image.getUrl())){
-			LOGGER.debug("The location is empty");
-			modelAndView.setViewName("/banner/bannerImageAddAndModify");
-			return modelAndView;
-		}
-
-		Banner banner =bannerService.queryBanner(bannerId);
 		if(ObjectUtils.isEmpty(banner)){
 			LOGGER.debug("banner is empty");
+			modelAndView.addObject("error","banner is empty");
 			modelAndView.setViewName("/banner/bannerImageAddAndModify");
 			return modelAndView;
 		}
 		image.setBanner(banner);
 		imageService.createImage(image);
+		LOGGER.debug("create image the id is {}",image.getImageId());
 		modelAndView.setViewName("redirect:/banner/queryBanner?bannerId="+banner.getBannerId());
 		return modelAndView;
 	}
@@ -128,34 +143,48 @@ public class ImageController {
 
 		if(ObjectUtils.isEmpty(bannerId)){
 			LOGGER.debug("The bannerId is empty");
+			modelAndView.addObject("error","bannerId is empty");
 			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
+		}
+
+		LOGGER.debug("image imageId is{}, createDate is {}, color is {},endDate is {}," +
+						"location is {},path is {},title is {},type is {},url is{}",image.getImageId(),
+				image.getCreateDate(),image.getColor(),
+				image.getEndDate(),image.getLocation(),
+				image.getPath(),image.getTitle(),image.getType(),
+				image.getUrl());
+
+		if(ObjectUtils.isEmpty(image)){
+			LOGGER.debug("The image is empty ");
+			modelAndView.addObject("error","image is empty");
+			modelAndView.setViewName("/banner/bannerImageAddAndModify");
+			return modelAndView;
+		}
+
+		Banner banner= bannerService.queryBanner(bannerId);
+		if(ObjectUtils.isEmpty(banner)){
+			LOGGER.debug("The banner is empty for updateBannerImage");
+			modelAndView.setViewName("redirect:/banner/bannerList");
+			modelAndView.addObject("error","banner is empty");
 			return modelAndView;
 		}
 
 		if(ObjectUtils.isEmpty(image.getPath())){
 			LOGGER.debug("The imagePath is empty");
-			modelAndView.setViewName("/banner/bannerImageAddAndModify");
-			return modelAndView;
-		}
-		if(ObjectUtils.isEmpty(image.getLocation())){
-			LOGGER.debug("The location is empty");
+			modelAndView.addObject("error","image path is empty");
 			modelAndView.setViewName("/banner/bannerImageAddAndModify");
 			return modelAndView;
 		}
 
-		if(ObjectUtils.isEmpty(image.getUrl())){
-			LOGGER.debug("The location is empty");
-			modelAndView.setViewName("/banner/bannerImageAddAndModify");
-			return modelAndView;
-		}
-
-		Banner banner =bannerService.queryBanner(bannerId);
 		if(ObjectUtils.isEmpty(banner)){
 			LOGGER.debug("banner is empty");
+			modelAndView.addObject("error","The banner is empty");
 			modelAndView.setViewName("/banner/bannerImageAddAndModify");
 		}
 		image.setBanner(banner);
 		imageService.updateImage(image);
+		LOGGER.debug("The update image id is {}",image.getImageId());
 		modelAndView.setViewName("redirect:/banner/queryBanner?bannerId="+banner.getBannerId());
 		return modelAndView;
 	}
