@@ -122,7 +122,9 @@
                                                 ${image.url}
                                             </td>
                                             <td class="face-box">
-                                                <a href="#" style="font-size:15px">点击查看大图</a>
+                                            <div id="gallery">
+                                            <a href="${image.path}" style="font-size:15px" alt="${image.path}">点击查看大图</a>
+                                            </div>
                                             </td>
                                             <td>
                                                 ${image.location}
@@ -278,5 +280,14 @@
     </div>
 
 </div>
+
+    <script>
+    $(function() {
+    $('#gallery').poptrox({
+    usePopupCaption: true
+    });
+
+    });
+    </script>
 
 </admin:container>
