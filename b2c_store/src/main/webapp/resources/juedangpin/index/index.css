@@ -1363,6 +1363,9 @@ span {
   padding-top: 55px;
   float: left; }
 
+.n-all {
+  min-height: 102%; }
+
 /*color*/
 /*col*/
 /*color*/
