@@ -78,13 +78,18 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			params.put(YeePayConstants.PARAM_NAME_MODE, YeePayConstants.MODE_CONFIRM);
 			params.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, getConfig().getCompleteTransactionNotifyUrl());
 		
-			Map<String, String> result = getCompleteTransactionYeepay().invok(params);
+			Map<String, String> result = getCompleteTransactionYeepay().invoke(params);
 			Transaction transaction = getPaymentService().findTransactionByTrackingNumber(trackingNo);
 			Date now = new Date();
 			
 
 			
 			handleResult(paymentGroup, trackingNo, result, transaction, now, order);
+			if (YeePayConstants.CODE_SUCCESS.equals(result.get(YeePayConstants.PARAM_NAME_CODE))) {
+				
+			}
+
+
 		} catch(Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			getPaymentService().setAsRollback();

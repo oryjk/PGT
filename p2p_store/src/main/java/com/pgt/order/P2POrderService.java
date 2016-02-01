@@ -151,7 +151,12 @@ public class P2POrderService extends OrderService {
     }
 
     private void calculateP2PInfo(P2PInfo info) {
-        double incoming = calculateIncoming(info.getPublishDate(), info.getExpectDueDate(), info.getPrePeriod(), info.getUnitPrice(), info.getPlaceQuantity(), info.getInterestRate());
+        Date payTime = info.getPayTime();
+        if (null == payTime) {
+            payTime = new Date();
+        }
+
+        double incoming = calculateIncoming(payTime, info.getExpectDueDate(), info.getPrePeriod(), info.getUnitPrice(), info.getPlaceQuantity(), info.getInterestRate());
         info.setExpectIncoming(incoming);
         double handlingFee = calculateHandlingFee(info);
         info.setHandlingFee(handlingFee);
@@ -174,14 +179,27 @@ public class P2POrderService extends OrderService {
         return result;
     }
 
-    private double calculateIncoming(Date publishDate, Date expectDueDate, Integer prePeriod, Double unitPrice, int placeQuantity, Double interestRate) {
+    /**
+     * This method should be call for tree time:
+     * 1. place order (order.createDate)
+     * 2. payment done (payment date)
+     * 3. tender done
+     * @param payTime
+     * @param dueDate
+     * @param prePeriod
+     * @param unitPrice
+     * @param placeQuantity
+     * @param interestRate
+     * @return
+     */
+    private double calculateIncoming(Date payTime, Date dueDate, Integer prePeriod, Double unitPrice, int placeQuantity, Double interestRate) {
 
         boolean hasIllegalArgument = false;
-        if (null == publishDate) {
+        if (null == payTime) {
             LOGGER.error("No publish date");
             hasIllegalArgument= true;
         }
-        if (null == expectDueDate) {
+        if (null == dueDate) {
             LOGGER.error("No expect due date");
             hasIllegalArgument= true;
         }
@@ -203,20 +221,33 @@ public class P2POrderService extends OrderService {
         if ( hasIllegalArgument) {
             throw new IllegalArgumentException("INVALID.TENDER");
         }
-        if (expectDueDate.before(publishDate)) {
-            LOGGER.error("expectDueDate before publish date. expectDueDate(" + expectDueDate + "); publishDate(" + publishDate+ ")");
+        if (dueDate.before(payTime)) {
+            LOGGER.error("dueDate before publish date. dueDate(" + dueDate + "); payTime(" + payTime+ ")");
             throw new IllegalArgumentException("INVALID.TENDER");
         }
 
-        LOGGER.debug("publishDate: " + publishDate + "; expectDueDate" + expectDueDate);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(expectDueDate);
-        calendar.add(Calendar.DATE, 1);
+        Calendar payCalendar = Calendar.getInstance();
+        payCalendar.setTime(payTime);
+        payCalendar.set(Calendar.HOUR, 0);
+        payCalendar.set(Calendar.MINUTE, 0);
+        payCalendar.set(Calendar.SECOND, 0);
+        payCalendar.set(Calendar.MILLISECOND, 0);
+
+
+
+        LOGGER.debug("payTime: " + payTime + "; dueDate" + dueDate);
+        Calendar dueCalendar = Calendar.getInstance();
+        dueCalendar.setTime(dueDate);
+        dueCalendar.add(Calendar.DATE, 1);
+        dueCalendar.set(Calendar.HOUR, 0);
+        dueCalendar.set(Calendar.MINUTE, 0);
+        dueCalendar.set(Calendar.SECOND, 0);
+        dueCalendar.set(Calendar.MILLISECOND, 0);
 
         // TODO date start time
-        int dateGap = (int) ((calendar.getTimeInMillis() - publishDate.getTime()) / MILLISECOND_ONE_DAY);
+        int dateGap = (int) ((dueCalendar.getTimeInMillis() - payCalendar.getTimeInMillis()) / MILLISECOND_ONE_DAY);
         if (dateGap < prePeriod) {
-            LOGGER.error("dateGap < prePeriod. dateGap(" + dateGap +"); prePeriod(" + prePeriod + "); expectDueDate(" + expectDueDate + "); publishDate(" + publishDate+ ")");
+            LOGGER.error("dateGap < prePeriod. dateGap(" + dateGap +"); prePeriod(" + prePeriod + "); dueDate(" + dueDate + "); payTime(" + payTime+ ")");
             throw new IllegalArgumentException("INVALID.TENDER");
         }
         LOGGER.debug("unitPrice=" + unitPrice  + "; placeQuantity=" + placeQuantity + "; interestRate=" + interestRate);
@@ -237,4 +268,5 @@ public class P2POrderService extends OrderService {
     public void setShoppingCartService(ShoppingCartService shoppingCartService) {
         this.shoppingCartService = shoppingCartService;
     }
+
 }
