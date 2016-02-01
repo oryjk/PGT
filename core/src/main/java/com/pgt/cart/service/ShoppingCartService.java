@@ -71,7 +71,7 @@ public class ShoppingCartService {
 
     public List<Integer> mergeOrder(final Order pDestinationOrder, final Order pPendingMergeOrder) {
         List<Integer> pendingRemovedCommerceItemIds = new ArrayList<>();
-        if (pDestinationOrder.emptyOrder()) {
+        if (pPendingMergeOrder.emptyOrder()) {
             return pendingRemovedCommerceItemIds;
         }
         for (CommerceItem commerceItem : pPendingMergeOrder.getCommerceItems()) {
