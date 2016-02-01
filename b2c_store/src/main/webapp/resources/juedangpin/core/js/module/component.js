@@ -116,8 +116,25 @@ define(function() {
         var doc = $(document);
         var height = 0;
         var fix = fixedObj.head;
-        $(window).scroll(function() {
+        var flag = 1;
+        $("#right-menu").mouseover(function(){
+            flag = 0;
+            //$("body").css("overflow",'hidden')
+        })
+        $("#right-menu").mouseout(function(){
+            flag = 1;
+            //$("body").css("overflow",'scroll')
+        })
+
+        $(window).scroll(function(event) {
+
             height = doc.scrollTop();
+
+            if (flag === 0) {
+                //console.log(height)
+            }
+
+
             if (height > fixedObj.height) {
                 fix.fadeIn(fixedObj.time);
             } else {

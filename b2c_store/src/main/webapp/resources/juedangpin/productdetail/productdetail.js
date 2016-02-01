@@ -152,6 +152,24 @@ require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
             })
         });
 
+        $('.right-menu').scroll(function() {
+            var scollElm = $('.n-all');
+            var scollPrt = $('.right-menu');
+            var sideBar = $('.side-bar');
+
+            scollElm.css({
+                padding: '20px 0'
+            });
+            var h = scollElm.innerHeight() - sideBar.innerHeight();
+
+            if (scollPrt.scrollTop() > h-20) {
+                scollPrt.scrollTop(h-20);
+            }
+            if (scollPrt.scrollTop() < 20) {
+                scollPrt.scrollTop(20);
+            }
+        });
+
         //加入购物车
         function sideAddCart(event) {
             var that = $(this);

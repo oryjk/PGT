@@ -13,9 +13,9 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
     $(document).ready(function() {
 
-$('#side-bar').scroll(function () {
-    alert("meeage");
-})
+//$('#side-bar').scroll(function () {
+//    alert("meeage");
+//})
         //调整banner的高度,让他适应menu
         //$('#bannerBox').css({
         //    //height: $('#menuList').height() - 10 + 'px'
@@ -92,6 +92,24 @@ $('#side-bar').scroll(function () {
             })
         });
 
+        $('.right-menu').scroll(function() {
+            var scollElm = $('.n-all');
+            var scollPrt = $('.right-menu');
+            var sideBar = $('.side-bar');
+
+            scollElm.css({
+                padding: '20px 0'
+            });
+            var h = scollElm.innerHeight() - sideBar.innerHeight();
+
+            if (scollPrt.scrollTop() > h-20) {
+                scollPrt.scrollTop(h-20);
+            }
+            if (scollPrt.scrollTop() < 20) {
+                scollPrt.scrollTop(20);
+            }
+        });
+
 
         //显示购物车数量
         Prd.getOrderItemCount($('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'));
@@ -101,6 +119,8 @@ $('#side-bar').scroll(function () {
         $(document).on('click', '.sideRemoveCart', sideRemoveCart);
         $(document).on('click', '.sideAddEnjoy', sideAddEnjoy);
         $(document).on('click', '.sideDisEnjoy', sideDisEnjoy);
+
+
 
         //right-box
         $(function(){
@@ -125,12 +145,6 @@ $('#side-bar').scroll(function () {
                 if ($(event.target).attr('data-btn') != 'addCart')
                     $("#side-bar").animate({right:"-300px"});
                 flag = 0;
-            });
-            $("#right-menu").mouseover(function(){
-                $("body").css("overflow",'hidden')
-            });
-            $("#right-menu").mouseout(function(){
-                $("body").css("overflow",'scroll')
             })
         });
 
