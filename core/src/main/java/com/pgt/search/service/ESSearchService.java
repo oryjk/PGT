@@ -584,12 +584,7 @@ public class ESSearchService {
     private void buildQueryBuilder(List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList, PaginationBean paginationBean,
                                    ESAggregation esAggregation,
                                    SearchRequestBuilder searchRequestBuilder, BoolQueryBuilder qb) {
-        if (!ObjectUtils.isEmpty(esMatches)) {
-            esMatches.stream().forEach(esTerm ->
-                            qb.should(matchQuery(esTerm.getPropertyName(), esTerm.getTermValue()))
-            );
 
-        }
         if (!ObjectUtils.isEmpty(esSortList)) {
             esSortList.stream().forEach(esSort1 ->
                             searchRequestBuilder.addSort(esSort1.getPropertyName(), esSort1.getSortOrder())
@@ -603,6 +598,12 @@ public class ESSearchService {
             searchRequestBuilder.setPostFilter(QueryBuilders.rangeQuery(esRange.getPropertyName()).from(esRange.getFrom()).to(esRange
                     .getTo()));
         }
+        if (!ObjectUtils.isEmpty(esMatches)) {
+            esMatches.stream().forEach(esTerm ->
+                    searchRequestBuilder.setPostFilter(QueryBuilders.termQuery(esTerm.getPropertyName(),esTerm.getTermValue()))
+            );
+        }
+
         if (paginationBean != null) {
             if (paginationBean.getCapacity() == 0) {
                 paginationBean.setCapacity(configuration
@@ -610,6 +611,7 @@ public class ESSearchService {
             }
             searchRequestBuilder.setFrom((int) paginationBean.getCurrentIndex()).setSize((int) paginationBean.getCapacity()).setExplain(true);
         }
+
     }
 
 

@@ -148,10 +148,10 @@
                         <c:forEach var="item" items="${historyOrder.commerceItems}">
                             <tr>
                                 <td class="col1">
-                                    <img src="${item.snapshotMedia.path}" alt=""/>
+                                    <a href="/product/${item.referenceId}"><img src="${item.snapshotMedia.path}" alt=""/></a>
                                 </td>
                                 <td class="col2">
-                                    <a class="product-name" href="#">${item.name}</a>
+                                    <a class="product-name" href="/product/${item.referenceId}">${item.name}</a>
                                 </td>
                                 <td class="col3">
                                     <span>${item.quality}</span>
