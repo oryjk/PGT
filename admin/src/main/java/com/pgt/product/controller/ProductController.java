@@ -158,7 +158,7 @@ public class ProductController extends InternalTransactionBaseController {
             }
 
             esSearchService.updateProductIndex(product);
-            esSearchService.hotSaleIndex();
+//            esSearchService.hotSaleIndex();
             responseEntity.getBody().put("success", true);
             responseEntity.getBody().put("mediaId", mediaId);
             return responseEntity;
@@ -220,7 +220,7 @@ public class ProductController extends InternalTransactionBaseController {
             productService.deleteProduct(productId);
             esSearchService.deleteProductIndex(productId);
             if (!ObjectUtils.isEmpty(rootCategory)) {
-                esSearchService.createHotSaleIndex(rootCategory.getId());
+//                esSearchService.createHotSaleIndex(rootCategory.getId());
             }
             response.put("success", true);
             LOGGER.debug("The product has deleted with product id is {}.", productId);
