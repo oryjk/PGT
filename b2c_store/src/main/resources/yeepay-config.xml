@@ -13,8 +13,8 @@
 		<property name="connectionTimeout" value="5000" />
 		<property name="socketTimeout" value="15000" />
 		<!-- need change when go live -->
-		<property name="platformUserNoPrefix" value="pgtuatttt"></property>
-		<property name="requestNoPrefix" value="pgtuat_feature_one"/>
+		<property name="platformUserNoPrefix" value="${platformUserNoPrefix}"></property>
+		<property name="requestNoPrefix" value="${requestNoPrefix}"/>
 		<property name="directRequestUrl" value="https://member.yeepay.com/member/bhaexter/bhaController" />
 		<property name="callbackUrl" value="${b2c_store_host}/yeepay/yeepayCallback" />
 		<property name="notifyUrl" value="${b2c_store_host}/yeepay/yeepayNotify"/>

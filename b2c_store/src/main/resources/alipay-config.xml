@@ -14,6 +14,6 @@
 		<property name="returnUrl" value="${b2c_store_host}/alipay/return" />
 		<property name="notifyUrl" value="${b2c_store_host}/alipay/notify" />
 		<property name="alipayUrl" value="https://mapi.alipay.com/gateway.do" />
-		<property name="orderIdPrefix" value="test01" />
+		<property name="orderIdPrefix" value="${orderIdPrefix}" />
 	</bean>
 </beans>
