@@ -42,6 +42,12 @@
 
         </mvc:interceptor>
 
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**.*"/>
+            <bean class="com.pgt.cart.filter.ShoppingCartResolveInterceptor"></bean>
+        </mvc:interceptor>
+
         <!-- find user in cookie -->
         <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
