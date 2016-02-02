@@ -136,8 +136,8 @@
 				<value>sort</value>
 			</list>
 		</property>
-		<property name="needIndex" value="false"/>
-		<property name="clearIndex" value="false"/>
+		<property name="needIndex" value="true"/>
+		<property name="clearIndex" value="true"/>
 	</bean>
 
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
