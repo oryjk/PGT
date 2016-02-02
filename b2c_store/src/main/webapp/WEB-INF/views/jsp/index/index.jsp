@@ -199,8 +199,7 @@
         <div id="classifyPopCentent"></div>
     </div>
 </div>
-</body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/index/index.js"/>"></script>
 
-
+</body>
 </html>
