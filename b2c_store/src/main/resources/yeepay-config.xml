@@ -7,8 +7,7 @@
 
 	<bean id="yeePayConfig" class="com.pgt.integration.yeepay.YeePayConfig">
 		<property name="platformNo" value="10012485748" />
-		<property name="pfxPath"
-			value="/www/yeepay/tamade.pfx" />
+		<property name="pfxPath" value="${pfxPath}" />
 		<property name="password" value="tmd123456" />
 		<property name="connectionTimeout" value="5000" />
 		<property name="socketTimeout" value="15000" />
