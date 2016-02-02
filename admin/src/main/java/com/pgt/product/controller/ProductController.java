@@ -299,10 +299,7 @@ public class ProductController extends InternalTransactionBaseController {
         } finally {
             getTransactionManager().commit(status);
         }
-        product = productService.queryProduct(product.getProductId());
-        modelAndView.addObject("product", product);
-        modelAndView.addObject("staticServer", configuration.getStaticServer());
-        modelAndView.setViewName("/product/productImageModify");
+        modelAndView.setViewName("redirect:/product/update/productImageModify/" + product.getProductId());
         if (product.getStatus() == 0) {
             esSearchService.deleteProductIndex(String.valueOf(product.getProductId()));
             return modelAndView;
@@ -311,6 +308,16 @@ public class ProductController extends InternalTransactionBaseController {
         return modelAndView;
 
     }
+
+    @RequestMapping(value = "/update/productImageModify/{productId}", method = RequestMethod.GET)
+    public ModelAndView productImageModify(@PathVariable(value = "productId") Integer productId, ModelAndView modelAndView) {
+        Product product = productService.queryProduct(productId);
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.setViewName("/product/productImageModify");
+        return modelAndView;
+    }
+
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ModelAndView updateProduct(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
