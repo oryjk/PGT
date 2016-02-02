@@ -9,7 +9,6 @@ $('[data-pgt-btn="single"]').change(function () {
     var that = $(this);
     var form = that.parent();
     var message = form.siblings('p');
-
     form.ajaxSubmit({
         url: '/upload/image',
         dataType: 'json',
