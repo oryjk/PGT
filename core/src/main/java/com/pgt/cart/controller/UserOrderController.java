@@ -115,6 +115,29 @@ public class UserOrderController extends TransactionBaseController implements Us
 		return mav;
 	}
 
+	@RequestMapping(value = "/ajaxOrderHistoryDetails")//, method = RequestMethod.GET)
+	public ResponseEntity ajaxOrderHistoryDetails (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                               @RequestParam(value = "orderId") String orderId) {
+		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// check user login state
+		User currentUser = getCurrentUser(pRequest);
+		if (currentUser == null) {
+			LOGGER.debug("Current session user has not sign, skip load order history.");
+			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_USER_LOGIN_REQUIRED);
+			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+		}
+		int orderIdInt = RepositoryUtils.safeParseId(orderId);
+		if (RepositoryUtils.idIsValid(orderIdInt)) {
+			Order order = getUserOrderService().loadOrderHistory(orderIdInt);
+			if (order != null) {
+				rb.setSuccess(true).setData(order);
+			}
+		} else {
+			LOGGER.debug("Cannot load order with an invalid order id: {}", orderId);
+		}
+		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/browsedProducts")//, method = RequestMethod.GET)
 	public ModelAndView recentlyBrowsedProducts (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		// check user login state
