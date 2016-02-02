@@ -114,11 +114,11 @@ public class HomeController {
                 LOGGER.debug("The query banner id is {}", banner.getBannerId());
                 modelAndView.addObject("banner", banner);
             }
-            SearchHit[] newProducts = getNewProduct();
+           /* SearchHit[] newProducts = getNewProduct();
             if (!ArrayUtils.isEmpty(newProducts)) {
                 modelAndView.addObject("newProducts", newProducts);
                 LOGGER.debug("add newProducts to modelAndView");
-            }
+            }*/
             Banner TopBanner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
             if (!ObjectUtils.isEmpty(TopBanner)) {
                 LOGGER.debug("The query TopBanner id is {}", TopBanner.getBannerId());
