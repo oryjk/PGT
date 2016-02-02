@@ -9,7 +9,6 @@ $('[data-pgt-btn="single"]').change(function () {
     var that = $(this);
     var form = that.parent();
     var message = form.siblings('p');
-    var staticPath = $('#staticServer').val();
 
     form.ajaxSubmit({
         url: '/upload/image',
@@ -36,9 +35,9 @@ $('[data-pgt-btn="single"]').change(function () {
                         var p = img.siblings('p');
                         var deleteBtn = img.siblings('.pgt-handle-box').children('a');
                         size = test.width() + '*' + test.height();
-                        img.attr('src', staticPath + responseBody.imagePath);
+                        img.attr('src', responseBody.imagePath);
                         p.html(size);
-                        deleteBtn.attr('data-url', '/media/delete/'+mediaId);
+                        deleteBtn.attr('data-url', '/media/delete/' + mediaId);
                         message.html('图片上传成功');
                         test.remove();
 
@@ -47,7 +46,7 @@ $('[data-pgt-btn="single"]').change(function () {
                     });
 
                     $('#testbox').append(test);
-                    test.attr('src', staticPath + responseBody.imagePath);
+                    test.attr('src', responseBody.imagePath);
 
                 }
             });
@@ -59,7 +58,6 @@ $('[data-pgt-btn="multiple"]').change(function () {
     var that = $(this);
     var form = that.parent();
     var message = form.siblings('p');
-    var staticPath = $('#staticServer').val();
 
     form.ajaxSubmit({
         url: '/upload/image',
@@ -88,7 +86,7 @@ $('[data-pgt-btn="multiple"]').change(function () {
                             '<div class="pgt-each-img"><div class="pgt-handle-box"><a class="pgt-img-delete" data-pgt-btn="delete-multiple" data-url="/media/delete/' +
                             mediaId +
                             '" href="#">删除</a> </div> <img class="pgt-main-img" src="' +
-                            staticPath + responseBody.imagePath +
+                            responseBody.imagePath +
                             '" alt=""/> <p class="pgt-img-size">' +
                             size +
                             '</p> </div>';
@@ -97,19 +95,18 @@ $('[data-pgt-btn="multiple"]').change(function () {
                         message.html('图片上传成功');
 
 
-
                     });
 
-                    test.attr('src', staticPath + responseBody.imagePath);
+                    test.attr('src', responseBody.imagePath);
                     $('#testbox').append(test);
-                    test.attr('src', staticPath + responseBody.imagePath);
+                    test.attr('src', responseBody.imagePath);
                 }
             });
         }
     });
 });
 
-$(document).on('click', '.pgt-img-delete', function(event) {
+$(document).on('click', '.pgt-img-delete', function (event) {
     event.preventDefault();
 
     var $this = $(this);
@@ -119,7 +116,7 @@ $(document).on('click', '.pgt-img-delete', function(event) {
     $.ajax({
         type: 'get',
         url: $this.attr('data-url'),
-        success: function(param) {
+        success: function (param) {
             if (param.success == true) {
                 var dataPgtBtn = $this.attr('data-pgt-btn');
                 if (dataPgtBtn == 'delete-single') {
@@ -142,11 +139,8 @@ $(document).on('click', '.pgt-img-delete', function(event) {
 });
 
 
-
-
-
 function inspect() {
-    $('[data-pgt-btn="single"]').each(function() {
+    $('[data-pgt-btn="single"]').each(function () {
         var $this = $(this);
         var img = $this.parents('.col-md-2').siblings('.col-md-8').children().children('img');
 
