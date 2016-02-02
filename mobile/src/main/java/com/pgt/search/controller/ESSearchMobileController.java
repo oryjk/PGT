@@ -1,5 +1,4 @@
 package com.pgt.search.controller;
-
 import com.pgt.base.constans.MobileConstants;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.Configuration;
@@ -10,7 +9,6 @@ import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
-import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,9 +52,8 @@ public class ESSearchMobileController extends BaseMobileController{
     public @ResponseBody Map<String, Object> query(EssearchBean essearchBean) {
         LOGGER.debug("The method productList for search");
         Map<String,Object> responseMap= new HashMap<>();
-        PaginationBean paginationBean = new PaginationBean();
+        CommPaginationBean paginationBean = new CommPaginationBean();
         if (StringUtils.isEmpty(essearchBean.getCurrentIndex())) {
-            paginationBean.setCurrentIndex(0);
             essearchBean.setCurrentIndex("0");
         }
         if(!StringUtils.isEmpty(essearchBean.getMobileCapacity())){
@@ -75,12 +71,8 @@ public class ESSearchMobileController extends BaseMobileController{
             ESAggregation esAggregation = new ESAggregation();
             esAggregation.setAggregationName("aggr");
             esAggregation.setPropertyName("parentCategoryId");
-            paginationBean.setCurrentIndex(0);
+            paginationBean.setCurrentIndex(Long.parseLong(essearchBean.getCurrentIndex()));
 
-            // 设置查询条件
-            if (!ObjectUtils.isEmpty(essearchBean.getCurrentIndex())) {
-                paginationBean.setCurrentIndex(Long.valueOf(essearchBean.getCurrentIndex()));
-            }
             essearchBean.setTerm( buildESMatch(essearchBean.getTerm(), responseMap,esMatches));
             esSort= buildESSort(essearchBean.getSortKey(), essearchBean.getSortOrder(),responseMap);
             if(!ObjectUtils.isEmpty(esSort)){
