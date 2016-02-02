@@ -130,7 +130,7 @@
 <c:if test="${param.useside eq 'true' }">
 <div class="side-bar" id="side-bar">
   <div class="right-a">
-    <a href="<spring:url value=""/>" class="right1-2">
+    <a href="<spring:url value="/"/>" class="right1-2">
       <img src="<spring:url value="${juedangpinStaticPath}/core/images/footer/pig.png"/>">
       <div class="right2"><span>主页</span><img class="img-search" src="<spring:url value="${juedangpinStaticPath}/core/images/footer/search_17.png"/>"></div>
     </a>
