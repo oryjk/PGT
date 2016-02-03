@@ -66,8 +66,7 @@
     </div>
     <div class="search-box">
         <form action="${pageContext.request.contextPath}/essearch">
-            <input class="search-text" name="term" value="<c:out value="${term}"/>" type="text"/>
-            <input class="search-sub" type="submit" value="搜索"/>
+            <input class="search-text" name="term" value="<c:out value="${term}"/>" type="text"/><input class="search-sub" type="submit" value="搜索"/>
         </form>
         <ul class="search-tips" id="searchTips">
             <li>翡翠</li>
