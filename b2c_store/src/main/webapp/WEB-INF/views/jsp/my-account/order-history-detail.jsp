@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绝当品</title>
+    <title>点金子绝当淘商城</title>
     <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/order-detail.css"/>"/>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>"/>
@@ -148,10 +148,10 @@
                         <c:forEach var="item" items="${historyOrder.commerceItems}">
                             <tr>
                                 <td class="col1">
-                                    <img src="${item.snapshotMedia.path}" alt=""/>
+                                    <a href="/product/${item.referenceId}"><img src="${item.snapshotMedia.path}" alt=""/></a>
                                 </td>
                                 <td class="col2">
-                                    <a class="product-name" href="#">${item.name}</a>
+                                    <a class="product-name" href="/product/${item.referenceId}">${item.name}</a>
                                 </td>
                                 <td class="col3">
                                     <span>${item.quality}</span>

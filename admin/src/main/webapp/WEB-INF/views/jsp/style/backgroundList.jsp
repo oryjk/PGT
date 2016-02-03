@@ -93,19 +93,19 @@
                                             </td>
                                             <td>
 
-                                                    <fmt:formatDate value="${pageBackground.creationDate}" type="both" />
+                                                    <fmt:formatDate value="${pageBackground.creationDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>
                                             </td>
                                             <td>
 
-                                                       <fmt:formatDate value="${pageBackground.updateDate}" type="both" />
+                                                       <fmt:formatDate value="${pageBackground.updateDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>
                                             </td>
                                             <td>
 
-                                                    <fmt:formatDate value="${pageBackground.startDate}" type="both" />
+                                                    <fmt:formatDate value="${pageBackground.startDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>
                                             </td>
                                             <td>
 
-                                                    <fmt:formatDate value="${pageBackground.endDate}" type="both" />
+                                                    <fmt:formatDate value="${pageBackground.endDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>
                                             </td>
                                             <td>
                                                 可用

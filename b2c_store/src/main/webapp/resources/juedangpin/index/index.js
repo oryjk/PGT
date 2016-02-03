@@ -13,7 +13,9 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
     $(document).ready(function() {
 
-
+//$('#side-bar').scroll(function () {
+//    alert("meeage");
+//})
         //调整banner的高度,让他适应menu
         //$('#bannerBox').css({
         //    //height: $('#menuList').height() - 10 + 'px'
@@ -90,7 +92,6 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             })
         });
 
-
         //显示购物车数量
         Prd.getOrderItemCount($('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'));
 
@@ -99,6 +100,25 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         $(document).on('click', '.sideRemoveCart', sideRemoveCart);
         $(document).on('click', '.sideAddEnjoy', sideAddEnjoy);
         $(document).on('click', '.sideDisEnjoy', sideDisEnjoy);
+
+        $(function(){
+            var h = $(document).scrollTop();
+            $(".right-menu").scroll(function() {
+                var scroll_position = $(".right-menu").scrollTop();
+                var height = $(".n-all").height() - $(".right-menu").height();
+                if(scroll_position >= height){
+                    $(".right-menu").scrollTop(height -1);
+                    $(document).scrollTop(h);
+                }
+                if(scroll_position <= 0){
+                    $(".right-menu").scrollTop(1);
+                    $(document).scrollTop(h);
+                }
+            });
+            $(document).scroll(function() {
+                h = $(document).scrollTop();
+            })
+        })
 
         //right-box
         $(function(){

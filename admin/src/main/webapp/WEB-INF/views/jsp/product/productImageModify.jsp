@@ -23,18 +23,26 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="#">产品列表</a>
+					<a href="/product/productList">产品列表</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
 					<a href="#">新增产品</a>
+					<i class="fa fa-circle"></i>
+				</li>
+				<li class="active">
+					<a href="#">产品id:${product.productId}</a>
+					<i class="fa fa-circle"></i>
+				</li>
+				<li class="active">
+					<a href="#">产品编码:${product.serialNumber}</a>
 				</li>
 			</ul>
 		</div>
 	</div>
 
 	<!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
-	<div class="row" style="display: block">
+	<div class="row" style="display: none">
 		<div class="col-xs-12">
 			<div class="Metronic-alerts alert alert-danger fade in">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -202,8 +210,16 @@
 											</div>
 										</div>
 									</div>
-
+									<div class="form-group">
+										<div class="col-md-8"style="float: right" ><a href="/product/productList">
+											<button id="searchBtn" style="float: right" class="btn blue">
+												回到列表页
+											</button>
+											</a>
+										</div>
+									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>

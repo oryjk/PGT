@@ -12,7 +12,8 @@
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList" pageJsPath="/resources/product/product-add-and-modify.js">
-  <h2>对不起，您暂时没有权限，请先登录或者切换成有权限的账号进行操作。</h2>
-  <p>点击这里<a href="/logout"> 重新登录</a> 具有权限的账号</p>
+	<h2 style="margin: 20px auto 20px;text-align: center">对不起，您暂时没有权限，请先登录或者切换成有权限的账号进行操作。</h2>
+
+	<p style="margin: 20px auto 20px;text-align: center">点击这里<a href="/logout"> 重新登录</a> 具有权限的账号</p>
 </admin:container>
 

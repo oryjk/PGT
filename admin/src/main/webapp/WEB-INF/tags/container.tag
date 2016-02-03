@@ -66,6 +66,7 @@
 	<link href="${ctx}/resources/assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="${ctx}/resources/core/css/table.css"/>
 	<link rel="stylesheet" href="${ctx}/resources/core/css/page.css"/>
+	<link rel="stylesheet" href="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.css"/>
 	<!-- END THEME STYLES -->
 	<!--<link rel="shortcut icon" href="favicon.ico">-->
 

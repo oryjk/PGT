@@ -6,23 +6,22 @@
 $('[data-pgt-btn="single"]').change(function () {
     var that = $(this);
     var form = that.parent();
-    //var staticPath = $('#staticServer').val();
 
     //提交图片
     form.ajaxSubmit({
-        url:'/upload/image',
+        url: '/upload/image',
         dataType: 'json',
         type: 'POST',
-        success: function(responseBody) {
+        success: function (responseBody) {
 
-            if(responseBody.mediaType=='header'){
+            if (responseBody.mediaType == 'header') {
                 $('#pgt-header-img').attr('src', responseBody.imagePath);
             }
-            if(responseBody.mediaType=='middle'){
+            if (responseBody.mediaType == 'middle') {
                 $('#pgt-middle-img').attr('src', responseBody.imagePath);
             }
 
-            if(responseBody.mediaType=='footer'){
+            if (responseBody.mediaType == 'footer') {
                 $('#pgt-footer-img').attr('src', responseBody.imagePath);
             }
 
@@ -34,23 +33,23 @@ $('[data-pgt-btn="single"]').change(function () {
                 data: {
                     path: responseBody.imagePath,
                     type: responseBody.mediaType,
-                    referenceId:$('#pageBackgroundId').val()
+                    referenceId: $('#pageBackgroundId').val()
                 },
                 success: function (param) {
                     var size = '';
                     //测量图片大小所用
                     var test = $('<img>');
                     var mediaId = param.mediaId;
-                    var mediaType=param.mediaType;
+                    var mediaType = param.mediaType;
 
-                    if(mediaType=='header'){
+                    if (mediaType == 'header') {
                         $('#pgt-header-delete').attr('data-url', '/media/delete/' + mediaId);
                     }
-                    if(mediaType=='middle'){
+                    if (mediaType == 'middle') {
                         $('#pgt-middle-delete').attr('data-url', '/media/delete/' + mediaId);
                     }
 
-                    if(mediaType=='footer'){
+                    if (mediaType == 'footer') {
                         $('#pgt-footer-delete').attr('data-url', '/media/delete/' + mediaId);
                     }
 
@@ -69,7 +68,7 @@ $('[data-pgt-btn="single"]').change(function () {
 
                     //需要把图片加入dom后才能获取得到它的height和width
                     $('#testbox').append(test);
-                    test.attr('src', staticPath + responseBody.imagePath);
+                    test.attr('src', responseBody.imagePath);
                     $('#frontMedia').val(param.mediaId);
                 }
             });
@@ -78,7 +77,7 @@ $('[data-pgt-btn="single"]').change(function () {
 });
 
 
-$(document).on('click', '.pgt-img-delete', function(event) {
+$(document).on('click', '.pgt-img-delete', function (event) {
     event.preventDefault();
 
     var $this = $(this);
@@ -86,7 +85,7 @@ $(document).on('click', '.pgt-img-delete', function(event) {
     $.ajax({
         type: 'get',
         url: $this.attr('data-url'),
-        success: function(param) {
+        success: function (param) {
             if (param.success == true) {
                 $('.pgt-category-img').attr('src', '').siblings('p').html('');
             }

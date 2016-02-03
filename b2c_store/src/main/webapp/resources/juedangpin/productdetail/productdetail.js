@@ -9,8 +9,8 @@ require.config({
     }
 });
 
-require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
-    $(document).ready(function() {
+require(['jquery', 'component', 'product'], function ($, Cpn, Prd) {
+    $(document).ready(function () {
         //tab切换
         Cpn.tab({
             tabArea: $('#info,#question,#talking'),
@@ -41,7 +41,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
         //纵向商品列表点击上下移动
         Cpn.verticalList({
-            list:  $('#verticalList'),
+            list: $('#verticalList'),
             top: $('#moveTop'),
             bottom: $('#moveBottom')
         });
@@ -69,7 +69,12 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             $('.join-cart').css({
                 background: 'grey',
                 cursor: 'default'
-            })
+            });
+            $('.buy-now').css({
+                background: 'grey',
+                cursor: 'default'
+            });
+            $('.buy-now')[0].setAttribute('href','#');
         }
 
 
@@ -81,7 +86,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
             event.preventDefault();
 
-            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function() {
+            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function () {
                 $("#right-menu").load('/product/buy');
             });
         }
@@ -106,7 +111,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
             event.preventDefault();
 
-            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function() {
+            Prd.addItemToOrder(productId, productMessage, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function () {
                 that.html('<span><i class="foundicon-checkmark"></i> 已加入</span>');
                 $("#right-menu").load('/product/buy');
             });
@@ -121,28 +126,47 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         $(document).on('click', '.sideAddEnjoy', sideAddEnjoy);
         $(document).on('click', '.sideDisEnjoy', sideDisEnjoy);
 
-        //right-box
         $(function(){
+            var h = $(document).scrollTop();
+            $(".right-menu").scroll(function() {
+                var scroll_position = $(".right-menu").scrollTop();
+                var height = $(".n-all").height() - $(".right-menu").height();
+                if(scroll_position >= height){
+                    $(".right-menu").scrollTop(height -1);
+                    $(document).scrollTop(h);
+                }
+                if(scroll_position <= 0){
+                    $(".right-menu").scrollTop(1);
+                    $(document).scrollTop(h);
+                }
+            });
+            $(document).scroll(function() {
+                h = $(document).scrollTop();
+            })
+        })
+
+        //right-box
+        $(function () {
             var flag = 0;
             var status = "";
-            $(".right1").click(function(){
+            $(".right1").click(function () {
                 var m_status = $(this).attr("title");
-                if(status != m_status || flag == 0){
-                    $("#side-bar").animate({right:"0"});
+                if (status != m_status || flag == 0) {
+                    $("#side-bar").animate({right: "0"});
                     var url = $(this).attr("path");
                     status = $(this).attr("title");
                     $("#side-bar").show();
                     $("#right-menu").load(url);
                     flag = 1;
-                }else if(flag == 1 && status == m_status){
-                    $("#side-bar").animate({right:"-300px"});
+                } else if (flag == 1 && status == m_status) {
+                    $("#side-bar").animate({right: "-300px"});
                     flag = 0;
                 }
             });
 
-            $('#header, #content, #footer').click(function(event) {
+            $('#header, #content, #footer').click(function (event) {
                 if ($(event.target).attr('data-btn') != 'addCart')
-                    $("#side-bar").animate({right:"-300px"});
+                    $("#side-bar").animate({right: "-300px"});
                 flag = 0;
             })
         });
@@ -165,7 +189,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             var productId = that.attr('data-value');
 
             event.preventDefault();
-            Prd.removeItemFromOrder(productId, null, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function(param) {
+            Prd.removeItemFromOrder(productId, null, $('#asideCartCount, #fixedCartCount, #cartCount, .right-buy1'), function (param) {
                 if (param.success == 1) {
                     $("#right-menu").load('/product/buy');
                 }
@@ -176,7 +200,8 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
         function sideAddEnjoy(event) {
             var that = $(this);
             var productId = that.attr('data-value');
-            var productMessage = that.siblings().children('.product-message');;
+            var productMessage = that.siblings().children('.product-message');
+            ;
 
 
             event.preventDefault();
@@ -191,7 +216,7 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
 
             event.preventDefault();
 
-            Prd.removeFavourite(productId, null, null, function(param) {
+            Prd.removeFavourite(productId, null, null, function (param) {
                 if (param.success == 1) {
                     that.parent().hide();
                 }

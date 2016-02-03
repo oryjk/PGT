@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>绝当品</title>
+<title>点金子绝当淘商城</title>
 <link rel="stylesheet"
 	href="<spring:url value="${juedangpinStaticPath}/searchPage/searchPage.css"/>" />
 	<link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
@@ -333,7 +333,7 @@
 			<!-- 搜索无结果-->
 			<div class="no-result" style="display:${result[1]}">
 			<p class="row">
-			抱歉,没有找到 "<span>${message}</span>" 的搜索结果
+			抱歉,没有找到 "<span><c:out value="${message}"/></span>" 的搜索结果
 			</p>
 			</div>
 

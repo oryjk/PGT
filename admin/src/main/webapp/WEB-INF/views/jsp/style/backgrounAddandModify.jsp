@@ -67,14 +67,14 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">开始时间:</label>
                                         <div class="col-md-4">
-                                            <input type="text" name="startDate" value="<fmt:formatDate value="${pageBackground.startDate}" type="both" />" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
+                                            <input type="text" name="startDate" value="<fmt:formatDate value="${pageBackground.startDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">结束时间:</label>
                                         <div class="col-md-4">
-                                            <input type="text" name="endDate" value="<fmt:formatDate value="${pageBackground.endDate}" type="both" />" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
+                                            <input type="text" name="endDate" value="<fmt:formatDate value="${pageBackground.endDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>" class="form-control" placeholder="" maxlength="35" onfocus="$(this).calendar()">
                                             </p>
                                         </div>
                                     </div>

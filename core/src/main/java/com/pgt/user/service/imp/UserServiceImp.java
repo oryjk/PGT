@@ -1,5 +1,6 @@
 package com.pgt.user.service.imp;
 
+import com.pgt.base.service.TransactionService;
 import com.pgt.cart.util.FieldsRegexValidator;
 import com.pgt.user.bean.User;
 import com.pgt.user.dao.UserMapper;
@@ -7,8 +8,11 @@ import com.pgt.user.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -20,8 +24,8 @@ import java.util.List;
  * Created by cwang7 on 10/18/15.
  */
 @Service
-public class UserServiceImp implements UserService {
-
+public class UserServiceImp extends TransactionService implements UserService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImp.class);
     @Resource(name = "passwordRegexValidator")
     private FieldsRegexValidator passwordRegexValidator;
 
@@ -33,22 +37,27 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-
     public User findUser(String id) {
         return null;
     }
 
     @Override
-
     public void saveUser(User user) {
-        user.setCreateDate(new Date());
-        user.setUpdateDate(new Date());
-        user.setSalt(System.currentTimeMillis() + "");
-        String encryptedPassword = DigestUtils.md5Hex(user.getPassword() + user.getSalt());
-        user.setPassword(encryptedPassword);
-        user.setAvailable(true);
-        userMapper.create(user);
-
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            user.setCreateDate(new Date());
+            user.setUpdateDate(new Date());
+            user.setSalt(System.currentTimeMillis() + "");
+            String encryptedPassword = DigestUtils.md5Hex(user.getPassword() + user.getSalt());
+            user.setPassword(encryptedPassword);
+            user.setAvailable(true);
+            userMapper.create(user);
+        } catch (Exception e) {
+            LOGGER.error("The error message is {}.", e.getMessage());
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
     }
 
     @Override
@@ -64,15 +73,31 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void updateUserPassword(User user) {
-        String encryptedPassword = DigestUtils.md5Hex(user.getPassword() + user.getSalt());
-        user.setPassword(encryptedPassword);
-        userMapper.update(user);
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            String encryptedPassword = DigestUtils.md5Hex(user.getPassword() + user.getSalt());
+            user.setPassword(encryptedPassword);
+            userMapper.update(user);
+        } catch (Exception e) {
+            LOGGER.error("The error message is {}.", e.getMessage());
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
     }
 
 
     @Override
     public void updateUser(User user) {
-        userMapper.update(user);
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            userMapper.update(user);
+        } catch (Exception e) {
+            LOGGER.error("The error message is {}.", e.getMessage());
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
     }
 
     @Override
@@ -91,7 +116,15 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void updateLastLogin(Long id) {
-        userMapper.updateLastLogin(id);
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            userMapper.updateLastLogin(id);
+        } catch (Exception e) {
+            LOGGER.error("The error message is {}.", e.getMessage());
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
     }
 
     @Override

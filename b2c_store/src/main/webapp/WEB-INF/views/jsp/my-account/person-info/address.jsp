@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
-    <title>绝当品</title>
+    <title>点金子绝当淘商城</title>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/person-info/address.css"/>"/>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>"/>
 </head>

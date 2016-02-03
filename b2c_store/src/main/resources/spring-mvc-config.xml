@@ -23,6 +23,7 @@
         <!--Initial global config-->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**.*"/>
             <bean class="com.pgt.global.interceptor.GlobalConfigInterceptor"></bean>
 
         </mvc:interceptor>
@@ -30,6 +31,7 @@
         <!-- find user in cookie -->
         <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
+            <mvc:exclude-mapping path="/**.*"/>
             <bean class="com.pgt.permission.PersistentInterceptor"></bean>
         </mvc:interceptor>
 
@@ -42,21 +44,25 @@
         <!-- check the user login -->
         <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
+            <mvc:exclude-mapping path="/**.*"/>
             <bean class="com.pgt.permission.LoginInterceptor"></bean>
         </mvc:interceptor>
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**.*"/>
             <bean class="com.pgt.cart.filter.ProductBrowseTracker"></bean>
         </mvc:interceptor>
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**.*"/>
             <bean class="com.pgt.cart.filter.RecommendInterceptor"></bean>
         </mvc:interceptor>
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**.*"/>
             <bean class="com.pgt.help.interceptor.HelpCenterInterceptor"></bean>
         </mvc:interceptor>
 

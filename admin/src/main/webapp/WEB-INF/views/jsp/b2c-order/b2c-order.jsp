@@ -228,7 +228,7 @@
 
                                                 <div class="col-md-8">
                                                     <p class="form-control-static">
-                                                            ${b2cOrder.shippingVO.shippingAddress.telephone}
+                                                            ${b2cOrder.shippingVO.shippingAddress.phone}
                                                     </p>
                                                 </div>
                                             </div>
@@ -240,7 +240,7 @@
 
                                                 <div class="col-md-8">
                                                     <p class="form-control-static">
-                                                            ${b2cOrder.shippingVO.shippingAddress.phone}
+                                                            ${b2cOrder.shippingVO.shippingAddress.telephone}
                                                     </p>
                                                 </div>
                                             </div>

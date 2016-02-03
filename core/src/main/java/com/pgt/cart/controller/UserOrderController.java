@@ -9,6 +9,7 @@ import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.service.UserOrderService;
 import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.product.bean.Product;
 import com.pgt.user.bean.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Yove on 11/8/2015.
@@ -40,12 +42,12 @@ public class UserOrderController extends TransactionBaseController implements Us
 	private ResponseBuilderFactory mResponseBuilderFactory;
 
 	@RequestMapping(value = "/orderHistory")//, method = RequestMethod.GET)
-	public ModelAndView loadOrderHistory(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
-			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
-			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
-			@RequestParam(value = "status", required = false, defaultValue = "0") int status) {
+	public ModelAndView loadOrderHistory (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                      @RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
+	                                      @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
+	                                      @RequestParam(value = "keyword", required = false) String keyword,
+	                                      @RequestParam(value = "asc", required = false, defaultValue = "false") String asc,
+	                                      @RequestParam(value = "status", required = false, defaultValue = "0") int status) {
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
 		if (currentUser == null) {
@@ -67,12 +69,12 @@ public class UserOrderController extends TransactionBaseController implements Us
 
 	@RequestMapping(value = "/ajaxOrderHistory")//, method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity ajaxLoadOrderHistory(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
-			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
-			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
-			@RequestParam(value = "status", required = false, defaultValue = "0") int status) {
+	public ResponseEntity ajaxLoadOrderHistory (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                            @RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
+	                                            @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
+	                                            @RequestParam(value = "keyword", required = false) String keyword,
+	                                            @RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
+	                                            @RequestParam(value = "status", required = false, defaultValue = "0") int status) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -113,8 +115,31 @@ public class UserOrderController extends TransactionBaseController implements Us
 		return mav;
 	}
 
+	@RequestMapping(value = "/ajaxOrderHistoryDetails")//, method = RequestMethod.GET)
+	public ResponseEntity ajaxOrderHistoryDetails (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                               @RequestParam(value = "orderId") String orderId) {
+		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// check user login state
+		User currentUser = getCurrentUser(pRequest);
+		if (currentUser == null) {
+			LOGGER.debug("Current session user has not sign, skip load order history.");
+			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_USER_LOGIN_REQUIRED);
+			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+		}
+		int orderIdInt = RepositoryUtils.safeParseId(orderId);
+		if (RepositoryUtils.idIsValid(orderIdInt)) {
+			Order order = getUserOrderService().loadOrderHistory(orderIdInt);
+			if (order != null) {
+				rb.setSuccess(true).setData(order);
+			}
+		} else {
+			LOGGER.debug("Cannot load order with an invalid order id: {}", orderId);
+		}
+		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/browsedProducts")//, method = RequestMethod.GET)
-	public ModelAndView RecentlyBrowsedProducts(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ModelAndView recentlyBrowsedProducts (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
 		if (currentUser == null) {
@@ -124,19 +149,34 @@ public class UserOrderController extends TransactionBaseController implements Us
 		return new ModelAndView("/my-account/browsed-products");
 	}
 
-	public UserOrderService getUserOrderService() {
+	@RequestMapping(value = "/ajaxBrowsedProducts")//, method = RequestMethod.GET)
+	public ResponseEntity ajaxRecentlyBrowsedProducts (HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// check user login state
+		User currentUser = getCurrentUser(pRequest);
+		if (currentUser == null) {
+			LOGGER.debug("Current session user has not sign, skip load order history.");
+			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_USER_LOGIN_REQUIRED);
+			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+		}
+		List<Product> products = (List<Product>) pRequest.getAttribute(CartConstant.BROWSED_PRODUCTS);
+		rb.setData(products).setSuccess(true);
+		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+	}
+
+	public UserOrderService getUserOrderService () {
 		return mUserOrderService;
 	}
 
-	public void setUserOrderService(final UserOrderService pUserOrderService) {
+	public void setUserOrderService (final UserOrderService pUserOrderService) {
 		mUserOrderService = pUserOrderService;
 	}
 
-	public ResponseBuilderFactory getResponseBuilderFactory() {
+	public ResponseBuilderFactory getResponseBuilderFactory () {
 		return mResponseBuilderFactory;
 	}
 
-	public void setResponseBuilderFactory(final ResponseBuilderFactory pResponseBuilderFactory) {
+	public void setResponseBuilderFactory (final ResponseBuilderFactory pResponseBuilderFactory) {
 		mResponseBuilderFactory = pResponseBuilderFactory;
 	}
 }

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +42,8 @@ public class UploadImageController {
 
     @RequestMapping(value = "/image", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam(required = false) MultipartFile uploadPicture, MediaType mediaType,HttpServletResponse response,
+    public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam(required = false) MultipartFile uploadPicture, MediaType mediaType,
+                                                           HttpServletResponse response,
                                                            HttpServletRequest request
     ) throws IOException {
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
@@ -49,11 +51,13 @@ public class UploadImageController {
             LOGGER.debug("The upload image is empty.");
             return responseEntity;
         }
-        if(ObjectUtils.isEmpty(mediaType)){
+        if (ObjectUtils.isEmpty(mediaType)) {
             LOGGER.debug("The media type is null.");
             return responseEntity;
         }
         String originalFilename = uploadPicture.getOriginalFilename();
+        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
+        originalFilename = new Date().getTime() + suffix;
         String filePath = configuration.getImagePath() + configuration.getImageFolder() + originalFilename;
         LOGGER.debug("The file path is {}.", filePath);
 

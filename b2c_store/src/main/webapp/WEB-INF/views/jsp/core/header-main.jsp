@@ -16,7 +16,7 @@
                 <li>
                     <a href="#">手机绝当品</a>
                 </li>
-                <li><a href="#">帮助中心</a></li>
+                <li><a href="<spring:url value="${urlConfiguration.helpCenterPage}"/>">帮助中心</a></li>
                 <li><a href="#">网站导航</a></li>
             </ul>
             <c:choose>
@@ -66,15 +66,14 @@
     </div>
     <div class="search-box">
         <form action="${pageContext.request.contextPath}/essearch">
-            <input class="search-text" name="term" value="${term}" type="text"/><!--
-             --><input class="search-sub" type="submit" value="搜索"/>
+            <input class="search-text" name="term" value="<c:out value="${term}"/>" type="text"/><input class="search-sub" type="submit" value="搜索"/>
         </form>
         <ul class="search-tips" id="searchTips">
-            <li>小万</li>
-            <li>王霸</li>
-            <li>厉害</li>
-            <li>搜索</li>
-            <li>提示</li>
+            <li>翡翠</li>
+            <li>玛瑙</li>
+            <li>木制品</li>
+            <li>民品</li>
+            <li>把件</li>
         </ul>
         <div class="hot-words">
 

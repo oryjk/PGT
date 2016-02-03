@@ -43,6 +43,12 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             right: $('#moveLeft3')
         });
 
+        Cpn.tab({
+            tabArea: $('#recommend>div'),
+            tabLi: $('#tab>li'),
+            tabTarget: $('#tab h2')
+        });
+
         //纵向列表高度和右边内容一致
         $('#verticalList').parent().css({
             maxHeight: $('#main').outerHeight(true) - 124 + 'px'
@@ -121,12 +127,30 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             })
         });
 
+       $(function(){
+           var h = $(document).scrollTop();
+           $(".right-menu").scroll(function() {
+               var scroll_position = $(".right-menu").scrollTop();
+               var height = $(".n-all").height() - $(".right-menu").height();
+               if(scroll_position >= height){
+                   $(".right-menu").scrollTop(height -1);
+                   $(document).scrollTop(h);
+               }
+               if(scroll_position <= 0){
+                   $(".right-menu").scrollTop(1);
+                   $(document).scrollTop(h);
+               }
+           });
+           $(document).scroll(function() {
+               h = $(document).scrollTop();
+           })
+       })
+
         //加入购物车
         function sideAddCart(event) {
             var that = $(this);
             var productId = that.attr('data-value');
             var productMessage = that.siblings().children('.product-message');
-
 
             event.preventDefault();
 

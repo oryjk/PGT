@@ -113,16 +113,18 @@
                                                ${image.imageId}
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${image.createDate}" type="both" />
+                                                <fmt:formatDate value="${image.createDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${image.endDate}" type="both" />
+                                                <fmt:formatDate value="${image.endDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>
                                             </td>
                                             <td>
                                                 ${image.url}
                                             </td>
                                             <td class="face-box">
-                                                <img src="${image.path}" alt="${image.path}"  style="height: 200px;"/>
+                                            <div id="gallery">
+                                            <a href="${image.path}" style="font-size:15px" alt="${image.path}">点击查看大图</a>
+                                            </div>
                                             </td>
                                             <td>
                                                 ${image.location}
@@ -278,5 +280,14 @@
     </div>
 
 </div>
+
+    <script>
+    $(function() {
+    $('#gallery').poptrox({
+    usePopupCaption: true
+    });
+
+    });
+    </script>
 
 </admin:container>

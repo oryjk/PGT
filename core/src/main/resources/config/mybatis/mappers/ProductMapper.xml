@@ -34,6 +34,7 @@
         <result column="TITLE" property="title"/>
         <result column="KEY_WORD" property="keyWord"/>
         <result column="MERCHANT" property="merchant"/>
+        <result column="IS_HOT" property="isHot"/>
         <association property="relatedCategoryId" column="PRODUCT_ID"
                      select="queryRelatedCategoryId"/>
         <association property="shippingAddress" column="PRODUCT_ID"
@@ -240,7 +241,7 @@
     <update id="updateProduct" parameterMap="paramProduct">
 		UPDATE PRODUCT SET
 		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
-		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},CREATION_DATE=#{creationDate},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
+		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
 		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId} WHERE PRODUCT_ID=#{productId}
 	</update>
     <delete id="deleteProduct" parameterType="int">

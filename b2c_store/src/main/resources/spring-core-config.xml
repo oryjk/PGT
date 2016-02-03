@@ -82,6 +82,7 @@
 		<property name="serviceTels">
 			<list value-type="java.lang.String">
 				<value>18602812970</value>
+				<value>15881116008</value>
 			</list>
 		</property>
 
@@ -135,8 +136,8 @@
 				<value>sort</value>
 			</list>
 		</property>
-		<property name="needIndex" value="false"/>
-		<property name="clearIndex" value="false"/>
+		<property name="needIndex" value="true"/>
+		<property name="clearIndex" value="true"/>
 	</bean>
 
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">

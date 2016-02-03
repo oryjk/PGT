@@ -106,7 +106,8 @@
                                         <div class="col-md-9">
                                             <div class="radio-list">
                                                 <select class="form-control input-medium" name="site">
-                                                 <c:forEach items="${webSites}" var="website">
+                                                    <option value="" >请选择</option>
+                                                    <c:forEach items="${webSites}" var="website">
                                                     <option value="${website}" ${banner.site eq website? "selected='selected'" :''}>${website}</option>
                                                  </c:forEach>
                                                 </select>

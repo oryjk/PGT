@@ -63,6 +63,7 @@
 
         <c:forEach items="${hotProducts}" var="homeCategory"
                    varStatus="status">
+            <c:set var="category" value="${homeCategory.category.source}"/>
 
             <c:if test="${status.index % 2 ==0}">
 
@@ -70,28 +71,30 @@
 
                     <ul class="products-nav">
 
-                        <c:forEach items="${homeCategory['source']['category']['children']}"
+
+                        <c:forEach items="${category.children}"
                                    var="subCategory">
                             <li><a href="<spring:url value="essearch?parentCategoryId=${subCategory.id}"/>">${subCategory['name']}</a></li>
                         </c:forEach>
-                        <li><a href="<spring:url value="essearch?parentCategoryId=${homeCategory['source']['category']['id']}"/>">
+
+                        <li><a href="<spring:url value="essearch?parentCategoryId=${category.id}"/>">
                             更多></a></li>
                     </ul>
 
-                    <h2 style="border-bottom: 2px solid ${homeCategory['source']['category']['color']}">
-                            ${homeCategory['source']['category']['name']} <small style="color: ${homeCategory['source']['category']['color']}">${homeCategory['source']['category']['description']}</small>
+                    <h2 style="border-bottom: 2px solid ${category.color}">
+                            ${category.name} <small style="color: ${category.color}">${category.description}</small>
                     </h2>
                     <div class="products">
 
-                        <a class="product-main" href="${pageContext.request.contextPath}/essearch?rootCategoryId=${homeCategory['source']['category']['id']}">
+                        <a class="product-main" href="${pageContext.request.contextPath}/essearch?rootCategoryId=${category.id}">
                             <img
-                                    src="${pageContext.request.contextPath}/resources${homeCategory['source']['category']['frontMedia']['path']}" alt="${homeCategory['source']['category']['name']}" />
+                                    src="${pageContext.request.contextPath}/resources${category.frontMedia.path}" alt="${category.name}" />
                             <div class="light"></div>
                         </a>
 
-                        <c:forEach items="${homeCategory['source']['hotProduct']}" var="product"
+                        <c:forEach items="${homeCategory.hotProducts}" var="homeProduct"
                                    varStatus="st">
-
+                            <c:set var="product" value="${homeProduct.source}"/>
                             <c:if test="${st.index<6}">
 
                                 <a href="product/${product['productId']}">
@@ -111,7 +114,7 @@
 
                                     <div class="product-message">添加成功</div>
 
-                                    <div class="product-hover-area" style="background: ${homeCategory['source']['category']['color']}">
+                                    <div class="product-hover-area" style="background: ${category.color}">
                                         <input type="button" value="查看详情" data-btn="showInfo"/> <input
                                             type="button" value="添加收藏" data-value="${product['productId']}" data-url="<spring:url value="/"/>" data-btn="addEnjoy" /> <input
                                             type="button" value="加入购物车" data-value="${product['productId']}" data-url="<spring:url value="/shoppingCart/ajaxAddItemToOrder"/>" data-btn="addCart" />
@@ -131,25 +134,26 @@
                 <div class="products-list-even">
                     <ul class="products-nav">
 
-                        <c:forEach items="${homeCategory['source']['category']['children']}"
+                        <c:forEach items="${category.children}"
                                    var="subCategory">
                             <li><a href="<spring:url value="essearch?parentCategoryId=${subCategory.id}"/>">${subCategory['name']}</a></li>
                         </c:forEach>
-                        <li><a href="<spring:url value="essearch?parentCategoryId=${homeCategory['source']['category']['id']}"/>">
+                        <li><a href="<spring:url value="essearch?parentCategoryId=${category.id}"/>">
                             更多></a></li>
                     </ul>
-                    <h2 style="border-bottom: 2px solid ${homeCategory['source']['category']['color']}">
-                            ${homeCategory['source']['category']['name']} <small style="color: ${homeCategory['source']['category']['color']}">${homeCategory['source']['category']['description']}</small>
+                    <h2 style="border-bottom: 2px solid ${category.color}">
+                            ${category.name} <small style="color: ${category.color}">${category.description}</small>
                     </h2>
                     <div class="products">
 
-                        <a class="product-main" href="${pageContext.request.contextPath}/essearch?rootCategoryId=${homeCategory['source']['category']['id']}"> <img
-                                src="${pageContext.request.contextPath}/resources${homeCategory['source']['category']['frontMedia']['path']}" alt="${homeCategory['source']['category']['name']}" />
+                        <a class="product-main" href="${pageContext.request.contextPath}/essearch?rootCategoryId=${category.id}"> <img
+                                src="${pageContext.request.contextPath}/resources${category.frontMedia.path}" alt="${category.name}" />
                             <div class="light"></div>
                         </a>
 
-                        <c:forEach items="${homeCategory['source']['hotProduct']}" var="product"
+                        <c:forEach items="${homeCategory.hotProducts}" var="homeProduct"
                                    varStatus="st">
+                            <c:set var="product" value="${homeProduct.source}"/>
 
                             <c:if test="${st.index<6}">
                                 <a href="product/${product['productId']}"> <img
@@ -168,7 +172,7 @@
 
                                     <div class="product-message">添加成功</div>
 
-                                    <div class="product-hover-area" style="background: ${homeCategory['source']['category']['color']}">
+                                    <div class="product-hover-area" style="background: ${category.color}">
                                         <input type="button" value="查看详情" data-btn="showInfo" /> <input
                                             type="button" value="添加收藏" data-value="${product['productId']}" data-btn="addEnjoy" /> <input
                                             type="button" value="加入购物车" data-value="${product['productId']}" data-url="<spring:url value="/shoppingCart/ajaxAddItemToOrder"/>" data-btn="addCart" />
@@ -179,6 +183,7 @@
                     </div>
                 </div>
             </c:if>
+
 
 
         </c:forEach>
@@ -194,8 +199,7 @@
         <div id="classifyPopCentent"></div>
     </div>
 </div>
-</body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/index/index.js"/>"></script>
 
-
+</body>
 </html>

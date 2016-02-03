@@ -32,7 +32,11 @@ public class ESSearchConstants {
 	public static final String ESSEARCH_OBJECT_ROOTCATEGORY_ID = "rootCategory";
 
 	public static final String ESSEARCH_OBJECT_SIMILARCATEGORY = "categoryHists";
-	
+
+	public static final String HOT_PROPERTY="isHot";
+	public static final String HOT_VALUE="true";
+	public static final Integer HOT_SIEZ=6;
+
 	
 	
 	

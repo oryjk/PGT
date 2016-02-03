@@ -101,7 +101,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label">卖点描述</label>
+								<label class="col-md-3 control-label">标题</label>
 								<div class="col-md-4">
 									<form:input  path="title" class="form-control" placeholder="不超过20字"/>
 								</div>
