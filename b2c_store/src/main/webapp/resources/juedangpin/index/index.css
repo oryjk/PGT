@@ -2109,13 +2109,15 @@ small {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 50px 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4); }
   .classify-product-box .classify-product-content {
-    margin: 0 auto;
+    margin: -350px 0 0 -580px;
     width: 1160px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     background: white;
     box-shadow: black 0 0 20px; }
   .classify-product-box .product-list {
