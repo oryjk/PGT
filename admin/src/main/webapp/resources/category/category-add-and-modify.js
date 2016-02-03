@@ -22,7 +22,6 @@ $('#levelSelect').change(function() {
 $('[data-pgt-btn="single"]').change(function () {
     var that = $(this);
     var form = that.parent();
-    var staticPath = $('#staticServer').val();
 
     //提交图片
     form.ajaxSubmit({
@@ -48,7 +47,7 @@ $('[data-pgt-btn="single"]').change(function () {
                     test.load(function () {
                         size = test.width() + '*' + test.height();
 
-                        $('.pgt-category-img').attr('src', staticPath + responseBody.imagePath)
+                        $('.pgt-category-img').attr('src', responseBody.imagePath)
                             .siblings('p').html(size);
                         $('.pgt-img-delete').attr('data-url', '/media/delete/' + mediaId);
 
@@ -58,7 +57,7 @@ $('[data-pgt-btn="single"]').change(function () {
 
                     //需要把图片加入dom后才能获取得到它的height和width
                     $('#testbox').append(test);
-                    test.attr('src', staticPath + responseBody.imagePath);
+                    test.attr('src', responseBody.imagePath);
                     $('#frontMedia').val(param.mediaId);
                 }
             });

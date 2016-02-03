@@ -74,9 +74,6 @@
 
         <form action="<c:url value="/payment/gateway"/>" method="post" >
             <fieldset class="success-box">
-                <p class="look-order">
-                    <a class="link-btn" href="#">查看我的订单</a>
-                </p>
                 <div class="row">
                     <h3>订单提交成功,请您尽快付款!</h3>
                 </div>

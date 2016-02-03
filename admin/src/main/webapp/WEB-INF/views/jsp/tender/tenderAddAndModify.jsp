@@ -11,7 +11,10 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src="/resources/assets/global/scripts/avalon.js"></script>
+<script src="/resources/assets/global/scripts/jquery-1.8.3.min.js"></script>
+<script src="/resources/assets/global/scripts/vue.min.js"></script>
+<script src="/resources/assets/global/scripts/regex.js"></script>
+<script src="/resources/assets/global/scripts/volidata.js"></script>
 <admin:container id="tenderList" pageJsPath="/resources/tender/tender.js">
     <style>
         .pgt-error {
@@ -56,7 +59,8 @@
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form ms-controller="tenderForm" action="/tender/${tender.tenderId eq null ? 'create' : 'update'} "
+                    <div id="error" v-model="model">
+                        <form ms-controller="tenderForm" action="/tender/${tender.tenderId eq null ? 'create' : 'update'} "
                           method="post" class="form-horizontal">
                         <div class="form-body">
                             <!-- 只有在修改时才显示id行-->
@@ -106,9 +110,14 @@
                                 <label class="col-xs-3 control-label">投资总金额</label>
 
                                 <div class="col-xs-4">
-                                    <input ms-duplex-limit="tenderTotal" data-duplex-totalLimit="8" name="tenderTotal"
+                                    <input id="tenderTotal" ms-duplex-limit="tenderTotal" data-duplex-totalLimit="8" name="tenderTotal"
                                            value="${tender.tenderTotal}" type="text" class="form-control"
                                            placeholder="商家id"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        {{model.tenderTotal}}
+                                    </p>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -220,6 +229,7 @@
 
                         </div>
                     </form>
+                    </div>
                 </div>
                 <!-- END FORM-->
             </div>

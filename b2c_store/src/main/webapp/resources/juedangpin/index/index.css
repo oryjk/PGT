@@ -1354,6 +1354,7 @@ span {
 
 .right-menu {
   overflow: scroll;
+  overflow-x: hidden;
   background: #e6e6e6;
   width: 300px;
   height: 100%;

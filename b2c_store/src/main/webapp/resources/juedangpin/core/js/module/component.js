@@ -34,6 +34,23 @@ define(function() {
         }
     };
 
+    var h = $(document).scrollTop();
+    $(".right-menu").scroll(function() {
+        var scroll_position = $(".right-menu").scrollTop();
+        var height = $(".n-all").height() - $(".right-menu").height();
+        if(scroll_position >= height){
+            $(".right-menu").scrollTop(height -1);
+            $(document).scrollTop(h);
+        }
+        if(scroll_position <= 0){
+            $(".right-menu").scrollTop(1);
+            $(document).scrollTop(h);
+        }
+    });
+    $(document).scroll(function() {
+        h = $(document).scrollTop();
+    })
+
     /**
      * tab 标签页
     * tabObj对象的属性必须是:
