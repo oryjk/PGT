@@ -104,6 +104,10 @@
     <div class="our-info">
       <h3>点金子总部地址</h3>
       <p>成都市武侯区下一站都市A座302室</p>
+      <p></p>
+      <h3>点金子北京总部地址</h3>
+      <p>北京市朝阳区朝外大街乙6号0110</p>
+      <p></p>
       <p>咨询热线：028-85033350</p>
       <p>企业邮箱：zxhl998@163.com</p>
     </div>
@@ -115,10 +119,6 @@
 
     <a href="http://webscan.360.cn/index/checkwebsite/url/mp.dianjinzi.com">
       <img border="0" src="http://img.webscan.360.cn/status/pai/hash/4ee18cbbbfc36755fd8f96837e2f700f"/></a>
-
-    <a href="http://zhanzhang.anquan.org/physical/report/?domain=www.dianjinzi.com"
-       name="jSDgnQDcuKCy2w4jyIuu952ZsXPj0vMz8rXjiARpUBepRIVAEt"><img
-            src="http://zhanzhang.anquan.org/static/common/images/zhanzhang.png" alt="安全联盟站长平台" width="114" height="41"></a>
   </div>
   <p>蜀ICP备15022028号 © 2016 dianjinzi, Inc. All rights reserved.</p>
 </div>
