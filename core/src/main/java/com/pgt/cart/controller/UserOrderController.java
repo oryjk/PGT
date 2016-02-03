@@ -149,6 +149,7 @@ public class UserOrderController extends TransactionBaseController implements Us
 		return new ModelAndView("/my-account/browsed-products");
 	}
 
+	@Deprecated
 	@RequestMapping(value = "/ajaxBrowsedProducts")//, method = RequestMethod.GET)
 	public ResponseEntity ajaxRecentlyBrowsedProducts (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
