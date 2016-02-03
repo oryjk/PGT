@@ -46,14 +46,17 @@ public class RecommendService {
 	private boolean mRecommendOutOfStockProduct = false;
 
 	private String[] mRecommendURLs = new String[] { "/myAccount/favourites", "/user/updatePassword", "/userinformation/query", "/myAccount/orderHistory",
-			"/myAccount/browsedProducts", "/404", "/checkout/shipping", "/payment/gateway", "/payment/complete", "/my-account/person-info/address" };
+			"/myAccount/browsedProducts", "/myAccount/ajaxBrowsedProducts", "/404", "/checkout/shipping", "/payment/gateway", "/payment/complete", "/my-account/person-info/address" };
 
-	private static final String SUFFIX_JS = ".js";
+	private static final String SUFFIX_JS  = ".js";
+
 	private static final String SUFFIX_CSS = ".css";
+
 	private static final String SUFFIX_JPG = ".jpg";
+
 	private static final String SUFFIX_PNG = ".png";
 
-	public boolean recommend(final HttpServletRequest pRequest) {
+	public boolean recommend (final HttpServletRequest pRequest) {
 		String requestURI = pRequest.getRequestURI();
 		if (requestURI.endsWith(SUFFIX_JS) || requestURI.endsWith(SUFFIX_CSS)) {
 			return false;
@@ -80,7 +83,7 @@ public class RecommendService {
 		return false;
 	}
 
-	public List<Product> figureRecommendProducts(List<Integer> pRecentBrowsedProductIds, int pCurrentProductId) {
+	public List<Product> figureRecommendProducts (List<Integer> pRecentBrowsedProductIds, int pCurrentProductId) {
 		List<Integer> recommendProductIds = new ArrayList(getRecommendCount());
 		if (CollectionUtils.isEmpty(pRecentBrowsedProductIds)) {
 			LOGGER.debug("Empty recently browsed products, recommend products randomly.");
@@ -157,7 +160,7 @@ public class RecommendService {
 		return recommendProducts;
 	}
 
-	public void recommendRandomly(List<Integer> pRecommendProducts, List<String> pRecommendedCategoryIds) {
+	public void recommendRandomly (List<Integer> pRecommendProducts, List<String> pRecommendedCategoryIds) {
 		List<Integer> randomRecommendCategoryIds = getRecommendDao().queryCategoryIdsExclude(pRecommendedCategoryIds);
 		for (Integer categoryId : randomRecommendCategoryIds) {
 			List<Integer> categoryProductIds = getRecommendDao().queryAvailableProductIds(categoryId, isRecommendOutOfStockProduct());
@@ -178,59 +181,59 @@ public class RecommendService {
 		}
 	}
 
-	public ProductBrowseTrackService getBrowseTrackService() {
+	public ProductBrowseTrackService getBrowseTrackService () {
 		return mBrowseTrackService;
 	}
 
-	public void setBrowseTrackService(final ProductBrowseTrackService pBrowseTrackService) {
+	public void setBrowseTrackService (final ProductBrowseTrackService pBrowseTrackService) {
 		mBrowseTrackService = pBrowseTrackService;
 	}
 
-	public RecommendDao getRecommendDao() {
+	public RecommendDao getRecommendDao () {
 		return mRecommendDao;
 	}
 
-	public void setRecommendDao(final RecommendDao pRecommendDao) {
+	public void setRecommendDao (final RecommendDao pRecommendDao) {
 		mRecommendDao = pRecommendDao;
 	}
 
-	public String[] getRecommendURLs() {
+	public String[] getRecommendURLs () {
 		return mRecommendURLs;
 	}
 
-	public void setRecommendURLs(final String[] pRecommendURLs) {
+	public void setRecommendURLs (final String[] pRecommendURLs) {
 		mRecommendURLs = pRecommendURLs;
 	}
 
-	public ProductMapper getProductDao() {
+	public ProductMapper getProductDao () {
 		return mProductDao;
 	}
 
-	public void setProductDao(final ProductMapper pProductDao) {
+	public void setProductDao (final ProductMapper pProductDao) {
 		mProductDao = pProductDao;
 	}
 
-	public int getRecommendCount() {
+	public int getRecommendCount () {
 		return mRecommendCount;
 	}
 
-	public void setRecommendCount(final int pRecommendCount) {
+	public void setRecommendCount (final int pRecommendCount) {
 		mRecommendCount = pRecommendCount;
 	}
 
-	public boolean isRecommendOutOfStockProduct() {
+	public boolean isRecommendOutOfStockProduct () {
 		return mRecommendOutOfStockProduct;
 	}
 
-	public void setRecommendOutOfStockProduct(final boolean pRecommendOutOfStockProduct) {
+	public void setRecommendOutOfStockProduct (final boolean pRecommendOutOfStockProduct) {
 		mRecommendOutOfStockProduct = pRecommendOutOfStockProduct;
 	}
 
-	public URLConfiguration getURLConfiguration() {
+	public URLConfiguration getURLConfiguration () {
 		return mURLConfiguration;
 	}
 
-	public void setURLConfiguration(final URLConfiguration pURLConfiguration) {
+	public void setURLConfiguration (final URLConfiguration pURLConfiguration) {
 		mURLConfiguration = pURLConfiguration;
 	}
 }
