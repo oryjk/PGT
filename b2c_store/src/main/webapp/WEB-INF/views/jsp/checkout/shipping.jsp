@@ -169,7 +169,6 @@
                 </c:if>
             </fieldset>
         </form>
-
         <form id="addAddressForm" class="address" action="../my-account/person-info/addAddress" ${not empty selectedAddress ? 'style="display:none"':'' }>
             <h3>收货地址</h3>
             <fieldset>
@@ -200,7 +199,9 @@
 			<input id="addressInfoId" name="addressInfoId" value="">
 			<input id="js-add-address-to-order" type="button"/>
 		</form>
-		
+        <c:if test="${empty addressInfoList}">
+            <span style="color: red; float: right;margin: 5px 0px 0px 0px">请输入收货地址</span>
+        </c:if>
         <form class="product-info">
             <h3>商品信息</h3>
             <fieldset>
@@ -236,6 +237,7 @@
 
             </fieldset>
         </form>
+
         <form action="redirectToPayment" method="get">
 	        <div class="sub-box">
 	        	<input type="hidden" name="orderId" value="${checkoutOrder.id }"/>
@@ -244,6 +246,7 @@
                        onclick="window.location.href='..${urlConfiguration.shoppingCartPage}'"/>
 	        </div>
         </form>
+
     </div>
 
 <jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp" />
