@@ -105,20 +105,20 @@ public class ProductMobileController extends BaseMobileController {
 	}
 
 
-	@RequestMapping(value = "/queryProduct/list", method = RequestMethod.POST)
-	public Map<String, Object> queryProducts(List<String> productIds) {
+	@RequestMapping(value = "/queryProduct/list", method = RequestMethod.GET)
+	public Map<String, Object> queryProducts( @RequestParam(value = "productIds", required = true) int[] productIds) {
 
 		Map<String,Object> responseMap= new HashMap<>();
         LOGGER.debug("The method query Products");
-        if(CollectionUtils.isEmpty(productIds)){
+        if(ArrayUtils.isEmpty(productIds)){
 		    LOGGER.debug("The products id is empty");
 			return responseMobileFail(responseMap, "ProductId.empty");
 		}
 
 		List<Map> products= new ArrayList<>();
-		for (String productId:productIds) {
+		for (Integer productId:productIds) {
 		    LOGGER.debug("The query product is {}",productId);
-			Map map=findProduct(responseMap,productId);
+			Map map=findProduct(responseMap,productId.toString());
 			products.add(map);
 		}
 
