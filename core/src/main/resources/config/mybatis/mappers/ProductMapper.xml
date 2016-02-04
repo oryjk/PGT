@@ -234,7 +234,7 @@
 		PRODUCT(NAME,SERIAL_NUMBER,LIST_PRICE,SALE_PRICE,STATUS,DESCRIPTION,
 		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID)
 		VALUES
-		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},${tenderId})
+		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},#{tenderId})
 	</insert>
 
 

@@ -106,7 +106,7 @@ public class ProductController extends InternalTransactionBaseController {
             }
             modelAndView.addObject("product", product);
             modelAndView.addObject("staticServer", configuration.getStaticServer());
-            modelAndView.setViewName("/product/productImageModify");
+            modelAndView.setViewName("redirect:/product/update/productImageModify/" + product.getProductId());
             return modelAndView;
         } catch (Exception e) {
             status.setRollbackOnly();
