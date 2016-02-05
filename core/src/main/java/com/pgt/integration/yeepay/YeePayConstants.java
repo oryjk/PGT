@@ -70,6 +70,7 @@ public class YeePayConstants {
 
 	public static final String PARAM_NAME_EXPIRED = "expired";
 
+
 	// ------------ VALUES -----------------------
 
 	public static final String PAYMENT_TYPE = "yeepay";
@@ -95,6 +96,8 @@ public class YeePayConstants {
 	public static final String MODE_CONFIRM = "CONFIRM"; 
 	
 	public static final String SUCCESS = "SUCCESS";
+
+	public static final String SERVICE_NAME_DIRECT_TRANSACTION = "DIRECT_TRANSACTION";
 	
 
 }
