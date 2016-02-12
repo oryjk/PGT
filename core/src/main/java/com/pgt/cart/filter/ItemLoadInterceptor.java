@@ -20,10 +20,10 @@ import java.util.List;
  */
 public abstract class ItemLoadInterceptor implements HandlerInterceptor {
 
-	protected static final String SUFFIX_CSS = ".css";
-	protected static final String SUFFIX_JPG = ".jpg";
-	protected static final String SUFFIX_JS = ".js";
-	protected static final String SUFFIX_PNG = ".png";
+	public static final String SUFFIX_CSS = ".css";
+	public static final String SUFFIX_JPG = ".jpg";
+	public static final String SUFFIX_JS = ".js";
+	public static final String SUFFIX_PNG = ".png";
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(ItemLoadInterceptor.class);
 
@@ -31,6 +31,7 @@ public abstract class ItemLoadInterceptor implements HandlerInterceptor {
 	protected List<String> mInterceptURIs;
 	protected List<String> mExcludeURISuffixes;
 	protected String mRequestConstantName;
+
 	@Autowired
 	private URLConfiguration mURLConfiguration;
 
@@ -128,5 +129,13 @@ public abstract class ItemLoadInterceptor implements HandlerInterceptor {
 
 	public void setExcludeURISuffixes(final List<String> pExcludeURISuffixes) {
 		mExcludeURISuffixes = pExcludeURISuffixes;
+	}
+
+	public URLConfiguration getURLConfiguration() {
+		return mURLConfiguration;
+	}
+
+	public void setURLConfiguration(final URLConfiguration pURLConfiguration) {
+		mURLConfiguration = pURLConfiguration;
 	}
 }
