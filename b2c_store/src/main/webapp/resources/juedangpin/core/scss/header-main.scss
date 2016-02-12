@@ -265,6 +265,7 @@ $viceColor: #d43139;
     border: 2px solid $mainColor;
     font-size: 18px;
     outline: none;
+
   }
 
   .search-sub {
@@ -273,6 +274,7 @@ $viceColor: #d43139;
     background: $mainColor;
     color: white;
     font-size: 18px;
+
   }
 
   .search-tips {
@@ -393,6 +395,7 @@ $viceColor: #d43139;
     border: 2px solid $mainColor;
     font-size: 18px;
     outline: none;
+    float: left;
   }
 
   .search-sub {
@@ -401,6 +404,7 @@ $viceColor: #d43139;
     background: $mainColor;
     color: white;
     font-size: 18px;
+    float: left;
   }
 
   .search-tips {

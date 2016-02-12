@@ -34,32 +34,15 @@ define(function() {
         }
     };
 
-    var h = $(document).scrollTop();
-    $(".right-menu").scroll(function() {
-        var scroll_position = $(".right-menu").scrollTop();
-        var height = $(".n-all").height() - $(".right-menu").height();
-        if(scroll_position >= height){
-            $(".right-menu").scrollTop(height -1);
-            $(document).scrollTop(h);
-        }
-        if(scroll_position <= 0){
-            $(".right-menu").scrollTop(1);
-            $(document).scrollTop(h);
-        }
-    });
-    $(document).scroll(function() {
-        h = $(document).scrollTop();
-    })
-
     /**
      * tab 标签页
-    * tabObj对象的属性必须是:
-    * tabArea: 一个jquery对象,表示被切换的区域 $('#info,#question,#talking'),
-    * tabLi:一个jquery对象,表示将要显示改变的区域 $('#tab li'),
-    * tabTarget:一个jqeury对象,表示点击的区域 $('#tab h2'),
-    * time表示切换时动画的事件,缺省时立即出现
-    * 需要有.choose 的样式
-    * */
+     * tabObj对象的属性必须是:
+     * tabArea: 一个jquery对象,表示被切换的区域 $('#info,#question,#talking'),
+     * tabLi:一个jquery对象,表示将要显示改变的区域 $('#tab li'),
+     * tabTarget:一个jqeury对象,表示点击的区域 $('#tab h2'),
+     * time表示切换时动画的事件,缺省时立即出现
+     * 需要有.choose 的样式
+     * */
     var tab = function (tabObj, time) {
         tabObj.tabTarget.click(function(event) {
             tabObj.tabArea.hide();
@@ -123,12 +106,12 @@ define(function() {
     };
 
     /**
-    * fixedHead 固定顶部
-    * fixedObj的属性必须是:
-    * head 目标对象
-    * height 零界点
-    * time 出现时间
-    * */
+     * fixedHead 固定顶部
+     * fixedObj的属性必须是:
+     * head 目标对象
+     * height 零界点
+     * time 出现时间
+     * */
     var fixedHead = function(fixedObj) {
         var doc = $(document);
         var height = 0;

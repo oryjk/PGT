@@ -333,7 +333,7 @@
 			<!-- 搜索无结果-->
 			<div class="no-result" style="display:${result[1]}">
 			<p class="row">
-			抱歉,没有找到 "<span>${message}</span>" 的搜索结果
+			抱歉,没有找到 "<span><c:out value="${message}"/></span>" 的搜索结果
 			</p>
 			</div>
 

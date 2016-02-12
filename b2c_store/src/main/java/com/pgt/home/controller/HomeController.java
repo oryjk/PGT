@@ -222,17 +222,20 @@ public class HomeController {
                 Integer categoryId = (Integer) category.getSource().get("id");
                 LOGGER.debug("The category Id is {}",categoryId);
                 SearchResponse categoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),listTerm ,null,paginationBean,null,null);
-                SearchHits categoryProducts=categoryProduct.getHits();
-                SearchHit[] hotProducts =categoryProducts.getHits();
-                if(hotProducts.length<6){
-                    LOGGER.debug("The hotProducts is less than 6,so find to all products");
-                    SearchResponse otherCategoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),null ,null,paginationBean,null,null);
-                    SearchHits otherCategoryProducts=otherCategoryProduct.getHits();
-                    hotProducts =otherCategoryProducts.getHits();
+
+                if(!ObjectUtils.isEmpty(categoryProduct)){
+                    SearchHits categoryProducts=categoryProduct.getHits();
+                    SearchHit[] hotProducts =categoryProducts.getHits();
+                    if(hotProducts.length<6){
+                        LOGGER.debug("The hotProducts is less than 6,so find to all products");
+                        SearchResponse otherCategoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),null ,null,paginationBean,null,null);
+                        SearchHits otherCategoryProducts=otherCategoryProduct.getHits();
+                        hotProducts =otherCategoryProducts.getHits();
+                    }
+                    hot.setCategory(category);
+                    hot.setHotProducts(hotProducts);
+                    products.add(hot);
                 }
-                hot.setCategory(category);
-                hot.setHotProducts(hotProducts);
-                products.add(hot);
         }
         return products;
     }

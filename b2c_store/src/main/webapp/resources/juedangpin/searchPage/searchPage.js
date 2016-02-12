@@ -127,23 +127,24 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             })
         });
 
-        $('.right-menu').scroll(function() {
-            var scollElm = $('.n-all');
-            var scollPrt = $('.right-menu');
-            var sideBar = $('.side-bar');
-
-            scollElm.css({
-                padding: '20px 0'
-            });
-            var h = scollElm.innerHeight() - sideBar.innerHeight();
-
-            if (scollPrt.scrollTop() > h-20) {
-                scollPrt.scrollTop(h-20);
-            }
-            if (scollPrt.scrollTop() < 20) {
-                scollPrt.scrollTop(20);
-            }
-        });
+       $(function(){
+           var h = $(document).scrollTop();
+           $(".right-menu").scroll(function() {
+               var scroll_position = $(".right-menu").scrollTop();
+               var height = $(".n-all").height() - $(".right-menu").height();
+               if(scroll_position >= height){
+                   $(".right-menu").scrollTop(height -1);
+                   $(document).scrollTop(h);
+               }
+               if(scroll_position <= 0){
+                   $(".right-menu").scrollTop(1);
+                   $(document).scrollTop(h);
+               }
+           });
+           $(document).scroll(function() {
+               h = $(document).scrollTop();
+           })
+       })
 
         //加入购物车
         function sideAddCart(event) {

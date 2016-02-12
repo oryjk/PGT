@@ -1179,14 +1179,16 @@ span {
     padding: 3px 10px;
     border: 2px solid #d43139;
     font-size: 18px;
-    outline: none; }
+    outline: none;
+    float: left; }
   .fixed-head-box .search-sub {
     width: 15%;
     height: 40px;
     border: none;
     background: #d43139;
     color: white;
-    font-size: 18px; }
+    font-size: 18px;
+    float: left; }
   .fixed-head-box .search-tips {
     position: absolute;
     display: none;
