@@ -8,4 +8,6 @@ public interface PawnProperties {
 	String PAWN_SHOP_OWNER_ID = "ownerId";
 
 	String PAWN_SHOP_NAME = "shopName";
+
+	String PAWN_TICKET_IDS = "ticketIds";
 }

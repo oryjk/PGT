@@ -49,6 +49,10 @@ public class PawnService {
 		return getPawnDao().loadPawnTicket(pTicketId);
 	}
 
+	public boolean updateBatchPawnTicketStatus(final int[] pTicketIds, final boolean pStatus) {
+		return getPawnDao().updateBatchPawnTicketStatus(pTicketIds, pStatus) > 0;
+	}
+
 	public PawnDao getPawnDao() {
 		return mPawnDao;
 	}

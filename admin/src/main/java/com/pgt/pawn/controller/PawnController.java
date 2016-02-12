@@ -1,7 +1,9 @@
 package com.pgt.pawn.controller;
 
+import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
+import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.internal.bean.InternalUser;
 import com.pgt.internal.bean.Role;
@@ -13,16 +15,16 @@ import com.pgt.pawn.service.PawnRelatedValidationService;
 import com.pgt.pawn.service.PawnService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 /**
  * Created by jeniss on 16/2/7.
@@ -46,8 +48,11 @@ public class PawnController extends InternalTransactionBaseController implements
 	@Resource(name = "pawnRelatedValidationService")
 	private PawnRelatedValidationService mPawnRelatedValidationService;
 
+	@Resource(name = "responseBuilderFactory")
+	private ResponseBuilderFactory mResponseBuilderFactory;
+
 	@RequestMapping(value = "/update-pawn-shop", method = RequestMethod.POST)
-	public ModelAndView persistPawnShop(Pawnshop pPawnshop, HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ModelAndView persistPawnShop(HttpServletRequest pRequest, HttpServletResponse pResponse, Pawnshop pPawnshop) {
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
@@ -93,8 +98,8 @@ public class PawnController extends InternalTransactionBaseController implements
 	}
 
 	@RequestMapping(value = "/update-pawn-shop", method = RequestMethod.GET)
-	public ModelAndView updatePawnShop(@RequestParam(value = "shopId", required = true) int pShopId, HttpServletRequest pRequest,
-	                                   HttpServletResponse pResponse) {
+	public ModelAndView updatePawnShop(HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                   @RequestParam(value = "shopId", required = true) int pShopId) {
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
@@ -144,8 +149,8 @@ public class PawnController extends InternalTransactionBaseController implements
 	}
 
 	@RequestMapping(value = "/pawn-ticket-update", method = RequestMethod.GET)
-	public ModelAndView updatePawnTicket(@RequestParam(value = "ticketId", required = true) int pTicketId, HttpServletRequest pRequest,
-	                                     HttpServletResponse pResponse) {
+	public ModelAndView updatePawnTicket(HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                     @RequestParam(value = "ticketId", required = true) int pTicketId) {
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
@@ -167,7 +172,7 @@ public class PawnController extends InternalTransactionBaseController implements
 	}
 
 	@RequestMapping(value = "/pawn-ticket-update", method = RequestMethod.POST)
-	public ModelAndView persistPawnTicket(PawnTicket pPawnTicket, HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ModelAndView persistPawnTicket(HttpServletRequest pRequest, HttpServletResponse pResponse, PawnTicket pPawnTicket) {
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
@@ -181,7 +186,7 @@ public class PawnController extends InternalTransactionBaseController implements
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_TICKET_NUMBER_INVALID);
 			return mav;
 		}
-		if (!getPawnRelatedValidationService().checkPawnTicketNumberUniquess(pPawnTicket.getNumber())) {
+		if (!getPawnRelatedValidationService().checkPawnTicketNumberUniqueness(pPawnTicket.getNumber())) {
 			LOGGER.debug("Persist pawn ticket with an duplicate ticket number: {}", pPawnTicket.getNumber());
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_TICKET_NUMBER_DUPLICATE);
 			return mav;
@@ -210,6 +215,44 @@ public class PawnController extends InternalTransactionBaseController implements
 		return mav;
 	}
 
+	@RequestMapping(value = "/pawn-tickets-status-update", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity updatePawnTicketsStatus(HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                              @RequestParam(value = "ticketIds", required = true) int[] pTicketIds,
+	                                              @RequestParam(value = "ticketStatue", required = true) boolean pStatus) {
+		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+		// permission verify
+		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
+		if (!pass) {
+			return new ResponseEntity(rb.createResponse(), HttpStatus.FORBIDDEN);
+		}
+		InternalUser iu = getCurrentInternalUser(pRequest);
+		// pre validation
+		if (getPawnRelatedValidationService().checkPawnTicketsMatchOwner(pTicketIds, iu.getId())) {
+			LOGGER.debug("Update status of pawn tickets: {}, but not all pawn tickets belongs to current user: {}",
+					Arrays.toString(pTicketIds), iu.getId());
+			rb.addErrorMessage(PAWN_TICKET_IDS, ERROR_TICKET_REL_NOT_MATCH);
+			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+		}
+		// update & persist
+		TransactionStatus status = ensureTransaction();
+		try {
+			boolean result = getPawnService().updateBatchPawnTicketStatus(pTicketIds, pStatus);
+			if (!result) {
+				status.setRollbackOnly();
+			}
+		} catch (Exception e) {
+			LOGGER.error("Cannot update pawn tickets status and rollback transaction.", e);
+			status.setRollbackOnly();
+		} finally {
+			getTransactionManager().commit(status);
+			if (!status.isRollbackOnly()) {
+				rb.setSuccess(true);
+			}
+		}
+		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+	}
+
 	public PawnService getPawnService() {
 		return mPawnService;
 	}
@@ -224,5 +267,13 @@ public class PawnController extends InternalTransactionBaseController implements
 
 	public void setPawnRelatedValidationService(final PawnRelatedValidationService pPawnRelatedValidationService) {
 		mPawnRelatedValidationService = pPawnRelatedValidationService;
+	}
+
+	public ResponseBuilderFactory getResponseBuilderFactory() {
+		return mResponseBuilderFactory;
+	}
+
+	public void setResponseBuilderFactory(final ResponseBuilderFactory pResponseBuilderFactory) {
+		mResponseBuilderFactory = pResponseBuilderFactory;
 	}
 }

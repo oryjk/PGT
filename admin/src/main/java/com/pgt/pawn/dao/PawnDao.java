@@ -27,4 +27,6 @@ public interface PawnDao extends SqlMapper {
 	Pawnshop loadPawnShop(int pShopId);
 
 	PawnTicket loadPawnTicket(int pTicketId);
+
+	int updateBatchPawnTicketStatus(int[] pTicketIds, boolean pStatus);
 }

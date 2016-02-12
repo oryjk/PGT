@@ -13,5 +13,7 @@ public interface PawnMessage {
 	String ERROR_TICKET_NUMBER_DUPLICATE = "Error.ticket.number.duplicate";
 	String ERROR_TICKET_SHOP_INVALID = "Error.ticket.shop.invalid";
 
+	String ERROR_TICKET_REL_NOT_MATCH = "Error.ticket.rel.ticketNotMatchUser";
+
 	String ERROR_INVEST_PERMISSION_DENIED = "Error.invest.permission.permissionDenied";
 }

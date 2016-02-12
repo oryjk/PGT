@@ -14,6 +14,7 @@ public class PawnTicket implements Serializable {
 	private Date mCreationDate;
 	private Date mUpdateDate;
 	private String mComments;
+	private boolean mStatus = true;
 
 	private Pawnshop mPawnshop;
 
@@ -63,6 +64,14 @@ public class PawnTicket implements Serializable {
 
 	public void setComments(final String pComments) {
 		mComments = pComments;
+	}
+
+	public boolean isStatus() {
+		return mStatus;
+	}
+
+	public void setStatus(final boolean pStatus) {
+		mStatus = pStatus;
 	}
 
 	public Pawnshop getPawnshop() {
