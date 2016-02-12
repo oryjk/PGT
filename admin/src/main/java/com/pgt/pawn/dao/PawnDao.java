@@ -2,6 +2,7 @@ package com.pgt.pawn.dao;
 
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.cart.bean.pagination.InternalPagination;
+import com.pgt.pawn.bean.PawnTicket;
 import com.pgt.pawn.bean.Pawnshop;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +12,19 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "pawnDao")
 public interface PawnDao extends SqlMapper {
 
-	boolean updatePawnShop(Pawnshop pPawnshop);
+	int updatePawnShop(Pawnshop pPawnshop);
 
-	boolean createPawnShop(Pawnshop pPawnshop);
+	int createPawnShop(Pawnshop pPawnshop);
 
 	int queryPawnTicketCount(InternalPagination pPagination, int pUserId);
 
 	void queryPawnTicketPage(InternalPagination pPagination, int pUserId);
+
+	int updatePawnTicket(PawnTicket pTicket);
+
+	int createPawnTicket(PawnTicket pTicket);
+
+	Pawnshop loadPawnShop(int pShopId);
+
+	PawnTicket loadPawnTicket(int pTicketId);
 }

@@ -20,4 +20,5 @@ public interface ResponseConstant {
 
 	String PAWN_SHOP = "pawnShop";
 	String PAWN_TICKET_PAGE = "pawnTicketPage";
+	String PAWN_TICKET = "pawnTicket";
 }

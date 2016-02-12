@@ -7,6 +7,7 @@ import com.pgt.internal.bean.InternalUser;
 import com.pgt.internal.bean.Role;
 import com.pgt.internal.constant.ResponseConstant;
 import com.pgt.internal.controller.InternalTransactionBaseController;
+import com.pgt.pawn.bean.PawnTicket;
 import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.pawn.service.PawnRelatedValidationService;
 import com.pgt.pawn.service.PawnService;
@@ -33,7 +34,9 @@ public class PawnController extends InternalTransactionBaseController implements
 	public static final String PERMISSION_DENIED_INVEST = "permission-denied-invest";
 	public static final String VIEW_PAWN_SHOP = "/pawn/pawn-shop";
 	public static final String REDIRECT_PAWN_SHOP_WITHOUT_ID = "redirect:/pawn-shop?shopId=";
-	public static final String VIEW_PAWN_TICKET_LIST = "/pawn/pawn-ticket-list";
+	public static final String VIEW_PAWN_TICKETS = "/pawn/pawn-tickets";
+	public static final String VIEW_PAWN_TICKET = "/pawn/pawn-ticket";
+	public static final String REDIRECT_PAWN_TICKET_WITHOUT_ID = "redirect:/pawn-ticket?ticketId=";
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PawnController.class);
 
@@ -60,9 +63,14 @@ public class PawnController extends InternalTransactionBaseController implements
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_SHOP_OWNER_ID_INVALID);
 			return mav;
 		}
-		if (getPawnRelatedValidationService().checkPawnShopName(pPawnshop.getName())) {
+		if (!getPawnRelatedValidationService().checkPawnShopName(pPawnshop.getName())) {
 			LOGGER.debug("Persist pawn shop with an invalid shop name: {}", pPawnshop.getName());
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_SHOP_NAME_INVALID);
+			return mav;
+		}
+		if (!getPawnRelatedValidationService().checkPawnShopNameUniqueness(pPawnshop.getName())) {
+			LOGGER.debug("Persist pawn shop with an duplicate shop name: {}", pPawnshop.getName());
+			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_SHOP_NAME_DUPLICATE);
 			return mav;
 		}
 		// persist
@@ -85,8 +93,8 @@ public class PawnController extends InternalTransactionBaseController implements
 	}
 
 	@RequestMapping(value = "/update-pawn-shop", method = RequestMethod.GET)
-	public ModelAndView loadPawnShop(@RequestParam(value = "shopId", required = true) int pShopId, HttpServletRequest pRequest,
-	                                 HttpServletResponse pResponse) {
+	public ModelAndView updatePawnShop(@RequestParam(value = "shopId", required = true) int pShopId, HttpServletRequest pRequest,
+	                                   HttpServletResponse pResponse) {
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
@@ -130,8 +138,75 @@ public class PawnController extends InternalTransactionBaseController implements
 		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword).createInternalPagination();
 		getPawnService().queryPawnTicketPage(pagination, iu.getId());
 
-		ModelAndView mav = new ModelAndView(VIEW_PAWN_TICKET_LIST);
+		ModelAndView mav = new ModelAndView(VIEW_PAWN_TICKETS);
 		mav.addObject(ResponseConstant.PAWN_TICKET_PAGE, pagination);
+		return mav;
+	}
+
+	@RequestMapping(value = "/pawn-ticket-update", method = RequestMethod.GET)
+	public ModelAndView updatePawnTicket(@RequestParam(value = "ticketId", required = true) int pTicketId, HttpServletRequest pRequest,
+	                                     HttpServletResponse pResponse) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		InternalUser iu = getCurrentInternalUser(pRequest);
+		ModelAndView mav = new ModelAndView(VIEW_PAWN_SHOP);
+		PawnTicket pawnTicket = getPawnService().loadPawnTicket(pTicketId);
+		if (iu.getId() != pawnTicket.getPawnshop().getOwnerId()) {
+			LOGGER.debug("Current request pawn ticket: {} is owned by pawn shop: {}({}) is not belongs to current user: {}", pTicketId,
+					pawnTicket.getPawnshop().getName(), pawnTicket.getPawnshop().getPawnshopId(), iu.getId());
+			// redirect page to investment
+			mav.setViewName(PERMISSION_DENIED_INVEST);
+			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_INVEST_PERMISSION_DENIED);
+			return mav;
+		}
+		mav.addObject(ResponseConstant.PAWN_TICKET, pawnTicket);
+		return mav;
+	}
+
+	@RequestMapping(value = "/pawn-ticket-update", method = RequestMethod.POST)
+	public ModelAndView persistPawnTicket(PawnTicket pPawnTicket, HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		ModelAndView mav = new ModelAndView(VIEW_PAWN_TICKET);
+		mav.addObject(ResponseConstant.PAWN_TICKET, pPawnTicket);
+		// pre validation
+		if (!getPawnRelatedValidationService().checkPawnTicketNumber(pPawnTicket.getNumber())) {
+			LOGGER.debug("Persist pawn ticket with an invalid ticket number: {}", pPawnTicket.getNumber());
+			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_TICKET_NUMBER_INVALID);
+			return mav;
+		}
+		if (!getPawnRelatedValidationService().checkPawnTicketNumberUniquess(pPawnTicket.getNumber())) {
+			LOGGER.debug("Persist pawn ticket with an duplicate ticket number: {}", pPawnTicket.getNumber());
+			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_TICKET_NUMBER_DUPLICATE);
+			return mav;
+		}
+		if (!getPawnRelatedValidationService().checkPawnShopExistence(pPawnTicket.getNumber())) {
+			LOGGER.debug("Persist pawn ticket with an invalid pawn shop: {}", pPawnTicket.getPawnshopId());
+			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_TICKET_SHOP_INVALID);
+			return mav;
+		}
+		// persist
+		TransactionStatus status = ensureTransaction();
+		try {
+			boolean result = getPawnService().persistPawnTicket(pPawnTicket);
+			if (!result) {
+				status.setRollbackOnly();
+			}
+		} catch (Exception e) {
+			LOGGER.error("Cannot persist pawn ticket and roll back transaction.", e);
+			status.setRollbackOnly();
+		} finally {
+			getTransactionManager().commit(status);
+			if (!status.isRollbackOnly()) {
+				mav.setViewName(REDIRECT_PAWN_TICKET_WITHOUT_ID + pPawnTicket.getPawnTicketId());
+			}
+		}
 		return mav;
 	}
 
