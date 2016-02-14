@@ -11,10 +11,10 @@ public class PawnTicket implements Serializable {
 	private int mPawnTicketId;
 	private int mPawnshopId;
 	private String mNumber;
-	private Date mCreationDate;
-	private Date mUpdateDate;
 	private String mComments;
 	private boolean mStatus = true;
+	private Date mCreationDate;
+	private Date mUpdateDate;
 
 	private Pawnshop mPawnshop;
 

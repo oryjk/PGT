@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.pawn.dao.PawnDao">
+
+    <resultMap id="pawnShop" type="com.pgt.pawn.bean.Pawnshop">
+        <id column="ID" property="pawnshopId" />
+        <result column="NAME" property="name" />
+        <result column="OWNER_ID" property="ownerId" />
+        <result column="MANAGER_ID" property="managerId" />
+        <result column="ADDRESS" property="address" />
+        <result column="CREATION_DATE" property="creationDate" />
+        <result column="UPDATE_DATE" property="updateDate" />
+    </resultMap>
+
+    <resultMap id="pawnTicket" type="com.pgt.pawn.bean.PawnTicket">
+        <id column="ID" property="pawnTicketId" />
+        <result column="PAWN_SHOP_ID" property="pawnshopId" />
+        <result column="NUM" property="number" />
+        <result column="COMMENTS" property="comments" />
+        <result column="STATUS" property="status" />
+        <result column="CREATION_DATE" property="creationDate" />
+        <result column="UPDATE_DATE" property="updateDate" />
+        <association column="PAWN_SHOP_ID" property="pawnshop" select="loadPawnShop" />
+    </resultMap>
+
+    <sql id="limit-split-page">
+        <if test="@Ognl@isNotBlankString(pagination.sortFieldName)">
+            ORDER BY ${pagination.sortFieldName}
+            <if test="!pagination.asc">
+                DESC
+            </if>
+        </if>
+        <if test="!pagination.invalidPagination">
+            LIMIT #{pagination.sqlStartIndex}, #{pagination.capacity}
+        </if>
+    </sql>
+
+    <insert id="createPawnShop" keyColumn="ID" useGeneratedKeys="true">
+        INSERT INTO `PAWN_SHOP` (`OWNER_ID`, `MANAGER_ID`, `NAME`, `ADDRESS`, `CREATION_DATE`, `UPDATE_DATE`)
+        VALUES (#{ownerId}, #{managerId}, #{name}, #{address}, #{creationDate}, #{updateDate})
+    </insert>
+
+    <update id="updatePawnShop" parameterType="com.pgt.pawn.bean.Pawnshop">
+        UPDATE `PAWN_SHOP`
+        <set>
+            `OWNER_ID` = #{ownerId}, `MANAGER_ID` = #{managerId}, `NAME` = #{name}, `ADDRESS` = #{address},
+            `CREATION_DATE` = #{creationDate}, `UPDATE_DATE` = #{updateDate}
+        </set>
+        WHERE `ID` = ${pawnshopId}
+    </update>
+
+    <select id="loadPawnShop" resultMap="pawnShop" parameterType="int">
+        SELECT
+        `ID`,
+        `OWNER_ID`,
+        `MANAGER_ID`,
+        `NAME`,
+        `ADDRESS`,
+        `CREATION_DATE`,
+        `UPDATE_DATE`
+        FROM `PAWN_SHOP`
+        WHERE `ID` = #{shopId}
+    </select>
+
+    <select id="queryPawnTicketCount" resultType="long">
+        SELECT COUNT(PT.ID)
+        FROM PAWN_TICKET PT
+        LEFT JOIN `PAWN_SHOP` PS ON PT.`PAWN_SHOP_ID` = PS.`ID`
+        WHERE PS.`OWNER_ID` = #{userId}
+        AND PT.`NUMBER` LIKE CONCAT('%', #{pagination.keyword}, '%')
+    </select>
+
+    <select id="queryPawnTicketPage" resultMap="pawnTicket">
+        SELECT
+        PT.`ID`,
+        PT.`NUM`,
+        PT.`PAWN_SHOP_ID`,
+        PT.`CREATION_DATE`,
+        PT.`UPDATE_DATE`,
+        PT.`COMMENTS`,
+        PT.`STATUS`
+        FROM `PAWN_TICKET` PT
+        LEFT JOIN `PAWN_SHOP` PS ON PT.`PAWN_SHOP_ID` = PS.`ID`
+        WHERE PS.`OWNER_ID` = #{userId}
+        AND PT.`NUMBER` LIKE CONCAT('%', #{pagination.keyword}, '%')
+        <include refid="limit-split-page" />
+    </select>
+
+    <insert id="createPawnTicket" keyColumn="ID" useGeneratedKeys="true">
+        INSERT INTO `PAWN_TICKET` (`NUM`, `PAWN_SHOP_ID`, `CREATION_DATE`, `UPDATE_DATE`, `COMMENTS`, `STATUS`)
+        VALUES (#{number}, #{pawnshopId}, #{creationDate}, #{updateDate}, #{comments}, #{status})
+    </insert>
+
+    <update id="updatePawnTicket" parameterType="com.pgt.pawn.bean.PawnTicket">
+        UPDATE `PAWN_TICKET`
+        <set>
+            `NUM` = #{number}, `PAWN_SHOP_ID` = #{pawnshopId}, `CREATION_DATE` = #{creationDate}, `UPDATE_DATE` = #{updateDate},
+            `COMMENTS` = #{comments}, `STATUS` = #{status}
+        </set>
+        WHERE `ID` = #{pawnTicketId}
+    </update>
+
+    <select id="loadPawnTicket" parameterType="int" resultMap="pawnTicket">
+        SELECT
+        PT.`ID`,
+        PT.`NUM`,
+        PT.`PAWN_SHOP_ID`,
+        PT.`CREATION_DATE`,
+        PT.`UPDATE_DATE`,
+        PT.`COMMENTS`,
+        PT.`STATUS`
+        FROM `PAWN_TICKET` PT
+        WHERE PT.`ID` = #{ticketId}
+    </select>
+
+    <update id="updateBatchPawnTicketStatus">
+        UPDATE `PAWN_TICKET`
+        <set>
+            `STATUS` = #{status}
+        </set>
+        WHERE ID IN
+        <foreach collection="ticketIds" item="ticketId" open="(" close=")" separator=" ,">
+            #{ticketId}
+        </foreach>
+    </update>
+
+</mapper>

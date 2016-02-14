@@ -7,6 +7,8 @@ import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.pawn.dao.PawnDao;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by jeniss on 16/2/7.
  */
@@ -25,10 +27,11 @@ public class PawnService {
 	}
 
 	public void queryPawnTicketPage(final InternalPagination pPagination, final int pOwnerId) {
-		int count = getPawnDao().queryPawnTicketCount(pPagination, pOwnerId);
+		long count = getPawnDao().queryPawnTicketCount(pPagination, pOwnerId);
 		pPagination.setCapacity(count);
 		if (count > 0) {
-			getPawnDao().queryPawnTicketPage(pPagination, pOwnerId);
+			List<PawnTicket> tickets = getPawnDao().queryPawnTicketPage(pPagination, pOwnerId);
+			pPagination.setResult(tickets);
 		}
 	}
 
