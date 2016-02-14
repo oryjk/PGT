@@ -1,75 +1,74 @@
 package com.pgt.pawn.bean;
 
-import com.pgt.base.bean.BaseBean;
-
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by carlwang on 1/16/16.
  */
-public class Pawnshop implements Serializable{
-    private Integer pawnshopId;
-    private Integer ownerId;
-    private String address;
-    private Integer managerId;
-    private Date creationDate;
-    private Date updateDate;
-    private String name;
+public class Pawnshop implements Serializable {
 
-    public Integer getPawnshopId() {
-        return pawnshopId;
-    }
+	private Integer mPawnshopId;
+	private String mName;
+	private Integer mOwnerId;
+	private Integer mManagerId;
+	private String mAddress;
+	private Date mCreationDate;
+	private Date mUpdateDate;
 
-    public void setPawnshopId(Integer pawnshopId) {
-        this.pawnshopId = pawnshopId;
-    }
+	public Integer getPawnshopId() {
+		return mPawnshopId;
+	}
 
-    public Integer getOwnerId() {
-        return ownerId;
-    }
+	public void setPawnshopId(Integer pawnshopId) {
+		this.mPawnshopId = pawnshopId;
+	}
 
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
-    }
+	public Integer getOwnerId() {
+		return mOwnerId;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public void setOwnerId(Integer ownerId) {
+		this.mOwnerId = ownerId;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public String getAddress() {
+		return mAddress;
+	}
 
-    public Integer getManagerId() {
-        return managerId;
-    }
+	public void setAddress(String address) {
+		this.mAddress = address;
+	}
 
-    public void setManagerId(Integer managerId) {
-        this.managerId = managerId;
-    }
+	public Integer getManagerId() {
+		return mManagerId;
+	}
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public void setManagerId(Integer managerId) {
+		this.mManagerId = managerId;
+	}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public Date getCreationDate() {
+		return mCreationDate;
+	}
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+	public void setCreationDate(Date creationDate) {
+		this.mCreationDate = creationDate;
+	}
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public Date getUpdateDate() {
+		return mUpdateDate;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setUpdateDate(Date updateDate) {
+		this.mUpdateDate = updateDate;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return mName;
+	}
+
+	public void setName(String name) {
+		this.mName = name;
+	}
 }

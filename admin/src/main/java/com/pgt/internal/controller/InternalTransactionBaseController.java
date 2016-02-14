@@ -23,10 +23,11 @@ import java.util.Locale;
  */
 public abstract class InternalTransactionBaseController implements AdminSessionConstant {
 
+	protected static final String REDIRECT = "redirect:";
 	protected static final String REDIRECT_DASHBOARD = "redirect:/";
-	protected static final String REDIRECT_LOGIN     = "redirect:/login";
-	protected static final String PERMISSION_DENIED  = "/permission_denied";
-	private static final   Logger LOGGER             = LoggerFactory.getLogger(InternalTransactionBaseController.class);
+	protected static final String REDIRECT_LOGIN = "redirect:/login";
+	protected static final String PERMISSION_DENIED = "/permission_denied";
+	private static final Logger LOGGER = LoggerFactory.getLogger(InternalTransactionBaseController.class);
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
@@ -37,22 +38,22 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 	@Autowired
 	private RolePermissionService mRolePermissionService;
 
-	protected TransactionStatus ensureTransaction () {
+	protected TransactionStatus ensureTransaction() {
 		return ensureTransaction(TransactionDefinition.PROPAGATION_REQUIRED);
 	}
 
-	protected TransactionStatus ensureTransaction (int pPropagationBehavior) {
+	protected TransactionStatus ensureTransaction(int pPropagationBehavior) {
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		def.setPropagationBehavior(pPropagationBehavior);
 		TransactionStatus status = getTransactionManager().getTransaction(def);
 		return status;
 	}
 
-	protected String getMessageValue (String pKey) {
+	protected String getMessageValue(String pKey) {
 		return getMessageValue(pKey, StringUtils.EMPTY);
 	}
 
-	protected String getMessageValue (String pKey, String pDefaultMessage) {
+	protected String getMessageValue(String pKey, String pDefaultMessage) {
 		if (StringUtils.isNotBlank(pKey)) {
 			return mMessageSource.getMessage(pKey, null, pDefaultMessage, Locale.getDefault());
 		} else {
@@ -60,16 +61,17 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 		}
 	}
 
-	protected InternalUser getCurrentInternalUser (HttpServletRequest pRequest) {
+	protected InternalUser getCurrentInternalUser(HttpServletRequest pRequest) {
 		return (InternalUser) pRequest.getSession().getAttribute(INTERNAL_USER);
 	}
 
-	protected boolean verifyPermission (HttpServletRequest pRequest, Role... pRoles) {
+	protected boolean verifyPermission(HttpServletRequest pRequest, Role... pRoles) {
 		InternalUser iu = getCurrentInternalUser(pRequest);
 		if (iu != null) {
 			boolean verified = getRolePermissionService().checkRole(iu.getRole(), pRoles);
 			if (!verified) {
-				LOGGER.debug("Permission: {} verify failed for current permission: {} of user: {} with request uri: {}", Arrays.toString(pRoles), iu.getRole(), iu.getId(), pRequest.getRequestURI());
+				LOGGER.debug("Permission: {} verify failed for current permission: {} of user: {} with request uri: {}",
+						Arrays.toString(pRoles), iu.getRole(), iu.getId(), pRequest.getRequestURI());
 			}
 			return verified;
 		}
@@ -77,7 +79,7 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 		return false;
 	}
 
-	protected boolean verifyPermission (HttpServletRequest pRequest) {
+	protected boolean verifyPermission(HttpServletRequest pRequest) {
 		InternalUser iu = getCurrentInternalUser(pRequest);
 		if (iu != null) {
 			boolean verified = iu.getRole().getValue() > Role.BROWSER.getValue();
@@ -90,27 +92,27 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 		return false;
 	}
 
-	public DataSourceTransactionManager getTransactionManager () {
+	public DataSourceTransactionManager getTransactionManager() {
 		return mTransactionManager;
 	}
 
-	public void setTransactionManager (final DataSourceTransactionManager pTransactionManager) {
+	public void setTransactionManager(final DataSourceTransactionManager pTransactionManager) {
 		mTransactionManager = pTransactionManager;
 	}
 
-	public ReloadableResourceBundleMessageSource getMessageSource () {
+	public ReloadableResourceBundleMessageSource getMessageSource() {
 		return mMessageSource;
 	}
 
-	public void setMessageSource (final ReloadableResourceBundleMessageSource pMessageSource) {
+	public void setMessageSource(final ReloadableResourceBundleMessageSource pMessageSource) {
 		mMessageSource = pMessageSource;
 	}
 
-	public RolePermissionService getRolePermissionService () {
+	public RolePermissionService getRolePermissionService() {
 		return mRolePermissionService;
 	}
 
-	public void setRolePermissionService (final RolePermissionService pRolePermissionService) {
+	public void setRolePermissionService(final RolePermissionService pRolePermissionService) {
 		mRolePermissionService = pRolePermissionService;
 	}
 }

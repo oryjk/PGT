@@ -17,4 +17,8 @@ public interface ResponseConstant {
 	String B2C_ORDER_PAGE = "b2cOrderPage";
 
 	String COMMERCE_ITEM = "commerceItem";
+
+	String PAWN_SHOP = "pawnShop";
+	String PAWN_TICKET_PAGE = "pawnTicketPage";
+	String PAWN_TICKET = "pawnTicket";
 }
