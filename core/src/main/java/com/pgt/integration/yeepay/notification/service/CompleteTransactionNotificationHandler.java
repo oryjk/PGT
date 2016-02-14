@@ -1,13 +1,14 @@
 package com.pgt.integration.yeepay.notification.service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.dao.ShoppingCartDao;
 import com.pgt.cart.dao.UserOrderDao;
+import com.pgt.com.pgt.order.bean.P2PInfo;
 import com.pgt.integration.yeepay.YeePayConfig;
 import com.pgt.integration.yeepay.YeePayConstants;
 import com.pgt.integration.yeepay.YeePayException;
@@ -38,6 +39,8 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 	private UserOrderDao userOrderDao;
 
 	private InventoryService inventoryService;
+
+	private DirectYeePay directTransactionYeepay;
 
 
 
@@ -92,12 +95,63 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 			
 			handleResult(paymentGroup, trackingNo, result, transaction, now, order);
+			if (YeePayConstants.CODE_SUCCESS.equals(result.get(YeePayConstants.PARAM_NAME_CODE)) &&
+					order.getType() == OrderType.P2P_ORDER) {
+				handleP2POrder(paymentGroup, result, now, order);
+			}
 		} catch(Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			getPaymentService().setAsRollback();
 			throw new YeePayException(e);
 		}finally {
 			getPaymentService().commit();
+		}
+	}
+
+	private void handleP2POrder(PaymentGroup paymentGroup, Map<String, String> result, Date now, Order order) throws IOException {
+
+		P2PInfo info = null;
+		// TODO get info
+		double resultAmount = order.getTotal() - info.getHandlingFee();
+		// TODO ROUND;
+		Map<String, Object> params = new HashMap<String, Object>();
+		Transaction transaction = new Transaction();
+		transaction.setOrderId(Long.valueOf(order.getUserId()));
+		transaction.setAmount(resultAmount);
+		transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_YEEPAY);
+		getPaymentService().createTransaction(transaction);
+
+		params.put(YeePayConstants.PARAM_NAME_USER_ID, Long.valueOf(order.getUserId()));
+		params.put(YeePayConstants.PARAM_NAME_ORDER_ID, transaction.getOrderId());
+//		params.put(YeePayConstants.PARAM_NAME_PAYMENTGROUP_ID, transactionLog.getPaymentGroupId());
+
+
+		params.put(YeePayConstants.PARAM_NAME_TRANSACTION_ID, transaction.getId());
+//		String trackingNo = YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId());
+//		params.put(YeePayConstants.PARAM_NAME_REQUEST_NO, trackingNo);
+		params.put(YeePayConstants.PARAM_NAME_MODE, YeePayConstants.MODE_CONFIRM);
+		params.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, getConfig().getCompleteTransactionNotifyUrl());
+
+		params.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MERCHANT);
+
+		params.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO, getConfig().getTargetPlatformUserNo());
+		Map<String, Object> detailsMap = new HashMap<String, Object>();
+		List<Map<String, Object>> detailsList = new ArrayList<>();
+		params.put(YeePayConstants.PARAM_NAME_DETAILS, detailsMap);
+		detailsMap.put(YeePayConstants.PARAM_NAME_DETAIL, detailsList);
+		Map<String, Object> detailMap = new HashMap<String, Object>();
+		detailsList.add(detailMap);
+
+		Map<String, Object> detail = new HashMap<String, Object>();
+		detail.put(YeePayConstants.PARAM_NAME_TARGET_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
+		String platformUserNo = YeePayHelper.generateOutboundRequestNo(getConfig(), Long.valueOf(info.getPawnShopOwnerId()));
+		detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, platformUserNo);
+		detail.put(YeePayConstants.PARAM_NAME_AMOUNT, resultAmount);
+		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
+		Map<String, String> invokResult = getDirectTransactionYeepay().invok(params);
+		if (YeePayConstants.CODE_SUCCESS.equals(result.get(YeePayConstants.PARAM_NAME_CODE))) {
+			// TODO TRANSACTION
+			// TODO ORDER STATUS
 		}
 	}
 
@@ -195,5 +249,13 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	public void setSmsService(SmsService smsService) {
 		this.smsService = smsService;
+	}
+
+	public DirectYeePay getDirectTransactionYeepay() {
+		return directTransactionYeepay;
+	}
+
+	public void setDirectTransactionYeepay(DirectYeePay directTransactionYeepay) {
+		this.directTransactionYeepay = directTransactionYeepay;
 	}
 }
