@@ -53,8 +53,8 @@ Vue.prototype.submitVolidata = function(funData, fun){
 	//jquery异步提交
 	if(i == j){
 		console.log(this);
-		//同步提交表单
-		//document.forms[0].submit();
+		//同步提交表单（单个） -- 完善中（自写js异步，这里通过参数传方法-钩子）
+		document.forms[0].submit();
 	}
 	//为空时处理
 	else{
@@ -85,9 +85,9 @@ Vue.prototype.submitVolidata = function(funData, fun){
 
 
 /**
- 		vue 以上表单验证 div使用格式
+ 		vue 以上表单验证 div使用格式 - 多个表单验证正在完善中，边框红色显示位置bug（单个没问题）
  		<div id="绑定的对象id-例如app">
-			<div id="error">
+			<div id="error" v-model="error">
 				<form id="form" v-on:submit.prevent="ajaxSubmit">
          			<input id="tenderTotal" type="text" v-model="newUser.name" v-on:keyup="volidate"/>
  					<div v-show="error.name != true">{{error.name}}</div>

@@ -120,12 +120,12 @@
                                            type="text"
                                            class="form-control"
                                            placeholder="商家id"
-                                           v-model="newUser.name"
+                                           v-model="tender.tenderTotal"
                                            v-on:keyup="volidate"/>
                                 </div>
                                 <div class="col-xs-4">
                                     <p class="form-control-static pgt-error">
-                                        <div v-show="error.name != true">{{error.name}}</div>
+                                        <span v-show="error.tenderTotal != true">{{error.tenderTotal}}</span>
                                     </p>
                                 </div>
                             </div>
