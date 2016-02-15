@@ -311,7 +311,13 @@
                             <li>
                                 <a href="/pawn/pawn-shop-list">
                                     <i class="fa-angle-right"></i>
-                                    当铺列表
+                                    当铺管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/pawn/pawn-ticket-list">
+                                    <i class="fa-angle-right"></i>
+                                    当票管理
                                 </a>
                             </li>
                             <li>

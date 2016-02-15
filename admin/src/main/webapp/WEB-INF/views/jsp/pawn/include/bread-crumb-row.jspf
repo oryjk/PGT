@@ -18,9 +18,18 @@
                 <a href="/dashboard">首页</a>
                 <i class="fa fa-circle"></i>
             </li>
-            <li class="active">
-                <a href="/pawn/pawn-shop-list">当铺列表</a>
-            </li>
+            <c:choose>
+                <c:when test="${param.step eq 'shops' or param.step eq 'shop-new' or param.step eq 'shop-update'}">
+                    <li class="active">
+                        <a href="/pawn/pawn-shop-list">当铺列表</a>
+                    </li>
+                </c:when>
+                <c:when test="${param.step eq 'tickets' or param.step eq 'ticket-new' or param.step eq 'ticket-update'}">
+                    <li class="active">
+                        <a href="/pawn/pawn-ticket-list">当票列表</a>
+                    </li>
+                </c:when>
+            </c:choose>
             <c:choose>
                 <c:when test="${param.step eq 'shop-new'}">
                     <i class="fa fa-circle"></i>
@@ -30,13 +39,13 @@
                     <i class="fa fa-circle"></i>
                     <li>当铺编辑</li>
                 </c:when>
-                <c:when test="${param.step eq 'iu-modify'}">
+                <c:when test="${param.step eq 'ticket-new'}">
                     <i class="fa fa-circle"></i>
-                    <li>修改管理员</li>
+                    <li>当票新增</li>
                 </c:when>
-                <c:when test="${param.step eq 'iu-mine'}">
+                <c:when test="${param.step eq 'ticket-update'}">
                     <i class="fa fa-circle"></i>
-                    <li>我的资料</li>
+                    <li>当票编辑</li>
                 </c:when>
             </c:choose>
         </ul>

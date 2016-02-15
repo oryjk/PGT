@@ -34,7 +34,7 @@ public class PawnRelatedValidationService {
 	}
 
 	public boolean checkPawnTicketNumberUniqueness(final String pNumber, Integer pCurrentTicketId) {
-		return getPawnDao().queryPawnTicketCountForNumber(pNumber, pCurrentTicketId) > 0;
+		return getPawnDao().queryPawnTicketCountForNumber(pNumber, pCurrentTicketId) <= 0;
 	}
 
 	public boolean checkPawnTicketsMatchOwner(final int[] pTicketIds, final int pOwnerId) {

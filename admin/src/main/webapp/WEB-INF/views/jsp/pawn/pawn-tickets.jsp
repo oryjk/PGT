@@ -11,10 +11,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="pgt" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="pagination" value="${pawnShopPage}" scope="request" />
+<c:set var="pagination" value="${pawnTicketPage}" scope="request" />
 <pgt:container id="content">
     <jsp:include page="include/bread-crumb-row.jspf">
-        <jsp:param name="step" value="shops" />
+        <jsp:param name="step" value="tickets" />
     </jsp:include>
     <div class="row">
         <div class="col-xs-12">
@@ -22,11 +22,11 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-cogs font-green-sharp"></i>
-                        <span class="caption-subject font-green-sharp bold uppercase">当铺列表</span>
+                        <span class="caption-subject font-green-sharp bold uppercase">当票列表</span>
                     </div>
                     <div class="actions btn-set">
                         <button class="btn green-haze btn-circle">
-                            <a href="/pawn/pawn-shop-update"><i
+                            <a href="/pawn/pawn-ticket-update"><i
                                     class="fa fa-plus"></i> 新增
                             </a>
                         </button>
@@ -54,7 +54,7 @@
                 <div class="portlet-body">
                     <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
-                            <form action="/pawn/pawn-shop-list" method="get">
+                            <form action="/pawn/pawn-ticket-list" method="get">
                                 <input type="hidden" name="currentIndex" value="${param.currentIndex}" />
                                 <input type="hidden" name="capacity" value="${param.capacity}" />
                                 <div class="col-md-2 col-sm-2">
@@ -84,19 +84,19 @@
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                         aria-label="Status : activate to sort column ascending">
-                                        名称
+                                        当票编号
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                         aria-label=" Email : activate to sort column ascending">
-                                        所有者id
+                                        所属当铺
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                         aria-label=" Email : activate to sort column ascending">
-                                        管理员id
+                                        状态
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                         aria-label="Status : activate to sort column ascending">
-                                        地址
+                                        备注
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
                                         aria-label="Status : activate to sort column ascending">
@@ -113,26 +113,26 @@
                                 </tr>
                                 </thead>
                                 <tbody id="list">
-                                <c:forEach var="shop" items="${pawnShopPage.result}" varStatus="index">
+                                <c:forEach var="ticket" items="${pawnTicketPage.result}" varStatus="index">
                                     <tr class="gradeX odd" role="row">
                                         <td>
                                             <input type="checkbox">
                                         </td>
-                                        <td class="sorting_1">${shop.pawnshopId}</td>
+                                        <td class="sorting_1">${ticket.pawnTicketId}</td>
                                         <td>
-                                            <button class="btn btn-xs blue">${shop.name}</button>
+                                            <button class="btn btn-xs blue">${ticket.number}</button>
                                         </td>
                                         <td>
-                                            <a class="link-name" href="#">${shop.ownerId}</a>
+                                            <a class="link-name" href="#">${ticket.pawnShop.name}</a>
                                         </td>
                                         <td>
-                                            <a class="link-name" href="#">${shop.managerId}</a>
+                                            <a class="link-name" href="#">${ticket.status}</a>
                                         </td>
-                                        <td>${shop.address}</td>
-                                        <td><fmt:formatDate value="${shop.creationDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
-                                        <td><fmt:formatDate value="${shop.updateDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
+                                        <td>${ticket.comments}</td>
+                                        <td><fmt:formatDate value="${ticket.creationDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
+                                        <td><fmt:formatDate value="${ticket.updateDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
                                         <td>
-                                            <a href="/pawn/update-pawn-shop?shopId=${shop.pawnshopId}">
+                                            <a href="/pawn/update-pawn-ticket?ticketId=${ticket.pawnTicketId}">
                                                 <button class="btn btn-xs blue btn-circle">修改</button>
                                             </a>
                                         </td>
@@ -142,10 +142,10 @@
                             </table>
                         </div>
                             <%-- pagination row --%>
-                        <form action="/pawn/pawn-shop-list" method="get">
+                        <form action="/pawn/pawn-ticket-list" method="get">
                             <div class="row">
                                 <jsp:include page="../b2c-order/include/pagination-capacity-selection.jsp">
-                                    <jsp:param name="paginationURL" value="/pawn/pawn-shop-list?keyword=${param.keyword}" />
+                                    <jsp:param name="paginationURL" value="/pawn/pawn-ticket-list?keyword=${param.keyword}" />
                                 </jsp:include>
                             </div>
                             <input type="hidden" name="keyword" value="${param.keyword}" />

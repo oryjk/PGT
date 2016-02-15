@@ -179,7 +179,7 @@
         SELECT COUNT(`ID`)
         FROM PAWN_SHOP
         WHERE 1 = 1
-        <if test="@AdminOgnl@isAdminQueryId(queryUserId)">
+        <if test="!@AdminOgnl@isAdminQueryId(queryUserId)">
             AND (`OWNER_ID` = #{queryUserId} OR `MANAGER_ID` = #{queryUserId})
         </if>
         <if test="@AdminOgnl@isNotBlankString(pagination.keyword)">
@@ -198,7 +198,7 @@
         `UPDATE_DATE`
         FROM `PAWN_SHOP`
         WHERE 1 = 1
-        <if test="@AdminOgnl@isAdminQueryId(queryUserId)">
+        <if test="!@AdminOgnl@isAdminQueryId(queryUserId)">
             AND (`OWNER_ID` = #{queryUserId} OR `MANAGER_ID` = #{queryUserId})
         </if>
         <if test="@AdminOgnl@isNotBlankString(pagination.keyword)">
