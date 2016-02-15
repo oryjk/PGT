@@ -130,7 +130,7 @@ public class PawnController extends InternalTransactionBaseController implements
 			getTransactionManager().commit(status);
 			if (!status.isRollbackOnly()) {
 				mav.setViewName(REDIRECT_PAWN_SHOP_WITHOUT_ID + pPawnshop.getPawnshopId());
-				mav.addObject(ResponseConstant.SUCCESS, 1);
+				mav.addObject(ResponseConstant.SUCCESS, SUCCESS_VALUE);
 			}
 		}
 		return mav;
@@ -257,6 +257,7 @@ public class PawnController extends InternalTransactionBaseController implements
 			getTransactionManager().commit(status);
 			if (!status.isRollbackOnly()) {
 				mav.setViewName(REDIRECT_PAWN_TICKET_WITHOUT_ID + pPawnTicket.getPawnTicketId());
+				mav.addObject(ResponseConstant.SUCCESS, SUCCESS_VALUE);
 			}
 		}
 		return mav;

@@ -27,14 +27,12 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 	 * Conventional admin internal user id to query
 	 */
 	public static final int ADMIN_QUERY_IU_ID = -1;
-
 	protected static final String REDIRECT = "redirect:";
 	protected static final String REDIRECT_DASHBOARD = "redirect:/";
 	protected static final String REDIRECT_LOGIN = "redirect:/login";
 	protected static final String PERMISSION_DENIED = "/permission_denied";
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(InternalTransactionBaseController.class);
-
+	protected final int SUCCESS_VALUE = 1;
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
 

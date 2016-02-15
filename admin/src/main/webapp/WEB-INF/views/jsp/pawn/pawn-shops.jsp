@@ -132,7 +132,7 @@
                                         <td><fmt:formatDate value="${shop.creationDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
                                         <td><fmt:formatDate value="${shop.updateDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
                                         <td>
-                                            <a href="/pawn/update-pawn-shop?shopId=${shop.pawnshopId}">
+                                            <a href="/pawn/pawn-shop-update?shopId=${shop.pawnshopId}">
                                                 <button class="btn btn-xs blue btn-circle">修改</button>
                                             </a>
                                         </td>

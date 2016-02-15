@@ -72,7 +72,7 @@
             AND (PS.`OWNER_ID` = #{queryUserId} OR PS.`MANAGER_ID` = #{queryUserId})
         </if>
         <if test="@AdminOgnl@isNotBlankString(pagination.keyword)">
-            AND PT.`NUMBER` LIKE CONCAT('%', #{pagination.keyword}, '%')
+            AND PT.`NUM` LIKE CONCAT('%', #{pagination.keyword}, '%')
         </if>
     </select>
 
@@ -92,7 +92,7 @@
             AND (PS.`OWNER_ID` = #{queryUserId} OR PS.`MANAGER_ID` = #{queryUserId})
         </if>
         <if test="@AdminOgnl@isNotBlankString(pagination.keyword)">
-            AND PT.`NUMBER` LIKE CONCAT('%', #{pagination.keyword}, '%')
+            AND PT.`NUM` LIKE CONCAT('%', #{pagination.keyword}, '%')
         </if>
         <include refid="limit-split-page" />
     </select>

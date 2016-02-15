@@ -123,7 +123,7 @@
                                             <button class="btn btn-xs blue">${ticket.number}</button>
                                         </td>
                                         <td>
-                                            <a class="link-name" href="#">${ticket.pawnShop.name}</a>
+                                            <a class="link-name" href="#">${ticket.pawnshop.name}</a>
                                         </td>
                                         <td>
                                             <a class="link-name" href="#">${ticket.status}</a>
@@ -132,7 +132,7 @@
                                         <td><fmt:formatDate value="${ticket.creationDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
                                         <td><fmt:formatDate value="${ticket.updateDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
                                         <td>
-                                            <a href="/pawn/update-pawn-ticket?ticketId=${ticket.pawnTicketId}">
+                                            <a href="/pawn/pawn-ticket-update?ticketId=${ticket.pawnTicketId}">
                                                 <button class="btn btn-xs blue btn-circle">修改</button>
                                             </a>
                                         </td>
