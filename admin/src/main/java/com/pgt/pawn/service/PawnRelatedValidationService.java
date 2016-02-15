@@ -1,6 +1,7 @@
 package com.pgt.pawn.service;
 
 import com.pgt.pawn.dao.PawnDao;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -24,21 +25,25 @@ public class PawnRelatedValidationService {
 		return StringUtils.isNoneBlank(pNumber) && pNumber.getBytes().length <= 100;
 	}
 
-	public boolean checkPawnShopNameUniqueness(final String pName) {
-		return false;
+	public boolean checkPawnShopNameUniqueness(final String pName, int pCurrentShopId) {
+		return getPawnDao().queryPawnShopCountForName(pName, pCurrentShopId) <= 0;
 	}
 
-	public boolean checkPawnShopExistence(final String pShopId) {
-		return false;
+	public boolean checkPawnShopExistence(final int pShopId) {
+		return getPawnDao().loadPawnShop(pShopId) != null;
 	}
 
-	public boolean checkPawnTicketNumberUniqueness(final String pNumber) {
-		return false;
+	public boolean checkPawnTicketNumberUniqueness(final String pNumber, int pCurrentTicketId) {
+		return getPawnDao().queryPawnTicketCountForNumber(pNumber, pCurrentTicketId) > 0;
 	}
 
 	public boolean checkPawnTicketsMatchOwner(final int[] pTicketIds, final int pOwnerId) {
+		if (ArrayUtils.isEmpty(pTicketIds)) {
+			return false;
+		}
 		// check is all tickets belongs to owner
-		return false;
+		int matchedTicketCount = getPawnDao().queryTicketCountForOwnerWithIds(pTicketIds, pOwnerId);
+		return matchedTicketCount == pTicketIds.length;
 	}
 
 	public PawnDao getPawnDao() {

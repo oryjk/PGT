@@ -125,4 +125,31 @@
         </foreach>
     </update>
 
+    <select id="queryPawnShopCountForName" resultType="int">
+        SELECT COUNT(`ID`)
+        FROM `PAWN_SHOP`
+        WHERE `NAME` = #{name}
+        <if test="@Ognl@isValidId(excludeShopId)">
+            AND `ID` != #{excludeShopId}
+        </if>
+    </select>
+
+    <select id="queryPawnTicketCountForNumber" resultType="int">
+        SELECT COUNT(`ID`)
+        FROM `PAWN_TICKET`
+        WHERE `NUM` = #{number}
+        <if test="@Ognl@isValidId(excludeTicketId)">
+            AND `ID` != #{excludeTicketId}
+        </if>
+    </select>
+
+    <select id="queryTicketCountForOwnerWithIds" resultType="int">
+        SELECT COUNT(`ID`)
+        FROM `PAWN_TICKET`
+        WHERE `OWNER_ID` = #{ownerId}
+        AND `ID` IN
+        <foreach collection="ticketIds" item="ticketId" open="(" close=")" separator=" ,">
+            #{ticketId}
+        </foreach>
+    </select>
 </mapper>

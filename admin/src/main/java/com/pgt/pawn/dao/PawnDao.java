@@ -32,4 +32,10 @@ public interface PawnDao extends SqlMapper {
 	PawnTicket loadPawnTicket(int pTicketId);
 
 	int updateBatchPawnTicketStatus(@Param("ticketIds") int[] pTicketIds, @Param("status") boolean pStatus);
+
+	int queryPawnShopCountForName(@Param("name") String pName, @Param("excludeShopId") int pExcludeShopId);
+
+	int queryPawnTicketCountForNumber(@Param("number") String pNumber, @Param("excludeTicketId") int pExcludeTicketId);
+
+	int queryTicketCountForOwnerWithIds(@Param("ticketIds") int[] pTicketIds, @Param("ownerId") int pOwnerId);
 }

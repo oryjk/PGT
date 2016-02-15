@@ -73,7 +73,7 @@ public class PawnController extends InternalTransactionBaseController implements
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_SHOP_NAME_INVALID);
 			return mav;
 		}
-		if (!getPawnRelatedValidationService().checkPawnShopNameUniqueness(pPawnshop.getName())) {
+		if (!getPawnRelatedValidationService().checkPawnShopNameUniqueness(pPawnshop.getName(), pPawnshop.getPawnshopId())) {
 			LOGGER.debug("Persist pawn shop with an duplicate shop name: {}", pPawnshop.getName());
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_SHOP_NAME_DUPLICATE);
 			return mav;
@@ -186,12 +186,12 @@ public class PawnController extends InternalTransactionBaseController implements
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_TICKET_NUMBER_INVALID);
 			return mav;
 		}
-		if (!getPawnRelatedValidationService().checkPawnTicketNumberUniqueness(pPawnTicket.getNumber())) {
+		if (!getPawnRelatedValidationService().checkPawnTicketNumberUniqueness(pPawnTicket.getNumber(), pPawnTicket.getPawnTicketId())) {
 			LOGGER.debug("Persist pawn ticket with an duplicate ticket number: {}", pPawnTicket.getNumber());
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_TICKET_NUMBER_DUPLICATE);
 			return mav;
 		}
-		if (!getPawnRelatedValidationService().checkPawnShopExistence(pPawnTicket.getNumber())) {
+		if (!getPawnRelatedValidationService().checkPawnShopExistence(pPawnTicket.getPawnshopId())) {
 			LOGGER.debug("Persist pawn ticket with an invalid pawn shop: {}", pPawnTicket.getPawnshopId());
 			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_TICKET_SHOP_INVALID);
 			return mav;
