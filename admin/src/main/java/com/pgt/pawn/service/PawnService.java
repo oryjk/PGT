@@ -29,7 +29,7 @@ public class PawnService {
 
 	public void queryPawnShopPage(final InternalPagination pPagination, final int pQueryUserId) {
 		long count = getPawnDao().queryPawnShopCount(pPagination, pQueryUserId);
-		pPagination.setCapacity(count);
+		pPagination.setCount(count);
 		if (count > 0) {
 			List<PawnTicket> tickets = getPawnDao().queryPawnShopPage(pPagination, pQueryUserId);
 			pPagination.setResult(tickets);
@@ -38,7 +38,7 @@ public class PawnService {
 
 	public void queryPawnTicketPage(final InternalPagination pPagination, final int pQueryUserId) {
 		long count = getPawnDao().queryPawnTicketCount(pPagination, pQueryUserId);
-		pPagination.setCapacity(count);
+		pPagination.setCount(count);
 		if (count > 0) {
 			List<PawnTicket> tickets = getPawnDao().queryPawnTicketPage(pPagination, pQueryUserId);
 			pPagination.setResult(tickets);

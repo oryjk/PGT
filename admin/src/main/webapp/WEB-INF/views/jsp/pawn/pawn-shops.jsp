@@ -52,7 +52,7 @@
                 <div class="portlet-body">
                     <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
-                            <form action="/internal/iu-list" method="get">
+                            <form action="/pawn/pawn-shop-list" method="get">
                                 <input type="hidden" name="currentIndex" value="${param.currentIndex}" />
                                 <input type="hidden" name="capacity" value="${param.capacity}" />
                                 <div class="col-md-2 col-sm-2">

@@ -76,21 +76,22 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">所有者id</label>
                                 <div class="col-md-4">
-                                    <div class="input-icon">
-                                        <i class="glyphicon glyphicon-phone "></i>
-                                        <input type="text" name="ownerId" value="${shop.ownerId}" class="form-control"
-                                               placeholder="当铺所有者的id">
-                                    </div>
+                                    <input type="text" name="ownerId" value="${shop.ownerId}" class="form-control"
+                                           placeholder="当铺所有者的id">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">管理者id</label>
                                 <div class="col-md-4">
-                                    <div class="input-icon">
-                                        <i class="glyphicon glyphicon-envelope"></i>
-                                        <input type="text" name="managerId" value="${shop.managerId}" class="form-control"
-                                               placeholder="当铺管理者的id">
-                                    </div>
+                                    <input type="text" name="managerId" value="${shop.managerId}" class="form-control"
+                                           placeholder="当铺管理者的id">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">地址</label>
+                                <div class="col-md-4">
+                                    <input type="text" name="address" value="${shop.address}" class="form-control"
+                                           placeholder="当铺的具体地址">
                                 </div>
                             </div>
                             <c:if test="${not newShop}">
