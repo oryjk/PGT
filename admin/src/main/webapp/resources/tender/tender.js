@@ -1,28 +1,35 @@
-$(function(){
-    $("input:text").keyup(function(){
-        var tenderTotal = $("#tenderTotal").val();
-        var vue = new Vue();
-        vue.addCheckElement("tenderTotal", tenderTotal, regex_tenderTotal);
-    })
+//表单对象模型 - 经个人实践得出- 必须给初值
+var newUser = function(){
+    this.name = "";
+}
 
-    $(".submit").click(function(){
-        //同步
-        onSubmit("登录失败，帐号或密码错误！");
-        //异步
-        //onSubmit("login","登录失败，帐号或密码错误！");
-        //异步 + 跳转
-        //onSubmit("login","登录失败，帐号或密码错误！", "main");
-    })
 
-    var vue = new Vue();
-    var error = new Object();
-    error.tenderTotal = "";
-    vue.addErrorEntity(error);
-
-    var view = new Vue({
-        el: '#error',
-        data: {
-            model : error
+//modelandview
+var app = new Vue({
+    el: '#app',
+    data: {
+        error : '',
+        newUser: newUser
+    },
+    ready:function(){
+        //定义错误实体
+        var validation = new newUser();
+        this.$data.error = validation;
+        //绑定显示错误信息的对象
+        this.volidateEntity = validation;
+        //绑定正则
+        var regex = {
+            "newUser.name" : regex_username
         }
-    })
+        this.regexEntity = regex;
+    },
+    methods: {
+        ajaxSubmit: function () {
+            //第一个参数是对象（值），第二个参数是方法
+            app.submitVolidata(this.$data.newUser, newUser);
+        },
+        volidate: function (event) {
+            app.excuteVolidata(event);
+        }
+    }
 })

@@ -57,11 +57,15 @@
                         <i class="fa fa-gift"></i>基本信息
                     </div>
                 </div>
-                <div class="portlet-body form">
+                <div id="app" class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <div id="error" v-model="model">
-                        <form ms-controller="tenderForm" action="/tender/${tender.tenderId eq null ? 'create' : 'update'} "
-                          method="post" class="form-horizontal">
+                    <div id="error" v-model="error">
+                        <form
+                          id = "form"
+                          action="/tender/${tender.tenderId eq null ? 'create' : 'update'} "
+                          method="post"
+                          class="form-horizontal"
+                          v-on:submit.prevent="ajaxSubmit">
                         <div class="form-body">
                             <!-- 只有在修改时才显示id行-->
                             <c:if test="${!empty tender.tenderId}">
@@ -110,13 +114,18 @@
                                 <label class="col-xs-3 control-label">投资总金额</label>
 
                                 <div class="col-xs-4">
-                                    <input id="tenderTotal" ms-duplex-limit="tenderTotal" data-duplex-totalLimit="8" name="tenderTotal"
-                                           value="${tender.tenderTotal}" type="text" class="form-control"
-                                           placeholder="商家id"/>
+                                    <input id="tenderTotal"
+                                           name="tenderTotal"
+                                           value="${tender.tenderTotal}"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="商家id"
+                                           v-model="newUser.name"
+                                           v-on:keyup="volidate"/>
                                 </div>
                                 <div class="col-xs-4">
                                     <p class="form-control-static pgt-error">
-                                        {{model.tenderTotal}}
+                                        <div v-show="error.name != true">{{error.name}}</div>
                                     </p>
                                 </div>
                             </div>
