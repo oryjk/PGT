@@ -67,17 +67,28 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">所属当铺</label>
-                                <div class="col-md-4">
-                                    <input type="text" name="pawnshopId" value="${ticket.pawnshopId}" class="form-control"
-                                           placeholder="所属当铺的id">
+                                <label class="control-label col-md-3">所属当铺</label>
+                                <div class="col-md-9">
+                                    <div class="radio-list">
+                                        <select name="pawnshopId" class="form-control input-medium">
+                                            <c:forEach var="shop" items="${pawnShops}">
+                                                <option value="${shop.pawnshopId}"
+                                                    ${ticket.pawnshopId eq shop.pawnshopId ? 'selected' : ''}>${shop.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">当票状态</label>
-                                <div class="col-md-4">
-                                    <input type="text" name="status" value="${ticket.status}" class="form-control"
-                                           placeholder="当票的显示状态">
+                                <label class="control-label col-md-3">当票状态</label>
+                                <div class="col-md-9">
+                                    <div class="radio-list">
+                                        <select name="status" class="form-control input-medium">
+                                            <option value="1" ${1 eq ticket.status ? 'selected' : ''}>已发布</option>
+                                            <option value="0" ${0 eq ticket.status ? 'selected' : ''}>已隐藏</option>
+                                            <option value="－1" ${-1 eq ticket.status ? 'selected' : ''}>已删除</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">

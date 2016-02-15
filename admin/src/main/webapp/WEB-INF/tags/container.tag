@@ -308,18 +308,21 @@
                             投资管理 <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="/pawn/pawn-shop-list">
-                                    <i class="fa-angle-right"></i>
-                                    当铺管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/pawn/pawn-ticket-list">
-                                    <i class="fa-angle-right"></i>
-                                    当票管理
-                                </a>
-                            </li>
+                            <c:set var="roleValue" value="${internalUser.role.value}" />
+                            <c:if test="${roleValue eq 2 or roleValue eq 4 or roleValue eq 9}">
+                                <li>
+                                    <a href="/pawn/pawn-shop-list">
+                                        <i class="fa-angle-right"></i>
+                                        当铺管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/pawn/pawn-ticket-list">
+                                        <i class="fa-angle-right"></i>
+                                        当票管理
+                                    </a>
+                                </li>
+                            </c:if>
                             <li>
                                 <a href="/tender/tenderList">
                                     <i class="fa-angle-right"></i>

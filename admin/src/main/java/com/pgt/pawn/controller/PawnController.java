@@ -215,6 +215,18 @@ public class PawnController extends InternalTransactionBaseController implements
 			}
 			mav.addObject(ResponseConstant.PAWN_TICKET, pawnTicket);
 		}
+
+		// load pawn shops for current user
+		int queryUserId = iu.getId();
+		// override user id to query all result set for admin
+		if (verifyPermissionForAdmin(pRequest)) {
+			LOGGER.debug("Query all pawn shops for admin internal user: {}", iu.getId());
+			queryUserId = ADMIN_QUERY_IU_ID;
+		}
+		InternalPagination shops = InternalPaginationBuilder.createDefaultInternalPagination();
+		getPawnService().queryPawnShopPage(shops, queryUserId);
+		mav.addObject(ResponseConstant.PAWN_SHOPS, shops.getResult());
+
 		return mav;
 	}
 

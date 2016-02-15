@@ -126,7 +126,18 @@
                                             <a class="link-name" href="#">${ticket.pawnshop.name}</a>
                                         </td>
                                         <td>
-                                            <a class="link-name" href="#">${ticket.status}</a>
+                                            <c:choose>
+                                                <c:when test="${ticket.status eq 1}">
+                                                    <button class="btn btn-xs blue">已发布</button>
+                                                </c:when>
+                                                <c:when test="${ticket.status eq 0}">
+                                                    <button class="btn btn-xs blue">已隐藏</button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button class="btn btn-xs grey">已删除</button>
+                                                </c:otherwise>
+                                            </c:choose>
+
                                         </td>
                                         <td>${ticket.comments}</td>
                                         <td><fmt:formatDate value="${ticket.creationDate}" pattern="yyyy-MM-dd HH:mm:sss" /></td>
