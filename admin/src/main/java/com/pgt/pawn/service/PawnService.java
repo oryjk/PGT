@@ -7,6 +7,7 @@ import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.pawn.dao.PawnDao;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 @Service(value = "pawnService")
 public class PawnService {
 
-
+	@Resource(name = "pawnDao")
 	private PawnDao mPawnDao;
 
 	public boolean persistPawnShop(final Pawnshop pPawnshop) {
@@ -26,11 +27,20 @@ public class PawnService {
 		}
 	}
 
-	public void queryPawnTicketPage(final InternalPagination pPagination, final int pOwnerId) {
-		long count = getPawnDao().queryPawnTicketCount(pPagination, pOwnerId);
+	public void queryPawnShopPage(final InternalPagination pPagination, final int pQueryUserId) {
+		long count = getPawnDao().queryPawnShopCount(pPagination, pQueryUserId);
 		pPagination.setCapacity(count);
 		if (count > 0) {
-			List<PawnTicket> tickets = getPawnDao().queryPawnTicketPage(pPagination, pOwnerId);
+			List<PawnTicket> tickets = getPawnDao().queryPawnShopPage(pPagination, pQueryUserId);
+			pPagination.setResult(tickets);
+		}
+	}
+
+	public void queryPawnTicketPage(final InternalPagination pPagination, final int pQueryUserId) {
+		long count = getPawnDao().queryPawnTicketCount(pPagination, pQueryUserId);
+		pPagination.setCapacity(count);
+		if (count > 0) {
+			List<PawnTicket> tickets = getPawnDao().queryPawnTicketPage(pPagination, pQueryUserId);
 			pPagination.setResult(tickets);
 		}
 	}
@@ -56,6 +66,10 @@ public class PawnService {
 		return getPawnDao().updateBatchPawnTicketStatus(pTicketIds, pStatus) > 0;
 	}
 
+	public List<Pawnshop> queryPawnShopsForInternalUser(final int pInternalUserId) {
+		return getPawnDao().queryPawnShopForInternalUser(pInternalUserId);
+	}
+
 	public PawnDao getPawnDao() {
 		return mPawnDao;
 	}
@@ -63,4 +77,6 @@ public class PawnService {
 	public void setPawnDao(final PawnDao pPawnDao) {
 		mPawnDao = pPawnDao;
 	}
+
+
 }

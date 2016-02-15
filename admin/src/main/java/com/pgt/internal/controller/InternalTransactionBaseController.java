@@ -23,10 +23,16 @@ import java.util.Locale;
  */
 public abstract class InternalTransactionBaseController implements AdminSessionConstant {
 
+	/**
+	 * Conventional admin internal user id to query
+	 */
+	public static final int ADMIN_QUERY_IU_ID = -1;
+
 	protected static final String REDIRECT = "redirect:";
 	protected static final String REDIRECT_DASHBOARD = "redirect:/";
 	protected static final String REDIRECT_LOGIN = "redirect:/login";
 	protected static final String PERMISSION_DENIED = "/permission_denied";
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(InternalTransactionBaseController.class);
 
 	@Autowired
@@ -90,6 +96,10 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 		}
 		LOGGER.warn("Cannot find internal user from session!");
 		return false;
+	}
+
+	protected boolean verifyPermissionForAdmin(HttpServletRequest pRequest) {
+		return verifyPermission(pRequest, Role.ADMINISTRATOR);
 	}
 
 	public DataSourceTransactionManager getTransactionManager() {

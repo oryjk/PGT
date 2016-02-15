@@ -35,10 +35,11 @@ public class PawnController extends InternalTransactionBaseController implements
 
 	public static final String PERMISSION_DENIED_INVEST = "permission-denied-invest";
 	public static final String VIEW_PAWN_SHOP = "/pawn/pawn-shop";
-	public static final String REDIRECT_PAWN_SHOP_WITHOUT_ID = "redirect:/pawn-shop?shopId=";
-	public static final String VIEW_PAWN_TICKETS = "/pawn/pawn-tickets";
+	public static final String VIEW_PAWN_SHOPS = "/pawn/pawn-shops";
+	public static final String REDIRECT_PAWN_SHOP_WITHOUT_ID = "redirect:/pawn/update-pawn-shop?shopId=";
 	public static final String VIEW_PAWN_TICKET = "/pawn/pawn-ticket";
-	public static final String REDIRECT_PAWN_TICKET_WITHOUT_ID = "redirect:/pawn-ticket?ticketId=";
+	public static final String VIEW_PAWN_TICKETS = "/pawn/pawn-tickets";
+	public static final String REDIRECT_PAWN_TICKET_WITHOUT_ID = "redirect:/pawn/update-pawn-ticket?ticketId=";
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PawnController.class);
 
@@ -51,6 +52,41 @@ public class PawnController extends InternalTransactionBaseController implements
 	@Resource(name = "responseBuilderFactory")
 	private ResponseBuilderFactory mResponseBuilderFactory;
 
+	@RequestMapping(value = "/pawn-shop-list", method = RequestMethod.GET)
+	public ModelAndView listPawnshops(HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                  @RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
+	                                  @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
+	                                  @RequestParam(value = "sortFieldName", required = false) String sortFieldName,
+	                                  @RequestParam(value = "asc", required = false, defaultValue = "true") boolean asc,
+	                                  @RequestParam(value = "keyword", required = false) String keyword) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		InternalUser iu = getCurrentInternalUser(pRequest);
+		// main logic
+		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
+		long caLong = RepositoryUtils.safeParse2LongId(capacity);
+		LOGGER.debug("Query pawn shops for user: {} at index: {} with capacity: {}, keyword: {} by sort filed: {} and asc: {}", iu.getId(),
+				ciLong, caLong, keyword, sortFieldName, asc);
+
+		InternalPaginationBuilder ipb = new InternalPaginationBuilder();
+		InternalPagination pagination = ipb.setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword).createInternalPagination();
+
+		int queryUserId = iu.getId();
+		// override user id to query all result set for admin
+		if (verifyPermissionForAdmin(pRequest)) {
+			LOGGER.debug("Query all pawn shops for admin internal user: {}", iu.getId());
+			queryUserId = ADMIN_QUERY_IU_ID;
+		}
+		getPawnService().queryPawnShopPage(pagination, queryUserId);
+
+		ModelAndView mav = new ModelAndView(VIEW_PAWN_SHOPS);
+		mav.addObject(ResponseConstant.PAWN_SHOPS_PAGE, pagination);
+		return mav;
+	}
+
 	@RequestMapping(value = "/update-pawn-shop", method = RequestMethod.POST)
 	public ModelAndView persistPawnShop(HttpServletRequest pRequest, HttpServletResponse pResponse, Pawnshop pPawnshop) {
 		// permission verify
@@ -60,8 +96,10 @@ public class PawnController extends InternalTransactionBaseController implements
 		}
 		ModelAndView mav = new ModelAndView(VIEW_PAWN_SHOP);
 		mav.addObject(ResponseConstant.PAWN_SHOP, pPawnshop);
-		InternalUser iu = getCurrentInternalUser(pRequest);
-		pPawnshop.setManagerId(iu.getId());
+
+		// InternalUser iu = getCurrentInternalUser(pRequest);
+		// pPawnshop.setManagerId(iu.getId());
+
 		// pre validation
 		if (!RepositoryUtils.idIsValid(pPawnshop.getOwnerId())) {
 			LOGGER.debug("Cannot find pawn shop with valid owner id: {}", pPawnshop.getOwnerId());
@@ -92,6 +130,7 @@ public class PawnController extends InternalTransactionBaseController implements
 			getTransactionManager().commit(status);
 			if (!status.isRollbackOnly()) {
 				mav.setViewName(REDIRECT_PAWN_SHOP_WITHOUT_ID + pPawnshop.getPawnshopId());
+				mav.addObject(ResponseConstant.SUCCESS, 1);
 			}
 		}
 		return mav;
@@ -99,7 +138,7 @@ public class PawnController extends InternalTransactionBaseController implements
 
 	@RequestMapping(value = "/update-pawn-shop", method = RequestMethod.GET)
 	public ModelAndView updatePawnShop(HttpServletRequest pRequest, HttpServletResponse pResponse,
-	                                   @RequestParam(value = "shopId", required = true) int pShopId) {
+	                                   @RequestParam(value = "shopId", required = false, defaultValue = "0") int pShopId) {
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
@@ -107,16 +146,20 @@ public class PawnController extends InternalTransactionBaseController implements
 		}
 		InternalUser iu = getCurrentInternalUser(pRequest);
 		ModelAndView mav = new ModelAndView(VIEW_PAWN_SHOP);
-		Pawnshop pawnshop = getPawnService().loadPawnshop(pShopId);
-		if (iu.getId() != pawnshop.getOwnerId()) {
-			LOGGER.debug("The pawn shop: {}({}) is not belongs to current user: {}", pawnshop.getName(), pawnshop.getPawnshopId(),
-					iu.getId());
-			// redirect page to investment
-			mav.setViewName(PERMISSION_DENIED_INVEST);
-			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_INVEST_PERMISSION_DENIED);
-			return mav;
+
+		if (RepositoryUtils.idIsValid(pShopId)) {
+			// update pawn shop with valid id
+			Pawnshop pawnshop = getPawnService().loadPawnshop(pShopId);
+			if (iu.getId() != pawnshop.getOwnerId()) {
+				LOGGER.debug("The pawn shop: {}({}) is not belongs to current user: {}", pawnshop.getName(), pawnshop.getPawnshopId(),
+						iu.getId());
+				// redirect page to investment
+				mav.setViewName(PERMISSION_DENIED_INVEST);
+				mav.addObject(ResponseConstant.ERROR_MSG, ERROR_INVEST_PERMISSION_DENIED);
+				return mav;
+			}
+			mav.addObject(ResponseConstant.PAWN_SHOP, pawnshop);
 		}
-		mav.addObject(ResponseConstant.PAWN_SHOP, pawnshop);
 		return mav;
 	}
 
@@ -150,7 +193,7 @@ public class PawnController extends InternalTransactionBaseController implements
 
 	@RequestMapping(value = "/pawn-ticket-update", method = RequestMethod.GET)
 	public ModelAndView updatePawnTicket(HttpServletRequest pRequest, HttpServletResponse pResponse,
-	                                     @RequestParam(value = "ticketId", required = true) int pTicketId) {
+	                                     @RequestParam(value = "ticketId", required = false, defaultValue = "0") int pTicketId) {
 		// permission verify
 		boolean pass = verifyPermission(pRequest, Role.INVESTOR, Role.IVST_ORDER_MANAGER, Role.ADMINISTRATOR);
 		if (!pass) {
@@ -158,16 +201,19 @@ public class PawnController extends InternalTransactionBaseController implements
 		}
 		InternalUser iu = getCurrentInternalUser(pRequest);
 		ModelAndView mav = new ModelAndView(VIEW_PAWN_SHOP);
-		PawnTicket pawnTicket = getPawnService().loadPawnTicket(pTicketId);
-		if (iu.getId() != pawnTicket.getPawnshop().getOwnerId()) {
-			LOGGER.debug("Current request pawn ticket: {} is owned by pawn shop: {}({}) is not belongs to current user: {}", pTicketId,
-					pawnTicket.getPawnshop().getName(), pawnTicket.getPawnshop().getPawnshopId(), iu.getId());
-			// redirect page to investment
-			mav.setViewName(PERMISSION_DENIED_INVEST);
-			mav.addObject(ResponseConstant.ERROR_MSG, ERROR_INVEST_PERMISSION_DENIED);
-			return mav;
+		if (RepositoryUtils.idIsValid(pTicketId)) {
+			// update pawn ticket with valid id
+			PawnTicket pawnTicket = getPawnService().loadPawnTicket(pTicketId);
+			if (iu.getId() != pawnTicket.getPawnshop().getOwnerId()) {
+				LOGGER.debug("Current request pawn ticket: {} is owned by pawn shop: {}({}) is not belongs to current user: {}", pTicketId,
+						pawnTicket.getPawnshop().getName(), pawnTicket.getPawnshop().getPawnshopId(), iu.getId());
+				// redirect page to investment
+				mav.setViewName(PERMISSION_DENIED_INVEST);
+				mav.addObject(ResponseConstant.ERROR_MSG, ERROR_INVEST_PERMISSION_DENIED);
+				return mav;
+			}
+			mav.addObject(ResponseConstant.PAWN_TICKET, pawnTicket);
 		}
-		mav.addObject(ResponseConstant.PAWN_TICKET, pawnTicket);
 		return mav;
 	}
 
