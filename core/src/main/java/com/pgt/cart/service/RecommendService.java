@@ -28,34 +28,24 @@ import java.util.Map;
 public class RecommendService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductBrowseTrackService.class);
-
+	private static final String SUFFIX_JS = ".js";
+	private static final String SUFFIX_CSS = ".css";
+	private static final String SUFFIX_JPG = ".jpg";
+	private static final String SUFFIX_PNG = ".png";
 	@Resource(name = "productBrowseTrackService")
 	private ProductBrowseTrackService mBrowseTrackService;
-
 	@Resource(name = "recommendDao")
 	private RecommendDao mRecommendDao;
-
 	@Resource(name = "productMapper")
 	private ProductMapper mProductDao;
-
 	@Autowired
 	private URLConfiguration mURLConfiguration;
-
 	private int mRecommendCount = 20;
-
 	private boolean mRecommendOutOfStockProduct = false;
-
 	private String[] mRecommendURLs = new String[] { "/myAccount/favourites", "/user/updatePassword", "/userinformation/query", "/myAccount/orderHistory",
 			"/myAccount/browsedProducts", "/myAccount/ajaxBrowsedProducts", "/404", "/checkout/shipping", "/payment/gateway", "/payment/complete", "/my-account/person-info/address" };
 
-	private static final String SUFFIX_JS  = ".js";
-
-	private static final String SUFFIX_CSS = ".css";
-
-	private static final String SUFFIX_JPG = ".jpg";
-
-	private static final String SUFFIX_PNG = ".png";
-
+	// FIXME Move this method to configurations
 	public boolean recommend (final HttpServletRequest pRequest) {
 		String requestURI = pRequest.getRequestURI();
 		if (requestURI.endsWith(SUFFIX_JS) || requestURI.endsWith(SUFFIX_CSS)) {

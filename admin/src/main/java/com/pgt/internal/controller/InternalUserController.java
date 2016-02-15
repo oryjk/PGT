@@ -14,6 +14,8 @@ import com.pgt.internal.bean.Role;
 import com.pgt.internal.constant.ResponseConstant;
 import com.pgt.internal.service.InternalUserService;
 import com.pgt.internal.service.InternalUserValidationService;
+import com.pgt.pawn.bean.Pawnshop;
+import com.pgt.pawn.service.PawnService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Yove on 10/20/2015.
@@ -47,6 +50,9 @@ public class InternalUserController extends InternalTransactionBaseController im
 
     @Resource(name = "internalUserValidationService")
     private InternalUserValidationService mInternalUserValidationService;
+
+	@Resource(name = "pawnService")
+	private PawnService mPawnService;
 
     @Resource(name = "responseBuilderFactory")
     private ResponseBuilderFactory mResponseBuilderFactory;
@@ -183,8 +189,8 @@ public class InternalUserController extends InternalTransactionBaseController im
                 cookie.setMaxAge(getInternalUserService().getRememberExpiration());
                 pResponse.addCookie(cookie);
             }
-            LOGGER.debug("The user role is {}.",piu.getRole());
-            mav.setViewName(REDIRECT_DASHBOARD);
+	        LOGGER.debug("The user role is {}.", piu.getRole());
+	        mav.setViewName(REDIRECT_DASHBOARD);
             return mav;
         } catch (Exception e) {
             status.setRollbackOnly();
@@ -722,7 +728,13 @@ public class InternalUserController extends InternalTransactionBaseController im
             ModelAndView mav = new ModelAndView("forward:/internal/iu-modify?uid=" + iu.getId());
             return mav;
         }
-        ModelAndView mav = new ModelAndView("/internal/iu-mine");
+
+	    ModelAndView mav = new ModelAndView("/internal/iu-mine");
+	    // current internal user is an p2p user
+	    if (iu.getRole() == Role.INVESTOR || iu.getRole() == Role.IVST_ORDER_MANAGER) {
+		    List<Pawnshop> pawnshops = getPawnService().queryPawnShopsForInternalUser(iu.getId());
+		    mav.addObject(ResponseConstant.PAWN_SHOPS, pawnshops);
+	    }
         mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
         return mav;
     }
@@ -757,8 +769,16 @@ public class InternalUserController extends InternalTransactionBaseController im
         mInternalUserValidationService = pInternalUserValidationService;
     }
 
-    public ResponseBuilderFactory getResponseBuilderFactory() {
-        return mResponseBuilderFactory;
+	public PawnService getPawnService() {
+		return mPawnService;
+	}
+
+	public void setPawnService(final PawnService pPawnService) {
+		mPawnService = pPawnService;
+	}
+
+	public ResponseBuilderFactory getResponseBuilderFactory() {
+		return mResponseBuilderFactory;
     }
 
     public void setResponseBuilderFactory(final ResponseBuilderFactory pResponseBuilderFactory) {
