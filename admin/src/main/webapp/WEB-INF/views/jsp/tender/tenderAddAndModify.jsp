@@ -87,10 +87,13 @@
                                 <div class="col-xs-4">
                                     <input ms-duplex="pawnShopId" path="pawnShopId" name="pawnShopId"
                                            value="${tender.pawnShopId}" placeholder=""
-                                           class="form-control  pgt-requisite-name"/>
+                                           class="form-control  pgt-requisite-name"
+                                           v-model="tender.pawnShopId"
+                                           v-on:keyup="volidate"/>
                                 </div>
                                 <div class="col-xs-4">
                                     <p class="form-control-static pgt-error">
+                                        <span v-show="error.pawnShopId != true">{{error.pawnShopId}}</span>
                                     </p>
                                 </div>
                             </div>
@@ -102,10 +105,13 @@
                                 <div class="col-xs-4">
                                     <input ms-duplex="pawnTicketId" path="pawnTicketId" name="pawnTicketId"
                                            value="${tender.pawnTicketId}" placeholder=""
-                                           class="form-control  pgt-requisite-name"/>
+                                           class="form-control  pgt-requisite-name"
+                                           v-model="tender.pawnTicketId"
+                                           v-on:keyup="volidate"/>
                                 </div>
                                 <div class="col-xs-4">
                                     <p class="form-control-static pgt-error">
+                                        <span v-show="error.pawnTicketId != true">{{error.pawnTicketId}}</span>
                                     </p>
                                 </div>
                             </div>
@@ -134,7 +140,14 @@
 
                                 <div class="col-xs-4">
                                     <input ms-duplex-limit="smallMoney" data-duplex-totalLimit="8" name="smallMoney"
-                                           value="${tender.smallMoney}" class="form-control" placeholder="不超过20字"/>
+                                           value="${tender.smallMoney}" class="form-control" placeholder="不超过20字"
+                                           v-model="tender.smallMoney"
+                                           v-on:keyup="volidate"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        <span v-show="error.smallMoney != true">{{error.smallMoney}}</span>
+                                    </p>
                                 </div>
                             </div>
 
@@ -161,46 +174,73 @@
 
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">收益率:</label>
-
                                 <div class="col-xs-4">
                                     <input ms-duplex="interestRate" name="interestRate" value="${tender.interestRate}"
-                                           class="form-control" placeholder=""/>
+                                           class="form-control" placeholder=""
+                                           />
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">投资名称</label>
-
                                 <div class="col-xs-4">
                                     <input ms-duplex="name" name="name" value="${tender.name}" class="form-control"
-                                           placeholder="不超过20字"/>
+                                           placeholder="不超过20字"
+                                           v-model="tender.name"
+                                           v-on:keyup="volidate"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        <span v-show="error.name != true">{{error.name}}</span>
+                                    </p>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">投资的详情</label>
-
                                 <div class="col-xs-4">
                                     <input ms-duplex="description" name="description" value="${tender.description}"
-                                           class="form-control" placeholder="不超过20字"/>
+                                           class="form-control" placeholder="不超过20字"
+                                           v-model="tender.description"
+                                           v-on:keyup="volidate"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        <span v-show="error.description != true">{{error.description}}</span>
+                                    </p>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">付款后多少天开始算收益</label>
-
                                 <div class="col-xs-4">
                                     <input ms-duplex="prePeriod" name="prePeriod" value="${tender.prePeriod}"
-                                           class="form-control" placeholder="不超过20字"/>
+                                           class="form-control" placeholder="不超过20字"
+                                           v-model="tender.prePeriod"
+                                           v-on:keyup="volidate"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        <span v-show="error.prePeriod != true">{{error.prePeriod}}</span>
+                                    </p>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">无息天数</label>
-
                                 <div class="col-xs-4">
                                     <input ms-duplex="postPeriod" name="postPeriod" value="${tender.postPeriod}"
-                                           class="form-control" placeholder="不超过10字"/>
+                                           class="form-control" placeholder="不超过10字"
+                                           v-model="tender.postPeriod"
+                                           v-on:keyup="volidate"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        <span v-show="error.postPeriod != true">{{error.postPeriod}}</span>
+                                    </p>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label col-xs-3">是否分类热门</label>
 
@@ -214,6 +254,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label col-xs-3">是否网站热门</label>
 
