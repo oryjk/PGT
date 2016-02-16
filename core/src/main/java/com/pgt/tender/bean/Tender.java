@@ -11,315 +11,339 @@ import java.util.List;
 /**
  * Created by carlwang on 1/16/16.
  */
-public class Tender implements Serializable {
-    private Integer tenderId;
-    /**
-     * 当铺的id
-     */
-    private Integer pawnShopId;
-    /**
-     * 当铺所有者的id
-     */
-    private Integer pawnShopOwnerId;
-    /**
-     * 当票编号
-     */
-    private Integer pawnTicketId;
-    /**
-     * 投资总金额
-     */
-    private Double tenderTotal;
-    /**
-     * 可以投资的份数
-     */
-    private Integer tenderQuantity;
-    /**
-     * 最小投资金额
-     */
-    private Double  smallMoney;
+public class Tender implements TenderState, TenderAuditState, Serializable {
 
-    /**
-     * 开标时间
-     */
-    private Date publishDate;
-    /**
-     * 截至时间
-     */
-    private Date dueDate;
-    /**
-     * 收益率
-     */
-    private Double interestRate;
-    /**
-     * 投资名称
-     */
-    private String name;
-    /**
-     * 投资的详情
-     */
-    private String description;
-    /**
-     * 投资后多久天后开始算收益
-     */
-    private Integer prePeriod;
-    /**
-     * 无息天数
-     */
-    private Integer postPeriod;
-    /**
-     * 被投资的产品
-     */
-    private List<Product> products;
-    /**
-     * 投资创建日期
-     */
-    private Date creationDate;
-    /**
-     * 投资更新日期
-     */
-    private Date updateDate;
-    /**
-     * 投资所属分类
-     */
-    private Category category;
-    /**
-     * 手续费费率
-     */
-    private Double handlingFeeRate;
-    /**
-     * 是否是分类的热门
-     */
-    private Boolean categoryHot = false;
-    /**
-     * 是否是网站的热门
-     */
+	private Integer tenderId;
+	/**
+	 * 当铺的id
+	 */
+	private Integer pawnShopId;
+	/**
+	 * 当铺所有者的id
+	 */
+	private Integer pawnShopOwnerId;
+	/**
+	 * 当票编号
+	 */
+	private Integer pawnTicketId;
+	/**
+	 * 投资总金额
+	 */
+	private Double tenderTotal;
+	/**
+	 * 可以投资的份数
+	 */
+	private Integer tenderQuantity;
+	/**
+	 * 最小投资金额
+	 */
+	private Double smallMoney;
+
+	/**
+	 * 开标时间
+	 */
+	private Date publishDate;
+	/**
+	 * 截至时间
+	 */
+	private Date dueDate;
+	/**
+	 * 收益率
+	 */
+	private Double interestRate;
+	/**
+	 * 投资名称
+	 */
+	private String name;
+	/**
+	 * 投资的详情
+	 */
+	private String description;
+	/**
+	 * 投资后多久天后开始算收益
+	 */
+	private Integer prePeriod;
+	/**
+	 * 无息天数
+	 */
+	private Integer postPeriod;
+	/**
+	 * 被投资的产品
+	 */
+	private List<Product> products;
+	/**
+	 * 投资创建日期
+	 */
+	private Date creationDate;
+	/**
+	 * 投资更新日期
+	 */
+	private Date updateDate;
+	/**
+	 * 投资所属分类
+	 */
+	private Category category;
+	/**
+	 * 手续费费率
+	 */
+	private Double handlingFeeRate;
+	/**
+	 * 是否是分类的热门
+	 */
+	private Boolean categoryHot = false;
+	/**
+	 * 是否是网站的热门
+	 */
+	private Boolean siteHot = false;
+
+	private Integer categoryId;
+
+	/**
+	 * 状态
+	 */
+	private int state = INITIAL;
+	/**
+	 * 审核状态
+	 */
+	private int auditState = PENDING_APPROVAL;
 
 
-    private Boolean siteHot = false;
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("tenderId:").append(tenderId);
+		stringBuilder.append(",");
+		stringBuilder.append("pawnshopId:").append(pawnShopId);
+		stringBuilder.append(",");
+		stringBuilder.append("pawnTicketId:").append(pawnTicketId);
+		stringBuilder.append(",");
+		stringBuilder.append("tenderTotal:").append(tenderTotal);
+		stringBuilder.append(",");
+		stringBuilder.append("tenderQuantity:").append(tenderQuantity);
+		stringBuilder.append(",");
+		stringBuilder.append("publishDate:").append(publishDate);
+		stringBuilder.append(",");
+		stringBuilder.append("dueDate:").append(dueDate);
+		stringBuilder.append(",");
+		stringBuilder.append("interestRate:").append(interestRate);
+		stringBuilder.append(",");
+		stringBuilder.append("name:").append(name);
+		stringBuilder.append(",");
+		stringBuilder.append("description:").append(description);
+		stringBuilder.append(",");
+		stringBuilder.append("prePeriod:").append(prePeriod);
+		stringBuilder.append(",");
+		stringBuilder.append("postPeriod:").append(postPeriod);
+		stringBuilder.append(",");
+		stringBuilder.append("creationDate:").append(creationDate);
+		stringBuilder.append(",");
+		stringBuilder.append("updateDate:").append(updateDate);
+		stringBuilder.append(",");
+		stringBuilder.append("categoryId:").append(category == null ? null : category.getId());
+		stringBuilder.append(",");
+		stringBuilder.append("creationDate:");
+		if (!ObjectUtils.isEmpty(products)) {
+			products.stream().forEach(product -> stringBuilder.append(product.getProductId()).append(","));
+		}
+		return stringBuilder.toString();
+	}
 
-    private Integer categoryId;
+	public double getUnitPrice() {
+		if (tenderQuantity > 0) {
+			return tenderTotal / tenderQuantity;
+		}
+		return 0;
+	}
 
+	public Double getSmallMoney() {
+		return smallMoney;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("tenderId:").append(tenderId);
-        stringBuilder.append(",");
-        stringBuilder.append("pawnshopId:").append(pawnShopId);
-        stringBuilder.append(",");
-        stringBuilder.append("pawnTicketId:").append(pawnTicketId);
-        stringBuilder.append(",");
-        stringBuilder.append("tenderTotal:").append(tenderTotal);
-        stringBuilder.append(",");
-        stringBuilder.append("tenderQuantity:").append(tenderQuantity);
-        stringBuilder.append(",");
-        stringBuilder.append("publishDate:").append(publishDate);
-        stringBuilder.append(",");
-        stringBuilder.append("dueDate:").append(dueDate);
-        stringBuilder.append(",");
-        stringBuilder.append("interestRate:").append(interestRate);
-        stringBuilder.append(",");
-        stringBuilder.append("name:").append(name);
-        stringBuilder.append(",");
-        stringBuilder.append("description:").append(description);
-        stringBuilder.append(",");
-        stringBuilder.append("prePeriod:").append(prePeriod);
-        stringBuilder.append(",");
-        stringBuilder.append("postPeriod:").append(postPeriod);
-        stringBuilder.append(",");
-        stringBuilder.append("creationDate:").append(creationDate);
-        stringBuilder.append(",");
-        stringBuilder.append("updateDate:").append(updateDate);
-        stringBuilder.append(",");
-        stringBuilder.append("categoryId:").append(category == null ? null : category.getId());
-        stringBuilder.append(",");
-        stringBuilder.append("creationDate:");
-        if (!ObjectUtils.isEmpty(products)) {
-            products.stream().forEach(product -> stringBuilder.append(product.getProductId()).append(","));
-        }
-        return stringBuilder.toString();
-    }
+	public void setSmallMoney(Double smallMoney) {
+		this.smallMoney = smallMoney;
+	}
 
-    public double getUnitPrice() {
-        if (tenderQuantity > 0) {
-            return tenderTotal / tenderQuantity;
-        }
-        return 0;
-    }
+	public Integer getPawnShopId() {
+		return pawnShopId;
+	}
 
-    public Double getSmallMoney () {
-        return smallMoney;
-    }
+	public void setPawnShopId(Integer pawnShopId) {
+		this.pawnShopId = pawnShopId;
+	}
 
-    public void setSmallMoney (Double smallMoney) {
-        this.smallMoney = smallMoney;
-    }
+	public Integer getPawnShopOwnerId() {
+		return pawnShopOwnerId;
+	}
 
-    public Integer getPawnShopId() {
-        return pawnShopId;
-    }
+	public void setPawnShopOwnerId(Integer pawnShopOwnerId) {
+		this.pawnShopOwnerId = pawnShopOwnerId;
+	}
 
-    public void setPawnShopId(Integer pawnShopId) {
-        this.pawnShopId = pawnShopId;
-    }
+	public Integer getPawnTicketId() {
+		return pawnTicketId;
+	}
 
-    public Integer getPawnShopOwnerId() {
-        return pawnShopOwnerId;
-    }
+	public void setPawnTicketId(Integer pawnTicketId) {
+		this.pawnTicketId = pawnTicketId;
+	}
 
-    public void setPawnShopOwnerId(Integer pawnShopOwnerId) {
-        this.pawnShopOwnerId = pawnShopOwnerId;
-    }
+	public Double getTenderTotal() {
+		return tenderTotal;
+	}
 
-    public Integer getPawnTicketId() {
-        return pawnTicketId;
-    }
+	public void setTenderTotal(Double tenderTotal) {
+		this.tenderTotal = tenderTotal;
+	}
 
-    public void setPawnTicketId(Integer pawnTicketId) {
-        this.pawnTicketId = pawnTicketId;
-    }
+	public Integer getTenderQuantity() {
+		return tenderQuantity;
+	}
 
-    public Double getTenderTotal() {
-        return tenderTotal;
-    }
+	public void setTenderQuantity(Integer tenderQuantity) {
+		this.tenderQuantity = tenderQuantity;
+	}
 
-    public void setTenderTotal(Double tenderTotal) {
-        this.tenderTotal = tenderTotal;
-    }
+	public Date getPublishDate() {
+		return publishDate;
+	}
 
-    public Integer getTenderQuantity() {
-        return tenderQuantity;
-    }
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
+	}
 
-    public void setTenderQuantity(Integer tenderQuantity) {
-        this.tenderQuantity = tenderQuantity;
-    }
+	public Date getDueDate() {
+		return dueDate;
+	}
 
-    public Date getPublishDate() {
-        return publishDate;
-    }
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
-    }
+	public Double getInterestRate() {
+		return interestRate;
+	}
 
-    public Date getDueDate() {
-        return dueDate;
-    }
+	public void setInterestRate(Double interestRate) {
+		this.interestRate = interestRate;
+	}
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Double getInterestRate() {
-        return interestRate;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setInterestRate(Double interestRate) {
-        this.interestRate = interestRate;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Integer getPrePeriod() {
+		return prePeriod;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setPrePeriod(Integer prePeriod) {
+		this.prePeriod = prePeriod;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Integer getPostPeriod() {
+		return postPeriod;
+	}
 
-    public Integer getPrePeriod() {
-        return prePeriod;
-    }
+	public void setPostPeriod(Integer postPeriod) {
+		this.postPeriod = postPeriod;
+	}
 
-    public void setPrePeriod(Integer prePeriod) {
-        this.prePeriod = prePeriod;
-    }
+	public List<Product> getProducts() {
+		return products;
+	}
 
-    public Integer getPostPeriod() {
-        return postPeriod;
-    }
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 
-    public void setPostPeriod(Integer postPeriod) {
-        this.postPeriod = postPeriod;
-    }
+	public Date getCreationDate() {
+		return creationDate;
+	}
 
-    public List<Product> getProducts() {
-        return products;
-    }
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+	public Date getUpdateDate() {
+		return updateDate;
+	}
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public Integer getTenderId() {
+		return this.tenderId;
+	}
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+	public void setTenderId(Integer tenderId) {
+		this.tenderId = tenderId;
+	}
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public Category getCategory() {
+		return this.category;
+	}
 
-    public Integer getTenderId() {
-        return this.tenderId;
-    }
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
-    public void setTenderId (Integer tenderId) {
-        this.tenderId = tenderId;
-    }
+	public Double getHandlingFeeRate() {
+		return handlingFeeRate;
+	}
 
-    public Category getCategory() {
-        return this.category;
-    }
+	public void setHandlingFeeRate(Double handlingFeeRate) {
+		this.handlingFeeRate = handlingFeeRate;
+	}
 
-    public void setCategory (Category category) {
-        this.category = category;
-    }
+	public Boolean getCategoryHot() {
+		return categoryHot;
+	}
 
-    public Double getHandlingFeeRate() {
-        return handlingFeeRate;
-    }
+	public void setCategoryHot(Boolean categoryHot) {
+		this.categoryHot = categoryHot;
+	}
 
-    public void setHandlingFeeRate(Double handlingFeeRate) {
-        this.handlingFeeRate = handlingFeeRate;
-    }
+	public Boolean getSiteHot() {
+		return siteHot;
+	}
 
-    public Boolean getCategoryHot() {
-        return categoryHot;
-    }
+	public void setSiteHot(Boolean siteHot) {
+		this.siteHot = siteHot;
+	}
 
-    public void setCategoryHot(Boolean categoryHot) {
-        this.categoryHot = categoryHot;
-    }
+	public Integer getCategoryId() {
+		return categoryId;
+	}
 
-    public Boolean getSiteHot() {
-        return siteHot;
-    }
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
 
-    public void setSiteHot(Boolean siteHot) {
-        this.siteHot = siteHot;
-    }
+	public int getState() {
+		return state;
+	}
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
+	public void setState(final int pState) {
+		state = pState;
+	}
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
+	public int getAuditState() {
+		return auditState;
+	}
+
+	public void setAuditState(final int pAuditState) {
+		auditState = pAuditState;
+	}
 }

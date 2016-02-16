@@ -1,81 +1,204 @@
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="
-        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc 
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context.xsd ">
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-    <context:component-scan base-package="com.*"/>
+    <context:component-scan base-package="com.*" />
     <mvc:annotation-driven
             conversion-service="conversionService"
             validator="validatorFactoryBean">
     </mvc:annotation-driven>
     <!--Do not interceptor static files.-->
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <mvc:interceptors>
 
         <!--Initial global config-->
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
             <bean class="com.pgt.global.interceptor.GlobalConfigInterceptor"></bean>
 
         </mvc:interceptor>
 
         <!-- find user in cookie -->
         <mvc:interceptor>
-            <mvc:mapping path="/user/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
+            <mvc:mapping path="/user/**" />
+            <mvc:exclude-mapping path="/**.*" />
             <bean class="com.pgt.permission.PersistentInterceptor"></bean>
         </mvc:interceptor>
 
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
             <bean class="com.pgt.cart.filter.ShoppingCartResolveInterceptor"></bean>
         </mvc:interceptor>
 
         <!-- check the user login -->
         <mvc:interceptor>
-            <mvc:mapping path="/user/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
+            <mvc:mapping path="/user/**" />
+            <mvc:exclude-mapping path="/**.*" />
             <bean class="com.pgt.permission.LoginInterceptor"></bean>
         </mvc:interceptor>
 
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
             <bean class="com.pgt.cart.filter.ProductBrowseTracker"></bean>
         </mvc:interceptor>
 
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
-            <bean class="com.pgt.cart.filter.RecommendInterceptor"></bean>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
+            <bean class="com.pgt.cart.filter.BrowsedProductLoader">
+                <property name="enable" value="true" />
+                <property name="excludeURISuffixes">
+                    <list>
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_CSS" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_JPG" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_JS" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_PNG" />
+                    </list>
+                </property>
+                <property name="requestConstantName">
+                    <util:constant static-field="com.pgt.cart.constant.CartConstant.BROWSED_PRODUCTS" />
+                </property>
+                <property name="interceptURIs">
+                    <list>
+                        <!-- 404 -->
+                        <value>/404</value>
+                        <!-- shopping cart -->
+                        <value>/shoppingCart/cart</value>
+                        <!-- pdp, plp, indexed plp -->
+                        <value>/product</value>
+                        <value>/category</value>
+                        <value>/essearch</value>
+                        <!-- my account -->
+                        <value>/myAccount/orderHistory</value>
+                        <value>/myAccount/favourites</value>
+                        <value>/myAccount/browsedProducts</value>
+                        <!-- checkout -->
+                        <value>/checkout/shipping</value>
+                        <value>/payment/gateway</value>
+                        <value>/payment/complete</value>
+                        <!-- others -->
+                        <value>/my-account/person-info/address</value>
+                        <value>/user/updatePassword</value>
+                        <value>/userinformation/query</value>
+                    </list>
+                </property>
+            </bean>
         </mvc:interceptor>
 
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
+            <bean class="com.pgt.cart.filter.FavouriteLoader">
+                <property name="enable" value="true" />
+                <property name="excludeURISuffixes">
+                    <list>
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_CSS" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_JPG" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_JS" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_PNG" />
+                    </list>
+                </property>
+                <property name="requestConstantName">
+                    <util:constant static-field="com.pgt.cart.constant.CartConstant.FAVOURITES" />
+                </property>
+                <property name="interceptURIs">
+                    <list>
+                        <!-- 404 -->
+                        <value>/404</value>
+                        <!-- shopping cart -->
+                        <value>/shoppingCart/cart</value>
+                        <!-- pdp, plp, indexed plp -->
+                        <value>/product</value>
+                        <value>/category</value>
+                        <value>/essearch</value>
+                        <!-- my account -->
+                        <value>/myAccount/orderHistory</value>
+                        <value>/myAccount/favourites</value>
+                        <value>/myAccount/browsedProducts</value>
+                        <!-- checkout -->
+                        <value>/checkout/shipping</value>
+                        <value>/payment/gateway</value>
+                        <value>/payment/complete</value>
+                        <!-- others -->
+                        <value>/my-account/person-info/address</value>
+                        <value>/user/updatePassword</value>
+                        <value>/userinformation/query</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
+            <bean class="com.pgt.cart.filter.RecommendResolveInterceptor">
+                <property name="enable" value="true" />
+                <property name="excludeURISuffixes">
+                    <list>
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_CSS" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_JPG" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_JS" />
+                        <util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_PNG" />
+                    </list>
+                </property>
+                <property name="requestConstantName">
+                    <util:constant static-field="com.pgt.cart.constant.CartConstant.RECOMMEND_PRODUCTS" />
+                </property>
+                <property name="interceptURIs">
+                    <list>
+                        <!-- 404 -->
+                        <value>/404</value>
+                        <!-- shopping cart -->
+                        <value>/shoppingCart/cart</value>
+                        <!-- pdp, plp, indexed plp -->
+                        <value>/product</value>
+                        <value>/category</value>
+                        <value>/essearch</value>
+                        <!-- my account -->
+                        <value>/myAccount/orderHistory</value>
+                        <value>/myAccount/favourites</value>
+                        <value>/myAccount/browsedProducts</value>
+                        <!-- checkout -->
+                        <value>/checkout/shipping</value>
+                        <value>/payment/gateway</value>
+                        <value>/payment/complete</value>
+                        <!-- others -->
+                        <value>/my-account/person-info/address</value>
+                        <value>/user/updatePassword</value>
+                        <value>/userinformation/query</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
             <bean class="com.pgt.help.interceptor.HelpCenterInterceptor"></bean>
         </mvc:interceptor>
 
     </mvc:interceptors>
 
 
-
-
-
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/views/jsp/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/views/jsp/" />
+        <property name="suffix" value=".jsp" />
     </bean>
 
     <!-- validator-->

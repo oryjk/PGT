@@ -1,6 +1,8 @@
 package com.pgt.help.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,4 +53,28 @@ public class HelpCenterController {
 		modelAndView.addObject("helpCenter", helpCenter);
 		return modelAndView;
 	}
+
+	@RequestMapping(value = "/mQueryList", method = RequestMethod.POST)
+	public Map<String,Object> mQueryAllHelpCenter() {
+		LOGGER.debug("The method to query helpCenter");
+		Map<String,Object> responseMap= new HashMap<>();
+		List<HelpCategoryVo> helpCategorList = helpCenterService.findAllHelpCategoryVo();
+		responseMap.put("helpCategorList",helpCategorList);
+		return responseMap;
+	}
+
+	@RequestMapping(value = "/mQueryById", method = RequestMethod.POST)
+	public Map<String,Object> mQueryHelpCenterById(String helpCenterId){
+		Map<String,Object> responseMap= new HashMap<>();
+		LOGGER.debug("The method to query helpCenterById");
+		if (helpCenterId == null) {
+			helpCenterId = "1";
+		}
+		HelpCenter helpCenter = helpCenterService.findHelpCenterById(Integer.parseInt(helpCenterId));
+		responseMap.put("helpCenter", helpCenter);
+		return responseMap;
+	}
+
+
+
 }

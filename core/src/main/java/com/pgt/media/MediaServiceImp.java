@@ -8,6 +8,7 @@ import com.pgt.common.service.HotSearchService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
+import com.pgt.share.dao.ShareOrderMapper;
 import com.pgt.style.dao.PageBackgroundMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -162,6 +163,8 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     public Media queryHotProductFrontMedia(Integer hotSearchId) {
         return hotSearchMapper.queryHotProductFrontMedia(hotSearchId) ;
     }
+
+
 
     @Override
     public void updateMedia(Media media) {

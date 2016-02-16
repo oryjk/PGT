@@ -6,50 +6,79 @@ import java.util.Date;
 /**
  * Created by carlwang on 1/16/16.
  */
-public class PawnTicket implements Serializable {
-    private Integer pawnTicketId;
-    private Integer pawnShopId;
-    private String number;
-    private Date creationDate;
-    private Date updateDate;
+public class PawnTicket implements Serializable, PawnTicketState {
 
-    public Integer getPawnTicketId() {
-        return pawnTicketId;
-    }
+	private int mPawnTicketId;
+	private int mPawnshopId;
+	private String mNumber;
+	private String mComments;
+	private int mStatus = INITIAL;
+	private Date mCreationDate;
+	private Date mUpdateDate;
 
-    public void setPawnTicketId(Integer pawnTicketId) {
-        this.pawnTicketId = pawnTicketId;
-    }
+	private Pawnshop mPawnshop;
 
-    public Integer getPawnShopId() {
-        return pawnShopId;
-    }
+	public int getPawnTicketId() {
+		return mPawnTicketId;
+	}
 
-    public void setPawnShopId(Integer pawnShopId) {
-        this.pawnShopId = pawnShopId;
-    }
+	public void setPawnTicketId(final int pPawnTicketId) {
+		mPawnTicketId = pPawnTicketId;
+	}
 
-    public String getNumber() {
-        return number;
-    }
+	public int getPawnshopId() {
+		return mPawnshopId;
+	}
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
+	public void setPawnshopId(final int pPawnshopId) {
+		mPawnshopId = pPawnshopId;
+	}
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	public String getNumber() {
+		return mNumber;
+	}
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setNumber(final String pNumber) {
+		mNumber = pNumber;
+	}
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+	public Date getCreationDate() {
+		return mCreationDate;
+	}
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public void setCreationDate(final Date pCreationDate) {
+		mCreationDate = pCreationDate;
+	}
+
+	public Date getUpdateDate() {
+		return mUpdateDate;
+	}
+
+	public void setUpdateDate(final Date pUpdateDate) {
+		mUpdateDate = pUpdateDate;
+	}
+
+	public String getComments() {
+		return mComments;
+	}
+
+	public void setComments(final String pComments) {
+		mComments = pComments;
+	}
+
+	public int getStatus() {
+		return mStatus;
+	}
+
+	public void setStatus(final int pStatus) {
+		mStatus = pStatus;
+	}
+
+	public Pawnshop getPawnshop() {
+		return mPawnshop;
+	}
+
+	public void setPawnshop(final Pawnshop pPawnshop) {
+		mPawnshop = pPawnshop;
+	}
 }

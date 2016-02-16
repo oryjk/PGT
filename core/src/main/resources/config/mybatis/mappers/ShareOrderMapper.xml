@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.share.dao.ShareOrderMapper">
+
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+	<!--查询条件 -->
+	<sql id="shareOrderListWhere">
+		<where>
+			<if test="title!= null">
+				<if test="titleLike == false">
+					and TITLE =#{title}
+				</if>
+				<if test="titleLike == true">
+					and TITLE like "%"#{title}"%"
+				</if>
+			</if>
+			<if test="isShow!=null">
+				   and IS_SHOW =1
+			</if>
+            <if test="user!=null">
+				  and USER_ID = #{user.id}
+			</if>
+			<if test="product!=null">
+				and PRODUCT_ID=#{product.productId}
+			</if>
+            <if test="start!=null">
+				and start =#{start}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 排序条件 -->
+	<sql id="shareOrderListOrder">
+		<if test="orderFields != null and orderFields.size > 0">
+			order by
+			<foreach collection="orderFields" separator="," item="orderField">
+				${orderField.fieldName} ${orderField.order}
+			</foreach>
+		</if>
+	</sql>
+
+
+	<!--ShareOrder result map -->
+	<resultMap id="ShareOrderResult" type="com.pgt.share.bean.ShareOrder">
+		<id column="SHARE_ORDER_ID" property="shareOrderId"/>
+		<id column="TITLE" property="title"/>
+		<id column="START" property="start"/>
+		<id column="READING_QUANTITY" property="readingQuantity"/>
+		<id column="CLICK_HIGH" property="clickHigh"/>
+		<id column="CLICK_LOW" property="clickLow"/>
+		<id column="CREATE_DATE" property="createDate"/>
+		<id column="IS_SHOW" property="isShow"/>
+		<id column="EVALUATE" property="evaluate"/>
+		<association property="user" column="USER_ID"
+					 select="selectUser"/>
+		<association property="product" column="PRODUCT_ID" select="queryProductById"/>
+		<collection property="discusses" column="SHARE_ORDER_ID"
+					select="com.pgt.communication.dao.DiscussMapper.queryShareDiscuss" />
+		<collection property="shareMedias" column="SHARE_ORDER_ID" select="queryShareOrderMedia"/>
+	</resultMap>
+	
+	
+	<select id="queryProductById" parameterType="Integer" resultMap="com.pgt.product.dao.ProductMapper.resultProduct">
+		  SELECT * FROM PRODUCT WHERE  PRODUCT_ID = #{PRODUCT_ID}
+	</select>
+
+	<select id="queryShareOrderMedia" parameterType="int" resultMap="com.pgt.common.dao.MediaMapper.MediaResult">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{shareOrderId} AND TYPE='shareorder'
+		ORDER BY 'index'
+		asc
+	</select>
+
+	<select id="selectUser" parameterType="int" resultMap="com.pgt.user.dao.UserMapper.user">
+		SELECT *
+		FROM USERS WHERE user_id = #{USER_ID}
+	</select>
+
+	<!-- insert a shareOrder bean -->
+	<insert id="createShareOrder" parameterType="com.pgt.share.bean.ShareOrder"
+		keyProperty="shareOrderId" useGeneratedKeys="true">
+		INSERT INTO SHARE_ORDER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="start != null">
+				START,
+			</if>
+			<if test="readingQuantity != null">
+				READING_QUANTITY,
+			</if>
+			<if test="clickHigh != null">
+				CLICK_HIGH,
+			</if>
+			<if test="clickLow != null">
+				CLICK_LOW,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="user != null">
+				USER_ID,
+			</if>
+			<if test="product != null">
+			    PRODUCT_ID,
+			</if>
+			<if test="evaluate != null">
+				EVALUATE,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="title != null">
+				#{title},
+			</if>
+			<if test="start != null">
+				#{start},
+			</if>
+			<if test="readingQuantity != null">
+				#{readingQuantity},
+			</if>
+			<if test="clickHigh != null">
+				#{clickHigh}
+			</if>
+			<if test="clickLow != null">
+				#{clickLow},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+			<if test="user != null">
+				#{user.id},
+			</if>
+			<if test="product != null">
+				#{product.productId},
+			</if>
+			<if test="evaluate != null">
+				#{evaluate},
+			</if>
+		</trim>
+
+	</insert>
+
+	<!-- update a shareOrder bean -->
+	<update id="updateShareOrder" parameterType="com.pgt.share.bean.ShareOrder"
+		keyProperty="shareOrderId" useGeneratedKeys="true">
+		UPDATE SHARE_ORDER
+		<set>
+			<trim suffixOverrides=",">
+				<if test="START != null">
+					START=#{start},
+				</if>
+				<if test="readingQuantity != null">
+					READING_QUANTITY=#{readingQuantity},
+				</if>
+				<if test="clickHigh != null">
+					CLICK_HIGH=#{clickHigh},
+				</if>
+				<if test="clickLow != null">
+					CLICK_LOW=#{clickLow},
+				</if>
+				<if test="isShow != null">
+					IS_SHOW=#{isShow},
+				</if>
+			</trim>
+		</set>
+		WHERE
+		SHARE_ORDER=#{shareOrderId}
+	</update>
+
+	<!-- delete a shareOrder bean -->
+	<delete id="deleteShareOrderById">
+		DELETE FROM
+		SHARE_ORDER WHERE
+		SHARE_ORDER_ID=#{shareOrderId}
+	</delete>
+
+	<select id="queryShareOrderByQuery" parameterType="com.pgt.share.bean.ShareOrderQuery" resultMap="ShareOrderResult">
+		SELECT * FROM SHARE_ORDER
+		<include refid="shareOrderListWhere"/>
+		<include refid="pageBean"/>
+		<include refid="shareOrderListOrder"/>
+	</select>
+
+    <select id="queryShareOrderById" parameterType="Integer" resultMap="ShareOrderResult">
+		SELECT * FROM SHARE_ORDER WHERE SHARE_ORDER_ID =#{shareOrderId}
+	</select>
+
+</mapper>
