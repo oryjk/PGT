@@ -1,3 +1,4 @@
+
 //绑定错误对象并取别名
 Vue.prototype.regexEntity;
 
@@ -31,16 +32,35 @@ Vue.prototype.excuteVolidata = function(event) {
 	}
 };
 
+Vue.prototype.alterCss = function(o,border){
+	var obj = this.$el.children.error.children;
+	for(var c = 0; c < obj.length; c++){
+		if(obj[c].nodeName == "FORM"){
+			var sub_obj = obj[c];
+			for(var s = 0; s < sub_obj.length; s++){
+				if(sub_obj[s].__v_model != undefined){
+					var expression = sub_obj[s].__v_model.expression;
+					if(expression == o){
+						sub_obj[s].__v_model.el.style.outline = border;
+					}
+				}
+			}
+		}
+	}
+}
+
 //提交事件
 Vue.prototype.submitVolidata = function(funData, fun){
 	var model = fun;
-	var data = new model();
+	data = new model();
+	var length = 0;
 	for(var key in data){
-		for(var d in funData){
-			if(key == d){
-				data[key] = funData[d];
+		for(var o in funData){
+			if(key == o){
+				data[key] = funData[o];
 			}
 		}
+		length++;//获取对象属性个数
 	}
 	//输入框正确性验证
 	var i,j,i=0,j=0;
@@ -52,29 +72,29 @@ Vue.prototype.submitVolidata = function(funData, fun){
 	}
 	//jquery异步提交
 	if(i == j){
-		console.log(this);
-		//同步提交表单（单个） -- 完善中（自写js异步，这里通过参数传方法-钩子）
 		document.forms[0].submit();
 	}
 	//为空时处理
 	else{
 		var regex_entity = this.regexEntity;
+		var i = 0;
 		for(var o in regex_entity){
-			for(var key in this.volidateEntity){
-				if(o.match(key)){
-					for(var m in data){
-						if(o.match(m)){
-							if(data[m].match(regex_entity[o].regex) == null){
-								for(var i=0;i < this.$el.children.error.children.form.length;i++){
-									if(this.$el.children.error.children.form[i].__v_model != undefined){
-										var input = this.$el.children.error.children.form[i].__v_model.expression;
-										if(input.match(o)){
-											this.$el.children.error.children.form[i].style.outline = "1px solid red"
-											this.volidateEntity[key] = regex_entity[o].error;
-										}
-									}
-								}
+			var flag = o.split(".")[1];
+			for(var key in data){
+				if(flag == key){
+					if(data[key].match(regex_entity[o].regex) == null){
+						for(var v in this.volidateEntity){
+							if(flag == v){
+								this.volidateEntity[v] = regex_entity[o].error;
+								this.alterCss(o,"1px solid red");
 							}
+						}
+					}
+					else{
+						this.alterCss(o,"1px solid green");
+						i++;
+						if(i == length){
+							document.forms[0].submit();
 						}
 					}
 				}
