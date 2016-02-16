@@ -6,13 +6,13 @@ import java.util.Date;
 /**
  * Created by carlwang on 1/16/16.
  */
-public class PawnTicket implements Serializable {
+public class PawnTicket implements Serializable, PawnTicketState {
 
 	private int mPawnTicketId;
 	private int mPawnshopId;
 	private String mNumber;
 	private String mComments;
-	private boolean mStatus = true;
+	private int mStatus = INITIAL;
 	private Date mCreationDate;
 	private Date mUpdateDate;
 
@@ -66,11 +66,11 @@ public class PawnTicket implements Serializable {
 		mComments = pComments;
 	}
 
-	public boolean isStatus() {
+	public int getStatus() {
 		return mStatus;
 	}
 
-	public void setStatus(final boolean pStatus) {
+	public void setStatus(final int pStatus) {
 		mStatus = pStatus;
 	}
 

@@ -36,16 +36,16 @@
         </if>
     </sql>
 
-    <insert id="createPawnShop" keyColumn="ID" useGeneratedKeys="true">
+    <insert id="createPawnShop" keyColumn="ID" useGeneratedKeys="true" keyProperty="pawnshopId">
         INSERT INTO `PAWN_SHOP` (`OWNER_ID`, `MANAGER_ID`, `NAME`, `ADDRESS`, `CREATION_DATE`, `UPDATE_DATE`)
-        VALUES (#{ownerId}, #{managerId}, #{name}, #{address}, #{creationDate}, #{updateDate})
+        VALUES (#{ownerId}, #{managerId}, #{name}, #{address}, NOW(), NOW())
     </insert>
 
     <update id="updatePawnShop" parameterType="com.pgt.pawn.bean.Pawnshop">
         UPDATE `PAWN_SHOP`
         <set>
             `OWNER_ID` = #{ownerId}, `MANAGER_ID` = #{managerId}, `NAME` = #{name}, `ADDRESS` = #{address},
-            `CREATION_DATE` = #{creationDate}, `UPDATE_DATE` = #{updateDate}
+            `UPDATE_DATE` = NOW()
         </set>
         WHERE `ID` = ${pawnshopId}
     </update>
@@ -67,8 +67,13 @@
         SELECT COUNT(PT.ID)
         FROM PAWN_TICKET PT
         LEFT JOIN `PAWN_SHOP` PS ON PT.`PAWN_SHOP_ID` = PS.`ID`
-        WHERE PS.`OWNER_ID` = #{userId}
-        AND PT.`NUMBER` LIKE CONCAT('%', #{pagination.keyword}, '%')
+        WHERE 1 = 1
+        <if test="@AdminOgnl@isAdminQueryId(queryUserId)">
+            AND (PS.`OWNER_ID` = #{queryUserId} OR PS.`MANAGER_ID` = #{queryUserId})
+        </if>
+        <if test="@AdminOgnl@isNotBlankString(pagination.keyword)">
+            AND PT.`NUM` LIKE CONCAT('%', #{pagination.keyword}, '%')
+        </if>
     </select>
 
     <select id="queryPawnTicketPage" resultMap="pawnTicket">
@@ -82,21 +87,25 @@
         PT.`STATUS`
         FROM `PAWN_TICKET` PT
         LEFT JOIN `PAWN_SHOP` PS ON PT.`PAWN_SHOP_ID` = PS.`ID`
-        WHERE PS.`OWNER_ID` = #{userId}
-        AND PT.`NUMBER` LIKE CONCAT('%', #{pagination.keyword}, '%')
+        WHERE 1 = 1
+        <if test="@AdminOgnl@isAdminQueryId(queryUserId)">
+            AND (PS.`OWNER_ID` = #{queryUserId} OR PS.`MANAGER_ID` = #{queryUserId})
+        </if>
+        <if test="@AdminOgnl@isNotBlankString(pagination.keyword)">
+            AND PT.`NUM` LIKE CONCAT('%', #{pagination.keyword}, '%')
+        </if>
         <include refid="limit-split-page" />
     </select>
 
-    <insert id="createPawnTicket" keyColumn="ID" useGeneratedKeys="true">
+    <insert id="createPawnTicket" keyColumn="ID" useGeneratedKeys="true" keyProperty="pawnTicketId">
         INSERT INTO `PAWN_TICKET` (`NUM`, `PAWN_SHOP_ID`, `CREATION_DATE`, `UPDATE_DATE`, `COMMENTS`, `STATUS`)
-        VALUES (#{number}, #{pawnshopId}, #{creationDate}, #{updateDate}, #{comments}, #{status})
+        VALUES (#{number}, #{pawnshopId}, NOW(), NOW(), #{comments}, #{status})
     </insert>
 
     <update id="updatePawnTicket" parameterType="com.pgt.pawn.bean.PawnTicket">
         UPDATE `PAWN_TICKET`
         <set>
-            `NUM` = #{number}, `PAWN_SHOP_ID` = #{pawnshopId}, `CREATION_DATE` = #{creationDate}, `UPDATE_DATE` = #{updateDate},
-            `COMMENTS` = #{comments}, `STATUS` = #{status}
+            `NUM` = #{number}, `PAWN_SHOP_ID` = #{pawnshopId}, `UPDATE_DATE` = NOW(), `COMMENTS` = #{comments}, `STATUS` = #{status}
         </set>
         WHERE `ID` = #{pawnTicketId}
     </update>
@@ -146,10 +155,55 @@
     <select id="queryTicketCountForOwnerWithIds" resultType="int">
         SELECT COUNT(`ID`)
         FROM `PAWN_TICKET`
-        WHERE `OWNER_ID` = #{ownerId}
+        WHERE `OWNER_ID` = #{queryUserId}
         AND `ID` IN
         <foreach collection="ticketIds" item="ticketId" open="(" close=")" separator=" ,">
             #{ticketId}
         </foreach>
+    </select>
+
+    <select id="queryPawnShopForInternalUser" resultMap="pawnShop">
+        SELECT
+            `ID`,
+            `OWNER_ID`,
+            `MANAGER_ID`,
+            `NAME`,
+            `ADDRESS`,
+            `CREATION_DATE`,
+            `UPDATE_DATE`
+        FROM `PAWN_SHOP`
+        WHERE `OWNER_ID` = #{queryUserId} OR `MANAGER_ID` = #{queryUserId}
+    </select>
+
+    <select id="queryPawnShopCount" resultType="long">
+        SELECT COUNT(`ID`)
+        FROM PAWN_SHOP
+        WHERE 1 = 1
+        <if test="!@AdminOgnl@isAdminQueryId(queryUserId)">
+            AND (`OWNER_ID` = #{queryUserId} OR `MANAGER_ID` = #{queryUserId})
+        </if>
+        <if test="@AdminOgnl@isNotBlankString(pagination.keyword)">
+            AND `NAME` LIKE CONCAT('%', #{pagination.keyword}, '%')
+        </if>
+    </select>
+
+    <select id="queryPawnShopPage" resultMap="pawnShop">
+        SELECT
+        `ID`,
+        `OWNER_ID`,
+        `MANAGER_ID`,
+        `NAME`,
+        `ADDRESS`,
+        `CREATION_DATE`,
+        `UPDATE_DATE`
+        FROM `PAWN_SHOP`
+        WHERE 1 = 1
+        <if test="!@AdminOgnl@isAdminQueryId(queryUserId)">
+            AND (`OWNER_ID` = #{queryUserId} OR `MANAGER_ID` = #{queryUserId})
+        </if>
+        <if test="@AdminOgnl@isNotBlankString(pagination.keyword)">
+            AND `NAME` LIKE CONCAT('%', #{pagination.keyword}, '%')
+        </if>
+        <include refid="limit-split-page" />
     </select>
 </mapper>

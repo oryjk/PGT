@@ -5,6 +5,7 @@ package com.pgt.internal.constant;
  */
 public interface ResponseConstant {
 
+	String SUCCESS = "suc";
 	String ERROR_MSG = "errorMessage";
 
 	String ROLES = "roles";
@@ -19,6 +20,8 @@ public interface ResponseConstant {
 	String COMMERCE_ITEM = "commerceItem";
 
 	String PAWN_SHOP = "pawnShop";
+	String PAWN_SHOPS = "pawnShops";
+	String PAWN_SHOPS_PAGE = "pawnShopPage";
 	String PAWN_TICKET_PAGE = "pawnTicketPage";
 	String PAWN_TICKET = "pawnTicket";
 }

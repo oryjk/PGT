@@ -25,7 +25,7 @@ public class PawnRelatedValidationService {
 		return StringUtils.isNoneBlank(pNumber) && pNumber.getBytes().length <= 100;
 	}
 
-	public boolean checkPawnShopNameUniqueness(final String pName, int pCurrentShopId) {
+	public boolean checkPawnShopNameUniqueness(final String pName, Integer pCurrentShopId) {
 		return getPawnDao().queryPawnShopCountForName(pName, pCurrentShopId) <= 0;
 	}
 
@@ -33,8 +33,8 @@ public class PawnRelatedValidationService {
 		return getPawnDao().loadPawnShop(pShopId) != null;
 	}
 
-	public boolean checkPawnTicketNumberUniqueness(final String pNumber, int pCurrentTicketId) {
-		return getPawnDao().queryPawnTicketCountForNumber(pNumber, pCurrentTicketId) > 0;
+	public boolean checkPawnTicketNumberUniqueness(final String pNumber, Integer pCurrentTicketId) {
+		return getPawnDao().queryPawnTicketCountForNumber(pNumber, pCurrentTicketId) <= 0;
 	}
 
 	public boolean checkPawnTicketsMatchOwner(final int[] pTicketIds, final int pOwnerId) {

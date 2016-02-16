@@ -67,8 +67,7 @@
                                     <div class="input-icon">
                                         <i class="glyphicon glyphicon-phone"></i>
                                         <input type="text" name="phone" value="${iu.phone}" class="form-control"
-                                               disabled
-                                               placeholder="11位手机号码">
+                                               disabled placeholder="11位手机号码">
                                     </div>
                                 </div>
                             </div>
@@ -78,8 +77,7 @@
                                     <div class="input-icon">
                                         <i class="glyphicon glyphicon-envelope"></i>
                                         <input type="email" name="email" value="${iu.email}" class="form-control"
-                                               disabled
-                                               placeholder="Email">
+                                               disabled placeholder="Email">
                                     </div>
                                 </div>
                             </div>
@@ -92,6 +90,16 @@
                                             <option ${not iu.available ? 'selected' : ''} value="false">禁用</option>
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">已授权的当铺</label>
+                                <div class="col-md-4">
+                                    <p class="form-control-static">
+                                        <c:forEach var="pawnshop" items="pawnshops" varStatus="vs">
+                                            ${pawnshop.name}&nbsp;
+                                        </c:forEach>
+                                    </p>
                                 </div>
                             </div>
                         </div>

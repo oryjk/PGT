@@ -21,9 +21,9 @@ public interface PawnDao extends SqlMapper {
 
 	Pawnshop loadPawnShop(int pShopId);
 
-	long queryPawnTicketCount(@Param("pagination") InternalPagination pPagination, @Param("userId") int pUserId);
+	long queryPawnTicketCount(@Param("pagination") InternalPagination pPagination, @Param("queryUserId") int pQueryUserId);
 
-	List<PawnTicket> queryPawnTicketPage(@Param("pagination") InternalPagination pPagination, @Param("userId") int pUserId);
+	List<PawnTicket> queryPawnTicketPage(@Param("pagination") InternalPagination pPagination, @Param("queryUserId") int pQueryUserId);
 
 	int createPawnTicket(PawnTicket pTicket);
 
@@ -33,9 +33,15 @@ public interface PawnDao extends SqlMapper {
 
 	int updateBatchPawnTicketStatus(@Param("ticketIds") int[] pTicketIds, @Param("status") boolean pStatus);
 
-	int queryPawnShopCountForName(@Param("name") String pName, @Param("excludeShopId") int pExcludeShopId);
+	int queryPawnShopCountForName(@Param("name") String pName, @Param("excludeShopId") Integer pExcludeShopId);
 
-	int queryPawnTicketCountForNumber(@Param("number") String pNumber, @Param("excludeTicketId") int pExcludeTicketId);
+	int queryPawnTicketCountForNumber(@Param("number") String pNumber, @Param("excludeTicketId") Integer pExcludeTicketId);
 
-	int queryTicketCountForOwnerWithIds(@Param("ticketIds") int[] pTicketIds, @Param("ownerId") int pOwnerId);
+	int queryTicketCountForOwnerWithIds(@Param("ticketIds") int[] pTicketIds, @Param("queryUserId") int pQueryUserId);
+
+	List<Pawnshop> queryPawnShopForInternalUser(int pQueryUserId);
+
+	long queryPawnShopCount(@Param("pagination") InternalPagination pPagination, @Param("queryUserId") int pQueryUserId);
+
+	List<PawnTicket> queryPawnShopPage(@Param("pagination") InternalPagination pPagination, @Param("queryUserId") int pQueryUserId);
 }
