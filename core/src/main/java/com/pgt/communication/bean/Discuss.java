@@ -3,6 +3,7 @@ package com.pgt.communication.bean;
 import java.util.Date;
 
 import com.pgt.product.bean.Product;
+import com.pgt.share.bean.ShareOrder;
 import com.pgt.user.bean.User;
 
 /**
@@ -24,6 +25,15 @@ public class Discuss {
 
 	private Product product;
 
+	private ShareOrder shareOrder;
+
+	public ShareOrder getShareOrder() {
+		return shareOrder;
+	}
+
+	public void setShareOrder(ShareOrder shareOrder) {
+		this.shareOrder = shareOrder;
+	}
 	public Integer getId() {
 		return id;
 	}
