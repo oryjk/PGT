@@ -8,8 +8,8 @@ var tender = function(){
     this.tenderTotal = "";
     //最小投资金额
     this.smallMoney = "";
-    ////开始时间
-    //this.publishDate = "";
+    //开始时间
+    this.publishDate = "";
     ////截止时间
     //this.dueDate = "";
     ////收益率
@@ -44,7 +44,7 @@ var app = new Vue({
             "tender.pawnTicketId" : regex_empty,
             "tender.tenderTotal" : regex_username,
             "tender.smallMoney" : regex_number,
-            //"tender.publishDate" : regex_date,
+            "tender.publishDate" : regex_date,
             //"tender.dueDate" : regex_date,
             //"tender.interestRate" : regex_number,
             "tender.name" : regex_empty,
@@ -61,11 +61,13 @@ var app = new Vue({
         },
         volidate: function (event) {
             app.excuteVolidata(event);
-        }
-    },
-    watch:{
-        'tender.publishDate' :function (a){
-            console.log(this);
+        },
+        setDate: function(event){
+            var time = self.setInterval(function(){
+                if(event.target.value.length >= 0){
+                    app.excuteVolidata(event);
+                }
+            }, 100);
         }
     }
 })

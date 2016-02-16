@@ -157,7 +157,14 @@
                                     <input ms-duplex="publishDate" type="text" name="publishDate"
                                            value="<fmt:formatDate value="${tender.publishDate}" type="both" />"
                                            class="form-control" placeholder="" maxlength="35"
-                                           onfocus="$(this).calendar()">
+                                           onfocus="$(this).calendar()"
+                                           v-model="tender.publishDate"
+                                           v-on:click="setDate"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        <span v-show="error.publishDate != true">{{error.publishDate}}</span>
+                                    </p>
                                 </div>
                             </div>
 
