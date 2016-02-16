@@ -1,3 +1,6 @@
+@charset "UTF-8";
+/*import
+**************************************************************************************************************************************************/
 .header .nav, .advantage, .advantage ul {
   *zoom: 1; }
   .header .nav:after, .advantage:after, .advantage ul:after, .header .nav:before, .advantage:before, .advantage ul:before {
@@ -5,6 +8,7 @@
     display: table;
     clear: both; }
 
+/*select*/
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
@@ -93,6 +97,9 @@ hr {
 input, select {
   vertical-align: middle; }
 
+body {
+  font-family: '微软雅黑', serif; }
+
 ul,
 ol {
   list-style: none; }
@@ -109,12 +116,14 @@ a {
 .show-inline {
   display: inline; }
 
-/*
+/*part
 **************************************************************************************************************************************************/
 .header {
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
+  border-bottom: 1px solid #eeeeee;
   width: 100%;
   height: 100px;
   background: white; }
@@ -142,11 +151,11 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fd3b39; }
+      color: #fe4040; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
-      border: 1px solid #777777;
+      border: 1px solid #aaaaaa;
       padding: 10px;
       width: 260px;
       line-height: 20px;
@@ -160,6 +169,8 @@ a {
   .header .status {
     float: right; }
 
+/*style
+**************************************************************************************************************************************************/
 .banner-bg {
   position: fixed;
   top: 100px;
@@ -206,10 +217,11 @@ a {
       text-indent: -5000px;
       cursor: pointer; }
     .banner ol .banner-nav-current {
-      background: #fd3b39; }
+      background: #fe4040; }
 
 .advantage {
-  background: white; }
+  background: white;
+  /*四个方块的颜色,通过循环来赋值*/ }
   .advantage .advantage-inner {
     margin: 30px auto 0;
     width: 1200px;
@@ -218,7 +230,7 @@ a {
     background: url("../core/images/index/red-line-left.png") no-repeat left 5px; }
   .advantage h2 {
     font-size: 40px;
-    color: #fd3b39;
+    color: #fe4040;
     background: url("../core/images/index/red-line-right.png") no-repeat right 5px; }
   .advantage ul {
     padding: 30px 0 22px; }
