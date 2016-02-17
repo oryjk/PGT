@@ -10,11 +10,31 @@ require.config({
 });
 
 require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
+
     $(document).ready(function() {
+
+
+        $(".auth-code-btn").click(function(){
+          $.ajax({
+              type: 'get',
+              url: $('#smsPath').attr('data-value'),
+              data: {
+                  phoneNumber: $('#userPhone').val()
+              },
+              success: function() {
+                  setTimeout(numDown60, 1000);
+              }
+          });
+         });
 
         //为仿select绑定事件
         var selectBox = $('.invest-gender-select,.invest-type-select');
         Cpn.select(selectBox.find('.select-view'), selectBox.find('.option-view'));
+
+        $(".option-view").click(function(){
+            var value =$(this).attr("data-value");
+            $(this).parent().parent().next().val(value);
+        });
 
         //定义省市县三级联动.
         (function () {

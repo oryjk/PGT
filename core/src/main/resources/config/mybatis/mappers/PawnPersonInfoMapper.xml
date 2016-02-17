@@ -18,25 +18,8 @@
 	<!--查询条件 -->
 	<sql id="pawnPersonInfoListWhere">
 		<where>
-			<if test="title!= null">
-				<if test="titleLike == false">
-					and TITLE =#{title}
-				</if>
-				<if test="titleLike == true">
-					and TITLE like "%"#{title}"%"
-				</if>
-			</if>
-			<if test="isShow!=null">
-				   and IS_SHOW =1
-			</if>
-            <if test="user!=null">
-				  and USER_ID = #{user.id}
-			</if>
-			<if test="product!=null">
-				and PRODUCT_ID=#{product.productId}
-			</if>
-            <if test="start!=null">
-				and start =#{start}
+			<if test="pawnType!=null and pawnType!=''">
+                PAWN_TYPE=#{pawnType}
 			</if>
 		</where>
 	</sql>
@@ -62,6 +45,8 @@
 		<id column="PAWN_TYPE" property="pawnType"/>
 		<id column="TYPE" property="type"/>
 		<id column="STATUS" property="status"/>
+		<id column="PRICE" property="price"></id>
+		<id column="CREATE_DATE" property="createDate"/>
 	</resultMap>
 
 	<!-- insert a PawnPersonInfo bean -->
@@ -93,6 +78,12 @@
 			<if test="status != null">
 				STATUS,
 			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
 		</trim>
 		VALUES
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -119,6 +110,12 @@
 			</if>
 			<if test="status != null">
 				#{status},
+			</if>
+			<if test="price != null">
+				#{price},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
 			</if>
 		</trim>
 
@@ -154,6 +151,9 @@
 				<if test="status != null">
 					STATUS=#{status},
 				</if>
+				<if test="price != null">
+					PRICE=#{price},
+				</if>
 			</trim>
 		</set>
 		WHERE
@@ -170,8 +170,8 @@
 	<select id="queryPawnPersonInfo" parameterType="com.pgt.pawn.bean.PawnPersonInfoQuery" resultMap="PawnPersonInfoResult">
 		SELECT * FROM PAWN_PERSON_INFO
 		<include refid="pawnPersonInfoListWhere"/>
-		<include refid="pageBean"/>
 		<include refid="pawnPersonInfoListOrder"/>
+		<include refid="pageBean"/>
 	</select>
 
     <select id="queryPawnPersonInfoById" parameterType="Integer" resultMap="PawnPersonInfoResult">

@@ -46,7 +46,7 @@ public class ESSearchMobileController extends BaseMobileController{
 
     /**
      * A method query productList for search
-     * @param categoryId ,term,sortKey,sortOrder,priceStart,priceEnd,currentIndex,mobileCapacity
+     * @param   categoryId ,term,sortKey,sortOrder,priceStart,priceEnd,currentIndex,mobileCapacity
      *
      */
     @RequestMapping(value = "/query",method = RequestMethod.POST)
@@ -74,7 +74,7 @@ public class ESSearchMobileController extends BaseMobileController{
             esAggregation.setPropertyName("parentCategoryId");
             paginationBean.setCurrentIndex(Long.parseLong(essearchBean.getCurrentIndex()));
 
-            essearchBean.setTerm( buildESMatch(essearchBean.getTerm(), responseMap,esMatches));
+            buildESMatch(essearchBean.getTerm(), responseMap,esMatches);
             esSort= buildESSort(essearchBean.getSortKey(), essearchBean.getSortOrder(),responseMap);
             if(!ObjectUtils.isEmpty(esSort)){
                 sortList.add(esSort);

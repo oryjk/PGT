@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -68,6 +69,7 @@ public class PawnPersonInfoServiceImpl implements PawnPersonInfoService {
             LOGGER.debug("The pawnPersonInfo is empty");
             return;
         }
+        pawnPersonInfo.setCreateDate(new Date());
         pawnPersonInfoMapper.createPawnPersonInfo(pawnPersonInfo);
         LOGGER.debug("The create pawnPersonInfo id is",pawnPersonInfo.getId());
     }

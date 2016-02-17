@@ -2,6 +2,7 @@ package com.pgt.configuration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by carlwang on 11/19/15.
@@ -36,6 +37,16 @@ public class Configuration {
 	private boolean useProxy=true;
 
 	private boolean smsMock = false;
+
+	private Map pawnType;
+
+	public Map getPawnType() {
+		return pawnType;
+	}
+
+	public void setPawnType(Map pawnType) {
+		this.pawnType = pawnType;
+	}
 
 	private List<String> serviceTels=new ArrayList<>();
 	private String smsOrderContent="收到成功支付订单，请尽快去管理系统查看，订单号为：";

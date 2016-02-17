@@ -20,4 +20,20 @@ public class PawnPersonInfoQuery extends PawnPersonInfo{
         return this;
     }
 
+
+    public PaginationBean getPaginationBean() {
+        return paginationBean;
+    }
+
+    public void setPaginationBean(PaginationBean paginationBean) {
+        this.paginationBean = paginationBean;
+    }
+
+    public List<OrderField> getOrderFields() {
+        return orderFields;
+    }
+
+    public void setOrderFields(List<OrderField> orderFields) {
+        this.orderFields = orderFields;
+    }
 }

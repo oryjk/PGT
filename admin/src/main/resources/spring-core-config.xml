@@ -80,7 +80,16 @@
         <property name="imageFolder" value="${imageFolder}"></property>
         <property name="useProxy" value="${useProxy}"></property>
         <property name="staticServer" value="${staticServer}"></property>
-
+        <property name="pawnType">
+            <map>
+             <entry key="jewellery" value="珠宝"></entry>
+             <entry key="car" value="汽车"></entry>
+             <entry key="extravagant" value="奢侈品典当"></entry>
+             <entry key="house" value="房产典当"></entry>
+             <entry key="watch" value="手表典当"></entry>
+             <entry key="others" value="其他"></entry>
+            </map>
+       </property>
 
     </bean>
     <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
@@ -97,6 +106,7 @@
         <property name="plpPage" value="/category"/>
         <property name="helpCenterPage" value="/helpcenter/query"/>
     </bean>
+
     <bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
         <property name="host" value="localhost"/>
         <property name="indexPort" value="9300"/>

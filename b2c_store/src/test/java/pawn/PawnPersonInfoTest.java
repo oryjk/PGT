@@ -23,19 +23,25 @@ public class PawnPersonInfoTest {
     @Test
     public void testAdd(){
 
-        PawnPersonInfo pawnPersonInfo = new PawnPersonInfo();
 
-        pawnPersonInfo.setAddress("成都");
-        pawnPersonInfo.setDetailAddress("武侯区");
-        pawnPersonInfo.setGender("男");
-        pawnPersonInfo.setName("张");
-        pawnPersonInfo.setPawnType("汽车");
-        pawnPersonInfo.setPhoneNumber("18482132723");
-        pawnPersonInfo.setType("0");
-        pawnPersonInfo.setStatus("0");
 
-        pawnPersonInfoService.createPawnPersonInfo(pawnPersonInfo);
-        System.out.print("id:"+pawnPersonInfo.getId());
+       for(int i=0;i<10;i++){
+           PawnPersonInfo pawnPersonInfo = new PawnPersonInfo();
+
+           pawnPersonInfo.setAddress("成都");
+           pawnPersonInfo.setDetailAddress("武侯区");
+           pawnPersonInfo.setGender("男");
+           pawnPersonInfo.setName("张");
+           pawnPersonInfo.setPawnType("汽车");
+           pawnPersonInfo.setPhoneNumber("18482132723");
+           pawnPersonInfo.setType("0");
+           pawnPersonInfo.setStatus("0");
+           pawnPersonInfo.setPrice(new Double(23));
+
+           pawnPersonInfoService.createPawnPersonInfo(pawnPersonInfo);
+           System.out.print("id:" + pawnPersonInfo.getId());
+
+        }
 
     }
 

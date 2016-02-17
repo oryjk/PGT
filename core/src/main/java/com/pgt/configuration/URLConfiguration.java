@@ -16,14 +16,20 @@ public class URLConfiguration {
 	private String	pdpPage;
 	private String	plpPage;
 	private String helpCenterPage;
+	private String pawnPersonInfoPage;
 	private String orderHistoryPage="/myAccount/orderHistory";
 	private String yeepayPage="/user/yeepayAccountInfo";
 	private String myaccountPage="/userinformation/query";
-
 	public String getCategoryPage() {
 		return categoryPage;
 	}
 
+	public String getPawnPersonInfoPage() {
+		return pawnPersonInfoPage;
+	}
+	public void setPawnPersonInfoPage(String pawnPersonInfoPage) {
+		this.pawnPersonInfoPage = pawnPersonInfoPage;
+	}
 	public void setCategoryPage(String categoryPage) {
 		this.categoryPage = categoryPage;
 	}
