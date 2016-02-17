@@ -154,7 +154,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">开始时间:</label>
                                 <div class="col-md-4">
-                                    <input ms-duplex="publishDate" type="text" name="publishDate"
+                                    <input id="publishDate" type="text" name="publishDate"
                                            value="<fmt:formatDate value="${tender.publishDate}" type="both" />"
                                            class="form-control" placeholder="" maxlength="35"
                                            onfocus="$(this).calendar()"
@@ -171,10 +171,17 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">截止时间:</label>
                                 <div class="col-md-4">
-                                    <input ms-duplex="dueDate" type="text" name="dueDate"
+                                    <input id="dueDate" type="text" name="dueDate"
                                            value="<fmt:formatDate value="${tender.dueDate}" type="both" />"
                                            class="form-control" placeholder="" maxlength="35"
-                                           onfocus="$(this).calendar()">
+                                           onfocus="$(this).calendar()"
+                                           v-model="tender.dueDate"
+                                           v-on:click="setDate"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        <span v-show="error.dueDate != true">{{error.dueDate}}</span>
+                                    </p>
                                 </div>
                             </div>
 
@@ -184,7 +191,13 @@
                                 <div class="col-xs-4">
                                     <input ms-duplex="interestRate" name="interestRate" value="${tender.interestRate}"
                                            class="form-control" placeholder=""
-                                           />
+                                           v-model="tender.interestRate"
+                                           v-on:keyup="volidate"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p class="form-control-static pgt-error">
+                                        <span v-show="error.interestRate != true">{{error.interestRate}}</span>
+                                    </p>
                                 </div>
                             </div>
 

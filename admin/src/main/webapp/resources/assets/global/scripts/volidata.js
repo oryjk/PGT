@@ -105,7 +105,7 @@ Vue.prototype.submitVolidata = function(funData, fun){
 
 
 /**
- 		vue 以上表单验证 div使用格式 - 多个表单验证正在完善中，边框红色显示位置bug（单个没问题）
+ 		vue 扩展 - 支持多个表单验证（绑定的div id和 对象名 不能一样）
  		<div id="绑定的对象id-例如app">
 			<div id="error" v-model="error">
 				<form id="form" v-on:submit.prevent="ajaxSubmit">
@@ -115,4 +115,15 @@ Vue.prototype.submitVolidata = function(funData, fun){
  				</form>
 			</div>
  		</div>
+
+		 <div id="绑定的对象id-例如app">
+			 <div id="error" v-model="error">
+				 <form id="form" v-on:submit.prevent="ajaxSubmit">
+					 <input id="tenderTotal" type="text" v-model="newUser.name" v-on:keyup="volidate"/>
+					 <div v-show="error.name != true">{{error.name}}</div>
+					 <button type="submit">确认</button>
+				 </form>
+			 </div>
+		 </div>
 **/
+

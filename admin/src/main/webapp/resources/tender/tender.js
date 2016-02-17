@@ -10,11 +10,11 @@ var tender = function(){
     this.smallMoney = "";
     //开始时间
     this.publishDate = "";
-    ////截止时间
-    //this.dueDate = "";
-    ////收益率
-    //this.interestRate = "";
-    ////投资名称
+    //截止时间
+    this.dueDate = "";
+    //收益率
+    this.interestRate = "";
+    //投资名称
     this.name = "";
     ////投资详情
     this.description = "";
@@ -45,8 +45,8 @@ var app = new Vue({
             "tender.tenderTotal" : regex_username,
             "tender.smallMoney" : regex_number,
             "tender.publishDate" : regex_date,
-            //"tender.dueDate" : regex_date,
-            //"tender.interestRate" : regex_number,
+            "tender.dueDate" : regex_date,
+            "tender.interestRate" : regex_number,
             "tender.name" : regex_empty,
             "tender.description" : regex_empty,
             "tender.prePeriod" : regex_number,
@@ -63,11 +63,24 @@ var app = new Vue({
             app.excuteVolidata(event);
         },
         setDate: function(event){
-            var time = self.setInterval(function(){
+            var data = this.$data.tender;
+            var time = window.setInterval(function(){
                 if(event.target.value.length >= 0){
+                    var key = event.target.__v_model.expression.split(".")[1];
+                    for(var o in data){
+                        if(o == key){
+                            data[o] = $("input[id=" + key + "]").val();
+                            console.log($("input[id=" + key + "]").val());
+                        }
+                    }
                     app.excuteVolidata(event);
                 }
-            }, 100);
+            }, 10);
+            $("a").click(function(){
+               window.setTimeout(function(){
+                   window.clearInterval(time);
+               },10);
+            })
         }
     }
 })
