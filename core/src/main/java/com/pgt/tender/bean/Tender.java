@@ -33,10 +33,12 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 	/**
 	 * 可以投资的份数
 	 */
+	@Deprecated
 	private Integer tenderQuantity;
 	/**
 	 * 最小投资金额
 	 */
+	@Deprecated
 	private Double smallMoney;
 
 	/**
