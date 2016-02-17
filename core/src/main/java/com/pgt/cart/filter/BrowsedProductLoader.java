@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by jeniss on 16/2/4.
+ * Created by Yove on 16/2/4.
  */
 public class BrowsedProductLoader extends ItemLoadInterceptor {
 

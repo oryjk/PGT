@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线典当</title>
+    <link rel="stylesheet" href="invest.css"/>
+</head>
+<body>
+<!--header begin-->
+<div class="header">
+    <div class="header-inner">
+        <h1 class="logo">
+            <a href="#"></a>
+        </h1>
+        <ul class="nav">
+            <li><a href="#">在当品大厅</a></li>
+            <li><a href="#">在线典当</a></li>
+            <li><a href="#">绝当品</a></li>
+        </ul>
+        <form class="search" action="">
+            <input type="text" placeholder="点击搜索"/>
+        </form>
+        <div class="status">
+            <div class="status-login"></div>
+            <div class="status-logout"></div>
+        </div>
+    </div>
+</div>
+<!--header end-->
+<!--banner begin-->
+<div class="banner">
+    <div class="banner-content">
+        <form action="/">
+            <h2>典当个人信息</h2>
+            <table>
+                <tr>
+                    <th>姓名</th>
+                    <td><input class="invest-text" type="text"/></td>
+                </tr>
+                <tr>
+                    <th>性别</th>
+                    <td>
+                        <!-- 仿select组件begin-->
+                        <div class="invest-gender-select">
+                            <a class="select-view"  href="#">
+                                <span class="selected">请选择</span>
+                                <i class="foundicon-down-arrow"></i>
+                            </a>
+                            <ul>
+                                <li><a class="option-view" data-value="0" href="#">男</a></li>
+                                <li><a class="option-view" data-value="1" href="#">女</a></li>
+                            </ul>
+                            <input name="" type="hidden" value=""/>
+                        </div>
+                        <!-- 仿select组件end-->
+                    </td>
+                </tr>
+                <tr>
+                    <th>手机号</th>
+                    <td><input class="invest-text" type="text"/></td>
+                </tr>
+                <tr>
+                    <th>地址</th>
+                    <td>
+                        <!-- 仿select组件begin-->
+                        <div class="invest-province-select">
+                            <a id="province" class="select-view"  href="#">
+                                <span class="selected">请选择</span>
+                                <i class="foundicon-down-arrow"></i>
+                            </a>
+                            <ul class="options">
+                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                            </ul>
+                            <input class="select-value" name="" type="hidden" value=""/>
+                        </div>
+                        <!-- 仿select组件end-->
+                        <!-- 仿select组件begin-->
+                        <div class="invest-city-select">
+                            <a id="city" class="select-view"  href="#">
+                                <span class="selected">请选择</span>
+                                <i class="foundicon-down-arrow"></i>
+                            </a>
+                            <ul class="options">
+                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                            </ul>
+                            <input class="select-value" name="" type="hidden" value=""/>
+                        </div>
+                        <!-- 仿select组件begin-->
+                        <!-- 仿select组件end-->
+                        <div class="invest-country-select">
+                            <a id="country" class="select-view"  href="#">
+                                <span class="selected">请选择</span>
+                                <i class="foundicon-down-arrow"></i>
+                            </a>
+                            <ul class="options">
+                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                            </ul>
+                            <input class="select-value" name="" type="hidden" value=""/>
+                        </div>
+                        <!-- 仿select组件end-->
+                    </td>
+                </tr>
+                <tr>
+                    <th>详细地址</th>
+                    <td><input class="invest-address-text" type="text"/></td>
+                </tr>
+                <tr>
+                    <th>典当类型</th>
+                    <td>
+                        <!-- 仿select组件begin-->
+                        <div class="invest-type-select">
+                            <a class="select-view"  href="#">
+                                <span class="selected">请选择</span>
+                                <i class="foundicon-down-arrow"></i>
+                            </a>
+                            <ul>
+                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                            </ul>
+                            <input name="" type="hidden" value=""/>
+                        </div>
+                        <!-- 仿select组件end-->
+                    </td>
+                </tr>
+                <tr>
+                    <th>典当金额</th>
+                    <td><input class="invest-text" type="text"/></td>
+                </tr>
+                <tr>
+                    <th>手机号码</th>
+                    <td>
+                        <input class="auth-code-text" type="text"/>
+                        <img class="auth-code-image" src="" alt=""/>
+                        <input class="auth-code-btn" type="button" value="获取"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><input class="invest-submit" type="submit" value="立即申请"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!--banner end-->
+<!--condition begin-->
+<div class="condition">
+    <h2>典当条件</h2>
+    <ul class="inner">
+        <li>个人有效身份证(身份证, 暂住证, 驾驶证, 护照, 军官证)</li>
+        <li>当物的合法来源证明</li>
+        <li>保卡等附件</li>
+    </ul>
+</div>
+<!--condition end-->
+<!--process begin-->
+<div class="process">
+    <h2>典当流程</h2>
+    <div class="inner"></div>
+</div>
+<!--process end-->
+<!--footer begin-->
+<div class="footer"></div>
+<!--footer end-->
+</body>
+<script src="../core/js/require.js" data-main="invest"></script>
+</html>

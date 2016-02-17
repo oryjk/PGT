@@ -1,7 +1,7 @@
 package com.pgt.pawn.controller;
 
 /**
- * Created by jeniss on 16/2/7.
+ * Created by Yove on 16/2/7.
  */
 public interface PawnMessage {
 

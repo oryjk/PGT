@@ -1,0 +1,104 @@
+@import "variable","commonMixin";
+//反色按钮
+@mixin btn($color, $radius:3px) {
+  border: $color;
+  border-radius: $radius;
+  background: transparent;
+  color: $color;
+
+  &:hover {
+    background: $color;
+    color: white;
+  }
+}
+
+//包图链接
+@mixin img-box($w:100%) {
+  width: $w;
+  display: block;
+  @if $w != 100% {
+    margin: 0 auto;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+/*select*/
+@mixin like-select($width:100px, $height:25px, $borderRidius: 0, $fontSize: 14px, $viewBorderColor: black, $listBorderColor: black, $viewFontColor: black, $fontColor: black, $color: white, $colorHover: $gray-light) {
+  position: relative;
+  display: inline-block;
+  @include wh($width, $height);
+
+
+  i,
+  a {
+    font-size: $fontSize;
+  }
+
+  i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    @include wh($height, $height);
+    line-height: 25px;
+    text-align: center;
+    font-size: 12px;
+
+    color: white;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .select-view {
+    border: 1px solid $viewBorderColor;
+    display: block;
+    @include wh(100%, 100%);
+    background: $color;
+    border-radius: $borderRidius;
+    line-height: $height;
+
+    &:hover {
+      background: $colorHover;
+    }
+
+    span {
+      color: $viewFontColor;
+    }
+  }
+
+  ul {
+    position: absolute;
+    display: none;
+    overflow: scroll;
+    max-height: 295px;
+    top: 106%;
+    left: 0;
+    border: 1px solid $listBorderColor;
+    width: $width;
+    background: white;
+    list-style: none;
+  }
+
+  li {
+    padding: 3px 0;
+
+    a {
+      color: $fontColor;
+    }
+
+    &:hover {
+      background: $colorHover;
+
+      a {
+        color: white;
+      }
+    }
+  }
+}

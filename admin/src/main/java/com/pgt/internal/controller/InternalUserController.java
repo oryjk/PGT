@@ -734,7 +734,8 @@ public class InternalUserController extends InternalTransactionBaseController im
 	    if (iu.getRole() == Role.INVESTOR || iu.getRole() == Role.IVST_ORDER_MANAGER) {
 		    List<Pawnshop> pawnshops = getPawnService().queryPawnShopsForInternalUser(iu.getId());
 		    mav.addObject(ResponseConstant.PAWN_SHOPS, pawnshops);
-	    }
+            // FIXME on jsp to select pawn shops if user role matched
+        }
         mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
         return mav;
     }

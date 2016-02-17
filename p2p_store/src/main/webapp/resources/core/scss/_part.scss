@@ -1,0 +1,75 @@
+@mixin header() {
+  .header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid $gray-lighter;
+    @include wh(100%, 100px);
+    background: white;
+
+    .header-inner {
+      margin: 0 auto;
+      @include wh(1200px, 100%);
+    }
+
+    .logo,
+    .nav,
+    .search {
+      float: left;
+    }
+
+    .logo {
+      @include wh(242px, 100%);
+      background: url("../core/images/header/logo-red.jpg") no-repeat left center;
+
+      a {
+        display: block;
+        @include wh(100%, 100%);
+      }
+    }
+
+    .nav {
+      @extend %clear;
+
+      li {
+        float: left;
+        padding: 0 23px;
+      }
+
+      a {
+        font-size: 22px;
+        line-height: 100px;
+        color: black;
+
+        &:hover {
+          color: $main;
+        }
+      }
+    }
+
+    .search {
+      padding-top: 30px;
+
+      input {
+        border: 1px solid $gray-light;
+        padding: 10px;
+        @include wh(260px);
+        line-height: 20px;
+        font-size: 14px;
+        background: $gray-lighter;
+        transition: width .2s linear;
+
+        &:focus {
+          @include wh(300px);
+          background: white;
+          transition: width .2s linear;
+        }
+      }
+    }
+
+    .status {
+      float: right;
+    }
+  }
+}
