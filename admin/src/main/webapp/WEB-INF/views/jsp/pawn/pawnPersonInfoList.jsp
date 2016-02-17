@@ -41,12 +41,6 @@
                                 <i class="fa fa-cogs font-green-sharp"></i>
                                 <span class="caption-subject font-green-sharp bold uppercase">表格</span>
                             </div>
-                            <div class="actions btn-set">
-                                <button class="btn green-haze btn-circle"
-                                        onclick="window.location.href='/banner/addBanner/';"><i class="fa fa-plus"></i>
-                                    新增
-                                </button>
-                            </div>
                         </div>
 
 
@@ -59,7 +53,7 @@
                                                 <select id="sortSelect" name="sample_3_length" aria-controls="sample_3"
                                                         class="form-control input-small input-inline select2-offscreen"
                                                         tabindex="-1" title="">
-                                                    <option value="">全部</option>
+                                                    <option value="">请选择排序方式</option>
                                                     <option value="CREATE_DATE">时间</option>
                                                     <option value="PRICE">价格</option>
                                                 </select></label>
@@ -102,7 +96,7 @@
                                                 金额
                                             </th>
                                             <th>
-                                                状态
+                                                典当状态
                                             </th>
                                             <th>
                                                 操作
@@ -121,7 +115,7 @@
                                                     ${pawnPersonInfo.name}
                                                 </td>
                                                 <td>
-                                                    ${pawnPersonInfo.pawnType}
+                                                        ${pawnTypes[pawnPersonInfo.pawnType]}
                                                 </td>
                                                 <td>
                                                      ${pawnPersonInfo.phoneNumber}
@@ -130,26 +124,27 @@
                                                      ${pawnPersonInfo.price}
                                                 </td>
                                                 <td>
-                                                    <div class="btn-group">
 
-                                                        <c:if test="${pawnPersonInfo.status==1}">
-                                                            <a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-                                                                启用 </i>
-                                                            </a>
-
+                                                    <c:if test="${empty pawnPersonInfo.status}">
+                                                        <c:if test="${empty pawnPersonInfo.contacts}">
+                                                            未处理
                                                         </c:if>
-                                                        <c:if test="${pawnPersonInfo.status==0}">
-                                                        <a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-                                                            禁用 </i>
-                                                        </a>
+                                                        <c:if test="${!empty pawnPersonInfo.contacts}">
+                                                            已联系
                                                         </c:if>
+                                                    </c:if>
 
-                                                    </div>
+                                                    <c:if test="${!empty pawnPersonInfo.status}">
+                                                        已处理------处理结果： ${pawnPersonInfo.status eq 1 ? "通过" :''}
+                                                        ${pawnPersonInfo.status eq 0 ? "不通过" :''}
+                                                    </c:if>
+
+
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-xs green btn-circle"
                                                             onclick="window.location.href='/pawnPersonInfo/queryPawnPersonInfoById/${pawnPersonInfo.id}'">
-                                                        修改状态
+                                                        详情
                                                     </button>
                                                     <button class="btn btn-xs red btn-circle"
                                                             onclick="window.location.href='/pawnPersonInfo/deletePawnPersonInfo/${pawnPersonInfo.id}'">
