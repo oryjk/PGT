@@ -1,6 +1,8 @@
 package com.pgt.payment;
 
 public class PaymentConstants {
+
+	public static final int PLATFORM_PAYMENT_GROUP_ID = -333;
 	public static final int PAYMENT_STATUS_FAILED = -1;
 	public static final int PAYMENT_STATUS_PROCCESSING = 0;
 	public static final int PAYMENT_STATUS_SUCCESS = 1;
