@@ -20,6 +20,8 @@
 		<result column="UPDATE_DATE" property="updateDate"/>
 		<result column="CATEGORY_HOT" property="categoryHot"/>
 		<result column="SITE_HOT" property="siteHot"/>
+		<result column="STATE" property="state"/>
+		<result column="AUDIT_STATE" property="auditState"/>
 		<association property="category" column="ID"
 					 select="com.pgt.category.dao.CategoryMapper.queryCategoryByTenderId"/>
 		<collection property="products" column="ID" select="com.pgt.product.dao.ProductMapper.queryProductByTenderId"/>

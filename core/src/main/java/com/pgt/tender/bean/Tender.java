@@ -1,6 +1,7 @@
 package com.pgt.tender.bean;
 
 import com.pgt.category.bean.Category;
+import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.product.bean.Product;
 import org.springframework.util.ObjectUtils;
 
@@ -107,6 +108,7 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 	 */
 	private int auditState = PENDING_APPROVAL;
 
+	private Pawnshop mPawnshop;
 
 	@Override
 	public String toString() {
@@ -345,5 +347,13 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 
 	public void setAuditState(final int pAuditState) {
 		auditState = pAuditState;
+	}
+
+	public Pawnshop getPawnshop() {
+		return mPawnshop;
+	}
+
+	public void setPawnshop(final Pawnshop pPawnshop) {
+		mPawnshop = pPawnshop;
 	}
 }
