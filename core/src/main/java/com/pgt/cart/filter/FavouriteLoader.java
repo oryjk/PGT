@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by jeniss on 16/2/5.
+ * Created by Yove on 16/2/5.
  */
 public class FavouriteLoader extends ItemLoadInterceptor {
 
