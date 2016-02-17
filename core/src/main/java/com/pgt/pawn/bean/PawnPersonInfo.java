@@ -1,8 +1,6 @@
 package com.pgt.pawn.bean;
 
 import com.pgt.pawn.validation.group.PawnGroup;
-import com.pgt.user.validation.group.LoginGroup;
-import com.pgt.user.validation.group.RegistrationGroup;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -44,6 +42,16 @@ public class PawnPersonInfo implements Serializable {
     @NotEmpty(message = "{NotEmpty.address.area}",groups = {PawnGroup.class})
     private String	district;
 
+    private String contacts;
+
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
 
     public String getProvince() {
         return province;

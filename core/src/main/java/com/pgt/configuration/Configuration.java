@@ -34,6 +34,8 @@ public class Configuration {
 	private Integer adminCategoryCapacity;
 	private String imageFolder="/image/upload/";
 	private String staticServer="http://www.pgt_admin.com";
+	public static final String ADMIN_PHONENUMBER = "";
+
 	private boolean useProxy=true;
 
 	private boolean smsMock = false;

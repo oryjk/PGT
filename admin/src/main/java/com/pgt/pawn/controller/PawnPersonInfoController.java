@@ -91,13 +91,20 @@ public class PawnPersonInfoController {
         }
         pawnPersonInfoService.deletePawnPersonInfoById(id);
         LOGGER.debug("The delete successful and id is {}",id);
+        modelAndView.setViewName("redirect:/pawnPersonInfo/query");
         return modelAndView;
     }
 
     @RequestMapping(value = "/queryPawnPersonInfoById/{id}",method = RequestMethod.GET)
      public ModelAndView queryPawnPersonInfoById(ModelAndView modelAndView,@PathVariable("id") Integer id){
          LOGGER.debug("The method to queryPawnPersonInfo");
-         if(ObjectUtils.isEmpty(id)){
+
+        Map pawnTypes=configuration.getPawnType();
+        if(!CollectionUtils.isEmpty(pawnTypes)){
+            modelAndView.addObject("pawnTypes",pawnTypes);
+            LOGGER.debug("add pawnTypes");
+        }
+        if(ObjectUtils.isEmpty(id)){
              LOGGER.debug("The pawnPersonInfo id is empty");
              return modelAndView;
          }
@@ -107,28 +114,41 @@ public class PawnPersonInfoController {
              return modelAndView;
          }
          modelAndView.addObject("pawnPersonInfo",pawnPersonInfo);
+         modelAndView.setViewName("/pawn/pawnPersonInfoDetail");
          return modelAndView;
      }
 
     @RequestMapping(value = "/updateStatus",method = RequestMethod.POST)
-    public ModelAndView updateStatus(ModelAndView modelAndView, String status,Integer id){
+    public ModelAndView updateStatus(ModelAndView modelAndView, String contacts,String status,Integer id){
+
+        modelAndView.setViewName("/pawn/pawnPersonInfoDetail");
         LOGGER.debug("The method to update status");
         if(ObjectUtils.isEmpty(id)){
             LOGGER.debug("The pawnPersonInfo id is empty");
+            modelAndView.addObject("error","id is empty");
             return modelAndView;
         }
+
         PawnPersonInfo pawnPersonInfo=pawnPersonInfoService.queryPawnPersonInfoById(id);
         if(ObjectUtils.isEmpty(pawnPersonInfo)){
             LOGGER.debug("The pawnPersonInfo is empty");
+            modelAndView.addObject("error","pawnPersonInfo is empty");
+            modelAndView.setViewName("redirect:/pawnPersonInfo/queryPawnPersonInfoById"+id);
             return modelAndView;
         }
-        if(StringUtils.isEmpty(status)){
-            LOGGER.debug("The status is empty");
+        if(StringUtils.isEmpty(contacts)){
+            LOGGER.debug("The contacts is empty");
+            modelAndView.addObject("error","contacts is empty");
+            modelAndView.setViewName("redirect:/pawnPersonInfo/queryPawnPersonInfoById"+id);
             return modelAndView;
         }
-        pawnPersonInfo.setStatus(status);
+        if(!StringUtils.isEmpty(status)){
+            pawnPersonInfo.setStatus(status);
+        }
+        pawnPersonInfo.setContacts(contacts);
         pawnPersonInfoService.updatePawnPersonInfo(pawnPersonInfo);
         LOGGER.debug("The method successful and is is {} ,status is {}",id,status);
+        modelAndView.setViewName("redirect:/pawnPersonInfo/query");
         return modelAndView;
     }
 
