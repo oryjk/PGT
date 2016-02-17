@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pgt.integration.yeepay.direct.service.DirectYeePay;
-import com.pgt.loan.service.LoanService;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -51,7 +50,7 @@ public class TransactionLogController {
 		params.put("say", "helloworld");
 		
 		try {
-			getMockYeePay().invok(params);
+			getMockYeePay().invoke(params);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

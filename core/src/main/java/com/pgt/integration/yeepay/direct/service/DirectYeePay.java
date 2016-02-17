@@ -26,7 +26,7 @@ public class DirectYeePay {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DirectYeePay.class);
 
-	public Map<String, String> invok(Map<String, Object> params) throws IOException {
+	public Map<String, String> invoke(Map<String, Object> params) throws IOException {
 
 		Map<String, Object> yeepayParams = new HashMap<>();
 		yeepayParams.putAll(params);
@@ -40,13 +40,13 @@ public class DirectYeePay {
 		Long userId = (Long) params.get(YeePayConstants.PARAM_NAME_USER_ID);
 		Long orderId = (Long) params.get(YeePayConstants.PARAM_NAME_ORDER_ID);
 		Long paymentGroupId = (Long) params.get(YeePayConstants.PARAM_NAME_PAYMENTGROUP_ID);
-		Long transactoinId = (Long) params.get(YeePayConstants.PARAM_NAME_TRANSACTION_ID);
+		Long transactionId = (Long) params.get(YeePayConstants.PARAM_NAME_TRANSACTION_ID);
 
 		TransactionLog transactionLog = new TransactionLog();
 		transactionLog.setUserId(userId);
 		transactionLog.setOrderId(orderId);
 		transactionLog.setPaymentGroupId(paymentGroupId);
-		transactionLog.setTransactionId(transactoinId);
+		transactionLog.setTransactionId(transactionId);
 		transactionLog.setPaymentType(YeePayConstants.PAYMENT_TYPE);
 		transactionLog.setServiceName(getServiceName());
 		getTransactionLogService().createTransactionLog(transactionLog);

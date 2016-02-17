@@ -1,7 +1,7 @@
 package com.pgt.pawn.bean;
 
 /**
- * Created by jeniss on 16/2/15.
+ * Created by Yove on 16/2/15.
  */
 public interface PawnTicketState {
 

@@ -395,6 +395,13 @@
                                     我的信息
                                 </a>
                             </li>
+
+                            <li>
+                                <a href="/pawnPersonInfo/query">
+                                    <i class="fa-angle-right"></i>
+                                    典当个人信息管理
+                                </a>
+                            </li>
                             <li class=" dropdown-submenu">
                                 <a href=":;">
                                     <i class="icon-briefcase"></i>
