@@ -9,8 +9,8 @@
         <a href="#" class="f1">请注册</a>
         <a href="#" class="f1">客户端</a>
         <a href="#" class="f1">电脑版</a>
+        <a href="${pageContext.request.contextPath}/about-us/main" class="f1">关于我们</a>
         <a href="#" class="f1">回顶部</a>
-
         <div class="kong"></div>
     </div>
     <div class="footer-bottom">

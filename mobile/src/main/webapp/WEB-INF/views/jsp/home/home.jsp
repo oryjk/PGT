@@ -18,10 +18,11 @@
 <body>
 <div class="header">
     <div class="logo"></div>
-    <div class="search"><input class="input1" type="search" placeholder="搜索" autocomplete="off"></div>
-    <form action = "product/searchProduct">
-         <div class="search"><input class="input1" type="search" placeholder="搜索" autocomplete="off"></div>
-    </form>
+    <div class="search">
+        <form action = "product/searchProduct">
+             <input class="input1" name="term" type="search" placeholder="搜索" autocomplete="off">
+        </form>
+    </div>
     <div class="in"><a href="#">登录</a></div>
 </div>
 
@@ -74,11 +75,11 @@
         <div class="box2">
             <div class="font">${hotProducts.name} </div>
             <div class="img-all">
-               <div class="img1" style="background:url(/resources${hotProducts.category.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></div>
+               <a class="img1" href="product/searchProduct?term=${hotProducts.name}"  style="background:url(/resources${hotProducts.category.frontMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
                <div class="img-right">
                <c:forEach items="${hotProducts.hotProduct}" var="hotProduct" varStatus="s">
                   <c:if test="${s.index < 2}">
-                      <a href="product/searchProductDetails?id=${hotProduct.productId}" class="img-top" style="background:url(/resources${hotProduct.thumbnailMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
+                      <a href="product/searchProductDetails?id=${hotProduct.productId}" class="img-top" style="background:url(/resources${hotProduct.advertisementMedia.path}) no-repeat center center;background-size:100% 100%;"></a>
                   </c:if>
                </c:forEach>
                </div>
