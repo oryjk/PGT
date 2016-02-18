@@ -211,11 +211,11 @@ public class P2POrderService extends OrderService {
         double basePrice =  order.getTotal();
         double incoming = calculateIncoming(payTime, info.getExpectDueDate(), info.getPrePeriod(),basePrice, info.getInterestRate());
         info.setExpectIncoming(incoming);
-        double handlingFee = calculateHandlingFee(info);
+        double handlingFee = calculateHandlingFee(info, order);
         info.setHandlingFee(handlingFee);
     }
 
-    private double calculateHandlingFee(P2PInfo info) {
+    private double calculateHandlingFee(P2PInfo info, Order order) {
         if (null == info.getUnitPrice()) {
             LOGGER.error("NO unit price for p2p info.tender(id=" + info.getTenderId() + ")");
             throw new IllegalArgumentException("INVALID.TENDER");
@@ -225,7 +225,7 @@ public class P2POrderService extends OrderService {
             throw new IllegalArgumentException("INVALID.TENDER");
         }
         LOGGER.debug("unitPrice=" + info.getUnitPrice()  + "; placeQuantity=" + info.getPlaceQuantity() + "; HandlingFee=" + info.getHandlingFeeRate());
-        double total = info.getUnitPrice() * info.getPlaceQuantity();
+        double total = order.getTotal();
         double result = total * info.getHandlingFeeRate();
         // TODO ROUND
         LOGGER.debug(" HandlingFee result=" + result);
