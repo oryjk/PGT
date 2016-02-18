@@ -100,7 +100,7 @@ public class SSOService extends AbstractSearchEngineService {
     }
 
 
-    public boolean deleteCacheUser(Integer userId) {
+    public boolean deleteCacheUser(Long userId) {
         if (ObjectUtils.isEmpty(userId)) {
             LOGGER.debug("The user is empty.");
             return false;
