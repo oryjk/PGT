@@ -5,12 +5,12 @@ package com.pgt.search.service;
  */
 public class CategorySearchEngineService extends AbstractSearchEngineService {
     @Override
-    void index() {
+    public void index() {
 
     }
 
     @Override
-    void update(Integer id) {
+    public void update(Integer id) {
 
     }
 }
