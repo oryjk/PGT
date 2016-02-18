@@ -17,7 +17,7 @@ import java.util.Date;
  * Created by carlwang on 2/18/16.
  */
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml") // 加载配置
 public class SSOTest {
