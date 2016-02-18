@@ -18,5 +18,17 @@ $(function(){
 		$('#categoryStatus').val($(this).data('pgt-value'));
 		$('#updateCategoryStatusForm').submit();
 	});
+
+	$('#sortSelect').change(function(e){
+		$('#sortProperty').val($(this).val());
+		$('#submitBtn').click();
+	});
+
+	$('#pawnTypeSelect').change(function(e){
+		$('#pawnType').val($(this).val());
+		$('#submitBtn').click();
+	});
+
+
 });
 

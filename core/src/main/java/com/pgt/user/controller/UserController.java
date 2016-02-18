@@ -546,7 +546,7 @@ public class UserController {
             params.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
                     YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId()));
             try {
-                Map<String, String> result = getAccountInfoYeepay().invok(params);
+                Map<String, String> result = getAccountInfoYeepay().invoke(params);
                 ModelAndView mav = new ModelAndView("/my-account/yeepay/accountInfo");
                 String accountNo = YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId());
                 mav.addObject("accountNo", accountNo);

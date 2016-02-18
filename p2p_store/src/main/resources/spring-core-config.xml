@@ -70,7 +70,16 @@
         <property name="initialDataPath" value="/json"></property>
         <property name="imagePath" value="/home/xiaodong/Projects/work/PGT/b2c_store/src/main/webapp"></property>
         <property name="imageFolder" value="/resources/image/upload/"></property>
-
+        <property name="pawnType">
+            <map>
+                <entry key="jewellery" value="珠宝"></entry>
+                <entry key="car" value="汽车"></entry>
+                <entry key="extravagant" value="奢侈品典当"></entry>
+                <entry key="house" value="房产典当"></entry>
+                <entry key="watch" value="手表典当"></entry>
+                <entry key="others" value="其他"></entry>
+            </map>
+        </property>
     </bean>
     <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
         <property name="categoryPage" value="/category"/>
@@ -85,6 +94,7 @@
         <property name="pdpPage" value="/product"/>
         <property name="plpPage" value="/category"/>
         <property name="helpCenterPage" value="/helpcenter/query"/>
+        <property name="pawnPersonInfoPage" value="/invest/invest"/>
     </bean>
     <bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
         <property name="host" value="localhost"/>
@@ -163,4 +173,13 @@
            </props>
       </property>
    </bean>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:global.properties</value>
+            </list>
+        </property>
+    </bean>
+
 </beans>

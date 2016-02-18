@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by jeniss on 16/2/10.
+ * Created by Yove on 16/2/10.
  */
 @Repository(value = "pawnDao")
 public interface PawnDao extends SqlMapper {

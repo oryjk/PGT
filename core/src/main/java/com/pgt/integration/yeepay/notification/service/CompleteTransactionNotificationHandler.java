@@ -88,7 +88,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			params.put(YeePayConstants.PARAM_NAME_MODE, YeePayConstants.MODE_CONFIRM);
 			params.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, getConfig().getCompleteTransactionNotifyUrl());
 		
-			Map<String, String> result = getCompleteTransactionYeepay().invok(params);
+			Map<String, String> result = getCompleteTransactionYeepay().invoke(params);
 			Transaction transaction = getPaymentService().findTransactionByTrackingNumber(trackingNo);
 			Date now = new Date();
 			
@@ -119,6 +119,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 		transaction.setOrderId(Long.valueOf(order.getUserId()));
 		transaction.setAmount(resultAmount);
 		transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_YEEPAY);
+		transaction.setPaymentGroupId(Long.valueOf(PaymentConstants.PLATFORM_PAYMENT_GROUP_ID));
 		getPaymentService().createTransaction(transaction);
 
 		params.put(YeePayConstants.PARAM_NAME_USER_ID, Long.valueOf(order.getUserId()));
@@ -148,11 +149,15 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 		detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, platformUserNo);
 		detail.put(YeePayConstants.PARAM_NAME_AMOUNT, resultAmount);
 		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
-		Map<String, String> invokResult = getDirectTransactionYeepay().invok(params);
+		Map<String, String> invokResult = getDirectTransactionYeepay().invoke(params);
+		transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
 		if (YeePayConstants.CODE_SUCCESS.equals(result.get(YeePayConstants.PARAM_NAME_CODE))) {
-			// TODO TRANSACTION
-			// TODO ORDER STATUS
+			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
+			order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWENER);
+		} else {
+			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
 		}
+		getPaymentService().updateTransaction(transaction);
 	}
 
 	public void handleResult(PaymentGroup paymentGroup, String trackingNo, Map<String, String> result,

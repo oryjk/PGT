@@ -24,6 +24,7 @@ public class P2PInfo implements Serializable {
     private Double handlingFee;
     private Double interestRate;
     private Double handlingFeeRate;
+    private Date payTime; // TODO DB STRUCTURE
 
     public Date getCreationDate() {
         return creationDate;
@@ -178,5 +179,13 @@ public class P2PInfo implements Serializable {
 
     public void setHandlingFeeRate(Double handlingFeeRate) {
         this.handlingFeeRate = handlingFeeRate;
+    }
+
+    public Date getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
     }
 }

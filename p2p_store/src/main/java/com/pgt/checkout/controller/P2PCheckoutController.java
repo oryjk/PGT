@@ -22,15 +22,129 @@ import java.util.List;
 public class P2PCheckoutController {
 	private static final int NO_ERROR = 0;
 
-	private static final int PRODUCT_NOT_EXIST = 1;
+	private static final int NO_PRODUCT_IDS = 1;
 
-	private static final int INVEST_TOTAL_NOT_ENOUGH = 2;
+	private static final int NO_QUANTITIES = 2;
+
+	private static final int ID_QUANTITY_NOT_MATCH = 3;
+
+	private static final int BLANK_PRODUCT_ID = 4;
+
+	private static final int BLANK_QUANTITY = 5;
+
+	private static final int PRODUCT_NOT_EXIST = 6;
+
+	private static final int INVEST_TOTAL_NOT_ENOUGH = 7;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(P2PCheckoutController.class);
 
 	private P2POrderService orderService;
 
+
 	public ModelAndView createOrder (HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		User user = SessionHelper.getUser(pRequest, pResponse);
+		if (null == user) {
+			//  TODO REDIRECT TO LOGIN
+		}
+		String tenderIdStr = pRequest.getParameter("tenderId");
+		String[] productIds = pRequest.getParameterValues("productIds");
+		String[] quantities = pRequest.getParameterValues("quantities");
+		if (StringUtils.isBlank(tenderIdStr) || !StringUtils.isNumeric(tenderIdStr)) {
+			// TODO
+		}
+		int tenderId = Integer.valueOf(tenderIdStr);
+
+		// check if has not pay order
+		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER)) {
+			// TODO redirect to tendId
+		}
+		// TODO QUERY TENDER BY ID
+		Tender tender = null;
+		// TODO QUERY related product
+		List<Product> relatedProducts = null;
+
+		// check productIds is valid
+		int errorCode = isProductIdsValid(productIds, quantities, relatedProducts, tender);
+		if (NO_ERROR != errorCode) {
+			// TODO redirect to tendId
+		}
+		// check inventory
+
+		// create order
+		// TODO EXCEIPTOIN
+		try {
+			getOrderService().createP2POrder(user, tender, relatedProducts, productIds, quantities);
+		} catch (OrderPersistentException e) {
+			e.printStackTrace();
+		}
+
+
+		return null;
+	}
+
+	private int isProductIdsValid(String[] productIds, String[] quantities, List<Product> relatedProducts, Tender tender) {
+		if (productIds == null || productIds.length == 0) {
+			return NO_PRODUCT_IDS;
+		}
+
+		if (quantities == null || quantities.length == 0) {
+			return NO_QUANTITIES;
+		}
+
+		for (String productId : productIds) {
+			if (StringUtils.isBlank(productId)) {
+				return BLANK_PRODUCT_ID;
+			}
+		}
+
+		for (String quantity : quantities) {
+			if (StringUtils.isBlank(quantity)) {
+				return BLANK_QUANTITY;
+			}
+		}
+		if (productIds.length != quantities.length) {
+			return ID_QUANTITY_NOT_MATCH;
+		}
+
+
+		if (null != productIds) {
+			// check relatedProducts need contains productIds
+			if (null == relatedProducts || relatedProducts.isEmpty()) {
+				// TODO LOG
+				return PRODUCT_NOT_EXIST;
+			}
+			for (String productId : productIds) {
+				if (null == productId) {
+					continue;
+				}
+				int id = 0;
+				try {
+					id = Integer.valueOf(productId);
+				} catch (Exception e) {
+					// TODO log
+					return PRODUCT_NOT_EXIST;
+				}
+				boolean match = false;
+				for (Product relatedProduct : relatedProducts) {
+					if (null == relatedProduct || null == relatedProduct.getProductId()) {
+						continue;
+					}
+					if (id == relatedProduct.getProductId()) {
+						match = true;
+						break;
+					}
+				}
+				if (!match) {
+					// TODO log
+					return PRODUCT_NOT_EXIST;
+				}
+			}
+		}
+		return NO_ERROR;
+	}
+
+
+	public ModelAndView createOrderAbondon (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		User user = SessionHelper.getUser(pRequest, pResponse);
 		if (null == user) {
 			//  TODO REDIRECT TO LOGIN

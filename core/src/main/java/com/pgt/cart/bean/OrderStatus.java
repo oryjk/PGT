@@ -9,6 +9,7 @@ public interface OrderStatus {
     int FILLED_SHIPPING = 20;
     int START_PAY = 25;
     int PAID = 30;
+    int PAID_TRANSFER_TO_OWENER = 33;
     int TRANSIT = 40;
     int NO_PENDING_ACTION = 100;
     int CANCEL = -10;
