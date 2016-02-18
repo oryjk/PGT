@@ -81,22 +81,18 @@ public class SSOService extends AbstractSearchEngineService {
             UserCache userCache = new UserCache(new Date(), user, b2cOrder, p2pOrder);
             Client client = getIndexClient();
             ObjectMapper mapper = new ObjectMapper();
-            String data = mapper.writeValueAsString(userCache);
+            byte[] data = mapper.writeValueAsBytes(userCache);
             UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
                             .USER_CACHE_INDEX_TYPE,
                     user.getId() + "")
                     .setDoc(data);
-            UpdateResponse updateResponse = updateRequestBuilder.execute().get();
+            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
             if (!updateResponse.isCreated()) {
                 LOGGER.debug("Not success update the user cache index.");
                 return false;
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
             e.printStackTrace();
         }
         LOGGER.debug("Success to update the user cache index.");
