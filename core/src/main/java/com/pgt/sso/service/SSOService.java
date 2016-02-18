@@ -181,6 +181,43 @@ public class SSOService extends AbstractSearchEngineService {
     }
 
 
+    public boolean isUserExpire(String userCacheToken) {
+        if (ObjectUtils.isEmpty(userCacheToken)) {
+            LOGGER.debug("The user cache token is empty.");
+            return true;
+        }
+        try {
+            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            BoolQueryBuilder qb = boolQuery();
+            searchRequestBuilder.setQuery(qb);
+            qb.must(termQuery("token", userCacheToken));
+            SearchResponse response = searchRequestBuilder.execute().actionGet();
+            SearchHits searchHits = response.getHits();
+            if (ObjectUtils.isEmpty(searchHits) || ArrayUtils.isEmpty(searchHits.getHits())) {
+                LOGGER.debug("Can not find the user with token is {}, so may not login.", userCacheToken);
+                return true;
+            }
+            SearchHit[] searchHits1 = searchHits.getHits();
+            if (searchHits1.length > 1) {
+                LOGGER.debug("Is not the only user ID. ");
+                return true;
+            }
+            SearchHit searchHit = searchHits1[0];
+            Long updateTime = (Long) searchHit.getSource().get("updateTime");
+            long expireTime = updateTime + 30 * 60 * 1000;
+            Long currentTime = System.currentTimeMillis();
+            if (expireTime < currentTime) {
+                LOGGER.debug("The user is expire. ");
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        LOGGER.debug("The user not expire.");
+        return false;
+    }
+
+
     @Override
     public void index() {
 

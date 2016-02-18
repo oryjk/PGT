@@ -84,47 +84,10 @@ public class SSOTest {
 
         p2pOrder.setCreationDate(new Date());
         ssoService.cacheUser(user, b2cOrder, p2pOrder);
-        boolean flag = ssoService.deleteCacheUser(1);
+        boolean flag = ssoService.deleteCacheUser(1L);
         Assert.assertTrue(flag);
     }
 
-    @Test
-    public void isUserExpire() {
-        boolean flag = ssoService.isUserExpire(1);
-        Assert.assertTrue(flag);
-        User user = new User();
-        user.setId(1L);
-        user.setCount(1000);
-        user.setPhoneNumber("10086");
-        user.setCreateDate(new Date());
-        user.setEmail("oryjk@qq.com");
-        Order b2cOrder = new Order();
-        b2cOrder.setStatus(1);
-        b2cOrder.setUserId(1);
-        b2cOrder.setCreationDate(new Date());
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR, Calendar.HOUR - 1);
-        cal.set(Calendar.MONTH, Calendar.MONTH - 1);
-        b2cOrder.setUpdateDate(cal.getTime());
-        Order p2pOrder = new Order();
-        ssoService.cacheUser(user, b2cOrder, p2pOrder);
-        flag = ssoService.isUserExpire(1);
-        Assert.assertTrue(flag);
 
-
-        user.setId(1L);
-        user.setCount(1000);
-        user.setPhoneNumber("10086");
-        user.setCreateDate(new Date());
-        user.setEmail("oryjk@qq.com");
-        b2cOrder.setStatus(1);
-        b2cOrder.setUserId(1);
-        b2cOrder.setCreationDate(new Date());
-        b2cOrder.setUpdateDate(new Date());
-        ssoService.cacheUser(user, b2cOrder, p2pOrder);
-        flag = ssoService.isUserExpire(1);
-        System.out.print("flag:"+flag);
-        Assert.assertFalse(flag);
-    }
 
 }
