@@ -81,13 +81,13 @@ public class SSOService extends AbstractSearchEngineService {
             UserCache userCache = new UserCache(new Date(), user, b2cOrder, p2pOrder);
             Client client = getIndexClient();
             ObjectMapper mapper = new ObjectMapper();
-            byte[] data = mapper.writeValueAsBytes(userCache);
+            String data = mapper.writeValueAsString(userCache);
             UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
                             .USER_CACHE_INDEX_TYPE,
                     user.getId() + "")
                     .setDoc(data);
             UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
-            if (!updateResponse.isCreated()) {
+            if (updateResponse.getShardInfo().getFailed() > 0) {
                 LOGGER.debug("Not success update the user cache index.");
                 return false;
             }
@@ -132,44 +132,40 @@ public class SSOService extends AbstractSearchEngineService {
     public boolean isUserExpire(Integer userId) {
         if (ObjectUtils.isEmpty(userId)) {
             LOGGER.debug("The user is empty.");
-            return false;
+            return true;
         }
         try {
             SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
-            qb.must(termQuery("id", userId));
+            qb.must(termQuery("user.id", userId));
             SearchResponse response = searchRequestBuilder.execute().actionGet();
             SearchHits searchHits = response.getHits();
             if (ObjectUtils.isEmpty(searchHits) || ArrayUtils.isEmpty(searchHits.getHits())) {
                 LOGGER.debug("Can not find the user with id is {}, so may not login.", userId);
-                return false;
+                return true;
             }
             SearchHit[] searchHits1 = searchHits.getHits();
             if (searchHits1.length > 1) {
                 LOGGER.debug("Is not the only user ID. ");
-                return false;
+                return true;
             }
             SearchHit searchHit = searchHits1[0];
             Long updateTime = (Long) searchHit.getSource().get("updateTime");
-            Long currentTime = getHoursAgoTime();
-            if (updateTime < currentTime) {
+            long expireTime = updateTime + 30 * 60 * 1000;
+            Long currentTime = System.currentTimeMillis();
+            if (expireTime < currentTime) {
                 LOGGER.debug("The user is expire. ");
-                return false;
+                return true;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         LOGGER.debug("The user not expire.");
-        return true;
+        return false;
     }
 
-    private Long getHoursAgoTime() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR, Calendar.HOUR - 1);
-        cal.set(Calendar.MONTH, Calendar.MONTH - 1);
-        return cal.getTime().getTime();
-    }
+
 
     @Override
     public void index() {
