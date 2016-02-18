@@ -1,0 +1,460 @@
+@import "../core/scss/normalize";
+@import "../core/scss/commonMixin";
+@import "../core/scss/globleVariable";
+@import "../core/scss/fontGeneral";
+@import "../core/scss/header-main";
+@import "../core/scss/footer-main";
+@import "../core/scss/component";
+
+//user foundation_icons
+@import "../core/foundation_icons_all/foundation_icons_general/sass/general_foundicons";
+@import "../core/foundation_icons_all/foundation_icons_general/sass/general_foundicons_ie7";
+
+.header {
+  border-bottom: none;
+}
+
+/*general-forget
+*******************************************************/
+input[type=text],
+input[type=password] {
+  &:focus {
+    border: 2px solid $viceColor;
+  }
+}
+
+.link-btn {
+  text-decoration: none;
+  color: #0286ce; }
+.link-btn:hover {
+  color: #ff9900; }
+
+.d-btn {
+  padding: 2px 6px 3px;
+  border: none;
+  color: white;
+  line-height: 1.5;
+  background: #ff9900;
+  border-radius: 3px;
+}
+
+.d-btn:hover {
+  background: #ce8221;
+}
+
+.l-btn {
+  padding: 1px 5px 2px;
+  border: 1px solid #ff9900;
+  border-radius: 3px;
+  color: #ff9900;
+  line-height: 1.5;
+  background: white; }
+.l-btn:hover {
+  color: #ce8221; }
+
+.found{
+  margin-top: 40px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.tips {
+  //display: none;
+  color: $emColor;
+}
+
+
+/*main1
+*******************************************************/
+.main1 {
+  width: 1180px;
+  height: 340px;
+  border-top: 4px solid #fed000;
+  border-right: 1px solid #cccccc;
+  border-left:1px solid #cccccc ;
+  border-bottom: 1px solid #cccccc;
+  margin: 0 auto 125px auto;
+
+  .forget-img{
+    background: url("../core/images/header/step1.png") no-repeat;
+    width: 73.5%;
+    height: 40px;
+    margin: 45px auto 40px auto;
+  }
+
+  li{
+    list-style: none;
+    float: left;
+  }
+
+  .main-font1{
+    font-size: 15px;
+    color: white;
+    margin-left: 30px;
+    margin-top: 8px;
+  }
+  .main-font2{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 170px;
+    margin-top: 8px;
+  }
+  .main-font3{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 170px;
+    margin-top: 8px;
+  }
+  .main-font4{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 160px;
+    margin-top: 8px;
+  }
+  .forget{
+    width: 903px;
+    height: 200px;
+    border-top: 1px solid #cccccc;
+    margin: 0 auto;
+    font-size: 14px;
+  }
+  .admin{
+    margin: 40px auto 20px auto;
+    width: 250px;
+    height: 40px;
+  }
+  .text{
+    height: 30px;
+    width: 180px;
+  }
+  .validate{
+    margin: 0 auto 20px 326px;
+    width: 520px;
+    height: 40px;
+  }
+  .validate-img{
+    margin-top: 5px;
+    float: right;
+  }
+  .validate-img img {
+    width: 120px;
+  }
+  .sure-btn{
+    margin: 0 auto 0 468px;
+  }
+
+  .sure-btn input {
+    font-size: 18px;
+  }
+}
+
+/*main2
+*******************************************************/
+.main2 {
+
+    width: 1180px;
+    height: 400px;
+    border-top: 4px solid #fed000;
+    border-right: 1px solid #cccccc;
+    border-left:1px solid #cccccc ;
+    border-bottom: 1px solid #cccccc;
+    margin: 0 auto 125px auto;
+
+  .forget-img{
+    background: url("../core/images/header/step2.png") no-repeat;
+    width: 73.5%;
+    height: 40px;
+    margin: 45px auto 55px auto;
+
+  }
+  li{
+    list-style: none;
+    float: left;
+
+  }
+  .main-font1{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 30px;
+    margin-top: 8px;
+  }
+  .main-font2{
+    font-size: 15px;
+    color: white;
+    margin-left: 170px;
+    margin-top: 8px;
+  }
+  .main-font3{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 170px;
+    margin-top: 8px;
+  }
+  .main-font4{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 160px;
+    margin-top: 8px;
+  }
+  .forget{
+    width: 903px;
+    margin: 0 auto 20px;
+    font-size: 14px;
+  }
+  .admin{
+    margin: 0 auto 0 auto;
+    width: 500px;
+    @include bfc;
+  }
+  .form {
+    padding-bottom: 30px;
+    border-bottom: 1px dotted #cccccc;
+  }
+  .text{
+    height: 25px;
+    width: 100px;
+  }
+  .validate{
+    margin: 20px auto 0 51px;
+    width: 460px;
+    height: 40px;
+  }
+  .validate-img{
+    width: 120px;
+    height: 25px;
+    margin-left: 30px;
+    float: left;
+  }
+  .phone{
+    padding-top: 6px;
+    float: left;
+
+  }
+  .phone-validate{
+    width: 400px;
+    height: 30px;
+    margin: 0 auto 40px 51px;
+
+    .phone-code-wrong {
+      color: $emColor;
+    }
+  }
+  .sure-btn {
+    width: 120px;
+    margin: 0 auto 0 150px;
+  }
+
+  .sure-btn input {
+    font-size: 18px;
+  }
+
+  .select1{
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+  }
+  .form{
+    width: 400px;
+    height: 40px;
+    margin: 0 auto;
+  }
+}
+
+/*main3
+*******************************************************/
+.main3 {
+    width: 1180px;
+    height: 340px;
+    border-top: 4px solid #fed000;
+    border-right: 1px solid #cccccc;
+    border-left:1px solid #cccccc ;
+    border-bottom: 1px solid #cccccc;
+    margin: 0 auto 125px auto;
+
+  .d-btn,
+  .l-btn {
+    font-size: 18px;
+  }
+
+  .forget-img{
+    background: url("../core/images/header/step3.png") no-repeat;
+    width: 73.5%;
+    height: 40px;
+    margin: 45px auto 40px auto;
+  }
+  li{
+    list-style: none;
+    float: left;
+
+  }
+  .main-font1{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 30px;
+    margin-top: 8px;
+  }
+  .main-font2{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 170px;
+    margin-top: 8px;
+  }
+  .main-font3{
+    font-size: 15px;
+    color:white;
+    margin-left: 170px;
+    margin-top: 8px;
+  }
+  .main-font4{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 160px;
+    margin-top: 8px;
+  }
+  .forget{
+    width: 903px;
+    height: 200px;
+    border-top: 1px solid #cccccc;
+    margin: 0 auto;
+  }
+  .admin{
+    font-size: 14px;
+    margin: 40px auto 20px auto;
+    width: 400px;
+    height: 40px;
+  }
+  .text{
+    height: 30px;
+    width: 190px;
+  }
+  .validate{
+    font-size: 14px;
+    margin: 0 auto 20px auto;
+    width: 400px;
+    height: 40px;
+  }
+  .validate-img{
+    font-size: 12px;
+    margin-top: 5px;
+    float: right;
+  }
+  .sure-btn{
+    height: 80px;
+    margin: 0 auto 0 430px;
+  }
+}
+
+/*main4
+*******************************************************/
+.main4 {
+    width: 1180px;
+    height: 340px;
+    border-top: 4px solid #fed000;
+    border-right: 1px solid #cccccc;
+    border-left:1px solid #cccccc ;
+    border-bottom: 1px solid #cccccc;
+    margin: 0 auto 125px auto;
+
+  .forget-img{
+    background: url("../core/images/header/step4.png") no-repeat;
+    width: 73.5%;
+    height: 40px;
+    margin: 45px auto 40px auto;
+
+  }
+  li{
+    list-style: none;
+    float: left;
+
+  }
+  .main-font1{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 30px;
+    margin-top: 8px;
+  }
+  .main-font2{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 170px;
+    margin-top: 8px;
+  }
+  .main-font3{
+    font-size: 15px;
+    color: #cccccc;
+    margin-left: 170px;
+    margin-top: 8px;
+  }
+  .main-font4{
+    font-size: 15px;
+    color: white;
+    margin-left: 160px;
+    margin-top: 8px;
+  }
+  .forget{
+    width: 903px;
+    height: 200px;
+    border-top: 1px solid #cccccc;
+    margin: 0 auto;
+  }
+  .forget-main{
+    width: 370px;
+    height: 85px;
+    margin: 50px auto 50px auto;
+
+  }
+  .ture-img{
+    width: 65px;
+    height: 65px;
+    float: left;
+  }
+  .forget-font1{
+    color: #ff9900;
+    font-size: 25px;
+    float: left;
+    margin-left: 15px;
+    margin-top: 5px;
+  }
+  .forget-font2{
+
+    font-size: 15px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+}
+
+.error-box-1 {
+  padding: 0 0 10px 380px;
+
+  span {
+    color: $emColor;
+  }
+}
+
+.error-box-2 {
+  padding: 0 0 10px 380px;
+
+  span {
+    color: $emColor;
+  }
+}
+
+.error-box-3 {
+  padding: 0 0 10px 335px;
+
+  span {
+    color: $emColor;
+  }
+}
+/*for js
+******************************************************************/
+.disable {
+  border-color: #c0c0c0;
+  background: #c0c0c0;
+  color: white;
+
+  &:hover {
+    color: white;
+  }
+}

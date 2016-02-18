@@ -46,6 +46,7 @@ public class Constants {
     public static final String CATEGORY_INDEX_TYPE = "category";
     public static final String TENDER_INDEX_TYPE = "tender";
     public static final String HOME_TENDER_INDEX_TYPE = "homeTender";
+    public static final String USER_CACHE_INDEX_TYPE = "userCache";
     public static final String ID = "id";
     public static final String CHILDREN = "children";
     public static final String TYPE = "type";

@@ -51,9 +51,9 @@ public abstract class AbstractSearchEngineService {
     private Client searchClient;
 
 
-    abstract void index();
+    public abstract void index();
 
-    abstract void update(Integer id);
+    public abstract void update(Integer id);
 
 
     protected void initialIndex() {
