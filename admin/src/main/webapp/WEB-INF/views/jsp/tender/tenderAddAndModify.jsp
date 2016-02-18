@@ -60,9 +60,7 @@
                 <div id="app" class="portlet-body form">
                     <!-- BEGIN FORM-->
                     <div id="error" v-model="error">
-                        <form
-                          id = "form"
-                          action="/tender/${tender.tenderId eq null ? 'create' : 'update'} "
+                        <form  id = "form"  action="/tender/${tender.tenderId eq null ? 'create' : 'update'} "
                           method="post"
                           class="form-horizontal"
                           v-on:submit.prevent="ajaxSubmit">
@@ -285,13 +283,162 @@
                             </div>
 
                         </div>
+
+
+
+
+                            <div class="img-body form-horizontal" style="position: absolute; top: 1000px;width: 1300px;">
+                                <h2 class="pgt-part-title">图片列表</h2>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">首页图</label>
+                                    <div class="col-md-2">
+                                        <form class="pgt-file-box" action="" enctype="multipart/form-data">
+                                            <input class="pgt-file-btn" name="advertisement" type="file"/>
+                                            <button type="button" class="btn blue">选择图片</button>
+                                        </form>
+                                        <p></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-advertisement-img" src="" alt=""/>
+                                            <p>60 * 60</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">列表图</label>
+                                    <div class="col-md-2">
+                                        <form class="pgt-file-box" action="" enctype="multipart/form-data">
+                                            <input class="pgt-file-btn" name="front" type="file"/>
+                                            <button type="button" class="btn blue">选择图片</button>
+                                        </form>
+                                        <p></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-front-img" src="" alt=""/>
+                                            <p>60 * 60</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">主图</label>
+                                    <div class="col-md-2">
+                                        <form class="pgt-file-box" action="" enctype="multipart/form-data">
+                                            <input class="pgt-file-btn" name="front" type="file"/>
+                                            <button type="button" class="btn blue">选择图片</button>
+                                        </form>
+                                        <p></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-front-img" src="" alt=""/>
+                                            <p>60 * 60</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">详情图</label>
+                                    <div class="col-md-2">
+                                        <form class="pgt-file-box" action="" enctype="multipart/form-data">
+                                            <input class="pgt-file-btn" name="main" type="file"/>
+                                            <button type="button" class="btn blue">选择图片</button>
+                                        </form>
+                                        <p></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-pre" href="#">前移</a>
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-main-img" src="" alt=""/>
+                                            <p class="pgt-img-size">100 * 100</p>
+                                        </div>
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-pre" href="#">前移</a>
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-main-img" src="" alt=""/>
+                                            <p class="pgt-img-size">100 * 100</p>
+                                        </div>
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-pre" href="#">前移</a>
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-main-img" src="" alt=""/>
+                                            <p class="pgt-img-size">100 * 100</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">专家点评</label>
+                                    <div class="col-md-2">
+                                        <form class="pgt-file-box" action="" enctype="multipart/form-data">
+                                            <input class="pgt-file-btn" name="expert" type="file"/>
+                                            <button type="button" class="btn blue">选择图片</button>
+                                        </form>
+                                        <p></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-pre" href="#">前移</a>
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-expert-img" src="" alt=""/>
+                                            <p class="pgt-img-size">100 * 100</p>
+                                        </div>
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-pre" href="#">前移</a>
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-expert-img" src="" alt=""/>
+                                            <p class="pgt-img-size">100 * 100</p>
+                                        </div>
+                                        <div class="pgt-each-img">
+                                            <div class="pgt-handle-box">
+                                                <a class="pgt-img-pre" href="#">前移</a>
+                                                <a class="pgt-img-delete" href="#">删除</a>
+                                            </div>
+                                            <img class="pgt-expert-img" src="" alt=""/>
+                                            <p class="pgt-img-size">100 * 100</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
                     </form>
                     </div>
                 </div>
                 <!-- END FORM-->
+
             </div>
         </div>
+
     </div>
+
 </admin:container>
+
 <script src="/resources/assets/others/Jquery-date-and-time/jquery-calendar.js"></script>
 

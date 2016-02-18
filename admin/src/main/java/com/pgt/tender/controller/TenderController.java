@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,13 +57,12 @@ public class TenderController {
 		paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
 		TenderQuery tenderQuery = new TenderQuery();
 
-		//封装关键字查询
 		if (!StringUtils.isEmpty(term)) {
 			LOGGER.debug("The query term is {}", term);
 			tenderQuery.setNameLike(true);
 			tenderQuery.setName(term);
 		}
-		//封装排序
+
 		if (!StringUtils.isEmpty(sortProperty)) {
 			LOGGER.debug("The sortProerty is {} and sortValve is {}", sortProperty, sortValue);
 			tenderQuery.orderbyCondition(sortValue.endsWith("ASC") ? true : false, sortProperty);
@@ -106,7 +106,7 @@ public class TenderController {
 		}
 		LOGGER.debug("The method update tender UI");
 		modelAndView.addObject("tender", tender);
-		modelAndView.setViewName("/tender/tenderAddAndModify");
+		modelAndView.setViewName("/p2p-tender/tender-add-and-modify");
 		return modelAndView;
 	}
 
@@ -162,7 +162,7 @@ public class TenderController {
 	public ResponseEntity delete (@PathVariable("tenderId") Integer tenderId, ModelAndView modelAndView) {
 
 		LOGGER.debug("Delete the tenderId is {}.", tenderId);
-		ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
+		ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
 		Map<String, Object> response = responseEntity.getBody();
 		if (ObjectUtils.isEmpty(tenderId)) {
 			LOGGER.debug("The tender id is null.");
@@ -175,6 +175,26 @@ public class TenderController {
 		LOGGER.debug("The  deleted with tender id is {}.", tenderId);
 		return responseEntity;
 	}
+
+
+	@RequestMapping(value = "/queryTenderById/{tenderId}")
+	public ModelAndView queryTenderById(@PathVariable("tenderId") Integer tenderId,ModelAndView modelAndView){
+
+		LOGGER.debug("Delete the tenderId is {} ", tenderId);
+		if (ObjectUtils.isEmpty(tenderId)) {
+			LOGGER.debug("The tenderId is empty");
+			return modelAndView;
+		}
+		Tender tender = tenderService.queryTenderById(tenderId, null);
+		if(ObjectUtils.isEmpty(tender)){
+             LOGGER.debug("The tender is empty");
+			return modelAndView;
+		}
+		modelAndView.addObject("tender",tender);
+		modelAndView.setViewName("");
+		return modelAndView;
+	}
+
 
 
 }
