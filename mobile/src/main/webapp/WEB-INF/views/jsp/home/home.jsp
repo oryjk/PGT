@@ -23,7 +23,7 @@
              <input class="input1" name="term" type="search" placeholder="搜索" autocomplete="off">
         </form>
     </div>
-    <div class="in"><a href="#">登录</a></div>
+    <div class="in"><a href="${pageContext.request.contextPath}/user/login">登录</a></div>
 </div>
 
 <div class="header-bottom">
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="classification">
-        <a href="product/search" class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon1.png">
+        <a href="${pageContext.request.contextPath}/product/search" class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon1.png">
             <div>分类查询</div>
         </a>
         <a class="box1"><img src="${pageContext.request.contextPath}/resources/static/img/icon2.png">
