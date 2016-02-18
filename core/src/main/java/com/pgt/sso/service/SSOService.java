@@ -2,6 +2,7 @@ package com.pgt.sso.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pgt.cart.bean.Order;
+import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
 import com.pgt.search.service.AbstractSearchEngineService;
 import com.pgt.sso.bean.UserCache;
@@ -21,11 +22,13 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
@@ -38,15 +41,18 @@ import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 @Service
 public class SSOService extends AbstractSearchEngineService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SSOService.class);
-
+    @Autowired
+    private HttpServletResponse response;
+    @Autowired
+    private Configuration configuration;
 
     public boolean cacheUser(User user, Order b2cOrder, Order p2pOrder) {
         if (ObjectUtils.isEmpty(user)) {
             LOGGER.debug("The user is empty.");
             return false;
         }
+        UserCache userCache = new UserCache(new Date(), user, b2cOrder, p2pOrder);
         try {
-            UserCache userCache = new UserCache(new Date(), user, b2cOrder, p2pOrder);
             Client client = getIndexClient();
             ObjectMapper mapper = new ObjectMapper();
             String data = mapper.writeValueAsString(userCache);
@@ -68,7 +74,16 @@ public class SSOService extends AbstractSearchEngineService {
             e.printStackTrace();
         }
         LOGGER.debug("Success to create the user cache index.");
+        writeCookie(userCache);
         return true;
+    }
+
+    private void writeCookie(UserCache userCache) {
+        Cookie cookie = new Cookie(configuration.getUserCacheTokenKey(), userCache.getToken());
+        cookie.setDomain(configuration.getDomain());
+        cookie.setPath("/");
+        cookie.setMaxAge(-1);
+        response.addCookie(cookie);
     }
 
 
@@ -164,7 +179,6 @@ public class SSOService extends AbstractSearchEngineService {
         LOGGER.debug("The user not expire.");
         return false;
     }
-
 
 
     @Override
