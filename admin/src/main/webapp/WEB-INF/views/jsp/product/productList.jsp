@@ -14,7 +14,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-
 <admin:container id="productList" pageJsPath="/resources/product/product-list.js">
 	<c:set value="${searchPaginationBean.currentIndex}" var="currentIndex"/>
 	<c:set value="${searchPaginationBean.maxIndex}" var="maxIndex"/>

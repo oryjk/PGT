@@ -222,11 +222,7 @@
                                            v-model="tender.description"
                                            v-on:keyup="volidate"/>
                                 </div>
-                                <div class="col-xs-4">
-                                    <p class="form-control-static pgt-error">
-                                        <span v-show="error.description != true">{{error.description}}</span>
-                                    </p>
-                                </div>
+
                             </div>
 
                             <div class="form-group">
@@ -237,12 +233,22 @@
                                            v-model="tender.prePeriod"
                                            v-on:keyup="volidate"/>
                                 </div>
-                                <div class="col-xs-4">
-                                    <p class="form-control-static pgt-error">
-                                        <span v-show="error.prePeriod != true">{{error.prePeriod}}</span>
-                                    </p>
-                                </div>
+
                             </div>
+
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">无息天数</label>
+                                <div class="col-xs-4">
+                                    <input ms-duplex="postPeriod" name="postPeriod" value="${tender.postPeriod}"
+                                           class="form-control" placeholder="不超过10字"
+                                           v-model="tender.postPeriod"
+                                           v-on:keyup="volidate"/>
+                                </div>
+
+                            </div>
+
+
 
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">无息天数</label>
@@ -307,7 +313,7 @@
                                     <label class="col-md-2 control-label">首页图</label>
                                     <div class="col-md-2">
                                         <form class="pgt-file-box" action="" enctype="multipart/form-data">
-                                            <input class="pgt-file-btn" name="advertisement" type="file"/>
+                                            <input class="pgt-file-btn" name="p2pAdvertisement" type="file"/>
                                             <button type="button" class="btn blue">选择图片</button>
                                         </form>
                                         <p></p>
@@ -327,7 +333,7 @@
                                     <label class="col-md-2 control-label">列表图</label>
                                     <div class="col-md-2">
                                         <form class="pgt-file-box" action="" enctype="multipart/form-data">
-                                            <input class="pgt-file-btn" name="front" type="file"/>
+                                            <input class="pgt-file-btn" name="p2pListMedia" type="file"/>
                                             <button type="button" class="btn blue">选择图片</button>
                                         </form>
                                         <p></p>
@@ -347,7 +353,7 @@
                                     <label class="col-md-2 control-label">主图</label>
                                     <div class="col-md-2">
                                         <form class="pgt-file-box" action="" enctype="multipart/form-data">
-                                            <input class="pgt-file-btn" name="front" type="file"/>
+                                            <input class="pgt-file-btn" name="p2pMainMedia" type="file"/>
                                             <button type="button" class="btn blue">选择图片</button>
                                         </form>
                                         <p></p>
@@ -367,7 +373,7 @@
                                     <label class="col-md-2 control-label">详情图</label>
                                     <div class="col-md-2">
                                         <form class="pgt-file-box" action="" enctype="multipart/form-data">
-                                            <input class="pgt-file-btn" name="main" type="file"/>
+                                            <input class="pgt-file-btn" name="p2pDetailMedias" type="file"/>
                                             <button type="button" class="btn blue">选择图片</button>
                                         </form>
                                         <p></p>
@@ -404,7 +410,7 @@
                                     <label class="col-md-2 control-label">专家点评</label>
                                     <div class="col-md-2">
                                         <form class="pgt-file-box" action="" enctype="multipart/form-data">
-                                            <input class="pgt-file-btn" name="expert" type="file"/>
+                                            <input class="pgt-file-btn" name="p2pExpertMedias" type="file"/>
                                             <button type="button" class="btn blue">选择图片</button>
                                         </form>
                                         <p></p>

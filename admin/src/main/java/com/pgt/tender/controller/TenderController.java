@@ -1,5 +1,7 @@
 package com.pgt.tender.controller;
 
+import com.pgt.category.bean.Category;
+import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.ViewMapperConfiguration;
 import com.pgt.configuration.Configuration;
 import com.pgt.tender.bean.Tender;
@@ -37,6 +39,10 @@ public class TenderController {
 
 	@Autowired
 	private Configuration configuration;
+
+	@Autowired
+	private CategoryService categoryService;
+
 
 	@Autowired
 	private ViewMapperConfiguration viewMapperConfiguration;
@@ -87,8 +93,9 @@ public class TenderController {
 	public ModelAndView createTenderUI (ModelAndView modelAndView) {
 
 		LOGGER.debug("The method create tender UI");
-		modelAndView.setViewName("/tender/tenderAddAndModify");
-
+		List<Category> categories = categoryService.queryAllTenderParentCategories();
+		modelAndView.addObject("categories", categories);
+		modelAndView.setViewName("/p2p-tender/tender-add-and-modify");
 		return modelAndView;
 	}
 
@@ -105,6 +112,8 @@ public class TenderController {
 			return modelAndView;
 		}
 		LOGGER.debug("The method update tender UI");
+		List<Category> categories = categoryService.queryAllTenderParentCategories();
+		modelAndView.addObject("categories", categories);
 		modelAndView.addObject("tender", tender);
 		modelAndView.setViewName("/p2p-tender/tender-add-and-modify");
 		return modelAndView;

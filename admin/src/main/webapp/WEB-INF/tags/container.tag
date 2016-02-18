@@ -316,6 +316,7 @@
                                         当铺管理
                                     </a>
                                 </li>
+
                                 <li>
                                     <a href="/pawn/pawn-ticket-list">
                                         <i class="fa-angle-right"></i>
@@ -329,6 +330,14 @@
                                     投资产品列表
                                 </a>
                             </li>
+
+                            <li>
+                                <a href="/tenderCategory/categoryList">
+                                    <i class="fa-angle-right"></i>
+                                    投资分类管理
+                                </a>
+                            </li>
+
                             <li>
                                 <a href=":;">
                                     <i class="fa-angle-right"></i>
