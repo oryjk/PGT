@@ -1,8 +1,10 @@
 package com.pgt.tender.bean;
 
 import com.pgt.category.bean.Category;
+import com.pgt.common.bean.Media;
 import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.product.bean.Product;
+import com.pgt.product.bean.ProductMedia;
 import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
@@ -112,6 +114,22 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 
 	private Pawnshop mPawnshop;
 
+	private String relatedCategoryId;
+
+    private Double payoutRatio;//违约赔付率
+
+	private TenderMedia p2pAdvertisement;//首页图
+
+	private TenderMedia p2pListMedia;//列表图
+
+	private TenderMedia p2pMainMedia;//主图
+
+	private List<TenderMedia> p2pDetailMedias;//详情图
+
+	private List<TenderMedia> p2pExpertMedias;//专家图
+
+
+
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -159,6 +177,62 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 		return 0;
 	}
 
+
+	public List<TenderMedia> getP2pExpertMedias() {
+		return p2pExpertMedias;
+	}
+
+	public void setP2pExpertMedias(List<TenderMedia> p2pExpertMedias) {
+		this.p2pExpertMedias = p2pExpertMedias;
+	}
+
+	public List<TenderMedia> getP2pDetailMedias() {
+		return p2pDetailMedias;
+	}
+
+	public void setP2pDetailMedias(List<TenderMedia> p2pDetailMedias) {
+		this.p2pDetailMedias = p2pDetailMedias;
+	}
+
+	public TenderMedia getP2pMainMedia() {
+		return p2pMainMedia;
+	}
+
+	public void setP2pMainMedia(TenderMedia p2pMainMedia) {
+		this.p2pMainMedia = p2pMainMedia;
+	}
+
+	public TenderMedia getP2pListMedia() {
+		return p2pListMedia;
+	}
+
+	public void setP2pListMedia(TenderMedia p2pListMedia) {
+		this.p2pListMedia = p2pListMedia;
+	}
+
+	public TenderMedia getP2pAdvertisement() {
+		return p2pAdvertisement;
+	}
+
+	public void setP2pAdvertisement(TenderMedia p2pAdvertisement) {
+		this.p2pAdvertisement = p2pAdvertisement;
+	}
+
+	public String getRelatedCategoryId() {
+		return relatedCategoryId;
+	}
+
+	public void setRelatedCategoryId(String relatedCategoryId) {
+		this.relatedCategoryId = relatedCategoryId;
+	}
+
+
+	public Double getPayoutRatio() {
+		return payoutRatio;
+	}
+	public void setPayoutRatio(Double payoutRatio) {
+		this.payoutRatio = payoutRatio;
+	}
 	public Double getSmallMoney() {
 		return smallMoney;
 	}

@@ -41,6 +41,12 @@ public interface CategoryMapper extends SqlMapper {
     Integer queryCategoryTotal(Category category);
 
     List<Category> queryRootCategories();
+
+
+    List<Category> queryTenderRootCategories();
+
+    List<Category> queryAllTenderParentCategories();
+
     List<Category> queryRootTenderCategories();
 
     List<Category> queryOnlinePawnCategories ();

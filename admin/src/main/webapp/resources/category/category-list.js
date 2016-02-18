@@ -20,6 +20,11 @@ $('#categorySelect').change(function() {
     window.location = '/category/getSubCategories/' + $this.val();
 });
 
+$('#tenderCategorySelect').change(function() {
+    var $this = $(this);
+    window.location = '/tenderCategory/getSubCategories/' + $this.val();
+});
+
 $(document).on('click', '[data-pgt-btn="modify"], [data-pgt-btn="create"]', function () {
     var $this = $(this);
     window.location = $this.attr('data-url');

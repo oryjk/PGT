@@ -29,7 +29,11 @@ public interface CategoryService {
 
     List<Category> queryAllParentCategories();
 
+    List<Category> queryAllTenderParentCategories();
+
     List<Category> queryRootCategories();
+
+    List<Category> queryTenderRootCategories();
 
     List<Category> queryRootTenderCategories();
 
