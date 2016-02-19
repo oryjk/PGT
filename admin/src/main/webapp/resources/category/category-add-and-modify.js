@@ -18,6 +18,23 @@ $('#levelSelect').change(function() {
     }
 });
 
+$('#levelSelect').change(function() {
+    var that = $(this);
+    var categoryMain =  $('#categoryMain');
+    var categorySon = $('#categorySon');
+    var imgUpload = $('#imgUpload');
+    if (that.val() == 'TENDER_ROOT') {
+        categoryMain.show();
+        imgUpload.show();
+        categorySon.hide();
+    } else if (that.val() == 'TENDER_HIERARCHY') {
+        categoryMain.hide();
+        imgUpload.hide();
+        categorySon.show();
+    }
+});
+
+
 //上传图片
 $('[data-pgt-btn="single"]').change(function () {
     var that = $(this);

@@ -120,8 +120,20 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     }
 
     @Override
+    public List<Category> queryAllTenderParentCategories() {
+
+        List<Category> categories=categoryMapper.queryAllTenderParentCategories();
+        return categories;
+    }
+
+    @Override
     public List<Category> queryRootCategories() {
         return categoryMapper.queryRootCategories();
+    }
+
+    @Override
+    public List<Category> queryTenderRootCategories() {
+        return categoryMapper.queryTenderRootCategories();
     }
 
     @Override
