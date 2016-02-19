@@ -68,12 +68,6 @@ public class BackupImpl {
     }
 
     public boolean recover(String filename){
-        Flyway flyway = new Flyway();
-        flyway.setDataSource(dataSource);
-        flyway.setSchemas("mp"); // 设置接受flyway进行版本管理的多个数据库
-        flyway.setEncoding("UTF-8"); // 设置sql脚本文件的编码
-        flyway.clean();
-        LOGGER.debug("clean database");
         try {
             Runtime rt = Runtime.getRuntime();
             StringBuffer sb = new StringBuffer();
