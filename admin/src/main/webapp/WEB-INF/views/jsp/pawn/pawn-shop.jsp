@@ -117,7 +117,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn blue-hoki">确认</button>
-                                    <button type="button" class="btn default">取消</button>
+                                    <button type="button" class="btn default"><a href="/pawn/pawn-shop-list">回到当铺列表页面</a></button>
                                 </div>
                             </div>
                         </div>
