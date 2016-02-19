@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -73,7 +70,22 @@ public class BackupImpl {
             StringBuffer sb = new StringBuffer();
             sb.append(url).append(filename);
             LOGGER.debug("recover is " + sb.toString());
-            Process process = rt.exec("mysql -uroot -proot mp <" + sb.toString());
+            Process process = rt.exec("mysql -uroot -proot mp");
+            OutputStream outputStream = process.getOutputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(sb.toString())));
+            String str = null;
+            StringBuffer sql = new StringBuffer();
+            while((str = br.readLine()) != null){
+                sql.append(str+"\r\n");
+            }
+            str = sql.toString();
+            System.out.println(str);
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream,"utf-8");
+            writer.write(str);
+            writer.flush();
+            outputStream.close();
+            br.close();
+            writer.close();
             process.waitFor();
             LOGGER.debug("recover database");
             process.destroy();
