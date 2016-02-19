@@ -73,7 +73,7 @@ public class MigrateTest {
     public void recoverDatabase(){
         try {
             Runtime rt = Runtime.getRuntime();
-            Process process = rt.exec("mysql -uroot -proot mp </home/liqiang/Desktop/1.sql");
+            Process process = rt.exec("mysql -uroot -proot mp </home/liqiang/Desktop/201602192004.sql");
             process.waitFor();
             LOGGER.debug("recover database");
             process.destroy();
