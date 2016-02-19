@@ -5,8 +5,7 @@
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<admin:container id="tenderList" pageJsPath="/resources/p2p-tender/tender-add-and-modify.js">
+<admin:container id="tenderList" pageJsPath="/resources/p2p-tender/tender-add-and-modify.js" pageCssPath="/resources/product/product-add-and-modify.css">
             <div class="row">
                 <div class="col-xs-12">
                     <ul class="page-breadcrumb breadcrumb">
