@@ -1,15 +1,12 @@
-package com.pgt.tender.mapper;
+package com.pgt.tender.service;
 
-import com.pgt.base.mapper.SqlMapper;
 import com.pgt.tender.bean.TenderCategory;
-import org.elasticsearch.common.collect.HppcMaps;
-import org.springframework.stereotype.Component;
 
 /**
- * Created by carlwang on 1/20/16.
+ * Created by zhangxiaodong on 16-2-19.
  */
-@Component
-public interface TenderCategoryMapper extends SqlMapper {
+public interface TenderCategoryService {
+
     void createTenderCategory(TenderCategory tenderCategory);
 
     void deleteTenderCategory(Integer id);

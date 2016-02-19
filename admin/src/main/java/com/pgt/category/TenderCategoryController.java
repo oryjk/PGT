@@ -137,38 +137,7 @@ public class TenderCategoryController extends InternalTransactionBaseController 
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity delete (HttpServletRequest pRequest, @PathVariable("categoryId") Integer categoryId,
-	                              @RequestParam(value = "categoryType", required = false) CategoryType categoryType, ModelAndView modelAndView) {
-		/*
-		// verify permission
-		if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
-			new ResponseEntity<>(new HashMap<>(), HttpStatus.FORBIDDEN);
-		}
-		*/
-		// main logic
-		LOGGER.debug("Delete category id is {}.", categoryId);
-		ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
-		if (categoryId == null) {
-			LOGGER.debug("The category id is empty,do nothing. ");
-			responseEntity.getBody().put("message", "category id is null.");
-			responseEntity.getBody().put("success", false);
-			return responseEntity;
-		}
-		categoryService.deleteCategory(categoryId);
 
-
-		esSearchService.deleteCategoryIndex(String.valueOf(categoryId));
-		if (categoryType.equals(CategoryType.TENDER_ROOT)) {
-			esSearchService.deleteHotSaleIndex(String.valueOf(categoryId));
-		}
-		LOGGER.debug("Success delete the category with id {}.", categoryId);
-
-		responseEntity.getBody().put("success", true);
-		return responseEntity;
-
-	}
 
 	@RequestMapping(value = "/update/{categoryId}", method = RequestMethod.GET)
 	public ModelAndView update (HttpServletRequest pRequest, @PathVariable("categoryId") Integer categoryId, ModelAndView modelAndView) {

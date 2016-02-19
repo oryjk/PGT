@@ -1,15 +1,22 @@
 package com.pgt.tender.controller;
 
 import com.pgt.category.bean.Category;
+import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.ViewMapperConfiguration;
 import com.pgt.configuration.Configuration;
+import com.pgt.product.bean.Product;
+import com.pgt.product.service.ProductService;
 import com.pgt.tender.bean.Tender;
+import com.pgt.tender.bean.TenderCategory;
 import com.pgt.tender.bean.TenderQuery;
+import com.pgt.tender.service.TenderCategoryService;
 import com.pgt.tender.service.TenderService;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.elasticsearch.common.collect.HppcMaps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +27,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +51,11 @@ public class TenderController {
 	@Autowired
 	private CategoryService categoryService;
 
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private TenderCategoryService tenderCategoryService;
 
 	@Autowired
 	private ViewMapperConfiguration viewMapperConfiguration;
@@ -121,23 +134,19 @@ public class TenderController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView createTender (ModelAndView modelAndView, Tender tender) {
-		modelAndView.setViewName("/tender/tenderAddAndModify");
+		modelAndView.setViewName("/p2p-tender/tender-add-and-modify");
 		if (ObjectUtils.isEmpty(tender)) {
 			LOGGER.debug("The tender is empty");
 			return modelAndView;
 		}
-		if (ObjectUtils.isEmpty(tender.getSmallMoney())) {
-			LOGGER.debug("The smallMoney is empty");
+		if (ObjectUtils.isEmpty(tender.getName())) {
+			LOGGER.debug("The name is empty");
 			return modelAndView;
 		}
-		if (ObjectUtils.isEmpty(tender.getTenderTotal())) {
-			LOGGER.debug("The tender total is empty");
+		if (ObjectUtils.isEmpty(tender.getDescription())) {
+			LOGGER.debug("The tender description is empty");
 			return modelAndView;
 		}
-		tender.setCreationDate(new Date());
-		tender.setUpdateDate(new Date());
-		int tenderQuantity = tender.getTenderTotal().intValue() / tender.getSmallMoney().intValue();
-		tender.setTenderQuantity(tenderQuantity);
 		tenderService.createTender(tender);
 		modelAndView.setViewName("redirect:/tender/tenderList");
 		return modelAndView;
@@ -151,17 +160,14 @@ public class TenderController {
 			LOGGER.debug("The tender is empty");
 			return modelAndView;
 		}
-		if (ObjectUtils.isEmpty(tender.getSmallMoney())) {
-			LOGGER.debug("The smallMoney is empty");
+		if (ObjectUtils.isEmpty(tender.getName())) {
+			LOGGER.debug("The name is empty");
 			return modelAndView;
 		}
-		if (ObjectUtils.isEmpty(tender.getTenderTotal())) {
-			LOGGER.debug("The tender total is empty");
+		if (ObjectUtils.isEmpty(tender.getDescription())) {
+			LOGGER.debug("The tender description is empty");
 			return modelAndView;
 		}
-		tender.setUpdateDate(new Date());
-		int tenderQuantity = tender.getTenderTotal().intValue() / tender.getSmallMoney().intValue();
-		tender.setTenderQuantity(tenderQuantity);
 		tenderService.updateTender(tender);
 		modelAndView.setViewName("redirect:/tender/tenderList");
 		return modelAndView;
@@ -173,7 +179,7 @@ public class TenderController {
 		LOGGER.debug("Delete the tenderId is {}.", tenderId);
 		ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
 		Map<String, Object> response = responseEntity.getBody();
-		if (ObjectUtils.isEmpty(tenderId)) {
+		if (tenderId==null) {
 			LOGGER.debug("The tender id is null.");
 			response.put("success", false);
 			response.put("message", "The tender id is empty.");
@@ -186,10 +192,12 @@ public class TenderController {
 	}
 
 
+
 	@RequestMapping(value = "/queryTenderById/{tenderId}")
 	public ModelAndView queryTenderById(@PathVariable("tenderId") Integer tenderId,ModelAndView modelAndView){
 
-		LOGGER.debug("Delete the tenderId is {} ", tenderId);
+		LOGGER.debug("delete the tenderId is {} ", tenderId);
+		modelAndView.setViewName("/p2p-tender/tender-detail");
 		if (ObjectUtils.isEmpty(tenderId)) {
 			LOGGER.debug("The tenderId is empty");
 			return modelAndView;
@@ -199,11 +207,157 @@ public class TenderController {
              LOGGER.debug("The tender is empty");
 			return modelAndView;
 		}
+		LOGGER.debug("The query tender id is {}",tender.getTenderId());
 		modelAndView.addObject("tender",tender);
-		modelAndView.setViewName("");
+
 		return modelAndView;
 	}
 
+
+	@RequestMapping(value = "/createTenderProduct/{tenderId}",method = RequestMethod.GET)
+	public ModelAndView createTenderProduct(ModelAndView modelAndView,@PathVariable("tenderId") Integer tenderId){
+
+		LOGGER.debug("The method createTenderProduct");
+		if(ObjectUtils.isEmpty(tenderId)){
+			LOGGER.debug("The tenderId is empty");
+			return modelAndView;
+		}
+		Tender tender = tenderService.queryTenderById(tenderId,false);
+		if(ObjectUtils.isEmpty(tender)){
+			LOGGER.debug("The tender is empty");
+			return modelAndView;
+		}
+		modelAndView.addObject("tender",tender);
+		modelAndView.setViewName("/p2p-tender/item-add-and-modify");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/createTenderProduct",method = RequestMethod.POST)
+	public ModelAndView createTenderProduct(ModelAndView modelAndView, Product product, Integer tenderId){
+
+		LOGGER.debug("The method crateTenderProduct");
+		modelAndView.setViewName("/p2p-tender/item-add-and-modify");
+		if(ObjectUtils.isEmpty(tenderId)){
+			LOGGER.debug("The tenderId is empty");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(product)){
+			LOGGER.debug("The product is empty");
+			return modelAndView;
+		}
+		if(StringUtils.isEmpty(product.getName())){
+		     LOGGER.debug("The product is empty");
+			return modelAndView;
+		}
+
+		if(ObjectUtils.isEmpty(product.getStock())){
+           LOGGER.debug("The stock is empty");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(product.getSalePrice())){
+			LOGGER.debug("The salePrice is empty");
+			return modelAndView;
+		}
+		product.setTenderId(tenderId);
+		productService.createTenderProduct(product);
+		LOGGER.debug("The crateTender product is successful");
+		modelAndView.setViewName("redirect:/tender/queryTenderById/"+tenderId);
+		return modelAndView;
+	}
+
+
+	@RequestMapping(value = "/updateTenderProduct/{tenderId}/{productId}",method = RequestMethod.GET)
+	public ModelAndView updateTenderProduct (ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId, @PathVariable("productId") Integer productId){
+
+		LOGGER.debug("The method updateTenderProduct");
+		if(ObjectUtils.isEmpty(productId)){
+            LOGGER.debug("The product is empty");
+			return modelAndView;
+		}
+	    Product product=productService.queryProduct(productId);
+		if(ObjectUtils.isEmpty(product)){
+			LOGGER.debug("The product is empty");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(tenderId)){
+			LOGGER.debug("The tenderId is empty");
+			return modelAndView;
+		}
+		Tender tender = tenderService.queryTenderById(tenderId,false);
+		if(ObjectUtils.isEmpty(tender)){
+			LOGGER.debug("The tender is empty");
+			return modelAndView;
+		}
+		modelAndView.addObject("tender",tender);
+		modelAndView.addObject("product",product);
+		modelAndView.setViewName("/p2p-tender/item-add-and-modify");
+		return modelAndView;
+	}
+
+
+
+	@RequestMapping(value = "/updateTenderProduct",method = RequestMethod.POST)
+	public ModelAndView updateTenderProduct (ModelAndView modelAndView, Product product,Integer tenderId){
+
+		LOGGER.debug("The method crateTenderProduct");
+		if(ObjectUtils.isEmpty(tenderId)){
+			LOGGER.debug("The tenderId is empty");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(product)){
+			LOGGER.debug("The product is empty");
+			return modelAndView;
+		}
+		if(StringUtils.isEmpty(product.getName())){
+			LOGGER.debug("The product is empty");
+			return modelAndView;
+		}
+		if(StringUtils.isEmpty(product.getDescription())){
+			LOGGER.debug("The description is empty");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(product.getStock())){
+			LOGGER.debug("The stock is empty");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(product.getSalePrice())){
+			LOGGER.debug("The salePrice is empty");
+			return modelAndView;
+		}
+		product.setTenderId(tenderId);
+        productService.updateProduct(product);
+		LOGGER.debug("The updateTender product is successful");
+		modelAndView.setViewName("redirect:/tender/queryTenderById/"+tenderId);
+		return modelAndView;
+	}
+
+
+	@RequestMapping(value = "/queryTenderByProductId/{tenderId}/{productId}",method = RequestMethod.GET)
+	public ModelAndView queryTenderByProductId(ModelAndView modelAndView,@PathVariable("tenderId") Integer tenderId,@PathVariable("productId") Integer productId){
+
+		LOGGER.debug("The method queryTenderByProductId");
+		if(ObjectUtils.isEmpty(tenderId)){
+			LOGGER.debug("The tenderId is empty");
+			return modelAndView;
+		}
+		Tender tender = tenderService.queryTenderById(tenderId,false);
+		if(ObjectUtils.isEmpty(tender)){
+			LOGGER.debug("The tender is empty");
+			return modelAndView;
+		}
+		if(ObjectUtils.isEmpty(productId)){
+			LOGGER.debug("The productId is empty");
+			return modelAndView;
+		}
+		 Product product=productService.queryProduct(productId);
+         if(ObjectUtils.isEmpty(product)){
+           LOGGER.debug("The product is empty and id is {}",productId);
+	    }
+		modelAndView.addObject("tender",tender);
+		modelAndView.addObject("product",product);
+		modelAndView.setViewName("/p2p-tender/item-detail");
+		return modelAndView;
+	}
 
 
 }
