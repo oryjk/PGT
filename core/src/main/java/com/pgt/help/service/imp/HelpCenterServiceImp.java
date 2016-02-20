@@ -42,7 +42,7 @@ public class HelpCenterServiceImp implements HelpCenterService {
 	public List<HelpCategoryVo> findAllHelpCategoryVo() {
 
 		List<Category> categories = categoryHelper.findHelpCenterCategories();
-		List<HelpCategoryVo> helpCategoryVos = new ArrayList<HelpCategoryVo>();
+		List<HelpCategoryVo> helpCategoryVos = new ArrayList<>();
 		for (Category category : categories) {
 			HelpCategoryVo helpCategoryVo = new HelpCategoryVo();
 			List<HelpCenter> helpCenters = helpCenterMapper.findHelpCentersByCategoryId(category.getId());
@@ -57,7 +57,7 @@ public class HelpCenterServiceImp implements HelpCenterService {
 	public List<HelpCategoryVo> findAllHelpByQuery(HelpCenter helpCenter) {
 
 			List<Category> categories = categoryHelper.findHelpCenterCategories();
-			List<HelpCategoryVo> helpCategoryVos = new ArrayList<HelpCategoryVo>();
+			List<HelpCategoryVo> helpCategoryVos = new ArrayList<>();
 
 			for (Category category : categories) {
 				HelpCategoryVo helpCategoryVo = new HelpCategoryVo();

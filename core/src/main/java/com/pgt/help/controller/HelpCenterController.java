@@ -29,27 +29,23 @@ public class HelpCenterController {
 
 	@RequestMapping(value = "/query", method = RequestMethod.GET)
 	public ModelAndView queryAllHelpCenter(ModelAndView modelAndView) {
-
-		List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
-		modelAndView.addObject("helpCategorVoList", HelpCategorVoList);
+		LOGGER.debug("The method query AllHelpCenter");
 		modelAndView.setViewName(Constants.HELP_CENTER);
 		HelpCenter helpCenter = helpCenterService.findHelpCenterById(Integer.parseInt("1"));
 		modelAndView.addObject("helpCenter", helpCenter);
-
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/{helpCenterId}", method = RequestMethod.GET)
 	public ModelAndView queryHelpCenterById(ModelAndView modelAndView,
 			@PathVariable("helpCenterId") String helpCenterId) {
+		LOGGER.debug("The method queryHelpCenterById");
 		if (helpCenterId == null) {
 			helpCenterId = "1";
 		}
-		List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
-		modelAndView.addObject("helpCategorVoList", HelpCategorVoList);
 		modelAndView.setViewName(Constants.HELP_CENTER);
-
 		HelpCenter helpCenter = helpCenterService.findHelpCenterById(Integer.parseInt(helpCenterId));
+		LOGGER.debug("The helpCenter id is {}",helpCenter.getId());
 		modelAndView.addObject("helpCenter", helpCenter);
 		return modelAndView;
 	}
@@ -58,8 +54,8 @@ public class HelpCenterController {
 	public Map<String,Object> mQueryAllHelpCenter() {
 		LOGGER.debug("The method to query helpCenter");
 		Map<String,Object> responseMap= new HashMap<>();
-		List<HelpCategoryVo> helpCategorList = helpCenterService.findAllHelpCategoryVo();
-		responseMap.put("helpCategorList",helpCategorList);
+		List<HelpCategoryVo> helpCategoryList = helpCenterService.findAllHelpCategoryVo();
+		responseMap.put("helpCategoryList",helpCategoryList);
 		return responseMap;
 	}
 

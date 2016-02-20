@@ -1,0 +1,153 @@
+@import "../base/my-account";
+
+.yeepay-btn {
+  font-size: 16px;
+  background: $yeepayColor;
+  border: 1px solid $yeepayColor2;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 3px;
+
+  &:hover {
+    background: $yeepayColor3;
+  }
+}
+
+.message-box {
+  padding: 20px 50px;
+  border: 1px solid $yeepayColor3;
+  background: $lightGray;
+}
+
+/*no-binding
+****************************************************/
+.no-binding {
+  height: 585px;
+
+  p {
+    @include o;
+    font-size: 20px;
+  }
+
+  .message,
+  .row1,
+  .row2 {
+    padding-left: 40px;
+  }
+
+  .row1 {
+    padding: 43px 50px;
+  }
+
+  .row2 {
+    padding: 0 50px;
+    span {
+      padding-left: 20px;
+      font-size: 14px;
+    }
+  }
+}
+
+
+/*have-binding
+****************************************************/
+.have-binding,
+.info-import {
+  height: 585px;
+
+  p {
+    @include o;
+    font-size: 20px;
+  }
+
+  .message-box {
+    span {
+      margin-right: 70px;
+      color: $yeepayColor2;
+    }
+  }
+
+  span,
+  a {
+    font-size: 15px;
+  }
+
+  .divide {
+    color: $blueColor;
+  }
+
+  .yeepay-info,
+  .person-info,
+  .money-info {
+    margin: 0 30px;
+  }
+
+  .yeepay-info {
+    padding: 30px 0 20px;
+    border-bottom: 1px dashed black;
+    background: url("../../core/images/cart/yibao.png") no-repeat 80% center;
+  }
+
+  .person-info {
+    padding: 20px 0;
+    border-bottom: 1px dashed black;
+  }
+
+  .money-info {
+    padding: 20px 0;
+  }
+
+  .row1 {
+    padding:  12px 0;
+  }
+
+  .row-title {
+    width: 100px;
+    text-align: right;
+    float: left;
+  }
+
+  .empty-title {
+    height: 1px;
+  }
+
+  .row-text {
+    margin-left: 5px;
+  }
+}
+
+.info-import {
+  padding: 0 50px;
+
+  .row1 {
+    float: left;
+    width: 800px;
+  }
+
+  .row-title,
+  .row-text,
+  .row-tips {
+    float: left;
+  }
+
+  .row-text {
+    width: 200px;
+  }
+
+  .row-tips {
+    padding-left: 20px;
+    font-size :13px;
+    color: $emColor;
+  }
+
+  .like-select {
+    @include like-select(100px, 25px, 14px, $yeepayColor3, $yeepayColor2);
+    ul {
+      height: auto;
+    }
+  }
+
+  .row2 {
+    padding: 10px 0 0 245px;
+  }
+}
