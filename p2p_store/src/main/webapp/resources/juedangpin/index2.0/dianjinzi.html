@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="dianjinzi.js"></script>
+    <script src="../core/js/require.js" data-main="../index/index.js"></script>
+    <link href="dianjinzi.css" rel="stylesheet">
+    <!--<link href="../side-bar/buy.css" rel="stylesheet">-->
+
+</head>
+<body>
+
+<!--侧边栏-->
+<div class="right" id="right">
+    <div class="right-a">
+    <a href="#" class="right1-2">
+        <img src="images/pig.png">
+
+        <div class="right2"><span>主页</span><img class="img-search" src="images/search_17.png"></div>
+    </a>
+    <div class="right-b">
+        <div class="right-buy1">0</div>
+        <a href="#" class="right1-2" >
+            <img src="images/s-dd.png">
+
+            <div class="right2"><span>订单</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a path="../side-bar/buy.html" class="right1" title="2">
+            <img src="images/s-buy.png">
+
+            <div class="right2"><span>购物车</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a path="../side-bar/collect.html" class="right1" title="3">
+            <img src="images/s-sc.png">
+
+            <div class="right2"><span>收藏</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a path="../side-bar/history.html" class="right1" title="4">
+            <img src="images/s-ls.png">
+
+            <div class="right2"><span>历史</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a href="#" class="right1-2">
+            <img src="images/s-zh.png">
+
+            <div class="right2"><span>账户</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+        <a href="#" class="right1-2">
+            <img src="images/component/_0005_arrow-top.png">
+
+            <div class="right2"><span>回到顶部</span><img class="img-search" src="images/search_17.png">
+            </div>
+        </a>
+    </div>
+    </div>
+    <div class="right-menu" id="right-menu">
+
+    </div>
+</div>
+
+<!--header-->
+<div class="header">
+    <div class="header-content">
+
+        <ul class="nav">
+            <li class="nav-3"><a href="#"> 登录</a></li>
+            <li class="nav-4"><a href="#"> 注册</a></li>
+            <li class="nav-4"><a href="#"> 帮助中心</a></li>
+        </ul>
+
+        <!--
+        <ul class="nav">
+            <li class="nav-2">欢迎您：</li>
+            <li class="nav-4"><a href="#"> 账户管理</a></li>
+            <li class="nav-4"><a href="#"> 退出登录</a> </li>
+            <li class="nav-4"><a href="#"> 帮助中心</a> </li>
+
+        </ul>
+-->
+    </div>
+</div>
+<!--header-b-->
+<div class="content-top">
+    <a href="#" class="logo" alt="sadhashdk"></a>
+
+    <div class="search">
+        <input type="text" class="search1">
+        <input type="submit" class="btn1" value="搜索">
+        <ul class="font1">
+            <li><a href="#">玉镯</a></li>
+            <li><a href="#">核桃糊</a></li>
+            <li><a href="#">琥珀</a></li>
+            <li><a href="#">钻戒</a></li>
+            <li><a href="#">玉镯</a></li>
+        </ul>
+    </div>
+    <a href="#" class="btn2"><img src="images/shoppingcart_03.png">我的购物车</a>
+</div>
+<div class="menu-top">
+    <a href="#" class="menu-top1">全部绝当品分类</a>
+    <ul class="font2">
+        <li><a href="#">文玩杂项</a></li>
+        <li><a href="#">玉石</a></li>
+        <li><a href="#">琥珀蜜蜡</a></li>
+        <li><a href="#">木制品</a></li>
+        <li><a href="#">钻石饰品</a></li>
+    </ul>
+    <ul class="menu">
+        <li class="menu-0">
+            <a href="#" class="menu-h">文玩杂项</a>
+            <ul class="menu-1">
+                <li><a href="#">橄榄核雕</a></li>
+                <li><a href="#">牦牛角</a></li>
+                <li><a href="#">玛瑙</a></li>
+                <li class="li-l"><a href="#">骆驼骨头</a></li>
+            </ul>
+        </li>
+        <li class="menu-0">
+            <a href="#" class="menu-h">翡翠玉石</a>
+            <ul class="menu-1">
+                <li><a href="#">翡翠</a></li>
+                <li><a href="#">寿山石</a></li>
+                <li><a href="#">和田碧玉</a></li>
+                <li><a href="#">和田白玉</a></li>
+                <li class="li-l"><a href="#">独山玉</a></li>
+            </ul>
+        </li>
+        <li class="menu-0">
+            <a href="#" class="menu-h">琥珀蜜蜡</a>
+            <ul class="menu-1">
+                <li><a href="#">琥珀</a></li>
+                <li class="li-l"><a href="#">蜜蜡</a></li>
+            </ul>
+        </li>
+        <li class="menu-0">
+            <a href="#" class="menu-h">木制品</a>
+            <ul class="menu-1">
+                <li><a href="#">黄花梨</a></li>
+                <li><a href="#">沉香</a></li>
+                <li><a href="#">菩提</a></li>
+                <li><a href="#">崖柏</a></li>
+                <li class="li-l"><a href="#">小叶紫檀</a></li>
+            </ul>
+        </li>
+        <li class="menu-0-1">
+            <a href="#" class="menu-h">钻石饰品</a>
+            <ul class="menu-1">
+                <li class="li-l"><a href="#">钻戒</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="banner-all">
+    <div class="banner1">
+        <div id="bannerBox" class="banner-box">
+            <div id="banner" class="banner">
+                <a href="#" data-banner="0"
+                   style="background: url('images/new-banner1.jpg') center center no-repeat ;display: block"></a>
+                <a href="#" data-banner="1"
+                   style="background: url('images/shang-banner.jpg') center center no-repeat"></a>
+                <a href="#" data-banner="2"
+                   style="background: url('images/new11-banner.jpg') center center no-repeat green"></a>
+                <a href="#" data-banner="3"
+                   style="background: url('images/new-banner1.jpg') center center no-repeat blue"></a>
+                <a href="#" data-banner="4"
+                   style="background: url('images/new-banner1.jpg') center center no-repeat aqua"></a>
+                <a href="#" data-banner="5"
+                   style="background: url('images/new-banner1.jpg') center center no-repeat deeppink"></a>
+            </div>
+            <ol id="bannerNav" class="banner-nav">
+                <li class="banner-nav-now">0</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!--content-->
+<div class="content">
+
+
+    <div class="box1">
+        <div class="box-font" style="background: url('images/hot-sale_03.png')no-repeat 100px 0">
+            最近热卖
+        </div>
+        <a href="#" class="box1-1" style="background: url('images/box1-1-1.jpg') no-repeat;"></a>
+        <a href="#" class="box1-1" style="background: url('images/box1-1-1.jpg') no-repeat;"></a>
+        <a href="#" class="box1-1" style="background: url('images/box1-1-1.jpg') no-repeat;"></a>
+        <a href="#" class="box1-1" style="background: url('images/box1-1-1.jpg') no-repeat;"></a>
+    </div>
+    <div class="box2">
+        <div class="box-font" style="background: url('images/yingwen_22.png')no-repeat 100px 0">
+            最近上新
+        </div>
+        <a href="#" class="box2-1" style="background: url('images/new_21.jpg') no-repeat;"></a>
+        <a href="#" class="box2-1" style="background: url('images/new_21.jpg') no-repeat;"></a>
+        <a href="#" class="box2-1" style="background: url('images/new_21.jpg') no-repeat;"></a>
+    </div>
+
+    <a href="#" class="box-banner1"></a>
+
+    <div class="box4">
+        <div class="box-font" style="color: black">
+            <span class="span1"><a href="#">文玩杂项</a> </span>
+            <span class="span2">
+                <a href="#" class="span2-1">小叶紫檀</a>
+                <a href="#" class="span2-1">钻戒</a>
+                <a href="#" class="span2-1">电视机</a>
+                <a href="#" class="span2-1">小叶紫檀</a>
+                <a href="#" class="span2-1">小叶紫檀</a>
+            </span>
+        </div>
+        <div class="box4-all">
+            <a href="#" class="box4-left" style="background: url('images/catagory2_25.jpg') no-repeat"></a>
+
+            <div class="box4-right">
+                <div class="box4-all1">
+                    <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
+                        <div class="box4-on">
+                            <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
+                            </a>
+
+                            <div class="box4-on-bottom">
+                                <div class="box4-1-2">
+                                    橄榄核雕钟馗抓鬼
+                                    <div class="box4-1-2-1">
+                                        18000元
+                                    </div>
+                                </div>
+                                <a href="#" class="box4-fa">
+                                    <img src="images/favorite.png">
+                                    收藏</a>
+
+                                <a href="#" class="box4-by">
+                                    <img src="images/shopping-cart.png">
+                                    购物车</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box4-all1">
+                    <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
+                        <div class="box4-on">
+                            <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
+                            </a>
+
+                            <div class="box4-on-bottom">
+                                <div class="box4-1-2">
+                                    橄榄核雕钟馗抓鬼
+                                    <div class="box4-1-2-1">
+                                        18000元
+                                    </div>
+                                </div>
+                                <a href="#" class="box4-fa">
+                                    <img src="images/favorite.png">
+                                    收藏</a>
+
+                                <a href="#" class="box4-by">
+                                    <img src="images/shopping-cart.png">
+                                    购物车</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box4-all1">
+                    <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
+                        <div class="box4-on">
+                            <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
+                            </a>
+
+                            <div class="box4-on-bottom">
+                                <div class="box4-1-2">
+                                    橄榄核雕钟馗抓鬼
+                                    <div class="box4-1-2-1">
+                                        18000元
+                                    </div>
+                                </div>
+                                <a href="#" class="box4-fa">
+                                    <img src="images/favorite.png">
+                                    收藏</a>
+
+                                <a href="#" class="box4-by">
+                                    <img src="images/shopping-cart.png">
+                                    购物车</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box4-all1">
+                    <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
+                        <div class="box4-on">
+                            <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
+                            </a>
+
+                            <div class="box4-on-bottom">
+                                <div class="box4-1-2">
+                                    橄榄核雕钟馗抓鬼
+                                    <div class="box4-1-2-1">
+                                        18000元
+                                    </div>
+                                </div>
+                                <a href="#" class="box4-fa">
+                                    <img src="images/favorite.png">
+                                    收藏</a>
+
+                                <a href="#" class="box4-by">
+                                    <img src="images/shopping-cart.png">
+                                    购物车</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box4-all1">
+                    <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
+                        <div class="box4-on">
+                            <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
+                            </a>
+
+                            <div class="box4-on-bottom">
+                                <div class="box4-1-2">
+                                    橄榄核雕钟馗抓鬼
+                                    <div class="box4-1-2-1">
+                                        18000元
+                                    </div>
+                                </div>
+                                <a href="#" class="box4-fa">
+                                    <img src="images/favorite.png">
+                                    收藏</a>
+
+                                <a href="#" class="box4-by">
+                                    <img src="images/shopping-cart.png">
+                                    购物车</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box4-all1">
+                    <div class="box4-1" style="background: url('images/ceshi1.jpg') no-repeat">
+                        <div class="box4-on">
+                            <a href="#" class="box4-on-top" style="background: url('images/ceshi1.jpg') no-repeat">
+                            </a>
+
+                            <div class="box4-on-bottom">
+                                <div class="box4-1-2">
+                                    橄榄核雕钟馗抓鬼
+                                    <div class="box4-1-2-1">
+                                        18000元
+                                    </div>
+                                </div>
+                                <a href="#" class="box4-fa">
+                                    <img src="images/favorite.png">
+                                    收藏</a>
+
+                                <a href="#" class="box4-by">
+                                    <img src="images/shopping-cart.png">
+                                    购物车</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--footer-->
+<div class="footer" id="footer">
+    <div class="goods-box">
+        <div class="our-goods">
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-people"></i>
+                </div>
+                <div class="good-text">
+                    <h4>专家鉴定</h4>
+
+                    <p>专业鉴定团队</p>
+
+                    <p>安全可靠</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-heart"></i>
+                </div>
+                <div class="good-text">
+                    <h4>用心推荐</h4>
+
+                    <p>我们的专心和用心</p>
+
+                    <p>您的放心</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-star"></i>
+                </div>
+                <div class="good-text">
+                    <h4>五星级服务</h4>
+
+                    <p>线上线下服务同步</p>
+
+                    <p>广受好评</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-clock"></i>
+                </div>
+                <div class="good-text">
+                    <h4>发货及时</h4>
+
+                    <p>每天四次发货</p>
+
+                    <p>便捷高效</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-smiley"></i>
+                </div>
+                <div class="good-text">
+                    <h4>快乐购物</h4>
+
+                    <p>体会快乐的购物</p>
+
+                    <p>期待您的笑脸</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-us">
+        <ul>
+            <li><h3>购物与支付</h3></li>
+            <li><a href="">购物流程</a></li>
+            <li><a href="">订单查询</a></li>
+            <li><a href="">支付方式</a></li>
+            <li><a href="">发票领取</a></li>
+        </ul>
+        <ul>
+            <li><h3>配送说明</h3></li>
+            <li><a href="">配送方式和时间</a></li>
+            <li><a href="">配送费用和签收</a></li>
+            <li><a href=""></a></li>
+        </ul>
+        <ul>
+            <li><h3>关于我们</h3></li>
+            <li><a href="">点金子</a></li>
+            <li><a href="">点金子绝当品</a></li>
+            <li><a href="">联系我们</a></li>
+            <li><a href="">招贤纳士</a></li>
+            <li><a href="">业务范围</a></li>
+            <li><a href="">隐私声明</a></li>
+        </ul>
+        <ul>
+            <li><h3>售后服务</h3></li>
+            <li><a href="">退换货政策</a></li>
+            <li><a href="">退款说明</a></li>
+        </ul>
+        <div class="us">
+            <div class="our-app">
+                <a class="apple-dimension" href="#">
+                    <img src="images/footer/apple.png" alt="苹果客户端下载"/>
+
+                    <h3>苹果客户端</h3>
+                    <img class="two-dimension" src="images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="android-dimension" href="#">
+                    <img src="images/footer/android.png" alt="安卓客户端下载"/>
+
+                    <h3>安卓客户端</h3>
+                    <img class="two-dimension" src="images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="online-server" href="#">
+                    <img src="images/footer/weixin.png" alt="微信客户端下载"/>
+
+                    <h3>微信公众号</h3>
+                    <img class="two-dimension" src="images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="online-server" href="#">
+                    <img src="images/footer/dianjinzi.png" alt="点金子在线投资"/>
+
+                    <h3>点金子投资</h3>
+                </a>
+            </div>
+            <div class="our-info">
+                <h3>点金子总部地址</h3>
+
+                <p>成都市武侯区某某某某某某某某</p>
+
+                <p>咨询热线：028-85033350</p>
+
+                <p>企业邮箱：zxhl998@163.com</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="approve-box">
+        <div class="approve">
+            <a href="#">
+                <img src="images/footer/approve-4.jpg" alt=""/>
+            </a>
+        </div>
+        <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>
