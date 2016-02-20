@@ -114,9 +114,7 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 
 	private Pawnshop mPawnshop;
 
-	private String relatedCategoryId;
-
-    private Double payoutRatio;//违约赔付率
+    private Integer totalQuantity;
 
 	private TenderMedia p2pAdvertisement;//首页图
 
@@ -178,6 +176,21 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 	}
 
 
+	public Integer getTotalQuantity() {
+		Integer  totalQuantity=0;
+		List<Product> products=this.products;
+		if(ObjectUtils.isEmpty(products)) {
+			for (Product product : products) {
+				totalQuantity = totalQuantity + product.getStock();
+			}
+		}
+		return totalQuantity;
+	}
+
+	public void setTotalQuantity(Integer totalQuantity) {
+		this.totalQuantity = totalQuantity;
+	}
+
 	public List<TenderMedia> getP2pExpertMedias() {
 		return p2pExpertMedias;
 	}
@@ -218,21 +231,7 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 		this.p2pAdvertisement = p2pAdvertisement;
 	}
 
-	public String getRelatedCategoryId() {
-		return relatedCategoryId;
-	}
 
-	public void setRelatedCategoryId(String relatedCategoryId) {
-		this.relatedCategoryId = relatedCategoryId;
-	}
-
-
-	public Double getPayoutRatio() {
-		return payoutRatio;
-	}
-	public void setPayoutRatio(Double payoutRatio) {
-		this.payoutRatio = payoutRatio;
-	}
 	public Double getSmallMoney() {
 		return smallMoney;
 	}
@@ -266,6 +265,13 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 	}
 
 	public Double getTenderTotal() {
+		List<Product>  products = this.products;
+        Double tenderTotal=0.0;
+		if(!ObjectUtils.isEmpty(products)){
+			for(Product product:products){
+				tenderTotal=tenderTotal+product.getStock()*product.getSalePrice();
+			}
+		}
 		return tenderTotal;
 	}
 

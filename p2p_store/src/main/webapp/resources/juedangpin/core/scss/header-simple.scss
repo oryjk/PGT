@@ -1,0 +1,167 @@
+@import "commonMixin";
+@import "globleVariable";
+@import "component";
+
+.header {
+  height: 115px;
+}
+
+@-webkit-keyframes mylogo {
+  0%{}
+  10% {
+    top: -9px;
+  }
+  20% {
+    top: 18px;
+  }
+  30% {
+    top: -5px
+  }
+  40% {
+    top: 17px
+  }
+  50% {
+    top: 0
+  }
+  60% {
+    top: 16px
+  }
+  70% {
+    top: 4px
+  }
+  80% {
+    top: 15px
+  }
+  90% {
+    top: 8px
+  }
+  100% {
+    top: 15px
+  }
+}
+@keyframes mylogo {
+  0%{}
+  10% {
+    top: -9px;
+  }
+  20% {
+    top: 18px;
+  }
+  30% {
+    top: -5px
+  }
+  40% {
+    top: 17px
+  }
+  50% {
+    top: 0
+  }
+  60% {
+    top: 16px
+  }
+  70% {
+    top: 4px
+  }
+  80% {
+    top: 15px
+  }
+  90% {
+    top: 8px
+  }
+  100% {
+    top: 15px
+  }
+}
+
+.logo-box {
+  margin: 0 auto;
+  @include wh($mainWidth, 115px);
+
+
+  .logo {
+    float: left;
+    width: 280px;
+    background: url("../core/images/header/logo-red.jpg")  no-repeat 0 25px;
+  }
+
+  //a {
+  //  display: block;
+  //  @include wh(100%, 115px);
+  //  text-indent: -5000px;
+  //
+  //  @include light-hover(280px, .3s);
+  //
+  //  &:hover {
+  //
+  //    .golds {
+  //      background-position: 0 60px;
+  //      transition: background-position 5s linear 1.3s;
+  //    }
+  //  }
+  //
+  //  img {
+  //    position: absolute;
+  //    top: 15px;
+  //    left: 0;
+  //  }
+  //
+  //  .golds {
+  //    position: absolute;
+  //    top: 0;
+  //    left: 30px;
+  //    @include wh(50px, 60px);
+  //    background: url("../core/images/header/golds.png") no-repeat 0 -500px;
+  //  }
+  //
+  //  &:hover {
+  //    img {
+  //      -webkit-animation: mylogo 1s .5s;
+  //      animation: mylogo 1s .5s;
+  //    }
+  //  }
+  //}
+
+  a {
+    display: block;
+    @include wh(100%, 115px);
+    text-indent: -5000px;
+
+    @include light-hover(280px, .3s);
+
+    &:hover {
+
+      .golds {
+        background-position: 0 60px;
+        transition: background-position 5s linear 1.3s;
+      }
+    }
+
+    img {
+      position: absolute;
+      top: 15px;
+      left: 0;
+    }
+
+    .golds {
+      position: absolute;
+      top: 0;
+      left: 30px;
+      @include wh(50px, 60px);
+      background: url("../core/images/header/golds.png") no-repeat 0 -500px;
+    }
+
+    //&:hover {
+    //  img {
+    //    -webkit-animation: mylogo 1s .5s;
+    //    animation: mylogo 1s .5s;
+    //  }
+    //}
+  }
+
+
+  h1 {
+    @include o;
+    line-height: 115px;
+  }
+
+}

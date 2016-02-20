@@ -77,6 +77,12 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     }
 
     @Override
+    public Integer createTenderProduct(Product product) {
+        productMapper.createProduct(product);
+        return product.getProductId();
+    }
+
+    @Override
     public void createProduct(Integer categoryId, Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {

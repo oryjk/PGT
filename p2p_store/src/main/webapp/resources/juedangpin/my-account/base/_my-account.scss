@@ -1,0 +1,179 @@
+@import "../../core/scss/normalize";
+@import "../../core/scss/commonMixin";
+@import "../../core/scss/globleVariable";
+@import "../../core/scss/fontGeneral";
+@import "../../core/scss/component";
+
+/*header menulist should be hidden
+****************************************************/
+.menu-list {
+  display: none;
+}
+.menu:hover {
+  .menu-list {
+    display: block;
+  }
+}
+
+.top-banner-box {
+  display: none;
+}
+
+/*content
+****************************************************/
+.content-box {
+  @include bfc;
+  background: $lightGray;
+}
+
+.content {
+  margin: 0 auto;
+  width: $mainWidth;
+}
+
+
+.clear-float {
+  clear: both;
+  margin-bottom: $colSpace;
+}
+
+/*aside
+****************************************************/
+.aside {
+  float: left;
+  margin: $colSpace 0 0 0;
+  padding: 0;
+  width: $c2;
+  background: #fcfcff;
+
+  h2 {
+    font-size: 18px;
+    padding-left: 30%;
+    background: url("../../core/images/myaccount/user.png") no-repeat 30px center;
+  }
+
+  ul {
+    @include o;
+    list-style: none;
+  }
+
+  li {
+    width: 100%;
+  }
+
+  a {
+    display: block;
+    line-height: 35px;
+    padding-left: 30%;
+    font-size: 17px;
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      background: $viceColor;
+      color: white;
+    }
+  }
+
+  .menu-level-1 {
+    background: url("../../core/images/myaccount/square.png") no-repeat 30px center;
+  }
+
+  .menu-level-2 {
+    color: $middleGray;
+  }
+
+  .menu-level-end {
+    color: $middleGray;
+  }
+
+  .current-page {
+    background-color: $viceColor;
+    color: white;
+  }
+
+}
+
+/*bread-nav
+****************************************************/
+.bread-nav {
+  margin: $colSpace 0;
+  font-size: 18px;
+  border-bottom: 1px solid $ashGray;
+  a {
+    @extend %bread-nav-a;
+    font-size: 18px;
+  }
+}
+
+/*similar-box
+****************************************************/
+//.similar-box {
+//  @include row-list($mainWidth - 60px);
+//  margin: $colSpace 0;
+//
+//  h2 {
+//    margin-left: 0;
+//  }
+//}
+
+.recommend {
+  margin: $colSpace auto;
+  width: $mainWidth;
+  background: white;
+  @include bfc;
+
+  .tab {
+    border: 1px solid $ashGray;
+    border-bottom: none;
+    @include tab;
+
+
+    h2 {
+      font-size: 20px;
+    }
+  }
+}
+
+.similar-box {
+  @include row-list(1118px);
+}
+
+/*main-box
+****************************************************/
+.main-box {
+  float: left;
+  margin: $colSpace 0 0 $colSpace - 2px;
+  padding: 0 $colSpace;
+  width: $c10 - $colSpace * 2;
+  min-height: 641px;
+  background: #fcfcff;
+}
+
+.link-btn {
+  @extend %link-btn;
+}
+
+.d-btn {
+  @extend %dark-btn;
+  font-size: 16px;
+}
+
+.l-btn {
+  @extend %light-btn;
+  font-size: 16px;
+}
+
+.product-name {
+  @extend %product-link;
+  font-size: 14px;
+}
+
+
+.content-box {
+  .content {
+    .out-of-stock {
+      background-image: url("../../core/images/productList/out-of-stock-s.png");
+    }
+  }
+}
