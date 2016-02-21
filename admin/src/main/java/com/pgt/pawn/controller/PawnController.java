@@ -25,6 +25,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Yove on 16/2/7.
@@ -97,9 +98,6 @@ public class PawnController extends InternalTransactionBaseController implements
 		ModelAndView mav = new ModelAndView(VIEW_PAWN_SHOP);
 		mav.addObject(ResponseConstant.PAWN_SHOP, pPawnshop);
 
-		// InternalUser iu = getCurrentInternalUser(pRequest);
-		// pPawnshop.setManagerId(iu.getId());
-
 		// pre validation
 		if (!RepositoryUtils.idIsValid(pPawnshop.getOwnerId())) {
 			LOGGER.debug("Cannot find pawn shop with valid owner id: {}", pPawnshop.getOwnerId());
@@ -160,6 +158,10 @@ public class PawnController extends InternalTransactionBaseController implements
 			}
 			mav.addObject(ResponseConstant.PAWN_SHOP, pawnshop);
 		}
+
+		// query all invest user to show select for manager/owner
+		List<InternalUser> investUsers = getRolePermissionService().queryInternalUserByRoles(Role.INVESTOR, Role.IVST_ORDER_MANAGER);
+		mav.addObject(ResponseConstant.INVEST_USERS, investUsers);
 		return mav;
 	}
 

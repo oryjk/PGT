@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -45,24 +46,48 @@ public class SSOTest {
     }
 
     @Test
-    public void updateUserCache(){
+    public void updateUserCache() {
 
         User user = new User();
         user.setId(1L);
         user.setCount(1000);
-        user.setPhoneNumber("10aaaaaaa086");
+        user.setPhoneNumber("10086");
         user.setCreateDate(new Date());
-        user.setEmail("oryaaaaajk@qq.com");
+        user.setEmail("oryjk@qq.com");
         Order b2cOrder = new Order();
         b2cOrder.setStatus(1);
         b2cOrder.setUserId(1);
         b2cOrder.setCreationDate(new Date());
         Order p2pOrder = new Order();
-        p2pOrder.setCreationDate(new Date());
 
+        p2pOrder.setCreationDate(new Date());
+        ssoService.cacheUser(user, b2cOrder, p2pOrder);
+        user.setPhoneNumber("10aaaaaaa086");
+        user.setEmail("oryaaaaajk@qq.com");
         boolean flag = ssoService.updateCacheUser(user, b2cOrder, p2pOrder);
         Assert.assertTrue(flag);
     }
+
+    @Test
+    public void deleteCacheUser() {
+        User user = new User();
+        user.setId(1L);
+        user.setCount(1000);
+        user.setPhoneNumber("10086");
+        user.setCreateDate(new Date());
+        user.setEmail("oryjk@qq.com");
+        Order b2cOrder = new Order();
+        b2cOrder.setStatus(1);
+        b2cOrder.setUserId(1);
+        b2cOrder.setCreationDate(new Date());
+        Order p2pOrder = new Order();
+
+        p2pOrder.setCreationDate(new Date());
+        ssoService.cacheUser(user, b2cOrder, p2pOrder);
+        boolean flag = ssoService.deleteCacheUser(1L);
+        Assert.assertTrue(flag);
+    }
+
 
 
 }

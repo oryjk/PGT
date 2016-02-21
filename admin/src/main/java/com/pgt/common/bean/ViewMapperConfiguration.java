@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ViewMapperConfiguration {
     private String productListPage ="/product/productList";
 
-    private String tenderListPage  = "/tender/tenderList";
+    private String tenderListPage  = "/p2p-tender/tender-list";
 
     public String getTenderListPage () {
         return tenderListPage;

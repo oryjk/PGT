@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.pgt.cart.constant.SessionConstant;
+import com.pgt.sso.service.SSOService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -79,6 +80,9 @@ public class UserController {
 
     @Autowired
     private Configuration configuration;
+
+    @Autowired
+    private SSOService ssoService;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -240,15 +244,21 @@ public class UserController {
         cookie.setMaxAge(UserConstant.OVERDUE);
         response.addCookie(cookie);
         user.setCount(0);
+        cacheUser(userResult);
+
         modelAndView.setViewName("/user/successLogin");
         modelAndView.addObject("redirect", "/");
         if (!StringUtils.isEmpty(redirect)) {
             LOGGER.debug("Need redirect to {}.", redirect);
             modelAndView.addObject("redirect", redirect);
-            modelAndView.setViewName("redirect:"+redirect);
+            modelAndView.setViewName("redirect:" + redirect);
         }
 
         return modelAndView;
+    }
+
+    private void cacheUser(User user) {
+        ssoService.cacheUser(user, null, null);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -403,7 +413,7 @@ public class UserController {
             modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
             return modelAndView;
         }
-        LOGGER.debug("the user is: {},name is:{}",user,user.getUsername());
+        LOGGER.debug("the user is: {},name is:{}", user, user.getUsername());
 
         if (ObjectUtils.isEmpty(oldPassword)) {
             bindingResult.addError(
@@ -430,14 +440,13 @@ public class UserController {
             return modelAndView;
         }
 
-        if (newUserPassword.getPassword().length()<6){
+        if (newUserPassword.getPassword().length() < 6) {
             LOGGER.debug("the password need 6 ~ 20 digit");
             bindingResult.addError(
                     new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Size.user.password", null, null)));
             modelAndView.setViewName("my-account/person-info/update-password");
             return modelAndView;
         }
-
 
 
         if (newUserPassword.getPassword().equals(newUserPassword.getPassword2())) {
@@ -447,7 +456,7 @@ public class UserController {
             LOGGER.debug("updatePassword success!");
             modelAndView.setViewName("redirect:/user/logout");
             return modelAndView;
-        }else {
+        } else {
             LOGGER.debug("the password is not equals password2");
             bindingResult.addError(
                     new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.user.passwordConfirm.invalid", null, null)));
@@ -461,11 +470,11 @@ public class UserController {
 
     private ModelAndView checkResetPasswordPhoneCode(User user, BindingResult bindingResult, ModelAndView modelAndView, HttpServletRequest request) {
 
-        if(ObjectUtils.isEmpty(user.getSmsCode())){
+        if (ObjectUtils.isEmpty(user.getSmsCode())) {
             modelAndView.setViewName(Constants.RESET_PASSWORD);
             return modelAndView;
         }
-        if(ObjectUtils.isEmpty(request.getSession().getAttribute(Constants.RESET_PASSWOR_SESSION_PHONE_CODE))){
+        if (ObjectUtils.isEmpty(request.getSession().getAttribute(Constants.RESET_PASSWOR_SESSION_PHONE_CODE))) {
             modelAndView.setViewName(Constants.RESET_PASSWORD);
             return modelAndView;
         }
@@ -521,12 +530,14 @@ public class UserController {
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView logout(HttpSession session, ModelAndView modelAndView) {
+        User currentUser = (User) session.getAttribute(UserConstant.CURRENT_USER);
         session.removeAttribute(UserConstant.CURRENT_USER);
         session.removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         session.removeAttribute(Constants.LOGIN_SESSION_SECURITY_CODE);
         session.removeAttribute(CartConstant.CURRENT_ORDER);
         session.removeAttribute(SessionConstant.RECENT_PRODUCT_IDS);
         modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
+        ssoService.deleteCacheUser(currentUser.getId());
         return modelAndView;
     }
 
@@ -535,7 +546,7 @@ public class UserController {
 
         User user = (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
         if (null == user) {
-            ModelAndView mav = new ModelAndView("redirect:" + urlConfiguration.getLoginPage()+"?redirect=/user/yeepayAccountInfo");
+            ModelAndView mav = new ModelAndView("redirect:" + urlConfiguration.getLoginPage() + "?redirect=/user/yeepayAccountInfo");
             return mav;
         }
         // reload user

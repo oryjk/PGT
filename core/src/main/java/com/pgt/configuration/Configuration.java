@@ -42,6 +42,9 @@ public class Configuration {
 
 	private Map pawnType;
 
+	private String domain =".dev_dianjinzi.com";
+	private String userCacheTokenKey="user_cache_token";
+
 	public Map getPawnType() {
 		return pawnType;
 	}
@@ -242,5 +245,21 @@ public class Configuration {
 
 	public void setSmsOrderContent(String smsOrderContent) {
 		this.smsOrderContent = smsOrderContent;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public String getUserCacheTokenKey() {
+		return userCacheTokenKey;
+	}
+
+	public void setUserCacheTokenKey(String userCacheTokenKey) {
+		this.userCacheTokenKey = userCacheTokenKey;
 	}
 }

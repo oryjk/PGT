@@ -69,10 +69,16 @@ public class ProductServiceImp extends TransactionService implements ProductServ
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
-            getTransactionManager().rollback(transactionStatus);
+            transactionStatus.setRollbackOnly();
         } finally {
             getTransactionManager().commit(transactionStatus);
         }
+        return product.getProductId();
+    }
+
+    @Override
+    public Integer createTenderProduct(Product product) {
+        productMapper.createProduct(product);
         return product.getProductId();
     }
 

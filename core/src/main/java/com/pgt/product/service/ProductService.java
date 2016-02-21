@@ -20,6 +20,9 @@ public interface ProductService {
     List<Product> queryAllProducts(Integer stock);
 
     Integer createProduct(Product product);
+
+    Integer createTenderProduct(Product product);
+
     void createProduct(Integer categoryId, Product product);
 
     Integer updateProduct(Product product);

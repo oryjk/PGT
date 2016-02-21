@@ -74,17 +74,40 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">所有者id</label>
-                                <div class="col-md-4">
-                                    <input type="text" name="ownerId" value="${shop.ownerId}" class="form-control"
-                                           placeholder="当铺所有者的id">
+                                <label class="control-label col-md-3">当铺管理人员</label>
+                                <div class="col-md-9">
+                                    <div class="radio-list">
+                                        <select name="ownerId" class="form-control input-medium">
+                                            <c:forEach var="iu" items="${investUsers}">
+                                                <c:choose>
+                                                    <c:when test="${empty ownerId}">
+                                                        <option value="${iu.id}" ${iu.id eq internalUser.id ? 'selected' : ''}>${iu.login}
+                                                            (${iu.id})
+                                                        </option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${iu.id}" ${iu.id eq shop.ownerId ? 'selected' : ''}>${iu.login}
+                                                            (${iu.id})
+                                                        </option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">管理者id</label>
-                                <div class="col-md-4">
-                                    <input type="text" name="managerId" value="${shop.managerId}" class="form-control"
-                                           placeholder="当铺管理者的id">
+                                <label class="control-label col-md-3">当铺管理人员</label>
+                                <div class="col-md-9">
+                                    <div class="radio-list">
+                                        <select name="managerId" class="form-control input-medium">
+                                            <c:forEach var="iu" items="${investUsers}">
+                                                <option value="${iu.id}" ${iu.id eq shop.managerId ? 'selected' : ''}>${iu.login} (${iu
+                                                        .id})
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -117,7 +140,9 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn blue-hoki">确认</button>
-                                    <button type="button" class="btn default">取消</button>
+                                    <button type="button" class="btn default">
+                                        <a href="/pawn/pawn-shop-list">回到当铺列表页面</a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

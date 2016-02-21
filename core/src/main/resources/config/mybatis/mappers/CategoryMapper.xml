@@ -90,6 +90,12 @@
 		SELECT * FROM CATEGORIES WHERE TYPE ='HIERARCHY'
 	</select>
 
+
+	<select id="queryAllTenderParentCategories" resultMap="CategoryResult">
+		SELECT * FROM CATEGORIES WHERE TYPE ='TENDER_HIERARCHY'
+	</select>
+
+
 	<select id="queryCategories" parameterType="com.pgt.category.bean.Category"
 			resultMap="CategoryResult">
 		SELECT * FROM CATEGORIES WHERE 1=1
@@ -157,6 +163,12 @@
 	<select id="queryRootCategories" resultMap="CategoryResult">
     SELECT * FROM CATEGORIES WHERE TYPE='ROOT'
     </select>
+
+	<select id="queryTenderRootCategories" resultMap="CategoryResult">
+		SELECT * FROM CATEGORIES WHERE TYPE='TENDER_ROOT'
+	</select>
+
+
 	<select id="queryRootTenderCategories" resultMap="CategoryResult">
     SELECT * FROM CATEGORIES WHERE TYPE='ROOT_TENDER'
     </select>

@@ -1,8 +1,14 @@
 package com.pgt.tender.bean;
 
 import com.pgt.category.bean.Category;
+import com.pgt.common.bean.Media;
 import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.product.bean.Product;
+import com.pgt.product.bean.ProductMedia;
+import com.pgt.user.validation.group.LoginGroup;
+import com.pgt.user.validation.group.RegistrationGroup;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
@@ -14,348 +20,426 @@ import java.util.List;
  */
 public class Tender implements TenderState, TenderAuditState, Serializable {
 
-	private Integer tenderId;
-	/**
-	 * 当铺的id
-	 */
-	private Integer pawnShopId;
-	/**
-	 * 当铺所有者的id
-	 */
-	private Integer pawnShopOwnerId;
-	/**
-	 * 当票编号
-	 */
-	private Integer pawnTicketId;
-	/**
-	 * 投资总金额
-	 */
-	private Double tenderTotal;
-	/**
-	 * 可以投资的份数
-	 */
-	@Deprecated
-	private Integer tenderQuantity;
-	/**
-	 * 最小投资金额
-	 */
-	@Deprecated
-	private Double smallMoney;
+    private Integer tenderId;
+    /**
+     * 当铺的id
+     */
+    private Integer pawnShopId;
+    /**
+     * 当铺所有者的id
+     */
+    private Integer pawnShopOwnerId;
+    /**
+     * 当票编号
+     */
+    private Integer pawnTicketId;
+    /**
+     * 投资总金额
+     */
+    private Double tenderTotal;
+    /**
+     * 可以投资的份数
+     */
+    @Deprecated
+    private Integer tenderQuantity;
+    /**
+     * 最小投资金额
+     */
+    @Deprecated
+    private Double smallMoney;
 
-	/**
-	 * 开标时间
-	 */
-	private Date publishDate;
-	/**
-	 * 截至时间
-	 */
-	private Date dueDate;
-	/**
-	 * 收益率
-	 */
-	private Double interestRate;
-	/**
-	 * 投资名称
-	 */
-	private String name;
-	/**
-	 * 投资的详情
-	 */
-	private String description;
-	/**
-	 * 投资后多久天后开始算收益
-	 */
-	private Integer prePeriod;
-	/**
-	 * 无息天数
-	 */
-	private Integer postPeriod;
-	/**
-	 * 被投资的产品
-	 */
-	private List<Product> products;
-	/**
-	 * 投资创建日期
-	 */
-	private Date creationDate;
-	/**
-	 * 投资更新日期
-	 */
-	private Date updateDate;
-	/**
-	 * 投资所属分类
-	 */
-	private Category category;
-	/**
-	 * 手续费费率
-	 */
-	private Double handlingFeeRate;
-	/**
-	 * 是否是分类的热门
-	 */
-	private Boolean categoryHot = false;
-	/**
-	 * 是否是网站的热门
-	 */
-	private Boolean siteHot = false;
+    /**
+     * 开标时间
+     */
+    private Date publishDate;
+    /**
+     * 截至时间
+     */
+    private Date dueDate;
+    /**
+     * 收益率
+     */
+    private Double interestRate;
+    /**
+     * 投资名称
+     */
+    @NotEmpty(message = "{NotEmpty.tender.name}", groups = {CreateTender.class})
+    private String name;
+    /**
+     * 投资的详情
+     */
+    private String description;
+    /**
+     * 投资后多久天后开始算收益
+     */
+    private Integer prePeriod;
+    /**
+     * 无息天数
+     */
+    private Integer postPeriod;
+    /**
+     * 被投资的产品
+     */
+    private List<Product> products;
+    /**
+     * 投资创建日期
+     */
+    private Date creationDate;
+    /**
+     * 投资更新日期
+     */
+    private Date updateDate;
+    /**
+     * 投资所属分类
+     */
+    private Category category;
+    /**
+     * 手续费费率
+     */
+    private Double handlingFeeRate;
+    /**
+     * 是否是分类的热门
+     */
+    private Boolean categoryHot = false;
+    /**
+     * 是否是网站的热门
+     */
+    private Boolean siteHot = false;
 
-	private Integer categoryId;
+    private Integer categoryId;
 
-	/**
-	 * 状态
-	 */
-	private int state = INITIAL;
-	/**
-	 * 审核状态
-	 */
-	private int auditState = PENDING_APPROVAL;
+    /**
+     * 状态
+     */
+    private int state = INITIAL;
+    /**
+     * 审核状态
+     */
+    private int auditState = PENDING_APPROVAL;
 
-	private Pawnshop mPawnshop;
+    private Pawnshop mPawnshop;
 
-	@Override
-	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("tenderId:").append(tenderId);
-		stringBuilder.append(",");
-		stringBuilder.append("pawnshopId:").append(pawnShopId);
-		stringBuilder.append(",");
-		stringBuilder.append("pawnTicketId:").append(pawnTicketId);
-		stringBuilder.append(",");
-		stringBuilder.append("tenderTotal:").append(tenderTotal);
-		stringBuilder.append(",");
-		stringBuilder.append("tenderQuantity:").append(tenderQuantity);
-		stringBuilder.append(",");
-		stringBuilder.append("publishDate:").append(publishDate);
-		stringBuilder.append(",");
-		stringBuilder.append("dueDate:").append(dueDate);
-		stringBuilder.append(",");
-		stringBuilder.append("interestRate:").append(interestRate);
-		stringBuilder.append(",");
-		stringBuilder.append("name:").append(name);
-		stringBuilder.append(",");
-		stringBuilder.append("description:").append(description);
-		stringBuilder.append(",");
-		stringBuilder.append("prePeriod:").append(prePeriod);
-		stringBuilder.append(",");
-		stringBuilder.append("postPeriod:").append(postPeriod);
-		stringBuilder.append(",");
-		stringBuilder.append("creationDate:").append(creationDate);
-		stringBuilder.append(",");
-		stringBuilder.append("updateDate:").append(updateDate);
-		stringBuilder.append(",");
-		stringBuilder.append("categoryId:").append(category == null ? null : category.getId());
-		stringBuilder.append(",");
-		stringBuilder.append("creationDate:");
-		if (!ObjectUtils.isEmpty(products)) {
-			products.stream().forEach(product -> stringBuilder.append(product.getProductId()).append(","));
-		}
-		return stringBuilder.toString();
-	}
+    private Integer totalQuantity;
 
-	public double getUnitPrice() {
-		if (tenderQuantity > 0) {
-			return tenderTotal / tenderQuantity;
-		}
-		return 0;
-	}
+    private TenderMedia p2pAdvertisement;//首页图
 
-	public Double getSmallMoney() {
-		return smallMoney;
-	}
+    private TenderMedia p2pListMedia;//列表图
 
-	public void setSmallMoney(Double smallMoney) {
-		this.smallMoney = smallMoney;
-	}
+    private TenderMedia p2pMainMedia;//主图
 
-	public Integer getPawnShopId() {
-		return pawnShopId;
-	}
+    private List<TenderMedia> p2pDetailMedias;//详情图
 
-	public void setPawnShopId(Integer pawnShopId) {
-		this.pawnShopId = pawnShopId;
-	}
+    private List<TenderMedia> p2pExpertMedias;//专家图
 
-	public Integer getPawnShopOwnerId() {
-		return pawnShopOwnerId;
-	}
 
-	public void setPawnShopOwnerId(Integer pawnShopOwnerId) {
-		this.pawnShopOwnerId = pawnShopOwnerId;
-	}
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("tenderId:").append(tenderId);
+        stringBuilder.append(",");
+        stringBuilder.append("pawnshopId:").append(pawnShopId);
+        stringBuilder.append(",");
+        stringBuilder.append("pawnTicketId:").append(pawnTicketId);
+        stringBuilder.append(",");
+        stringBuilder.append("tenderTotal:").append(tenderTotal);
+        stringBuilder.append(",");
+        stringBuilder.append("tenderQuantity:").append(tenderQuantity);
+        stringBuilder.append(",");
+        stringBuilder.append("publishDate:").append(publishDate);
+        stringBuilder.append(",");
+        stringBuilder.append("dueDate:").append(dueDate);
+        stringBuilder.append(",");
+        stringBuilder.append("interestRate:").append(interestRate);
+        stringBuilder.append(",");
+        stringBuilder.append("name:").append(name);
+        stringBuilder.append(",");
+        stringBuilder.append("description:").append(description);
+        stringBuilder.append(",");
+        stringBuilder.append("prePeriod:").append(prePeriod);
+        stringBuilder.append(",");
+        stringBuilder.append("postPeriod:").append(postPeriod);
+        stringBuilder.append(",");
+        stringBuilder.append("creationDate:").append(creationDate);
+        stringBuilder.append(",");
+        stringBuilder.append("updateDate:").append(updateDate);
+        stringBuilder.append(",");
+        stringBuilder.append("categoryId:").append(category == null ? null : category.getId());
+        stringBuilder.append(",");
+        stringBuilder.append("creationDate:");
+        if (!ObjectUtils.isEmpty(products)) {
+            products.stream().forEach(product -> stringBuilder.append(product.getProductId()).append(","));
+        }
+        return stringBuilder.toString();
+    }
 
-	public Integer getPawnTicketId() {
-		return pawnTicketId;
-	}
+    public double getUnitPrice() {
+        if (tenderQuantity > 0) {
+            return tenderTotal / tenderQuantity;
+        }
+        return 0;
+    }
 
-	public void setPawnTicketId(Integer pawnTicketId) {
-		this.pawnTicketId = pawnTicketId;
-	}
 
-	public Double getTenderTotal() {
-		return tenderTotal;
-	}
+    public Integer getTotalQuantity() {
+        Integer totalQuantity = 0;
+        List<Product> products = this.products;
+        if (ObjectUtils.isEmpty(products)) {
+            for (Product product : products) {
+                totalQuantity = totalQuantity + product.getStock();
+            }
+        }
+        return totalQuantity;
+    }
 
-	public void setTenderTotal(Double tenderTotal) {
-		this.tenderTotal = tenderTotal;
-	}
+    public void setTotalQuantity(Integer totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
 
-	public Integer getTenderQuantity() {
-		return tenderQuantity;
-	}
+    public List<TenderMedia> getP2pExpertMedias() {
+        return p2pExpertMedias;
+    }
 
-	public void setTenderQuantity(Integer tenderQuantity) {
-		this.tenderQuantity = tenderQuantity;
-	}
+    public void setP2pExpertMedias(List<TenderMedia> p2pExpertMedias) {
+        this.p2pExpertMedias = p2pExpertMedias;
+    }
 
-	public Date getPublishDate() {
-		return publishDate;
-	}
+    public List<TenderMedia> getP2pDetailMedias() {
+        return p2pDetailMedias;
+    }
 
-	public void setPublishDate(Date publishDate) {
-		this.publishDate = publishDate;
-	}
+    public void setP2pDetailMedias(List<TenderMedia> p2pDetailMedias) {
+        this.p2pDetailMedias = p2pDetailMedias;
+    }
 
-	public Date getDueDate() {
-		return dueDate;
-	}
+    public TenderMedia getP2pMainMedia() {
+        return p2pMainMedia;
+    }
 
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
-	}
+    public void setP2pMainMedia(TenderMedia p2pMainMedia) {
+        this.p2pMainMedia = p2pMainMedia;
+    }
 
-	public Double getInterestRate() {
-		return interestRate;
-	}
+    public TenderMedia getP2pListMedia() {
+        return p2pListMedia;
+    }
 
-	public void setInterestRate(Double interestRate) {
-		this.interestRate = interestRate;
-	}
+    public void setP2pListMedia(TenderMedia p2pListMedia) {
+        this.p2pListMedia = p2pListMedia;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public TenderMedia getP2pAdvertisement() {
+        return p2pAdvertisement;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setP2pAdvertisement(TenderMedia p2pAdvertisement) {
+        this.p2pAdvertisement = p2pAdvertisement;
+    }
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public Double getSmallMoney() {
+        return smallMoney;
+    }
 
-	public Integer getPrePeriod() {
-		return prePeriod;
-	}
+    public void setSmallMoney(Double smallMoney) {
+        this.smallMoney = smallMoney;
+    }
 
-	public void setPrePeriod(Integer prePeriod) {
-		this.prePeriod = prePeriod;
-	}
+    public Integer getPawnShopId() {
+        return pawnShopId;
+    }
 
-	public Integer getPostPeriod() {
-		return postPeriod;
-	}
+    public void setPawnShopId(Integer pawnShopId) {
+        this.pawnShopId = pawnShopId;
+    }
 
-	public void setPostPeriod(Integer postPeriod) {
-		this.postPeriod = postPeriod;
-	}
+    public Integer getPawnShopOwnerId() {
+        return pawnShopOwnerId;
+    }
 
-	public List<Product> getProducts() {
-		return products;
-	}
+    public void setPawnShopOwnerId(Integer pawnShopOwnerId) {
+        this.pawnShopOwnerId = pawnShopOwnerId;
+    }
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    public Integer getPawnTicketId() {
+        return pawnTicketId;
+    }
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
+    public void setPawnTicketId(Integer pawnTicketId) {
+        this.pawnTicketId = pawnTicketId;
+    }
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
+    public Double getTenderTotal() {
+        List<Product> products = this.products;
+        Double tenderTotal = 0.0;
+        if (!ObjectUtils.isEmpty(products)) {
+            for (Product product : products) {
+                tenderTotal = tenderTotal + product.getStock() * product.getSalePrice();
+            }
+        }
+        return tenderTotal;
+    }
 
-	public Date getUpdateDate() {
-		return updateDate;
-	}
+    public void setTenderTotal(Double tenderTotal) {
+        this.tenderTotal = tenderTotal;
+    }
 
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
+    public Integer getTenderQuantity() {
+        return tenderQuantity;
+    }
 
-	public Integer getTenderId() {
-		return this.tenderId;
-	}
+    public void setTenderQuantity(Integer tenderQuantity) {
+        this.tenderQuantity = tenderQuantity;
+    }
 
-	public void setTenderId(Integer tenderId) {
-		this.tenderId = tenderId;
-	}
+    public Date getPublishDate() {
+        return publishDate;
+    }
 
-	public Category getCategory() {
-		return this.category;
-	}
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    public Date getDueDate() {
+        return dueDate;
+    }
 
-	public Double getHandlingFeeRate() {
-		return handlingFeeRate;
-	}
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
 
-	public void setHandlingFeeRate(Double handlingFeeRate) {
-		this.handlingFeeRate = handlingFeeRate;
-	}
+    public Double getInterestRate() {
+        return interestRate;
+    }
 
-	public Boolean getCategoryHot() {
-		return categoryHot;
-	}
+    public void setInterestRate(Double interestRate) {
+        this.interestRate = interestRate;
+    }
 
-	public void setCategoryHot(Boolean categoryHot) {
-		this.categoryHot = categoryHot;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Boolean getSiteHot() {
-		return siteHot;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setSiteHot(Boolean siteHot) {
-		this.siteHot = siteHot;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public Integer getCategoryId() {
-		return categoryId;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
-	}
+    public Integer getPrePeriod() {
+        return prePeriod;
+    }
 
-	public int getState() {
-		return state;
-	}
+    public void setPrePeriod(Integer prePeriod) {
+        this.prePeriod = prePeriod;
+    }
 
-	public void setState(final int pState) {
-		state = pState;
-	}
+    public Integer getPostPeriod() {
+        return postPeriod;
+    }
 
-	public int getAuditState() {
-		return auditState;
-	}
+    public void setPostPeriod(Integer postPeriod) {
+        this.postPeriod = postPeriod;
+    }
 
-	public void setAuditState(final int pAuditState) {
-		auditState = pAuditState;
-	}
+    public List<Product> getProducts() {
+        return products;
+    }
 
-	public Pawnshop getPawnshop() {
-		return mPawnshop;
-	}
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
-	public void setPawnshop(final Pawnshop pPawnshop) {
-		mPawnshop = pPawnshop;
-	}
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public Integer getTenderId() {
+        return this.tenderId;
+    }
+
+    public void setTenderId(Integer tenderId) {
+        this.tenderId = tenderId;
+    }
+
+    public Category getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Double getHandlingFeeRate() {
+        return handlingFeeRate;
+    }
+
+    public void setHandlingFeeRate(Double handlingFeeRate) {
+        this.handlingFeeRate = handlingFeeRate;
+    }
+
+    public Boolean getCategoryHot() {
+        return categoryHot;
+    }
+
+    public void setCategoryHot(Boolean categoryHot) {
+        this.categoryHot = categoryHot;
+    }
+
+    public Boolean getSiteHot() {
+        return siteHot;
+    }
+
+    public void setSiteHot(Boolean siteHot) {
+        this.siteHot = siteHot;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(final int pState) {
+        state = pState;
+    }
+
+    public int getAuditState() {
+        return auditState;
+    }
+
+    public void setAuditState(final int pAuditState) {
+        auditState = pAuditState;
+    }
+
+    public Pawnshop getPawnshop() {
+        return mPawnshop;
+    }
+
+    public void setPawnshop(final Pawnshop pPawnshop) {
+        mPawnshop = pPawnshop;
+    }
 }

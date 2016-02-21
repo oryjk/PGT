@@ -10,8 +10,9 @@ public interface ResponseConstant {
 
 	String ROLES = "roles";
 
-	String INTERNAL_USER_PAGE = "internalUserPage";
+	String INVEST_USERS = "investUsers";
 
+	String INTERNAL_USER_PAGE = "internalUserPage";
 	String INTERNAL_USER = "internalUser";
 
 	String B2C_ORDER = "b2cOrder";
@@ -24,4 +25,5 @@ public interface ResponseConstant {
 	String PAWN_SHOPS_PAGE = "pawnShopPage";
 	String PAWN_TICKET_PAGE = "pawnTicketPage";
 	String PAWN_TICKET = "pawnTicket";
+
 }

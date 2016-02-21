@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绝当品</title>
+    <link rel="stylesheet" href="../shopping-cart/cart.css"/>
+</head>
+<body>
+<!--主头部-->
+<div class="header" id="header">
+    <div class="top-box">
+        <div class="top-status">
+            <div class="status-box">
+                <ul class="top-nav">
+                    <li>
+                        <a href="#">手机绝当品</a>
+                    </li>
+                    <li><a href="#">帮助中心</a></li>
+                    <li><a href="#">网站导航</a></li>
+                </ul>
+                <ul class="will-login">
+                    <li><a href="../user/login.html"> 立即登陆</a></li>
+                    <li><a href="../user/regist.html">免费注册</a></li>
+                </ul>
+                <ul class="have-login">
+                    <li><a href="../user/regist.html"><span> 欢迎您：</span><span>游客</span></a></li>
+                    <li><a href="#">账户管理</a></li>
+                    <li><a href="#">退出登陆</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="top-banner">
+            <div class="top-banner-box">
+                <a href="#"></a>
+            </div>
+        </div>
+    </div>
+    <div class="logo-box">
+        <h1>
+            <a href="../index/index.html">
+                点金子绝当品——欢迎登陆
+                <img src="../core/images/header/images/logo-t-pig_01.jpg" alt=""/>
+                <div class="light"></div>
+            </a>
+        </h1>
+        <ul id="step" class="step1">
+            <li>
+                <h3 class="step1-text">我的购物车</h3>
+            </li>
+            <li>
+                <h3 class="step2-text">确认订单</h3>
+            </li>
+            <li>
+                <h3 class="step3-text">选择支付方式</h3>
+            </li>
+            <li>
+                <h3 class="step4-text">支付成功</h3>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!--正文-->
+<div class="content-box">
+    <div class="content-1" id="content1" style="display: block">
+        <div class="content-title">
+            <h2>我的购物车</h2>
+            <div class="back-last">
+                <a class="link-btn" href="#">
+                    继续购物 >
+                </a>
+            </div>
+        </div>
+        <div class="error">
+            <span>错误!</span>
+        </div>
+
+        <div class="none-product" style="display: none">
+            <p>对不起,您的购物车是空的.下面是为您推荐的商品:</p>
+        </div>
+
+        <div class="some-products" style="display: block">
+            <table>
+                <thead>
+                <tr>
+                    <td>商品信息</td>
+                    <td class="product-name"></td>
+                    <td>成色</td>
+                    <td>市场价</td>
+                    <td>绝当价</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <img src="../core/images/cart/product-small-0.jpg" alt=""/>
+                    </td>
+                    <td class="product-name">
+                        <a href="#">swarovski施华洛世奇水晶时尚水晶结婚礼品 高端大气上档次 低调奢华有内涵 啪啪啪啪啪啪啪啪啪啪啪啪</a>
+                    </td>
+                    <td>
+                        <span class="level">九五成</span>
+                    </td>
+                    <td class="product-old-cost">
+                        ¥<span>4500</span>
+                    </td>
+                    <td class="product-now-cost">
+                        ¥<span>2500</span>
+                    </td>
+                    <td>
+                        <p><a class="link-btn" href="#">移入收藏</a></p>
+                        <p><a class="link-btn" href="#">删除</a></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="../core/images/cart/product-small-0.jpg" alt=""/>
+                    </td>
+                    <td class="product-name">
+                        <a href="#">swarovski施华洛世奇水晶时尚水晶结婚礼品 高端大气上档次 低调奢华有内涵</a>
+                    </td>
+                    <td>
+                        <span class="level">十成</span>
+                    </td>
+                    <td class="product-old-cost">
+                        ¥<span>4500</span>
+                    </td>
+                    <td class="product-now-cost">
+                        ¥<span>2500</span>
+                    </td>
+                    <td>
+                        <p><a class="link-btn" href="#">移入收藏</a></p>
+                        <p><a class="link-btn" href="#">删除</a></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="settlement">
+                <div class="right">
+                    <p>
+                        <span class="settlement-name">商品总金额:</span>
+                        <span class="cost">¥<span>8450.00</span></span>
+                    </p>
+                    <p>
+                        <span class="settlement-name">已选商品:</span>
+                        <span>2</span>
+                        <span>件</span>
+                    </p>
+                </div>
+                <div class="left">
+                    <p>
+                        <a class="link-btn" href="#">清空购物车</a>
+                        <a class="link-btn" href="#">移入收藏</a>
+                    </p>
+                </div>
+                <div class="bottom">
+                    <span>账面应付金额 <span class="cost">¥<span>8450.00</span></span></span>
+                    <input class="d-btn" type="button" value="去结算"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content-2"  id="content2" style="display: block">
+        <div class="content-title">
+            <h2>确认订单</h2>
+            <div class="back-last">
+                <a class="link-btn" href="#">
+                    返回购物车 >
+                </a>
+            </div>
+        </div>
+
+        <form class="post-way">
+            <h3>配送方式</h3>
+            <fieldset>
+                <div class="row">
+                    <input class="d-btn" type="button" value="顺丰包邮"/>
+                    <input class="l-btn" type="button" value="上门自提"/>
+                </div>
+                <div class="row">
+                    <span>您的选择是:</span>
+                    <span>上门自提</span>
+                    <span>四川省 成都市 武侯区 佳灵路5号 下一站都市A302室 13100008888</span>
+                    <a class="link-btn" href="#">更改</a>
+                </div>
+                <div class="drop-area">
+                    <div class="inner">
+                        <div class="row">
+                            <span>顺丰包邮</span>
+                            <span>预计12月3日到达</span>
+                        </div>
+                        <div class="row">
+                            <input class="d-btn" type="button" value="确定"/>
+                            <input class="l-btn" type="button" value="取消"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="drop-area">
+                    <div class="inner">
+                        <p class="choose-has">
+                            <a class="link-btn" href="#">查看全部自提点</a>
+                        </p>
+                        <div class="row">
+                            <label>
+                                姓名
+                                <input type="text"/>
+                            </label>
+                            <label>
+                                手机号码
+                                <input type="text"/>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <label>
+                                提货区域
+                                <!-- 仿select-->
+                                <div class="province">
+                                    <a class="select-view"  href="#">
+                                        <span class="selected">请选择</span>
+                                        <i class="foundicon-down-arrow"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                        <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                        <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                                    </ul>
+                                    <input class="select-value" name="" type="hidden" value=""/>
+                                </div>省
+
+                                <!-- 仿select-->
+                                <div class="city">
+                                    <a class="select-view"  href="#">
+                                        <span class="selected">请选择</span>
+                                        <i class="foundicon-down-arrow"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                        <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                        <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                                    </ul>
+                                    <input class="select-value" name="" type="hidden" value=""/>
+                                </div>市
+
+                                <!-- 仿select-->
+                                <div class="county">
+                                    <a class="select-view"  href="#">
+                                        <span class="selected">请选择</span>
+                                        <i class="foundicon-down-arrow"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                        <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                        <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                                    </ul>
+                                    <input class="select-value" name="" type="hidden" value=""/>
+                                </div>区/县
+
+                            </label>
+                        </div>
+                        <div class="row">
+                            <h4>请选择自提点:</h4>
+                            <p class="get-self">
+                                <input name="getSelf" type="radio"/>
+                                佳灵路2号 下一站都市 A302市
+                                <span>联系电话: 13100008888</span>
+                            </p>
+                            <p class="get-self">
+                                <input name="getSelf" type="radio"/>
+                                佳灵路2号 下一站都市 A302市
+                                <span>联系电话: 13100008888</span>
+                            </p>
+                            <p class="get-self">
+                                <input name="getSelf" type="radio"/>
+                                佳灵路2号 下一站都市 A302市
+                                <span>联系电话: 13100008888</span>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <input class="d-btn" type="button" value="确定"/>
+                            <input class="l-btn" type="button" value="取消"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+        <form class="address">
+            <h3>收货地址</h3>
+            <fieldset>
+                <p class="choose-has">
+                    <a class="link-btn" href="#">新增配送地址</a>
+                </p>
+                <div class="row">
+                    <input type="radio" name="address" />
+                    <span>关羽 13199998888 四川省成都市武侯区 佳灵路5号下一站都市</span>
+                    <a class="link-btn" href="#">修改</a>
+                    <a class="link-btn" href="#">删除</a>
+                </div>
+                <div class="row">
+                    <input type="radio" name="address" />
+                    <span>张飞 13199998888 四川省成都市武侯区 佳灵路5号下一站都市</span>
+                    <a class="link-btn" href="#">修改</a>
+                    <a class="link-btn" href="#">删除</a>
+                </div>
+                <div class="row">
+                    <input type="radio" name="address" />
+                    <span>赵云 13199998888 四川省成都市武侯区 佳灵路5号下一站都市</span>
+                    <a class="link-btn" href="#">修改</a>
+                    <a class="link-btn" href="#">删除</a>
+                </div>
+                <div class="drop-area">
+                    <div class="inner" style="background: url('../core/images/index/classify-2.jpg') no-repeat right center">
+                        <table>
+                            <colgroup class="col-1">
+                            </colgroup>
+                            <colgroup>
+                            </colgroup>
+                            <tr>
+                                <th><span>*</span>收货人</th>
+                                <td><input type="text" placeholder="请准确填写"/></td>
+                                <td><span>收获人不能为空</span></td>
+                            </tr>
+                            <tr>
+                                <th><span>*</span>手机</th>
+                                <td><input type="text" placeholder="请准确填写11位手机号码"/></td>
+                                <td><span>手机号码不符合规范</span></td>
+                            </tr>
+                            <tr>
+                                <th>电话</th>
+                                <td><input type="text" placeholder="座机号码"/></td>
+                                <td><span>座机号码不符合规范</span></td>
+                            </tr>
+                            <tr>
+                                <th><span>*</span>所在区域</th>
+                                <td colspan="2">
+
+                                    <!-- 仿select-->
+                                    <div class="province">
+                                        <a class="select-view"  href="#">
+                                            <span class="selected">请选择</span>
+                                            <i class="foundicon-down-arrow"></i>
+                                        </a>
+                                        <ul>
+                                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                                        </ul>
+                                        <input class="select-value" name="" type="hidden" value=""/>
+                                    </div>省
+
+                                    <!-- 仿select-->
+                                    <div class="city">
+                                        <a class="select-view"  href="#">
+                                            <span class="selected">请选择</span>
+                                            <i class="foundicon-down-arrow"></i>
+                                        </a>
+                                        <ul>
+                                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                                        </ul>
+                                        <input class="select-value" name="" type="hidden" value=""/>
+                                    </div>市
+
+                                    <!-- 仿select-->
+                                    <div class="county">
+                                        <a class="select-view"  href="#">
+                                            <span class="selected">请选择</span>
+                                            <i class="foundicon-down-arrow"></i>
+                                        </a>
+                                        <ul>
+                                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                                        </ul>
+                                        <input class="select-value" name="" type="hidden" value=""/>
+                                    </div>区/县
+
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th><span>*</span>详细地址</th>
+                                <td><input type="text" placeholder="不用重复填写省市信息区"/></td>
+                                <td><span>请填写收获地址</span></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><input type="checkbox"/>设置为默认收货地址</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <input class="d-btn" type="button" value="确认"/>
+                                    <input class="l-btn" type="button" value="选择已有"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+
+        </form>
+
+        <form class="product-info">
+            <h3>商品信息</h3>
+            <fieldset>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td class="img-box">
+                            <img class="out-of-stock" src="../core/images/productList/out-of-stock-s.png" alt=""/>
+                            <img src="../core/images/cart/product-small-0.jpg" alt=""/>
+                        </td>
+                        <td class="product-name">
+                            swarovski施华洛世奇水晶时尚水晶结婚礼品 高端大气上档次 低调奢华有内涵 啪啪啪啪啪啪啪啪啪啪啪啪
+                        </td>
+                        <td>
+                            <span class="level">十成</span>
+                        </td>
+                        <td>
+                            有货
+                        </td>
+                        <td class="product-now-cost">
+                            ¥<span>2500</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../core/images/cart/product-small-0.jpg" alt=""/>
+                        </td>
+                        <td class="product-name">
+                            swarovski施华洛世奇水晶时尚水晶结婚礼品 高端大气上档次 低调奢华有内
+                        </td>
+                        <td>
+                            <span class="level">十成</span>
+                        </td>
+                        <td>
+                            有货
+                        </td>
+                        <td class="product-now-cost">
+                            ¥<span>2500</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </fieldset>
+        </form>
+        <form class="invoice">
+            <h3>发票信息</h3>
+            <fieldset>
+                <p class="choose-has">
+                    <a class="link-btn" href="#">更改</a>
+                </p>
+                <div class="row">
+                    <span>发票信息:</span>
+                    <span>个人</span>
+                </div>
+                <div class="drop-area">
+                    <div class="inner">
+                        <p class="choose-has">
+                            <a class="link-btn" href="#">取消更改</a>
+                        </p>
+                        <div class="row">
+                            <span>发票类型:</span>
+                            <label >
+                                <input type="radio" name="invoiceType"/>
+                                普通发票
+                            </label>
+                            <label >
+                                <input type="radio" disabled name="invoiceType"/>
+                                增值税发票
+                            </label>
+                            <span>订单商品不支持开增值税发票</span>
+                        </div>
+                        <div class="row">
+                            <span>发票抬头:</span>
+                            <label >
+                                <!-- 仿select-->
+                                <div class="invoice-title">
+                                    <a class="select-view"  href="#">
+                                        <span class="selected">请选择</span>
+                                        <i class="foundicon-down-arrow"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                                        <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                                        <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                                    </ul>
+                                    <input class="select-value" name="" type="hidden" value=""/>
+                                </div>
+                            </label>
+                            <label >
+                                增值税发票
+                                <input type="text" placeholder="请填写发票抬头">
+                            </label>
+                        </div>
+                        <div class="row">
+                            <span>发票内容:</span>
+                            <span>由商家具体开具</span>
+                        </div>
+                        <div class="row">
+                            <span>备注:</span>
+                            <span>订单中以下商品由入驻商家具体开具,发票内容由商家决定.如有特殊需求,请联系客服.</span>
+                        </div>
+                        <div class="row">
+                            <input class="d-btn" type="button" value="暂时不需要发票"/>
+                            <input class="l-btn" type="button" value="保存发票信息"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class="sub-box">
+            <input class="d-btn" type="button" value="提交订单"/>
+            <input class="l-btn" type="button" value="返回我的购物车"/>
+        </div>
+    </div>
+
+    <div id="content3" class="content-3" style="display: block">
+        <div class="content-title">
+            <h2>收银台</h2>
+        </div>
+        <form>
+            <fieldset class="success-box">
+                <p class="look-order">
+                    <a class="link-btn" href="#">查看我的订单</a>
+                </p>
+                <div class="row">
+                    <h3>订单提交成功,请您尽快付款!</h3>
+                </div>
+                <div class="row">
+                    <h4 class="point-p">需付金额: <span class="cost">¥<span>20000</span></span></h4>
+                    <h3 >订单号: <span>3300001</span></h3>
+                </div>
+                <div class="row">
+                    <p class="point-p">商品在您未付款前随时可能售出,如付款出现问题请及时联系客服,感谢您的支持.</p>
+                </div>
+                <div class="row">
+                    <p class="point-p">请您在订单完成之后<span>30</span>分钟内付款,否则订单会自动取消.</p>
+                </div>
+                <div class="row row-division">
+                    <p>点金子提供在线支付保障,请您放心购买.</p>
+                </div>
+                <div class="row">
+                    <p>支付成功后点金子会尽快为您发货,请您耐心等待.</p>
+                </div>
+            </fieldset>
+
+            <h3>支付方式 <span>点击确认后支付会跳转到相应的支付界面</span></h3>
+
+            <fieldset class="pay-way">
+                <div class="row">
+                    <label  class="yeepay" for="">
+                        <input type="radio"/>
+                    </label>
+                    <label class="zhifubao" for="">
+                        <input type="radio"/>
+                    </label>
+                    <input class="d-btn" type="submit" value="确认支付"/>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="content4" class="content-4" style="display: block">
+        <div class="content-title">
+            <h2>支付成功</h2>
+        </div>
+        <form>
+            <fieldset class="success-box">
+                <p class="look-order">
+                    <a class="link-btn" href="#">查看我的订单</a>
+                </p>
+                <div class="row">
+                    <h3>支付已成功</h3>
+                </div>
+                <div class="row">
+                    <h4 class="point-p">支付金额: <span class="cost">¥<span>20000</span></span></h4>
+                    <h3 >订单号: <span>3300001</span></h3>
+                </div>
+                <div class="row">
+                    <p class="point-p">如果您有任何疑问请及时联系客服,感谢您的支持!</p>
+                </div>
+                <div class="row row-division">
+                    <p>点金子提供在线支付保障,请您放心购买.</p>
+                </div>
+                <div class="row">
+                    <p>支付成功后点金子会尽快为您发货,请您耐心等待.</p>
+                </div>
+                <div class="row">
+                    <a class="left-a link-btn" href="#"> > 返回我的购物车</a>
+                    <a class="right-a link-btn" href="#"> > 返回首页</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="recommend" class="recommend">
+        <ul id="tab" class="tab">
+            <li class="choose"><h2 data-tab="0">商品详情</h2></li>
+            <li><h2 data-tab="1">我的收藏</h2></li>
+            <li><h2 data-tab="2">最近浏览</h2></li>
+        </ul>
+        <div class="similar-box">
+            <ul class="similar" id="rowList1">
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-1.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针竖刻表盘日历男表1501A 双竖刻度黑盘钢带
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-2.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)男士手表男士机械表 进口全自动日历数字表盘男表 防水精钢表带1501B 数字表盘白盘钢带
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-3.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)24钻机芯原装进口防水全自动机械表 太阳纹日历夜光大表盘男表1518 竖刻夜光-银
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>1098.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+            </ul>
+            <div class="move-left-box">
+                <a href="#"  id="moveLeft1"><</a>
+            </div>
+            <div class="move-right-box">
+                <a href="#"  id="moveRight1">></a>
+            </div>
+        </div>
+        <div class="similar-box" style="display: none">
+            <ul class="similar" id="rowList2">
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-1.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针竖刻表盘日历男表1501A 双竖刻度黑盘钢带
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>2698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-2.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)男士手表男士机械表 进口全自动日历数字表盘男表 防水精钢表带1501B 数字表盘白盘钢带
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-3.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)24钻机芯原装进口防水全自动机械表 太阳纹日历夜光大表盘男表1518 竖刻夜光-银
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>1098.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-5.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动细三针
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>698.00</span>
+                    </p>
+                </li>
+            </ul>
+            <div class="move-left-box">
+                <a href="#"  id="moveLeft2"><</a>
+            </div>
+            <div class="move-right-box">
+                <a href="#"  id="moveRight2">></a>
+            </div>
+        </div>
+        <div class="similar-box" style="display: none">
+            <ul class="similar" id="rowList3">
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+                <li>
+                    <a class="similar-pic-box" href="#"><img src="../core/images/productdetail/similar-4.jpg" alt=""/></a>
+                    <a class="similar-name" href="#">
+                        丽声(RHYTHM)原装进口男士手表男士机械表 防水全自动夜光三针大表盘日历 男表1503 罗马刻度黑盘皮带(人气爆款_送礼佳品)
+                    </a>
+                    <p class="similar-cost">
+                        ¥
+                        <span>798.00</span>
+                    </p>
+                </li>
+            </ul>
+            <div class="move-left-box">
+                <a href="#"  id="moveLeft3"><</a>
+            </div>
+            <div class="move-right-box">
+                <a href="#"  id="moveRight3">></a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--主脚部-->
+<div class="footer" id="footer">
+    <div class="goods-box">
+        <div class="our-goods">
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-people"></i>
+                </div>
+                <div class="good-text">
+                    <h4>专家鉴定</h4>
+                    <p>专业鉴定团队</p>
+                    <p>安全可靠</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-heart"></i>
+                </div>
+                <div class="good-text">
+                    <h4>用心推荐</h4>
+                    <p>我们的专心和用心</p>
+                    <p>您的放心</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-star"></i>
+                </div>
+                <div class="good-text">
+                    <h4>五星级服务</h4>
+                    <p>线上线下服务同步</p>
+                    <p>广受好评</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-clock"></i>
+                </div>
+                <div class="good-text">
+                    <h4>发货及时</h4>
+                    <p>每天四次发货</p>
+                    <p>便捷高效</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-smiley"></i>
+                </div>
+                <div class="good-text">
+                    <h4>快乐购物</h4>
+                    <p>体会快乐的购物</p>
+                    <p>期待您的笑脸</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-us">
+        <ul>
+            <li><h3>购物与支付</h3></li>
+            <li><a href="">购物流程</a></li>
+            <li><a href="">订单查询</a></li>
+            <li><a href="">支付方式</a></li>
+            <li><a href="">发票领取</a></li>
+        </ul>
+        <ul>
+            <li><h3>配送说明</h3></li>
+            <li><a href="">配送方式和时间</a></li>
+            <li><a href="">配送费用和签收</a></li>
+            <li><a href=""></a></li>
+        </ul>
+        <ul>
+            <li><h3>关于我们</h3></li>
+            <li><a href="">点金子</a></li>
+            <li><a href="">点金子绝当品</a></li>
+            <li><a href="">联系我们</a></li>
+            <li><a href="">招贤纳士</a></li>
+            <li><a href="">业务范围</a></li>
+            <li><a href="">隐私声明</a></li>
+        </ul>
+        <ul>
+            <li><h3>售后服务</h3></li>
+            <li><a href="">退换货政策</a></li>
+            <li><a href="">退款说明</a></li>
+        </ul>
+        <ul>
+            <li><h3>会员中心</h3></li>
+            <li><a href="">会员等级</a></li>
+            <li><a href="">账号管理</a></li>
+            <li><a href="">投诉建议</a></li>
+        </ul>
+        <div class="us">
+            <div class="our-app">
+                <a class="apple-dimension" href="#">
+                    <img src="../core/images/footer/apple.png" alt="苹果客户端下载"/>
+                    <h3>苹果客户端</h3>
+                </a>
+                <a class="android-dimension" href="#">
+                    <img src="../core/images/footer/android.png" alt="安卓客户端下载"/>
+                    <h3>安卓客户端</h3>
+                </a>
+                <a class="online-server" href="#">
+                    <img src="../core/images/footer/weixin.jpeg" alt="微信客户端下载"/>
+                    <h3>微信公众号</h3>
+                </a>
+                <a class="online-server" href="#">
+                    <img src="../core/images/footer/apple.png" alt="点金子在线投资"/>
+                    <h3>点金子投资</h3>
+                </a>
+            </div>
+            <div class="our-info">
+                <h3>点金子总部地址</h3>
+                <p>成都市武侯区某某某某某某某某</p>
+                <p>咨询热线：028-85033350</p>
+                <p>企业邮箱：zxhl998@163.com</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="approve-box">
+        <div class="approve">
+            <a href="#">
+                <img src="../core/images/footer/approve-0.png" alt=""/>
+            </a>
+            <a href="#">
+                <img src="../core/images/footer/approve-1.jpg" alt=""/>
+            </a>
+            <a href="#">
+                <img src="../core/images/footer/approve-2.html" alt=""/>
+            </a>
+            <a href="#">
+                <img src="../core/images/footer/approve-3.png" alt=""/>
+            </a>
+            <a href="#">
+                <img src="../core/images/footer/approve-4.jpg" alt=""/>
+            </a>
+        </div>
+        <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
+    </div>
+</div>
+<!-- 弹出框-->
+<div id="popUp" class="pop-up">
+    <div class="inner">
+        <h3>
+            <span id="popTitle" class="pop-title">填写收货信息</span>
+            <span id="popClose" class="close">X</span>
+        </h3>
+        <form id="popForm" class="pop-content">
+
+            <div class="row1">
+                <label for="#">
+                    <span class="must-write">*</span><!--
+                            --><span>收货人:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row2">
+                <label for="#">
+                    <span class="must-write">*</span><!--
+                            --><span>所在区域:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <div class="province" id="province">
+                        <a class="select-view" href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul>
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    省
+                    <div class="city" id="city">
+                        <a class="select-view" href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul>
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    市
+                    <div class="county" id="county">
+                        <a class="select-view" href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul>
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    区\县
+                </div>
+            </div>
+
+            <div class="row3">
+                <label for="#">
+                    <span class="must-write">*</span><!--
+                            --><span>详细地址:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row4">
+                <label for="#">
+                    <span class="must-write">*</span><!--
+                            --><span>手机号码:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row5">
+                <label for="#">
+                    <span>固定号码:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row6">
+                <label for="#">
+                    <span>邮箱:</span>
+                    <span class="pop-tips"></span>
+                </label>
+
+                <div class="text">
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <tr>
+                <th></th>
+                <td><input type="checkbox"/>设置为默认收货地址</td>
+                <td></td>
+            </tr>
+
+            <div class="row7">
+                <input id="popSubmit" class="d-btn" type="button" value="确定"/>
+                <input id="popReset" class="l-btn" type="reset" value="取消"/>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="../core/js/require.js" defer async="true" data-main="../shopping-cart/shopping-cart"></script>
+
+</html>

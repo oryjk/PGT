@@ -120,34 +120,9 @@ public class ProductController extends InternalTransactionBaseController {
     @ResponseBody
     public ResponseEntity createProductMedias(ProductMedia productMedia) {
         TransactionStatus status = ensureTransaction();
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         try {
-            ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
-            if (productMedia.getType().equals(MediaType.front)) {
-                ProductMedia oldProductMedia = mediaService.findFrontByProductId(String.valueOf(productMedia.getReferenceId()));
-                if (!ObjectUtils.isEmpty(oldProductMedia)) {
-                    mediaService.deleteMedia(oldProductMedia.getId());
-                }
-            }
-            if (productMedia.getType().equals(MediaType.advertisement)) {
-                ProductMedia oldProductMedia = mediaService.findAdByProductId(String.valueOf(productMedia.getReferenceId()));
-                if (!ObjectUtils.isEmpty(oldProductMedia)) {
-                    mediaService.deleteMedia(oldProductMedia.getId());
-                }
-            }
-            if (productMedia.getType().equals(MediaType.thumbnail)) {
-                ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
-                if (!ObjectUtils.isEmpty(oldProductMedia)) {
-                    mediaService.deleteMedia(oldProductMedia.getId());
-                }
-            }
-            if (productMedia.getType().equals(MediaType.mobileDetail)) {
-                ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
-                if (!ObjectUtils.isEmpty(oldProductMedia)) {
-                    mediaService.deleteMedia(oldProductMedia.getId());
-                }
-            }
-
-
+            removeOldProductMediaRef(productMedia);
             Integer mediaId = mediaService.create(productMedia);
             Product product = productService.queryProduct(productMedia.getReferenceId());
             if (ObjectUtils.isEmpty(product)) {
@@ -158,7 +133,6 @@ public class ProductController extends InternalTransactionBaseController {
             }
 
             esSearchService.updateProductIndex(product);
-//            esSearchService.hotSaleIndex();
             responseEntity.getBody().put("success", true);
             responseEntity.getBody().put("mediaId", mediaId);
             return responseEntity;
@@ -167,8 +141,35 @@ public class ProductController extends InternalTransactionBaseController {
         } finally {
             getTransactionManager().commit(status);
         }
-        return null;
+        return responseEntity;
 
+    }
+
+    private void removeOldProductMediaRef(ProductMedia productMedia) {
+        if (productMedia.getType().equals(MediaType.front)) {
+            ProductMedia oldProductMedia = mediaService.findFrontByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.advertisement)) {
+            ProductMedia oldProductMedia = mediaService.findAdByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.thumbnail)) {
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.mobileDetail)) {
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)

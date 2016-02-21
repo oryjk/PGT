@@ -65,6 +65,10 @@ public class InternalUser implements Trimable {
 		}
 	}
 
+	public boolean isAdministrator() {
+		return mRole == Role.ADMINISTRATOR;
+	}
+
 	public int getId() {
 		return mId;
 	}

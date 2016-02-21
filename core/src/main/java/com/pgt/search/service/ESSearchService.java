@@ -209,6 +209,11 @@ public class ESSearchService {
     public IndexResponse productIndex(Product product) {
         IndexResponse response = null;
         try {
+            if (ObjectUtils.isEmpty(product.getRelatedCategoryId())) {
+                LOGGER.debug("The relate category is empty.");
+                return response;
+            }
+
             CategoryHierarchy categoryHierarchy = categoryService.queryCategoryHierarchy(Integer.valueOf(product.getRelatedCategoryId()));
             Category category = categoryService.queryCategory(categoryHierarchy.getCategoryId());
             Category rootCategory = categoryService.queryCategory(categoryHierarchy.getParentCategory().getCategoryId());

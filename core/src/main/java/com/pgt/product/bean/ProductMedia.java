@@ -10,5 +10,4 @@ import com.pgt.common.bean.Media;
 public class ProductMedia extends Media implements Serializable {
 
 
-
 }

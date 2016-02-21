@@ -2,6 +2,7 @@ package com.pgt.tender.mapper;
 
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.tender.bean.TenderCategory;
+import org.elasticsearch.common.collect.HppcMaps;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,4 +17,6 @@ public interface TenderCategoryMapper extends SqlMapper {
     void updateTenderCategory(TenderCategory tenderCategory);
 
     TenderCategory findTenderCategoryById(Integer id);
+
+    TenderCategory findTenderByTenderIdAndCategoryId(TenderCategory tenderCategory);
 }

@@ -60,9 +60,7 @@
                 <div id="app" class="portlet-body form">
                     <!-- BEGIN FORM-->
                     <div id="error" v-model="error">
-                        <form
-                          id = "form"
-                          action="/tender/${tender.tenderId eq null ? 'create' : 'update'} "
+                        <form  id = "form"  action="/tender/${tender.tenderId eq null ? 'create' : 'update'} "
                           method="post"
                           class="form-horizontal"
                           v-on:submit.prevent="ajaxSubmit">
@@ -224,11 +222,7 @@
                                            v-model="tender.description"
                                            v-on:keyup="volidate"/>
                                 </div>
-                                <div class="col-xs-4">
-                                    <p class="form-control-static pgt-error">
-                                        <span v-show="error.description != true">{{error.description}}</span>
-                                    </p>
-                                </div>
+
                             </div>
 
                             <div class="form-group">
@@ -239,12 +233,22 @@
                                            v-model="tender.prePeriod"
                                            v-on:keyup="volidate"/>
                                 </div>
-                                <div class="col-xs-4">
-                                    <p class="form-control-static pgt-error">
-                                        <span v-show="error.prePeriod != true">{{error.prePeriod}}</span>
-                                    </p>
-                                </div>
+
                             </div>
+
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">无息天数</label>
+                                <div class="col-xs-4">
+                                    <input ms-duplex="postPeriod" name="postPeriod" value="${tender.postPeriod}"
+                                           class="form-control" placeholder="不超过10字"
+                                           v-model="tender.postPeriod"
+                                           v-on:keyup="volidate"/>
+                                </div>
+
+                            </div>
+
+
 
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">无息天数</label>
@@ -302,9 +306,13 @@
                     </div>
                 </div>
                 <!-- END FORM-->
+
             </div>
         </div>
+
     </div>
+
 </admin:container>
+
 <script src="/resources/assets/others/Jquery-date-and-time/jquery-calendar.js"></script>
 
