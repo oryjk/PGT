@@ -1,0 +1,606 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+               '../core/scss/commomExtend',
+               '../core/scss/commonMixin',
+               '../core/scss/components',
+               '../core/scss/part',
+               '../core/scss/reset',
+               '../core/scss/generalStyle';
+
+
+/*part
+**************************************************************************************************************************************************/
+@include header;
+
+/*style
+**************************************************************************************************************************************************/
+%tab-hover-and-focus {
+  color: $main;
+  padding-bottom: 4px;
+  border-bottom: 2px solid $main;
+}
+
+body {
+  background: $gray-bg;
+}
+
+.invest {
+  margin: 100px auto 0;
+  width: $main-width-s;
+
+  .invest-head {
+    padding-top: 45px;
+    font-size: 30px;
+    font-family: '黑体', serif;
+  }
+
+  .invest-sub-head {
+    padding-top: 10px;
+    color: $main;
+  }
+
+  .invest-info {
+    padding-top: 24px;
+    @extend %clear;
+  }
+
+  .invest-img {
+    float: left;
+
+    img {
+      display: block;
+      @include wh(670px, 400px);
+    }
+  }
+
+  .invest-handle {
+    float: right;
+    border: 1px solid $gray-light;
+    @include wh(340px, 132px);
+    background: white;
+  }
+
+  .invest-handle-group {
+    margin: 0 auto;
+    @include wh(287px, 80px);
+    border-bottom: 1px dotted $gray-light;
+  }
+
+  .invest-add-favorite {
+    float: left;
+    @include color-btn(131px, 43px, 3px, 16px, $main, $main-dark);
+    margin-top: 16px;
+
+  }
+
+  .invest-scan-count {
+    float: right;
+    @include color-btn(131px, 43px, 3px, 16px, $em, $em);
+    margin-top: 16px;
+  }
+
+  .invest-data {
+    float: right;
+    margin-top: 25px;
+    border: 1px solid $gray-light;
+    padding: 35px 0 0 30px;
+    @include wh(305px, 205px);
+    background: white;
+  }
+
+  .data-row-1 {
+    font-size: 18px;
+  }
+
+  .data-row-2 {
+    @extend %clear;
+    padding-top: 25px;
+  }
+
+  .progress-circle {
+    float: right;
+    margin-right: 30px;
+    @include wh(115px, 115px);
+    background: $gray-lighter;
+  }
+
+
+  .cost-box {
+    font-size: 25px;
+  }
+
+  .invest-begin-time {
+    padding-top: 30px;
+  }
+
+  .invest-end-time {
+    padding-top: 5px;
+  }
+
+  .data-row-3 {
+    @extend %clear;
+    padding-top: 15px;
+  }
+
+  .joiner-count {
+    float: left;
+    width: 150px;
+  }
+
+  .surplus-time {
+    float: left;
+    padding-top: 3px;
+    font-size: 12px;
+  }
+
+  .item-nav {
+    padding: 15px 0;
+    overflow: hidden;
+
+    ul {
+      width: 10000px;
+    }
+
+    li {
+      float: left;
+      margin-right: ($main-width-s - 245px * 4) / 3;
+    }
+
+    a {
+      display: block;
+    }
+
+
+    img {
+      display: block;
+      @include wh(245px, 245px);
+    }
+  }
+
+
+  .what-is-this {
+    display: block;
+    @include wh($main-width-s, 175px);
+  }
+}
+
+.detail-content {
+  margin: 0 auto;
+  padding-top: 25px;
+  width: $main-width-s;
+  @extend %clear;
+
+  .tab {
+    border: 1px solid $gray-light;
+    border-bottom: none;
+    @extend %clear;
+    height: 55px;
+    background: white;
+
+    li {
+      float: left;
+      padding: 0 30px;
+    }
+
+    a {
+      color: black;
+      font-size: 18px;
+      line-height: 55px;
+
+      &:hover {
+        @extend %tab-hover-and-focus;
+      }
+
+      &.tab-choose {
+        @extend %tab-hover-and-focus;
+      }
+    }
+
+    .tab-item-count {
+      padding: 0 5px;
+      border-radius: 12px;
+      background: #fe6458;
+      color: white;
+    }
+  }
+
+  .content-box {
+    &>div {
+
+      display: none;
+    }
+
+    .content-choose {
+      display: block;
+    }
+  }
+
+
+
+}
+
+.content-item-list {
+  .each-item {
+    margin-bottom: 20px;
+    border: 1px solid $gray-light;
+    height: 530px;
+    background: white;
+  }
+
+  .item-img-box {
+    float: left;
+    padding: 8px 0 0 8px;
+    width: 400px;
+  }
+
+  .middle-img-box {
+    position: relative;
+    display: block;
+    @include wh(400px, 400px);
+
+    a {
+      display: block;
+    }
+  }
+
+  .middle-img {
+    display: block;
+    @include wh(400px, 400px);
+  }
+
+  .small-img-box {
+    padding-top: 15px;
+
+    li {
+      @include wh(90px, 90px);
+      float: left;
+      margin: 0 (400px - 90px * 4) / 8;
+
+      &:hover {
+        outline: 2px solid $main-light;
+      }
+    }
+
+    a {
+      display: block;
+      @include wh(100%, 100%);
+    }
+  }
+
+  .small-img {
+    @include wh(100%, 100%);
+  }
+
+  .item-info-box {
+    float: left;
+    padding-left: 50px;
+  }
+
+  .col-title {
+    float: left;
+    width: 135px;
+  }
+
+  .col-content {
+    float: left;
+    width: 400px;
+  }
+
+  .item-row-1,
+  .item-row-2,
+  .item-row-3,
+  .item-row-4,
+  .item-row-5,
+  .item-row-6,
+  .item-row-7 {
+    padding-top: 28px;
+    @extend %clear;
+  }
+
+  .item-row-2,
+  .item-row-3 {
+    line-height: 1.5;
+  }
+
+  .item-cost {
+    @include cost;
+  }
+
+  .item-buy-now {
+    @include color-btn(160px, 40px, 0, 20px, $main, $main-dark);
+  }
+
+  .item-join-favorite {
+    @include color-btn(160px, 40px, 0, 20px, $em, $em-dark);
+  }
+
+  .zoomWindow {
+    overflow: hidden;
+    z-index: 9;
+    border: 1px solid $gray-light;
+  }
+
+  .zoomPup {
+    background: rgba(255,255,255,.3)
+  }
+}
+
+.content-invest-detail {
+  border-top: 1px solid $gray-light;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.content-question {
+  border: 1px solid $gray-light;
+  background: white;
+
+  .ask-question {
+    @include bloack-center(942px);
+  }
+
+  .ask-head {
+    @extend %clear;
+    line-height: 54px;
+  }
+
+  h3 {
+    float: left;
+  }
+
+  .ask-font-count {
+    float: right;
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  .ask-text {
+    textarea {
+      width: 100%;
+    }
+  }
+
+  .ask-btn {
+    padding-top: 12px;
+    text-align: right;
+  }
+
+  .ask-submit {
+    @include color-btn(80px, 25px, 3px, 16px, $main, $main-dark);
+  }
+
+  .question-list {
+    padding-top: 20px;
+    @include bloack-center(942px);
+  }
+
+  .each-question {
+    border-top: 1px solid $gray-light;
+    padding: 25px 0;
+    @extend %clear;
+  }
+
+  .user-face {
+    float: left;
+    width: 90px;
+
+    img {
+      @include wh(60px, 60px);
+    }
+  }
+
+  .question-and-answer {
+    float: left;
+    width: 690px;
+  }
+
+  .question-row-1,
+  .question-row-2,
+  .question-row-3,
+  .question-row-4 {
+    line-height: 2;
+  }
+
+  .question-row-1,
+  .question-row-3 {
+    font-weight: 700;
+  }
+
+  .question-row-2 {
+    color: $em;
+  }
+
+  .question-row-4 {
+    color: $main;
+  }
+
+  .question-time {
+    float: right;
+    padding-top: 12px;
+    width: 150px;
+  }
+
+}
+
+.content-discuss {
+  @extend .content-question;
+}
+
+.content-joiner {
+  border: 1px solid $gray-light;
+  padding-bottom: 20px;
+  @extend %clear;
+  background: white;
+
+  .touch-him {
+    position: relative;
+    float: left;
+    margin: 20px ($main-width-s - 2px - 300px * 3) /6 0;
+    @include wh(300px, 105px);
+    background: #ededed;
+
+    &:hover {
+      .touch-him-opacity {
+        transition: opacity 1s;
+        opacity: .8;
+      }
+    }
+  }
+
+  .joiner-face {
+    float: left;
+    margin: 23px 0 0 33px;
+    @include wh(70px, 70px);
+    border-radius: 35px;
+  }
+
+  .joiner-info {
+    float: left;
+    width: 145px;
+    padding-left: 25px;
+  }
+
+  .joiner-name {
+    padding-top: 30px;
+    font-size: 18px;
+    font-weight: 900;
+  }
+
+  .joiner-text {
+    padding-top: 5px;
+  }
+
+  .touch-him-opacity {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include wh(100%, 100%);
+    background: $gray-dark;
+    color: white;
+    line-height: 105px;
+    font-size: 25px;
+    opacity: 0;
+
+    span {
+      float: right;
+      text-align: right;
+      padding-right: 50px;
+    }
+  }
+
+}
+
+.recommend-box {
+  margin-top: 20px;
+  padding-bottom: 57px;
+  background: #eaeaea;
+
+  .recommend {
+    @include bloack-center($main-width-s);
+  }
+
+  .recommend-head {
+    height: 75px;
+    line-height: 75px;
+  }
+
+  h3 {
+    float: left;
+    padding-left: 40px;
+    font-size: 20px;
+  }
+
+  .recommend-change {
+    float: right;
+    margin-top: 30px;
+    line-height: 1;
+    color: $gray;
+
+    &:hover {
+      color: $main;
+    }
+  }
+
+  ul {
+    @extend %clear;
+  }
+
+  li {
+    position: relative;
+    top: 0;
+    float: left;
+    border: 1px solid $gray-light;
+    width: 248px;
+    background: white;
+    margin-right: ($main-width-s - 250px * 4) / 3;
+    transition: all .4s;
+
+    &:hover {
+      top: -5px;
+      transition: all 1s;
+      box-shadow: 0 10px 15px $gray;
+
+    }
+  }
+
+  .recommend-item-end {
+    margin-right: 0;
+  }
+
+  .recommend-img-box {
+    display: block;
+    margin: 8px auto 0;
+    @include wh(234px, 140px);
+
+    img {
+      @include wh(100%, 100%);
+    }
+  }
+
+  h4 {
+    padding-top: 20px;
+    text-align: center;
+
+    a {
+      color: black;
+      &:hover {
+        color: $main;
+      }
+    }
+  }
+
+  .recommend-progress {
+    @extend %clear;
+  }
+
+  .recommend-progress-bar {
+    float: left;
+    @include wh(195px, 45px);
+  }
+
+
+  .recommend-progress-text {
+    float: left;
+    padding-top: 12px;
+    line-height: 1.2;
+  }
+
+  .recommend-join {
+    @extend %clear;
+    padding: 13px 20px 17px;
+  }
+
+  .recommend-time {
+    float: left;
+  }
+
+  .recommend-people {
+    float: right;
+  }
+
+}

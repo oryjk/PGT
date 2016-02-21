@@ -102,3 +102,29 @@
     }
   }
 }
+
+/*color-btn*/
+@mixin color-btn($w, $h, $border-radius, $font-size, $color, $hover-color) {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  @include wh($w, $h);
+  font-size: $font-size;
+  background: $color;
+  border-radius: $border-radius;
+  line-height: $h;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    background: $hover-color;
+  }
+}
+
+/*cost*/
+@mixin cost($font-size: 22px) {
+  color: $main-dark;
+  font-size: $font-size;
+  font-weight: 900;
+}

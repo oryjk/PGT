@@ -4,7 +4,8 @@
     z-index: 10;
     top: 0;
     left: 0;
-    border-bottom: 1px solid $gray-lighter;
+    box-shadow: 0 2px #eeeeee;
+    border-bottom: 1px solid $gray-light \9;
     @include wh(100%, 100px);
     background: white;
 
