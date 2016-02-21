@@ -120,8 +120,8 @@ public class ProductController extends InternalTransactionBaseController {
     @ResponseBody
     public ResponseEntity createProductMedias(ProductMedia productMedia) {
         TransactionStatus status = ensureTransaction();
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         try {
-            ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
             removeOldProductMediaRef(productMedia);
             Integer mediaId = mediaService.create(productMedia);
             Product product = productService.queryProduct(productMedia.getReferenceId());
@@ -141,7 +141,7 @@ public class ProductController extends InternalTransactionBaseController {
         } finally {
             getTransactionManager().commit(status);
         }
-        return null;
+        return responseEntity;
 
     }
 

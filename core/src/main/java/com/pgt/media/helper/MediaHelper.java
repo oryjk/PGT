@@ -28,7 +28,7 @@ public class MediaHelper {
     @Autowired
     private TenderService tenderService;
 
-    public Integer addMutiMedia(Media media, Class clazz) {
+    public Integer addMultiMedia(Media media, Class clazz) {
         if (media.getType() == null) {
             LOGGER.debug("The media type is empty.");
             return -1;

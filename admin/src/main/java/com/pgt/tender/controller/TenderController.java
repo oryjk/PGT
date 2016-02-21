@@ -1,36 +1,34 @@
 package com.pgt.tender.controller;
 
 import com.pgt.category.bean.Category;
-import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.Media;
 import com.pgt.common.bean.ViewMapperConfiguration;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
-import com.pgt.constant.UserConstant;
+import com.pgt.internal.bean.Role;
 import com.pgt.internal.controller.InternalTransactionBaseController;
+import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.media.helper.MediaHelper;
 import com.pgt.product.bean.Product;
+import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
+import com.pgt.search.service.ESSearchService;
 import com.pgt.tender.bean.CreateTender;
 import com.pgt.tender.bean.Tender;
-import com.pgt.tender.bean.TenderCategory;
 import com.pgt.tender.bean.TenderQuery;
 import com.pgt.tender.service.TenderCategoryService;
 import com.pgt.tender.service.TenderService;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.elasticsearch.common.collect.HppcMaps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -38,7 +36,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +73,12 @@ public class TenderController extends InternalTransactionBaseController {
 
     @Autowired
     private MediaHelper mediaHelper;
+
+    @Autowired
+    private ESSearchService esSearchService;
+
+    @Autowired
+    private MediaService mediaService;
 
     @RequestMapping(value = "/tenderList", method = RequestMethod.GET)
     public ModelAndView get(@RequestParam(value = "term", required = false) String term,
@@ -163,8 +166,9 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/addMedias", method = RequestMethod.GET)
-    public ModelAndView addMedias(ModelAndView modelAndView) {
+    public ModelAndView addMedias(ModelAndView modelAndView, @RequestParam("tenderId") Integer tenderId) {
         modelAndView.setViewName("/p2p-tender/tenderImageModify");
+        modelAndView.addObject("tenderId", tenderId);
         return modelAndView;
     }
 
@@ -187,11 +191,79 @@ public class TenderController extends InternalTransactionBaseController {
 
     }
 
+
     private int saveMedia(Media media) {
         if (media.getType().equals(MediaType.tender_hero) || media.getType().equals(MediaType.tender_main)) {
-            return mediaHelper.addMutiMedia(media, Tender.class);
+            return mediaHelper.addMultiMedia(media, Tender.class);
         }
         return mediaHelper.addSingleMedia(media, Tender.class);
+    }
+
+    @RequestMapping(value = "/addProductStepBase", method = RequestMethod.GET)
+    public ModelAndView addProducts(ModelAndView modelAndView, @RequestParam("tenderId") Integer tenderId) {
+        modelAndView.setViewName("/p2p-tender/addProductStepBase");
+        modelAndView.addObject("tenderId", tenderId);
+        modelAndView.addObject("product", new Product());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addProductStepBase", method = RequestMethod.POST)
+    public ModelAndView addProducts(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
+
+        // main logic
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty.");
+            return modelAndView;
+        }
+        productService.createProduct(product);
+        if (product.getStatus() == 1) {
+            esSearchService.productIndex(product);
+        }
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.setViewName("redirect:/tender/addProductImageModify?productId=" + product.getProductId());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addProductImageModify", method = RequestMethod.GET)
+    public ModelAndView addProductImageModify(ModelAndView modelAndView, @RequestParam("productId") Integer productId) {
+        modelAndView.setViewName("/p2p-tender/productImageModify");
+        modelAndView.addObject("productId", productId);
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/addProductImageModify", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createProductMedias(ProductMedia productMedia) {
+        TransactionStatus status = ensureTransaction();
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        try {
+            removeOldProductMediaRef(productMedia);
+            Integer mediaId = mediaService.create(productMedia);
+            Product product = productService.queryProduct(productMedia.getReferenceId());
+            if (ObjectUtils.isEmpty(product)) {
+                LOGGER.debug("The product is empty with id is {}.", productMedia.getReferenceId());
+                responseEntity.getBody().put("success", false);
+                responseEntity.getBody().put("message", "Can not update product index.");
+                return responseEntity;
+            }
+
+            esSearchService.updateProductIndex(product);
+            responseEntity.getBody().put("success", true);
+            responseEntity.getBody().put("mediaId", mediaId);
+            return responseEntity;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return responseEntity;
+
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -398,6 +470,33 @@ public class TenderController extends InternalTransactionBaseController {
         modelAndView.addObject("product", product);
         modelAndView.setViewName("/p2p-tender/item-detail");
         return modelAndView;
+    }
+
+    private void removeOldProductMediaRef(ProductMedia productMedia) {
+        if (productMedia.getType().equals(MediaType.front)) {
+            ProductMedia oldProductMedia = mediaService.findFrontByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.advertisement)) {
+            ProductMedia oldProductMedia = mediaService.findAdByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.thumbnail)) {
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.mobileDetail)) {
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
     }
 
 
