@@ -82,27 +82,7 @@
 									</p>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-xs-3">所属分类</label>
 
-								<div class="col-xs-9">
-									<div class="radio-list">
-										<form:select path="relatedCategoryId" class="form-control input-medium">
-											<c:forEach items="${categories}" var="category">
-												<c:choose>
-													<c:when test="${category.id eq product.relatedCategoryId}">
-														<option selected="selected" value="${category.id}">${category.name}</option>
-													</c:when>
-													<c:otherwise>
-														<form:option value="${category.id}">${category.name}</form:option>
-													</c:otherwise>
-												</c:choose>
-
-											</c:forEach>
-										</form:select>
-									</div>
-								</div>
-							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-3">是否热门</label>
 
@@ -210,6 +190,7 @@
 								</div>
 							</div>
 						</div>
+						<input type="hidden" name="tenderId" value="${tenderId}"/>
 					</form:form>
 				</div>
 				<!-- END FORM-->
