@@ -2,9 +2,12 @@
  * Created by supersoup on 15/12/28.
  */
 
+initial()
+
+
 inspect();
 
-$('[pgt-file-btn="single"]').change(function () {
+$('[data-pgt-btn="single"]').change(function () {
 
     var that = $(this);
     var form = that.parent();
@@ -15,10 +18,10 @@ $('[pgt-file-btn="single"]').change(function () {
         type: 'POST',
         success: function (responseBody) {
             $.ajax({
-                url: '/product/create/stepImage',
+                url: '/tender/addMedias',
                 type: 'post',
                 data: {
-                    referenceId: $('#productId').val(),
+                    referenceId: $('#tenderId').val(),
                     title: $('#productName').val(),
                     path: responseBody.imagePath,
                     type: responseBody.mediaType
@@ -153,4 +156,20 @@ function inspect() {
             }).siblings('button').removeClass('blue');
         }
     });
+}
+
+function initial(){
+    var tenderId = getUrlParam('tenderId');
+    $('#tenderId').val(tenderId);
+    $('#tenderId').html(tenderId);
+}
+
+function getUrlParam(name){
+    //构造一个含有目标参数的正则表达式对象
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    //匹配目标参数
+    var r = window.location.search.substr(1).match(reg);
+    //返回参数值
+    if (r!=null) return unescape(r[2]);
+    return null;
 }

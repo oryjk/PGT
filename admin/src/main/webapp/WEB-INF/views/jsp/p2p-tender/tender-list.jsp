@@ -43,7 +43,7 @@
                                 <span class="caption-subject font-green-sharp bold uppercase">表格</span>
                             </div>
                             <div class="actions btn-set">
-                                <button class="btn green-haze btn-circle" onclick="javascript:window.location.href='/tender/createUI'"><i class="fa fa-plus"></i> 新增</button>
+                                <button class="btn green-haze btn-circle" onclick="javascript:window.location.href='/tender/create'"><i class="fa fa-plus"></i> 新增</button>
                             </div>
                         </div>
                         <div class="portlet-body">

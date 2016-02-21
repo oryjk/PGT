@@ -7,10 +7,8 @@ import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.constant.Constants;
 import com.pgt.home.bean.HomeTender;
-import com.pgt.search.bean.ESAggregation;
-import com.pgt.search.bean.ESRange;
-import com.pgt.search.bean.ESSort;
-import com.pgt.search.bean.ESTerm;
+import com.pgt.product.bean.Product;
+import com.pgt.search.bean.*;
 import com.pgt.tender.bean.ESTender;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
@@ -21,6 +19,8 @@ import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequestBuilder;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
@@ -95,7 +95,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
             categoryList.stream().forEach(category -> {
                 Integer categoryId = category.getId();
-                Tender tender=new Tender();
+                Tender tender = new Tender();
                 tender.setCategoryId(categoryId);
                 tender.setCategoryHot(true);
                 List<Tender> tenders = tenderService.queryTenders(tender);
@@ -192,6 +192,28 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         return findTender(null, matches, null, null, null, null, Constants.TENDER_INDEX_TYPE);
     }
 
+    public void updateTender(Tender tender) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] bytes = mapper.writeValueAsBytes(tender);
+            LOGGER.debug("Tender id is {}.", tender.getTenderId());
+            UpdateRequestBuilder updateRequestBuilder =
+                    getIndexClient().prepareUpdate(Constants.SITE_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
+                            .setDoc(bytes);
+            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
+            if (updateResponse.isCreated()) {
+                LOGGER.debug("Success to update tender.");
+                return;
+            }
+        } catch (JsonProcessingException e) {
+            LOGGER.error(e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+        if (tender.getCategoryHot()) {
+            //TODO
+        }
+    }
 
     @Override
     public void update(Integer id) {

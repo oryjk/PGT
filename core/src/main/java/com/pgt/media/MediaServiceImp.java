@@ -82,16 +82,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public Integer create(ProductMedia productMedia) {
-        TransactionStatus transactionStatus = ensureTransaction();
-        try {
-            mediaMapper.createMedia(productMedia);
-        } catch (Exception e) {
-            LOGGER.error("Can not create product media.");
-            getTransactionManager().rollback(transactionStatus);
-        } finally {
-            getTransactionManager().commit(transactionStatus);
-        }
-        return productMedia.getId();
+        return createMedia(productMedia);
     }
 
     @Override
@@ -100,7 +91,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
         try {
             mediaMapper.createMedia(media);
         } catch (Exception e) {
-            LOGGER.error("Can not create  media");
+            LOGGER.error("Can not create media");
             getTransactionManager().rollback(transactionStatus);
         } finally {
             getTransactionManager().commit(transactionStatus);
@@ -146,7 +137,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public Media queryPageBackgroundFooterMedia(Integer pageBackgroundId) {
-        return  pageBackgroundMapper.queryPageBackgroundFooterMedia(pageBackgroundId);
+        return pageBackgroundMapper.queryPageBackgroundFooterMedia(pageBackgroundId);
     }
 
     @Override
@@ -161,9 +152,8 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public Media queryHotProductFrontMedia(Integer hotSearchId) {
-        return hotSearchMapper.queryHotProductFrontMedia(hotSearchId) ;
+        return hotSearchMapper.queryHotProductFrontMedia(hotSearchId);
     }
-
 
 
     @Override

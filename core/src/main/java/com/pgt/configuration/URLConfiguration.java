@@ -4,145 +4,157 @@ package com.pgt.configuration;
  * Created by carlwang on 11/19/15.
  */
 public class URLConfiguration {
-	private String	categoryPage;
-	private String	homePage;
-	private String	loginPage;
-	private String	logoutPage;
-	private String	registerPage;
-	private String	myAccountPage;
-	private String	addressBookPage;
-	private String	shoppingCartPage;
-	private String	shippingPage;
-	private String	pdpPage;
-	private String	plpPage;
-	private String helpCenterPage;
-	private String pawnPersonInfoPage;
-	private String orderHistoryPage="/myAccount/orderHistory";
-	private String yeepayPage="/user/yeepayAccountInfo";
-	private String myaccountPage="/userinformation/query";
-	public String getCategoryPage() {
-		return categoryPage;
-	}
+    private String categoryPage;
+    private String homePage;
+    private String loginPage;
+    private String logoutPage;
+    private String registerPage;
+    private String myAccountPage;
+    private String addressBookPage;
+    private String shoppingCartPage;
+    private String shippingPage;
+    private String pdpPage;
+    private String plpPage;
+    private String helpCenterPage;
+    private String pawnPersonInfoPage;
+    private String orderHistoryPage = "/myAccount/orderHistory";
+    private String yeepayPage = "/user/yeepayAccountInfo";
+    private String myaccountPage = "/userinformation/query";
+    private String createTenderPage = "/tender/create";
 
-	public String getPawnPersonInfoPage() {
-		return pawnPersonInfoPage;
-	}
-	public void setPawnPersonInfoPage(String pawnPersonInfoPage) {
-		this.pawnPersonInfoPage = pawnPersonInfoPage;
-	}
-	public void setCategoryPage(String categoryPage) {
-		this.categoryPage = categoryPage;
-	}
+    public String getCategoryPage() {
+        return categoryPage;
+    }
 
-	public String getLoginPage() {
-		return loginPage;
-	}
+    public String getPawnPersonInfoPage() {
+        return pawnPersonInfoPage;
+    }
 
-	public void setLoginPage(String loginPage) {
-		this.loginPage = loginPage;
-	}
+    public void setPawnPersonInfoPage(String pawnPersonInfoPage) {
+        this.pawnPersonInfoPage = pawnPersonInfoPage;
+    }
 
-	public String getLogoutPage() {
-		return logoutPage;
-	}
+    public void setCategoryPage(String categoryPage) {
+        this.categoryPage = categoryPage;
+    }
 
-	public void setLogoutPage(String logoutPage) {
-		this.logoutPage = logoutPage;
-	}
+    public String getLoginPage() {
+        return loginPage;
+    }
 
-	public String getRegisterPage() {
-		return registerPage;
-	}
+    public void setLoginPage(String loginPage) {
+        this.loginPage = loginPage;
+    }
 
-	public void setRegisterPage(String registerPage) {
-		this.registerPage = registerPage;
-	}
+    public String getLogoutPage() {
+        return logoutPage;
+    }
 
-	public String getHomePage() {
-		return homePage;
-	}
+    public void setLogoutPage(String logoutPage) {
+        this.logoutPage = logoutPage;
+    }
 
-	public void setHomePage(String homePage) {
-		this.homePage = homePage;
-	}
+    public String getRegisterPage() {
+        return registerPage;
+    }
 
-	public String getMyAccountPage() {
-		return myAccountPage;
-	}
+    public void setRegisterPage(String registerPage) {
+        this.registerPage = registerPage;
+    }
 
-	public void setMyAccountPage(String myAccountPage) {
-		this.myAccountPage = myAccountPage;
-	}
+    public String getHomePage() {
+        return homePage;
+    }
 
-	public String getAddressBookPage() {
-		return addressBookPage;
-	}
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
+    }
 
-	public void setAddressBookPage(String addressBookPage) {
-		this.addressBookPage = addressBookPage;
-	}
+    public String getMyAccountPage() {
+        return myAccountPage;
+    }
 
-	public String getShoppingCartPage() {
-		return shoppingCartPage;
-	}
+    public void setMyAccountPage(String myAccountPage) {
+        this.myAccountPage = myAccountPage;
+    }
 
-	public void setShoppingCartPage(String shoppingCartPage) {
-		this.shoppingCartPage = shoppingCartPage;
-	}
+    public String getAddressBookPage() {
+        return addressBookPage;
+    }
 
-	public String getShippingPage() {
-		return shippingPage;
-	}
+    public void setAddressBookPage(String addressBookPage) {
+        this.addressBookPage = addressBookPage;
+    }
 
-	public void setShippingPage(String shippingPage) {
-		this.shippingPage = shippingPage;
-	}
+    public String getShoppingCartPage() {
+        return shoppingCartPage;
+    }
 
-	public String getPdpPage() {
-		return pdpPage;
-	}
+    public void setShoppingCartPage(String shoppingCartPage) {
+        this.shoppingCartPage = shoppingCartPage;
+    }
 
-	public void setPdpPage(String pdpPage) {
-		this.pdpPage = pdpPage;
-	}
+    public String getShippingPage() {
+        return shippingPage;
+    }
 
-	public String getPlpPage() {
-		return plpPage;
-	}
+    public void setShippingPage(String shippingPage) {
+        this.shippingPage = shippingPage;
+    }
 
-	public void setPlpPage(String plpPage) {
-		this.plpPage = plpPage;
-	}
+    public String getPdpPage() {
+        return pdpPage;
+    }
 
-	public String getHelpCenterPage() {
-		return helpCenterPage;
-	}
+    public void setPdpPage(String pdpPage) {
+        this.pdpPage = pdpPage;
+    }
 
-	public void setHelpCenterPage(String helpCenterPage) {
-		this.helpCenterPage = helpCenterPage;
-	}
+    public String getPlpPage() {
+        return plpPage;
+    }
 
-	public String getOrderHistoryPage() {
-		return orderHistoryPage;
-	}
+    public void setPlpPage(String plpPage) {
+        this.plpPage = plpPage;
+    }
 
-	public void setOrderHistoryPage(String orderHistoryPage) {
-		this.orderHistoryPage = orderHistoryPage;
-	}
+    public String getHelpCenterPage() {
+        return helpCenterPage;
+    }
 
-	public String getYeepayPage() {
-		return yeepayPage;
-	}
+    public void setHelpCenterPage(String helpCenterPage) {
+        this.helpCenterPage = helpCenterPage;
+    }
 
-	public void setYeepayPage(String yeepayPage) {
-		this.yeepayPage = yeepayPage;
-	}
+    public String getOrderHistoryPage() {
+        return orderHistoryPage;
+    }
 
-	public String getMyaccountPage() {
-		return myaccountPage;
-	}
+    public void setOrderHistoryPage(String orderHistoryPage) {
+        this.orderHistoryPage = orderHistoryPage;
+    }
 
-	public void setMyaccountPage(String myaccountPage) {
-		this.myaccountPage = myaccountPage;
-	}
+    public String getYeepayPage() {
+        return yeepayPage;
+    }
+
+    public void setYeepayPage(String yeepayPage) {
+        this.yeepayPage = yeepayPage;
+    }
+
+    public String getMyaccountPage() {
+        return myaccountPage;
+    }
+
+    public void setMyaccountPage(String myaccountPage) {
+        this.myaccountPage = myaccountPage;
+    }
+
+    public String getCreateTenderPage() {
+        return createTenderPage;
+    }
+
+    public void setCreateTenderPage(String createTenderPage) {
+        this.createTenderPage = createTenderPage;
+    }
 }
