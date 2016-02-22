@@ -76,6 +76,7 @@ $('[data-pgt-btn="single"]').change(function () {
                     $('#testbox').append(test);
                     test.attr('src', responseBody.imagePath);
                     $('#frontMedia').val(param.mediaId);
+                    $('#frontMediaPath').val(responseBody.imagePath);
                 }
             });
         }
