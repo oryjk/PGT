@@ -13,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="ticket" value="${pawnTicket}" />
 <c:set var="newTicket" value="${empty param.ticketId}" />
-<pgt:container id="content">
+<pgt:container id="content" pageCssPath="/resources/category/pawn-add-and-modify.css" pageJsPath="/resources/category/category-add-and-modify.js">
     <jsp:include page="include/bread-crumb-row.jspf">
         <jsp:param name="step" value="${newTicket ? 'ticket-new' : 'ticket-update'}" />
     </jsp:include>
@@ -125,11 +125,37 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="frontMedia" value="" name="pawnTicketPhoto.id"/>
+                        <input type="hidden" id="frontMediaPath" value="" name="pawnTicketPhoto.path"/>
                     </form>
                     <!-- END FORM-->
+
                 </div>
             </div>
         </div>
     </div>
-
+    <div id="imgUpload" class="pgt-img-upload">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="pgt-each-img">
+                    <div class="pgt-handle-box">
+                        <a class="pgt-img-delete" href="#">删除</a>
+                    </div>
+                    <img class="pgt-category-img" src="${ticket.pawnTicketPhoto.path}" alt=""/>
+                    <p>200 * 200</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-md-12 control-label">当票图片</label>
+            <div class="col-md-12">
+                <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+                    <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
+                    <input name="mediaType" type="hidden" value="category"/>
+                    <button type="button" class="btn blue">选择图片</button>
+                </form>
+                <p></p>
+            </div>
+        </div>
+    </div>
 </pgt:container>

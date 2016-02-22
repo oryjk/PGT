@@ -5,16 +5,20 @@ import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.common.bean.Media;
 import com.pgt.internal.bean.InternalUser;
 import com.pgt.internal.bean.Role;
 import com.pgt.internal.constant.ResponseConstant;
 import com.pgt.internal.controller.InternalTransactionBaseController;
+import com.pgt.media.MediaService;
+import com.pgt.media.bean.MediaType;
 import com.pgt.pawn.bean.PawnTicket;
 import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.pawn.service.PawnRelatedValidationService;
 import com.pgt.pawn.service.PawnService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
@@ -52,6 +56,9 @@ public class PawnController extends InternalTransactionBaseController implements
 
 	@Resource(name = "responseBuilderFactory")
 	private ResponseBuilderFactory mResponseBuilderFactory;
+
+	@Autowired
+	private MediaService mediaService;
 
 	@RequestMapping(value = "/pawn-shop-list", method = RequestMethod.GET)
 	public ModelAndView listPawnshops(HttpServletRequest pRequest, HttpServletResponse pResponse,
@@ -264,6 +271,10 @@ public class PawnController extends InternalTransactionBaseController implements
 			if (!result) {
 				status.setRollbackOnly();
 			}
+			Media media = mediaService.findMedia(pPawnTicket.getPawnTicketPhoto().getId(), null);
+			media.setReferenceId(pPawnTicket.getPawnTicketId());
+			media.setType(MediaType.pawnTicket);
+			mediaService.updateMedia(media);
 		} catch (Exception e) {
 			LOGGER.error("Cannot persist pawn ticket and roll back transaction.", e);
 			status.setRollbackOnly();
