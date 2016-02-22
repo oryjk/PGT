@@ -57,7 +57,7 @@ public class BackupImpl {
                 Map map = new HashMap();
                 map.put("name", f.getName());
                 map.put("size", f.length()/1024 + "kb");
-                map.put("create_time",  f.getName().split("_")[0]);
+                map.put("create_time",  f.getName().split("\\.")[0]);
                 list.add(map);
             }
         }
