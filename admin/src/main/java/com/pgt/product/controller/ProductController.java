@@ -196,6 +196,7 @@ public class ProductController extends InternalTransactionBaseController {
         } finally {
             getTransactionManager().commit(status);
         }
+        esSearchService.productIndex(product);
         return modelAndView;
     }
 

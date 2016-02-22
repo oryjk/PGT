@@ -12,6 +12,7 @@ import com.pgt.share.dao.ShareOrderMapper;
 import com.pgt.style.dao.PageBackgroundMapper;
 import com.pgt.tender.bean.TenderMedia;
 import com.pgt.tender.mapper.TenderMapper;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,28 +163,38 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
 
     @Override
-    public List<TenderMedia> queryTenderP2PExpertMedias(Integer tenderId) {
-        return tenderMapper.queryTenderP2PExpertMedias(tenderId);
+    protected TransactionStatus ensureTransaction() {
+        return super.ensureTransaction();
     }
 
     @Override
-    public TenderMedia queryTenderP2PMainMedia(Integer tenderId) {
+    public TenderMedia queryTenderMobileDetailMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderMobileDetailMedia(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PFrontMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PFrontMedia(tenderId);
+    }
+
+    @Override
+    public List<TenderMedia> queryTenderP2PMainMedia(@Param("tenderId") Integer tenderId) {
         return tenderMapper.queryTenderP2PMainMedia(tenderId);
     }
 
     @Override
-    public TenderMedia queryTenderP2PAdvertisement(Integer tenderId) {
+    public List<TenderMedia> queryTenderP2PHeroMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PHeroMedia(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PAdvertisement(@Param("tenderId") Integer tenderId) {
         return tenderMapper.queryTenderP2PAdvertisement(tenderId);
     }
 
     @Override
-    public TenderMedia queryTenderP2PListMedia(Integer tenderId) {
-        return tenderMapper.queryTenderP2PListMedia(tenderId);
-    }
-
-    @Override
-    public List<TenderMedia> queryTenderP2PDetailMedias(Integer tenderId) {
-        return tenderMapper.queryTenderP2PDetailMedias(tenderId);
+    public TenderMedia queryTenderP2PExpertMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PExpertMedia(tenderId);
     }
 
     @Override

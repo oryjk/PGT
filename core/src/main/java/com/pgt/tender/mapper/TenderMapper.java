@@ -31,17 +31,19 @@ public interface TenderMapper extends SqlMapper {
 
     List<Tender> queryTenderByQuery (TenderQuery tenderQuery);
 
-    TenderMedia queryTenderP2PListMedia(@Param("tenderId") Integer tenderId);
+    TenderMedia queryTenderP2PFrontMedia(@Param("tenderId") Integer tenderId);
 
 
     TenderMedia queryTenderP2PAdvertisement(@Param("tenderId") Integer tenderId);
 
 
-    TenderMedia queryTenderP2PMainMedia(@Param("tenderId") Integer tenderId);
+    List<TenderMedia> queryTenderP2PHeroMedia(@Param("tenderId") Integer tenderId);
 
-    List<TenderMedia> queryTenderP2PDetailMedias(@Param("tenderId") Integer tenderId);
+    List<TenderMedia> queryTenderP2PMainMedia(@Param("tenderId") Integer tenderId);
 
 
-    List<TenderMedia> queryTenderP2PExpertMedias(@Param("tenderId") Integer tenderId);
+    TenderMedia queryTenderP2PExpertMedia(@Param("tenderId") Integer tenderId);
+
+    TenderMedia queryTenderMobileDetailMedia(@Param("tenderId") Integer tenderId);
 
 }

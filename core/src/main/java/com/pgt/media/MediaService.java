@@ -51,18 +51,20 @@ public interface MediaService {
 
 
 
-    TenderMedia queryTenderP2PListMedia( Integer tenderId);
+    TenderMedia queryTenderP2PFrontMedia(@Param("tenderId") Integer tenderId);
 
 
-    TenderMedia queryTenderP2PAdvertisement( Integer tenderId);
+    TenderMedia queryTenderP2PAdvertisement(@Param("tenderId") Integer tenderId);
 
 
-    TenderMedia queryTenderP2PMainMedia( Integer tenderId);
+    List<TenderMedia> queryTenderP2PHeroMedia(@Param("tenderId") Integer tenderId);
 
-    List<TenderMedia> queryTenderP2PDetailMedias( Integer tenderId);
+    List<TenderMedia> queryTenderP2PMainMedia(@Param("tenderId") Integer tenderId);
 
 
-    List<TenderMedia> queryTenderP2PExpertMedias(Integer tenderId);
+    TenderMedia queryTenderP2PExpertMedia(@Param("tenderId") Integer tenderId);
+
+    TenderMedia queryTenderMobileDetailMedia(@Param("tenderId") Integer tenderId);
 
     Integer createMedia(Media media);
 }
