@@ -126,14 +126,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">总数量</label>
-                                        <div class="col-md-4">
-                                            <p class="form-control-static">
-                                                ${tender.totalQuantity}
-                                            </p>
-                                        </div>
-                                    </div>
+
 
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">总金额</label>
@@ -185,7 +178,7 @@
                                         <label class="col-md-2 control-label">列表图</label>
                                         <div class="col-md-8">
                                             <div class="pgt-each-img">
-                                                <img class="pgt-advertisement-img" src="${tender.p2pListMedia.path}" alt=""/>
+                                                <img class="pgt-advertisement-img" src="${tender.p2pFrontMedia.path}" alt=""/>
                                                 <p>60 * 60</p>
                                             </div>
                                         </div>
@@ -194,10 +187,12 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">主图</label>
                                         <div class="col-md-8">
+                                            <c:forEach items="${p2pHeroMedias}" var="media">
                                             <div class="pgt-each-img">
-                                                <img class="pgt-advertisement-img" src="${tender.p2pMainMedia.path}" alt=""/>
+                                                <img class="pgt-advertisement-img" src="${media.path}" alt=""/>
                                                 <p>60 * 60</p>
                                             </div>
+                                            </c:forEach>
                                         </div>
                                     </div>
 
@@ -205,7 +200,7 @@
                                         <label class="col-md-2 control-label">详情图</label>
                                         <div class="col-md-8">
 
-                                            <c:forEach items="${tender.p2pDetailMedias}" var="media">
+                                            <c:forEach items="${tender.p2pMainMedia}" var="media">
                                             <div class="pgt-each-img">
                                                 <img class="pgt-advertisement-img" src="${media.path}" alt=""/>
                                                 <p>60 * 60</p>
@@ -219,7 +214,7 @@
                                         <label class="col-md-2 control-label">专家点评</label>
                                         <div class="col-md-8">
 
-                                            <c:forEach items="${tender.p2pExpertMedias}" var="media">
+                                            <c:forEach items="${tender.p2pExpertMedia}" var="media">
                                             <div class="pgt-each-img">
                                                 <img class="pgt-advertisement-img" src="${media.path}" alt=""/>
                                                 <p>60 * 60</p>

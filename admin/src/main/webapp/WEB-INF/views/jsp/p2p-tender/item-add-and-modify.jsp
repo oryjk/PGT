@@ -70,14 +70,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">总数量</label>
-                                        <div class="col-md-4">
-                                            <p class="form-control-static">
-                                                ${tender.totalQuantity}
-                                            </p>
-                                        </div>
-                                    </div>
+
 
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">总金额</label>
