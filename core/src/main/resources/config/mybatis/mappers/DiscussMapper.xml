@@ -81,7 +81,7 @@
 			<if test="ip != null">
 				IP,
 			</if>
-			<if test="isSHow != null">
+			<if test="isShow != null">
 				IS_SHOW,
 			</if>
 			<if test="user != null">
@@ -105,7 +105,7 @@
 			<if test="ip != null">
 				#{ip},
 			</if>
-			<if test="isSHow != null">
+			<if test="isShow != null">
 				#{isShow},
 			</if>
 			<if test="user != null">
