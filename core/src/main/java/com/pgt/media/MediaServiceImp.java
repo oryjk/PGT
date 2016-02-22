@@ -10,6 +10,8 @@ import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
 import com.pgt.share.dao.ShareOrderMapper;
 import com.pgt.style.dao.PageBackgroundMapper;
+import com.pgt.tender.bean.TenderMedia;
+import com.pgt.tender.mapper.TenderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     private PageBackgroundMapper pageBackgroundMapper;
     @Autowired
     private HotSearchMapper hotSearchMapper;
+
+    @Autowired
+    private TenderMapper tenderMapper;
 
     @Override
     public ProductMedia findFrontMediaByProductId(String productId) {
@@ -155,6 +160,31 @@ public class MediaServiceImp extends TransactionService implements MediaService 
         return hotSearchMapper.queryHotProductFrontMedia(hotSearchId);
     }
 
+
+    @Override
+    public List<TenderMedia> queryTenderP2PExpertMedias(Integer tenderId) {
+        return tenderMapper.queryTenderP2PExpertMedias(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PMainMedia(Integer tenderId) {
+        return tenderMapper.queryTenderP2PMainMedia(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PAdvertisement(Integer tenderId) {
+        return tenderMapper.queryTenderP2PAdvertisement(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PListMedia(Integer tenderId) {
+        return tenderMapper.queryTenderP2PListMedia(tenderId);
+    }
+
+    @Override
+    public List<TenderMedia> queryTenderP2PDetailMedias(Integer tenderId) {
+        return tenderMapper.queryTenderP2PDetailMedias(tenderId);
+    }
 
     @Override
     public void updateMedia(Media media) {

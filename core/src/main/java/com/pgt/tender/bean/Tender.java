@@ -118,9 +118,6 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     private int auditState = PENDING_APPROVAL;
 
     private Pawnshop mPawnshop;
-
-    private Integer totalQuantity;
-
     private TenderMedia p2pAdvertisement;//首页图
 
     private TenderMedia p2pListMedia;//列表图
@@ -173,27 +170,11 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     }
 
     public double getUnitPrice() {
-        if (tenderQuantity > 0) {
-            return tenderTotal / tenderQuantity;
-        }
+
         return 0;
     }
 
 
-    public Integer getTotalQuantity() {
-        Integer totalQuantity = 0;
-        List<Product> products = this.products;
-        if (ObjectUtils.isEmpty(products)) {
-            for (Product product : products) {
-                totalQuantity = totalQuantity + product.getStock();
-            }
-        }
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity(Integer totalQuantity) {
-        this.totalQuantity = totalQuantity;
-    }
 
     public List<TenderMedia> getP2pExpertMedias() {
         return p2pExpertMedias;

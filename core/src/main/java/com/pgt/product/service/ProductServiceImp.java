@@ -8,6 +8,8 @@ import com.pgt.product.bean.ProductCategoryRelation;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
 import com.pgt.search.bean.SearchPaginationBean;
+import com.pgt.tender.bean.Tender;
+import com.pgt.tender.mapper.TenderMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +43,9 @@ public class ProductServiceImp extends TransactionService implements ProductServ
 
     @Autowired
     private MediaMapper mediaMapper;
+
+    @Autowired
+    private TenderMapper tenderMapper;
 
     @Override
     public Product queryProduct(int productId) {
@@ -78,7 +83,19 @@ public class ProductServiceImp extends TransactionService implements ProductServ
 
     @Override
     public Integer createTenderProduct(Product product) {
-        productMapper.createProduct(product);
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            productMapper.createProduct(product);
+            Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
+            tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
+            tenderMapper.updateTender(tender);
+        } catch (Exception e) {
+            LOGGER.error("Some thing wrong when create a product with product is is {productId}",
+                    product.getProductId());
+            transactionStatus.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
         return product.getProductId();
     }
 
