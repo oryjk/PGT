@@ -82,6 +82,8 @@ public class TenderService {
         tender.setCreationDate(new Date());
         tender.setUpdateDate(new Date());
         tender.setTenderTotal(0.00);
+        tender.setHandlingFeeRate(tender.getHandlingFeeRate()*0.01);
+        tender.setInterestRate(tender.getInterestRate()*0.01);
         tenderMapper.createTender(tender);
         LOGGER.debug("The new tender id is {}.", tender.getTenderId());
         if(!ObjectUtils.isEmpty(tender.getTenderId())){
@@ -108,11 +110,12 @@ public class TenderService {
             TenderCategory old_tenderCategory= tenderCategoryMapper.findTenderByTenderIdAndCategoryId(tenderCategory);
             LOGGER.debug("The told_TenderCategory tenderId is {},and categoryId is{}",old_tenderCategory.getTenderId(),old_tenderCategory.getCategoryId());
             old_tenderCategory.setCategoryId(tender.getCategoryId());
-            old_tenderCategory.setTenderId(tender.getTenderId());
             tenderCategoryMapper.updateTenderCategory(old_tenderCategory);
             LOGGER.debug("The update tenderCategory tenderId is {},and categoryId is{}",old_tenderCategory.getTenderId(),old_tenderCategory.getCategoryId());
         }
         tender.setUpdateDate(new Date());
+        tender.setHandlingFeeRate(tender.getHandlingFeeRate()*0.01);
+        tender.setInterestRate(tender.getInterestRate()*0.01);
         tenderMapper.updateTender(tender);
         LOGGER.debug("Success for update tender.");
         tenderSearchEngineService.updateTender(tender);

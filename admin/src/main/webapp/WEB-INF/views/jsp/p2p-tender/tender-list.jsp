@@ -275,7 +275,7 @@
                                             <td>
                                                 <p>
                                                     <button class="btn btn-xs blue btn-circle" onclick="window.location.href='/tender/queryTenderById/${tender.tenderId}'">查看</button>
-                                                    <button class="btn btn-xs yellow btn-circle"  onclick="window.location.href='/tender/createTenderProduct/${tender.tenderId}'">添加</button>
+                                                    <button class="btn btn-xs yellow btn-circle"  onclick="window.location.href='/tender/addProductStepBase?tenderId=${tender.tenderId}'">添加</button>
                                                 </p>
                                                 <p>
                                                     <button class="btn btn-xs green btn-circle" data-pgt-btn="modify"

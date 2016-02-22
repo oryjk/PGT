@@ -214,12 +214,10 @@
                                         <label class="col-md-2 control-label">专家点评</label>
                                         <div class="col-md-8">
 
-                                            <c:forEach items="${tender.p2pExpertMedia}" var="media">
                                             <div class="pgt-each-img">
-                                                <img class="pgt-advertisement-img" src="${media.path}" alt=""/>
+                                                <img class="pgt-advertisement-img" src="${tender.p2pExpertMedia.path}" alt=""/>
                                                 <p>60 * 60</p>
                                             </div>
-                                            </c:forEach>
 
                                     </div>
 
@@ -280,7 +278,7 @@
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-xs green btn-circle" onclick="window.location.href='/tender/updateTenderProduct/${tender.tenderId}/${product.productId}'">修改</button>
-                                                    <button class="btn btn-xs red btn-circle" onclick="window.location.href='/product/delete/${product.productId}'">删除</button>
+                                                    <button class="btn btn-xs red btn-circle" onclick="window.location.href='/tender/deleteTenderProduct/${product.productId}'">删除</button>
                                                     <button class="btn btn-xs blue btn-circle" onclick="window.location.href='/tender/queryTenderByProductId/${tender.tenderId}/${product.productId}'">查看</button>
                                                 </td>
                                             </tr>
@@ -297,7 +295,7 @@
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">
                                             <!--新增产品必须拥有权限时才显示-->
-                                            <button type="submit" class="btn blue-hoki" onclick="window.location.href='/tender/createTenderProduct/${tender.tenderId}'">新增产品</button>
+                                            <button type="submit" class="btn blue-hoki" onclick="window.location.href='/tender/addProductStepBase?tenderId=${tender.tenderId}'">新增产品</button>
                                             <button type="button" class="btn default" onclick="window.location.href='/tender/tenderList'">返回</button>
                                         </div>
                                     </div>

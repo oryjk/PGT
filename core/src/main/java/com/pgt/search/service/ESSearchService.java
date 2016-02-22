@@ -869,6 +869,10 @@ public class ESSearchService {
         deleteIndex(productId, Constants.PRODUCT_INDEX_TYPE);
     }
 
+    public void deleteTender(String tenderId) {
+        deleteIndex(tenderId, Constants.TENDER_INDEX_TYPE);
+    }
+
     public void deleteCategoryIndex(String categoryId) {
         deleteIndex(categoryId, Constants.CATEGORY_INDEX_TYPE);
     }

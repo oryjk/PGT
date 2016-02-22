@@ -23,10 +23,14 @@
 
 
 	<update id="updateTenderCategory" parameterType="com.pgt.tender.bean.TenderCategory" keyProperty="id">
-		UPDATE TENDER_CATEGORY SET TENDER_ID=#{tenderId},CATEGORY_ID=#{categoryId};
+		UPDATE TENDER_CATEGORY SET TENDER_ID=#{tenderId},CATEGORY_ID=#{categoryId} WHERE ID=#{id};
 	</update>
 	<delete id="deleteTenderCategory" parameterType="int">
 		DELETE FROM TENDER_CATEGORY WHERE ID=#{id}
+	</delete>
+
+	<delete id="deleteTenderCategoryByTenderId" parameterType="Integer">
+		DELETE FROM TENDER_CATEGORY WHERE TENDER_ID=#{tenderId}
 	</delete>
 
 </mapper>

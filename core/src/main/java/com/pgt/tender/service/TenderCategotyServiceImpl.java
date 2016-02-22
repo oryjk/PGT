@@ -42,4 +42,9 @@ public class TenderCategotyServiceImpl implements TenderCategoryService{
     public TenderCategory findTenderByTenderIdAndCategoryId(TenderCategory tenderCategory) {
         return tenderCategoryMapper.findTenderByTenderIdAndCategoryId(tenderCategory);
     }
+
+    @Override
+    public void deleteTenderCategoryByTenderId(Integer tenderId) {
+        tenderCategoryMapper.deleteTenderCategoryByTenderId(tenderId);
+    }
 }

@@ -16,4 +16,5 @@ public interface TenderCategoryService {
     TenderCategory findTenderCategoryById(Integer id);
 
     TenderCategory findTenderByTenderIdAndCategoryId(TenderCategory tenderCategory);
+    void deleteTenderCategoryByTenderId(Integer tenderId);
 }
