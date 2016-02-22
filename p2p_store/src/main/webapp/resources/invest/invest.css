@@ -1,9 +1,9 @@
 @charset "UTF-8";
 /*import
 **************************************************************************************************************************************************/
-.header .nav {
+.header .nav, .about-us, .approve {
   *zoom: 1; }
-  .header .nav:after, .header .nav:before {
+  .header .nav:after, .about-us:after, .approve:after, .header .nav:before, .about-us:before, .approve:before {
     content: " ";
     display: table;
     clear: both; }
@@ -11,6 +11,13 @@
 /*select*/
 /*color-btn*/
 /*cost*/
+.header .nav, .about-us, .approve {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .header .nav:before, .about-us:before, .approve:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
@@ -171,6 +178,134 @@ a {
         transition: width .2s linear; }
   .header .status {
     float: right; }
+
+.footer {
+  background: #3f3f3f; }
+
+.goods-box {
+  background: #cccccc; }
+
+.us {
+  position: relative; }
+
+/*our-goods
+  ************************************************/
+.our-goods {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 1040px;
+  height: 70px; }
+
+.our-good {
+  float: left;
+  width: 20%;
+  height: 70px; }
+  .our-good .icon-box {
+    float: left;
+    width: 70px;
+    height: 100%;
+    border-radius: 50px;
+    background: #fe4040;
+    line-height: 70px;
+    text-align: center; }
+  .our-good i {
+    color: white;
+    font-size: 35px; }
+
+/*2维码*/
+.two-dimension {
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0) \9;
+  position: absolute;
+  top: 0;
+  left: 100px; }
+
+.our-app a:hover .two-dimension {
+  opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100) \9;
+  transition: opacity 1s linear; }
+
+.good-text {
+  margin-left: 80px;
+  padding-top: 10px; }
+  .good-text h4 {
+    color: black;
+    font-size: 16px; }
+  .good-text p {
+    padding-top: 5px;
+    color: #000;
+    font-size: 14px; }
+
+/*about-us
+  ************************************************/
+.about-us {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 1040px; }
+  .about-us h3 {
+    padding-bottom: 10px;
+    color: #cccccc; }
+  .about-us a {
+    color: #cccccc;
+    font-size: 13px; }
+    .about-us a:hover {
+      color: white; }
+  .about-us p {
+    color: #cccccc;
+    font-size: 13px;
+    line-height: 1.6; }
+  .about-us ul {
+    float: left;
+    width: 15%;
+    list-style: none; }
+  .about-us li {
+    padding: 2px 0; }
+  .about-us .us {
+    margin-left: 60%; }
+  .about-us .our-app {
+    float: right;
+    width: 50%; }
+  .about-us .apple-dimension,
+  .about-us .android-dimension,
+  .about-us .online-server,
+  .about-us .online-server {
+    float: left;
+    display: block;
+    margin-bottom: 10px;
+    width: 50%;
+    text-align: center; }
+    .about-us .apple-dimension .app-icon,
+    .about-us .android-dimension .app-icon,
+    .about-us .online-server .app-icon,
+    .about-us .online-server .app-icon {
+      margin-bottom: 5px;
+      width: 40px;
+      height: 40px; }
+
+/*approve-box
+  ************************************************/
+.approve-box {
+  background: #333333;
+  padding: 20px 0 5px;
+  text-align: center; }
+  .approve-box p {
+    padding-top: 5px;
+    color: #cccccc;
+    font-size: 13px; }
+
+.approve {
+  margin: 0 auto;
+  width: 240px; }
+  .approve a {
+    float: left;
+    padding-right: 20px;
+    width: 100px;
+    height: 30px; }
+  .approve img {
+    width: 100%;
+    height: 100%; }
 
 /*style
 **************************************************************************************************************************************************/

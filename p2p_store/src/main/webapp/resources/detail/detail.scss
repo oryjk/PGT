@@ -12,6 +12,7 @@
 /*part
 **************************************************************************************************************************************************/
 @include header;
+@include footer;
 
 /*style
 **************************************************************************************************************************************************/
@@ -104,7 +105,6 @@ body {
     @include wh(115px, 115px);
     background: $gray-lighter;
   }
-
 
   .cost-box {
     font-size: 25px;
@@ -339,7 +339,7 @@ body {
   background: white;
 
   .ask-question {
-    @include bloack-center(942px);
+    @include block-center(942px);
   }
 
   .ask-head {
@@ -376,7 +376,7 @@ body {
 
   .question-list {
     padding-top: 20px;
-    @include bloack-center(942px);
+    @include block-center(942px);
   }
 
   .each-question {
@@ -501,7 +501,7 @@ body {
   background: #eaeaea;
 
   .recommend {
-    @include bloack-center($main-width-s);
+    @include block-center($main-width-s);
   }
 
   .recommend-head {
@@ -544,7 +544,6 @@ body {
       top: -5px;
       transition: all 1s;
       box-shadow: 0 10px 15px $gray;
-
     }
   }
 

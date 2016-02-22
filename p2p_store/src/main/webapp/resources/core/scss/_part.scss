@@ -1,3 +1,5 @@
+@import "variable","commonMixin","commomExtend";
+
 @mixin header() {
   .header {
     position: fixed;
@@ -71,6 +73,179 @@
 
     .status {
       float: right;
+    }
+  }
+}
+
+
+@mixin footer() {
+  .footer {
+    background: #3f3f3f;
+  }
+
+  .goods-box {
+    background: $gray-light;
+  }
+
+  .us {
+    position: relative;
+  }
+
+  /*our-goods
+  ************************************************/
+  .our-goods {
+    margin: 0 auto;
+    padding: 20px 0;
+    @include wh($main-width-s, 70px);
+  }
+
+  .our-good {
+    float: left;
+    @include wh(20%, 70px);
+
+
+    .icon-box {
+      float: left;
+      @include wh(70px, 100%);
+      border-radius: 50px;
+      background: $main;
+      line-height: 70px;
+      text-align: center;
+    }
+
+    i {
+      color: white;
+      font-size: 35px;
+    }
+  }
+
+  /*2维码*/
+  .two-dimension {
+    @include wh(100px, 100px);
+    opacity: 0;
+    //transition: opacity 0.1s linear;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0)\9;
+    position: absolute;
+    top: 0;
+    left: 100px;
+  }
+
+  .our-app a:hover {
+    .two-dimension {
+      opacity: 1;
+      filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100)\9;
+      transition: opacity 1s linear;
+    }
+  }
+
+
+
+  .good-text {
+    margin-left: 80px;
+    padding-top: 10px;
+    h4 {
+      color: black;
+      font-size: 16px;
+    }
+    p {
+      padding-top: 5px;
+      color: $gray-base;
+      font-size: 14px;
+    }
+
+  }
+
+  /*about-us
+  ************************************************/
+  .about-us {
+    margin: 0 auto;
+    @extend %clear;
+    padding: 20px 0;
+    width: $main-width-s;
+
+    h3 {
+      padding-bottom: 10px;
+      color: $gray-light;
+    }
+
+    a {
+      color: $gray-light;
+      font-size: 13px;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    p {
+      color: $gray-light;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    ul {
+      float: left;
+      width: 15%;
+      list-style: none;
+    }
+
+    li {
+      padding: 2px 0;
+    }
+
+    .us {
+      margin-left: 60%;
+    }
+
+    .our-app {
+      float: right;
+      width: 50%;
+    }
+
+    .apple-dimension,
+    .android-dimension,
+    .online-server,
+    .online-server {
+      float: left;
+      display: block;
+      margin-bottom: 10px;
+      width: 50%;
+      text-align: center;
+
+      .app-icon {
+        margin-bottom: 5px;
+        @include wh(40px, 40px);
+      }
+    }
+  }
+
+  /*approve-box
+  ************************************************/
+  .approve-box {
+    background: $gray-dark;
+    padding: 20px 0 5px;
+    text-align: center;
+
+    p {
+      padding-top: 5px;
+      color: $gray-light;
+      font-size: 13px;
+    }
+  }
+
+  .approve {
+    @extend %clear;
+    margin: 0 auto;
+    width: 240px;
+
+    a {
+      float: left;
+      padding-right: 20px;
+      @include wh(100px, 30px);
+    }
+
+    img {
+      @include wh(100%, 100%);
     }
   }
 }
