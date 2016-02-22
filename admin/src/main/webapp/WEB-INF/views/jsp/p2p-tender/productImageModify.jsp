@@ -23,11 +23,11 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="/product/productList">产品列表</a>
+					<a href="/tender/tenderList">投资列表</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
-					<a href="#">新增产品</a>
+					<a href="#">新增投资产品</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">

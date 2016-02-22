@@ -31,6 +31,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -79,6 +80,8 @@ public class TenderController extends InternalTransactionBaseController {
 
     @Autowired
     private MediaService mediaService;
+
+
 
     @RequestMapping(value = "/tenderList", method = RequestMethod.GET)
     public ModelAndView get(@RequestParam(value = "term", required = false) String term,
@@ -156,10 +159,19 @@ public class TenderController extends InternalTransactionBaseController {
     public ModelAndView createTenderStepBase(ModelAndView modelAndView, @Validated(value = CreateTender.class) Tender tender,
                                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError err : fieldErrors) {
+                errors.put(err.getField(), err.getDefaultMessage());
+                LOGGER.debug("File name{} ,message{}",err.getField(), err.getDefaultMessage());
+            }
+            modelAndView.addObject("errors",errors);
             modelAndView.setViewName("/p2p-tender/tender-add-and-modify");
             LOGGER.debug("The tender input property not valid.");
+            modelAndView.setViewName(urlConfiguration.getPawnPersonInfoPage());
             return modelAndView;
         }
+
         tenderService.createTender(tender);
         modelAndView.setViewName("redirect:/tender/addMedias?tenderId=" + tender.getTenderId());
         return modelAndView;
@@ -282,13 +294,14 @@ public class TenderController extends InternalTransactionBaseController {
             return modelAndView;
         }
         tenderService.updateTender(tender);
-        modelAndView.setViewName("redirect:/tender/tenderList");
+        modelAndView.setViewName("redirect:/tender/addMedias?tenderId=" + tender.getTenderId());
         return modelAndView;
     }
 
     @RequestMapping(value = "/delete/{tenderId}", method = RequestMethod.GET)
-    public ResponseEntity delete(@PathVariable("tenderId") Integer tenderId, ModelAndView modelAndView) {
-
+    public ResponseEntity delete(@PathVariable("tenderId") Integer tenderId) {
+        TransactionStatus status = ensureTransaction();
+        try {
         LOGGER.debug("Delete the tenderId is {}.", tenderId);
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         Map<String, Object> response = responseEntity.getBody();
@@ -297,11 +310,41 @@ public class TenderController extends InternalTransactionBaseController {
             response.put("success", false);
             response.put("message", "The tender id is empty.");
             return responseEntity;
-        }
-        tenderService.deleteTender(tenderId);
+         }
+            Tender tender= tenderService.queryTenderById(tenderId,false);
+            if(ObjectUtils.isEmpty(tender)){
+                LOGGER.debug("The tender id is null.");
+                response.put("success", false);
+                response.put("message", "The tender id is empty.");
+                return responseEntity;
+            }
+
+            //delete db
+            List<Product> products=tender.getProducts();
+            tenderService.deleteTender(tenderId);
+            tenderCategoryService.deleteTenderCategoryByTenderId(tenderId);
+            if(!CollectionUtils.isEmpty(products)){
+                for (Product product:products) {
+                    productService.deleteProduct(product.getProductId().toString());
+                }
+            }
+            //delete es
+            esSearchService.deleteTender(tenderId.toString());
+            if(CollectionUtils.isEmpty(products)){
+                for (Product product:products) {
+                    esSearchService.deleteProductIndex(product.getProductId().toString());
+                }
+            }
         response.put("success", true);
         LOGGER.debug("The  deleted with tender id is {}.", tenderId);
         return responseEntity;
+
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return null;
     }
 
 
@@ -403,7 +446,7 @@ public class TenderController extends InternalTransactionBaseController {
         }
         modelAndView.addObject("tender", tender);
         modelAndView.addObject("product", product);
-        modelAndView.setViewName("/p2p-tender/item-add-and-modify");
+        modelAndView.setViewName("/p2p-tender/addProductStepBase");
         return modelAndView;
     }
 
@@ -471,6 +514,39 @@ public class TenderController extends InternalTransactionBaseController {
         modelAndView.setViewName("/p2p-tender/item-detail");
         return modelAndView;
     }
+
+
+    @RequestMapping(value = "/deleteTenderProduct/{productId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity deleteProduct(HttpServletRequest pRequest, @PathVariable("productId") String productId) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
+        }
+        TransactionStatus status = ensureTransaction();
+        try {// main logic
+            LOGGER.debug("Delete the product with product is is {}.", productId);
+            ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+            Map<String, Object> response = responseEntity.getBody();
+            if (StringUtils.isEmpty(productId)) {
+                LOGGER.debug("The parameter product id is null .");
+                response.put("success", false);
+                response.put("message", "The product id is empty.");
+                return responseEntity;
+            }
+            productService.deleteProduct(productId);
+            esSearchService.deleteProductIndex(productId);
+            response.put("success", true);
+            LOGGER.debug("The product has deleted with product id is {}.", productId);
+            return responseEntity;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return null;
+    }
+
 
     private void removeOldProductMediaRef(ProductMedia productMedia) {
         if (productMedia.getType().equals(MediaType.front)) {

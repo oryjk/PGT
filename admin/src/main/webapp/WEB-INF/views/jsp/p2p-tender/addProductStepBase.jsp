@@ -25,11 +25,11 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="#">产品列表</a>
+					<a href="#">投资列表</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
-					<a href="#">新增产品</a>
+					<a href="#">新增投资产品</a>
 				</li>
 			</ul>
 		</div>

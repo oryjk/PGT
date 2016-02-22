@@ -3,6 +3,7 @@ package com.pgt.tender.bean;
 import com.pgt.category.bean.Category;
 import com.pgt.common.bean.Media;
 import com.pgt.pawn.bean.Pawnshop;
+import com.pgt.pawn.validation.group.PawnGroup;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.user.validation.group.LoginGroup;
@@ -11,6 +12,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.ObjectUtils;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -24,14 +27,20 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     /**
      * 当铺的id
      */
+    @NotNull(message = "{NotEmpty.tender.pawnShopId}", groups = {CreateTender.class})
+   // @Pattern(regexp = "[0-9]{0,30}", message = "{Pattern.tender.pawnShopId}", groups = {CreateTender.class})
     private Integer pawnShopId;
     /**
      * 当铺所有者的id
      */
+    @NotNull(message = "{NotEmpty.tender.pawnShopOwnerId}", groups = {CreateTender.class})
+    //@Pattern(regexp = "[0-9]{0,30}", message = "{Pattern.tender.pawnShopOwnerId}", groups = {CreateTender.class})
     private Integer pawnShopOwnerId;
     /**
      * 当票编号
      */
+    @NotNull(message = "{NotEmpty.tender.pawnTicketId}", groups = {CreateTender.class})
+    //@Pattern(regexp = "[0-9]{0,30}", message = "{Pattern.tender.pawnTicketId}", groups = {CreateTender.class})
     private Integer pawnTicketId;
     /**
      * 投资总金额
@@ -51,31 +60,39 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     /**
      * 开标时间
      */
+    @NotNull(message = "{NotEmpty.tender.publishDate}", groups = {CreateTender.class})
     private Date publishDate;
     /**
      * 截至时间
      */
+    @NotNull(message = "{NotEmpty.tender.dueDate}", groups = {CreateTender.class})
     private Date dueDate;
     /**
      * 收益率
      */
+    @NotNull(message = "{NotEmpty.tender.interestRate}", groups = {CreateTender.class})
     private Double interestRate;
     /**
      * 投资名称
      */
     @NotEmpty(message = "{NotEmpty.tender.name}", groups = {CreateTender.class})
+    @Length(min = 2,max = 20,message = "{Length.tender.name}", groups = {CreateTender.class})
     private String name;
     /**
      * 投资的详情
      */
+    @NotEmpty(message = "{NotEmpty.tender.description}", groups = {CreateTender.class})
+    @Length(min = 2,max = 20,message = "{Length.tender.descriptione}", groups = {CreateTender.class})
     private String description;
     /**
      * 投资后多久天后开始算收益
      */
+    @NotNull(message = "{NotEmpty.tender.prePeriod}", groups = {CreateTender.class})
     private Integer prePeriod;
     /**
      * 无息天数
      */
+    @NotNull(message = "{NotEmpty.tender.postPeriod}", groups = {CreateTender.class})
     private Integer postPeriod;
     /**
      * 被投资的产品
@@ -96,6 +113,7 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     /**
      * 手续费费率
      */
+    @NotNull(message = "{NotEmpty.tender.handlingFeeRate}", groups = {CreateTender.class})
     private Double handlingFeeRate;
     /**
      * 是否是分类的热门

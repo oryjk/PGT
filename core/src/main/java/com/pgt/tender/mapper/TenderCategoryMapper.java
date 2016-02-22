@@ -19,4 +19,6 @@ public interface TenderCategoryMapper extends SqlMapper {
     TenderCategory findTenderCategoryById(Integer id);
 
     TenderCategory findTenderByTenderIdAndCategoryId(TenderCategory tenderCategory);
+
+    void deleteTenderCategoryByTenderId(Integer tenderId);
 }
