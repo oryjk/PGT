@@ -22,6 +22,7 @@
         <result column="CREATION_DATE" property="creationDate" />
         <result column="UPDATE_DATE" property="updateDate" />
         <association column="PAWN_SHOP_ID" property="pawnshop" select="loadPawnShop" />
+        <association column="PAWN_SHOP_ID" property="pawnTicketPhoto" select="com.pgt.common.dao.MediaMapper.queryPawnTicketMedia" />
     </resultMap>
 
     <sql id="limit-split-page">

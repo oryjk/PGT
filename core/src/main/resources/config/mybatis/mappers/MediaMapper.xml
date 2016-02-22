@@ -32,6 +32,12 @@
 		ORDER BY 'index'
 		asc
 	</select>
+    <select id="queryPawnTicketMedia" resultMap="MediaResult">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{referenceId} AND TYPE = 'pawnTicket'
+    </select>
+
     <select id="queryMedia" resultMap="MediaResult">
 		SELECT *
 		FROM MEDIA
