@@ -7,6 +7,7 @@ import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.constant.Constants;
 import com.pgt.home.bean.HomeTender;
+import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.product.bean.Product;
 import com.pgt.search.bean.*;
 import com.pgt.tender.bean.ESTender;
@@ -17,6 +18,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequestBuilder;
@@ -214,6 +216,31 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             //TODO
         }
     }
+
+    public IndexResponse createTenderIndex(Tender tender) {
+        ObjectMapper mapper = new ObjectMapper();
+        IndexResponse response = null;
+        try {
+            byte[] bytes=mapper.writeValueAsBytes(tender);
+            LOGGER.debug("Tender id is {}.", tender.getTenderId());
+                IndexRequestBuilder indexRequestBuilder =
+                        getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
+                                .setSource(bytes);
+            response = indexRequestBuilder.execute().actionGet(100000);
+            if (response.isCreated()) {
+                LOGGER.debug("success to create tender.");
+                return response;
+            }
+            LOGGER.warn("Not success create tender.");
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return response;
+    }
+
 
     @Override
     public void update(Integer id) {

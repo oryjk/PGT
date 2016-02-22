@@ -614,6 +614,11 @@
         });
     </script>
     </c:if>
+
+    <script src="${ctx}/resources/assets/global/scripts/vue.min.js" type="text/javascript"></script>
+    <script src="${ctx}/resources/assets/global/scripts/regex.js" type="text/javascript"></script>
+    <script src="${ctx}/resources/assets/global/scripts/volidata.js" type="text/javascript"></script>
+
     <c:if test="${not empty pageJsPath}">
     <script src="${ctx}${pageJsPath}"></script>
     </c:if>

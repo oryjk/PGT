@@ -22,7 +22,7 @@ public class BackupController {
 
     @RequestMapping("main")
     public ModelAndView main(ModelAndView modelAndView){
-        modelAndView.setViewName("buckup/buckup");
+        modelAndView.setViewName("backup/backup");
         return  modelAndView;
     }
 

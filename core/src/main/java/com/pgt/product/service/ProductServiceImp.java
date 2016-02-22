@@ -8,6 +8,7 @@ import com.pgt.product.bean.ProductCategoryRelation;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
 import com.pgt.search.bean.SearchPaginationBean;
+import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.mapper.TenderMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +47,9 @@ public class ProductServiceImp extends TransactionService implements ProductServ
 
     @Autowired
     private TenderMapper tenderMapper;
+
+    @Autowired
+    private TenderSearchEngineService tenderSearchEngineService;
 
     @Override
     public Product queryProduct(int productId) {
@@ -89,6 +93,7 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
             tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
             tenderMapper.updateTender(tender);
+            tenderSearchEngineService.updateTender(tender);
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
@@ -174,6 +179,16 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public Integer updateProduct(Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
+
+            if(!ObjectUtils.isEmpty(product.getTenderId())){
+                Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
+                Product old_product=productMapper.queryProduct(product.getProductId());
+                tender.setTenderTotal(tender.getTenderTotal()-old_product.getSalePrice()*old_product.getStock());
+                tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
+                tenderMapper.updateTender(tender);
+                tenderSearchEngineService.updateTender(tender);
+            }
+
             productMapper.updateProduct(product);
             mediaMapper.deleteAllProductMedia(product.getProductId());
             mediaMapper.createMedia(product.getThumbnailMedia());

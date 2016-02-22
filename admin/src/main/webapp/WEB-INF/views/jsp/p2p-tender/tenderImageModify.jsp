@@ -23,7 +23,7 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="/product/productList">产品列表</a>
+					<a href="/product/productList">投资列表</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">

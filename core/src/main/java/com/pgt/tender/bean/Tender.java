@@ -118,15 +118,36 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     private int auditState = PENDING_APPROVAL;
 
     private Pawnshop mPawnshop;
-    private TenderMedia p2pAdvertisement;//首页图
 
-    private TenderMedia p2pListMedia;//列表图
+    /**
+     * 首页图
+     */
+    private TenderMedia p2pAdvertisement;
 
-    private TenderMedia p2pMainMedia;//主图
+    /**
+     * 列表图
+     */
+    private TenderMedia p2pFrontMedia;
 
-    private List<TenderMedia> p2pDetailMedias;//详情图
+    /**
+     * 详情图
+     */
+    private List<TenderMedia> p2pMainMedia;
 
-    private List<TenderMedia> p2pExpertMedias;//专家图
+    /**
+     * 主图
+     */
+    private List<TenderMedia> p2pHeroMedias;
+
+    /**
+     * 专家图
+     */
+    private TenderMedia p2pExpertMedia;
+
+    /**
+     * 手机详情图
+     */
+    private TenderMedia mobileDetailMedia;
 
 
     @Override
@@ -175,37 +196,44 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     }
 
 
-
-    public List<TenderMedia> getP2pExpertMedias() {
-        return p2pExpertMedias;
+    public TenderMedia getMobileDetailMedia() {
+        return mobileDetailMedia;
     }
 
-    public void setP2pExpertMedias(List<TenderMedia> p2pExpertMedias) {
-        this.p2pExpertMedias = p2pExpertMedias;
+    public void setMobileDetailMedia(TenderMedia mobileDetailMedia) {
+        this.mobileDetailMedia = mobileDetailMedia;
     }
 
-    public List<TenderMedia> getP2pDetailMedias() {
-        return p2pDetailMedias;
+    public TenderMedia getP2pExpertMedia() {
+        return p2pExpertMedia;
     }
 
-    public void setP2pDetailMedias(List<TenderMedia> p2pDetailMedias) {
-        this.p2pDetailMedias = p2pDetailMedias;
+    public void setP2pExpertMedia(TenderMedia p2pExpertMedia) {
+        this.p2pExpertMedia = p2pExpertMedia;
     }
 
-    public TenderMedia getP2pMainMedia() {
+    public List<TenderMedia> getP2pHeroMedias() {
+        return p2pHeroMedias;
+    }
+
+    public void setP2pHeroMedias(List<TenderMedia> p2pHeroMedias) {
+        this.p2pHeroMedias = p2pHeroMedias;
+    }
+
+    public TenderMedia getP2pFrontMedia() {
+        return p2pFrontMedia;
+    }
+
+    public void setP2pFrontMedia(TenderMedia p2pFrontMedia) {
+        this.p2pFrontMedia = p2pFrontMedia;
+    }
+
+    public List<TenderMedia> getP2pMainMedia() {
         return p2pMainMedia;
     }
 
-    public void setP2pMainMedia(TenderMedia p2pMainMedia) {
+    public void setP2pMainMedia(List<TenderMedia> p2pMainMedia) {
         this.p2pMainMedia = p2pMainMedia;
-    }
-
-    public TenderMedia getP2pListMedia() {
-        return p2pListMedia;
-    }
-
-    public void setP2pListMedia(TenderMedia p2pListMedia) {
-        this.p2pListMedia = p2pListMedia;
     }
 
     public TenderMedia getP2pAdvertisement() {

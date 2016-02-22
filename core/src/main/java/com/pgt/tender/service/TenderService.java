@@ -1,5 +1,6 @@
 package com.pgt.tender.service;
 
+import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.bean.TenderCategory;
 import com.pgt.tender.bean.TenderQuery;
@@ -29,6 +30,9 @@ public class TenderService {
 
     @Autowired
     private TenderCategoryMapper tenderCategoryMapper;
+
+    @Autowired
+    private TenderSearchEngineService tenderSearchEngineService;
 
     public List<Tender> queryTenderByQuery (TenderQuery tenderQuery) {
         List<Tender> tenderList = tenderMapper.queryTenderByQuery(tenderQuery);
@@ -77,6 +81,7 @@ public class TenderService {
         LOGGER.debug("Begin to create tender.");
         tender.setCreationDate(new Date());
         tender.setUpdateDate(new Date());
+        tender.setTenderTotal(0.00);
         tenderMapper.createTender(tender);
         LOGGER.debug("The new tender id is {}.", tender.getTenderId());
         if(!ObjectUtils.isEmpty(tender.getTenderId())){
@@ -86,7 +91,7 @@ public class TenderService {
             tenderCategoryMapper.createTenderCategory(tenderCategory);
             LOGGER.debug("The new tenderCategory tenderId is {},and categoryId is{}",tenderCategory.getTenderId(),tenderCategory.getCategoryId());
         }
-
+        tenderSearchEngineService.createTenderIndex(tender);
         return tender.getTenderId();
     }
 
@@ -110,12 +115,12 @@ public class TenderService {
         tender.setUpdateDate(new Date());
         tenderMapper.updateTender(tender);
         LOGGER.debug("Success for update tender.");
+        tenderSearchEngineService.updateTender(tender);
         return tender.getTenderId();
     }
 
     public Integer deleteTender(Integer tenderId) {
         LOGGER.debug("Begin to delete tender with id is {}.", tenderId);
-
         tenderMapper.deleteTender(tenderId);
         Tender tender=tenderMapper.queryTenderById(tenderId,false);
         TenderCategory tenderCategory = new TenderCategory();

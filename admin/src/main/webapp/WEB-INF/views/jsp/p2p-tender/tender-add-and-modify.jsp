@@ -20,7 +20,7 @@
                             <i class="fa fa-circle"></i>
                         </li>
                         <li class="active">
-                            <a href="#">新增产品</a>
+                            <a href="#">新增投资</a>
                         </li>
                     </ul>
                 </div>
@@ -128,7 +128,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">违约赔付利率:</label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" name="interestRate" value="${tender.interestRate}" placeholder="违约赔付利率" >
+                                            <input type="text" class="form-control" name="interestRate" value="${tender.interestRate}" placeholder="违约赔付利率" ><div>%</div>
                                         </div>
                                     </div>
 
@@ -154,7 +154,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">手续费费率:</label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" name="handlingFeeRate" value="${tender.handlingFeeRate}" placeholder="手续费费率" >
+                                            <input type="text" class="form-control" name="handlingFeeRate" value="${tender.handlingFeeRate}" placeholder="手续费费率" ><div>%</div>
                                         </div>
                                     </div>
                                     <div class="form-group">

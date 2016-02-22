@@ -27,11 +27,12 @@
 		<association property="category" column="ID"
 					 select="com.pgt.category.dao.CategoryMapper.queryCategoryByTenderId"/>
 		<association property="p2pAdvertisement" column="ID" select="queryTenderP2PAdvertisement"/>
-		<association property=" p2pListMedia" column="ID" select="queryTenderP2PListMedia"/>
-		<association property="p2pMainMedia" column="ID" select="queryTenderP2PMainMedia"/>
+		<association property="p2pFrontMedia" column="ID" select="queryTenderP2PFrontMedia"/>
+		<association property="p2pHeroMedias" column="ID" select="queryTenderP2PHeroMedia"/>
+		<association property="mobileDetailMedia" column="ID" select="queryTenderMobileDetailMedia"/>
 		<collection property="products" column="ID" select="com.pgt.product.dao.ProductMapper.queryProductByTenderId"/>
-		<collection property="p2pDetailMedias" column="ID" select="queryTenderP2PDetailMedias"/>
-		<collection property=" p2pExpertMedias" column="ID" select="queryTenderP2PExpertMedias"/>
+		<collection property="p2pMainMedia" column="ID" select="queryTenderP2PMainMedia"/>
+		<collection property="p2pExpertMedia" column="ID" select="queryTenderP2PExpertMedia"/>
 	</resultMap>
 
 
@@ -93,10 +94,10 @@
 	</sql>
 
 
-	<select id="queryTenderP2PListMedia" parameterType="Integer" resultMap="tenderMedia">
+	<select id="queryTenderP2PFrontMedia" parameterType="Integer" resultMap="tenderMedia">
 		SELECT *
 		FROM MEDIA
-		WHERE reference_id = #{tenderId} AND TYPE=' tender_front'
+		WHERE reference_id = #{tenderId} AND TYPE='tender_front'
 		ORDER BY 'index'
 		asc
 	</select>
@@ -109,6 +110,14 @@
 		asc
 	</select>
 
+	<select id="queryTenderP2PHeroMedia" parameterType="Integer" resultMap="tenderMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{tenderId} AND TYPE='tender_hero'
+		ORDER BY 'index'
+		asc
+	</select>
+
 	<select id="queryTenderP2PMainMedia" parameterType="Integer" resultMap="tenderMedia">
 		SELECT *
 		FROM MEDIA
@@ -117,15 +126,7 @@
 		asc
 	</select>
 
-	<select id="queryTenderP2PDetailMedias" parameterType="Integer" resultMap="tenderMedia">
-		SELECT *
-		FROM MEDIA
-		WHERE reference_id = #{tenderId} AND TYPE='tender_hero'
-		ORDER BY 'index'
-		asc
-	</select>
-
-	<select id="queryTenderP2PExpertMedias" parameterType="Integer" resultMap="tenderMedia">
+	<select id="queryTenderP2PExpertMedia" parameterType="Integer" resultMap="tenderMedia">
 		SELECT *
 		FROM MEDIA
 		WHERE reference_id = #{tenderId} AND TYPE='tender_expert'
@@ -133,6 +134,14 @@
 		asc
 	</select>
 
+
+	<select id="queryTenderMobileDetailMedia" parameterType="Integer" resultMap="tenderMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{tenderId} AND TYPE='tender_mobileDetail'
+		ORDER BY 'index'
+		asc
+	</select>
 
 
 	<select id="queryTenderByQuery" parameterType="com.pgt.tender.bean.TenderQuery" resultMap="tenderResult">
