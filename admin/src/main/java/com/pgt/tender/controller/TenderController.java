@@ -323,7 +323,7 @@ public class TenderController extends InternalTransactionBaseController {
             List<Product> products=tender.getProducts();
             tenderService.deleteTender(tenderId);
             tenderCategoryService.deleteTenderCategoryByTenderId(tenderId);
-            if(CollectionUtils.isEmpty(products)){
+            if(!CollectionUtils.isEmpty(products)){
                 for (Product product:products) {
                     productService.deleteProduct(product.getProductId().toString());
                 }

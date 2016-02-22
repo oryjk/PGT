@@ -125,18 +125,6 @@ public class TenderService {
     public Integer deleteTender(Integer tenderId) {
         LOGGER.debug("Begin to delete tender with id is {}.", tenderId);
         tenderMapper.deleteTender(tenderId);
-        Tender tender=tenderMapper.queryTenderById(tenderId,false);
-        TenderCategory tenderCategory = new TenderCategory();
-        if(!ObjectUtils.isEmpty(tender.getCategory())) {
-            tenderCategory.setCategoryId(tender.getCategory().getId());
-            tenderCategory.setTenderId(tender.getTenderId());
-            TenderCategory old_tenderCategory = tenderCategoryMapper.findTenderByTenderIdAndCategoryId(tenderCategory);
-            if (ObjectUtils.isEmpty(old_tenderCategory)) {
-                tenderMapper.deleteTender(tenderId);
-                LOGGER.debug("Success for delete tender.");
-                tenderCategoryMapper.deleteTenderCategory(old_tenderCategory.getId());
-            }
-        }
         return tenderId;
     }
 
