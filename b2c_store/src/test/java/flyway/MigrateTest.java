@@ -20,7 +20,7 @@ import java.io.InputStreamReader;
  * Created by carlwang on 12/2/15.
  */
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
 public class MigrateTest {
