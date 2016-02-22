@@ -13,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="ticket" value="${pawnTicket}" />
 <c:set var="newTicket" value="${empty param.ticketId}" />
-<pgt:container id="content" pageCssPath="/resources/category/pawn-add-and-modify.css" pageJsPath="/resources/category/category-add-and-modify.js">
+<pgt:container id="content" pageCssPath="/resources/category/category-add-and-modify.css" pageJsPath="/resources/p2p-pawnshop/pawn-add-and-modify.js">
     <jsp:include page="include/bread-crumb-row.jspf">
         <jsp:param name="step" value="${newTicket ? 'ticket-new' : 'ticket-update'}" />
     </jsp:include>
@@ -139,9 +139,10 @@
             <div class="col-md-8">
                 <div class="pgt-each-img">
                     <div class="pgt-handle-box">
-                        <a class="pgt-img-delete" href="#">删除</a>
+                        <a class="pgt-img-delete" href="#" data-url="/media/delete/${ticket.pawnTicketPhoto.id}">删除</a>
                     </div>
                     <img class="pgt-category-img" src="${ticket.pawnTicketPhoto.path}" alt=""/>
+
                     <p>200 * 200</p>
                 </div>
             </div>
