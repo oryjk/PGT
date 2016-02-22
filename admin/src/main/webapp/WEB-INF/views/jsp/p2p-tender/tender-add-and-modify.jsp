@@ -170,16 +170,6 @@
 
 
 
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">收益率:</label>
-                                        <div class="col-xs-4">
-                                            <input ms-duplex="interestRate" name="interestRate" value="${tender.interestRate}"
-                                                   class="form-control" placeholder=""
-                                                   v-model="tender.interestRate"
-                                                   v-on:keyup="volidate"/>
-                                        </div>
-
-                                    </div>
 
 
 
