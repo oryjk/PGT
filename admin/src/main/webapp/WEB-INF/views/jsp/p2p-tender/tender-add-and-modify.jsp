@@ -178,7 +178,10 @@
                                             <input type="text"
                                                    class="form-control" name="interestRate" value="${tender.interestRate}" placeholder="违约赔付利率"
                                                    v-model="tender.interestRate"
-                                                   v-on:click="volidate"><div>%</div>
+                                                   v-on:click="volidate">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label>%</label>
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
@@ -223,7 +226,10 @@
                                             <input type="text"
                                                    class="form-control" name="handlingFeeRate" value="${tender.handlingFeeRate}" placeholder="手续费费率"
                                                    v-model="tender.handlingFeeRate"
-                                                   v-on:click="volidate"><div>%</div>
+                                                   v-on:click="volidate">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label>%</label>
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
