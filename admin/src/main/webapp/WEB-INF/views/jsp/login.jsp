@@ -97,9 +97,9 @@
         --%>
         <div class="form-actions">
             <button type="submit" class="btn btn-success uppercase">登陆</button>
-            <label class="rememberme check">
-                <input type="checkbox" name="remember" value="true" />记住我 </label>
-            <a href="javascript:;" id="forget-password" class="forget-password">忘记密码?</a>
+            <%--<label class="rememberme check">--%>
+            <%--<input type="checkbox" name="remember" value="true" />记住我 </label>--%>
+            <%--<a href="javascript:;" id="forget-password" class="forget-password">忘记密码?</a>--%>
         </div>
     </form>
     <!-- END LOGIN FORM -->
