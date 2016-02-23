@@ -24,6 +24,7 @@ import com.pgt.tender.service.TenderService;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,9 +152,8 @@ public class TenderController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/tenderIndex/{tenderId}", method = RequestMethod.GET)
     public ResponseEntity tenderIndex(@PathVariable("tenderId") Integer tenderId) {
-        TransactionStatus status = ensureTransaction();
-        try {
-            LOGGER.debug("Delete the tenderId is {}.", tenderId);
+
+            LOGGER.debug("the tenderIndex is {}.", tenderId);
             ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
             Map<String, Object> response = responseEntity.getBody();
             if (tenderId == null) {
@@ -170,22 +170,16 @@ public class TenderController extends InternalTransactionBaseController {
                 return responseEntity;
             }
 
-
-
-            tenderSearchEngineService.createTenderIndex(tender);
-
-           //tenderSearchEngineService.updateTender(tender);
-
-
+           SearchResponse searchResponse=tenderSearchEngineService.findTenderById(tenderId);
+           if(ObjectUtils.isEmpty(searchResponse)){
+                tenderSearchEngineService.createTenderIndex(tender);
+            }else{
+                tenderSearchEngineService.updateTender(tender);
+            }
             response.put("success", true);
-            LOGGER.debug("The  update with tender id is {}.", tenderId);
+            LOGGER.debug("The  update with tenderIndex id is {}.", tenderId);
             return responseEntity;
-        } catch (Exception e) {
-            status.setRollbackOnly();
-        } finally {
-            getTransactionManager().commit(status);
-        }
-        return null;
+
     }
 
 

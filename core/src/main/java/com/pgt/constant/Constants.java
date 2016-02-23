@@ -23,13 +23,13 @@ public class Constants {
     public static final String PDP_URL = "/product/";
     public static final String PDP_PAGE = "/productdetail/productdetail";
 
-    public static final String CONSULTING_PAGE  = "/productdetail/consulting";
+    public static final String CONSULTING_PAGE = "/productdetail/consulting";
 
-    public static final String DISCUSS_PAGE     = "/productdetail/discuss";
+    public static final String DISCUSS_PAGE = "/productdetail/discuss";
 
-    public static final String RESET_PASSWORD   = "/user/resetforget";
+    public static final String RESET_PASSWORD = "/user/resetforget";
 
-    public static final String HELP_CENTER      = "/help/helpcenter";
+    public static final String HELP_CENTER = "/help/helpcenter";
 
     public static final String BANNER_TYPE_HOME = "HOME";
 
@@ -41,6 +41,7 @@ public class Constants {
 
     //search
     public static final String SITE_INDEX_NAME = "mp";
+    public static final String P2P_INDEX_NAME = "live_pawnage";
     public static final String PRODUCT_INDEX_TYPE = "product";
     public static final String HOT_PRODUCT_INDEX_TYPE = "hotProduct";
     public static final String CATEGORY_INDEX_TYPE = "category";
@@ -54,22 +55,22 @@ public class Constants {
     public static final String SORT = "sort";
 
     //sms
-    public static final String SMS_USERNAME                     = "username";
+    public static final String SMS_USERNAME = "username";
 
-    public static final String SMS_PASSWORD                     = "Password";
+    public static final String SMS_PASSWORD = "Password";
 
-    public static final String SMS_CONTENT                      = "Content";
+    public static final String SMS_CONTENT = "Content";
 
-    public static final String SMS_PHONE                        = "Phones";
+    public static final String SMS_PHONE = "Phones";
 
-    public static final String LOGIN_SESSION_PHONE_CODE         = "loginSessionSmsCode";
+    public static final String LOGIN_SESSION_PHONE_CODE = "loginSessionSmsCode";
 
-    public static final String REGISTER_SESSION_PHONE_CODE      = "registerSessionSmsCode";
+    public static final String REGISTER_SESSION_PHONE_CODE = "registerSessionSmsCode";
     public static final String RESET_PASSWOR_SESSION_PHONE_CODE = "registerSessionSmsCode";
 
     public static final String ONLINEPAWN_SESSION_PHONE_CODE = "onlinePawnSessionSmsCode";
 
-    public static final String PHONE_CODE                    = "phoneCode";
+    public static final String PHONE_CODE = "phoneCode";
 
     //user workflow
     public static final String STEP = "step";
@@ -89,9 +90,9 @@ public class Constants {
 
 
     //Tender
-    public static final String CATEGORY_HOT="categoryHot";
-    public static final String SITE_HOT="siteHot";
-    public static final String SITE_HOT_PROPERTY="tender.siteHot";
+    public static final String CATEGORY_HOT = "categoryHot";
+    public static final String SITE_HOT = "siteHot";
+    public static final String SITE_HOT_PROPERTY = "tender.siteHot";
 
     //OnlinePawn
     public static final String ONLINE_PAWN_ADD = "";
@@ -100,4 +101,6 @@ public class Constants {
 
     public static final String ONLINE_PAWN_UPDATE = "";
 
+    //tender
+    public static final String TENDER_ID = "tenderId";
 }

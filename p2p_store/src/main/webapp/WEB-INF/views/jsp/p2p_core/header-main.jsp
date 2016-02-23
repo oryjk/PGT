@@ -9,15 +9,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="detail.css"/>
-</head>
-<body>
-<!--header begin-->
+
 <div class="header">
     <div class="header-inner">
         <h1 class="logo">

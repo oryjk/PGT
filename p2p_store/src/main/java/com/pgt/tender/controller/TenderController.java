@@ -30,26 +30,19 @@ public class TenderController {
 
 
 
-
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)
     public ModelAndView getTenderDetailPage(@PathVariable("tenderId") Integer tenderId, ModelAndView modelAndView) {
 
         LOGGER.debug("The method query tenderDetail");
-        if(ObjectUtils.isEmpty(tenderId)){
+        if (ObjectUtils.isEmpty(tenderId)) {
             LOGGER.debug("the tenderId is empty");
             return modelAndView;
         }
-
-
-        ESTerm tenderTerm = new ESTerm();
-        tenderTerm .setPropertyName("tenderId");
-        tenderTerm .setTermValue(tenderId.toString());
-        SearchResponse tenderResponse = tenderSearchEngineService.findTender(tenderTerm, null, null, null, null, null, null);
-        SearchHit[] tenders =  tenderResponse.getHits().getHits();
-
-        if(ObjectUtils.isEmpty(tenders)){
+        SearchResponse tenderResponse = tenderSearchEngineService.findTenderById(tenderId);
+        SearchHit[] tenders = tenderResponse.getHits().getHits();
+        if (ObjectUtils.isEmpty(tenders)) {
             LOGGER.debug("The tender is exist");
-           return modelAndView;
+            return modelAndView;
         }
         Map tender =tenders[0].getSource();
         LOGGER.debug("The query tender id is {}.",tenderId);

@@ -57,7 +57,7 @@ public abstract class AbstractSearchEngineService {
 
 
     protected void initialIndex() {
-        createIndex(Constants.SITE_INDEX_NAME, esConfiguration.isNeedIndex());
+        createIndex(Constants.P2P_INDEX_NAME, esConfiguration.isNeedIndex());
     }
 
     private void createIndex(String indexName, Boolean override) {

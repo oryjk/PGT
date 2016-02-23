@@ -3,6 +3,7 @@ package com.pgt.data;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.data.service.MigrateDataService;
 import com.pgt.search.service.ESSearchService;
+import com.pgt.search.service.TenderSearchEngineService;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,9 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
     @Autowired
     private MigrateDataService migrateDateService;
 
+    @Autowired
+    private TenderSearchEngineService tenderSearchEngineService;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (event.getApplicationContext().getParent() == null) {//root application context 没有parent，他就是老大.
@@ -39,6 +43,7 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
 
     public void createIndex() {
         esSearchService.initialIndex(esConfiguration.isClearIndex());
+        tenderSearchEngineService.initialIndex();
         if (esConfiguration.isNeedIndex()) {
             try {
                 BulkResponse categoryResponse = esSearchService.categoryIndex();
@@ -53,6 +58,9 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
                 if (responses.hasFailures()) {
                     LOGGER.error("Product index error.");
                 }
+
+              tenderSearchEngineService.tenderIndex();
+
 
             } catch (Exception e) {
                 LOGGER.error("Can not index the data in ES.");

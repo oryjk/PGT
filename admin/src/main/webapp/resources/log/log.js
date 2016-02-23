@@ -19,21 +19,24 @@ $(function(){
                 var index  =  event.target.value;
                 $.post("del",{"filename" : arr[index].name},function(data){
                     arr = data;
+                    demo.$data.gridData = arr;
                 },"json");
-                arr.pop(index);
+                //arr.pop(index);
             },
-            recover: function(event){
+            detail: function(event){
                 var index  =  event.target.value;
-                $.post("recover",{"filename" : arr[index].name},function(data){
-                    arr = data;
+                $.post("findfile",{"filename" : arr[index].name},function(data){
+                    $("#content").html(data);
                 },"json");
             }
         }
     });
 
-    $("button[title=add]").click(function(){
-        $.post("add",{},function(data){
+    $("button[title=delbyday]").click(function(){
+        var day = $("#day").val();
+        $.post("delbyday",{"day" : day},function(data){
             arr = data;
+            demo.$data.gridData = arr;
         },"json");
     });
 });
