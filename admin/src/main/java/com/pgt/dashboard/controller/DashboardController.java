@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +26,13 @@ public class DashboardController extends InternalTransactionBaseController imple
 	private DashboardService mDashboardService;
 
 	@RequestMapping("/")
-	public ModelAndView redirectDashboard() {
+	public ModelAndView redirectDashboard(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		// permission verify
+		boolean pass = verifyPermission(pRequest);
+		if (!pass) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+
 		ModelAndView mav = new ModelAndView("/dashboard/dashboard");
 		// paid order count
 		int orderCount = getDashboardService().queryPaidOrderCount();

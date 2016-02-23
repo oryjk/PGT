@@ -6,6 +6,7 @@ import com.pgt.hot.bean.HotSearch;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductCategoryRelation;
 import com.pgt.product.bean.ProductMedia;
+import com.pgt.product.bean.ProductType;
 import com.pgt.product.dao.ProductMapper;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.service.TenderSearchEngineService;
@@ -48,9 +49,6 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     @Autowired
     private TenderMapper tenderMapper;
 
-    @Autowired
-    private TenderSearchEngineService tenderSearchEngineService;
-
     @Override
     public Product queryProduct(int productId) {
         return productMapper.queryProduct(productId);
@@ -89,11 +87,16 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public Integer createTenderProduct(Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
-            productMapper.createProduct(product);
+            if (ObjectUtils.isEmpty(product.getCreationDate())) {
+                product.setCreationDate(new Date());
+            }
+            if (ObjectUtils.isEmpty(product.getUpdateDate())) {
+                product.setUpdateDate(new Date());
+            }
             Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
             tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
-            tenderMapper.updateTender(tender);
-            tenderSearchEngineService.updateTender(tender);
+            product.setType(ProductType.LIVE_PAWNAGE.toString());
+            productMapper.createProduct(product);
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
@@ -115,6 +118,7 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             if (ObjectUtils.isEmpty(product.getUpdateDate())) {
                 product.setUpdateDate(new Date());
             }
+            product.setType(ProductType.DEAD_PAWNAGE.toString());
             productMapper.createProduct(product);
             createProductMedias(product);
             ProductCategoryRelation productCategoryRelation = new ProductCategoryRelation();
@@ -186,7 +190,6 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                 tender.setTenderTotal(tender.getTenderTotal()-old_product.getSalePrice()*old_product.getStock());
                 tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
                 tenderMapper.updateTender(tender);
-                tenderSearchEngineService.updateTender(tender);
             }
 
             productMapper.updateProduct(product);

@@ -38,12 +38,18 @@ import java.util.List;
 @RequestMapping("/pawn")
 public class PawnController extends InternalTransactionBaseController implements PawnProperties, PawnMessage {
 
-	public static final String PERMISSION_DENIED_INVEST = "permission-denied-invest";
-	public static final String VIEW_PAWN_SHOP = "/pawn/pawn-shop";
-	public static final String VIEW_PAWN_SHOPS = "/pawn/pawn-shops";
-	public static final String REDIRECT_PAWN_SHOP_WITHOUT_ID = "redirect:/pawn/pawn-shop-update?shopId=";
-	public static final String VIEW_PAWN_TICKET = "/pawn/pawn-ticket";
-	public static final String VIEW_PAWN_TICKETS = "/pawn/pawn-tickets";
+	public static final String PERMISSION_DENIED_INVEST        = "permission-denied-invest";
+
+	public static final String VIEW_PAWN_SHOP                  = "/pawn/pawn-shop";
+
+	public static final String VIEW_PAWN_SHOPS                 = "/pawn/pawn-shops";
+
+	public static final String REDIRECT_PAWN_SHOP_WITHOUT_ID   = "redirect:/pawn/pawn-shop-update?shopId=";
+
+	public static final String VIEW_PAWN_TICKET                = "/pawn/pawn-ticket";
+
+	public static final String VIEW_PAWN_TICKETS               = "/pawn/pawn-tickets";
+
 	public static final String REDIRECT_PAWN_TICKET_WITHOUT_ID = "redirect:/pawn/pawn-ticket-update?ticketId=";
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PawnController.class);
@@ -272,9 +278,11 @@ public class PawnController extends InternalTransactionBaseController implements
 				status.setRollbackOnly();
 			}
 			Media media = mediaService.findMedia(pPawnTicket.getPawnTicketPhoto().getId(), null);
-			media.setReferenceId(pPawnTicket.getPawnTicketId());
-			media.setType(MediaType.pawnTicket);
-			mediaService.updateMedia(media);
+			if (media != null) {
+				media.setReferenceId(pPawnTicket.getPawnTicketId());
+				media.setType(MediaType.pawnTicket);
+				mediaService.updateMedia(media);
+			}
 		} catch (Exception e) {
 			LOGGER.error("Cannot persist pawn ticket and roll back transaction.", e);
 			status.setRollbackOnly();

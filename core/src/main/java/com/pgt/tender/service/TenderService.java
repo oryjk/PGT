@@ -31,9 +31,6 @@ public class TenderService {
     @Autowired
     private TenderCategoryMapper tenderCategoryMapper;
 
-    @Autowired
-    private TenderSearchEngineService tenderSearchEngineService;
-
     public List<Tender> queryTenderByQuery (TenderQuery tenderQuery) {
         List<Tender> tenderList = tenderMapper.queryTenderByQuery(tenderQuery);
         if (ObjectUtils.isEmpty(tenderList)) {
@@ -93,7 +90,6 @@ public class TenderService {
             tenderCategoryMapper.createTenderCategory(tenderCategory);
             LOGGER.debug("The new tenderCategory tenderId is {},and categoryId is{}",tenderCategory.getTenderId(),tenderCategory.getCategoryId());
         }
-        tenderSearchEngineService.createTenderIndex(tender);
         return tender.getTenderId();
     }
 
@@ -118,7 +114,6 @@ public class TenderService {
         tender.setInterestRate(tender.getInterestRate()*0.01);
         tenderMapper.updateTender(tender);
         LOGGER.debug("Success for update tender.");
-        tenderSearchEngineService.updateTender(tender);
         return tender.getTenderId();
     }
 

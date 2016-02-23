@@ -26,6 +26,7 @@ import com.pgt.user.bean.User;
 import com.pgt.user.bean.UserInformation;
 import com.pgt.user.service.UserInformationService;
 import com.pgt.utils.WebServiceConstants;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -317,7 +318,13 @@ public class ShippingController implements CartMessages {
 			return new ResponseEntity(result, HttpStatus.OK);
 		}
 
-		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration().getDefaultOrderType())) {
+		boolean isPayOnly = false;
+		String payOnly = request.getParameter(CartConstant.PAY_ONLY);
+		if (StringUtils.isNotBlank(payOnly)) {
+			isPayOnly = Boolean.valueOf(payOnly);
+		}
+
+		if (!isPayOnly && getOrderService().hasUncompleteOrder(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration().getDefaultOrderType())) {
 			LOGGER.error("Has incomplete order.");
 			result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_HAS_INCOMPLETE_ORDER);
 			return new ResponseEntity(result, HttpStatus.OK);

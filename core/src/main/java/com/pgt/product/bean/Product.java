@@ -42,11 +42,20 @@ public class Product implements Serializable {
     private String keyWord;
     private String merchant;
     private ProductMedia mobileDetailMedia;
+    private String type;
 
     private Integer tenderId;
 
     public List<ProductMedia> getMainMedias() {
         return mainMedias;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setMainMedias(List<ProductMedia> mainMedias) {

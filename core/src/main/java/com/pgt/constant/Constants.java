@@ -41,6 +41,7 @@ public class Constants {
 
     //search
     public static final String SITE_INDEX_NAME = "mp";
+    public static final String P2P_INDEX_NAME = "live_pawnage";
     public static final String PRODUCT_INDEX_TYPE = "product";
     public static final String HOT_PRODUCT_INDEX_TYPE = "hotProduct";
     public static final String CATEGORY_INDEX_TYPE = "category";

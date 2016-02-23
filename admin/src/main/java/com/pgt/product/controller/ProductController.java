@@ -9,6 +9,7 @@ import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
+import com.pgt.product.bean.ProductType;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.service.ESSearchService;

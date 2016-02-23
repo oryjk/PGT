@@ -131,6 +131,12 @@
                 <value>sort</value>
             </list>
         </property>
+        <property name="tenderAnalyzerFields">
+            <list value-type="java.lang.String">
+                <value>name</value>
+                <value>description</value>
+            </list>
+        </property>
         <property name="needIndex" value="true"/>
         <property name="clearIndex" value="true"/>
     </bean>

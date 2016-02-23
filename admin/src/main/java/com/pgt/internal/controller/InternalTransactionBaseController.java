@@ -86,7 +86,7 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 	protected boolean verifyPermission(HttpServletRequest pRequest) {
 		InternalUser iu = getCurrentInternalUser(pRequest);
 		if (iu != null) {
-			boolean verified = iu.getRole().getValue() > Role.BROWSER.getValue();
+			boolean verified = iu.getRole().getValue() >= Role.BROWSER.getValue();
 			if (!verified) {
 				LOGGER.debug("Permission: {} verify failed for current permission: {} of user: {}", Role.BROWSER, iu.getRole(), iu.getId());
 			}
