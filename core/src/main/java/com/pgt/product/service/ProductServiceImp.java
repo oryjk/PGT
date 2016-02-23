@@ -48,9 +48,6 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     @Autowired
     private TenderMapper tenderMapper;
 
-    @Autowired
-    private TenderSearchEngineService tenderSearchEngineService;
-
     @Override
     public Product queryProduct(int productId) {
         return productMapper.queryProduct(productId);
@@ -93,7 +90,6 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
             tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
             tenderMapper.updateTender(tender);
-            tenderSearchEngineService.updateTender(tender);
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
@@ -186,7 +182,6 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                 tender.setTenderTotal(tender.getTenderTotal()-old_product.getSalePrice()*old_product.getStock());
                 tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
                 tenderMapper.updateTender(tender);
-                tenderSearchEngineService.updateTender(tender);
             }
 
             productMapper.updateProduct(product);

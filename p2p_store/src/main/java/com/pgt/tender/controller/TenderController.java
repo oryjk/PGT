@@ -2,11 +2,8 @@ package com.pgt.tender.controller;
 
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.TenderSearchEngineService;
-import com.sun.deploy.util.ArrayUtil;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.common.util.ArrayUtils;
 import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,9 @@ public class TenderController {
     @Autowired
     private TenderSearchEngineService tenderSearchEngineService;
 
+
+
+
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)
     public ModelAndView getTenderDetailPage(@PathVariable("tenderId") Integer tenderId, ModelAndView modelAndView) {
 
@@ -40,7 +40,7 @@ public class TenderController {
             return modelAndView;
         }
 
-        // 从索引库中取出商品
+
         ESTerm tenderTerm = new ESTerm();
         tenderTerm .setPropertyName("tenderId");
         tenderTerm .setTermValue(tenderId.toString());
@@ -54,7 +54,7 @@ public class TenderController {
         Map tender =tenders[0].getSource();
         LOGGER.debug("The query tender id is {}.",tenderId);
         modelAndView.addObject("tender",tender);
-        modelAndView.setViewName("");
+        modelAndView.setViewName("/detail/detail");
         return modelAndView;
     }
 }

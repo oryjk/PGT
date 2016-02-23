@@ -15,6 +15,7 @@ import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.service.ESSearchService;
+import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.bean.CreateTender;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.bean.TenderQuery;
@@ -76,10 +77,13 @@ public class TenderController extends InternalTransactionBaseController {
     private MediaHelper mediaHelper;
 
     @Autowired
+    private MediaService mediaService;
+
+    @Autowired
     private ESSearchService esSearchService;
 
     @Autowired
-    private MediaService mediaService;
+    private TenderSearchEngineService tenderSearchEngineService;
 
 
 
@@ -143,6 +147,48 @@ public class TenderController extends InternalTransactionBaseController {
         modelAndView.setViewName("/p2p-tender/tender-add-and-modify");
         return modelAndView;
     }
+
+
+    @RequestMapping(value = "/tenderIndex/{tenderId}", method = RequestMethod.GET)
+    public ResponseEntity tenderIndex(@PathVariable("tenderId") Integer tenderId) {
+        TransactionStatus status = ensureTransaction();
+        try {
+            LOGGER.debug("Delete the tenderId is {}.", tenderId);
+            ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+            Map<String, Object> response = responseEntity.getBody();
+            if (tenderId == null) {
+                LOGGER.debug("The tender id is null.");
+                response.put("success", false);
+                response.put("message", "The tender id is  empty.");
+                return responseEntity;
+            }
+            Tender tender= tenderService.queryTenderById(tenderId,false);
+            if(ObjectUtils.isEmpty(tender)){
+                LOGGER.debug("The tender id is null.");
+                response.put("success", false);
+                response.put("message", "The tender id  is empty.");
+                return responseEntity;
+            }
+
+
+
+            tenderSearchEngineService.createTenderIndex(tender);
+
+           //tenderSearchEngineService.updateTender(tender);
+
+
+            response.put("success", true);
+            LOGGER.debug("The  update with tender id is {}.", tenderId);
+            return responseEntity;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return null;
+    }
+
+
 
     @RequestMapping(value = "/updateUI/{tenderId}", method = RequestMethod.GET)
     public ModelAndView updateTenderUI(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId,HttpServletRequest pRequest) {
@@ -261,9 +307,6 @@ public class TenderController extends InternalTransactionBaseController {
             return modelAndView;
         }
         productService.createTenderProduct(product);
-        if (product.getStatus() == 1) {
-            esSearchService.productIndex(product);
-        }
         modelAndView.addObject("product", product);
         modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("redirect:/tender/addProductImageModify?productId=" + product.getProductId());
@@ -367,11 +410,6 @@ public class TenderController extends InternalTransactionBaseController {
             }
             //delete es
             esSearchService.deleteTender(tenderId.toString());
-            if(CollectionUtils.isEmpty(products)){
-                for (Product product:products) {
-                    esSearchService.deleteProductIndex(product.getProductId().toString());
-                }
-            }
         response.put("success", true);
         LOGGER.debug("The  deleted with tender id is {}.", tenderId);
         return responseEntity;
@@ -590,7 +628,6 @@ public class TenderController extends InternalTransactionBaseController {
                 return responseEntity;
             }
             productService.deleteProduct(productId);
-            esSearchService.deleteProductIndex(productId);
             response.put("success", true);
             LOGGER.debug("The product has deleted with product id is {}.", productId);
             return responseEntity;

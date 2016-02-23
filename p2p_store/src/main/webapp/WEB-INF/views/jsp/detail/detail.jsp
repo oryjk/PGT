@@ -6,12 +6,12 @@
     <!--invest-part begin-->
     <div class="invest">
 
-        <h2 class="invest-head">鑫鑫典当行纯金镶钻生肖戒指</h2>
+        <h2 class="invest-head">${tender.name}</h2>
 
-        <p class="invest-sub-head">2016/02/07-2016/02/30 火热抢购中</p>
+        <p class="invest-sub-head">${tender.publishDate}-${tender.dueDate} 火热抢购中</p>
 
         <div class="invest-info">
-            <div class="invest-img"><img src="../core/images/product/invest_hero_1.png" alt=""/></div>
+            <div class="invest-img"><img src="${tender.p2pAdvertisement.path}" alt="${tender.name}"/></div>
             <div class="invest-handle">
                 <div class="invest-handle-group">
                     <a class="invest-add-favorite" href="javascript:void(0);">收藏</a>
@@ -24,10 +24,10 @@
                     <div class="progress-circle"></div>
 
                     <div class="cost-box">
-                        <span class="cost">¥</span><span class="cost">18,000.00</span>
+                        <span class="cost">¥</span><span class="cost">${tender.tenderTotal}</span>
                     </div>
-                    <div class="invest-begin-time">开始: <span>2016年2月2日</span></div>
-                    <div class="invest-end-time">结束: <span>2017年2月1日</span></div>
+                    <div class="invest-begin-time">开始: <span>${tender.publishDate}</span></div>
+                    <div class="invest-end-time">结束: <span>${tender.dueDate}</span></div>
 
                 </div>
                 <div class="data-row-3">
@@ -38,10 +38,9 @@
         </div>
         <div class="item-nav">
             <ul>
-                <li><a href="#"><img src="../core/images/product/hero_1_00.jpg" alt=""/></a></li>
-                <li><a href="#"><img src="../core/images/product/hero_1_01.jpg" alt=""/></a></li>
-                <li><a href="#"><img src="../core/images/product/hero_1_02.jpg" alt=""/></a></li>
-                <li><a href="#"><img src="../core/images/product/hero_1_03.jpg" alt=""/></a></li>
+                 <c:forEach items="${tender. p2pHeroMedias}" var="media">
+                <li><a href="#"><img src="${media.path}" alt=""/></a></li>
+                 </c:forEach>
             </ul>
         </div>
 
@@ -64,8 +63,9 @@
             <!-- super: 以下五个tab对应的content,添加类content-choose时显示,不添加时隐藏,默认第一个显示-->
             <!-- content-item-list begin -->
             <div class="content-item-list content-choose">
-                <div class="each-item">
 
+                <c:forEach items="${tender.products}" var="product">
+                <div class="each-item">
                     <div class="item-img-box">
                         <div class="middle-img-box">
                             <!-- super:rel传入item的id号-->
@@ -76,11 +76,11 @@
 
                         <div class="small-img-box" >
                             <ul class="thumblist">
+
                                 <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
-                                <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_00.jpg',largeimage: '../core/images/product/hero_1_00.jpg'}"><img class="small-img" src='../core/images/product/hero_1_00.jpg'></a></li>
-                                <li><a href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_01.jpg',largeimage: '../core/images/product/hero_1_01.jpg'}"><img class="small-img" src='../core/images/product/hero_1_01.jpg'></a></li>
-                                <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_02.jpg',largeimage: '../core/images/product/hero_1_02.jpg'}"><img class="small-img" src='../core/images/product/hero_1_02.jpg'></a></li>
-                                <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_03.jpg',largeimage: '../core/images/product/hero_1_03.jpg'}"><img class="small-img" src='../core/images/product/hero_1_03.jpg'></a></li>
+                                <c:forEach items="${product.heroMedias}" var="media">
+                                <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '${media.id}', smallimage: '${media.path}',largeimage: '${media.path}'}"><img class="small-img" src='${media.path}'></a></li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -88,13 +88,13 @@
                     <div class="item-info-box">
                         <div class="item-row-1">
                             <div class="col-title">产品名称:</div>
-                            <div class="col-content">金AU754镶钻水金戒指</div>
+                            <div class="col-content">${product.name}</div>
                         </div>
                         <div class="item-row-2">
                             <div class="col-title">产品介绍:</div>
                             <div class="col-content">
                                 <p>
-                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶
+                                    ${product.title}
                                 </p>
                             </div>
                         </div>
@@ -117,73 +117,7 @@
                         <div class="item-row-6">
                             <div class="col-title">金额: </div>
                             <div class="col-content">
-                                <span class="item-cost">¥</span><span class="item-cost">1800,00</span>
-                            </div>
-                        </div>
-                        <div class="item-row-7">
-                            <div class="col-title">&nbsp; </div>
-                            <div class="col-content">
-                                <a class="item-buy-now" href="#">立即抢订</a>
-                                <a class="item-join-favorite" href="#">添加收藏</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="each-item">
-
-                    <div class="item-img-box">
-                        <div class="middle-img-box">
-                            <!-- super:rel传入item的id号-->
-                            <a href="../core/images/product/hero_2_00.jpg" class="jqzoom" rel='2'  title="triumph" >
-                                <img class="middle-img" src="../core/images/product/hero_2_00.jpg"  title="triumph">
-                            </a>
-                        </div>
-
-                        <div class="small-img-box" >
-                            <ul class="thumblist">
-                                <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
-                                <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
-                                <li><a href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
-                                <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
-                                <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="item-info-box">
-                        <div class="item-row-1">
-                            <div class="col-title">产品名称:</div>
-                            <div class="col-content">金AU754镶钻水金戒指</div>
-                        </div>
-                        <div class="item-row-2">
-                            <div class="col-title">产品介绍:</div>
-                            <div class="col-content">
-                                <p>
-                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶
-                                </p>
-                            </div>
-                        </div>
-                        <div class="item-row-3">
-                            <div class="col-title">购买说明:</div>
-                            <div class="col-content">
-                                <p>
-                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水<span></span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="item-row-4">
-                            <div class="col-title">配送费用:</div>
-                            <div class="col-content">免运费</div>
-                        </div>
-                        <div class="item-row-5">
-                            <div class="col-title">预计收获时间:</div>
-                            <div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
-                        </div>
-                        <div class="item-row-6">
-                            <div class="col-title">金额: </div>
-                            <div class="col-content">
-                                <span class="item-cost">¥</span><span class="item-cost">1800,00</span>
+                                <span class="item-cost">¥</span><span class="item-cost">${product.salePrice}</span>
                             </div>
                         </div>
                         <div class="item-row-7">
@@ -195,18 +129,21 @@
                         </div>
                     </div>
 
+
+
                 </div>
+                </c:forEach>
 
             </div>
             <!-- content-item-list end-->
 
             <!-- content-invest-detail begin-->
             <div class="content-invest-detail content-choose">
-                <img class="content-detail-image" src="../core/images/product/invest_detail_1_00.jpg" alt=""/>
-                <img class="content-detail-image" src="../core/images/product/invest_detail_1_01.jpg" alt=""/>
-                <img class="content-detail-image" src="../core/images/product/invest_detail_1_02.jpg" alt=""/>
-                <img class="content-detail-image" src="../core/images/product/invest_detail_1_03.jpg" alt=""/>
-                <img class="content-detail-image" src="../core/images/product/invest_detail_1_04.jpg" alt=""/>
+
+                <c:forEach items="${tender.p2pMainMedia}" var="media">
+                <img class="content-detail-image" src="${media.path}" alt=""/>
+                </c:forEach>
+
 
             </div>
             <!-- content-invest-detail end-->
