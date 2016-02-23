@@ -174,6 +174,8 @@ public class TenderController extends InternalTransactionBaseController {
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
+        List<Category> categories = categoryService.queryAllTenderParentCategories();
+        modelAndView.addObject("categories", categories);
         if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             Map<String, String> errors = new HashMap<>();
