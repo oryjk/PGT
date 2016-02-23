@@ -26,7 +26,7 @@
         background-color: #f9f9f9;
     }
     th, td {
-        width:25%;
+        width:50%;
         min-width: 80px;
         padding: 10px 20px;
         text-align: center;
@@ -61,23 +61,25 @@
                         <i class="fa fa-cogs font-green-sharp"></i>
                         <span class="caption-subject font-green-sharp bold uppercase">表格</span>
                     </div>
+                    <div class="actions btn-set">
+                        <input type="text" id="day" />
+                        <button class="btn green-haze btn-circle" title="delbyday">
+                            <i class="fa fa-plus"></i> 根据当前时间删除前x天的日志
+                        </button>
+                    </div>
                 </div>
 
                 <div id="demo">
                     <table>
                         <thead>
                             <td>文件名</td>
-                            <td>备份时间</td>
-                            <td>文件大小</td>
                             <td>操作</td>
                         </thead>
                         <tbody>
                             <tr v-for="entry in gridData" v-model="entry">
                                 <td>{{entry.name}}</td>
-                                <td>{{entry.create_time}}</td>
-                                <td>{{entry.size}}</td>
                                 <td>
-                                    <button value={{$index}} v-on:click="recover">恢复</button>
+                                    <button value={{$index}} v-on:click="detail">详细</button>
                                     <button value={{$index}} v-on:click="del">删除</button>
                                 </td>
                             </tr>
@@ -85,6 +87,12 @@
                     </table>
                 </div>
             </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" id="content">
 
         </div>
     </div>
