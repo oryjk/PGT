@@ -77,6 +77,148 @@
   }
 }
 
+.menu-1 {
+  position: absolute;
+  top: 125px;
+  left: 50%;
+  margin-left: - $main-width / 2;
+  @include wh(190px, 600px);
+  background: white;
+
+  .menu-1-item {
+    height: 71px;
+
+    &:hover {
+      h3 {
+        color: $main;
+        text-indent: 10px;
+      }
+
+      .menu-detail {
+        display: block;
+      }
+    }
+  }
+
+  .menu-1-title {
+    display: block;
+    color: black;
+  }
+
+  h3 {
+    font-size: 18px;
+    padding: 20px 0 0 20px;
+  }
+
+  p {
+    padding: 7px 0 0 20px;
+    font-size: 14px;
+    color: $gray-base;
+  }
+
+
+  .menu-detail {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 190px;
+    padding: 30px 30px 0 60px;
+    @include wh(435px, 570px);
+    background: white;
+  }
+
+  h4 {
+    font-size: 22px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+  }
+
+  small {
+    padding-left: 20px;
+    color: $main;
+    font-size: 18px;
+  }
+
+  .menu-2 {
+    padding-top: 20px;
+    @extend %clear;
+  }
+
+  .menu-2-item {
+    float: left;
+    padding: 0 10px;
+    border-right: 1px solid $gray-light;
+
+    a {
+      color: black;
+      &:hover {
+        color: $main;
+      }
+    }
+  }
+
+  .menu-2-item-end {
+    border-right: none;
+  }
+
+  .menu-row-1 {
+    padding-top: 75px;
+    font-size: 40px;
+    color: $main;
+  }
+
+  .menu-row-2 {
+    padding: 15px 0 0 10px;
+
+    a {
+      color: black;
+
+      &:hover {
+        color: $main;
+      }
+    }
+  }
+
+  .menu-row-3 {
+    padding: 10px 0 0 10px;
+  }
+
+  .menu-img-box {
+    float: right;
+    @include wh(275px, 275px);
+
+    img {
+      display: block;
+      @include wh(100%, 100%);
+    }
+  }
+
+  .menu-people-hot {
+    padding-top: 40px;
+    font-size: 25px;
+  }
+
+  .menu-people-count {
+    font-size: 35px;
+    color: $main;
+  }
+
+  .menu-btn-box {
+    padding: 144px 0 0 15px;
+
+    a {
+      @include color-btn(120px, 40px, 0, 20px, $main, $main-dark);
+    }
+
+  }
+
+
+
+
+
+
+}
+
 .advantage {
   @extend %clear;
   background: white;

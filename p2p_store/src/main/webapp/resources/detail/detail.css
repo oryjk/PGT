@@ -7,7 +7,8 @@
 .content-item-list .item-row-4,
 .content-item-list .item-row-5,
 .content-item-list .item-row-6,
-.content-item-list .item-row-7, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner, .recommend-box ul, .recommend-box .recommend-progress, .recommend-box .recommend-join {
+.content-item-list .item-row-7,
+.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner, .recommend-box ul, .recommend-box .recommend-progress, .recommend-box .recommend-join {
   *zoom: 1; }
   .header .nav:after, .about-us:after, .approve:after, .invest .invest-info:after, .invest .data-row-2:after, .invest .data-row-3:after, .detail-content:after, .detail-content .tab:after, .content-item-list .item-row-1:after,
   .content-item-list .item-row-2:after,
@@ -15,13 +16,15 @@
   .content-item-list .item-row-4:after,
   .content-item-list .item-row-5:after,
   .content-item-list .item-row-6:after,
-  .content-item-list .item-row-7:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .header .nav:before, .about-us:before, .approve:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
+  .content-item-list .item-row-7:after,
+  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .header .nav:before, .about-us:before, .approve:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
   .content-item-list .item-row-2:before,
   .content-item-list .item-row-3:before,
   .content-item-list .item-row-4:before,
   .content-item-list .item-row-5:before,
   .content-item-list .item-row-6:before,
-  .content-item-list .item-row-7:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before {
+  .content-item-list .item-row-7:before,
+  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before {
     content: " ";
     display: table;
     clear: both; }
@@ -35,7 +38,8 @@
 .content-item-list .item-row-4,
 .content-item-list .item-row-5,
 .content-item-list .item-row-6,
-.content-item-list .item-row-7, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner, .recommend-box ul, .recommend-box .recommend-progress, .recommend-box .recommend-join {
+.content-item-list .item-row-7,
+.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner, .recommend-box ul, .recommend-box .recommend-progress, .recommend-box .recommend-join {
   *zoom: 1; }
   .header .nav:after, .about-us:after, .approve:after, .invest .invest-info:after, .invest .data-row-2:after, .invest .data-row-3:after, .detail-content:after, .detail-content .tab:after, .content-item-list .item-row-1:after,
   .content-item-list .item-row-2:after,
@@ -43,13 +47,15 @@
   .content-item-list .item-row-4:after,
   .content-item-list .item-row-5:after,
   .content-item-list .item-row-6:after,
-  .content-item-list .item-row-7:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .header .nav:before, .about-us:before, .approve:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
+  .content-item-list .item-row-7:after,
+  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .header .nav:before, .about-us:before, .approve:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
   .content-item-list .item-row-2:before,
   .content-item-list .item-row-3:before,
   .content-item-list .item-row-4:before,
   .content-item-list .item-row-5:before,
   .content-item-list .item-row-6:before,
-  .content-item-list .item-row-7:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before {
+  .content-item-list .item-row-7:before,
+  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before {
     content: " ";
     display: table;
     clear: both; }
@@ -421,7 +427,7 @@ body {
     margin-top: 25px;
     border: 1px solid #cccccc;
     padding: 35px 0 0 30px;
-    width: 305px;
+    width: 310px;
     height: 205px;
     background: white; }
   .invest .data-row-1 {
@@ -450,8 +456,29 @@ body {
     padding-top: 3px;
     font-size: 12px; }
   .invest .item-nav {
+    position: relative;
     padding: 15px 0;
     overflow: hidden; }
+    .invest .item-nav:hover .item-nav-left,
+    .invest .item-nav:hover .item-nav-right {
+      display: block;
+      opacity: .4; }
+    .invest .item-nav .item-nav-left {
+      display: none;
+      position: absolute;
+      top: 40%;
+      left: 0;
+      width: 50px;
+      height: 75px;
+      background: url("../core/images/detail/turn-left.png"); }
+    .invest .item-nav .item-nav-right {
+      display: none;
+      position: absolute;
+      top: 40%;
+      right: 0;
+      width: 50px;
+      height: 75px;
+      background: url("../core/images/detail/turn-right.png"); }
     .invest .item-nav ul {
       width: 10000px; }
     .invest .item-nav li {
@@ -502,7 +529,7 @@ body {
 
 .content-item-list .item-img-box {
   float: left;
-  padding: 8px 0 0 8px;
+  padding: 13px 0 0 13px;
   width: 400px; }
 
 .content-item-list .middle-img-box {
@@ -519,14 +546,16 @@ body {
   height: 400px; }
 
 .content-item-list .small-img-box {
-  padding-top: 15px; }
+  padding-top: 13px; }
   .content-item-list .small-img-box li {
     width: 90px;
     height: 90px;
     float: left;
-    margin: 0 5px; }
+    margin-right: 13.33333px; }
     .content-item-list .small-img-box li:hover {
       outline: 2px solid #ffa5a5; }
+  .content-item-list .small-img-box .item-samll-end {
+    margin-right: 0; }
   .content-item-list .small-img-box a {
     display: block;
     width: 100%;
@@ -554,7 +583,8 @@ body {
 .content-item-list .item-row-4,
 .content-item-list .item-row-5,
 .content-item-list .item-row-6,
-.content-item-list .item-row-7 {
+.content-item-list .item-row-7,
+.content-item-list .item-row-8 {
   padding-top: 28px; }
 
 .content-item-list .item-row-2,
@@ -597,6 +627,30 @@ body {
   cursor: pointer; }
   .content-item-list .item-join-favorite:hover {
     background: #154e92; }
+
+.content-item-list .item-row-7 {
+  position: relative; }
+
+.content-item-list .plus-and-minus {
+  position: absolute;
+  width: 50px;
+  height: 31px;
+  top: 22px;
+  left: 260px; }
+  .content-item-list .plus-and-minus a {
+    float: left;
+    display: block;
+    width: 50px;
+    height: 15px;
+    background: #fe4040;
+    text-align: center;
+    line-height: 15px;
+    color: white; }
+    .content-item-list .plus-and-minus a:hover {
+      background: #d70101; }
+
+.content-item-list .item-buy-minus {
+  margin-top: 1px; }
 
 .content-item-list .zoomWindow {
   overflow: hidden;
@@ -765,7 +819,7 @@ body {
     display: block;
     margin: 8px auto 0;
     width: 234px;
-    height: 140px; }
+    height: 234px; }
     .recommend-box .recommend-img-box img {
       width: 100%;
       height: 100%; }
@@ -777,9 +831,20 @@ body {
       .recommend-box h4 a:hover {
         color: #fe4040; }
   .recommend-box .recommend-progress-bar {
+    position: relative;
     float: left;
-    width: 195px;
-    height: 45px; }
+    margin: 25px 10px 0 20px;
+    width: 170px;
+    height: 10px;
+    background: #cccccc;
+    border-radius: 5px; }
+    .recommend-box .recommend-progress-bar .inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #86b5ed;
+      border-radius: 5px;
+      height: 10px; }
   .recommend-box .recommend-progress-text {
     float: left;
     padding-top: 12px;
@@ -790,5 +855,23 @@ body {
     float: left; }
   .recommend-box .recommend-people {
     float: right; }
+
+.turn-right {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  margin-left: 550px;
+  width: 50px;
+  height: 75px;
+  background: url("../core/images/detail/turn-right.png"); }
+
+.turn-left {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  margin-left: -610px;
+  width: 50px;
+  height: 75px;
+  background: url("../core/images/detail/turn-left.png"); }
 
 /*# sourceMappingURL=../../maps/detail/detail.css.map */

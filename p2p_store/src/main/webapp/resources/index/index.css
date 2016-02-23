@@ -1,9 +1,9 @@
 @charset "UTF-8";
 /*import
 **************************************************************************************************************************************************/
-.header .nav, .about-us, .approve, .advantage, .advantage ul, .hot .hot-head, .hot .hot-tab, .invest-list, .category .each-category, .category .help-hot {
+.header .nav, .about-us, .approve, .menu-1 .menu-2, .advantage, .advantage ul, .hot .hot-head, .hot .hot-tab, .invest-list, .category .each-category, .category .help-hot {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .advantage:after, .advantage ul:after, .hot .hot-head:after, .hot .hot-tab:after, .invest-list:after, .category .each-category:after, .category .help-hot:after, .header .nav:before, .about-us:before, .approve:before, .advantage:before, .advantage ul:before, .hot .hot-head:before, .hot .hot-tab:before, .invest-list:before, .category .each-category:before, .category .help-hot:before {
+  .header .nav:after, .about-us:after, .approve:after, .menu-1 .menu-2:after, .advantage:after, .advantage ul:after, .hot .hot-head:after, .hot .hot-tab:after, .invest-list:after, .category .each-category:after, .category .help-hot:after, .header .nav:before, .about-us:before, .approve:before, .menu-1 .menu-2:before, .advantage:before, .advantage ul:before, .hot .hot-head:before, .hot .hot-tab:before, .invest-list:before, .category .each-category:before, .category .help-hot:before {
     content: " ";
     display: table;
     clear: both; }
@@ -11,9 +11,9 @@
 /*select*/
 /*color-btn*/
 /*cost*/
-.header .nav, .about-us, .approve, .advantage, .advantage ul, .hot .hot-head, .hot .hot-tab, .invest-list, .category .each-category, .category .help-hot {
+.header .nav, .about-us, .approve, .menu-1 .menu-2, .advantage, .advantage ul, .hot .hot-head, .hot .hot-tab, .invest-list, .category .each-category, .category .help-hot {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .advantage:after, .advantage ul:after, .hot .hot-head:after, .hot .hot-tab:after, .invest-list:after, .category .each-category:after, .category .help-hot:after, .header .nav:before, .about-us:before, .approve:before, .advantage:before, .advantage ul:before, .hot .hot-head:before, .hot .hot-tab:before, .invest-list:before, .category .each-category:before, .category .help-hot:before {
+  .header .nav:after, .about-us:after, .approve:after, .menu-1 .menu-2:after, .advantage:after, .advantage ul:after, .hot .hot-head:after, .hot .hot-tab:after, .invest-list:after, .category .each-category:after, .category .help-hot:after, .header .nav:before, .about-us:before, .approve:before, .menu-1 .menu-2:before, .advantage:before, .advantage ul:before, .hot .hot-head:before, .hot .hot-tab:before, .invest-list:before, .category .each-category:before, .category .help-hot:before {
     content: " ";
     display: table;
     clear: both; }
@@ -356,6 +356,104 @@ a {
       cursor: pointer; }
     .banner ol .banner-nav-current {
       background: #fe4040; }
+
+.menu-1 {
+  position: absolute;
+  top: 125px;
+  left: 50%;
+  margin-left: -600px;
+  width: 190px;
+  height: 600px;
+  background: white; }
+  .menu-1 .menu-1-item {
+    height: 71px; }
+    .menu-1 .menu-1-item:hover h3 {
+      color: #fe4040;
+      text-indent: 10px; }
+    .menu-1 .menu-1-item:hover .menu-detail {
+      display: block; }
+  .menu-1 .menu-1-title {
+    display: block;
+    color: black; }
+  .menu-1 h3 {
+    font-size: 18px;
+    padding: 20px 0 0 20px; }
+  .menu-1 p {
+    padding: 7px 0 0 20px;
+    font-size: 14px;
+    color: #000; }
+  .menu-1 .menu-detail {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 190px;
+    padding: 30px 30px 0 60px;
+    width: 435px;
+    height: 570px;
+    background: white; }
+  .menu-1 h4 {
+    font-size: 22px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black; }
+  .menu-1 small {
+    padding-left: 20px;
+    color: #fe4040;
+    font-size: 18px; }
+  .menu-1 .menu-2 {
+    padding-top: 20px; }
+  .menu-1 .menu-2-item {
+    float: left;
+    padding: 0 10px;
+    border-right: 1px solid #cccccc; }
+    .menu-1 .menu-2-item a {
+      color: black; }
+      .menu-1 .menu-2-item a:hover {
+        color: #fe4040; }
+  .menu-1 .menu-2-item-end {
+    border-right: none; }
+  .menu-1 .menu-row-1 {
+    padding-top: 75px;
+    font-size: 40px;
+    color: #fe4040; }
+  .menu-1 .menu-row-2 {
+    padding: 15px 0 0 10px; }
+    .menu-1 .menu-row-2 a {
+      color: black; }
+      .menu-1 .menu-row-2 a:hover {
+        color: #fe4040; }
+  .menu-1 .menu-row-3 {
+    padding: 10px 0 0 10px; }
+  .menu-1 .menu-img-box {
+    float: right;
+    width: 275px;
+    height: 275px; }
+    .menu-1 .menu-img-box img {
+      display: block;
+      width: 100%;
+      height: 100%; }
+  .menu-1 .menu-people-hot {
+    padding-top: 40px;
+    font-size: 25px; }
+  .menu-1 .menu-people-count {
+    font-size: 35px;
+    color: #fe4040; }
+  .menu-1 .menu-btn-box {
+    padding: 144px 0 0 15px; }
+    .menu-1 .menu-btn-box a {
+      display: inline-block;
+      padding: 0;
+      border: none;
+      width: 120px;
+      height: 40px;
+      font-size: 20px;
+      background: #fe4040;
+      border-radius: 0;
+      line-height: 40px;
+      color: white;
+      text-align: center;
+      cursor: pointer; }
+      .menu-1 .menu-btn-box a:hover {
+        background: #d70101; }
 
 .advantage {
   background: white;
