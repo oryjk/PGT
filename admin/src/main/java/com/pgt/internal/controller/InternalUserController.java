@@ -83,10 +83,10 @@ public class InternalUserController extends InternalTransactionBaseController im
     @RequestMapping(value = "/internal/register", method = RequestMethod.GET)
     public ModelAndView signUp(HttpServletRequest pRequest, HttpServletResponse pResponse) {
         // verify permission
-       /* if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
-        */
+
         // main logic
         ModelAndView mav = new ModelAndView("/internal/register");
         mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
@@ -270,10 +270,10 @@ public class InternalUserController extends InternalTransactionBaseController im
                                  @RequestParam(value = "investType", required = false) InternalUserInvestType investType,
                                  String name, String phone, String email, String available) {
         // verify permission
-      /*  if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
-        */
+
         // main logic
         InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
         iub.setName(name).setPhone(phone).setEmail(email).setAvailable(available);
