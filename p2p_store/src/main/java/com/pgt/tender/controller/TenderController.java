@@ -35,25 +35,22 @@ public class TenderController {
     public ModelAndView getTenderDetailPage(@PathVariable("tenderId") Integer tenderId, ModelAndView modelAndView) {
 
         LOGGER.debug("The method query tenderDetail");
-        if(ObjectUtils.isEmpty(tenderId)){
+        if (ObjectUtils.isEmpty(tenderId)) {
             LOGGER.debug("the tenderId is empty");
             return modelAndView;
         }
 
         // 从索引库中取出商品
-        ESTerm tenderTerm = new ESTerm();
-        tenderTerm .setPropertyName("tenderId");
-        tenderTerm .setTermValue(tenderId.toString());
-        SearchResponse tenderResponse = tenderSearchEngineService.findTender(tenderTerm, null, null, null, null, null, null);
-        SearchHit[] tenders =  tenderResponse.getHits().getHits();
+        SearchResponse tenderResponse = tenderSearchEngineService.findTenderById(tenderId);
+        SearchHit[] tenders = tenderResponse.getHits().getHits();
 
-        if(ObjectUtils.isEmpty(tenders)){
+        if (ObjectUtils.isEmpty(tenders)) {
             LOGGER.debug("The tender is exist");
-           return modelAndView;
+            return modelAndView;
         }
-        Map tender =tenders[0].getSource();
-        LOGGER.debug("The query tender id is {}.",tenderId);
-        modelAndView.addObject("tender",tender);
+        Map tender = tenders[0].getSource();
+        LOGGER.debug("The query tender id is {}.", tenderId);
+        modelAndView.addObject("tender", tender);
         modelAndView.setViewName("");
         return modelAndView;
     }

@@ -160,6 +160,20 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         }
     }
 
+    public SearchResponse findTenderById(Integer tenderId) {
+        SearchResponse response = null;
+        if (ObjectUtils.isEmpty(tenderId)) {
+            LOGGER.debug("the tender id is empty.");
+            return response;
+        }
+        ESTerm esTerm = new ESTerm();
+        esTerm.setTermValue(String.valueOf(tenderId));
+        esTerm.setPropertyName(Constants.TENDER_ID);
+        response = findTender(esTerm, null, null, null, null, null, null);
+        return response;
+    }
+
+
     public SearchResponse findTender(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
                                      PaginationBean paginationBean,
                                      ESAggregation categoryIdAggregation, String indexType) {
@@ -221,11 +235,11 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         ObjectMapper mapper = new ObjectMapper();
         IndexResponse response = null;
         try {
-            byte[] bytes=mapper.writeValueAsBytes(tender);
+            byte[] bytes = mapper.writeValueAsBytes(tender);
             LOGGER.debug("Tender id is {}.", tender.getTenderId());
-                IndexRequestBuilder indexRequestBuilder =
-                        getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
-                                .setSource(bytes);
+            IndexRequestBuilder indexRequestBuilder =
+                    getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
+                            .setSource(bytes);
             response = indexRequestBuilder.execute().actionGet(100000);
             if (response.isCreated()) {
                 LOGGER.debug("success to create tender.");
@@ -235,7 +249,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return response;
