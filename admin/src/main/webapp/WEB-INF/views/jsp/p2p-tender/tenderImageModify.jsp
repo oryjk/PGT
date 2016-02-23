@@ -13,8 +13,8 @@
 <admin:container id="productList" pageJsPath="/resources/p2p-tender/tender-add-and-modify.js" pageCssPath="/resources/p2p-tender/tender-add-and-modify.css" >
 	<input type="hidden" value="${pageContext.request.contextPath}" id="contextPath"/>
 	<input type="hidden" value="${staticServer}" id="staticServer"/>
-	<input type="hidden" value="${product.name}" id="productName"/>
-	<input type="hidden" value="${product.productId}" id="productId"/>
+	<input type="hidden" value="${tender.name}" id="tenderName"/>
+	<input type="hidden" value="${tender.tenderId}" id="tenderId"/>
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -23,7 +23,7 @@
 					<i class="fa fa-circle"></i>
 				</li>
 				<li>
-					<a href="/product/productList">投资列表</a>
+					<a href="/tender/tenderList">投资列表</a>
 					<i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
@@ -76,7 +76,7 @@
 												<div class="pgt-handle-box">
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.advertisementMedia.id}">删除</a>
 												</div>
-												<img class="pgt-advertisement-img" src="${product.advertisementMedia.path}" alt=""/>
+												<img class="pgt-advertisement-img" src="${tender.p2pAdvertisement.path}" alt=""/>
 												<p></p>
 											</div>
 										</div>
@@ -96,7 +96,7 @@
 												<div class="pgt-handle-box">
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.frontMedia.id}">删除</a>
 												</div>
-												<img class="pgt-front-img" src="${product.frontMedia.path}" alt=""/>
+												<img class="pgt-front-img" src="${tender.p2pFrontMedia.path}" alt=""/>
 												<p></p>
 											</div>
 										</div>
@@ -112,7 +112,7 @@
 											<p></p>
 										</div>
 										<div class="col-md-8">
-											<c:forEach items="${product.heroMedias}" var="heroMedia">
+											<c:forEach items="${tender.p2pHeroMedias}" var="heroMedia">
 												<div class="pgt-each-img">
 													<div class="pgt-handle-box">
 														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${heroMedia.id}">删除</a>
@@ -134,7 +134,7 @@
 											<p></p>
 										</div>
 										<div class="col-md-8">
-											<c:forEach items="${product.mainMedias}" var="mainMedia">
+											<c:forEach items="${tender.p2pMainMedia}" var="mainMedia">
 												<div class="pgt-each-img">
 													<div class="pgt-handle-box">
 														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${mainMedia.id}">删除</a>
@@ -161,7 +161,7 @@
 													<div class="pgt-handle-box">
 														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.expertMedia.id}">删除</a>
 													</div>
-													<img class="pgt-hero-img" src="${product.expertMedia.path}" alt=""/>
+													<img class="pgt-hero-img" src="${tender.p2pExpertMedia.path}" alt=""/>
 													<p class="pgt-img-size"></p>
 												</div>
 										</div>
@@ -182,7 +182,7 @@
 												<div class="pgt-handle-box">
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.mobileDetailMedia.id}">删除</a>
 												</div>
-												<img class="pgt-hero-img" src="${product.mobileDetailMedia.path}" alt=""/>
+												<img class="pgt-hero-img" src="${tender.mobileDetailMedia.path}" alt=""/>
 												<p class="pgt-img-size"></p>
 											</div>
 										</div>

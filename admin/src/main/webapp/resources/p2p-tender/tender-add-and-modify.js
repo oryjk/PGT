@@ -22,7 +22,7 @@ $('[data-pgt-btn="single"]').change(function () {
                 type: 'post',
                 data: {
                     referenceId: $('#tenderId').val(),
-                    title: $('#productName').val(),
+                    title: $('#tendertName').val(),
                     path: responseBody.imagePath,
                     type: responseBody.mediaType
                 },
@@ -67,11 +67,11 @@ $('[data-pgt-btn="multiple"]').change(function () {
         type: 'POST',
         success: function (responseBody) {
             $.ajax({
-                url: '/product/create/stepImage',
+                url: '/tender/addMedias',
                 type: 'post',
                 data: {
-                    referenceId: $('#productId').val(),
-                    title: $('#productName').val(),
+                    referenceId: $('#tenderId').val(),
+                    title: $('#tenderName').val(),
                     path: responseBody.imagePath,
                     type: responseBody.mediaType
                 },

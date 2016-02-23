@@ -87,8 +87,12 @@ public class TenderController extends InternalTransactionBaseController {
     public ModelAndView get(@RequestParam(value = "term", required = false) String term,
                             @RequestParam(value = "sortProperty", required = false) String sortProperty,
                             @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue,
-                            @RequestParam(value = "currentIndex", required = false) Long currentIndex, ModelAndView modelAndView) {
+                            @RequestParam(value = "currentIndex", required = false) Long currentIndex, ModelAndView modelAndView,HttpServletRequest pRequest) {
 
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         modelAndView.setViewName(viewMapperConfiguration.getTenderListPage());
         LOGGER.debug("The method query tenderList");
         PaginationBean paginationBean = new PaginationBean();
@@ -126,7 +130,12 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView createTenderUI(ModelAndView modelAndView) {
+    public ModelAndView createTenderUI(ModelAndView modelAndView,HttpServletRequest pRequest) {
+
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
 
         LOGGER.debug("The method create tender UI");
         List<Category> categories = categoryService.queryAllTenderParentCategories();
@@ -136,8 +145,11 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/updateUI/{tenderId}", method = RequestMethod.GET)
-    public ModelAndView updateTenderUI(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId) {
-
+    public ModelAndView updateTenderUI(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         if (ObjectUtils.isEmpty(tenderId)) {
             LOGGER.debug("The tenderId is empty");
             return modelAndView;
@@ -157,7 +169,11 @@ public class TenderController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView createTenderStepBase(ModelAndView modelAndView, @Validated(value = CreateTender.class) Tender tender,
-                                             BindingResult bindingResult) {
+                                             BindingResult bindingResult,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             Map<String, String> errors = new HashMap<>();
@@ -168,7 +184,6 @@ public class TenderController extends InternalTransactionBaseController {
             modelAndView.addObject("errors",errors);
             modelAndView.setViewName("/p2p-tender/tender-add-and-modify");
             LOGGER.debug("The tender input property not valid.");
-            modelAndView.setViewName(urlConfiguration.getPawnPersonInfoPage());
             return modelAndView;
         }
 
@@ -180,6 +195,14 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/addMedias", method = RequestMethod.GET)
     public ModelAndView addMedias(ModelAndView modelAndView, @RequestParam("tenderId") Integer tenderId) {
         modelAndView.setViewName("/p2p-tender/tenderImageModify");
+        if(ObjectUtils.isEmpty(tenderId)){
+            LOGGER.debug("The tenderId is empty");
+            return modelAndView;
+        }
+        Tender tender =tenderService.queryTenderById(tenderId,false);
+        if(!ObjectUtils.isEmpty(tender)){
+            modelAndView.addObject("tender",tender);
+        }
         modelAndView.addObject("tenderId", tenderId);
         return modelAndView;
     }
@@ -212,7 +235,11 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/addProductStepBase", method = RequestMethod.GET)
-    public ModelAndView addProducts(ModelAndView modelAndView, @RequestParam("tenderId") Integer tenderId) {
+    public ModelAndView addProducts(ModelAndView modelAndView, @RequestParam("tenderId") Integer tenderId,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         modelAndView.setViewName("/p2p-tender/addProductStepBase");
         modelAndView.addObject("tenderId", tenderId);
         modelAndView.addObject("product", new Product());
@@ -231,7 +258,7 @@ public class TenderController extends InternalTransactionBaseController {
             LOGGER.debug("The product is empty.");
             return modelAndView;
         }
-        productService.createProduct(product);
+        productService.createTenderProduct(product);
         if (product.getStatus() == 1) {
             esSearchService.productIndex(product);
         }
@@ -242,7 +269,11 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/addProductImageModify", method = RequestMethod.GET)
-    public ModelAndView addProductImageModify(ModelAndView modelAndView, @RequestParam("productId") Integer productId) {
+    public ModelAndView addProductImageModify(ModelAndView modelAndView, @RequestParam("productId") Integer productId,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         modelAndView.setViewName("/p2p-tender/productImageModify");
         modelAndView.addObject("productId", productId);
         return modelAndView;
@@ -279,8 +310,12 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ModelAndView updateTender(ModelAndView modelAndView, Tender tender) {
+    public ModelAndView updateTender(ModelAndView modelAndView, Tender tender,HttpServletRequest pRequest) {
         modelAndView.setViewName("/tender/tenderAddAndModify");
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         if (ObjectUtils.isEmpty(tender)) {
             LOGGER.debug("The tender is empty");
             return modelAndView;
@@ -349,8 +384,11 @@ public class TenderController extends InternalTransactionBaseController {
 
 
     @RequestMapping(value = "/queryTenderById/{tenderId}")
-    public ModelAndView queryTenderById(@PathVariable("tenderId") Integer tenderId, ModelAndView modelAndView) {
-
+    public ModelAndView queryTenderById(@PathVariable("tenderId") Integer tenderId, ModelAndView modelAndView,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         LOGGER.debug("delete the tenderId is {} ", tenderId);
         modelAndView.setViewName("/p2p-tender/tender-detail");
         if (ObjectUtils.isEmpty(tenderId)) {
@@ -370,8 +408,11 @@ public class TenderController extends InternalTransactionBaseController {
 
 
     @RequestMapping(value = "/createTenderProduct/{tenderId}", method = RequestMethod.GET)
-    public ModelAndView createTenderProduct(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId) {
-
+    public ModelAndView createTenderProduct(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         LOGGER.debug("The method createTenderProduct");
         if (ObjectUtils.isEmpty(tenderId)) {
             LOGGER.debug("The tenderId is empty");
@@ -388,8 +429,11 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/createTenderProduct", method = RequestMethod.POST)
-    public ModelAndView createTenderProduct(ModelAndView modelAndView, Product product, Integer tenderId) {
-
+    public ModelAndView createTenderProduct(ModelAndView modelAndView, Product product, Integer tenderId,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         LOGGER.debug("The method crateTenderProduct");
         modelAndView.setViewName("/p2p-tender/item-add-and-modify");
         if (ObjectUtils.isEmpty(tenderId)) {
@@ -423,8 +467,11 @@ public class TenderController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/updateTenderProduct/{tenderId}/{productId}", method = RequestMethod.GET)
     public ModelAndView updateTenderProduct(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId,
-                                            @PathVariable("productId") Integer productId) {
-
+                                            @PathVariable("productId") Integer productId,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         LOGGER.debug("The method updateTenderProduct");
         if (ObjectUtils.isEmpty(productId)) {
             LOGGER.debug("The product is empty");
@@ -452,8 +499,11 @@ public class TenderController extends InternalTransactionBaseController {
 
 
     @RequestMapping(value = "/updateTenderProduct", method = RequestMethod.POST)
-    public ModelAndView updateTenderProduct(ModelAndView modelAndView, Product product, Integer tenderId) {
-
+    public ModelAndView updateTenderProduct(ModelAndView modelAndView, Product product, Integer tenderId,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         LOGGER.debug("The method crateTenderProduct");
         if (ObjectUtils.isEmpty(tenderId)) {
             LOGGER.debug("The tenderId is empty");
@@ -489,8 +539,11 @@ public class TenderController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/queryTenderByProductId/{tenderId}/{productId}", method = RequestMethod.GET)
     public ModelAndView queryTenderByProductId(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId,
-                                               @PathVariable("productId") Integer productId) {
-
+                                               @PathVariable("productId") Integer productId,HttpServletRequest pRequest) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
         LOGGER.debug("The method queryTenderByProductId");
         if (ObjectUtils.isEmpty(tenderId)) {
             LOGGER.debug("The tenderId is empty");
