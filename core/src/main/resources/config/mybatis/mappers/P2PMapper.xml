@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.cart.dao.P2PMapper">
+    <resultMap id="info" type="com.pgt.com.pgt.order.bean.P2PInfo">
+        <id column="ID" property="id"/>
+        <result column="TYPE" property="type"/>
+        <result column="PAWN_SHOP_ID" property="pawnShopId"/>
+        <result column="PAWN_SHOP_OWNER_ID" property="pawnShopOwnerId"/>
+        <result column="TENDER_ID" property="tenderId"/>
+        <result column="EXPECT_DUE_DATE" property="expectDueDate"/>
+        <result column="ACTUAL_DUE_DATE" property="actualDueDate"/>
+        <result column="EXPECT_INCOMING" property="expectIncoming"/>
+        <result column="ACTUAL_INCOMING" property="actualIncoming"/>
+        <result column="PUBLISH_DATE" property="publishDate"/>
+        <result column="PRE_PERIOD" property="prePeriod"/>
+        <result column="POST_PERIOD" property="postPeriod"/>
+        <result column="PLACE_QUANTITY" property="placeQuantity"/>
+        <result column="UNIT_PRICE" property="unitPrice"/>
+        <result column="HANDLING_FEE" property="handlingFee"/>
+        <result column="INTEREST_RATE" property="interestRate"/>
+        <result column="HANDLING_RATE" property="handlingFeeRate"/>
+        <result column="PAY_TIME" property="payTime"/>
+        <result column="CREATION_DATE" property="creationDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <resultMap id="tender" type="com.pgt.com.pgt.tender.bean.Tender">
+        <id column="ID" property="tenderId"/>
+        <result column="PAWN_SHOP_ID" property="pawnShopId"/>
+        <result column="PAWN_SHOP_OWNER_ID" property="pawnShopOwnerId"/>
+        <result column="PAWN_TICKET_ID" property="pawnTicketId"/>
+        <result column="TENDER_TOTAL" property="tenderTotal"/>
+        <result column="TENDER_QUANTITY" property="tenderQuantity"/>
+        <result column="PUBLISH_DATE" property="publishDate"/>
+        <result column="DUE_DATE" property="dueDate"/>
+        <result column="INTEREST_RATE" property="interestRate"/>
+        <result column="NAME" property="name"/>
+        <result column="DESCRIPTION" property="description"/>
+        <result column="PRE_PERIOD" property="prePeriod"/>
+        <result column="POST_PERIOD" property="postPeriod"/>
+        <result column="CREATION_DATE" property="creationDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="HANDLING_FEE_RATE" property="handlingFeeRate"/>
+    </resultMap>
+
+
+    <insert id="createInfo" parameterType="com.pgt.com.pgt.order.bean.P2PInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO P2P_INFO (ID, `TYPE`, PAWN_SHOP_ID, PAWN_SHOP_OWNER_ID, TENDER_ID, EXPECT_DUE_DATE,
+        ACTUAL_DUE_DATE, EXPECT_INCOMING, ACTUAL_INCOMING, PUBLISH_DATE, PRE_PERIOD, POST_PERIOD, PLACE_QUANTITY,
+        UNIT_PRICE, HANDLING_FEE, INTEREST_RATE, HANDLING_RATE, PAY_TIME, CREATION_DATE, UPDATE_DATE)
+        VALUES ( #{id}, #{type}, #{pawnShopId}, #{pawnShopOwnerId}, #{tenderId}, #{expectDueDate}, #{actualDueDate},
+        #{EXPECT_INCOMING}, #{ACTUAL_INCOMING}, #{PUBLISH_DATE}, #{PRE_PERIOD}, #{POST_PERIOD}, #{PLACE_QUANTITY},
+        #{UNIT_PRICE}, #{HANDLING_FEE}, #{INTEREST_RATE}, #{HANDLING_RATE}, #{PAY_TIME}, now(), now() )
+    </insert>
+
+
+    <update id="updateInfo" parameterType="com.pgt.com.pgt.order.bean.P2PInfo">
+        UPDATE P2P_INFO
+        SET ID = #{id}, `TYPE` = #{type}, PAWN_SHOP_ID = #{pawnShopId}, PAWN_SHOP_OWNER_ID = #{pawnShopOwnerId},
+        TENDER_ID = #{tenderId}, EXPECT_DUE_DATE = #{expectDueDate}, ACTUAL_DUE_DATE = #{actualDueDate},
+        EXPECT_INCOMING = #{EXPECT_INCOMING}, ACTUAL_INCOMING = #{ACTUAL_INCOMING}, PUBLISH_DATE = #{PUBLISH_DATE},
+        PRE_PERIOD = #{PRE_PERIOD}, POST_PERIOD = #{POST_PERIOD}, PLACE_QUANTITY = #{PLACE_QUANTITY},
+        UNIT_PRICE = #{UNIT_PRICE}, HANDLING_FEE = #{HANDLING_FEE}, INTEREST_RATE = #{INTEREST_RATE},
+        HANDLING_RATE = #{HANDLING_RATE}, PAY_TIME = #{PAY_TIME}, UPDATE_DATE = now()
+        WHERE ID = #{id}
+
+    </update>
+
+    <select id="queryTenderById" parameterType="int" resultMap="tender">
+        SELECT * FROM TENDER
+        WHERE ID = #{id}
+    </select>
+</mapper>

@@ -171,7 +171,7 @@ public class TenderController extends InternalTransactionBaseController {
             }
 
            SearchResponse searchResponse=tenderSearchEngineService.findTenderById(tenderId);
-           if(ObjectUtils.isEmpty(searchResponse)){
+           if(searchResponse.getHits().getTotalHits()<1){
                 tenderSearchEngineService.createTenderIndex(tender);
             }else{
                 tenderSearchEngineService.updateTender(tender);

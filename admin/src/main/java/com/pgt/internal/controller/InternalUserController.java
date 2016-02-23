@@ -86,6 +86,7 @@ public class InternalUserController extends InternalTransactionBaseController im
         if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
+
         // main logic
         ModelAndView mav = new ModelAndView("/internal/register");
         mav.addObject(ResponseConstant.ROLES, Role.getRoleNameMap());
@@ -272,6 +273,7 @@ public class InternalUserController extends InternalTransactionBaseController im
         if (!verifyPermission(pRequest, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
+
         // main logic
         InternalUserBuilder iub = new InternalUserBuilder().setLogin(login);
         iub.setName(name).setPhone(phone).setEmail(email).setAvailable(available);

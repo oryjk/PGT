@@ -289,7 +289,7 @@
                                                 </p>
                                                 <p>
                                                     <button class="btn btn-xs green btn-circle" data-pgt-btn="modify"
-                                                            data-url="/tenderIndex/{tenderId}/${tender.tenderId}">
+                                                            data-url="/tender/tenderIndex/${tender.tenderId}">
                                                         同步到索引库
                                                     </button>
                                                 </p>

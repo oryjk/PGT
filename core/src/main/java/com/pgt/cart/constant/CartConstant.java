@@ -26,4 +26,7 @@ public interface CartConstant {
 	String ORDER_KEY_PREFIX = "orderId";
 
 	String ORDER_ITEM_LIMIT = "orderItemLimit";
+
+	String PAY_ONLY = "payOnly";
+
 }

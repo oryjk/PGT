@@ -296,7 +296,7 @@
                                         <div class="col-md-offset-3 col-md-9">
                                             <!--新增产品必须拥有权限时才显示-->
                                             <button class="btn btn-xs green btn-circle" data-pgt-btn="modify"
-                                                    data-url="/tenderIndex/{tenderId}/${tender.tenderId}">
+                                                    data-url="/tender/tenderIndex/${tender.tenderId}">
                                                 同步到索引库
                                             </button>
                                             <button type="submit" class="btn blue-hoki" onclick="window.location.href='/tender/addProductStepBase?tenderId=${tender.tenderId}'">新增产品</button>

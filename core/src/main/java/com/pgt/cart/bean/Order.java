@@ -29,6 +29,8 @@ public class Order implements OrderType, OrderStatus {
 	private Date mUpdateDate;
 	private Date mSubmitDate;
 	private boolean mEasyBuy;
+
+	// TODO PERSISTANCE
 	private Integer p2pInfoId;
 	private String orderHolderAlias;
 	private Double shippingFee;
