@@ -34,13 +34,13 @@ var app = new Vue({
             "tender.pawnShopOwnerId" : regex_empty,
             "tender.pawnTicketId" : regex_empty,
             "tender.name" : regex_empty,
-            "tender.publishDate" : regex_empty,
-            "tender.dueDate" : regex_empty,
+            "tender.publishDate" : regex_date,
+            "tender.dueDate" : regex_date,
             "tender.interestRate" : regex_empty,
             "tender.prePeriod" : regex_empty,
             "tender.postPeriod" : regex_empty,
-            "tender.handlingFeeRate" : regex_empty,
-            "tender.description" :regex_empty
+            "tender.handlingFeeRate" :regex_empty,
+            "tender.description" : regex_empty
         }
         this.regexEntity = regex;
     },
@@ -54,22 +54,26 @@ var app = new Vue({
         },
         setDate: function(event){
             var data = this.$data.tender;
-            var time = window.setInterval(function(){
+            window.clearInterval(app.time);
+            app.time = window.setInterval(function(){
                 if(event.target.value.length >= 0){
                     var key = event.target.__v_model.expression.split(".")[1];
-                    for(var o in data){
-                        if(o == key){
+                    for(var o in data) {
+                        if (o == key) {
                             data[o] = $("input[id=" + key + "]").val();
-                            console.log($("input[id=" + key + "]").val());
+                            console.log(data[o]);
+                            event.target.value = $("input[id=" + key + "]").val();
                         }
                     }
                     app.excuteVolidata(event);
                 }
             }, 10);
-            $("a").click(function(){
-               window.setTimeout(function(){
-                   window.clearInterval(time);
-               },10);
+            $(document).click(function(event){
+                if(event.target.nodeName != "INPUT" || event.target.nodeName == "A"){
+                    window.setTimeout(function(){
+                        window.clearInterval(app.time);
+                    }, 10);
+                }
             })
         }
     }

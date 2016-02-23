@@ -140,10 +140,12 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">开标时间:</label>
                                         <div class="col-md-4">
-                                            <input type="text"
-                                                   class="form-control" name="publishDate" value="<fmt:formatDate value="${tender.publishDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>" placeholder="开始时间" onfocus="$(this).calendar()"
+                                            <input id="publishDate" type="text" name="publishDate"
+                                                   value="<fmt:formatDate value="${tender.publishDate}" type="both" />"
+                                                   class="form-control" placeholder="" maxlength="35"
+                                                   onfocus="$(this).calendar()"
                                                    v-model="tender.publishDate"
-                                                   v-on:click="setDate">
+                                                   v-on:click="setDate"/>
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
@@ -155,10 +157,12 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">截止时间:</label>
                                         <div class="col-md-4">
-                                            <input type="text"
-                                                   class="form-control" name="dueDate" value="<fmt:formatDate value="${tender.dueDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>" placeholder="截止时间" onfocus="$(this).calendar()"
+                                            <input id="dueDate" type="text" name="dueDate"
+                                                   value="<fmt:formatDate value="${tender.dueDate}" type="both" />"
+                                                   class="form-control" placeholder="" maxlength="35"
+                                                   onfocus="$(this).calendar()"
                                                    v-model="tender.dueDate"
-                                                   v-on:click="setDate">
+                                                   v-on:click="setDate"/>
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
@@ -173,7 +177,7 @@
                                             <input type="text"
                                                    class="form-control" name="interestRate" value="${tender.interestRate}" placeholder="违约赔付利率"
                                                    v-model="tender.interestRate"
-                                                   v-on:click="volidate"><div>%</div>
+                                                   v-on:keyup="volidate"><div>%</div>
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
@@ -188,7 +192,7 @@
                                             <input type="text"
                                                    class="form-control" name="prePeriod" value="${tender.prePeriod}" placeholder="投资多少天开始算收益"
                                                    v-model="tender.prePeriod"
-                                                   v-on:click="volidate">
+                                                   v-on:keyup="volidate">
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
@@ -203,7 +207,7 @@
                                             <input ms-duplex="postPeriod" name="postPeriod" value="${tender.postPeriod}"
                                                    class="form-control" placeholder="不超过10字"
                                                    v-model="tender.postPeriod"
-                                                   v-on:click="volidate"/>
+                                                   v-on:keyup="volidate"/>
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
@@ -218,7 +222,7 @@
                                             <input type="text"
                                                    class="form-control" name="handlingFeeRate" value="${tender.handlingFeeRate}" placeholder="手续费费率"
                                                    v-model="tender.handlingFeeRate"
-                                                   v-on:click="volidate"><div>%</div>
+                                                   v-on:keyup="volidate"><div>%</div>
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
@@ -233,7 +237,7 @@
                                             <input ms-duplex="description" name="description" value="${tender.description}"
                                                    class="form-control" placeholder="不超过20字"
                                                    v-model="tender.description"
-                                                   v-on:click="volidate"/>
+                                                   v-on:keyup="volidate"/>
                                         </div>
                                         <div class="col-xs-4">
                                             <p class="form-control-static pgt-error">
