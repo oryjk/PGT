@@ -25,6 +25,8 @@ public class P2PInfo implements Serializable {
     private Double interestRate;
     private Double handlingFeeRate;
     private Date payTime; // TODO DB STRUCTURE
+    private Date creationDate;
+    private Date updateDate;
 
     public Date getCreationDate() {
         return creationDate;
@@ -42,8 +44,7 @@ public class P2PInfo implements Serializable {
         this.updateDate = updateDate;
     }
 
-    private Date creationDate;
-    private Date updateDate;
+
 
     public Integer getType() {
         return type;

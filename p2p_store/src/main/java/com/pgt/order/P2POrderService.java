@@ -4,6 +4,7 @@ import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.OrderType;
+import com.pgt.cart.dao.P2PMapper;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
@@ -34,6 +35,10 @@ public class P2POrderService extends OrderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(P2POrderService.class);
 
     private ShoppingCartService shoppingCartService;
+
+    private P2PMapper p2PMapper;
+
+
 
     public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, String[] quantities) throws OrderPersistentException {
         LOGGER.debug("==================== Start method createP2POrder ====================");
@@ -99,7 +104,6 @@ public class P2POrderService extends OrderService {
                 // ci.setSnapshotId();
                 ci.setType(CommerceItem.TYPE_P2P_NOMAL);
                 commerceItems.add(ci);
-                // TODO persistence commerceItem
             }
             count++;
         }
@@ -180,7 +184,6 @@ public class P2POrderService extends OrderService {
                 count++;
             }
         }
-        // TODO persistence commerceItem
 
     }
 
@@ -200,7 +203,11 @@ public class P2POrderService extends OrderService {
     }
 
     private void persistenceP2PInfo(P2PInfo info) {
-        // TODO
+       if (null == info.getId()) {
+           getP2PMapper().createInfo(info);
+       } else {
+           getP2PMapper().updateInfo(info);
+       }
     }
 
     private void calculateP2PInfo(P2PInfo info, Order order) {
@@ -306,6 +313,10 @@ public class P2POrderService extends OrderService {
         return result;
     }
 
+    public Tender queryTenderById(int tenderId) {
+        return getP2PMapper().queryTenderById(tenderId);
+    }
+
 
     public ShoppingCartService getShoppingCartService() {
         return shoppingCartService;
@@ -313,6 +324,14 @@ public class P2POrderService extends OrderService {
 
     public void setShoppingCartService(ShoppingCartService shoppingCartService) {
         this.shoppingCartService = shoppingCartService;
+    }
+
+    public P2PMapper getP2PMapper() {
+        return p2PMapper;
+    }
+
+    public void setP2PMapper(P2PMapper p2PMapper) {
+        this.p2PMapper = p2PMapper;
     }
 
 }
