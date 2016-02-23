@@ -86,7 +86,7 @@ body {
     margin-top: 25px;
     border: 1px solid $gray-light;
     padding: 35px 0 0 30px;
-    @include wh(305px, 205px);
+    @include wh(310px, 205px);
     background: white;
   }
 
@@ -135,8 +135,35 @@ body {
   }
 
   .item-nav {
+    position: relative;
     padding: 15px 0;
     overflow: hidden;
+
+    &:hover {
+      .item-nav-left,
+      .item-nav-right {
+        display: block;
+        opacity: .4;
+      }
+    }
+
+    .item-nav-left {
+      display: none;
+      position: absolute;
+      top: 40%;
+      left: 0;
+      @include wh(50px, 75px);
+      background: url('../core/images/detail/turn-left.png');
+    }
+
+    .item-nav-right {
+      display: none;
+      position: absolute;
+      top: 40%;
+      right: 0;
+      @include wh(50px, 75px);
+      background: url('../core/images/detail/turn-right.png');
+    }
 
     ul {
       width: 10000px;
@@ -157,6 +184,7 @@ body {
       @include wh(245px, 245px);
     }
   }
+
 
 
   .what-is-this {
@@ -230,7 +258,7 @@ body {
 
   .item-img-box {
     float: left;
-    padding: 8px 0 0 8px;
+    padding: 13px 0 0 13px;
     width: 400px;
   }
 
@@ -250,16 +278,20 @@ body {
   }
 
   .small-img-box {
-    padding-top: 15px;
+    padding-top: 13px;
 
     li {
       @include wh(90px, 90px);
       float: left;
-      margin: 0 (400px - 90px * 4) / 8;
+      margin-right: (400px - 90px * 4) / 3;
 
       &:hover {
         outline: 2px solid $main-light;
       }
+    }
+
+    .item-samll-end {
+      margin-right: 0;
     }
 
     a {
@@ -293,7 +325,8 @@ body {
   .item-row-4,
   .item-row-5,
   .item-row-6,
-  .item-row-7 {
+  .item-row-7,
+  .item-row-8 {
     padding-top: 28px;
     @extend %clear;
   }
@@ -313,6 +346,35 @@ body {
 
   .item-join-favorite {
     @include color-btn(160px, 40px, 0, 20px, $em, $em-dark);
+  }
+
+  .item-row-7 {
+    position: relative;
+  }
+
+  .plus-and-minus {
+    position: absolute;
+    @include wh(50px, 31px);
+    top: 22px;
+    left: 260px;
+
+    a {
+      float: left;
+      display: block;
+      @include wh(50px, 15px);
+      background: $main;
+      text-align: center;
+      line-height: 15px;
+      color: white;
+
+      &:hover {
+        background: $main-dark;
+      }
+    }
+  }
+
+  .item-buy-minus {
+    margin-top: 1px;
   }
 
   .zoomWindow {
@@ -554,7 +616,7 @@ body {
   .recommend-img-box {
     display: block;
     margin: 8px auto 0;
-    @include wh(234px, 140px);
+    @include wh(234px, 234px);
 
     img {
       @include wh(100%, 100%);
@@ -578,8 +640,21 @@ body {
   }
 
   .recommend-progress-bar {
+    position: relative;
     float: left;
-    @include wh(195px, 45px);
+    margin: 25px 10px 0 20px;
+    @include wh(170px, 10px);
+    background: $gray-light;
+    border-radius: 5px;
+
+    .inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: $em-light;
+      border-radius: 5px;
+      height: 10px;
+    }
   }
 
 
@@ -601,5 +676,22 @@ body {
   .recommend-people {
     float: right;
   }
+}
 
+.turn-right {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  margin-left: $main-width-s / 2 + 30px;
+  @include wh(50px, 75px);
+  background: url('../core/images/detail/turn-right.png');
+}
+
+.turn-left {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  margin-left: - $main-width-s / 2 - 90px;
+  @include wh(50px, 75px);
+  background: url('../core/images/detail/turn-left.png');
 }

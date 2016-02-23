@@ -46,7 +46,7 @@
             <div class="invest-data">
                 <div class="data-row-1">项目金额</div>
                 <div class="data-row-2">
-                    <div class="progress-circle"></div>
+                    <div id="indicatorContainer" class="progress-circle"></div>
 
                     <div class="cost-box">
                         <span class="cost">¥</span><span class="cost">18,000.00</span>
@@ -68,6 +68,8 @@
                 <li><a href="#"><img src="../core/images/product/hero_1_02.jpg" alt=""/></a></li>
                 <li><a href="#"><img src="../core/images/product/hero_1_03.jpg" alt=""/></a></li>
             </ul>
+            <a class="item-nav-right" href="#"></a>
+            <a class="item-nav-left" href="#"></a>
         </div>
 
         <img class="what-is-this" src="" alt=""/>
@@ -105,7 +107,7 @@
                                 <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_00.jpg',largeimage: '../core/images/product/hero_1_00.jpg'}"><img class="small-img" src='../core/images/product/hero_1_00.jpg'></a></li>
                                 <li><a href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_01.jpg',largeimage: '../core/images/product/hero_1_01.jpg'}"><img class="small-img" src='../core/images/product/hero_1_01.jpg'></a></li>
                                 <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_02.jpg',largeimage: '../core/images/product/hero_1_02.jpg'}"><img class="small-img" src='../core/images/product/hero_1_02.jpg'></a></li>
-                                <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_03.jpg',largeimage: '../core/images/product/hero_1_03.jpg'}"><img class="small-img" src='../core/images/product/hero_1_03.jpg'></a></li>
+                                <li class="item-samll-end"><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_03.jpg',largeimage: '../core/images/product/hero_1_03.jpg'}"><img class="small-img" src='../core/images/product/hero_1_03.jpg'></a></li>
                             </ul>
                         </div>
                     </div>
@@ -146,6 +148,14 @@
                             </div>
                         </div>
                         <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span  class="item-surplus-count">5</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
                             <div class="col-title">&nbsp; </div>
                             <div class="col-content">
                                 <a class="item-buy-now" href="#">立即抢订</a>
@@ -171,7 +181,7 @@
                                 <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
                                 <li><a href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
                                 <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
-                                <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
+                                <li class="item-samll-end"><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
                             </ul>
                         </div>
                     </div>
@@ -212,6 +222,14 @@
                             </div>
                         </div>
                         <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span class="item-surplus-count">5</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
                             <div class="col-title">&nbsp; </div>
                             <div class="col-content">
                                 <a class="item-buy-now" href="#">立即抢订</a>
@@ -398,7 +416,9 @@
                         <div class="recommend-info">
                             <h4><a href="#">鑫鑫典当行纯金镶钻生肖戒指</a></h4>
                             <div class="recommend-progress">
-                                <div class="recommend-progress-bar"></div>
+                                <div class="recommend-progress-bar">
+                                    <div class="inner" style="width: 100px;" date-value=""></div>
+                                </div>
                                 <div class="recommend-progress-text">
                                     <p>剩余</p>
                                     <p><span>35</span>%</p>
@@ -415,7 +435,9 @@
                         <div class="recommend-info">
                             <h4><a href="#">鑫鑫典当行纯金镶钻生肖戒指</a></h4>
                             <div class="recommend-progress">
-                                <div class="recommend-progress-bar"></div>
+                                <div class="recommend-progress-bar">
+                                    <div class="inner" style="width: 100px;" date-value=""></div>
+                                </div>
                                 <div class="recommend-progress-text">
                                     <p>剩余</p>
                                     <p><span>35</span>%</p>
@@ -432,7 +454,9 @@
                         <div class="recommend-info">
                             <h4><a href="#">鑫鑫典当行纯金镶钻生肖戒指</a></h4>
                             <div class="recommend-progress">
-                                <div class="recommend-progress-bar"></div>
+                                <div class="recommend-progress-bar">
+                                    <div class="inner" style="width: 100px;" date-value=""></div>
+                                </div>
                                 <div class="recommend-progress-text">
                                     <p>剩余</p>
                                     <p><span>35</span>%</p>
@@ -449,7 +473,9 @@
                         <div class="recommend-info">
                             <h4><a href="#">鑫鑫典当行纯金镶钻生肖戒指</a></h4>
                             <div class="recommend-progress">
-                                <div class="recommend-progress-bar"></div>
+                                <div class="recommend-progress-bar">
+                                    <div class="inner" style="width: 100px;" date-value=""></div>
+                                </div>
                                 <div class="recommend-progress-text">
                                     <p>剩余</p>
                                     <p><span>35</span>%</p>
@@ -616,8 +642,14 @@
     </div>
     <!--footer end-->
 
+    <!-- turn left and right begin-->
+    <a class="turn-right" href="#"></a>
+    <a class="turn-left" href="#"></a>
+    <!-- turn left and right end-->
+
     <script src="../core/js/jquery.min.js"></script>
     <script src="../core/js/jquery.jqzoom-core.js"></script>
+    <script src="../core/js/radialindicator.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function() {
@@ -629,6 +661,14 @@
                 zoomWidth:400,
                 zoomHeight: 400,
                 hideEffect: 'fadeout'
+            });
+
+            $('#indicatorContainer').radialIndicator({
+                barColor: '#2d7fe0',
+                barWidth: 10,
+                initValue: 40,
+                roundCorner : true,
+                percentage: true
             });
 
         });

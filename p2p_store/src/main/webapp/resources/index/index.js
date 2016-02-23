@@ -15,7 +15,7 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
         //轮播图
         Cpn.slider({
             next: 1,
-            imgBox: $('#bannerFrontEnd, #bannerBackEnd'),
+            imgBox: $('#bannerBackEnd'),
             navBox: $('#bannerNav'),
             time: 600
         });

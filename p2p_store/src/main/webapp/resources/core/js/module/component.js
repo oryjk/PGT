@@ -11,7 +11,7 @@ define(function() {
      * */
     var slider = function(sliderObj) {
         var sliderIng = setInterval(slider, 5000);
-        $('#bannerBox').mouseenter(function() {
+        $('#bannerNav').mouseenter(function() {
             clearInterval(sliderIng);
         }).mouseleave(function() {
             sliderIng = setInterval(slider, 5000);
@@ -26,7 +26,8 @@ define(function() {
 
         function slider() {
             sliderObj.imgBox.children().fadeOut(sliderObj.time).eq(sliderObj.next).fadeIn(slider.time);
-            sliderObj.navBox.children().removeClass('banner-nav-now').eq(sliderObj.next).addClass('banner-nav-now');
+            $('#bannerFrontEnd').children().fadeOut(sliderObj.time).eq(sliderObj.next).fadeIn(slider.time);
+            sliderObj.navBox.children().removeClass('banner-nav-current').eq(sliderObj.next).addClass('banner-nav-current');
             sliderObj.next ++;
             if (sliderObj.next >= sliderObj.navBox.children().size()) {
                 sliderObj.next = 0;
