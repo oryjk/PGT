@@ -96,13 +96,18 @@
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">所属分类</label>
-                                        <div class="col-md-9">
+                                        <div class="col-md-3">
                                             <div class="radio-list">
                                                 <select class="form-control input-medium" name="categoryId">
                                                     <c:forEach items="${categories}" var="category">
                                                         <option value="${category.id}">${category.name}</option>
                                                     </c:forEach>
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="radio-list">
+                                                <button class="btn green-haze btn-circle" data-pgt-btn="create" data-url="/tenderCategory/create"><i class="fa fa-plus"></i> 新增分类</button>
                                             </div>
                                         </div>
                                     </div>
