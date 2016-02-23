@@ -481,6 +481,9 @@ public class YeePayController {
 		paramMap.put(YeePayConstants.PARAM_NAME_REQUEST_NO,
 				YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId()));
 		paramMap.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO, platformUserNo);
+
+		//if user platform, need change type to merchant.
+//		paramMap.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MERCHANT);
 		paramMap.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
 		paramMap.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
 

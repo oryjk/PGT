@@ -223,14 +223,13 @@ public class UserMobileController extends BaseMobileController {
     @RequestMapping(value = "/resetPassword",method=RequestMethod.POST)
     public  Map<String,Object> resetPassword(User resetUser,HttpServletRequest request,HttpSession session){
 
+
         Map<String,Object> responseMap = new HashMap<String,Object>();
+
         if(StringUtils.isEmpty(resetUser.getPhoneId())) {
             return responseMobileFail(responseMap, "PhoneId.empty");
         }
-        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
-        if(ObjectUtils.isEmpty(user)){
-            return responseMobileFail(responseMap, "User.empty");
-        }
+
         if(ObjectUtils.isEmpty(resetUser)){
           return  responseMobileFail(responseMap, "restUser.empty");
         }
@@ -253,6 +252,12 @@ public class UserMobileController extends BaseMobileController {
         if (!resetUser.getSmsCode().equals(phoneCode)) {
            return responseMobileFail(responseMap, "User.phone.code.error");
         }
+        User user = userServiceImp.authorize(resetUser.getPhoneNumber());
+
+        if(ObjectUtils.isEmpty(user)){
+            return responseMobileFail(responseMap, "phoneNumber is not register phoneNumber");
+        }
+
         //修改密码
         user.setPassword(resetUser.getPassword());
         userServiceImp.updateUserPassword(user);

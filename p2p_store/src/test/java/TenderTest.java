@@ -24,8 +24,6 @@ import java.util.List;
 /**
  * Created by carlwang on 1/19/16.
  */
-
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml") // 加载
 public class TenderTest {

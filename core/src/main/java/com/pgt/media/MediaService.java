@@ -3,6 +3,8 @@ package com.pgt.media;
 import com.pgt.common.bean.Media;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.ProductMedia;
+import com.pgt.tender.bean.TenderMedia;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -46,6 +48,23 @@ public interface MediaService {
     Media queryPageBackgroundFooterMedia(Integer pageBackgroundId);
 
     Media queryHotProductFrontMedia(Integer hotSearchId);
+
+
+
+    TenderMedia queryTenderP2PFrontMedia(@Param("tenderId") Integer tenderId);
+
+
+    TenderMedia queryTenderP2PAdvertisement(@Param("tenderId") Integer tenderId);
+
+
+    List<TenderMedia> queryTenderP2PHeroMedia(@Param("tenderId") Integer tenderId);
+
+    List<TenderMedia> queryTenderP2PMainMedia(@Param("tenderId") Integer tenderId);
+
+
+    TenderMedia queryTenderP2PExpertMedia(@Param("tenderId") Integer tenderId);
+
+    TenderMedia queryTenderMobileDetailMedia(@Param("tenderId") Integer tenderId);
 
     Integer createMedia(Media media);
 }

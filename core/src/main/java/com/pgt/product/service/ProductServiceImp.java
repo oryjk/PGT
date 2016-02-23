@@ -6,8 +6,12 @@ import com.pgt.hot.bean.HotSearch;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductCategoryRelation;
 import com.pgt.product.bean.ProductMedia;
+import com.pgt.product.bean.ProductType;
 import com.pgt.product.dao.ProductMapper;
 import com.pgt.search.bean.SearchPaginationBean;
+import com.pgt.search.service.TenderSearchEngineService;
+import com.pgt.tender.bean.Tender;
+import com.pgt.tender.mapper.TenderMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +46,9 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     @Autowired
     private MediaMapper mediaMapper;
 
+    @Autowired
+    private TenderMapper tenderMapper;
+
     @Override
     public Product queryProduct(int productId) {
         return productMapper.queryProduct(productId);
@@ -69,7 +76,31 @@ public class ProductServiceImp extends TransactionService implements ProductServ
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
-            getTransactionManager().rollback(transactionStatus);
+            transactionStatus.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
+        return product.getProductId();
+    }
+
+    @Override
+    public Integer createTenderProduct(Product product) {
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            if (ObjectUtils.isEmpty(product.getCreationDate())) {
+                product.setCreationDate(new Date());
+            }
+            if (ObjectUtils.isEmpty(product.getUpdateDate())) {
+                product.setUpdateDate(new Date());
+            }
+            Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
+            tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
+            product.setType(ProductType.LIVE_PAWNAGE.toString());
+            productMapper.createProduct(product);
+        } catch (Exception e) {
+            LOGGER.error("Some thing wrong when create a product with product is is {productId}",
+                    product.getProductId());
+            transactionStatus.setRollbackOnly();
         } finally {
             getTransactionManager().commit(transactionStatus);
         }
@@ -87,6 +118,7 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             if (ObjectUtils.isEmpty(product.getUpdateDate())) {
                 product.setUpdateDate(new Date());
             }
+            product.setType(ProductType.DEAD_PAWNAGE.toString());
             productMapper.createProduct(product);
             createProductMedias(product);
             ProductCategoryRelation productCategoryRelation = new ProductCategoryRelation();
@@ -151,6 +183,15 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public Integer updateProduct(Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
+
+            if(!ObjectUtils.isEmpty(product.getTenderId())){
+                Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
+                Product old_product=productMapper.queryProduct(product.getProductId());
+                tender.setTenderTotal(tender.getTenderTotal()-old_product.getSalePrice()*old_product.getStock());
+                tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
+                tenderMapper.updateTender(tender);
+            }
+
             productMapper.updateProduct(product);
             mediaMapper.deleteAllProductMedia(product.getProductId());
             mediaMapper.createMedia(product.getThumbnailMedia());

@@ -59,7 +59,7 @@ public class ProductTest {
             media.setIndex(1);
             media.setPath("12312/1/2/12/1/21/2/");
             media.setTitle("呵呵");
-            media.setType(MediaType.copy_write.toString());
+            media.setType(MediaType.copy_write);
             product.setFrontMedia(media);
             productService.createProduct(2, product);
         }

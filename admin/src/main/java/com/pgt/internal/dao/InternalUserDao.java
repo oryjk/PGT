@@ -1,8 +1,9 @@
 package com.pgt.internal.dao;
 
 import com.pgt.base.mapper.SqlMapper;
-import com.pgt.internal.bean.InternalUser;
 import com.pgt.cart.bean.pagination.InternalPagination;
+import com.pgt.internal.bean.InternalUser;
+import com.pgt.internal.bean.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -37,4 +38,6 @@ public interface InternalUserDao extends SqlMapper {
 	long queryInternalUserPhoneCountExcludeId(@Param("phone") String pPhone, @Param("id") Integer pId);
 
 	boolean updateBatchInternalUserAvailable(@Param("ids") int[] pIds, @Param("available") boolean pAvailable);
+
+	List<InternalUser> queryInternalUserByRoles(@Param("roles") List<Role> pRoles);
 }

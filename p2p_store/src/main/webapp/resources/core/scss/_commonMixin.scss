@@ -12,3 +12,9 @@
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=$o * 100) \9
 ;
 }
+
+//块级元素
+@mixin block-center($width) {
+  margin: 0 auto;
+  width: $width;
+}

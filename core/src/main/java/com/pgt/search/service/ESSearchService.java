@@ -209,6 +209,11 @@ public class ESSearchService {
     public IndexResponse productIndex(Product product) {
         IndexResponse response = null;
         try {
+            if (ObjectUtils.isEmpty(product.getRelatedCategoryId())) {
+                LOGGER.debug("The relate category is empty.");
+                return response;
+            }
+
             CategoryHierarchy categoryHierarchy = categoryService.queryCategoryHierarchy(Integer.valueOf(product.getRelatedCategoryId()));
             Category category = categoryService.queryCategory(categoryHierarchy.getCategoryId());
             Category rootCategory = categoryService.queryCategory(categoryHierarchy.getParentCategory().getCategoryId());
@@ -862,6 +867,10 @@ public class ESSearchService {
 
     public void deleteProductIndex(String productId) {
         deleteIndex(productId, Constants.PRODUCT_INDEX_TYPE);
+    }
+
+    public void deleteTender(String tenderId) {
+        deleteIndex(tenderId, Constants.TENDER_INDEX_TYPE);
     }
 
     public void deleteCategoryIndex(String categoryId) {

@@ -9,18 +9,28 @@
 		<result column="CATEGORY_ID" property="categoryId"/>
 	</resultMap>
 
-	<select id="findTenderCategoryById" parameterType="int">
+	<select id="findTenderCategoryById" parameterType="int" resultMap="tenderCategoryResult">
 		SELECT * FROM TENDER_CATEGORY WHERE ID=#{id}
 	</select>
 	<insert id="createTenderCategory" parameterType="com.pgt.tender.bean.TenderCategory" keyProperty="id"
 			useGeneratedKeys="true">
 		INSERT INTO TENDER_CATEGORY(TENDER_ID,CATEGORY_ID) VALUES (#{tenderId},#{categoryId})
 	</insert>
+
+	<select id="findTenderByTenderIdAndCategoryId" parameterType="com.pgt.tender.bean.TenderCategory" resultMap="tenderCategoryResult">
+		SELECT * FROM  TENDER_CATEGORY WHERE TENDER_ID=#{tenderId} AND CATEGORY_ID=#{categoryId}
+	</select>
+
+
 	<update id="updateTenderCategory" parameterType="com.pgt.tender.bean.TenderCategory" keyProperty="id">
-		UPDATE TENDER_CATEGORY SET TENDER_ID=#{tenderId},CATEGORY_ID=#{categoryId};
+		UPDATE TENDER_CATEGORY SET TENDER_ID=#{tenderId},CATEGORY_ID=#{categoryId} WHERE ID=#{id};
 	</update>
 	<delete id="deleteTenderCategory" parameterType="int">
 		DELETE FROM TENDER_CATEGORY WHERE ID=#{id}
+	</delete>
+
+	<delete id="deleteTenderCategoryByTenderId" parameterType="Integer">
+		DELETE FROM TENDER_CATEGORY WHERE TENDER_ID=#{tenderId}
 	</delete>
 
 </mapper>

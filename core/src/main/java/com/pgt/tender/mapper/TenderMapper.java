@@ -2,6 +2,7 @@ package com.pgt.tender.mapper;
 
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.tender.bean.Tender;
+import com.pgt.tender.bean.TenderMedia;
 import com.pgt.tender.bean.TenderQuery;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -29,5 +30,20 @@ public interface TenderMapper extends SqlMapper {
     List<Tender> queryAllTender();
 
     List<Tender> queryTenderByQuery (TenderQuery tenderQuery);
+
+    TenderMedia queryTenderP2PFrontMedia(@Param("tenderId") Integer tenderId);
+
+
+    TenderMedia queryTenderP2PAdvertisement(@Param("tenderId") Integer tenderId);
+
+
+    List<TenderMedia> queryTenderP2PHeroMedia(@Param("tenderId") Integer tenderId);
+
+    List<TenderMedia> queryTenderP2PMainMedia(@Param("tenderId") Integer tenderId);
+
+
+    TenderMedia queryTenderP2PExpertMedia(@Param("tenderId") Integer tenderId);
+
+    TenderMedia queryTenderMobileDetailMedia(@Param("tenderId") Integer tenderId);
 
 }

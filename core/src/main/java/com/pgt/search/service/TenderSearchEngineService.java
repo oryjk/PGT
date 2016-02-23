@@ -7,10 +7,9 @@ import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.constant.Constants;
 import com.pgt.home.bean.HomeTender;
-import com.pgt.search.bean.ESAggregation;
-import com.pgt.search.bean.ESRange;
-import com.pgt.search.bean.ESSort;
-import com.pgt.search.bean.ESTerm;
+import com.pgt.product.bean.CategoryHierarchy;
+import com.pgt.product.bean.Product;
+import com.pgt.search.bean.*;
 import com.pgt.tender.bean.ESTender;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
@@ -19,8 +18,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequestBuilder;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
@@ -95,7 +97,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
             categoryList.stream().forEach(category -> {
                 Integer categoryId = category.getId();
-                Tender tender=new Tender();
+                Tender tender = new Tender();
                 tender.setCategoryId(categoryId);
                 tender.setCategoryHot(true);
                 List<Tender> tenders = tenderService.queryTenders(tender);
@@ -105,7 +107,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                 Client client = getIndexClient();
                 ObjectMapper mapper = new ObjectMapper();
                 String data = mapper.writeValueAsString(homeTender);
-                IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants
+                IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.P2P_INDEX_NAME, Constants
                                 .HOME_TENDER_INDEX_TYPE,
                         homeTender.getCategory().getId() + "")
                         .setSource(data);
@@ -142,7 +144,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
-                    IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants
+                    IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.P2P_INDEX_NAME, Constants
                                     .TENDER_INDEX_TYPE,
                             tender.getTenderId() + "")
                             .setSource(data);
@@ -158,17 +160,31 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         }
     }
 
+    public SearchResponse findTenderById(Integer tenderId) {
+        SearchResponse response = null;
+        if (ObjectUtils.isEmpty(tenderId)) {
+            LOGGER.debug("the tender id is empty.");
+            return response;
+        }
+        ESTerm esTerm = new ESTerm();
+        esTerm.setTermValue(String.valueOf(tenderId));
+        esTerm.setPropertyName(Constants.TENDER_ID);
+        response = findTender(esTerm, null, null, null, null, null, null);
+        return response;
+    }
+
+
     public SearchResponse findTender(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
                                      PaginationBean paginationBean,
                                      ESAggregation categoryIdAggregation, String indexType) {
         SearchResponse response = null;
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, indexType);
+            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
 
             buildQueryBuilder(esTerm, esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
-            response = searchRequestBuilder.execute()
+                response = searchRequestBuilder.execute()
                     .actionGet();
             return response;
         } catch (IOException e) {
@@ -192,6 +208,52 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         return findTender(null, matches, null, null, null, null, Constants.TENDER_INDEX_TYPE);
     }
 
+    public void updateTender(Tender tender) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] bytes = mapper.writeValueAsBytes(tender);
+            LOGGER.debug("Tender id is {}.", tender.getTenderId());
+            UpdateRequestBuilder updateRequestBuilder =
+                    getIndexClient().prepareUpdate(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
+                            .setDoc(bytes);
+            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
+            if (updateResponse.isCreated()) {
+                LOGGER.debug("Success to update tender.");
+                return;
+            }
+        } catch (JsonProcessingException e) {
+            LOGGER.error(e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+        if (tender.getCategoryHot()) {
+            //TODO
+        }
+    }
+
+    public IndexResponse createTenderIndex(Tender tender) {
+        ObjectMapper mapper = new ObjectMapper();
+        IndexResponse response = null;
+        try {
+            byte[] bytes = mapper.writeValueAsBytes(tender);
+            LOGGER.debug("Tender id is {}.", tender.getTenderId());
+            IndexRequestBuilder indexRequestBuilder =
+                    getIndexClient().prepareIndex(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
+                            .setSource(bytes);
+            response = indexRequestBuilder.execute().actionGet(100000);
+            if (response.isCreated()) {
+                LOGGER.debug("success to create tender.");
+                return response;
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
 
     @Override
     public void update(Integer id) {
@@ -207,7 +269,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
     private void createTenderMapping() {
         LOGGER.debug("Begin to create tender mapping.");
-        createMapping(Constants.SITE_INDEX_NAME, Constants.TENDER_INDEX_TYPE, getEsConfiguration().getTenderAnalyzerFields());
+        createMapping(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, getEsConfiguration().getTenderAnalyzerFields());
         LOGGER.debug("End to create tender mapping.");
     }
 }

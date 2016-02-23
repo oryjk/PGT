@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="index.css"/>
+    <style>
+        /*super:请在此处写上各个分类的字体颜色,在html里面,注意类名要递增*/
+        .each-category-1 .list-head .category-nav-choose {
+            color: #fe6c6c;
+        }
+        .each-category-2 .list-head .category-nav-choose {
+            color: #7ecafe;
+        }
+        .each-category-3 .list-head .category-nav-choose {
+            color: #fec64f;
+        }
+        .each-category-end .list-head .category-nav-choose {
+            color: #b1dd7a;
+        }
+    </style>
 </head>
 <body>
 <!--header begin-->
@@ -29,20 +44,21 @@
 <!--header end-->
 
 <!--banner begin-->
-<ul class="banner-bg">
+<!--super:时差滚动轮播图,把图片放在#bannerBackEnd里面,把文字和链接放在#bannerFrontEnd里面-->
+<ul id="bannerBackEnd" class="banner-bg">
     <li class="banner-bg-current" style="background-image:url('../core/images/index/banner.png')"></li>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li style="background: blue"></li>
+    <li style="background: yellow" ></li>
+    <li style="background: green"></li>
 </ul>
-<div class="banner">
-    <ul>
-        <li class="banner-current"><a class="banner-link" href="#"></a></li>
-        <li><a class="banner-link" href="#"></a></li>
-        <li><a class="banner-link" href="#"></a></li>
-        <li><a class="banner-link" href="#"></a></li>
+<div id="bannerBox" class="banner">
+    <ul id="bannerFrontEnd">
+        <li class="banner-current"><a class="banner-link" href="#">1</a></li>
+        <li><a class="banner-link" href="#">2</a></li>
+        <li><a class="banner-link" href="#">3</a></li>
+        <li><a class="banner-link" href="#">4</a></li>
     </ul>
-    <ol>
+    <ol id="bannerNav">
         <li class="banner-nav-current"></li>
         <li></li>
         <li></li>
@@ -57,24 +73,373 @@
         <div class="advantage-inner">
             <h2>预售特点</h2>
             <ul>
-                <li class="advantage-li-1"><a style="background-image: url('../core/images/index/advantage-1.png')" href="javascript;"></a></li>
-                <li class="advantage-li-2"><a style="background-image: url('../core/images/index/advantage-2.png')" href="javascript;"></a></li>
-                <li class="advantage-li-3"><a style="background-image: url('../core/images/index/advantage-3.png')" href="javascript;"></a></li>
-                <li class="advantage-li-4"><a style="background-image: url('../core/images/index/advantage-4.png')" href="javascript;"></a></li>
+                <li class="advantage-li-1"><a style="background-image: url('../core/images/index/advantage-1.png')" href="javascript:void(0);"></a></li>
+                <li class="advantage-li-2"><a style="background-image: url('../core/images/index/advantage-2.png')" href="javascript:void(0);"></a></li>
+                <li class="advantage-li-3"><a style="background-image: url('../core/images/index/advantage-3.png')" href="javascript:void(0);"></a></li>
+                <li class="advantage-li-4"><a style="background-image: url('../core/images/index/advantage-4.png')" href="javascript:void(0);"></a></li>
             </ul>
         </div>
     </div>
-    <div class="advert">
-        <div class="advert-inner">
-
-        </div>
+    <div class="advert" style="background: white;" >
+        <a class="advert-inner" href="#"></a>
     </div>
     <div class="content-part">
-        <div class="hot"></div>
-        <div class="list"></div>
+        <div class="hot">
+            <div class="hot-head">
+                <div class="hot-tab">
+                    <a class="hot-tab-choose" href="javascript:void(0);">热门推荐</a>
+                    <a class="" href="javascript:void(0);">在线典当</a>
+                </div>
+                <a class="hot-more" href="javascript:void(0);">更多>></a>
+            </div>
+            <div class="hot-main">
+                <ul class="invest-list">
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_0_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_1_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_2_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="need-invest">
+                    <div class="need-invest-opacity">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="category">
+            <h2>在当预售</h2>
+            <div class="each-category each-category-1" style="border-top: 2px solid #fc6c6c;">
+                <div class="list-head" style="background-image: linear-gradient(180deg,#fc6c6c,#ffafb0);">
+                    <h3>珠宝在当</h3>
+                    <ul class="category-nav">
+                        <li><a class="category-nav-item" href="javascript:void(0);">翡翠</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">寿山石</a></li>
+                        <li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">和田碧玉</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">和田白玉</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">独山玉</a></li>
+                    </ul>
+                </div>
+                <ul class="invest-list">
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_0_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_1_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_2_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="each-category each-category-2" style="border-top: 2px solid #7ecafe;">
+                <div class="list-head" style="background-image: linear-gradient(180deg,#7ecafe,#b0deff);">
+                    <h3>珠宝在当</h3>
+                    <ul class="category-nav">
+                        <li><a class="category-nav-item" href="javascript:void(0);">翡翠</a></li>
+                        <li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">寿山石</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">和田碧玉</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">和田白玉</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">独山玉</a></li>
+                    </ul>
+                </div>
+                <ul class="invest-list">
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_0_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_1_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_2_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="each-category each-category-3" style="border-top: 2px solid #fec64f;">
+                <div class="list-head" style="background-image: linear-gradient(180deg,#fec64f,#fed885);">
+                    <h3>珠宝在当</h3>
+                    <ul class="category-nav">
+                        <li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">翡翠</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">寿山石</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">和田碧玉</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">和田白玉</a></li>
+                        <li><a class="category-nav-item" href="javascript:void(0);">独山玉</a></li>
+                    </ul>
+                </div>
+                <ul class="invest-list">
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_0_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_1_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="invest-inner">
+                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_2_00.jpg" alt="产品的名字"/></a>
+                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="each-category each-category-end" style="border-top: 2px solid #b1dd7a;">
+                <div class="list-head" style="background-image: linear-gradient(180deg,#b1dd7a,#cbe890);">
+                    <h3>珠宝在当</h3>
+                    <ul class="category-nav">
+                        <li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">新手专区</a></li>
+                    </ul>
+                </div>
+                <div class="help">
+                    <div class="help-hot">
+                        <a href="#" class="help-img-box"><img src="../core/images/product/help_img_1.png" alt="#"/></a>
+                        <a href="#" class="help-img-box"><img src="../core/images/product/help_img_2.png" alt="#"/></a>
+                    </div>
+                    <ul class="help-list">
+                        <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+                        <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+                        <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+                        <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+                        <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+                        <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+                    </ul>
+                </div>
+                <div class="app-code">
+                    <div class="app-row-1">点金子淘在当APP</div>
+                    <div class="app-row-2">玩转购物新方式</div>
+                    <div class="app-row-3"><img src="../core/images/product/app-qrcode.png" alt=""/></div>
+                    <div class="app-row-4">扫我 轻松得实惠</div>
+                </div>
+            </div>
+
+        </div>
         <div class="notice"></div>
     </div>
 </div>
 <!--content end-->
+
+<!--footer begin-->
+<div class="footer" id="footer">
+    <div class="goods-box">
+        <div class="our-goods">
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-people"></i>
+                </div>
+                <div class="good-text">
+                    <h4>专家鉴定</h4>
+
+                    <p>专业鉴定团队</p>
+
+                    <p>安全可靠</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-heart"></i>
+                </div>
+                <div class="good-text">
+                    <h4>用心推荐</h4>
+
+                    <p>我们的专心和用心</p>
+
+                    <p>您的放心</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-star"></i>
+                </div>
+                <div class="good-text">
+                    <h4>五星级服务</h4>
+
+                    <p>线上线下服务同步</p>
+
+                    <p>广受好评</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-clock"></i>
+                </div>
+                <div class="good-text">
+                    <h4>发货及时</h4>
+
+                    <p>每天四次发货</p>
+
+                    <p>便捷高效</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-smiley"></i>
+                </div>
+                <div class="good-text">
+                    <h4>快乐购物</h4>
+
+                    <p>体会快乐的购物</p>
+
+                    <p>期待您的笑脸</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-us">
+        <ul>
+            <li><h3>购物与支付</h3></li>
+            <li><a href="">购物流程</a></li>
+            <li><a href="">订单查询</a></li>
+            <li><a href="">支付方式</a></li>
+            <li><a href="">发票领取</a></li>
+        </ul>
+        <ul>
+            <li><h3>配送说明</h3></li>
+            <li><a href="">配送方式和时间</a></li>
+            <li><a href="">配送费用和签收</a></li>
+            <li><a href=""></a></li>
+        </ul>
+        <ul>
+            <li><h3>关于我们</h3></li>
+            <li><a href="">点金子</a></li>
+            <li><a href="">点金子绝当品</a></li>
+            <li><a href="">联系我们</a></li>
+            <li><a href="">招贤纳士</a></li>
+            <li><a href="">业务范围</a></li>
+            <li><a href="">隐私声明</a></li>
+        </ul>
+        <ul>
+            <li><h3>售后服务</h3></li>
+            <li><a href="">退换货政策</a></li>
+            <li><a href="">退款说明</a></li>
+        </ul>
+        <div class="us">
+            <div class="our-app">
+                <a class="apple-dimension" href="#">
+                    <img class="app-icon" src="../core/images/footer/apple.png" alt="苹果客户端下载"/>
+
+                    <h3>苹果客户端</h3>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="android-dimension" href="#">
+                    <img class="app-icon" src="../core/images/footer/android.png" alt="安卓客户端下载"/>
+
+                    <h3>安卓客户端</h3>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="online-server" href="#">
+                    <img class="app-icon" src="../core/images/footer/weixin.png" alt="微信客户端下载"/>
+
+                    <h3>微信公众号</h3>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="online-server" href="#">
+                    <img class="app-icon" src="../core/images/footer/weibo.png" alt="点金子在线投资"/>
+
+                    <h3>点金子投资</h3>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+            </div>
+            <div class="our-info">
+                <h3>点金子总部地址</h3>
+
+                <p>成都市武侯区某某某某某某某某</p>
+
+                <p>咨询热线：028-85033350</p>
+
+                <p>企业邮箱：zxhl998@163.com</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="approve-box">
+        <div class="approve">
+            <a href="#">
+                <img src="../core/images/footer/approve-0.png" alt=""/>
+            </a>
+            <a href="#">
+                <img src="../core/images/footer/approve-1.jpg" alt=""/>
+            </a>
+        </div>
+        <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
+    </div>
+</div>
+<!--footer end-->
+
+<script src="../core/js/require.js" data-main="index"></script>
 </body>
 </html>

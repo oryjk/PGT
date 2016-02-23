@@ -1,0 +1,68 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+/*style
+**************************************************************************************************************************************************/
+.all-list {
+  @include wh(900px, 1580px);
+  .title1 {
+    padding-top: 15px;
+    height: 20px;
+    font-size: 15px;
+    span {
+      @include wh(100px, 20px);
+      padding-left: 30px;
+      font-size: 8px;
+    }
+  }
+  .title2 {
+    @include wh(900px, 35px);
+    padding-top: 20px;
+    font-size: 10px;
+    li {
+      float: left;
+      padding-right: 30px;
+    }
+  }
+  .title3 {
+    @include wh(900px, 35px);
+    background: $gray-bg;
+    border-top: 3px solid #474e5d;
+    a {
+      padding-left: 20px;
+      line-height: 35px;
+      font-size: 12px;
+      color: #000;
+
+    }
+  }
+  .box-all {
+    padding-top: 10px;
+    .box1 {
+      float: left;
+      margin-top: 15px;
+      margin-right: ($main-width-s - 250px * 4) / 3;
+      @include wh(280px, 335px);
+      border: 1px solid $gray-light;
+      transition: all .4s;
+    }
+    .box1:hover{
+      top: -5px;
+      transition: all 1s;
+      box-shadow: 0 10px 15px #555555;
+
+    }
+    .box1-name {
+      text-align: center;
+      font-size: 14px;
+    }
+
+  }
+}

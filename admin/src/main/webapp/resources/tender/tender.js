@@ -2,26 +2,16 @@
 var tender = function(){
     //当铺编号
     this.pawnShopId = "";
-    //当前票号
+    this.pawnShopOwnerId = "";
     this.pawnTicketId = "";
-    //总金额
-    this.tenderTotal = "";
-    //最小投资金额
-    this.smallMoney = "";
-    //开始时间
-    this.publishDate = "";
-    //截止时间
-    this.dueDate = "";
-    //收益率
-    this.interestRate = "";
-    //投资名称
     this.name = "";
-    ////投资详情
-    this.description = "";
-    //多少天收益
+    this.publishDate = "";
+    this.dueDate = "";
+    this.interestRate = "";
     this.prePeriod = "";
-    //无息天数
     this.postPeriod = "";
+    this.handlingFeeRate = "";
+    this.description = "";
 }
 
 
@@ -41,16 +31,16 @@ var app = new Vue({
         //绑定正则
         var regex = {
             "tender.pawnShopId" : regex_empty,
+            "tender.pawnShopOwnerId" : regex_empty,
             "tender.pawnTicketId" : regex_empty,
-            "tender.tenderTotal" : regex_username,
-            "tender.smallMoney" : regex_number,
+            "tender.name" : regex_empty,
             "tender.publishDate" : regex_date,
             "tender.dueDate" : regex_date,
-            "tender.interestRate" : regex_number,
-            "tender.name" : regex_empty,
-            "tender.description" : regex_empty,
-            "tender.prePeriod" : regex_number,
-            "tender.postPeriod" :regex_number
+            "tender.interestRate" : regex_empty,
+            "tender.prePeriod" : regex_empty,
+            "tender.postPeriod" : regex_empty,
+            "tender.handlingFeeRate" :regex_empty,
+            "tender.description" : regex_empty
         }
         this.regexEntity = regex;
     },
@@ -64,22 +54,26 @@ var app = new Vue({
         },
         setDate: function(event){
             var data = this.$data.tender;
-            var time = window.setInterval(function(){
+            window.clearInterval(app.time);
+            app.time = window.setInterval(function(){
                 if(event.target.value.length >= 0){
                     var key = event.target.__v_model.expression.split(".")[1];
-                    for(var o in data){
-                        if(o == key){
+                    for(var o in data) {
+                        if (o == key) {
                             data[o] = $("input[id=" + key + "]").val();
-                            console.log($("input[id=" + key + "]").val());
+                            console.log(data[o]);
+                            event.target.value = $("input[id=" + key + "]").val();
                         }
                     }
                     app.excuteVolidata(event);
                 }
             }, 10);
-            $("a").click(function(){
-               window.setTimeout(function(){
-                   window.clearInterval(time);
-               },10);
+            $(document).click(function(event){
+                if(event.target.nodeName != "INPUT" || event.target.nodeName == "A"){
+                    window.setTimeout(function(){
+                        window.clearInterval(app.time);
+                    }, 10);
+                }
             })
         }
     }

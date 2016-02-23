@@ -1,0 +1,94 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+/*part
+**************************************************************************************************************************************************/
+@include header;
+@include footer;
+
+/*style
+**************************************************************************************************************************************************/
+
+.content {
+  @include wh($main-width, 1500px);
+  margin: 120px auto 0;
+
+  .title {
+    @include wh($main-width, 50px);
+    background: #474e5d;
+    .title-left {
+      float: left;
+      img {
+        float: left;
+        padding: 15px;
+      }
+      h2 {
+        padding: 15px 20px;
+        float: left;
+        color: white;
+      }
+    }
+    .n-search input {
+      @include wh(180px, auto);
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      border-radius: 15px;
+      border: 1px solid white;
+      float: right;
+      padding: 5px 0 5px 20px;
+      margin: 12px 50px 0 0;
+    }
+  }
+
+  .main {
+    .menu {
+      @include wh(260px, 1580px);
+      float: left;
+      .list-end,
+      .list {
+        float: left;
+        @include wh(260px, 45px);
+        background: $gray-bg;
+        margin: 1px 0;
+        background-repeat: no-repeat;
+        img {
+          padding: 13px 13px 0 13px;
+          float: left;
+        }
+        h4 {
+          color: #000000;
+          font-size: 12px;
+          padding: 15px 25px 0 25px;
+          float: left;
+        }
+      }
+      .list:link,
+      .list:visited {
+      }
+      .list:hover,
+      .list:active {
+        background: white;
+        background-repeat: no-repeat;
+      }
+
+      .list-end{
+        height: 1300px;
+      }
+    }
+    .products {
+      margin-left: 40px;
+      float: left;
+      @include wh(900px, 1580px)
+    }
+  }
+
+}
+
+

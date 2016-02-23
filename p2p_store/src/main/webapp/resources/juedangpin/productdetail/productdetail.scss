@@ -1,0 +1,461 @@
+@import "../core/scss/normalize";
+@import "../core/scss/commonMixin";
+@import "../core/scss/globleVariable";
+@import "../core/scss/fontGeneral";
+@import "../core/scss/header-main";
+@import "../core/scss/footer-main";
+@import "../core/scss/component";
+
+//user foundation_icons
+@import "../core/foundation_icons_all/foundation_icons_general/sass/general_foundicons";
+@import "../core/foundation_icons_all/foundation_icons_general/sass/general_foundicons_ie7";
+
+.d-btn {
+  @extend %dark-btn;
+}
+
+.l-btn {
+  @extend %light-btn;
+}
+
+/*header menulist should be hidden
+****************************************************/
+.menu-list {
+  display: none;
+}
+.menu:hover {
+  .menu-list {
+    display: block;
+  }
+}
+
+.content-box {
+  margin: 0 auto $colSpace;
+  width: $c12;
+  @include bfc;
+}
+
+.top-banner-box {
+  display: none;
+}
+
+/*bread-nav
+****************************************************/
+.bread-nav {
+  a {
+    @extend %bread-nav-a;
+  }
+}
+
+
+/*major-info
+****************************************************/
+.major-info {
+  @include bfc;
+  position: relative;
+}
+
+.pic-box {
+  float: left;
+  width: $c4;
+}
+
+.middle-pic {
+  position: relative;
+  @include wh($c4, $c4);
+
+  img {
+    width: 100%;
+  }
+
+  .glass {
+    display: none;
+    @include be-position(absolute);
+    @include wh(50%, 50%);
+    background: $ashGray;
+    opacity: .2;
+  }
+  .out-of-stock {
+    position: absolute;
+    top: 0;
+    right: 0;
+    @include wh(93px, 94px);
+    background: url("../core/images/productList/out-of-stock-l.png") no-repeat left top;
+    opacity: .7;
+  }
+}
+
+.small-pic {
+  @include o;
+  padding: 5px 0;
+  @include wh($c4, $c1);
+  border-top: none;
+
+  li {
+    @include be-nav(left);
+    width: 18%;
+    margin: 1%;
+
+    &:hover {
+
+    }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.big-pic {
+  display: none;
+  @include be-position(absolute, $c4 + $colSpace, 0);
+  @include wh($c4, $c4);
+  border: 1px solid $ashGray;
+}
+
+.info-box {
+  margin-left: $c4 + $colSpace;
+
+  h1 {
+    @extend %detail-title;
+  }
+
+  h2 {
+    @extend %detail-vice-tittle;
+  }
+}
+
+.cost {
+  padding: 3px 10px;
+  background: $lightGray;
+  font-size: 14px;
+
+  .old-cost {
+    text-decoration: line-through;
+  }
+
+  .our-cost {
+    @extend %our-cost;
+  }
+}
+
+.style,
+.level {
+  margin-top: $colSpace;
+  font-size: 15px;
+}
+
+.style {
+  a {
+    @extend %product-link;
+  }
+}
+
+
+.buy {
+  @include bfc;
+  margin-top: $colSpace;
+
+  //.count {
+  //  float: left;
+  //  @include wh(70px, 26px);
+  //
+  //  input {
+  //    float: left;
+  //    @include wh(40px, 24px);
+  //  }
+  //
+  //  a {
+  //    float: right;
+  //    border:1px solid $ashGray;
+  //    @include wh(20px, 12px);
+  //    background: $lightGray;
+  //    line-height: 12px;
+  //    text-align: center;
+  //    text-decoration: none;
+  //    color: $middleGray;
+  //  }
+  //
+  //  .minus {
+  //    margin-top: 2px;
+  //  }
+  //}
+  .join-cart {
+    background: $emColor;
+  }
+  .buy-now {
+    background: $woodColor;
+  }
+
+
+  a {
+    float: left;
+    display: block;
+    margin-right: 20px;
+    @include wh(120px, 35px);
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+    text-decoration: none;
+
+    span {
+      color: white;
+    }
+  }
+}
+
+
+.collect {
+  a {
+    text-decoration: none;
+    color: $mainColor;
+
+    &:hover {
+      color: $viceColor;
+    }
+  }
+  .has-collect {
+    color: $emColor;
+  }
+
+  span {
+    color: $middleGray;
+  }
+}
+
+.tips {
+  margin-top: $colSpace;
+  font-size: 14px;
+}
+
+/*aside
+****************************************************/
+.aside {
+  @include vertical-list;
+}
+
+
+/*concreteness
+****************************************************/
+.concreteness {
+  margin: $colSpace 0 0  $c2+$colSpace;
+  width: $c10 - 2px;
+
+  h2 {
+    padding-left: 10px;
+    @extend %division-title;
+  }
+
+  input[type=button],
+  input[type=submit] {
+    @extend %vice-btn;
+  }
+}
+
+.tab {
+  @include tab;
+}
+
+
+.similar-box {
+  @include row-list(916px, 18px, 157px);
+  margin-bottom: $colSpace;
+}
+
+.main-info {
+  float: left;
+  border: 1px solid $ashGray;
+}
+
+.info {
+  float: left;
+  border-top: 1px solid $ashGray;
+  width: 976px;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.question {
+  display: none;
+  float: left;
+  border-top: 1px solid $ashGray;
+  width: 976px;
+
+  .question-list {
+    @include o;
+    list-style: none;
+    li {
+      padding: 0 10px;
+      border-bottom: 1px solid $ashGray;
+    }
+  }
+
+  textarea {
+    line-height: 2;
+  }
+
+  h3 {
+    margin-right: $colSpace;
+    font-size: 18px;
+    padding: 5px 0;
+    background: $ashGray;
+  }
+
+  p {
+    margin: 1em 0;
+    width: 80%;
+    font-size: 14px;
+  }
+
+  .question-time {
+    float: right;
+    width: 15%;
+    line-height: 60px;
+  }
+
+  .question-a {
+    span {
+      color: $viceColor;
+    }
+    color: $viceColor;
+  }
+
+  .question-name {
+    display: inline-block;
+    width: 15%;
+    text-align: right;
+  }
+
+  form {
+    margin-left: $colSpace;
+    span {
+      color: $viceColor;
+    }
+  }
+}
+
+.page-box {
+  @include page;
+  border-top: none;
+  border-bottom: none;
+}
+
+.talking {
+  display: none;
+  float: left;
+  border-top: 1px solid $ashGray;
+  width: 976px;
+  .talking-list {
+    @include o;
+    list-style: none;
+
+    li {
+      @include bfc;
+      height: 80px;
+      line-height: 80px;
+      border-bottom: 1px solid $ashGray;
+    }
+    .talking-name {
+      float: left;
+      width: 15%;
+      text-align: center;
+      border-right: 1px solid $ashGray;
+      color: $viceColor;
+      font-size: 16px;
+    }
+    .talking-text {
+      float: left;
+      width: 69%;
+      border-right: 1px solid $ashGray;
+
+      p {
+        margin: 0 $colSpace;
+      }
+    }
+    .talking-time {
+      float: left;
+      text-align: center;
+      width: 15%;
+    }
+  }
+}
+
+.talking-total {
+  margin: 0 auto;
+  border: 1px solid $viceColor;
+  @include wh(820px, 110px);
+
+  p {
+    margin-left: $colSpace;
+    font-size: 16px;
+  }
+  .talking-btn-box {
+    float: right;
+    margin-top: $colSpace;
+    @include wh($c4, 70px);
+    border-left: 1px solid $lightGray;
+    text-align: right;
+
+    input {
+      margin: 15px 40px 0 0;
+    }
+  }
+
+  .vice {
+    color: $viceColor;
+  }
+}
+
+.score-star {
+  i {
+    color: $ashGray;
+  }
+
+  .vice-star {
+    color: $viceColor;
+  }
+}
+
+.talking-area {
+  margin: $colSpace 0 0 $colSpace;
+
+  h3 {
+    margin-right: $colSpace;
+    font-size: 18px;
+    padding: 5px 0;
+    background: $ashGray;
+  }
+}
+
+.phone-area {
+  font-size: 16px;
+}
+
+/*pop
+****************************************************/
+.pop-up {
+  @include pop(400px);
+
+  .row1 {
+    span {
+      font-size: 16px;
+    }
+  }
+}
+
+.product-message {
+  display: none;
+  position: absolute;
+  top: 30%;
+  height: 40px;
+  width: 100%;
+  background: linear-gradient(to right, rgba(100,100,100,.2) 0% , rgba(100,100,100,.9) 50%, rgba(100,100,100,.2) 100%);
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px;
+}

@@ -22,9 +22,27 @@
 		<result column="SITE_HOT" property="siteHot"/>
 		<result column="STATE" property="state"/>
 		<result column="AUDIT_STATE" property="auditState"/>
+		<result column="HANDLING_FEE_RATE" property="handlingFeeRate"/>
+		<result column="PAWN_OWNER_ID" property="pawnShopOwnerId"/>
 		<association property="category" column="ID"
 					 select="com.pgt.category.dao.CategoryMapper.queryCategoryByTenderId"/>
+		<association property="p2pAdvertisement" column="ID" select="queryTenderP2PAdvertisement"/>
+		<association property="p2pFrontMedia" column="ID" select="queryTenderP2PFrontMedia"/>
+		<association property="p2pHeroMedias" column="ID" select="queryTenderP2PHeroMedia"/>
+		<association property="mobileDetailMedia" column="ID" select="queryTenderMobileDetailMedia"/>
 		<collection property="products" column="ID" select="com.pgt.product.dao.ProductMapper.queryProductByTenderId"/>
+		<collection property="p2pMainMedia" column="ID" select="queryTenderP2PMainMedia"/>
+		<collection property="p2pExpertMedia" column="ID" select="queryTenderP2PExpertMedia"/>
+	</resultMap>
+
+
+	<resultMap id="tenderMedia" type="com.pgt.tender.bean.TenderMedia">
+		<id column="media_id" property="id"/>
+		<result column="reference_id" property="referenceId"></result>
+		<result column="title" property="title"></result>
+		<result column="path" property="path"></result>
+		<result column="type" property="type"></result>
+		<result column="index" property="index"></result>
 	</resultMap>
 
 	<!-- 分页sql -->
@@ -75,6 +93,57 @@
 		</if>
 	</sql>
 
+
+	<select id="queryTenderP2PFrontMedia" parameterType="Integer" resultMap="tenderMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{tenderId} AND TYPE='tender_front'
+		ORDER BY 'index'
+		asc
+	</select>
+
+	<select id="queryTenderP2PAdvertisement" parameterType="Integer" resultMap="tenderMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{tenderId} AND TYPE='tender_advertisement'
+		ORDER BY 'index'
+		asc
+	</select>
+
+	<select id="queryTenderP2PHeroMedia" parameterType="Integer" resultMap="tenderMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{tenderId} AND TYPE='tender_hero'
+		ORDER BY 'index'
+		asc
+	</select>
+
+	<select id="queryTenderP2PMainMedia" parameterType="Integer" resultMap="tenderMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{tenderId} AND TYPE='tender_main'
+		ORDER BY 'index'
+		asc
+	</select>
+
+	<select id="queryTenderP2PExpertMedia" parameterType="Integer" resultMap="tenderMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{tenderId} AND TYPE='tender_expert'
+		ORDER BY 'index'
+		asc
+	</select>
+
+
+	<select id="queryTenderMobileDetailMedia" parameterType="Integer" resultMap="tenderMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{tenderId} AND TYPE='tender_mobileDetail'
+		ORDER BY 'index'
+		asc
+	</select>
+
+
 	<select id="queryTenderByQuery" parameterType="com.pgt.tender.bean.TenderQuery" resultMap="tenderResult">
 		SELECT * FROM TENDER
 		<include refid="tenderListWhere"/>
@@ -122,16 +191,20 @@
 
 	<insert id="createTender" parameterType="com.pgt.tender.bean.Tender" keyProperty="tenderId" useGeneratedKeys="true">
         INSERT INTO TENDER(PAWN_SHOP_ID,PAWN_TICKET_ID,TENDER_TOTAL,TENDER_QUANTITY,PUBLISH_DATE,DUE_DATE,INTEREST_RATE,
-        NAME,DESCRIPTION,PRE_PERIOD,POST_PERIOD,CREATION_DATE,UPDATE_DATE,CATEGORY_HOT,SITE_HOT) VALUES (#{pawnShopId},#{pawnTicketId},#{tenderTotal},
+        NAME,DESCRIPTION,PRE_PERIOD,POST_PERIOD,CREATION_DATE,UPDATE_DATE,CATEGORY_HOT,SITE_HOT,PAWN_OWNER_ID,HANDLING_FEE_RATE) VALUES (#{pawnShopId},#{pawnTicketId},#{tenderTotal},
         #{tenderQuantity},#{publishDate},#{dueDate},#{interestRate},#{name},#{description},#{prePeriod},#{postPeriod},
-        #{creationDate},#{updateDate},#{categoryHot},#{siteHot})
+        #{creationDate},#{updateDate},#{categoryHot},#{siteHot},#{pawnShopOwnerId},#{handlingFeeRate})
     </insert>
+
+
 	<update id="updateTender" parameterType="com.pgt.tender.bean.Tender" keyProperty="tenderId" useGeneratedKeys="true">
 		UPDATE TENDER SET PAWN_SHOP_ID=#{pawnShopId},PAWN_TICKET_ID=#{pawnTicketId},TENDER_TOTAL=#{tenderTotal},TENDER_QUANTITY=#{tenderQuantity},
 		PUBLISH_DATE=#{publishDate},DUE_DATE=#{dueDate},INTEREST_RATE=#{interestRate},
-		NAME=#{name},DESCRIPTION=#{description},PRE_PERIOD=#{prePeriod},POST_PERIOD=#{postPeriod},UPDATE_DATE=#{updateDate},SITE_HOT=#{siteHot}
+		NAME=#{name},DESCRIPTION=#{description},PRE_PERIOD=#{prePeriod},POST_PERIOD=#{postPeriod},UPDATE_DATE=#{updateDate},SITE_HOT=#{siteHot},
+		PAWN_OWNER_ID=#{pawnShopOwnerId},HANDLING_FEE_RATE=#{handlingFeeRate}
 		WHERE ID=#{tenderId}
 	</update>
+
 	<delete id="deleteTender" parameterType="int">
 		DELETE FROM TENDER WHERE ID=#{tenderId}
 	</delete>

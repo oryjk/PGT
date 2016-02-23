@@ -12,13 +12,13 @@
     String ctx = request.getContextPath();
     request.setAttribute("ctx", ctx);
 %>
-<c:set var="ctx" value="${ctx}" scope="request" />
+<c:set var="ctx" value="${ctx}" scope="request"/>
 <c:choose>
     <c:when test="${configuration.useProxy}">
-        <c:set var="ctx" value="" scope="request" />
+        <c:set var="ctx" value="" scope="request"/>
     </c:when>
     <c:otherwise>
-        <c:set var="ctx" value="${ctx}" scope="request" />
+        <c:set var="ctx" value="${ctx}" scope="request"/>
     </c:otherwise>
 </c:choose>
 <!--[if IE 8]>
@@ -28,6 +28,9 @@
 <!--[if !IE]><!-->
 <html lang="en" class="no-js">
 <!--<![endif]-->
+
+<c:set var="roleValue" value="${internalUser.role.value}"/>
+
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8">
@@ -52,7 +55,7 @@
     <link href="${ctx}/resources/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
     <!-- END PAGE LEVEL PLUGIN STYLES -->
     <!-- BEGIN PAGE STYLES -->
-    <link href="${ctx}/resources/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css" />
+    <link href="${ctx}/resources/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
     <!-- END PAGE STYLES -->
     <!-- BEGIN THEME STYLES -->
     <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
@@ -63,9 +66,9 @@
     <link href="${ctx}/resources/assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css"
           id="style_color">
     <link href="${ctx}/resources/assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="${ctx}/resources/core/css/table.css" />
-    <link rel="stylesheet" href="${ctx}/resources/core/css/page.css" />
-    <link rel="stylesheet" href="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.css" />
+    <link rel="stylesheet" href="${ctx}/resources/core/css/table.css"/>
+    <link rel="stylesheet" href="${ctx}/resources/core/css/page.css"/>
+    <link rel="stylesheet" href="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.css"/>
     <!-- END THEME STYLES -->
     <!--<link rel="shortcut icon" href="favicon.ico">-->
     <script>
@@ -275,212 +278,229 @@
                         <a href="/">首页</a>
                     </li>
                     <!-- !!!list 商品管理-->
-                    <li class="menu-dropdown mega-menu-dropdown ">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                           href="/product/productList" class="dropdown-toggle">
-                            商品管理 <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/product/productList">
-                                    <i class="fa-angle-right"></i>
-                                    商品列表
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/category/categoryList">
-                                    <i class="fa-angle-right"></i>
-                                    分类管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/order/order-list">
-                                    <i class="fa-angle-right"></i>
-                                    订单管理
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <c:if test="${roleValue eq 1 or roleValue eq 3 or roleValue eq 9}">
+                        <li class="menu-dropdown mega-menu-dropdown ">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                               href="/product/productList" class="dropdown-toggle">
+                                商品管理 <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <c:if test="${roleValue eq 1 or roleValue eq 3 or roleValue eq 9}">
+                                    <li>
+                                        <a href="/product/productList">
+                                            <i class="fa-angle-right"></i>
+                                            商品列表
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/category/categoryList">
+                                            <i class="fa-angle-right"></i>
+                                            分类管理
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${roleValue eq 3 or roleValue eq 9}">
+                                    <li>
+                                        <a href="/order/order-list">
+                                            <i class="fa-angle-right"></i>
+                                            订单管理
+                                        </a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </li>
+                    </c:if>
+
                     <!-- !!!list 投资管理-->
-                    <li class="menu-dropdown mega-menu-dropdown">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                           href="javascript:;" class="dropdown-toggle">
-                            投资管理 <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <c:set var="roleValue" value="${internalUser.role.value}" />
-                            <c:if test="${roleValue eq 2 or roleValue eq 4 or roleValue eq 9}">
+                    <c:if test="${roleValue eq 2 or roleValue eq 4 or roleValue eq 9}">
+                        <li class="menu-dropdown mega-menu-dropdown">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                               href="javascript:;" class="dropdown-toggle">
+                                投资管理 <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <c:if test="${roleValue eq 2 or roleValue eq 4 or roleValue eq 9}">
+                                    <li>
+                                        <a href="/pawn/pawn-shop-list">
+                                            <i class="fa-angle-right"></i>
+                                            当铺管理
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/pawn/pawn-ticket-list">
+                                            <i class="fa-angle-right"></i>
+                                            当票管理
+                                        </a>
+                                    </li>
+                                </c:if>
                                 <li>
-                                    <a href="/pawn/pawn-shop-list">
+                                    <a href="/tender/tenderList">
                                         <i class="fa-angle-right"></i>
-                                        当铺管理
+                                        投资产品列表
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="/pawn/pawn-ticket-list">
+                                    <a href="/tenderCategory/categoryList">
                                         <i class="fa-angle-right"></i>
-                                        当票管理
+                                        投资分类管理
                                     </a>
                                 </li>
-                            </c:if>
-                            <li>
-                                <a href="/tender/tenderList">
-                                    <i class="fa-angle-right"></i>
-                                    投资产品列表
-                                </a>
-                            </li>
 
-                            <li>
-                                <a href="/tenderCategory/categoryList">
-                                    <i class="fa-angle-right"></i>
-                                    投资分类管理
-                                </a>
-                            </li>
+                                <li>
+                                    <a href=":;">
+                                        <i class="fa-angle-right"></i>
+                                        投资申请列表
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=":;">
+                                        <i class="fa-angle-right"></i>
+                                        会员投资明细
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=":;">
+                                        <i class="fa-angle-right"></i>
+                                        投资审核
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:if>
 
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    投资申请列表
-                                </a>
-                            </li>
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    会员投资明细
-                                </a>
-                            </li>
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    投资审核
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                     <!-- !!!list 资源管理-->
-                    <li class="menu-dropdown mega-menu-dropdown">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                           href="javascript:;" class="dropdown-toggle">
-                            资源管理 <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/help/articleList">
-                                    <i class="fa-angle-right"></i>
-                                    文章管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/banner/bannerList">
-                                    <i class="fa-angle-right"></i>
-                                    广告管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/pageBackground/queryPageBackground">
-                                    <i class="fa-angle-right"></i>
-                                    背景管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/hotSearch/query">
-                                    <i class="fa-angle-right"></i>
-                                    热门搜索管理
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- !!!list 用户管理-->
-                    <li class="menu-dropdown mega-menu-dropdown">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                           href="javascript:;" class="dropdown-toggle">
-                            用户管理 <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/internal/mine">
-                                    <i class="fa-angle-right"></i>
-                                    我的信息
-                                </a>
-                            </li>
+                    <c:if test="${roleValue eq 9}">
+                        <li class="menu-dropdown mega-menu-dropdown">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                               href="javascript:;" class="dropdown-toggle">
+                                资源管理 <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/help/articleList">
+                                        <i class="fa-angle-right"></i>
+                                        文章管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/banner/bannerList">
+                                        <i class="fa-angle-right"></i>
+                                        广告管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/pageBackground/queryPageBackground">
+                                        <i class="fa-angle-right"></i>
+                                        背景管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/hotSearch/query">
+                                        <i class="fa-angle-right"></i>
+                                        热门搜索管理
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:if>
 
-                            <li>
-                                <a href="/pawnPersonInfo/query">
-                                    <i class="fa-angle-right"></i>
-                                    典当个人信息管理
-                                </a>
-                            </li>
-                            <li class=" dropdown-submenu">
-                                <a href=":;">
-                                    <i class="icon-briefcase"></i>
-                                    管理员管理
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class=" ">
-                                        <a href="/internal/iu-list">
-                                            管理员列表
-                                        </a>
-                                    </li>
-                                    <li class=" ">
-                                        <a href="table_basic.html">
-                                            管理员权限管理
-                                        </a>
-                                    </li>
-                                    <li class=" ">
-                                        <a href="table_basic.html">
-                                            行为日志
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class=" dropdown-submenu">
-                                <a href=":;">
-                                    <i class="icon-briefcase"></i>
-                                    会员管理
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class=" ">
-                                        <a href="table_basic.html">
-                                            会员列表
-                                        </a>
-                                    </li>
-                                    <li class=" ">
-                                        <a href="table_basic.html">
-                                            行为日志
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                    <!-- !!!list 用户管理-->
+                    <c:if test="${roleValue eq 9}">
+                        <li class="menu-dropdown mega-menu-dropdown">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                               href="javascript:;" class="dropdown-toggle">
+                                用户管理 <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/internal/mine">
+                                        <i class="fa-angle-right"></i>
+                                        我的信息
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/pawnPersonInfo/query">
+                                        <i class="fa-angle-right"></i>
+                                        典当个人信息管理
+                                    </a>
+                                </li>
+                                <li class=" dropdown-submenu">
+                                    <a href=":;">
+                                        <i class="icon-briefcase"></i>
+                                        管理员管理
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class=" ">
+                                            <a href="/internal/iu-list">
+                                                管理员列表
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="table_basic.html">
+                                                管理员权限管理
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="table_basic.html">
+                                                行为日志
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class=" dropdown-submenu">
+                                    <a href=":;">
+                                        <i class="icon-briefcase"></i>
+                                        会员管理
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class=" ">
+                                            <a href="table_basic.html">
+                                                会员列表
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="table_basic.html">
+                                                行为日志
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:if>
+
                     <!-- !!!list 系统设置-->
-                    <li class="menu-dropdown classic-menu-dropdown ">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                           href="javascript:;">
-                            系统设置 <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    网站设置
-                                </a>
-                            </li>
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    数据备份
-                                </a>
-                            </li>
-                            <li>
-                                <a href=":;">
-                                    <i class="fa-angle-right"></i>
-                                    帮助提示
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <c:if test="${roleValue eq 9}">
+                        <li class="menu-dropdown classic-menu-dropdown ">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                               href="javascript:;">
+                                系统设置 <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href=":;">
+                                        <i class="fa-angle-right"></i>
+                                        网站设置
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=":;">
+                                        <i class="fa-angle-right"></i>
+                                        数据备份
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=":;">
+                                        <i class="fa-angle-right"></i>
+                                        帮助提示
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
             <!-- END MEGA MENU -->
@@ -493,11 +513,11 @@
 <div class="page-container" id="main">
     <div class="page-content">
         <div class="container-fluid pgt-container">
-            <jsp:doBody />
+            <jsp:doBody/>
         </div>
     </div>
 </div>
-<jsp:include page="${extraPage}" />
+<jsp:include page="${extraPage}"/>
 <!-- END PAGE CONTAINER -->
 <!--super: 确认操作modal-->
 <div class="modal fade bs-modal-sm" id="confirmModal" tabindex="-1" role="basic" aria-hidden="true" style="display:
@@ -573,8 +593,8 @@
     <%--});--%>
     <%--</script>--%>
     <c:if test="${loadJsDateInput}">
-    <link rel="stylesheet" href="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.css" />
-    <link rel="stylesheet" href="${ctx}/resources/core/css/myself-date.css" />
+    <link rel="stylesheet" href="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.css"/>
+    <link rel="stylesheet" href="${ctx}/resources/core/css/myself-date.css"/>
     <script src="${ctx}/resources/assets/others/jquery-date-and-time/jquery-calendar.js"></script>
     </c:if>
     <c:if test="${dashboard}">
@@ -594,11 +614,16 @@
         });
     </script>
     </c:if>
+
+    <script src="${ctx}/resources/assets/global/scripts/vue.min.js" type="text/javascript"></script>
+    <script src="${ctx}/resources/assets/global/scripts/regex.js" type="text/javascript"></script>
+    <script src="${ctx}/resources/assets/global/scripts/volidata.js" type="text/javascript"></script>
+
     <c:if test="${not empty pageJsPath}">
     <script src="${ctx}${pageJsPath}"></script>
     </c:if>
     <c:if test="${not empty pageCssPath}">
-    <link rel="stylesheet" href="${ctx}${pageCssPath}" />
+    <link rel="stylesheet" href="${ctx}${pageCssPath}"/>
     </c:if>
     <!-- END JAVASCRIPTS -->
 </body>

@@ -14,6 +14,7 @@ import java.util.Date;
 /**
  * Created by zhangxiaodong on 16-2-16.
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
 public class PawnPersonInfoTest {

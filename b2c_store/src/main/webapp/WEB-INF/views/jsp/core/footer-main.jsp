@@ -116,6 +116,9 @@
 
     <a href="http://webscan.360.cn/index/checkwebsite/url/mp.dianjinzi.com">
       <img border="0" src="http://img.webscan.360.cn/status/pai/hash/4ee18cbbbfc36755fd8f96837e2f700f"/></a>
+
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1257615474'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257615474%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
   </div>
   <p>蜀ICP备15022028号 © 2016 dianjinzi, Inc. All rights reserved.</p>
 </div>
@@ -178,6 +181,7 @@
 
   </div>
 </div>
+
 </c:if>
 
 

@@ -35,6 +35,7 @@
         <result column="KEY_WORD" property="keyWord"/>
         <result column="MERCHANT" property="merchant"/>
         <result column="IS_HOT" property="isHot"/>
+        <result column="TYPE" property="type"/>
         <association property="relatedCategoryId" column="PRODUCT_ID"
                      select="queryRelatedCategoryId"/>
         <association property="shippingAddress" column="PRODUCT_ID"
@@ -232,9 +233,9 @@
 
 		INSERT INTO
 		PRODUCT(NAME,SERIAL_NUMBER,LIST_PRICE,SALE_PRICE,STATUS,DESCRIPTION,
-		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID)
+		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID,TYPE)
 		VALUES
-		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},#{tenderId})
+		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type})
 	</insert>
 
 
@@ -297,7 +298,7 @@
         p.product_id=pc.product_id
         INNER JOIN CATEGORIES
         c ON c.category_id=pc.category_id WHERE
-        c.CATEGORY_ID=#{categoryId}
+        c.CATEGORY_ID=#{categoryId} AND p.TYPE='DEAD_PAWNAGE'
         <if test="isHot!=null">
             AND p.IS_HOT=#{isHot}
         </if>
@@ -373,7 +374,7 @@
         SELECT CATEGORY_ID FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId}
     </select>
     <select id="queryProductByTenderId" resultMap="resultProduct" parameterType="int">
-        SELECT * FROM PRODUCT WHERE TENDER_ID=#{tenderId}
+        SELECT * FROM PRODUCT WHERE TENDER_ID=#{tenderId} AND TYPE ='LIVE_PAWNAGE'
     </select>
 
 

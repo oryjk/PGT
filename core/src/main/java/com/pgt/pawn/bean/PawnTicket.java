@@ -1,5 +1,7 @@
 package com.pgt.pawn.bean;
 
+import com.pgt.common.bean.Media;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +17,7 @@ public class PawnTicket implements Serializable, PawnTicketState {
 	private int mStatus = INITIAL;
 	private Date mCreationDate;
 	private Date mUpdateDate;
+	private Media pawnTicketPhoto;
 
 	private Pawnshop mPawnshop;
 
@@ -80,5 +83,13 @@ public class PawnTicket implements Serializable, PawnTicketState {
 
 	public void setPawnshop(final Pawnshop pPawnshop) {
 		mPawnshop = pPawnshop;
+	}
+
+	public Media getPawnTicketPhoto() {
+		return pawnTicketPhoto;
+	}
+
+	public void setPawnTicketPhoto(Media pawnTicketPhoto) {
+		this.pawnTicketPhoto = pawnTicketPhoto;
 	}
 }

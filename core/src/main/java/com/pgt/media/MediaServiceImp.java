@@ -10,6 +10,9 @@ import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
 import com.pgt.share.dao.ShareOrderMapper;
 import com.pgt.style.dao.PageBackgroundMapper;
+import com.pgt.tender.bean.TenderMedia;
+import com.pgt.tender.mapper.TenderMapper;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,9 @@ public class MediaServiceImp extends TransactionService implements MediaService 
     private PageBackgroundMapper pageBackgroundMapper;
     @Autowired
     private HotSearchMapper hotSearchMapper;
+
+    @Autowired
+    private TenderMapper tenderMapper;
 
     @Override
     public ProductMedia findFrontMediaByProductId(String productId) {
@@ -82,16 +88,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public Integer create(ProductMedia productMedia) {
-        TransactionStatus transactionStatus = ensureTransaction();
-        try {
-            mediaMapper.createMedia(productMedia);
-        } catch (Exception e) {
-            LOGGER.error("Can not create product media.");
-            getTransactionManager().rollback(transactionStatus);
-        } finally {
-            getTransactionManager().commit(transactionStatus);
-        }
-        return productMedia.getId();
+        return createMedia(productMedia);
     }
 
     @Override
@@ -100,7 +97,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
         try {
             mediaMapper.createMedia(media);
         } catch (Exception e) {
-            LOGGER.error("Can not create  media");
+            LOGGER.error("Can not create media");
             getTransactionManager().rollback(transactionStatus);
         } finally {
             getTransactionManager().commit(transactionStatus);
@@ -146,7 +143,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public Media queryPageBackgroundFooterMedia(Integer pageBackgroundId) {
-        return  pageBackgroundMapper.queryPageBackgroundFooterMedia(pageBackgroundId);
+        return pageBackgroundMapper.queryPageBackgroundFooterMedia(pageBackgroundId);
     }
 
     @Override
@@ -161,10 +158,44 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public Media queryHotProductFrontMedia(Integer hotSearchId) {
-        return hotSearchMapper.queryHotProductFrontMedia(hotSearchId) ;
+        return hotSearchMapper.queryHotProductFrontMedia(hotSearchId);
     }
 
 
+    @Override
+    protected TransactionStatus ensureTransaction() {
+        return super.ensureTransaction();
+    }
+
+    @Override
+    public TenderMedia queryTenderMobileDetailMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderMobileDetailMedia(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PFrontMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PFrontMedia(tenderId);
+    }
+
+    @Override
+    public List<TenderMedia> queryTenderP2PMainMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PMainMedia(tenderId);
+    }
+
+    @Override
+    public List<TenderMedia> queryTenderP2PHeroMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PHeroMedia(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PAdvertisement(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PAdvertisement(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PExpertMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PExpertMedia(tenderId);
+    }
 
     @Override
     public void updateMedia(Media media) {
