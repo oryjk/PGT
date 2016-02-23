@@ -1,4 +1,3 @@
-
 //绑定错误对象并取别名
 Vue.prototype.regexEntity;
 
@@ -102,6 +101,9 @@ Vue.prototype.submitVolidata = function(funData, fun){
 		}
 	}
 };
+
+//定时器
+Vue.prototype.time = new Object();
 
 
 /**
