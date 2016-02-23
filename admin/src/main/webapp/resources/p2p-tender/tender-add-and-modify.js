@@ -173,3 +173,7 @@ function getUrlParam(name){
     if (r!=null) return unescape(r[2]);
     return null;
 }
+
+$('.green-haze').on('click',function(){
+    window.location = $(this).attr('data-url');
+})

@@ -474,6 +474,8 @@
             </div>
             <!-- End: life time stats -->
         </div>
+
+
         <div class="col-md-6">
             <!--- Begin: life time stats -->
             <div class="portlet light">
