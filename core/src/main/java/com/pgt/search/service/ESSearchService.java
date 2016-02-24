@@ -599,6 +599,12 @@ public class ESSearchService {
     private void buildQueryBuilder(List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList, PaginationBean paginationBean,
                                    ESAggregation esAggregation, SearchRequestBuilder searchRequestBuilder, BoolQueryBuilder qb) {
 
+        String queryString = buildQueryString(esMatches);
+
+
+        if (!ObjectUtils.isEmpty(queryString)) {
+            qb.must(QueryBuilders.queryStringQuery(queryString));
+        }
         if (!ObjectUtils.isEmpty(esSortList)) {
             esSortList.stream().forEach(esSort1 -> searchRequestBuilder.addSort(esSort1.getPropertyName(), esSort1.getSortOrder()));
         }
@@ -609,10 +615,6 @@ public class ESSearchService {
         if (!ObjectUtils.isEmpty(esRange)) {
             qb.filter(QueryBuilders.rangeQuery(esRange.getPropertyName()).from(esRange.getFrom()).to(esRange.getTo()));
         }
-        if (!ObjectUtils.isEmpty(esMatches)) {
-            esMatches.stream().forEach(
-                    esTerm -> searchRequestBuilder.setPostFilter(QueryBuilders.termQuery(esTerm.getPropertyName(), esTerm.getTermValue())));
-        }
 
         if (paginationBean != null) {
             if (paginationBean.getCapacity() == 0) {
@@ -621,6 +623,25 @@ public class ESSearchService {
             searchRequestBuilder.setFrom((int) paginationBean.getCurrentIndex()).setSize((int) paginationBean.getCapacity())
                     .setExplain(true);
         }
+
+    }
+
+    private String buildQueryString(List<ESTerm> esMatches) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (CollectionUtils.isEmpty(esMatches)) {
+            LOGGER.debug("The match term is empty.");
+            return null;
+        }
+        for (int i = 0; i < esMatches.size(); i++) {
+            ESTerm esTerm = esMatches.get(i);
+            if (i == 0) {
+                stringBuilder.append(esTerm.getPropertyName() + ":" + esTerm.getTermValue());
+                continue;
+            }
+            stringBuilder.append(" OR ");
+            stringBuilder.append(esTerm.getPropertyName() + ":" + esTerm.getTermValue());
+        }
+        return stringBuilder.toString();
 
     }
 
