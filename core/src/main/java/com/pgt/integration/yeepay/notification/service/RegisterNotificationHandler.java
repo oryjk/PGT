@@ -3,7 +3,9 @@ package com.pgt.integration.yeepay.notification.service;
 import java.util.Date;
 import java.util.Map;
 
+import com.pgt.integration.yeepay.YeePayConfig;
 import com.pgt.integration.yeepay.YeePayException;
+import com.pgt.integration.yeepay.YeePayHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pgt.integration.yeepay.YeePayConstants;
@@ -15,6 +17,8 @@ import com.pgt.utils.Transactionable;
 public class RegisterNotificationHandler extends Transactionable implements YeepayNotificationHandler {
 
 	private UserMapper userMapper;
+
+	private YeePayConfig config;
 	
 	@Override
 	public void handleCallback(Map<String, String> inboundParams, TransactionLog transactionLog) throws YeePayException {
@@ -30,6 +34,7 @@ public class RegisterNotificationHandler extends Transactionable implements Yeep
 			String code = inboundParams.get(YeePayConstants.PARAM_NAME_CODE);
 			if (YeePayConstants.CODE_SUCCESS.equals(code)) {
 				user.setYeepayStatus(YeePayConstants.REGISTOR_STATUS_SUCCESS);
+				user.setYeepayUserNo(YeePayHelper.generateOutboundUserNo(getConfig(), user.getId()));
 			} else {
 				user.setYeepayStatus(YeePayConstants.REGISTOR_STATUS_FAILD);
 			}
@@ -58,4 +63,12 @@ public class RegisterNotificationHandler extends Transactionable implements Yeep
 		this.userMapper = userMapper;
 	}
 
+
+	public YeePayConfig getConfig() {
+		return config;
+	}
+
+	public void setConfig(YeePayConfig config) {
+		this.config = config;
+	}
 }
