@@ -13,4 +13,9 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
     public void update(Integer id) {
 
     }
+
+    @Override
+    public void initialIndex() {
+
+    }
 }

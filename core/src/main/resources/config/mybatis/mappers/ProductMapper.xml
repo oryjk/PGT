@@ -8,14 +8,6 @@
     <parameterMap id="paramProduct" type="com.pgt.product.bean.Product">
     </parameterMap>
 
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache">
-        <property name="timeToIdleSeconds" value="3600"/>
-        <property name="timeToLiveSeconds" value="3600"/>
-        <property name="maxEntriesLocalHeap" value="1000"/>
-        <property name="maxEntriesLocalDisk" value="10000000"/>
-        <property name="memoryStoreEvictionPolicy" value="LRU"/>
-    </cache>
-
     <!--product result map -->
     <resultMap id="resultProduct" type="com.pgt.product.bean.Product">
         <id column="PRODUCT_ID" property="productId"/>
@@ -243,7 +235,7 @@
 		UPDATE PRODUCT SET
 		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
 		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
-		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId} WHERE PRODUCT_ID=#{productId}
+		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type} WHERE PRODUCT_ID=#{productId}
 	</update>
     <delete id="deleteProduct" parameterType="int">
 		DELETE FROM PRODUCT
@@ -279,7 +271,7 @@
 		p.product_id=pc.product_id
 		INNER JOIN CATEGORIES c ON
 		c.category_id=pc.category_id WHERE
-		c.TYPE=#{categoryType};
+		c.TYPE=#{categoryType} AND p.TYPE='DEAD_PAWNAGE';
 	</select>
     <select id="queryProductCategoryRelation" parameterType="com.pgt.product.bean.ProductCategoryRelation"
             resultMap="ProductCategoryResult">

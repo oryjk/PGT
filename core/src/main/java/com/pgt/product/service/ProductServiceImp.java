@@ -190,6 +190,9 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                 tender.setTenderTotal(tender.getTenderTotal()-old_product.getSalePrice()*old_product.getStock());
                 tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
                 tenderMapper.updateTender(tender);
+                product.setType(ProductType.LIVE_PAWNAGE.toString());
+            }else{
+                product.setType(ProductType.DEAD_PAWNAGE.toString());
             }
 
             productMapper.updateProduct(product);

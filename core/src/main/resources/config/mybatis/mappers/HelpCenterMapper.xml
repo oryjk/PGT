@@ -5,21 +5,13 @@
 <mapper namespace="com.pgt.help.dao.HelpCenterMapper">
 
 
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
-		<property name="timeToIdleSeconds" value="3600"/>
-		<property name="timeToLiveSeconds" value="3600"/>
-		<property name="maxEntriesLocalHeap" value="1000"/>
-		<property name="maxEntriesLocalDisk" value="10000000"/>
-		<property name="memoryStoreEvictionPolicy" value="LRU"/>
-	</cache>
-
 	<!--查询条件 -->
 	<sql id="helpListWhere">
 		<where>
 			<if test="category!=null">
 				<if test="site!=null">
 					<choose>
-						<when test="site==ALL">
+						<when test="site=='ALL'">
 							and REFERENCE_ID =#{category.id}
 						</when>
 						<otherwise>

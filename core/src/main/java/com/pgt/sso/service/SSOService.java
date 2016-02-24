@@ -227,4 +227,9 @@ public class SSOService extends AbstractSearchEngineService {
     public void update(Integer id) {
 
     }
+
+    @Override
+    public void initialIndex() {
+
+    }
 }
