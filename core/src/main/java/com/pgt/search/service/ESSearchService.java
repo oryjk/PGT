@@ -484,6 +484,23 @@ public class ESSearchService {
         return response;
     }
 
+    public SearchResponse findProduct(String productId) {
+        SearchResponse response = null;
+        try {
+            SearchRequestBuilder searchRequestBuilder = buildProductRequestBuilder();
+
+
+            BoolQueryBuilder qb = boolQuery();
+            qb.must(QueryBuilders.idsQuery().ids(String.valueOf(productId)));
+            searchRequestBuilder.setQuery(qb);
+            response = searchRequestBuilder.execute().actionGet();
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
 
     public SearchResponse findHotSales(ESSort esSort) {
         SearchResponse response = null;

@@ -106,7 +106,7 @@ public class ProductController {
         ESTerm productEsterm = new ESTerm();
         productEsterm.setPropertyName("productId");
         productEsterm.setTermValue(productId);
-        SearchResponse searchProduct = esSearchService.findProducts(productEsterm, null, null, null, null, null, null);
+        SearchResponse searchProduct = esSearchService.findProduct(productId);
         SearchHits productHits = searchProduct.getHits();
         SearchHit[] products = productHits.getHits();
         if (ObjectUtils.isEmpty(products)) {

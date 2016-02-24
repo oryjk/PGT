@@ -105,7 +105,7 @@
         </div>
         <div class="search-box">
             <form action="${pageContext.request.contextPath}/essearch">
-                <input name="term" class="search-text" type="text"/><!--
+                <input name="term" class="search-text" type="text" value="<c:out value="${term}"/>"/><!--
              --><input class="search-sub" type="submit" value="搜索"/>
             </form>
             <ul class="search-tips" id="fixedSearchTips">
