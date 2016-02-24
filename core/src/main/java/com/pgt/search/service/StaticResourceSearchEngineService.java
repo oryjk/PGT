@@ -57,6 +57,7 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
                 String data = null;
                 try {
                     data = mapper.writeValueAsString(helpCategoryVo);
+                    LOGGER.debug("The help center vo is {}.", data);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
@@ -68,7 +69,7 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
             });
             bulkResponse = bulkRequest.execute().actionGet(100000);
             if (bulkResponse.hasFailures()) {
-                LOGGER.error("The tender index is failed.");
+                LOGGER.error("The Help Center index is failed.");
             }
         } catch (IOException e) {
             e.printStackTrace();
