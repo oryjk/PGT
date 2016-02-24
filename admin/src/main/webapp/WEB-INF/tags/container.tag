@@ -402,6 +402,13 @@
                                         热门搜索管理
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="/friendlyLink/query">
+                                        <i class="fa-angle-right"></i>
+                                        友情链接管理
+                                    </a>
+                                </li>
+
                             </ul>
                         </li>
                     </c:if>
