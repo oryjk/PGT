@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zhangxiaodong
@@ -72,9 +73,9 @@
             </div>
         </div>
     </div>
-
     <div class="about-us">
-        <c:forEach items="${helpCenterList}" var="helpcategory">
+        <c:forEach items="${helpCategoryVoList}" var="esHelpCenter">
+            <c:set var="helpcategory" value="${esHelpCenter.source}"/>
             <ul>
                 <li><h3>${helpcategory.category.name}</h3></li>
 
@@ -83,6 +84,7 @@
                 </c:forEach>
             </ul>
         </c:forEach>
+
         <div class="us">
             <div class="our-app">
                 <a class="apple-dimension" href="#">

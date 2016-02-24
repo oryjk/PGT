@@ -80,8 +80,8 @@
                     <div class="item-img-box">
                         <div class="middle-img-box">
                             <!-- super:rel传入item的id号-->
-                            <a href="../core/images/product/hero_1_00.jpg" class="jqzoom" rel='1'  title="triumph" >
-                                <img class="middle-img" src="../core/images/product/hero_1_00.jpg"  title="triumph">
+                            <a href="${product.heroMedias[0].path}" class="jqzoom" rel='1'  title="triumph" >
+                                <img class="middle-img" src="${product.heroMedias[0].path}"  title="triumph">
                             </a>
                         </div>
 

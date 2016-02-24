@@ -105,4 +105,6 @@ public class Constants {
 
     //tender
     public static final String TENDER_ID = "tenderId";
+
+    public static final String P2P_HELPCENTER="helpCenterList.site";
 }
