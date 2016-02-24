@@ -1,0 +1,217 @@
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+
+/*part
+**************************************************************************************************************************************************/
+@include header;
+@include footer;
+
+/*style
+**************************************************************************************************************************************************/
+body {
+  background: #f3f3f3;
+}
+
+.link-btn {
+  color: $em-light;
+
+  &:hover {
+    color: $em;
+  }
+}
+
+.step {
+  margin: 115px auto 0;
+  @include wh($main-width, 50px);
+  text-align: center;
+  background: white;
+
+  li {
+    float: left;
+    @include wh(25%, 100%);
+    line-height: 50px;
+  }
+}
+
+.main {
+  margin: 30px auto 40px;
+  width: $main-width;
+
+  h2 {
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+  }
+
+  .main-content {
+    border: 1px solid $gray-light;
+    padding-bottom: 30px;
+    background: white;
+  }
+
+  .info-row-1,
+  .info-row-2,
+  .info-row-3,
+  .info-row-4,
+  .info-row-5 {
+    @extend %clear;
+    padding: 15px 30px;
+  }
+
+  .info-value {
+    padding-left: 15px;
+  }
+
+  .info-row-1 {
+    .time-tips {
+      padding-left: 205px;
+    }
+
+    .info-value {
+      color: black;
+      &:hover {
+        color: $main;
+      }
+    }
+  }
+
+  .info-row-2 {
+    .info-col-1 {
+      float: left;
+      width: 217px;
+    }
+
+    .info-col-2 {
+      float: left;
+      width: 238px;
+    }
+
+    .buy-cost {
+      color: $main;
+    }
+
+    .info-col-3 {
+      float: left;
+    }
+  }
+
+  .info-row-3 {
+    .time-tips {
+      padding-left: 30px;
+    }
+  }
+
+  .info-row-4 {
+    input {
+      margin-left: 15px;
+      padding-left: 10px;
+      @include wh(330px, 30px);
+    }
+  }
+
+  .info-row-5 {
+    .buy-explain-title {
+      float: left;
+    }
+
+    .buy-explain {
+      padding-left: 20px;
+      float: left;
+    }
+
+    p {
+      padding-bottom: 10px;
+    }
+  }
+
+  .info-row-6 {
+    padding: 80px 30px 0;
+  }
+
+  .info-row-7 {
+    padding: 23px 0 0 70px;
+  }
+
+  .receive-item {
+    padding-left: 70px;
+    width: 1000px;
+    line-height: 35px;
+
+    .receive-choose {
+      border: 1px solid $main;
+    }
+  }
+
+  .receive-info {
+    float: left;
+    width: 750px;
+  }
+
+  .receive-handle {
+    float: right;
+    width: 250px;
+
+    a {
+      padding: 0 15px;
+      border-left: 1px solid $gray-light;
+    }
+
+    .set-default {
+      border-left: none;
+    }
+  }
+
+  .add-and-modify {
+    margin: 10px auto;
+    padding: 20px 50px;
+    width: 800px;
+    background: #edeef0;
+  }
+
+  table {
+    table-layout: fixed;
+  }
+
+  tr {
+    height: 50px;
+  }
+
+  th {
+    padding-right: 20px;
+    width: 100px;
+    text-align: right;
+  }
+
+  .input-text {
+    position: relative;
+    top: -1px;
+    @include wh(180px, 28px);
+    padding-left: 10px;
+    border: 1px solid black;
+  }
+
+  .invest-province-select,
+  .invest-city-select,
+  .invest-country-select {
+    @include like-select(110px, 30px, 0, 14px, black);
+    margin-right: 4px;
+  }
+
+  .receive-button {
+    @include color-btn(160px, 40px, 3px, 18px, $em, $em-dark);
+  }
+
+  .info-row-8 {
+    padding-top: 35px;
+    text-align: center;
+  }
+
+  .receive-ifo-submit {
+    @include color-btn(200px, 40px, 3px, 18px, $main, $main-dark);
+  }
+}

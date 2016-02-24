@@ -1,0 +1,557 @@
+@charset "UTF-8";
+.header .nav, .about-us, .approve, .main .info-row-1,
+.main .info-row-2,
+.main .info-row-3,
+.main .info-row-4,
+.main .info-row-5 {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .main .info-row-1:after,
+  .main .info-row-2:after,
+  .main .info-row-3:after,
+  .main .info-row-4:after,
+  .main .info-row-5:after, .header .nav:before, .about-us:before, .approve:before, .main .info-row-1:before,
+  .main .info-row-2:before,
+  .main .info-row-3:before,
+  .main .info-row-4:before,
+  .main .info-row-5:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+.header .nav, .about-us, .approve, .main .info-row-1,
+.main .info-row-2,
+.main .info-row-3,
+.main .info-row-4,
+.main .info-row-5 {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .main .info-row-1:after,
+  .main .info-row-2:after,
+  .main .info-row-3:after,
+  .main .info-row-4:after,
+  .main .info-row-5:after, .header .nav:before, .about-us:before, .approve:before, .main .info-row-1:before,
+  .main .info-row-2:before,
+  .main .info-row-3:before,
+  .main .info-row-4:before,
+  .main .info-row-5:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*
+html5doctor.com Reset Stylesheet
+v1.4.1
+2010-03-01
+Author: Richard Clark - http://richclarkdesign.com
+*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+body {
+  line-height: 1; }
+
+:focus {
+  outline: 1px; }
+
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+nav ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none; }
+
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold; }
+
+del {
+  text-decoration: line-through; }
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted #000;
+  cursor: help; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0; }
+
+input, select {
+  vertical-align: middle; }
+
+body {
+  font-family: '微软雅黑', serif; }
+
+ul,
+ol {
+  list-style: none; }
+
+a {
+  text-decoration: none; }
+
+.hide {
+  display: none; }
+
+.show {
+  display: block; }
+
+.show-inline {
+  display: inline; }
+
+/*part
+**************************************************************************************************************************************************/
+.header {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  box-shadow: 0 2px #eeeeee;
+  border-bottom: 1px solid #cccccc \9;
+  width: 100%;
+  height: 100px;
+  background: white; }
+  .header .header-inner {
+    margin: 0 auto;
+    width: 1200px;
+    height: 100%; }
+  .header .logo,
+  .header .nav,
+  .header .search {
+    float: left; }
+  .header .logo {
+    width: 242px;
+    height: 100%;
+    background: url("../core/images/header/logo-red.jpg") no-repeat left center; }
+    .header .logo a {
+      display: block;
+      width: 100%;
+      height: 100%; }
+  .header .nav li {
+    float: left;
+    padding: 0 23px; }
+  .header .nav a {
+    font-size: 22px;
+    line-height: 100px;
+    color: black; }
+    .header .nav a:hover {
+      color: #fe4040; }
+  .header .search {
+    padding-top: 30px; }
+    .header .search input {
+      border: 1px solid #cccccc;
+      padding: 10px;
+      width: 260px;
+      line-height: 20px;
+      font-size: 14px;
+      background: #fefefe;
+      transition: width .2s linear; }
+      .header .search input:focus {
+        width: 300px;
+        background: white;
+        transition: width .2s linear; }
+  .header .status {
+    float: right; }
+
+.footer {
+  background: #3f3f3f; }
+
+.goods-box {
+  background: #cccccc; }
+
+.us {
+  position: relative; }
+
+/*our-goods
+  ************************************************/
+.our-goods {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 1040px;
+  height: 70px; }
+
+.our-good {
+  float: left;
+  width: 20%;
+  height: 70px; }
+  .our-good .icon-box {
+    float: left;
+    width: 70px;
+    height: 100%;
+    border-radius: 50px;
+    background: #fe4040;
+    line-height: 70px;
+    text-align: center; }
+  .our-good i {
+    color: white;
+    font-size: 35px; }
+
+/*2维码*/
+.two-dimension {
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0) \9;
+  position: absolute;
+  top: 0;
+  left: 100px; }
+
+.our-app a:hover .two-dimension {
+  opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100) \9;
+  transition: opacity 1s linear; }
+
+.good-text {
+  margin-left: 80px;
+  padding-top: 10px; }
+  .good-text h4 {
+    color: black;
+    font-size: 16px; }
+  .good-text p {
+    padding-top: 5px;
+    color: #000;
+    font-size: 14px; }
+
+/*about-us
+  ************************************************/
+.about-us {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 1040px; }
+  .about-us h3 {
+    padding-bottom: 10px;
+    color: #cccccc; }
+  .about-us a {
+    color: #cccccc;
+    font-size: 13px; }
+    .about-us a:hover {
+      color: white; }
+  .about-us p {
+    color: #cccccc;
+    font-size: 13px;
+    line-height: 1.6; }
+  .about-us ul {
+    float: left;
+    width: 15%;
+    list-style: none; }
+  .about-us li {
+    padding: 2px 0; }
+  .about-us .us {
+    margin-left: 60%; }
+  .about-us .our-app {
+    float: right;
+    width: 50%; }
+  .about-us .apple-dimension,
+  .about-us .android-dimension,
+  .about-us .online-server,
+  .about-us .online-server {
+    float: left;
+    display: block;
+    margin-bottom: 10px;
+    width: 50%;
+    text-align: center; }
+    .about-us .apple-dimension .app-icon,
+    .about-us .android-dimension .app-icon,
+    .about-us .online-server .app-icon,
+    .about-us .online-server .app-icon {
+      margin-bottom: 5px;
+      width: 40px;
+      height: 40px; }
+
+/*approve-box
+  ************************************************/
+.approve-box {
+  background: #333333;
+  padding: 20px 0 5px;
+  text-align: center; }
+  .approve-box p {
+    padding-top: 5px;
+    color: #cccccc;
+    font-size: 13px; }
+
+.approve {
+  margin: 0 auto;
+  width: 240px; }
+  .approve a {
+    float: left;
+    padding-right: 20px;
+    width: 100px;
+    height: 30px; }
+  .approve img {
+    width: 100%;
+    height: 100%; }
+
+/*style
+**************************************************************************************************************************************************/
+body {
+  background: #f3f3f3; }
+
+.link-btn {
+  color: #86b5ed; }
+  .link-btn:hover {
+    color: #2d7fe0; }
+
+.step {
+  margin: 115px auto 0;
+  width: 1200px;
+  height: 50px;
+  text-align: center;
+  background: white; }
+  .step li {
+    float: left;
+    width: 25%;
+    height: 100%;
+    line-height: 50px; }
+
+.main {
+  margin: 30px auto 40px;
+  width: 1200px; }
+  .main h2 {
+    padding-bottom: 10px;
+    border-bottom: 1px solid black; }
+  .main .main-content {
+    border: 1px solid #cccccc;
+    padding-bottom: 30px;
+    background: white; }
+  .main .info-row-1,
+  .main .info-row-2,
+  .main .info-row-3,
+  .main .info-row-4,
+  .main .info-row-5 {
+    padding: 15px 30px; }
+  .main .info-value {
+    padding-left: 15px; }
+  .main .info-row-1 .time-tips {
+    padding-left: 205px; }
+  .main .info-row-1 .info-value {
+    color: black; }
+    .main .info-row-1 .info-value:hover {
+      color: #fe4040; }
+  .main .info-row-2 .info-col-1 {
+    float: left;
+    width: 217px; }
+  .main .info-row-2 .info-col-2 {
+    float: left;
+    width: 238px; }
+  .main .info-row-2 .buy-cost {
+    color: #fe4040; }
+  .main .info-row-2 .info-col-3 {
+    float: left; }
+  .main .info-row-3 .time-tips {
+    padding-left: 30px; }
+  .main .info-row-4 input {
+    margin-left: 15px;
+    padding-left: 10px;
+    width: 330px;
+    height: 30px; }
+  .main .info-row-5 .buy-explain-title {
+    float: left; }
+  .main .info-row-5 .buy-explain {
+    padding-left: 20px;
+    float: left; }
+  .main .info-row-5 p {
+    padding-bottom: 10px; }
+  .main .info-row-6 {
+    padding: 80px 30px 0; }
+  .main .info-row-7 {
+    padding: 23px 0 0 70px; }
+  .main .receive-item {
+    padding-left: 70px;
+    width: 1000px;
+    line-height: 35px; }
+    .main .receive-item .receive-choose {
+      border: 1px solid #fe4040; }
+  .main .receive-info {
+    float: left;
+    width: 750px; }
+  .main .receive-handle {
+    float: right;
+    width: 250px; }
+    .main .receive-handle a {
+      padding: 0 15px;
+      border-left: 1px solid #cccccc; }
+    .main .receive-handle .set-default {
+      border-left: none; }
+  .main .add-and-modify {
+    margin: 10px auto;
+    padding: 20px 50px;
+    width: 800px;
+    background: #edeef0; }
+  .main table {
+    table-layout: fixed; }
+  .main tr {
+    height: 50px; }
+  .main th {
+    padding-right: 20px;
+    width: 100px;
+    text-align: right; }
+  .main .input-text {
+    position: relative;
+    top: -1px;
+    width: 180px;
+    height: 28px;
+    padding-left: 10px;
+    border: 1px solid black; }
+  .main .invest-province-select,
+  .main .invest-city-select,
+  .main .invest-country-select {
+    position: relative;
+    display: inline-block;
+    width: 110px;
+    height: 30px;
+    margin-right: 4px; }
+    .main .invest-province-select i,
+    .main .invest-province-select a,
+    .main .invest-city-select i,
+    .main .invest-city-select a,
+    .main .invest-country-select i,
+    .main .invest-country-select a {
+      font-size: 14px; }
+    .main .invest-province-select i,
+    .main .invest-city-select i,
+    .main .invest-country-select i {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      line-height: 25px;
+      text-align: center;
+      font-size: 12px;
+      color: white; }
+    .main .invest-province-select a,
+    .main .invest-city-select a,
+    .main .invest-country-select a {
+      display: block;
+      text-decoration: none;
+      text-align: center; }
+    .main .invest-province-select .select-view,
+    .main .invest-city-select .select-view,
+    .main .invest-country-select .select-view {
+      border: 1px solid black;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: 0;
+      line-height: 30px; }
+      .main .invest-province-select .select-view:hover,
+      .main .invest-city-select .select-view:hover,
+      .main .invest-country-select .select-view:hover {
+        background: #cccccc; }
+      .main .invest-province-select .select-view span,
+      .main .invest-city-select .select-view span,
+      .main .invest-country-select .select-view span {
+        color: black; }
+    .main .invest-province-select ul,
+    .main .invest-city-select ul,
+    .main .invest-country-select ul {
+      position: absolute;
+      display: none;
+      overflow: scroll;
+      max-height: 295px;
+      top: 106%;
+      left: 0;
+      border: 1px solid black;
+      width: 110px;
+      background: white;
+      list-style: none; }
+    .main .invest-province-select li,
+    .main .invest-city-select li,
+    .main .invest-country-select li {
+      padding: 3px 0; }
+      .main .invest-province-select li a,
+      .main .invest-city-select li a,
+      .main .invest-country-select li a {
+        color: black; }
+      .main .invest-province-select li:hover,
+      .main .invest-city-select li:hover,
+      .main .invest-country-select li:hover {
+        background: #cccccc; }
+        .main .invest-province-select li:hover a,
+        .main .invest-city-select li:hover a,
+        .main .invest-country-select li:hover a {
+          color: white; }
+  .main .receive-button {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 160px;
+    height: 40px;
+    font-size: 18px;
+    background: #2d7fe0;
+    border-radius: 3px;
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .main .receive-button:hover {
+      background: #154e92; }
+  .main .info-row-8 {
+    padding-top: 35px;
+    text-align: center; }
+  .main .receive-ifo-submit {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 200px;
+    height: 40px;
+    font-size: 18px;
+    background: #fe4040;
+    border-radius: 3px;
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .main .receive-ifo-submit:hover {
+      background: #d70101; }
+
+/*# sourceMappingURL=../../maps/buy/buy.css.map */
