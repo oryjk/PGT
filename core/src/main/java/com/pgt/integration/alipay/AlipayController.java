@@ -3,6 +3,7 @@ package com.pgt.integration.alipay;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,16 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.controller.TransactionBaseController;
+import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.payment.bean.TransactionLog;
 import com.pgt.sms.service.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -53,6 +59,9 @@ public class AlipayController extends TransactionBaseController {
 
     @Resource(name = "paymentService")
     private PaymentService paymentService;
+
+    @Resource(name = "responseBuilderFactory")
+    private ResponseBuilderFactory responseBuilderFactory;
 
     @RequestMapping(value = "/request", method = RequestMethod.GET)
     public ModelAndView requestAlipay(HttpServletRequest request, HttpSession session) {
@@ -119,6 +128,36 @@ public class AlipayController extends TransactionBaseController {
         mav.addObject(CartConstant.ORDER_ID, order.getId());
         return mav;
     }
+
+    @RequestMapping(value = "/ajaxReturn", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity handleAlipayReturn(HttpServletRequest request,
+                                             RedirectAttributes redirectAttributes) {
+
+        Integer orderId = getAlipayService().getOrderIdFromNotify(request);
+        ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
+        ResponseEntity responseEntity = new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+        LOGGER.debug("The order id is {}.", orderId);
+        Order order = getOrderService().loadOrder(orderId);
+        boolean success = getAlipayService().verifyResult(request);
+        LOGGER.debug("{} for Alipay.", success);
+        if (success) {
+            handleSuccessfulAlipayNotify(request, order, false);
+            redirectAttributes.addFlashAttribute(PaymentConstants.PAID_SUCCESS_FLAG, Constants.TRUE);
+            rb.setSuccess(true);
+            return responseEntity;
+        } else {
+
+            Map<String, String> message = new HashMap<>();
+            message.put("message", "Alipay not success pay this order,order id is" + order.getId());
+            rb.setSuccess(false).setData(message);
+            LOGGER.error("Method handleAlipayReturn(): Failed to pay the order-{} by alipay.", orderId);
+        }
+
+        return responseEntity;
+
+    }
+
 
     @RequestMapping(value = "/notify", method = RequestMethod.POST)
     public void handleAlipayNotify(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -221,4 +260,11 @@ public class AlipayController extends TransactionBaseController {
         this.orderService = orderService;
     }
 
+    public ResponseBuilderFactory getResponseBuilderFactory() {
+        return responseBuilderFactory;
+    }
+
+    public void setResponseBuilderFactory(ResponseBuilderFactory responseBuilderFactory) {
+        this.responseBuilderFactory = responseBuilderFactory;
+    }
 }

@@ -140,7 +140,7 @@ public class PaymentController implements CartMessages {
 		}
 		getOrderService().removeOrderFromSession(String.valueOf(order.getId()), pRequest);
 		// check the order is paid
-		PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(order.getId());
+		PaymentGroup paymentGroup = getPaymentService(). findPaymentGroupByOrderId(order.getId());
 		if (null != paymentGroup && PaymentConstants.PAYMENT_STATUS_SUCCESS == paymentGroup.getStatus()) {
 			modelAndView.setViewName("redirect:/payment/complete");
 			return modelAndView;
