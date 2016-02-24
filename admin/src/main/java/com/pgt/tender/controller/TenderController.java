@@ -314,7 +314,17 @@ public class TenderController extends InternalTransactionBaseController {
             return new ModelAndView(PERMISSION_DENIED);
         }
         modelAndView.setViewName("/p2p-tender/productImageModify");
+        if(ObjectUtils.isEmpty(productId)){
+            LOGGER.debug("The product id is empty");
+            return modelAndView;
+        }
         modelAndView.addObject("productId", productId);
+        Product product=productService.queryProduct(productId);
+        if(ObjectUtils.isEmpty(product)){
+            LOGGER.debug("The product is empty");
+            return modelAndView;
+        }
+        modelAndView.addObject("product",product);
         return modelAndView;
     }
 
@@ -331,11 +341,10 @@ public class TenderController extends InternalTransactionBaseController {
             if (ObjectUtils.isEmpty(product)) {
                 LOGGER.debug("The product is empty with id is {}.", productMedia.getReferenceId());
                 responseEntity.getBody().put("success", false);
-                responseEntity.getBody().put("message", "Can not update product index.");
+                responseEntity.getBody().put("message.", "Can not update product index.");
                 return responseEntity;
             }
 
-            esSearchService.updateProductIndex(product);
             responseEntity.getBody().put("success", true);
             responseEntity.getBody().put("mediaId", mediaId);
             return responseEntity;

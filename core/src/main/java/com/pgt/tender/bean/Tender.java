@@ -8,6 +8,7 @@ import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.user.validation.group.LoginGroup;
 import com.pgt.user.validation.group.RegistrationGroup;
+import org.elasticsearch.common.collect.HppcMaps;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.ObjectUtils;
@@ -167,6 +168,10 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
      */
     private TenderMedia mobileDetailMedia;
 
+    /**
+     * 产品总数量
+     */
+    private Integer productQuantity;
 
     @Override
     public String toString() {
@@ -213,6 +218,19 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
         return 0;
     }
 
+    public Integer getProductQuantity() {
+        Integer total=0;
+        if(!ObjectUtils.isEmpty(this.products)){
+            for (Product product: products) {
+                total=total+product.getStock();
+            }
+        }
+        return total;
+    }
+
+    public void setProductQuantity(Integer productQuantity) {
+        this.productQuantity = productQuantity;
+    }
 
     public TenderMedia getMobileDetailMedia() {
         return mobileDetailMedia;

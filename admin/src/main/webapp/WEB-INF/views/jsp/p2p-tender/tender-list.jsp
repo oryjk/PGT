@@ -167,9 +167,7 @@
                                             <th style="white-space: normal; width:60px;">
                                                 所属典当行
                                             </th>
-                                            <th style="white-space: normal; width:60px;">
-                                                当铺所有者
-                                            </th>
+
                                             <th style="white-space: normal; width:60px;">
                                                 当票编号
                                             </th>
@@ -229,9 +227,7 @@
                                             <td>
                                                     ${tender.pawnshop.name}
                                             </td>
-                                            <td>
-                                                王睿
-                                            </td>
+
                                             <td style="word-break: break-all;">
                                                     ${tender.pawnTicketId}
                                             </td>
@@ -239,7 +235,7 @@
                                                     ${tender.tenderTotal}
                                             </td>
                                             <td>
-                                                    ${fn:length(tender.products)}
+                                                    ${tender.productQuantity}
                                             </td>
                                             <td>
 

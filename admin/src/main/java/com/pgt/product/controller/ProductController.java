@@ -133,7 +133,12 @@ public class ProductController extends InternalTransactionBaseController {
                 return responseEntity;
             }
 
-            esSearchService.updateProductIndex(product);
+            if(product.getType()!=null&&product.getType().endsWith(ProductType.LIVE_PAWNAGE.toString())){
+                LOGGER.debug("The product type is {}.",ProductType.LIVE_PAWNAGE);
+            }else{
+                esSearchService.updateProductIndex(product);
+                LOGGER.debug("The product type is {}.",ProductType.DEAD_PAWNAGE);
+            }
             responseEntity.getBody().put("success", true);
             responseEntity.getBody().put("mediaId", mediaId);
             return responseEntity;
