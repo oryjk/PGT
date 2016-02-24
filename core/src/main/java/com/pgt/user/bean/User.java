@@ -59,11 +59,19 @@ public class User implements Serializable {
     private String headPortrait;
     private Integer defaultAddressId;
     private String yeepayUserName;
-    private String yeepayUserId;
+    private String yeepayUserId;//身份证
     private String authCodeError;
     private String smsError;
     private String phoneExist;
+    private String yeepayUserNo;
 
+    public String getYeepayUserNo() {
+        return yeepayUserNo;
+    }
+
+    public void setYeepayUserNo(String yeepayUserNo) {
+        this.yeepayUserNo = yeepayUserNo;
+    }
 
     public Date getCreateDate() {
         return createDate;

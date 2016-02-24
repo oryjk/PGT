@@ -71,6 +71,10 @@
                                                     </c:forEach>
                                                 </select></label>
                                         </div>
+                                        <button class="btn btn-xs green btn-circle" data-pgt-btn="modify"
+                                                onclick="window.location.href='/help/helpCenterIndex'">
+                                            同步到索引库
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="table-scrollable productlist-box">

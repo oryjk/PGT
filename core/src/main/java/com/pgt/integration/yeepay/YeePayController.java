@@ -169,7 +169,8 @@ public class YeePayController {
 		if (null != user) {
 			mav.addObject(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
 			mav.addObject(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
-					YeePayHelper.generateOutboundUserNo(getConfig(), user.getId()));
+//					YeePayHelper.generateOutboundUserNo(getConfig(), user.getId()));
+			user.getYeepayUserNo());
 			mav.addObject(YeePayConstants.PARAM_NAME_YEEPAY_CONFIG, getConfig());
 		}
 		mav.addObject(YeePayConstants.PARAM_SERVICE_NAME, serviceName);
@@ -352,7 +353,7 @@ public class YeePayController {
 
 			getTransactionLogService().createTransactionLog(transactionLog);
 
-			Map<String, Object> paramMap = getPaymentParamMap(order, transactionLog, pRequest, pResponse);
+			Map<String, Object> paramMap = getPaymentParamMap(order, user, transactionLog, pRequest, pResponse);
 			String outboundXML = YeePayHelper.generateRequestXml(getConfig(), paramMap);
 			String sign = YeePayHelper.generateSign(getConfig(), outboundXML);
 			StringBuilder outBoundBuilder = new StringBuilder();
@@ -471,12 +472,12 @@ public class YeePayController {
 
 	}
 
-	private Map<String, Object> getPaymentParamMap(Order order, TransactionLog transactionLog,
-			HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	private Map<String, Object> getPaymentParamMap(Order order, User user, TransactionLog transactionLog,
+												   HttpServletRequest pRequest, HttpServletResponse pResponse) {
 
 		Long userId = Long.valueOf(order.getUserId());
-		String platformUserNo = YeePayHelper.generateOutboundUserNo(getConfig(), userId);
-
+//		String platformUserNo = YeePayHelper.generateOutboundUserNo(getConfig(), userId);
+		String platformUserNo = user.getYeepayUserNo();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(YeePayConstants.PARAM_NAME_REQUEST_NO,
 				YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId()));

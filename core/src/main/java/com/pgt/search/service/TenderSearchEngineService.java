@@ -15,6 +15,7 @@ import com.pgt.tender.bean.ESTender;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import com.pgt.utils.PaginationBean;
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -182,7 +183,12 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                                      ESAggregation categoryIdAggregation, String indexType) {
         SearchResponse response = null;
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
+            SearchRequestBuilder searchRequestBuilder=null;
+            if(ObjectUtils.isEmpty(indexType)){
+                 searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
+            }else {
+                searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME,indexType);
+            }
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             buildQueryBuilder(esTerm, esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
