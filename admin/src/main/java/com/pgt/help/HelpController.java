@@ -5,9 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.pgt.help.bean.HelpCenterSites;
+import com.pgt.search.service.StaticResourceSearchEngineService;
+import com.pgt.tender.bean.Tender;
+import org.apache.commons.collections.CollectionUtils;
+import org.elasticsearch.action.search.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -48,6 +54,9 @@ public class HelpController {
 
 	@Autowired
 	private Configuration configuration;
+
+	@Autowired
+	private StaticResourceSearchEngineService staticResourceSearchEngineService;
 
 	@RequestMapping(value = "/categoryList", method = RequestMethod.GET)
 	public ModelAndView getCategory(ModelAndView modelAndView, RedirectAttributes redirectAttributes,
@@ -260,5 +269,27 @@ public class HelpController {
 		modelAndView.setViewName("redirect:/help/articleList");
 		return modelAndView;
 	}
+
+
+	@RequestMapping(value = "/helpCenterIndex", method = RequestMethod.GET)
+	public ResponseEntity helpCenterIndex() {
+		LOGGER.debug("The method update helpCenterIndex");
+		ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+		Map<String, Object> response = responseEntity.getBody();
+		HelpCenter helpCenter = new HelpCenter();
+		helpCenter.setSite(HelpCenterSites.ALL.toString());
+		LOGGER.debug("The query helpCenter site is {}", HelpCenterSites.ALL.toString());
+		List<HelpCategoryVo> helpCategoryVoList = helpCenterService.findAllHelpByQuery(helpCenter);
+		if (CollectionUtils.isEmpty(helpCategoryVoList)) {
+			LOGGER.debug("Can not find the help center");
+			response.put("success", false);
+			response.put("message", "The helpCenter id  is empty.");
+			return responseEntity;
+		}
+		staticResourceSearchEngineService.updateHelpCenter(helpCategoryVoList);
+		response.put("success", true);
+		return responseEntity;
+	}
+
 
 }

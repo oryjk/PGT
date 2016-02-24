@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.link.dao.FriendlyLinkMapper">
+
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+	<sql id="FriendlyLinkListWhere">
+		<where>
+			<if test="type!=null">
+				and TYPE =#{type}
+			</if>
+			<if test="state!=null">
+				and STATE =#{state}
+			</if>
+		</where>
+	</sql>
+
+
+	<!--Friendly result map -->
+	<resultMap type="com.pgt.link.bean.FriendlyLink" id="LinkResult">
+		<id column="ID" property="id"/>
+		<result column="NAME" property="name"/>
+		<result column="LINK" property="link"/>
+		<result column="TYPE" property="type"/>
+		<result column="STATE" property="state"/>
+	</resultMap>
+
+
+	<!-- insert a FriendlyLink bean -->
+	<insert id="createFriendlyLink" parameterType="com.pgt.link.bean.FriendlyLink"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		FRIENDLY_LINK(NAME,LINK,TYPE,STATE)VALUES(#{name},#{link},#{type},#{state})
+	</insert>
+
+	<!-- update a FriendlyLink bean -->
+	<update id="updateFriendlyLink" parameterType="com.pgt.link.bean.FriendlyLink"
+		keyProperty="id" useGeneratedKeys="true">
+		UPDATE FRIENDLY_LINK SET
+		NAME=#{name},LINK=#{link},TYPE=#{type},STATE=#{state}
+		WHERE ID=#{id}
+	</update>
+
+	<!-- delete a FriendlyLink bean -->
+	<delete id="deleteHotFriendlyLinkById">
+		DELETE FROM
+		FRIENDLY_LINK WHERE
+		ID=#{id}
+	</delete>
+
+
+	<select id="queryFriendlyLinkById" parameterType="Integer" resultMap="LinkResult">
+		 SELECT  * FROM FRIENDLY_LINK WHERE ID =#{id}
+	</select>
+
+	<select id="queryFriendlyLinkByQuery" parameterType="com.pgt.link.bean.FriendlyLink" resultMap="LinkResult">
+        SELECT * FROM FRIENDLY_LINK
+		<include refid="FriendlyLinkListWhere"/>
+		<include refid="pageBean"/>
+	</select>
+
+</mapper>

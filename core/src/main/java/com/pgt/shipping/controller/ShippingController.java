@@ -357,7 +357,7 @@ public class ShippingController implements CartMessages {
 				getTransactionLogService().createTransactionLog(transactionLog);
 				result.put(WebServiceConstants.NAME_ORDER_INFO, order);
 
-				result.put(WebServiceConstants.NAME_TRANSACTION_ID, transactionLog.getOrderId());
+				result.put(WebServiceConstants.NAME_TRANSACTION_ID, transactionLog.getId());
 
 			} catch (LockInventoryException e) {
 				String oosProdId = StringUtils.join(e.getOosProductIds(), "_");

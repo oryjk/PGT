@@ -130,7 +130,6 @@
 		<property name="useToSearch">
 			<list value-type="java.lang.String">
 				<value>name</value>
-				<value>shortDescription</value>
 				<value>keyWord</value>
 			</list>
 		</property>

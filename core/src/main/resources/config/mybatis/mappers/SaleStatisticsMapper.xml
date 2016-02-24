@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.report.categroy_sale_statistics.dao.SaleStatisticsMapper">
+
+	<resultMap id="SubCategroyMap" type="com.pgt.report.categroy_sale_statistics.bean.SaleStatisticsBean">
+		<id column="CATEGORY_ID" property="id" />
+		<result column="PRODUCT_STOCKS" property="stocks" />
+	</resultMap>
+	<select id="reportSubCategroyStocks" resultMap="SubCategroyMap">
+		select
+			pro_cate.CATEGORY_ID,
+			sum(pro.STOCK) as PRODUCT_STOCKS from PRODUCT as pro
+			left join PRODUCT_CATEGORY as pro_cate
+			on pro.PRODUCT_ID = pro_cate.PRODUCT_ID
+			group by pro_cate.CATEGORY_ID
+	</select>
+
+	<resultMap id="reportRootCategroy" type="com.pgt.report.categroy_sale_statistics.bean.RootCategroyBean">
+		<id column="PARENT_CATEGORY_ID" property="id" />
+		<result column="NAME" property="name" />
+	</resultMap>
+	<select id="reportSelectRootCategroy" parameterType="int" resultMap="reportRootCategroy">
+		SELECT c.PARENT_CATEGORY_ID,c.NAME FROM mp.CATEGORIES as c where c.CATEGORY_ID = #{id}
+	</select>
+
+</mapper>

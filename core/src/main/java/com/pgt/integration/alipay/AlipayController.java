@@ -147,8 +147,9 @@ public class AlipayController extends TransactionBaseController {
             rb.setSuccess(true);
             return responseEntity;
         } else {
+
             Map<String, String> message = new HashMap<>();
-            message.put("message", "Alipay not success pay this order,order id is" + orderId);
+            message.put("message", "Alipay not success pay this order,order id is" + order.getId());
             rb.setSuccess(false).setData(message);
             LOGGER.error("Method handleAlipayReturn(): Failed to pay the order-{} by alipay.", orderId);
         }

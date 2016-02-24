@@ -8,19 +8,32 @@ import com.pgt.help.bean.HelpCategoryVo;
 import com.pgt.help.bean.HelpCenter;
 import com.pgt.help.bean.HelpCenterSites;
 import com.pgt.help.service.HelpCenterService;
+import com.pgt.search.bean.ESAggregation;
+import com.pgt.search.bean.ESRange;
+import com.pgt.search.bean.ESSort;
+import com.pgt.search.bean.ESTerm;
+import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequestBuilder;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.util.List;
+
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 
 /**
  * Created by carlwang on 2/24/16.
@@ -76,10 +89,66 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
         }
     }
 
+
+
+
+    public void updateHelpCenter(List<HelpCategoryVo> helpCategoryVoList){
+            helpCategoryVoList.stream().forEach(helpCategoryVo -> {
+                ObjectMapper mapper = new ObjectMapper();
+                        try {
+                            LOGGER.debug("The helpCenter catgeory id is {}.",helpCategoryVo.getCategory().getId());
+                            byte[] bytes = mapper.writeValueAsBytes(helpCategoryVo);
+                            UpdateRequestBuilder updateRequestBuilder = null;
+                                updateRequestBuilder = getIndexClient().prepareUpdate(Constants.STATIC_RESOURCE_INDEX_NAME, Constants
+                                        .HELP_CENTER_INDEX_TYPE,String.valueOf(helpCategoryVo.getCategory().getId()))
+                                        .setDoc(bytes);
+                            UpdateResponse updateResponse = updateRequestBuilder.
+                                    execute().actionGet(10000);
+
+                            if (updateResponse.isCreated()) {
+                                LOGGER.debug("Success to update helpCenter and category id is {}.",helpCategoryVo.getCategory().getId());
+                            }
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+            );
+    }
+
+
+    public SearchResponse findHelpCenter(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
+                                     PaginationBean paginationBean,
+                                     ESAggregation categoryIdAggregation) {
+        SearchResponse response = null;
+        try {
+            SearchRequestBuilder   searchRequestBuilder = buildSearchRequestBuilder(Constants.STATIC_RESOURCE_INDEX_NAME, Constants
+                    .HELP_CENTER_INDEX_TYPE);
+            BoolQueryBuilder qb = boolQuery();
+            searchRequestBuilder.setQuery(qb);
+            buildQueryBuilder(esTerm, esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
+            response = searchRequestBuilder.execute()
+                    .actionGet();
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+
     @Override
     public void update(Integer id) {
 
     }
+
+    private void createHotSaleMapping() {
+        LOGGER.debug("Begin to create hot sale mapping.");
+        createMapping(Constants.HELP_CENTER_INDEX_TYPE, Constants.HOT_PRODUCT_INDEX_TYPE, esConfiguration.getHotSaleAnalyzerFields());
+        LOGGER.debug("End to create hot sale mapping.");
+    }
+
 
     @Override
     public void initialIndex() {

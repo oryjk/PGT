@@ -555,11 +555,13 @@ public class UserController {
             Map<String, Object> params = new HashMap();
             params.put(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
             params.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
-                    YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId()));
+//                    YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId()));
+                    user.getYeepayUserNo());
             try {
                 Map<String, String> result = getAccountInfoYeepay().invoke(params);
                 ModelAndView mav = new ModelAndView("/my-account/yeepay/accountInfo");
-                String accountNo = YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId());
+//                String accountNo = YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId());
+                String accountNo = user.getYeepayUserNo();
                 mav.addObject("accountNo", accountNo);
                 mav.addObject("idNo", user.getYeepayUserId());
                 mav.addObject("name", user.getYeepayUserName());

@@ -22,6 +22,8 @@
 		<result column="default_address_id" property="defaultAddressId"/>
 		<result column="YEEPAY_USER_NAME" property="yeepayUserName"/>
 		<result column="YEEPAY_USER_ID" property="yeepayUserId"/>
+        <result column="YEE_PAY_USER_NO" property="yeepayUserNo"/>
+
 
     </resultMap>
     <parameterMap id="paramUser" type="com.pgt.user.bean.User">
@@ -40,7 +42,8 @@
         UPDATE USERS SET login = #{username},password = #{password},salt = #{salt},phone_number=#{phoneNumber},
         email = #{email},creation_date = #{createDate},update_date = #{updateDate},available
         = #{available}, YEEPAY_STATUS = #{yeepayStatus}, YEEPAY_REGI_DATE = #{yeepayRegistoredDate},
-        default_address_id=#{defaultAddressId}, YEEPAY_USER_NAME = #{yeepayUserName}, YEEPAY_USER_ID = #{yeepayUserId}
+        default_address_id=#{defaultAddressId}, YEEPAY_USER_NAME = #{yeepayUserName}, YEEPAY_USER_ID = #{yeepayUserId},
+        YEE_PAY_USER_NO = #{yeepayUserNo}
         WHERE user_id = #{id}
     </update>
     <select id="delete" parameterType="int" resultMap="user">

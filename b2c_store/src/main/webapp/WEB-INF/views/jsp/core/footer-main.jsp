@@ -68,14 +68,15 @@
 <div class="about-us">
 
 
-  <c:forEach items="${helpCenterList}" var="helpcategory">
-  <ul>
-    <li><h3>${helpcategory.category.name}</h3></li>
+  <c:forEach items="${helpCategoryVoList}" var="esHelpCenter">
+    <c:set var="helpcategory" value="${esHelpCenter.source}"/>
+    <ul>
+      <li><h3>${helpcategory.category.name}</h3></li>
 
-    <c:forEach items="${helpcategory.helpCenterList}" var="helpVo">
-    <li><a href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</a></li>
-    </c:forEach>
-  </ul>
+      <c:forEach items="${helpcategory.helpCenterList}" var="helpVo">
+        <li><a href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</a></li>
+      </c:forEach>
+    </ul>
   </c:forEach>
 
   <div class="us">
