@@ -17,10 +17,17 @@
 	<sql id="helpListWhere">
 		<where>
 			<if test="category!=null">
-			<if test="site!=null">
-				 and REFERENCE_ID =#{category.id} and SITE =#{site}
-				 OR  REFERENCE_ID =#{category.id} and SITE ='DEFAULT'
-			</if>
+				<if test="site!=null">
+					<choose>
+						<when test="site==ALL">
+							and REFERENCE_ID =#{category.id}
+						</when>
+						<otherwise>
+							and REFERENCE_ID =#{category.id} and SITE =#{site}
+							OR REFERENCE_ID =#{category.id} and SITE ='DEFAULT'
+						</otherwise>
+					</choose>
+				</if>
 			</if>
 		</where>
 	</sql>
@@ -28,23 +35,24 @@
 
 	<resultMap id="helpCenterResult" type="com.pgt.help.bean.HelpCenter">
 
-		<id column="ID" property="id" />
-		<result column="TITLE" property="title" />
-		<result column="CONTENT" property="content" />
-		<result column="TYPE" property="type" />
+		<id column="ID" property="id"/>
+		<result column="TITLE" property="title"/>
+		<result column="CONTENT" property="content"/>
+		<result column="TYPE" property="type"/>
 		<result column="SITE" property="site"/>
 		<association property="frontMedia" column="ID"
-			select="queryHelpCenterFrontMedia" />
+					 select="queryHelpCenterFrontMedia"/>
 		<association column="REFERENCE_ID" property="category" select="queryCategoryByHelepCenter">
 		</association>
 	</resultMap>
 
-	<select id="queryCategoryByHelepCenter" parameterType="int" resultMap="com.pgt.category.dao.CategoryMapper.CategoryResult">
+	<select id="queryCategoryByHelepCenter" parameterType="int"
+			resultMap="com.pgt.category.dao.CategoryMapper.CategoryResult">
 		SELECT  * FROM CATEGORIES WHERE CATEGORY_ID = #{REFERENCE_ID}
 	</select>
-	
+
 	<insert id="createHelpCenter" parameterType="com.pgt.help.bean.HelpCenter"
-		keyProperty="bannerId" useGeneratedKeys="true">
+			keyProperty="bannerId" useGeneratedKeys="true">
 		
 		INSERT INTO
 		HELPCENTER(TITLE,CONTENT,TYPE,PARENT_ID,REFERENCE_ID,SITE)VALUES(#{title},#{content},#{type},#{parent.id},#{category.id},#{site})
@@ -65,9 +73,9 @@
 		HELPCENTER WHERE
 		ID=#{id}
 	</delete>
-	
+
 	<select id="queryHelpCenterFrontMedia" parameterType="int"
-		resultMap="com.pgt.common.dao.MediaMapper.MediaResult">
+			resultMap="com.pgt.common.dao.MediaMapper.MediaResult">
 		SELECT *
 		FROM MEDIA
 		WHERE reference_id = #{id} AND TYPE =
@@ -76,7 +84,7 @@
 
 
 	<select id="findHelpCentersByCategoryId" parameterType="int"
-		resultMap="helpCenterResult">
+			resultMap="helpCenterResult">
 		SELECT * FROM HELPCENTER WHERE
 		REFERENCE_ID=#{relatedCategoryId}
 	</select>
@@ -90,20 +98,20 @@
 		SELECT * FROM HELPCENTER WHERE ID =#{ID}
 	</select>
 
-	 <select id="queryHelpCenters" parameterType="com.pgt.help.bean.HelpCenter"
-            resultMap="helpCenterResult">
-        SELECT * FROM HELPCENTER WHERE 1=1
-        <if test="helpCenter.category!=null">
-	        <if test="helpCenter.category.id!=null">
-	            AND REFERENCE_ID=${helpCenter.category.id}
-	        </if>
-        </if>
-        <if test="paginationBean!=null">
-            <if test="paginationBean.currentIndex != null">
-                <if test="paginationBean.capacity != null">
-                    limit #{paginationBean.currentIndex}, #{paginationBean.capacity}
-                </if>
-            </if>
-        </if>
-    </select>
+	<select id="queryHelpCenters" parameterType="com.pgt.help.bean.HelpCenter"
+			resultMap="helpCenterResult">
+		SELECT * FROM HELPCENTER WHERE 1=1
+		<if test="helpCenter.category!=null">
+			<if test="helpCenter.category.id!=null">
+				AND REFERENCE_ID=${helpCenter.category.id}
+			</if>
+		</if>
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.currentIndex}, #{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</select>
 </mapper>

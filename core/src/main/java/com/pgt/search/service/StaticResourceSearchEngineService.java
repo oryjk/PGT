@@ -43,8 +43,8 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
             BulkRequestBuilder bulkRequest = client.prepareBulk();
 
             HelpCenter helpCenter = new HelpCenter();
-            helpCenter.setSite(HelpCenterSites.B2C_STORE.toString());
-            LOGGER.debug("The query helpCenter site is {}", HelpCenterSites.B2C_STORE.toString());
+            helpCenter.setSite(HelpCenterSites.ALL.toString());
+            LOGGER.debug("The query helpCenter site is {}", HelpCenterSites.ALL.toString());
             List<HelpCategoryVo> helpCategoryVoList = helpCenterService.findAllHelpByQuery(helpCenter);
             if (CollectionUtils.isEmpty(helpCategoryVoList)) {
                 LOGGER.debug("Can not find the help center");

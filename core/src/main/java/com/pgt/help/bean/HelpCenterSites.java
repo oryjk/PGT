@@ -5,6 +5,6 @@ package com.pgt.help.bean;
  */
 public enum HelpCenterSites {
 
-    B2C_STORE,P2P_STORE,DEFAULT
+    B2C_STORE,P2P_STORE,DEFAULT,ALL
 
 }
