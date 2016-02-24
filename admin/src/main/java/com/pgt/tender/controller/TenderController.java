@@ -547,35 +547,13 @@ public class TenderController extends InternalTransactionBaseController {
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
-        LOGGER.debug("The method crateTenderProduct");
-        if (ObjectUtils.isEmpty(tenderId)) {
-            LOGGER.debug("The tenderId is empty");
-            return modelAndView;
-        }
-        if (ObjectUtils.isEmpty(product)) {
-            LOGGER.debug("The product is empty");
-            return modelAndView;
-        }
-        if (StringUtils.isEmpty(product.getName())) {
-            LOGGER.debug("The product is empty");
-            return modelAndView;
-        }
-        if (StringUtils.isEmpty(product.getDescription())) {
-            LOGGER.debug("The description is empty");
-            return modelAndView;
-        }
-        if (ObjectUtils.isEmpty(product.getStock())) {
-            LOGGER.debug("The stock is empty");
-            return modelAndView;
-        }
-        if (ObjectUtils.isEmpty(product.getSalePrice())) {
-            LOGGER.debug("The salePrice is empty");
-            return modelAndView;
-        }
+        LOGGER.debug("The method updateTenderProduct");
+
         product.setTenderId(tenderId);
         productService.updateProduct(product);
-        LOGGER.debug("The updateTender product is successful");
-        modelAndView.setViewName("redirect:/tender/queryTenderById/" + tenderId);
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.setViewName("redirect:/tender/addProductImageModify?productId=" + product.getProductId());
         return modelAndView;
     }
 

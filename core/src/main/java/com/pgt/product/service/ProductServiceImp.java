@@ -191,26 +191,27 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                 tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
                 tenderMapper.updateTender(tender);
                 product.setType(ProductType.LIVE_PAWNAGE.toString());
+                productMapper.updateProduct(product);
             }else{
                 product.setType(ProductType.DEAD_PAWNAGE.toString());
+                productMapper.updateProduct(product);
+                mediaMapper.deleteAllProductMedia(product.getProductId());
+                mediaMapper.createMedia(product.getThumbnailMedia());
+                mediaMapper.createMedia(product.getAdvertisementMedia());
+                mediaMapper.createMedia(product.getFrontMedia());
+                mediaMapper.createMedia(product.getExpertMedia());
+                if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
+                    product.getHeroMedias().stream().forEach(productMedia -> {
+                        mediaMapper.createMedia(productMedia);
+                    });
+                }
+                if (!ObjectUtils.isEmpty(product.getMainMedias())) {
+                    product.getMainMedias().stream().forEach(productMedia -> {
+                        mediaMapper.createMedia(productMedia);
+                    });
+                }
             }
 
-            productMapper.updateProduct(product);
-            mediaMapper.deleteAllProductMedia(product.getProductId());
-            mediaMapper.createMedia(product.getThumbnailMedia());
-            mediaMapper.createMedia(product.getAdvertisementMedia());
-            mediaMapper.createMedia(product.getFrontMedia());
-            mediaMapper.createMedia(product.getExpertMedia());
-            if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
-                product.getHeroMedias().stream().forEach(productMedia -> {
-                    mediaMapper.createMedia(productMedia);
-                });
-            }
-            if (!ObjectUtils.isEmpty(product.getMainMedias())) {
-                product.getMainMedias().stream().forEach(productMedia -> {
-                    mediaMapper.createMedia(productMedia);
-                });
-            }
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when update a product with product is is {productId}",
                     product.getProductId());

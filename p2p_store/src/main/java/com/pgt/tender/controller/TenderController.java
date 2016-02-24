@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -46,6 +47,15 @@ public class TenderController {
         }
         Map tender =tenders[0].getSource();
         LOGGER.debug("The query tender id is {}.",tenderId);
+
+        if(ObjectUtils.isEmpty(tender.get("products"))){
+            ArrayList products=(ArrayList) tender.get("products");
+
+        }
+
+
+
+
         modelAndView.addObject("tender",tender);
         modelAndView.setViewName("/detail/detail");
         return modelAndView;
