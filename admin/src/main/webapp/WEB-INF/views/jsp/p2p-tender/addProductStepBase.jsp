@@ -55,7 +55,7 @@
 				</div>
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
-					<form:form modelAttribute="product" id="productBase" method="post" action="/tender/addProductStepBase" class="form-horizontal">
+					<form:form modelAttribute="product" id="productBase" method="post" action="/tender/${product.productId eq null ? 'addProductStepBase' : 'updateTenderProduct'} " class="form-horizontal">
 						<div class="form-body">
 							<!-- 只有在修改时才显示id行-->
 							<c:if test="${!empty product.productId}">

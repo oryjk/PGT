@@ -211,7 +211,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="col-md-8"style="float: right" ><a href="/tender/addProductStepBase">
+										<div class="col-md-8"style="float: right" ><a href="/tender/addProductStepBase?tenderId=${product.tenderId}">
 											<button id="searchBtn" style="float: right" class="btn blue">
 												继续添加产品
 											</button>

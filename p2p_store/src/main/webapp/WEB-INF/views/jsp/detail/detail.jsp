@@ -8,11 +8,11 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/detail/detail.css"/>
+    <link rel="stylesheet" href="/resources/detail/detail.css"/>
 </head>
 <body>
 <!--header begin-->
-<jsp:include page="../p2p_core/header-main.jsp" />
+<jsp:include page="../core/header-main.jsp" />
 
     <!--invest-part begin-->
     <div class="invest">
@@ -391,6 +391,6 @@
     </div>
     <!-- recommend end-->
 
-    <jsp:include page="../p2p_core/footer-main.jsp" />
+    <jsp:include page="../core/footer-main.jsp" />
 </body>
 </html>
