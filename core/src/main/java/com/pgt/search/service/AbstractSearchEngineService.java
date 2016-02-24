@@ -12,6 +12,7 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.Requests;
@@ -31,6 +32,7 @@ import java.net.InetAddress;
 import java.util.List;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
@@ -56,11 +58,9 @@ public abstract class AbstractSearchEngineService {
     public abstract void update(Integer id);
 
 
-    protected void initialIndex() {
-        createIndex(Constants.P2P_INDEX_NAME, esConfiguration.isNeedIndex());
-    }
+    public abstract void initialIndex();
 
-    private void createIndex(String indexName, Boolean override) {
+    protected void createIndex(String indexName, Boolean override) {
         try {
             boolean exists = getIndexClient().admin().indices().prepareExists(indexName).execute().actionGet().isExists();
             if (exists && !override) {
@@ -131,6 +131,24 @@ public abstract class AbstractSearchEngineService {
 
 
     }
+
+    protected SearchResponse findAll(String indexName, String indexType) {
+
+        SearchResponse response = null;
+        try {
+            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(indexName, indexType);
+            BoolQueryBuilder qb = boolQuery();
+            searchRequestBuilder.setQuery(qb);
+            buildQueryBuilder(null, null, null, null, null, null, searchRequestBuilder, qb);
+            response = searchRequestBuilder.execute()
+                    .actionGet();
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
 
     protected SearchRequestBuilder buildSearchRequestBuilder(String siteIndexName, String indexType) throws IOException {
         return getSearchClient().prepareSearch(siteIndexName)

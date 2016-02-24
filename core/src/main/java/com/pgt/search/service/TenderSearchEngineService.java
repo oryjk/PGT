@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
+import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.Constants;
 import com.pgt.home.bean.HomeTender;
 import com.pgt.product.bean.CategoryHierarchy;
@@ -50,6 +51,8 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private ESConfiguration esConfiguration;
 
     @Override
     public void index() {
@@ -183,7 +186,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             buildQueryBuilder(esTerm, esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
-                response = searchRequestBuilder.execute()
+            response = searchRequestBuilder.execute()
                     .actionGet();
             return response;
         } catch (IOException e) {
@@ -261,14 +264,14 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
     @Override
     public void initialIndex() {
-        super.initialIndex();
-        createTenderMapping();
+        createIndex(Constants.P2P_INDEX_NAME, esConfiguration.isNeedIndex());
+        createMapping(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, getEsConfiguration().getTenderAnalyzerFields());
     }
 
-
-    private void createTenderMapping() {
+    @Override
+    protected void createMapping(String indexName, String indexType, List<String> analyseFields) {
         LOGGER.debug("Begin to create tender mapping.");
-        createMapping(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, getEsConfiguration().getTenderAnalyzerFields());
+        super.createMapping(indexName, indexType, analyseFields);
         LOGGER.debug("End to create tender mapping.");
     }
 }

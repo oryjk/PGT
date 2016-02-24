@@ -29,10 +29,10 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
         HelpCenter helpCenter = new HelpCenter();
         helpCenter.setSite(HelpCenterSites.B2C_STORE.toString());
         LOGGER.debug("The query helpCenter site is {}",HelpCenterSites.B2C_STORE.toString());
-        List<HelpCategoryVo> helpCategorVoList = helpCenterService.findAllHelpByQuery(helpCenter);
-        if(!ObjectUtils.isEmpty(helpCategorVoList)){
-            request.setAttribute("helpCenterList",helpCategorVoList);
-            LOGGER.debug("The query helpCenterList size is {}",helpCategorVoList.size());
+        List<HelpCategoryVo> helpCategoryVoList = helpCenterService.findAllHelpByQuery(helpCenter);
+        if(!ObjectUtils.isEmpty(helpCategoryVoList)){
+            request.setAttribute("helpCenterList",helpCategoryVoList);
+            LOGGER.debug("The query helpCenterList size is {}", helpCategoryVoList.size());
         }
         return true;
     }

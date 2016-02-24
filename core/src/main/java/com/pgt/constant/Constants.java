@@ -42,10 +42,12 @@ public class Constants {
     //search
     public static final String SITE_INDEX_NAME = "mp";
     public static final String P2P_INDEX_NAME = "live_pawnage";
+    public static final String STATIC_RESOURCE_INDEX_NAME = "static_resource";
     public static final String PRODUCT_INDEX_TYPE = "product";
     public static final String HOT_PRODUCT_INDEX_TYPE = "hotProduct";
     public static final String CATEGORY_INDEX_TYPE = "category";
     public static final String TENDER_INDEX_TYPE = "tender";
+    public static final String HELP_CENTER_INDEX_TYPE = "helpCenter";
     public static final String HOME_TENDER_INDEX_TYPE = "homeTender";
     public static final String USER_CACHE_INDEX_TYPE = "userCache";
     public static final String ID = "id";
