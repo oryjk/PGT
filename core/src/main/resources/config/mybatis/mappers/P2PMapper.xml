@@ -26,7 +26,7 @@
         <result column="UPDATE_DATE" property="updateDate"/>
     </resultMap>
 
-    <resultMap id="tender" type="com.pgt.com.pgt.tender.bean.Tender">
+    <resultMap id="tender" type="com.pgt.tender.bean.Tender">
         <id column="ID" property="tenderId"/>
         <result column="PAWN_SHOP_ID" property="pawnShopId"/>
         <result column="PAWN_SHOP_OWNER_ID" property="pawnShopOwnerId"/>

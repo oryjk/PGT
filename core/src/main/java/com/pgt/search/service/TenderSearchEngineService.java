@@ -182,7 +182,6 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
-
             buildQueryBuilder(esTerm, esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
                 response = searchRequestBuilder.execute()
                     .actionGet();
