@@ -485,13 +485,17 @@ public class ESSearchService {
     }
 
     public SearchResponse findProduct(String productId) {
+        return findProducts(productId);
+    }
+
+
+    public SearchResponse findProducts(String... productIds) {
+
         SearchResponse response = null;
         try {
             SearchRequestBuilder searchRequestBuilder = buildProductRequestBuilder();
-
-
             BoolQueryBuilder qb = boolQuery();
-            qb.must(QueryBuilders.idsQuery().ids(String.valueOf(productId)));
+            qb.must(QueryBuilders.idsQuery().ids(productIds));
             searchRequestBuilder.setQuery(qb);
             response = searchRequestBuilder.execute().actionGet();
             return response;
@@ -500,7 +504,6 @@ public class ESSearchService {
         }
         return response;
     }
-
 
     public SearchResponse findHotSales(ESSort esSort) {
         SearchResponse response = null;
@@ -563,55 +566,6 @@ public class ESSearchService {
         }
         return response;
     }
-
-    public SearchResponse findProductByProductId(String productId) {
-        if (StringUtils.isBlank(productId)) {
-            LOGGER.debug("The product id is empty.");
-            return new SearchResponse();
-        }
-        ESTerm esTerm = new ESTerm();
-        esTerm.setTermValue(productId);
-        esTerm.setPropertyName(Constants.PRODUCT_ID);
-        PaginationBean paginationBean = new PaginationBean();
-        paginationBean.setCapacity(10000);
-        return findProducts(esTerm, null, null, null, paginationBean, null, null);
-    }
-
-    public SearchResponse findProductsWithIds(Collection<Integer> productIds) {
-        if (CollectionUtils.isEmpty(productIds)) {
-            LOGGER.debug("The product id collection is empty.");
-            return new SearchResponse();
-        }
-        List<ESTerm> productTerms = new ArrayList<>();
-        productIds.stream().forEach(id -> {
-            ESTerm esTerm = new ESTerm();
-            esTerm.setTermValue(String.valueOf(id));
-            esTerm.setPropertyName(Constants.PRODUCT_ID);
-            productTerms.add(esTerm);
-        });
-        PaginationBean paginationBean = new PaginationBean();
-        paginationBean.setCapacity(10000);
-        return findProducts(productTerms, null, null, null, paginationBean, null);
-    }
-
-
-    public SearchResponse findProductsByProductIds(List<String> productIds) {
-        if (ObjectUtils.isEmpty(productIds)) {
-            LOGGER.debug("The product id list is empty.");
-            return new SearchResponse();
-        }
-        List<ESTerm> productTerms = new ArrayList<>();
-        productIds.stream().forEach(s -> {
-            ESTerm esTerm = new ESTerm();
-            esTerm.setTermValue(s);
-            esTerm.setPropertyName(Constants.PRODUCT_ID);
-            productTerms.add(esTerm);
-        });
-        PaginationBean paginationBean = new PaginationBean();
-        paginationBean.setCapacity(10000);
-        return findProducts(productTerms, null, null, null, paginationBean, null);
-    }
-
 
     private void buildQueryBuilder(List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList, PaginationBean paginationBean,
                                    ESAggregation esAggregation, SearchRequestBuilder searchRequestBuilder, BoolQueryBuilder qb) {

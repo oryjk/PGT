@@ -38,9 +38,7 @@ public class SearchTest extends SearchAbstractController {
         //LOGGER.debug("******************" + JSONObject.toJSONString(this.essearchService(essearchBean)));
         //LOGGER.debug("******************" + JSONObject.toJSONString(this.findCategories()));
 
-        List id = new ArrayList<>();
-        id.add("98");
-        SearchResponse r = esSearchService.findProductsByProductIds(id);
+        SearchResponse r = esSearchService.findProducts("98");
         SearchHits hits = r.getHits();
         SearchHit[] productsArr = hits.getHits();
         LOGGER.debug("111111111111111111111111111" + JSONObject.toJSONString( productsArr[0].getSource()));
