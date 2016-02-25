@@ -31,6 +31,8 @@ public class HelpCenterController {
 	public ModelAndView queryAllHelpCenter(ModelAndView modelAndView) {
 		LOGGER.debug("The method query AllHelpCenter");
 		modelAndView.setViewName(Constants.HELP_CENTER);
+		List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
+		modelAndView.addObject("helpCategorVoList", HelpCategorVoList);
 		HelpCenter helpCenter = helpCenterService.findHelpCenterById(Integer.parseInt("1"));
 		modelAndView.addObject("helpCenter", helpCenter);
 		return modelAndView;
@@ -43,6 +45,8 @@ public class HelpCenterController {
 		if (helpCenterId == null) {
 			helpCenterId = "1";
 		}
+		List<HelpCategoryVo> HelpCategorVoList = helpCenterService.findAllHelpCategoryVo();
+		modelAndView.addObject("helpCategorVoList", HelpCategorVoList);
 		modelAndView.setViewName(Constants.HELP_CENTER);
 		HelpCenter helpCenter = helpCenterService.findHelpCenterById(Integer.parseInt(helpCenterId));
 		LOGGER.debug("The helpCenter id is {}",helpCenter.getId());
