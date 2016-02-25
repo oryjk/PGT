@@ -284,7 +284,7 @@
                                                     </button>
                                                 </p>
                                                 <p>
-                                                    <button class="btn btn-xs green btn-circle" data-pgt-btn="modify"
+                                                    <button  class="tenderIndex"
                                                             data-url="/tender/tenderIndex/${tender.tenderId}">
                                                         同步到索引库
                                                     </button>

@@ -25,6 +25,22 @@ $('#tenderCategorySelect').change(function() {
     window.location = '/tenderCategory/getSubCategories/' + $this.val();
 });
 
+$('.tenderIndex').click(function(){
+         var url=$(this).attr('data-url');
+         $.ajax({
+             type: 'GET',
+             url: url,
+        success: function (param) {
+          var m=param.success;
+            if(m==1){
+                 alert('同步成功!');
+            }else {
+                 alert('同步失败！');
+            }
+        }
+    });
+});
+
 $(document).on('click', '[data-pgt-btn="modify"], [data-pgt-btn="create"]', function () {
     var $this = $(this);
     window.location = $this.attr('data-url');
