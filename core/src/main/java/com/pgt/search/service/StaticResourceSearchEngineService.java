@@ -51,7 +51,7 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
     public void index() {
         try {
             BulkResponse bulkResponse;
-            LOGGER.debug("Begin to tender index.");
+            LOGGER.debug("Begin to helpCenter index.");
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
 

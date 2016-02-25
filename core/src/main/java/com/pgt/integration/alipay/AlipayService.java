@@ -98,6 +98,8 @@ public class AlipayService extends Transactionable {
             }
         }
         String mysign = MD5.sign(content.toString(), alipayConfig.getKey(), alipayConfig.getInputCharset());
+        LOGGER.debug("The mysign is {}.",mysign);
+        LOGGER.debug("The return sign is {}.",request.getParameter(AlipayConstants.SIGN));
         String orderId = request.getParameter(AlipayConstants.OUT_TRADE_NO);
         if (!mysign.equals(request.getParameter(AlipayConstants.SIGN))) {
             LOGGER.error("Trade_Failed: The parameter sign is not equals signed parameters reslut. Order id is{}",
@@ -124,6 +126,7 @@ public class AlipayService extends Transactionable {
     }
 
     public static String check(String urlvalue) {
+        LOGGER.debug("The url value is {}.",urlvalue);
         StringBuilder inputLine = new StringBuilder();
         try {
             URL url = new URL(urlvalue);
