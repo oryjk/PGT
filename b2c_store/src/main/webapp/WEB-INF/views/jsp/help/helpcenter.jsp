@@ -25,7 +25,7 @@
         <div class="aside">
             <div class="aside1"><h2>帮助中心</h2></div>
         <ul>
-            <c:forEach items="${helpCenterList}" var="categoryVo">
+            <c:forEach items="${helpCategorVoList}" var="categoryVo">
                 <li><a class="menu-level-1" >${categoryVo.category.name}</a>
                     <ul>
                         <c:forEach items="${categoryVo.helpCenterList}" var="helpVo">
