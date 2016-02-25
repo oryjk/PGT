@@ -21,7 +21,7 @@
 
 	<!--递归查找父类节点-->
 	<resultMap id="reportRootCategroy" type="com.pgt.report.categroy_sale_statistics.bean.RootCategroyBean">
-		<id column="CATEGORY_ID" property="cate_id" />
+		<id column="CATEGORY_ID" property="cateId" />
 		<result column="PARENT_CATEGORY_ID" property="id" />
 		<result column="NAME" property="name" />
 	</resultMap>

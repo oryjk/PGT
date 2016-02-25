@@ -50,7 +50,7 @@ public class ReportTest {
 		RootCategroyBean root =  dao.reportSelectRootCategroy(sub_categroy_id);
 		Map<String,Object> map = new HashMap<>();
 		map.put("name", root.getName());
-		map.put("cate_id", root.getCate_id());
+		map.put("cate_id", root.getCateId());
 		if(!ObjectUtils.isEmpty(root.getId())){
 			int id = root.getId();
 			if(id > 0){
