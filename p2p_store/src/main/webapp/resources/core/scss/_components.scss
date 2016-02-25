@@ -128,3 +128,21 @@
   font-size: $font-size;
   font-weight: 900;
 }
+
+/*progress-bar*/
+@mixin progress-bar($w:170px, $h:10px) {
+  position: relative;
+  display: inline-block;
+  @include wh($w, $h);
+  background: $gray-light;
+  border-radius: 5px;
+
+  .inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $em-light;
+    border-radius: 5px;
+    height: $h;
+  }
+}

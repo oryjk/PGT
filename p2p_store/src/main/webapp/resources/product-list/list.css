@@ -1,9 +1,28 @@
 @charset "UTF-8";
 /*import
 **************************************************************************************************************************************************/
+.all-list .box-all, .all-list .box-all .info-box, .page-box {
+  *zoom: 1; }
+  .all-list .box-all:after, .all-list .box-all .info-box:after, .page-box:after, .all-list .box-all:before, .all-list .box-all .info-box:before, .page-box:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
 /*select*/
 /*color-btn*/
 /*cost*/
+/*progress-bar*/
+.all-list .box-all, .all-list .box-all .info-box, .page-box {
+  *zoom: 1; }
+  .all-list .box-all:after, .all-list .box-all .info-box:after, .page-box:after, .all-list .box-all:before, .all-list .box-all .info-box:before, .page-box:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
@@ -124,12 +143,12 @@ a {
       width: 100px;
       height: 20px;
       padding-left: 30px;
-      font-size: 8px; }
+      font-size: 13px; }
   .all-list .title2 {
     width: 900px;
     height: 35px;
     padding-top: 20px;
-    font-size: 10px; }
+    font-size: 14px; }
     .all-list .title2 li {
       float: left;
       padding-right: 30px; }
@@ -141,16 +160,16 @@ a {
     .all-list .title3 a {
       padding-left: 20px;
       line-height: 35px;
-      font-size: 12px;
+      font-size: 14px;
       color: #000; }
   .all-list .box-all {
     padding-top: 10px; }
     .all-list .box-all .box1 {
+      position: relative;
+      top: 0;
       float: left;
       margin-top: 15px;
       margin-right: 13.33333px;
-      width: 280px;
-      height: 335px;
       border: 1px solid #cccccc;
       transition: all .4s; }
     .all-list .box-all .box1:hover {
@@ -159,6 +178,93 @@ a {
       box-shadow: 0 10px 15px #555555; }
     .all-list .box-all .box1-name {
       text-align: center;
-      font-size: 14px; }
+      font-size: 14px;
+      color: black; }
+      .all-list .box-all .box1-name:hover {
+        color: #fe4040; }
+    .all-list .box-all .box1-img {
+      width: 280px;
+      height: 280px; }
+      .all-list .box-all .box1-img img {
+        width: 100%;
+        height: 100%; }
+    .all-list .box-all .progress-bar {
+      margin: 10px 0 0 20px;
+      position: relative;
+      display: inline-block;
+      width: 230px;
+      height: 5px;
+      background: #cccccc;
+      border-radius: 5px; }
+      .all-list .box-all .progress-bar .inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #86b5ed;
+        border-radius: 5px;
+        height: 5px; }
+    .all-list .box-all .info-box {
+      padding: 10px 0 20px;
+      text-align: center; }
+    .all-list .box-all .surplus-count {
+      float: left;
+      width: 30%; }
+    .all-list .box-all .cost-sum {
+      float: left;
+      width: 40%; }
+    .all-list .box-all .surplus-time {
+      float: left;
+      width: 30%; }
+    .all-list .box-all .info-title {
+      color: #cccccc;
+      font-size: 13px; }
+    .all-list .box-all .info-value {
+      color: #555555; }
+    .all-list .box-all .invest-status {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      color: white;
+      background: #86b5ed;
+      font-size: 13px; }
+    .all-list .box-all .invest-join-favorite {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px; }
+
+.page-box {
+  padding-top: 20px; }
+  .page-box ol {
+    float: right;
+    padding-right: 20px; }
+  .page-box li {
+    float: left;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+    text-align: center; }
+  .page-box a {
+    display: block;
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    background: #fe4040;
+    border-radius: 3px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .page-box a:hover {
+      background: #d70101; }
 
 /*# sourceMappingURL=../../maps/product-list/list.css.map */

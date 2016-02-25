@@ -33,6 +33,7 @@
 /*select*/
 /*color-btn*/
 /*cost*/
+/*progress-bar*/
 .header .nav, .about-us, .approve, .order-info .info-row-1,
 .order-info .info-row-2,
 .order-info .info-row-3,
@@ -64,6 +65,10 @@
     display: table;
     clear: both; }
 
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
