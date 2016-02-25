@@ -12,5 +12,6 @@
 </head>
 <body>
 index page
+${currentUser.username}
 </body>
 </html>
