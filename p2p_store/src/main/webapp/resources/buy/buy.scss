@@ -54,6 +54,9 @@ body {
     background: white;
   }
 
+}
+
+.order-info {
   .info-row-1,
   .info-row-2,
   .info-row-3,
@@ -214,4 +217,140 @@ body {
   .receive-ifo-submit {
     @include color-btn(200px, 40px, 3px, 18px, $main, $main-dark);
   }
+}
+
+.order-confirm {
+  background: white;
+  border: 1px solid $gray-light;
+
+  .confirm-title {
+    float: left;
+    width: 210px;
+    text-align: right;
+  }
+
+  .confirm-value {
+    float: left;
+    padding-left: 20px;
+    width: 800px;
+  }
+
+  .confirm-row-1,
+  .confirm-row-2,
+  .confirm-row-3,
+  .confirm-row-4,
+  .confirm-row-5 {
+    @extend %clear;
+  }
+
+  .confirm-row-1,
+  .confirm-row-2,
+  .confirm-row-3 {
+    padding: 12px 0;
+  }
+
+  .confirm-row-4 {
+    padding: 12px 0 55px;
+    border-bottom: 1px dotted $gray-light;
+  }
+
+  .confirm-row-5 {
+    padding: 27px 0 17px;
+    border-bottom: 1px dotted $gray-light;
+
+    p {
+      padding-bottom: 13px;
+    }
+  }
+
+  .confirm-row-6 {
+    padding-top: 40px;
+
+    table {
+      margin-left: 120px;
+      width: 950px;
+      table-layout: fixed;
+      text-align: left;
+    }
+
+    tr {
+      border: 1px solid $gray-light;
+    }
+
+    th {
+      height: 40px;
+      padding-left: 10px;
+      background: $gray-light;
+      vertical-align: middle;
+    }
+
+    td {
+      padding-left: 10px;
+      height: 80px;
+      vertical-align: middle;
+    }
+
+    .confirm-name {
+      width: 370px;
+    }
+
+    .confirm-post-cost {
+      width: 130px;
+    }
+
+    .confirm-item-cost {
+      width: 140px;
+    }
+
+    .confirm-item-count {
+      width: 120px;
+    }
+
+    .item-link {
+      color: black;
+      &:hover {
+        color: $main;
+      }
+    }
+
+    .cost {
+      color: $main;
+    }
+  }
+
+  .confirm-row-7 {
+    padding: 10px 0 0 135px;
+    color: $main;
+  }
+
+  .confirm-row-8 {
+    padding: 10px 130px 0 0;
+    text-align: right;
+
+    .money-title {
+      padding-right: 10px;
+    }
+
+    .cost {
+      font-size: 22px;
+      color: $main;
+    }
+  }
+
+  .confirm-row-9 {
+    padding-top: 45px;
+    text-align: center;
+  }
+
+  .confirm-submit {
+    @include color-btn(100px, 40px, 3px, 18px, $main, $main-dark);
+    margin-right: 20px;
+  }
+
+
+  .confirm-reset {
+    @include color-btn(120px, 40px, 3px, 18px, $gray-light, #b6b6b6);
+    color: black;
+  }
+
 }
