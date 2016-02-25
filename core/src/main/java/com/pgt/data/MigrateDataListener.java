@@ -30,12 +30,6 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
     @Autowired
     private MigrateDataService migrateDateService;
 
-    @Autowired
-    private TenderSearchEngineService tenderSearchEngineService;
-
-    @Autowired
-    private StaticResourceSearchEngineService staticResourceSearchEngineService;
-
     private List<AbstractSearchEngineService> searchEngineServiceList = new ArrayList<>();
 
     @Override
@@ -56,26 +50,6 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
     public void createIndex() {
 
 
-        esSearchService.initialIndex(esConfiguration.isClearIndex());
-        if (esConfiguration.isNeedIndex()) {
-            try {
-                BulkResponse categoryResponse = esSearchService.categoryIndex();
-                if (categoryResponse.hasFailures()) {
-                    LOGGER.error("Category index error.");
-                }
-                BulkResponse hotResponse = esSearchService.hotSaleIndex();
-                if (hotResponse.hasFailures()) {
-                    LOGGER.error("Hot product index error.");
-                }
-                BulkResponse responses = esSearchService.productsIndex();
-                if (responses.hasFailures()) {
-                    LOGGER.error("Product index error.");
-                }
-            } catch (Exception e) {
-                LOGGER.error("Can not index the data in ES.");
-                throw e;
-            }
-        }
         if (CollectionUtils.isEmpty(searchEngineServiceList)) {
             LOGGER.debug("The searchEngineServiceList is empty.");
             return;
