@@ -365,7 +365,7 @@ public class ShippingController implements CartMessages {
 				return new ResponseEntity(result, HttpStatus.OK);
 			} catch (Exception e) {
 				String message = CartMessages.ERROR_INV_CHECK_FAILED;
-				LOGGER.error("lock inventory failed", e);
+				LOGGER.error("lock inventory failed,"+message, e);
 				result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_CHECK_INVENTORY_FAILED);
 				return new ResponseEntity(result, HttpStatus.OK);
 			} finally {
