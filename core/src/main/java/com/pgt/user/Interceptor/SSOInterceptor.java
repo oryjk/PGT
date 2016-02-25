@@ -1,6 +1,8 @@
 package com.pgt.user.Interceptor;
 
+import com.pgt.cart.constant.CartConstant;
 import com.pgt.configuration.Configuration;
+import com.pgt.constant.PathConstant;
 import com.pgt.constant.UserConstant;
 import com.pgt.sso.service.SSOService;
 import com.pgt.user.bean.User;
@@ -36,30 +38,44 @@ public class SSOInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         LOGGER.debug("The method is SSO Interceptor");
-
-        User user= (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
-        LOGGER.debug("The session createTime {}",request.getSession().getCreationTime());
-        LOGGER.debug("The session lastAccessTime {}",request.getSession().getLastAccessedTime());
-        if(!ObjectUtils.isEmpty(user)){
-            LOGGER.debug("The user is login,not need Interceptor");
+        String requestUri = request.getRequestURI();
+        String contextPath = request.getContextPath();
+        String url = requestUri.substring(contextPath.length());
+        if (url.matches(PathConstant.NO_LOGIN_TOKEN_PATH)) {
+            LOGGER.debug("Not need interceptor.");
             return true;
         }
-
+        LOGGER.info("requestUri:" + requestUri);
+        LOGGER.info("contextPath:" + contextPath);
+        LOGGER.info("url:" + url);
         Cookie [] cookies= request.getCookies();
         String token=null;
         if(ObjectUtils.isEmpty(cookies)){
             LOGGER.debug("The cookie is empty");
-           return true;
+            return true;
         }
         for (Cookie cookie:cookies) {
-             LOGGER.debug("cookie name is {}.,values is {}.",cookie.getName(),cookie.getValue());
-             if (cookie.getName().endsWith(configuration.getUserCacheTokenKey())){
-                   token=cookie.getValue();
-                   break;
-             }
+            LOGGER.debug("cookie name is {}.,values is {}.",cookie.getName(),cookie.getValue());
+            if (cookie.getName().endsWith(configuration.getUserCacheTokenKey())){
+                token=cookie.getValue();
+                break;
+            }
         }
+
         if(StringUtils.isEmpty(token)){
             LOGGER.debug("The cookie values is empty,create login session is fail");
+            return true;
+        }
+        User user= (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
+        LOGGER.debug("The session createTime {}",request.getSession().getCreationTime());
+        LOGGER.debug("The session lastAccessTime {}",request.getSession().getLastAccessedTime());
+        String tokenId=ssoService.findSSOTokenId(token);
+        if(StringUtils.isEmpty(tokenId)){
+            LOGGER.debug("The tokenId not find");
+            return true;
+        }
+
+        if(!ObjectUtils.isEmpty(user)){
             return true;
         }
 
@@ -88,10 +104,45 @@ public class SSOInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+
+        Cookie [] cookies= request.getCookies();
+        String token=null;
+        if(ObjectUtils.isEmpty(cookies)){
+            LOGGER.debug("The cookie is empty");
+            return;
+        }
+        for (Cookie cookie:cookies) {
+            LOGGER.debug("cookie name is {}.,values is {}.",cookie.getName(),cookie.getValue());
+            if (cookie.getName().endsWith(configuration.getUserCacheTokenKey())){
+                token=cookie.getValue();
+                break;
+            }
+        }
+        if(StringUtils.isEmpty(token)){
+            LOGGER.debug("The cookie values is empty,create login session is fail");
+            return;
+        }
+        String tokenId=ssoService.findSSOTokenId(token);
+        if(StringUtils.isEmpty(tokenId)){
+            LOGGER.debug("The tokenId not find");
+            return ;
+        }
+        User user= (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
+        LOGGER.debug("The session createTime {}",request.getSession().getCreationTime());
+        LOGGER.debug("The session lastAccessTime {}",request.getSession().getLastAccessedTime());
+
+        if(!ObjectUtils.isEmpty(user)){
+            LOGGER.debug("The user is login,not need Interceptor");
+            ssoService.updateCacheUser(user,null,null,tokenId,token);
+            return;
+        }
+
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+
+
     }
 
 }

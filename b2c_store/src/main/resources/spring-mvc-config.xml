@@ -32,12 +32,13 @@
 
         </mvc:interceptor>
 
-        <!-- SSO login -->
+        <!-- check the user login -->
         <mvc:interceptor>
-            <mvc:mapping path="/**" />
+            <mvc:mapping path="/user/**" />
             <mvc:exclude-mapping path="/**.*" />
-            <bean class="com.pgt.user.Interceptor.SSOInterceptor"></bean>
+            <bean class="com.pgt.permission.LoginInterceptor"></bean>
         </mvc:interceptor>
+
 
         <!-- find user in cookie -->
         <mvc:interceptor>
@@ -53,12 +54,6 @@
             <bean class="com.pgt.cart.filter.ShoppingCartResolveInterceptor"></bean>
         </mvc:interceptor>
 
-        <!-- check the user login -->
-        <mvc:interceptor>
-            <mvc:mapping path="/user/**" />
-            <mvc:exclude-mapping path="/**.*" />
-            <bean class="com.pgt.permission.LoginInterceptor"></bean>
-        </mvc:interceptor>
 
         <mvc:interceptor>
             <mvc:mapping path="/**" />
@@ -200,6 +195,14 @@
             <mvc:exclude-mapping path="/**.*" />
             <bean class="com.pgt.help.interceptor.HelpCenterInterceptor"></bean>
         </mvc:interceptor>
+
+        <!-- SSO login -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
+            <bean class="com.pgt.user.Interceptor.SSOInterceptor"></bean>
+        </mvc:interceptor>
+
 
     </mvc:interceptors>
 
