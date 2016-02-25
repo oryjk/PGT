@@ -5,9 +5,12 @@ package com.pgt.tender.bean;
  */
 public interface TenderState {
 
-	int INITIAL = 1;
+    int INITIAL = 1;
 
-	int HIDE = 0;
 
-	int DELETED = -1;
+    int HIDE = 0;
+
+    int DELETED = -1;
+
+
 }

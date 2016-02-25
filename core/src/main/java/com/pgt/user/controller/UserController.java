@@ -244,6 +244,9 @@ public class UserController {
         cookie.setMaxAge(UserConstant.OVERDUE);
         response.addCookie(cookie);
         user.setCount(0);
+
+
+        //SSO
         cacheUser(userResult);
 
         modelAndView.setViewName("/user/successLogin");
