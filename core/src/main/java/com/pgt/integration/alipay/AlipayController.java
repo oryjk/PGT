@@ -133,29 +133,15 @@ public class AlipayController extends TransactionBaseController {
     @ResponseBody
     public ResponseEntity handleAlipayReturn(HttpServletRequest request,
                                              RedirectAttributes redirectAttributes) {
-
         Integer orderId = getAlipayService().getOrderIdFromNotify(request);
         ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
         ResponseEntity responseEntity = new ResponseEntity(rb.createResponse(), HttpStatus.OK);
         LOGGER.debug("The order id is {}.", orderId);
         Order order = getOrderService().loadOrder(orderId);
-        boolean success = getAlipayService().verifyResult(request);
-        LOGGER.debug("{} for Alipay.", success);
-        if (success) {
-            handleSuccessfulAlipayNotify(request, order, false);
-            redirectAttributes.addFlashAttribute(PaymentConstants.PAID_SUCCESS_FLAG, Constants.TRUE);
-            rb.setSuccess(true);
-            return responseEntity;
-        } else {
-
-            Map<String, String> message = new HashMap<>();
-            message.put("message", "Alipay not success pay this order,order id is" + order.getId());
-            rb.setSuccess(false).setData(message);
-            LOGGER.error("Method handleAlipayReturn(): Failed to pay the order-{} by alipay.", orderId);
-        }
-
+        handleSuccessfulAlipayNotify(request, order, false);
+        redirectAttributes.addFlashAttribute(PaymentConstants.PAID_SUCCESS_FLAG, Constants.TRUE);
+        rb.setSuccess(true);
         return responseEntity;
-
     }
 
 
