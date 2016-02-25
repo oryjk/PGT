@@ -162,6 +162,8 @@ a {
       line-height: 35px;
       font-size: 14px;
       color: #000; }
+    .all-list .title3 .current-tab {
+      color: #2d7fe0; }
   .all-list .box-all {
     padding-top: 10px; }
     .all-list .box-all .box1 {
@@ -266,5 +268,11 @@ a {
     cursor: pointer; }
     .page-box a:hover {
       background: #d70101; }
+  .page-box .current-page,
+  .page-box .current-page:hover {
+    background: white;
+    color: #fe4040;
+    font-size: 18px;
+    font-weight: 900; }
 
 /*# sourceMappingURL=../../maps/product-list/list.css.map */
