@@ -7,6 +7,7 @@ import com.pgt.constant.Constants;
 import com.pgt.search.service.AbstractSearchEngineService;
 import com.pgt.sso.bean.UserCache;
 import com.pgt.user.bean.User;
+import com.sun.javafx.collections.MappingChange;
 import org.apache.commons.lang3.ArrayUtils;
 import org.elasticsearch.action.delete.DeleteRequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -17,6 +18,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.common.collect.HppcMaps;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -30,6 +32,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
@@ -215,6 +218,44 @@ public class SSOService extends AbstractSearchEngineService {
         }
         LOGGER.debug("The user not expire.");
         return false;
+    }
+
+
+    public String findUserUsername(String userCacheToken) {
+         if (ObjectUtils.isEmpty(userCacheToken)) {
+            LOGGER.debug("The user cache token is empty.");
+            return null;
+           }
+        try {
+            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            BoolQueryBuilder qb = boolQuery();
+            searchRequestBuilder.setQuery(qb);
+            qb.must(termQuery("token", userCacheToken));
+            SearchResponse response = searchRequestBuilder.execute().actionGet();
+            SearchHits searchHits = response.getHits();
+            if (ObjectUtils.isEmpty(searchHits) || ArrayUtils.isEmpty(searchHits.getHits())) {
+                LOGGER.debug("Can not find the user with token is {}, so may not login.", userCacheToken);
+                return null;
+            }
+            SearchHit[] searchHits1 = searchHits.getHits();
+            if (searchHits1.length > 1) {
+                LOGGER.debug("Is not the only user ID. ");
+                return null;
+            }
+            SearchHit searchHit = searchHits1[0];
+            Map map= (Map) searchHit.getSource().get("user");
+            String username =(String)map.get("username");
+            if(username==null){
+                LOGGER.debug("The find username is fail");
+                return null;
+            }
+                LOGGER.debug("The find username is success and username is {}.",username);
+                return username;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        LOGGER.debug("The user not expire.");
+        return null;
     }
 
 

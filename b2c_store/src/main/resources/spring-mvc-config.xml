@@ -23,6 +23,7 @@
 
     <mvc:interceptors>
 
+
         <!--Initial global config-->
         <mvc:interceptor>
             <mvc:mapping path="/**" />
@@ -31,12 +32,20 @@
 
         </mvc:interceptor>
 
+        <!-- SSO login -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/**.*" />
+            <bean class="com.pgt.user.Interceptor.SSOInterceptor"></bean>
+        </mvc:interceptor>
+
         <!-- find user in cookie -->
         <mvc:interceptor>
             <mvc:mapping path="/user/**" />
             <mvc:exclude-mapping path="/**.*" />
             <bean class="com.pgt.permission.PersistentInterceptor"></bean>
         </mvc:interceptor>
+
 
         <mvc:interceptor>
             <mvc:mapping path="/**" />

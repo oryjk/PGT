@@ -23,7 +23,7 @@ import org.springframework.util.ObjectUtils;
 import javax.json.Json;
 import java.util.*;
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
 public class reportTest {
