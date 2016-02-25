@@ -12,5 +12,7 @@
   </head>
   <body>
 
+  ${currentUser.username}
+
   </body>
 </html>
