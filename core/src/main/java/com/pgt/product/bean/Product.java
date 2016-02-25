@@ -1,7 +1,5 @@
 package com.pgt.product.bean;
 
-import org.springframework.util.ObjectUtils;
-
 import com.pgt.shipping.bean.ShippingAddress;
 
 import java.io.Serializable;
@@ -12,6 +10,8 @@ import java.util.List;
  * Created by carlwang on 10/28/15.
  */
 public class Product implements Serializable {
+
+    private static long serialVersionUID = 1L;
 
     public static final int INVALID = 0;
 
