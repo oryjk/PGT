@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pgt.report.categroy_sale_statistics.dao.SaleStatisticsMapper">
 
+	<!--统计每个子类的库存-->
 	<resultMap id="SubCategroyMap" type="com.pgt.report.categroy_sale_statistics.bean.SaleStatisticsBean">
 		<id column="CATEGORY_ID" property="id" />
 		<result column="PRODUCT_STOCKS" property="stocks" />
+		<association property="saleCategroyBean" column="CATEGORY_ID" select="reportSubCategroyInfo"/>
 	</resultMap>
 	<select id="reportSubCategroyStocks" resultMap="SubCategroyMap">
 		select
-			pro_cate.CATEGORY_ID,
-			sum(pro.STOCK) as PRODUCT_STOCKS from PRODUCT as pro
-			left join PRODUCT_CATEGORY as pro_cate
-			on pro.PRODUCT_ID = pro_cate.PRODUCT_ID
-			group by pro_cate.CATEGORY_ID
+		pro_cate.CATEGORY_ID,
+		sum(pro.STOCK) as PRODUCT_STOCKS from PRODUCT as pro
+		left join PRODUCT_CATEGORY as pro_cate
+		on pro.PRODUCT_ID = pro_cate.PRODUCT_ID
+		group by pro_cate.CATEGORY_ID
 	</select>
 
+	<!--递归查找父类节点-->
 	<resultMap id="reportRootCategroy" type="com.pgt.report.categroy_sale_statistics.bean.RootCategroyBean">
-		<id column="PARENT_CATEGORY_ID" property="id" />
+		<id column="CATEGORY_ID" property="cate_id" />
+		<result column="PARENT_CATEGORY_ID" property="id" />
 		<result column="NAME" property="name" />
 	</resultMap>
 	<select id="reportSelectRootCategroy" parameterType="int" resultMap="reportRootCategroy">
-		SELECT c.PARENT_CATEGORY_ID,c.NAME FROM mp.CATEGORIES as c where c.CATEGORY_ID = #{id}
+		SELECT c.CATEGORY_ID,c.PARENT_CATEGORY_ID,c.NAME FROM mp.CATEGORIES as c where c.CATEGORY_ID = #{id}
 	</select>
 
+
+
+	<resultMap id="SubCategroyInfoMap" type="com.pgt.report.categroy_sale_statistics.bean.SaleCategroyBean">
+		<result column="sale_stocks" property="saleStocks" />
+		<result column="sale_prices" property="salePrices" />
+	</resultMap>
+	<!--查找子类销售信息-->
+	<select id="reportSubCategroyInfo" parameterType="int" resultMap="SubCategroyInfoMap">
+		select
+		pro_cate.CATEGORY_ID,
+		COUNT(pro_cate.CATEGORY_ID) as sale_stocks,
+		sum(prod.SALE_PRICE) as sale_prices
+		from mp.ORDER as ord
+		left join mp.COMMERCE_ITEM as item on
+		ord.ORDER_ID = item.ORDER_ID
+		left join mp.PRODUCT as prod on
+		prod.PRODUCT_ID = item.REFERENCE_ID
+		left join mp.PRODUCT_CATEGORY as pro_cate
+		on prod.PRODUCT_ID = pro_cate.PRODUCT_ID
+		where ord.STATUS >= 30 and CATEGORY_ID = #{id}
+		group by pro_cate.CATEGORY_ID
+	</select>
 </mapper>
