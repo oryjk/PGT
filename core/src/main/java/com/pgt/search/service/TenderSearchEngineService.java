@@ -155,9 +155,11 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                     bulkRequest.add(indexRequestBuilder);
                 });
             }
-            bulkResponse = bulkRequest.execute().actionGet(100000);
-            if (bulkResponse.hasFailures()) {
-                LOGGER.error("The tender index is failed.");
+            if (bulkRequest.numberOfActions() > 0) {
+                bulkResponse = bulkRequest.execute().actionGet(100000);
+                if (bulkResponse.hasFailures()) {
+                    LOGGER.error("The tender index is failed.");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -183,11 +185,11 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                                      ESAggregation categoryIdAggregation, String indexType) {
         SearchResponse response = null;
         try {
-            SearchRequestBuilder searchRequestBuilder=null;
-            if(ObjectUtils.isEmpty(indexType)){
-                 searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
-            }else {
-                searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME,indexType);
+            SearchRequestBuilder searchRequestBuilder = null;
+            if (ObjectUtils.isEmpty(indexType)) {
+                searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
+            } else {
+                searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, indexType);
             }
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
