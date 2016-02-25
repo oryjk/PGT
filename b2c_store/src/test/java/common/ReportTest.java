@@ -5,6 +5,7 @@ import com.pgt.report.categroy_sale_statistics.bean.RootCategroyBean;
 import com.pgt.report.categroy_sale_statistics.bean.SaleStatisticsBean;
 import com.pgt.report.categroy_sale_statistics.dao.SaleStatisticsMapper;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.*;
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
 public class ReportTest {
