@@ -40,6 +40,7 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
                 createIndex();
             } catch (Exception e) {
                 LOGGER.error("Some error occured when migration data.The error message is {}.", e.getMessage());
+                throw e;
             }
         }
     }
@@ -70,6 +71,7 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
 
             } catch (Exception e) {
                 LOGGER.error("Can not index the data in ES.");
+                throw e;
             }
         }
 
