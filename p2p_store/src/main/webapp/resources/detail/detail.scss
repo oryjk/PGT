@@ -13,6 +13,7 @@
 **************************************************************************************************************************************************/
 @include header;
 @include footer;
+@include recommend-box;
 
 /*style
 **************************************************************************************************************************************************/
@@ -557,126 +558,6 @@ body {
 
 }
 
-.recommend-box {
-  margin-top: 20px;
-  padding-bottom: 57px;
-  background: #eaeaea;
-
-  .recommend {
-    @include block-center($main-width-s);
-  }
-
-  .recommend-head {
-    height: 75px;
-    line-height: 75px;
-  }
-
-  h3 {
-    float: left;
-    padding-left: 40px;
-    font-size: 20px;
-  }
-
-  .recommend-change {
-    float: right;
-    margin-top: 30px;
-    line-height: 1;
-    color: $gray;
-
-    &:hover {
-      color: $main;
-    }
-  }
-
-  ul {
-    @extend %clear;
-  }
-
-  li {
-    position: relative;
-    top: 0;
-    float: left;
-    border: 1px solid $gray-light;
-    width: 248px;
-    background: white;
-    margin-right: ($main-width-s - 250px * 4) / 3;
-    transition: all .4s;
-
-    &:hover {
-      top: -5px;
-      transition: all 1s;
-      box-shadow: 0 10px 15px $gray;
-    }
-  }
-
-  .recommend-item-end {
-    margin-right: 0;
-  }
-
-  .recommend-img-box {
-    display: block;
-    margin: 8px auto 0;
-    @include wh(234px, 234px);
-
-    img {
-      @include wh(100%, 100%);
-    }
-  }
-
-  h4 {
-    padding-top: 20px;
-    text-align: center;
-
-    a {
-      color: black;
-      &:hover {
-        color: $main;
-      }
-    }
-  }
-
-  .recommend-progress {
-    @extend %clear;
-  }
-
-  .recommend-progress-bar {
-    position: relative;
-    float: left;
-    margin: 25px 10px 0 20px;
-    @include wh(170px, 10px);
-    background: $gray-light;
-    border-radius: 5px;
-
-    .inner {
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: $em-light;
-      border-radius: 5px;
-      height: 10px;
-    }
-  }
-
-
-  .recommend-progress-text {
-    float: left;
-    padding-top: 12px;
-    line-height: 1.2;
-  }
-
-  .recommend-join {
-    @extend %clear;
-    padding: 13px 20px 17px;
-  }
-
-  .recommend-time {
-    float: left;
-  }
-
-  .recommend-people {
-    float: right;
-  }
-}
 
 .turn-right {
   position: fixed;

@@ -64,7 +64,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  * Created by carlwang on 11/30/15.
  */
 @Service
-public class ESSearchService {
+public class ESSearchService extends AbstractSearchEngineService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ESSearchService.class);
     @Autowired
     private ESConfiguration esConfiguration;
@@ -721,24 +721,28 @@ public class ESSearchService {
         return response;
     }
 
-    private Client getIndexClient() throws IOException {
-        if (indexClient == null) {
-            indexClient = TransportClient.builder().build().addTransportAddress(
-                    new InetSocketTransportAddress(InetAddress.getByName(esConfiguration.getHost()), esConfiguration.getIndexPort()));
-        }
-        return indexClient;
+
+    @Override
+    public void index() {
+        categoryIndex();
+        hotSaleIndex();
+        productsIndex();
     }
 
-    private Client getSearchClient() throws IOException {
-        if (searchClient == null) {
-            searchClient = TransportClient.builder().build().addTransportAddress(
-                    new InetSocketTransportAddress(InetAddress.getByName(esConfiguration.getHost()), esConfiguration.getSearchPort()));
-        }
-        return searchClient;
+    @Override
+    public void update(Integer id) {
+
     }
 
+    @Override
+    public void initialIndex() {
+        createIndex(Constants.SITE_INDEX_NAME, esConfiguration.isClearIndex());
+        createProductMapping();
+        createCategoryMapping();
+        createHotSaleMapping();
+    }
 
-    private void createIndex(String indexName, Boolean override) {
+    protected void createIndex(String indexName, Boolean override) {
         try {
             boolean exists = getIndexClient().admin().indices().prepareExists(indexName).execute().actionGet().isExists();
             if (exists && !override) {
@@ -781,7 +785,7 @@ public class ESSearchService {
     }
 
 
-    private void createMapping(String indexName, String indexType, List<String> analyseFields) {
+    protected void createMapping(String indexName, String indexType, List<String> analyseFields) {
         XContentBuilder mapping;
         try {
             mapping = jsonBuilder().startObject().startObject(indexType).startObject("properties");

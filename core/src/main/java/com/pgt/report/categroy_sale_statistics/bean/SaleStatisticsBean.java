@@ -7,6 +7,15 @@ public class SaleStatisticsBean {
     private String name;
     private Integer id;
     private Integer stocks;
+    private SaleCategroyBean saleCategroyBean;
+
+    public SaleCategroyBean getSaleCategroyBean() {
+        return saleCategroyBean;
+    }
+
+    public void setSaleCategroyBean(SaleCategroyBean saleCategroyBean) {
+        this.saleCategroyBean = saleCategroyBean;
+    }
 
     public String getName() {
         return name;

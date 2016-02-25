@@ -12,13 +12,16 @@
 **************************************************************************************************************************************************/
 @include header;
 @include footer;
+@include recommend-box;
 
 /*style
 **************************************************************************************************************************************************/
 
 .content {
-  @include wh($main-width, 1500px);
   margin: 120px auto 0;
+  width: $main-width;
+  @extend %clear;
+
 
   .title {
     @include wh($main-width, 50px);
@@ -48,8 +51,12 @@
   }
 
   .main {
+    @extend %clear;
+
     .menu {
       @include wh(260px, 1580px);
+      overflow: hidden;
+
       float: left;
       .list-end,
       .list {
@@ -90,5 +97,6 @@
   }
 
 }
+
 
 

@@ -2,15 +2,20 @@ package com.pgt.data;
 
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.data.service.MigrateDataService;
+import com.pgt.search.service.AbstractSearchEngineService;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.search.service.StaticResourceSearchEngineService;
 import com.pgt.search.service.TenderSearchEngineService;
+import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by carlwang on 12/8/15.
@@ -25,11 +30,7 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
     @Autowired
     private MigrateDataService migrateDateService;
 
-    @Autowired
-    private TenderSearchEngineService tenderSearchEngineService;
-
-    @Autowired
-    private StaticResourceSearchEngineService staticResourceSearchEngineService;
+    private List<AbstractSearchEngineService> searchEngineServiceList = new ArrayList<>();
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -47,34 +48,16 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
 
 
     public void createIndex() {
-        esSearchService.initialIndex(esConfiguration.isClearIndex());
-        tenderSearchEngineService.initialIndex();
-        staticResourceSearchEngineService.initialIndex();
-        if (esConfiguration.isNeedIndex()) {
-            try {
-                BulkResponse categoryResponse = esSearchService.categoryIndex();
-                if (categoryResponse.hasFailures()) {
-                    LOGGER.error("Category index error.");
-                }
-                BulkResponse hotResponse = esSearchService.hotSaleIndex();
-                if (hotResponse.hasFailures()) {
-                    LOGGER.error("Hot product index error.");
-                }
-                BulkResponse responses = esSearchService.productsIndex();
-                if (responses.hasFailures()) {
-                    LOGGER.error("Product index error.");
-                }
-
-                tenderSearchEngineService.tenderIndex();
-                staticResourceSearchEngineService.index();
 
 
-            } catch (Exception e) {
-                LOGGER.error("Can not index the data in ES.");
-                throw e;
-            }
+        if (CollectionUtils.isEmpty(searchEngineServiceList)) {
+            LOGGER.debug("The searchEngineServiceList is empty.");
+            return;
         }
-
+        searchEngineServiceList.stream().forEach(abstractSearchEngineService -> {
+            abstractSearchEngineService.initialIndex();
+            abstractSearchEngineService.index();
+        });
     }
 
     public ESConfiguration getEsConfiguration() {
@@ -97,4 +80,11 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
 
     private ESSearchService esSearchService;
 
+    public List<AbstractSearchEngineService> getSearchEngineServiceList() {
+        return searchEngineServiceList;
+    }
+
+    public void setSearchEngineServiceList(List<AbstractSearchEngineService> searchEngineServiceList) {
+        this.searchEngineServiceList = searchEngineServiceList;
+    }
 }

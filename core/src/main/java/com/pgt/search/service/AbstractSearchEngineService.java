@@ -11,6 +11,7 @@ import com.pgt.utils.PaginationBean;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
+import org.elasticsearch.action.indexedscripts.delete.DeleteIndexedScriptRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -32,9 +33,7 @@ import java.net.InetAddress;
 import java.util.List;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-import static org.elasticsearch.index.query.QueryBuilders.termQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Created by carlwang on 1/19/16.
@@ -167,7 +166,6 @@ public abstract class AbstractSearchEngineService {
             esMatches.stream().forEach(esMatch ->
                             qb.should(matchQuery(esMatch.getPropertyName(), esMatch.getTermValue()))
             );
-
         }
         if (!ObjectUtils.isEmpty(esSortList)) {
             esSortList.stream().forEach(esSort1 ->
@@ -191,6 +189,19 @@ public abstract class AbstractSearchEngineService {
         }
     }
 
+    public boolean deleteIndex(String indexName) {
+        try {
+            DeleteIndexRequest request = new DeleteIndexRequest(indexName);
+            DeleteIndexResponse deleteIndexResponse = getIndexClient().admin().indices().delete(request).actionGet();
+            if (!deleteIndexResponse.isAcknowledged()) {
+                LOGGER.error("Fail to delete the index {indexName}.", indexName);
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
     public Configuration getConfiguration() {
         return configuration;
