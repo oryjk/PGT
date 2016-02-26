@@ -2,8 +2,12 @@ package com.pgt.dashboard.controller;
 
 import com.pgt.dashboard.service.DashboardService;
 import com.pgt.internal.controller.InternalTransactionBaseController;
+import com.pgt.report.categroy_sale_statistics.bean.Sales;
+import com.pgt.report.categroy_sale_statistics.service.SaleInfoService;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +31,9 @@ public class DashboardController extends InternalTransactionBaseController imple
 	@Resource(name = "dashboardService")
 	private DashboardService mDashboardService;
 
+	@Autowired
+	private SaleInfoService saleInfoService;
+
 	@RequestMapping("/")
 	public ModelAndView redirectDashboard(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		// permission verify
@@ -34,6 +43,20 @@ public class DashboardController extends InternalTransactionBaseController imple
 		}
 
 		ModelAndView mav = new ModelAndView("/dashboard/dashboard");
+
+		//categroy of product sale info
+		List<Sales> list = saleInfoService.reportSalesInfo();
+		mav.addObject("saleList", list);
+		Long total = new Long(0);
+		NumberFormat formatter = new DecimalFormat("0.00");
+		for(Sales obj: list){
+			total += obj.getSalePrices();
+		}
+		for(Sales obj: list){
+			obj.setRatio((float)(obj.getSalePrices()*1.0/total*100));
+		}
+
+
 		// paid order count
 		int orderCount = getDashboardService().queryPaidOrderCount();
 		mav.addObject(ORDER_COUNT, orderCount);
