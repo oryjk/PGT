@@ -229,7 +229,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, rootCategory);
+            ESTender esTender = new ESTender(tender, category,rootCategory);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
