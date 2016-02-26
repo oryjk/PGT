@@ -407,6 +407,8 @@ body {
     width: 400px; }
   .compensate .compensate-money {
     float: left; }
+  .compensate .compensate-will .tip {
+    color: #fe4040; }
 
 .item-table {
   padding-top: 40px; }

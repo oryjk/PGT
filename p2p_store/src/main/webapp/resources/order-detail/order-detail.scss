@@ -129,6 +129,13 @@ body {
   .compensate-money {
     float: left;
   }
+
+
+  .compensate-will {
+    .tip {
+      color: $main;
+    }
+  }
 }
 
 .item-table {
