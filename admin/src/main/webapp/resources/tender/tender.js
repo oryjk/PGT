@@ -30,9 +30,9 @@ var app = new Vue({
         this.volidateEntity = validation;
         //绑定正则
         var regex = {
-            "tender.pawnShopId" : regex_empty,
-            "tender.pawnShopOwnerId" : regex_empty,
-            "tender.pawnTicketId" : regex_empty,
+            "tender.pawnShopId" : regex_number,
+            "tender.pawnShopOwnerId" : regex_number,
+            "tender.pawnTicketId" : regex_number,
             "tender.name" : regex_empty,
             "tender.publishDate" : regex_date,
             "tender.dueDate" : regex_date,
