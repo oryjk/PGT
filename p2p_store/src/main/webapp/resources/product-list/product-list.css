@@ -419,7 +419,7 @@ a {
       margin: 12px 50px 0 0; }
   .content .main .menu {
     width: 260px;
-    height: 1580px;
+    height: 1736px;
     overflow: hidden;
     float: left; }
     .content .main .menu .list-end,
@@ -445,11 +445,10 @@ a {
       background: white;
       background-repeat: no-repeat; }
     .content .main .menu .list-end {
-      height: 1300px; }
-  .content .main .products {
+      height: 1456px; }
+  .content .main .box-all {
     margin-left: 40px;
     float: left;
-    width: 900px;
-    height: 1580px; }
+    width: 900px; }
 
 /*# sourceMappingURL=../../maps/product-list/product-list.css.map */

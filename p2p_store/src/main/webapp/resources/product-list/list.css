@@ -1,9 +1,9 @@
 @charset "UTF-8";
 /*import
 **************************************************************************************************************************************************/
-.all-list .box-all, .all-list .box-all .info-box, .page-box {
+.all-list .products, .all-list .products .info-box, .page-box {
   *zoom: 1; }
-  .all-list .box-all:after, .all-list .box-all .info-box:after, .page-box:after, .all-list .box-all:before, .all-list .box-all .info-box:before, .page-box:before {
+  .all-list .products:after, .all-list .products .info-box:after, .page-box:after, .all-list .products:before, .all-list .products .info-box:before, .page-box:before {
     content: " ";
     display: table;
     clear: both; }
@@ -12,9 +12,9 @@
 /*color-btn*/
 /*cost*/
 /*progress-bar*/
-.all-list .box-all, .all-list .box-all .info-box, .page-box {
+.all-list .products, .all-list .products .info-box, .page-box {
   *zoom: 1; }
-  .all-list .box-all:after, .all-list .box-all .info-box:after, .page-box:after, .all-list .box-all:before, .all-list .box-all .info-box:before, .page-box:before {
+  .all-list .products:after, .all-list .products .info-box:after, .page-box:after, .all-list .products:before, .all-list .products .info-box:before, .page-box:before {
     content: " ";
     display: table;
     clear: both; }
@@ -133,8 +133,7 @@ a {
 /*style
 **************************************************************************************************************************************************/
 .all-list {
-  width: 900px;
-  height: 1580px; }
+  width: 100%; }
   .all-list .title1 {
     padding-top: 15px;
     height: 20px;
@@ -164,9 +163,9 @@ a {
       color: #000; }
     .all-list .title3 .current-tab {
       color: #2d7fe0; }
-  .all-list .box-all {
+  .all-list .products {
     padding-top: 10px; }
-    .all-list .box-all .box1 {
+    .all-list .products .item {
       position: relative;
       top: 0;
       float: left;
@@ -174,23 +173,23 @@ a {
       margin-right: 13.33333px;
       border: 1px solid #cccccc;
       transition: all .4s; }
-    .all-list .box-all .box1:hover {
+    .all-list .products .item:hover {
       top: -5px;
       transition: all 1s;
       box-shadow: 0 10px 15px #555555; }
-    .all-list .box-all .box1-name {
+    .all-list .products .item-name {
       text-align: center;
       font-size: 14px;
       color: black; }
-      .all-list .box-all .box1-name:hover {
+      .all-list .products .item-name:hover {
         color: #fe4040; }
-    .all-list .box-all .box1-img {
+    .all-list .products .item-img {
       width: 280px;
       height: 280px; }
-      .all-list .box-all .box1-img img {
+      .all-list .products .item-img img {
         width: 100%;
         height: 100%; }
-    .all-list .box-all .progress-bar {
+    .all-list .products .progress-bar {
       margin: 10px 0 0 20px;
       position: relative;
       display: inline-block;
@@ -198,31 +197,31 @@ a {
       height: 5px;
       background: #cccccc;
       border-radius: 5px; }
-      .all-list .box-all .progress-bar .inner {
+      .all-list .products .progress-bar .inner {
         position: absolute;
         top: 0;
         left: 0;
         background: #86b5ed;
         border-radius: 5px;
         height: 5px; }
-    .all-list .box-all .info-box {
+    .all-list .products .info-box {
       padding: 10px 0 20px;
       text-align: center; }
-    .all-list .box-all .surplus-count {
+    .all-list .products .surplus-count {
       float: left;
       width: 30%; }
-    .all-list .box-all .cost-sum {
+    .all-list .products .cost-sum {
       float: left;
       width: 40%; }
-    .all-list .box-all .surplus-time {
+    .all-list .products .surplus-time {
       float: left;
       width: 30%; }
-    .all-list .box-all .info-title {
+    .all-list .products .info-title {
       color: #cccccc;
       font-size: 13px; }
-    .all-list .box-all .info-value {
+    .all-list .products .info-value {
       color: #555555; }
-    .all-list .box-all .invest-status {
+    .all-list .products .invest-status {
       position: absolute;
       top: 0;
       left: 0;
@@ -233,7 +232,7 @@ a {
       color: white;
       background: #86b5ed;
       font-size: 13px; }
-    .all-list .box-all .invest-join-favorite {
+    .all-list .products .invest-join-favorite {
       position: absolute;
       top: 0;
       left: 0;

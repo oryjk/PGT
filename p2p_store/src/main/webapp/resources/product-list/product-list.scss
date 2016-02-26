@@ -54,7 +54,7 @@
     @extend %clear;
 
     .menu {
-      @include wh(260px, 1580px);
+      @include wh(260px, 1736px);
       overflow: hidden;
 
       float: left;
@@ -86,13 +86,13 @@
       }
 
       .list-end{
-        height: 1300px;
+        height: 1456px;
       }
     }
-    .products {
+    .box-all {
       margin-left: 40px;
       float: left;
-      @include wh(900px, 1580px)
+      width: 900px;
     }
   }
 

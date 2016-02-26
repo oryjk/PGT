@@ -11,7 +11,8 @@
 /*style
 **************************************************************************************************************************************************/
 .all-list {
-  @include wh(900px, 1580px);
+  width: 100%;
+
   .title1 {
     padding-top: 15px;
     height: 20px;
@@ -46,11 +47,11 @@
       color: $em;
     }
   }
-  .box-all {
+  .products {
     padding-top: 10px;
     @extend %clear;
 
-    .box1 {
+    .item {
       position: relative;
       top: 0;
       float: left;
@@ -60,13 +61,13 @@
       border: 1px solid $gray-light;
       transition: all .4s;
     }
-    .box1:hover{
+    .item:hover{
       top: -5px;
       transition: all 1s;
       box-shadow: 0 10px 15px #555555;
 
     }
-    .box1-name {
+    .item-name {
       text-align: center;
       font-size: 14px;
       color: black;
@@ -76,7 +77,7 @@
       }
     }
 
-    .box1-img {
+    .item-img {
       @include wh(280px, 280px);
 
       img {
