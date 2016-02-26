@@ -4,6 +4,8 @@ import com.pgt.dashboard.service.DashboardService;
 import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.report.categroy_sale_statistics.bean.Sales;
 import com.pgt.report.categroy_sale_statistics.service.SaleInfoService;
+import com.pgt.report.day_sale_statistics.bean.OneWeekSale;
+import com.pgt.report.day_sale_statistics.service.OneWeekService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,8 @@ public class DashboardController extends InternalTransactionBaseController imple
 
 	@Autowired
 	private SaleInfoService saleInfoService;
+	@Autowired
+	private OneWeekService oneWeekService;
 
 	@RequestMapping("/")
 	public ModelAndView redirectDashboard(HttpServletRequest pRequest, HttpServletResponse pResponse) {
@@ -45,16 +49,24 @@ public class DashboardController extends InternalTransactionBaseController imple
 		ModelAndView mav = new ModelAndView("/dashboard/dashboard");
 
 		//categroy of product sale info
-		List<Sales> list = saleInfoService.reportSalesInfo();
-		mav.addObject("saleList", list);
+		List<Sales> saleList = saleInfoService.reportSalesInfo();
 		Long total = new Long(0);
 		NumberFormat formatter = new DecimalFormat("0.00");
-		for(Sales obj: list){
+		for(Sales obj: saleList){
 			total += obj.getSalePrices();
 		}
-		for(Sales obj: list){
+		for(Sales obj: saleList){
 			obj.setRatio((float)(obj.getSalePrices()*1.0/total*100));
 		}
+		mav.addObject("saleList", saleList);
+
+
+		//select one week sale info and select today sale info
+		List<OneWeekSale> oneWeekSalesList = oneWeekService.reportOneWeekSales();
+		OneWeekSale todaySaleBean = oneWeekService.todaySales();
+		todaySaleBean.setAverge((float)1.0*todaySaleBean.getSaleStocks()/todaySaleBean.getSalePrices());
+		mav.addObject("oneWeekSaleList", oneWeekSalesList);
+		mav.addObject("todaySaleBean", todaySaleBean);
 
 
 		// paid order count

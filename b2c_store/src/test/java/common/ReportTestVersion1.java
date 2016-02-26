@@ -6,6 +6,8 @@ import com.pgt.report.categroy_sale_statistics.bean.SaleStatisticsBean;
 import com.pgt.report.categroy_sale_statistics.bean.Sales;
 import com.pgt.report.categroy_sale_statistics.dao.SaleStatisticsMapper;
 import com.pgt.report.categroy_sale_statistics.service.SaleInfoService;
+import com.pgt.report.day_sale_statistics.bean.OneWeekSale;
+import com.pgt.report.day_sale_statistics.dao.OneWeekSaleDao;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,9 +31,16 @@ public class ReportTestVersion1 {
 	@Autowired
 	private SaleInfoService saleInfoService;
 
+	@Autowired
+	private OneWeekSaleDao dao;
+
 	@Test
 	public void TestDao() {
 		List<Sales> list = saleInfoService.reportSalesInfo();
+		LOGGER.debug(":end");
+		List<OneWeekSale> list1 = dao.reportOneWeekSales();
+		LOGGER.debug(":end");
+		OneWeekSale entity = dao.todaySales();
 		LOGGER.debug(":end");
 	}
 
