@@ -112,7 +112,7 @@
 					<a href="#" class="box1">
 						<div class="box1-img">
 							<img src="../core/images/product/280X220.jpg" alt=""/>
-						</div>
+						</div>product-list.js
 						<div class="box1-name">
 							产品名称啊啊啊啊啊
 						</div>

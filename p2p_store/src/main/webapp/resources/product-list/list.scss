@@ -40,7 +40,10 @@
       line-height: 35px;
       font-size: 14px;
       color: #000;
+    }
 
+    .current-tab {
+      color: $em;
     }
   }
   .box-all {
@@ -164,5 +167,13 @@
   a {
     display: block;
     @include color-btn(30px, 30px, 3px, 14px, $main, $main-dark);
+  }
+
+  .current-page,
+  .current-page:hover {
+    background: white;
+    color: $main;
+    font-size: 18px;
+    font-weight: 900;
   }
 }
