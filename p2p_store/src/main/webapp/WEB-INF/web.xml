@@ -53,6 +53,14 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!-- add JSTLlDateFormat-->
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/tags</taglib-uri>
+            <taglib-location>/WEB-INF/dateFormat.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
 
 
     <!-- For root context -->

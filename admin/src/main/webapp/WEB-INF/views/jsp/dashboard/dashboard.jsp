@@ -135,7 +135,7 @@
                                                 销售占比
                                             </th>
                                             <th>
-                                                总数量
+                                                销售数量
                                             </th>
                                             <th>
                                                 库存
@@ -143,82 +143,27 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="javascript:;">
-                                                    文玩杂项</a>
-                                            </td>
-                                            <td>
-                                                <span>¥</span>
-                                                <span>120000</span>
-                                            </td>
-                                            <td>
-                                                25%
-                                            </td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>
-                                                35
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="javascript:;">
-                                                    玉石</a>
-                                            </td>
-                                            <td>
-                                                <span>¥</span>
-                                                <span>120000</span>
-                                            </td>
-                                            <td>
-                                                25%
-                                            </td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>
-                                                35
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="javascript:;">
-                                                    琥珀</a>
-                                            </td>
-                                            <td>
-                                                <span>¥</span>
-                                                <span>120000</span>
-                                            </td>
-                                            <td>
-                                                25%
-                                            </td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>
-                                                35
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="javascript:;">
-                                                    木制品</a>
-                                            </td>
-                                            <td>
-                                                <span>¥</span>
-                                                <span>120000</span>
-                                            </td>
-                                            <td>
-                                                25%
-                                            </td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>
-                                                35
-                                            </td>
-                                        </tr>
+
+                                        <c:forEach items="${saleList}" var="list">
+                                            <tr>
+                                                <td>
+                                                    <a href="javascript:;">${list.name}</a>
+                                                </td>
+                                                <td>
+                                                    <span>¥</span>
+                                                    <span>${list.salePrices}</span>
+                                                </td>
+                                                <td>
+                                                    ${list.ratio}
+                                                </td>
+                                                <td>
+                                                    ${list.saleStocks}
+                                                </td>
+                                                <td>
+                                                    ${list.stocks.stocks}
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
 
                                         </tbody>
                                     </table>

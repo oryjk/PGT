@@ -222,11 +222,25 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
     public void updateTender(Tender tender) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            byte[] bytes = mapper.writeValueAsBytes(tender);
+
             LOGGER.debug("Tender id is {}.", tender.getTenderId());
+            Category category = tender.getCategory();
+            Category rootCategory = null;
+            if (!ObjectUtils.isEmpty(category)) {
+                rootCategory = category.getParent();
+            }
+            ESTender esTender = new ESTender(tender, rootCategory);
+            String data = null;
+            try {
+                data = mapper.writeValueAsString(esTender);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            byte[] bytes = mapper.writeValueAsBytes(tender);
+
             UpdateRequestBuilder updateRequestBuilder =
                     getIndexClient().prepareUpdate(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
-                            .setDoc(bytes);
+                            .setDoc(data);
             UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
             if (updateResponse.isCreated()) {
                 LOGGER.debug("Success to update tender.");
@@ -246,11 +260,23 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         ObjectMapper mapper = new ObjectMapper();
         IndexResponse response = null;
         try {
-            byte[] bytes = mapper.writeValueAsBytes(tender);
+            LOGGER.debug("Tender id is {}.", tender.getTenderId());
+            Category category = tender.getCategory();
+            Category rootCategory = null;
+            if (!ObjectUtils.isEmpty(category)) {
+                rootCategory = category.getParent();
+            }
+            ESTender esTender = new ESTender(tender, rootCategory);
+            String data = null;
+            try {
+                data = mapper.writeValueAsString(esTender);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
             LOGGER.debug("Tender id is {}.", tender.getTenderId());
             IndexRequestBuilder indexRequestBuilder =
                     getIndexClient().prepareIndex(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
-                            .setSource(bytes);
+                            .setSource(data);
             response = indexRequestBuilder.execute().actionGet(100000);
             if (response.isCreated()) {
                 LOGGER.debug("success to create tender.");

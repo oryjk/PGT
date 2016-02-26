@@ -3,6 +3,77 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pgt.report.categroy_sale_statistics.dao.SaleStatisticsMapper">
+	<resultMap id="salesInfo" type="com.pgt.report.categroy_sale_statistics.bean.Sales">
+		<id column="CATEGORY_ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="sale_stocks" property="saleStocks" />
+		<result column="sale_prices" property="salePrices" />
+		<association property="stocks" column="CATEGORY_ID" select="reportSalesStocks"/>
+	</resultMap>
+	<select id="reportSalesInfo" resultMap="salesInfo">
+		select cb.`NAME`,cb.CATEGORY_ID,
+			COUNT(pro_cate.CATEGORY_ID) as sale_stocks,sum(item.SALE_PRICE) as sale_prices
+			from  mp.COMMERCE_ITEM as item
+			left join mp.ORDER as ord on
+			ord.ORDER_ID = item.ORDER_ID
+			left join mp.PRODUCT_CATEGORY as pro_cate on pro_cate.PRODUCT_ID = item.REFERENCE_ID
+			left join mp.CATEGORIES as ca on ca.CATEGORY_ID = pro_cate.CATEGORY_ID
+			left join mp.CATEGORIES as cb on ca.PARENT_CATEGORY_ID = cb.CATEGORY_ID
+			where ord.STATUS >= 30
+			group by pro_cate.CATEGORY_ID
+	</select>
+
+	<resultMap id="stocksInfo" type="com.pgt.report.categroy_sale_statistics.bean.Stocks">
+		<id column="CATEGORY_ID" property="id" />
+		<result column="stocks" property="stocks" />
+	</resultMap>
+	<select id="reportSalesStocks" resultMap="stocksInfo">
+		select sum(a.stocks) as stocks,a.PARENT_CATEGORY_ID as CATEGORY_ID from (
+		select cate.CATEGORY_ID,cate.PARENT_CATEGORY_ID,sum(pro.STOCK)as stocks from PRODUCT as pro
+		left join PRODUCT_CATEGORY as pro_cate on pro.PRODUCT_ID = pro_cate.PRODUCT_ID
+		left join CATEGORIES as cate on cate.CATEGORY_ID = pro_cate.CATEGORY_ID
+		group by cate.CATEGORY_ID
+		)a group by a.PARENT_CATEGORY_ID having a.PARENT_CATEGORY_ID = #{id}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<!--统计每个子类的库存-->
 	<resultMap id="SubCategroyMap" type="com.pgt.report.categroy_sale_statistics.bean.SaleStatisticsBean">
@@ -28,8 +99,6 @@
 	<select id="reportSelectRootCategroy" parameterType="int" resultMap="reportRootCategroy">
 		SELECT c.CATEGORY_ID,c.PARENT_CATEGORY_ID,c.NAME FROM mp.CATEGORIES as c where c.CATEGORY_ID = #{id}
 	</select>
-
-
 
 	<resultMap id="SubCategroyInfoMap" type="com.pgt.report.categroy_sale_statistics.bean.SaleCategroyBean">
 		<result column="sale_stocks" property="saleStocks" />
