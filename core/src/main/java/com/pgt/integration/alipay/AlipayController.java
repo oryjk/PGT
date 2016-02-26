@@ -172,13 +172,13 @@ public class AlipayController extends TransactionBaseController {
         try {
 
             Integer orderId = getAlipayService().getOrderIdFromNotify(request);
+            LOGGER.debug("Find the paymentGroup with order id is {}.", orderId);
             PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(orderId);
+            LOGGER.debug("The notify is {}.", isNotify);
             if (isNotify) {
                 Transaction transaction = getPaymentService().findTransactionByTrackingNumber(request.getParameter(AlipayConstants.OUT_TRADE_NO));
                 transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
             }
-
-
             if (paymentGroup == null) {
                 LOGGER.error("Cannot get paymentgroup by order id-{} after successing to pay the order by alipay.",
                         orderId);
@@ -192,12 +192,16 @@ public class AlipayController extends TransactionBaseController {
             getAlipayService().saveAlipayResult(request);
             paymentGroup.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
             getPaymentService().updatePaymentGroup(paymentGroup);
+            LOGGER.debug("Begin to set order status is PAID,the order id is {}", order.getId());
             if (order != null) {
+                LOGGER.debug("Set the order status PAID,the value is 30.");
                 order.setStatus(OrderStatus.PAID);
                 getShoppingCartService().updateOrder(order);
                 smsService.sendPaidOrderMessage(order);
+                LOGGER.info("Successed to pay order-{} by alipay.", orderId);
+                return;
             }
-            LOGGER.info("Successed to pay order-{} by alipay.", orderId);
+            LOGGER.debug("Can not find the order with id is {}.", order.getId());
         } catch (Exception e) {
             LOGGER.error("The error message is {}.", e.getMessage());
             getTransactionManager().rollback(status);

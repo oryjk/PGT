@@ -19,7 +19,11 @@ import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
 import com.pgt.mail.MailConstants;
 import com.pgt.mail.service.MailService;
+import com.pgt.payment.PaymentConstants;
+import com.pgt.payment.bean.PaymentGroup;
+import com.pgt.payment.bean.Transaction;
 import com.pgt.payment.bean.TransactionLog;
+import com.pgt.payment.service.PaymentService;
 import com.pgt.payment.service.TransactionLogService;
 import com.pgt.shipping.bean.ShippingMethod;
 import com.pgt.shipping.bean.ShippingVO;
@@ -80,6 +84,9 @@ public class ShippingController implements CartMessages {
 
     @Resource(name = "transactionLogService")
     private TransactionLogService transactionLogService;
+
+    @Autowired
+    private PaymentService paymentService;
 
 
     @RequestMapping(value = "/shipping", method = {RequestMethod.GET})
@@ -357,9 +364,25 @@ public class ShippingController implements CartMessages {
                 order.setStatus(OrderStatus.FILLED_SHIPPING);
                 order.setSubmitDate(new Date());
                 getOrderService().updateOrder(order);
+                PaymentGroup paymentGroup = paymentService.maintainPaymentGroup(order, PaymentConstants.METHOD_ALIPAY);
+                //create transaction
+                Transaction transaction = new Transaction();
+                transaction.setAmount(order.getTotal());
+                transaction.setCreationDate(new Date());
+                transaction.setUpdateDate(new Date());
+                transaction.setOrderId(Long.valueOf(order.getId()));
+                transaction.setPaymentGroupId(paymentGroup.getId());
+                transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
+                transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_ALIPAY);
+                paymentService.createTransaction(transaction);
+
+
+                //create transactionLog
                 TransactionLog transactionLog = new TransactionLog();
                 transactionLog.setOrderId(Long.valueOf(order.getId()));
                 transactionLog.setUserId(Long.valueOf(order.getUserId()));
+                transactionLog.setPaymentGroupId(paymentGroup.getId());
+                transactionLog.setTransactionId(transaction.getId());
                 getTransactionLogService().createTransactionLog(transactionLog);
                 result.put(WebServiceConstants.NAME_ORDER_INFO, order);
 
