@@ -33,10 +33,10 @@ public class TenderListController {
     private TenderSearchEngineService tenderSearchEngineService;
 
     @RequestMapping("/tenderList")
-    public ResponseEntity get(@RequestParam(value = "sorts") List<ESSort> esSorts,
-                              @RequestParam(value = "term") ESTerm esTerm,
-                              @RequestParam(value = "esTenderListFilter") ESTenderListFilter esTenderListFilter,
-                              @RequestParam(value = "paginationBean") PaginationBean paginationBean
+    public ResponseEntity get(@RequestParam(value = "sorts", required = false) List<ESSort> esSorts,
+                              @RequestParam(value = "term", required = false) ESTerm esTerm,
+                              @RequestParam(value = "esTenderListFilter", required = false) ESTenderListFilter esTenderListFilter,
+                              @RequestParam(value = "paginationBean", required = false) PaginationBean paginationBean
     ) {
         ResponseBuilder rb = responseBuilderFactory.buildResponseBean().setSuccess(true);
         Map<String, Object> data = new HashMap<>();
