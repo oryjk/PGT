@@ -8,7 +8,4 @@ $(function(){
         $(".list").css("background",'#f2f2f2');
         $(this).css("background",'white');
     });
-
-
-
 });

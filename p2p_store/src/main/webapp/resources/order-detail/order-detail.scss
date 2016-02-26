@@ -1,0 +1,214 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+/*part
+**************************************************************************************************************************************************/
+@include header;
+@include footer;
+
+/*style
+**************************************************************************************************************************************************/
+body {
+  background: #f3f3f3;
+}
+
+.link-btn {
+  color: $em-light;
+
+  &:hover {
+    color: $em;
+  }
+}
+
+.content {
+  position: relative;
+  margin: 130px auto 40px;
+  padding-bottom: 73px;
+  width: $main-width;
+  border: 1px solid $gray-light;
+  background: white;
+
+  h2 {
+    padding-left: 25px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 22px;
+    border-bottom: 1px solid $gray-light;
+  }
+}
+
+.base-info {
+  .base-title {
+    float: left;
+    width: 355px;
+    text-align: right;
+  }
+
+  .base-value {
+    float: left;
+    padding-left: 40px;
+    width: 760px;
+  }
+
+  .base-row-1,
+  .base-row-3 {
+    @extend %clear;
+    padding: 15px 0;
+  }
+
+  .base-row-2 {
+    @extend %clear;
+    padding-top: 15px;
+  }
+
+  .base-row-1 {
+    .name,
+    .phone,
+    .address {
+      padding-right: 15px;
+    }
+  }
+
+  .base-row-2 {
+    p {
+      padding-bottom: 15px;
+    }
+  }
+}
+
+.send-info {
+  padding-bottom: 25px;
+
+  .send-title {
+    float: left;
+    width: 355px;
+    text-align: right;
+  }
+
+  .send-value {
+    float: left;
+    padding-left: 40px;
+    width: 760px;
+  }
+
+  .send-row-1,
+  .send-row-2,
+  .send-row-3 {
+    @extend %clear;
+    padding: 15px 0;
+  }
+}
+
+.compensate {
+  padding: 40px 0 40px;
+  border-top: 1px dashed $gray-light;
+  border-bottom: 1px dashed $gray-light;
+
+
+  .tip {
+    padding-left: 213px;
+  }
+
+  .compensate-info {
+    @extend %clear;
+    padding: 20px 0 0 213px;
+  }
+
+  .compensate-time {
+    float: left;
+    width: 400px;
+  }
+
+  .compensate-money {
+    float: left;
+  }
+}
+
+.item-table {
+  padding-top: 40px;
+
+  table {
+    margin-left: 120px;
+    width: 950px;
+    table-layout: fixed;
+    text-align: left;
+  }
+
+  tr {
+    border: 1px solid $gray-light;
+  }
+
+  th {
+    height: 40px;
+    padding-left: 10px;
+    background: $gray-light;
+    vertical-align: middle;
+  }
+
+  td {
+    padding-left: 10px;
+    height: 80px;
+    vertical-align: middle;
+  }
+
+  .confirm-name {
+    width: 370px;
+  }
+
+  .confirm-post-cost {
+    width: 130px;
+  }
+
+  .confirm-item-cost {
+    width: 140px;
+  }
+
+  .confirm-item-count {
+    width: 120px;
+  }
+
+  .item-link {
+    color: black;
+    &:hover {
+      color: $main;
+    }
+  }
+
+  .cost {
+    color: $main;
+  }
+}
+
+.money-box {
+  padding: 35px 135px 0 0;
+  text-align: right;
+
+  .cost {
+    font-size: 22px;
+    color: $main;
+  }
+}
+
+.close-box {
+  padding-top: 45px;
+  text-align: center;
+
+  .close {
+    @include color-btn(100px, 40px, 3px, 18px, $main, $main-dark);
+    margin-right: 20px;
+  }
+}
+
+.invest-status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include wh(145px, 145px);
+}
