@@ -7,7 +7,9 @@ import com.pgt.search.bean.ESTenderListFilter;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.utils.PaginationBean;
+import com.pgt.utils.SearchConverToList;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,10 +45,15 @@ public class TenderListController {
         Map<String, Object> data = new HashMap<>();
         rb.setData(data);
         SearchResponse response = tenderSearchEngineService.findTenders(esTerm, esTenderListFilter, paginationBean, esSorts);
-        data.put("tenderListResult", response);
+        List list= SearchConverToList.searchConvertToList(response);
+        data.put("tenderListResult", list);
         return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 
     }
+
+
+
+
 
 
 }
