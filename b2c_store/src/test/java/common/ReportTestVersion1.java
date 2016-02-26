@@ -3,7 +3,11 @@ package common;
 import com.alibaba.fastjson.JSONObject;
 import com.pgt.report.categroy_sale_statistics.bean.RootCategroyBean;
 import com.pgt.report.categroy_sale_statistics.bean.SaleStatisticsBean;
+import com.pgt.report.categroy_sale_statistics.bean.Sales;
 import com.pgt.report.categroy_sale_statistics.dao.SaleStatisticsMapper;
+import com.pgt.report.categroy_sale_statistics.service.SaleInfoService;
+import com.pgt.report.day_sale_statistics.bean.OneWeekSale;
+import com.pgt.report.day_sale_statistics.dao.OneWeekSaleDao;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -24,5 +28,20 @@ import java.util.Map;
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
 public class ReportTestVersion1 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReportTestVersion1.class);
+	@Autowired
+	private SaleInfoService saleInfoService;
+
+	@Autowired
+	private OneWeekSaleDao dao;
+
+	@Test
+	public void TestDao() {
+		List<Sales> list = saleInfoService.reportSalesInfo();
+		LOGGER.debug(":end");
+		List<OneWeekSale> list1 = dao.reportOneWeekSales();
+		LOGGER.debug(":end");
+		OneWeekSale entity = dao.todaySales();
+		LOGGER.debug(":end");
+	}
 
 }

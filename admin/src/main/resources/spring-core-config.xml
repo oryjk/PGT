@@ -26,7 +26,14 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
-
+    <bean class="com.pgt.data.MigrateDataListener">
+        <property name="searchEngineServiceList">
+            <list value-type="com.pgt.search.service.AbstractSearchEngineService">
+                <ref bean="staticResourceSearchEngineService"/>
+                <ref bean="esSearchService"/>
+            </list>
+        </property>
+    </bean>
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>

@@ -11,6 +11,7 @@ import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.media.helper.MediaHelper;
+import com.pgt.product.bean.P2PProduct;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.service.ProductService;
@@ -289,7 +290,7 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/addProductStepBase", method = RequestMethod.POST)
-    public ModelAndView addProducts(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+    public ModelAndView addProducts(HttpServletRequest pRequest, P2PProduct product, ModelAndView modelAndView) {
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
@@ -303,7 +304,7 @@ public class TenderController extends InternalTransactionBaseController {
         productService.createTenderProduct(product);
         modelAndView.addObject("product", product);
         modelAndView.addObject("staticServer", configuration.getStaticServer());
-        modelAndView.setViewName("redirect:/tender/addProductImageModify?productId=" + product.getProductId());
+        modelAndView.setViewName("redirect:/tender/addProductImageModify?productId=" + product.getProductId().toString());
         return modelAndView;
     }
 
@@ -403,7 +404,7 @@ public class TenderController extends InternalTransactionBaseController {
             }
 
             //delete db
-            List<Product> products=tender.getProducts();
+            List<P2PProduct> products=tender.getProducts();
             tenderService.deleteTender(tenderId);
             tenderCategoryService.deleteTenderCategoryByTenderId(tenderId);
             if(!CollectionUtils.isEmpty(products)){
@@ -472,7 +473,7 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/createTenderProduct", method = RequestMethod.POST)
-    public ModelAndView createTenderProduct(ModelAndView modelAndView, Product product, Integer tenderId,HttpServletRequest pRequest) {
+    public ModelAndView createTenderProduct(ModelAndView modelAndView, P2PProduct product, Integer tenderId,HttpServletRequest pRequest) {
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
@@ -542,7 +543,7 @@ public class TenderController extends InternalTransactionBaseController {
 
 
     @RequestMapping(value = "/updateTenderProduct", method = RequestMethod.POST)
-    public ModelAndView updateTenderProduct(ModelAndView modelAndView, Product product, Integer tenderId,HttpServletRequest pRequest) {
+    public ModelAndView updateTenderProduct(ModelAndView modelAndView, P2PProduct product, Integer tenderId,HttpServletRequest pRequest) {
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
             return new ModelAndView(PERMISSION_DENIED);
@@ -550,7 +551,7 @@ public class TenderController extends InternalTransactionBaseController {
         LOGGER.debug("The method updateTenderProduct");
 
         product.setTenderId(tenderId);
-        productService.updateProduct(product);
+        productService.updateTenderProduct(product);
         modelAndView.addObject("product", product);
         modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("redirect:/tender/addProductImageModify?productId=" + product.getProductId());

@@ -3,79 +3,87 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="/tags" prefix="date"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="/resources/detail/detail.css"/>
+    <script type="application/javascript" src="/resources/core/js/jquery.min.js"></script>
+    <script type="application/javascript" src="/resources/detail/detail.js"></script>
 </head>
 <body>
 <!--header begin-->
 <jsp:include page="../core/header-main.jsp" />
 
     <!--invest-part begin-->
-    <div class="invest">
+<div class="invest">
 
-        <h2 class="invest-head">${tender.name}</h2>
+    <h2 class="invest-head">${ESTender.tender.name}</h2>
 
-        <p class="invest-sub-head">${tender.publishDate}-${tender.dueDate} 火热抢购中</p>
 
-        <div class="invest-info">
-            <div class="invest-img"><img src="${tender.p2pAdvertisement.path}" alt="${tender.name}"/></div>
-            <div class="invest-handle">
-                <div class="invest-handle-group">
-                    <a class="invest-add-favorite" href="javascript:void(0);">收藏</a>
-                    <a class="invest-scan-count">已浏览<span>123</span>次</a>
-                </div>
-            </div>
-            <div class="invest-data">
-                <div class="data-row-1">项目金额</div>
-                <div class="data-row-2">
-                    <div class="progress-circle"></div>
 
-                    <div class="cost-box">
-                        <span class="cost">¥</span><span class="cost">${tender.tenderTotal}</span>
-                    </div>
-                    <div class="invest-begin-time">开始: <span>${tender.publishDate}</span></div>
-                    <div class="invest-end-time">结束: <span>${tender.dueDate}</span></div>
 
-                </div>
-                <div class="data-row-3">
-                    <div class="joiner-count"><span>4</span>名参与者</div>
-                    <div class="surplus-time">剩余<span>4天5小时36分钟</span></div>
-                </div>
+    <p class="invest-sub-head"><date:date value="${ESTender.tender.publishDate}" style="yyyy-MM-dd HH:mm:ss"/>-<date:date value="${ESTender.tender.dueDate}" style="yyyy-MM-dd HH:mm:ss"/>  火热抢购中</p>
+
+    <div class="invest-info">
+        <div class="invest-img"><img src="${ESTender.tender.p2pHeroMedias[0].path}" alt=""/></div>
+        <div class="invest-handle">
+            <div class="invest-handle-group">
+                <a class="invest-add-favorite" href="javascript:void(0);">收藏</a>
+                <a class="invest-scan-count">已浏览<span>123</span>次</a>
             </div>
         </div>
-        <div class="item-nav">
-            <ul>
-                 <c:forEach items="${tender. p2pHeroMedias}" var="media">
-                <li><a href="#"><img src="${media.path}" alt=""/></a></li>
-                 </c:forEach>
-            </ul>
+        <div class="invest-data">
+            <div class="data-row-1">项目金额</div>
+            <div class="data-row-2">
+                <div id="indicatorContainer" class="progress-circle"></div>
+
+                <div class="cost-box">
+                    <span class="cost">¥</span><span class="cost">${ESTender.tender.tenderTotal}</span>
+                </div>
+                <div class="invest-begin-time">开始: <span><date:date value="${ESTender.tender.publishDate}" style="yyyy-MM-dd HH:mm:ss"/></span></div>
+                <div class="invest-end-time">结束: <span><date:date value="${ESTender.tender.dueDate}" style="yyyy-MM-dd HH:mm:ss"/></span></div>
+
+            </div>
+            <div class="data-row-3">
+                <div class="joiner-count"><span>4</span>名参与者</div>
+                <div class="surplus-time">剩余<span>4天5小时36分钟</span></div>
+            </div>
         </div>
-
-        <img class="what-is-this" src="" alt=""/>
-
     </div>
+    <div class="item-nav">
+        <ul>
+            <c:forEach items="${ESTender.tender. p2pHeroMedias}" var="media">
+                <li><a href="#"><img src="${media.path}" alt=""/></a></li>
+            </c:forEach>
+        </ul>
+        <a class="item-nav-right" href="#"></a>
+        <a class="item-nav-left" href="#"></a>
+    </div>
+
+    <img class="what-is-this" src="" alt=""/>
+
+</div>
     <!--invest-part end-->
 
     <!--detail-content begin-->
     <div class="detail-content">
         <ul class="tab">
             <!-- super: 以下五个tab,添加类tab-choose时显示,不添加时隐藏,默认第一个显示-->
-            <li class="tab-choose"><a href="#">产品简介</a></li>
-            <li><a href="#">产品详情</a></li>
-            <li><a href="#">产品咨询</a><span class="tab-item-count">250</span></li>
-            <li><a href="#">产品讨论</a><span class="tab-item-count">250</span></li>
-            <li><a href="#">参与者</a><span class="tab-item-count">250</span></li>
+            <li class="tab-choose"><a >产品简介</a></li>
+            <li><a >产品详情</a></li>
+            <li><a >产品咨询</a><span class="tab-item-count">250</span></li>
+            <li><a >产品讨论</a><span class="tab-item-count">250</span></li>
+            <li><a >参与者</a><span class="tab-item-count">250</span></li>
         </ul>
         <div class="content-box">
             <!-- super: 以下五个tab对应的content,添加类content-choose时显示,不添加时隐藏,默认第一个显示-->
             <!-- content-item-list begin -->
             <div class="content-item-list content-choose">
 
-                <c:forEach items="${tender.products}" var="product">
+                <c:forEach items="${ESTender.tender.products}" var="product">
                 <div class="each-item">
                     <div class="item-img-box">
                         <div class="middle-img-box">
@@ -132,6 +140,14 @@
                             </div>
                         </div>
                         <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span  class="item-surplus-count">${product.stock}</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
                             <div class="col-title">&nbsp; </div>
                             <div class="col-content">
                                 <a class="item-buy-now" href="#">立即抢订</a>
@@ -149,18 +165,15 @@
             <!-- content-item-list end-->
 
             <!-- content-invest-detail begin-->
-            <div class="content-invest-detail content-choose">
-
-                <c:forEach items="${tender.p2pMainMedia}" var="media">
+            <div class="content-invest-detail">
+                <c:forEach items="${ESTender.tender.p2pMainMedia}" var="media">
                 <img class="content-detail-image" src="${media.path}" alt=""/>
                 </c:forEach>
-
-
             </div>
             <!-- content-invest-detail end-->
 
             <!-- content-question begin-->
-            <div class="content-question">
+            <div class="content-question ">
                 <form class="ask-question">
                     <div class="ask-head">
                         <h3>有什么问题想问我们的呢?</h3>
@@ -209,7 +222,7 @@
             <!-- content-question end-->
 
             <!-- content-discuss begin-->
-            <div class="content-discuss">
+            <div class="content-discuss ">
                 <form class="ask-question">
                     <div class="ask-head">
                         <h3>有什么问题想问我们的呢?</h3>
@@ -252,7 +265,7 @@
             <!-- content-discuss end-->
 
             <!-- content-joiner begin-->
-            <div class="content-joiner content-choose">
+            <div class="content-joiner ">
                 <a class="touch-him" href="#">
                     <img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
                     <div class="joiner-info">

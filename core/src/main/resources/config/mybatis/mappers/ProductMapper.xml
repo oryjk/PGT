@@ -41,8 +41,43 @@
         <collection property="heroMedias" column="PRODUCT_ID" select="queryProductHeroMedias"/>
         <collection property="mainMedias" column="PRODUCT_ID" select="queryProductMainMedias"/>
 
-
     </resultMap>
+
+    <resultMap id="resultTenderProduct" type="com.pgt.product.bean.P2PProduct">
+    <id column="PRODUCT_ID" property="productId"/>
+    <result column="NAME" property="name"></result>
+    <result column="SERIAL_NUMBER" property="serialNumber"></result>
+    <result column="LIST_PRICE" property="listPrice"></result>
+    <result column="SALE_PRICE" property="salePrice"></result>
+    <result column="STATUS" property="status"></result>
+    <result column="DESCRIPTION" property="description"></result>
+    <result column="SHIPPING_FEE" property="shippingFee"></result>
+    <result column="STOCK" property="stock"></result>
+    <result column="CREATION_DATE" property="creationDate"></result>
+    <result column="UPDATE_DATE" property="updateDate"></result>
+    <result column="IS_NEW" property="isNew"/>
+    <result column="SHORT_DESCRIPYION" property="shortDescription"/>
+    <result column="TITLE" property="title"/>
+    <result column="KEY_WORD" property="keyWord"/>
+    <result column="MERCHANT" property="merchant"/>
+    <result column="IS_HOT" property="isHot"/>
+    <result column="TYPE" property="type"/>
+    <result column="PAWNAGE_STATUS" property="pawnageStatus"/>
+    <result column="ORIGIN_STOCK" property="originStock"/>
+    <association property="relatedCategoryId" column="PRODUCT_ID"
+                 select="queryRelatedCategoryId"/>
+    <association property="shippingAddress" column="PRODUCT_ID"
+                 select="com.pgt.shipping.dao.ShippingAddressMapper.queryAddressByProduct"/>
+    <association property="thumbnailMedia" column="PRODUCT_ID" select="queryProductThumbnailMedia"/>
+    <association property="advertisementMedia" column="PRODUCT_ID" select="queryProductAdvertisementMedia"/>
+    <association property="frontMedia" column="PRODUCT_ID" select="queryProductFrontMedia"/>
+    <association property="expertMedia" column="PRODUCT_ID" select="queryProductExpertMedia"/>
+    <association property="mobileDetailMedia" column="PRODUCT_ID" select="queryProductMobileDetailMedia"/>
+    <!--<collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>-->
+    <collection property="heroMedias" column="PRODUCT_ID" select="queryProductHeroMedias"/>
+    <collection property="mainMedias" column="PRODUCT_ID" select="queryProductMainMedias"/>
+</resultMap>
+
 
     <resultMap id="productMedia" type="com.pgt.product.bean.ProductMedia">
         <id column="media_id" property="id"/>
@@ -220,6 +255,27 @@
         </if>
     </select>
 
+
+    <insert id="createTenderProduct" parameterType="com.pgt.product.bean.P2PProduct"
+            keyProperty="productId" useGeneratedKeys="true">
+
+        INSERT INTO
+        PRODUCT(NAME,SERIAL_NUMBER,LIST_PRICE,SALE_PRICE,STATUS,DESCRIPTION,
+        SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID,TYPE,PAWNAGE_STATUS,ORIGIN_STOCK)
+        VALUES
+        (#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},
+        #{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},
+        #{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type},#{pawnageStatus},#{stock})
+    </insert>
+
+    <update id="updateTenderProduct" parameterType="com.pgt.product.bean.P2PProduct">
+        UPDATE PRODUCT SET
+        NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
+        DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
+        UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type},PAWNAGE_STATUS=#{pawnageStatus}
+        WHERE PRODUCT_ID=#{productId}
+    </update>
+
     <insert id="createProduct" parameterMap="paramProduct"
             keyProperty="productId" useGeneratedKeys="true">
 
@@ -230,12 +286,12 @@
 		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type})
 	</insert>
 
-
     <update id="updateProduct" parameterMap="paramProduct">
 		UPDATE PRODUCT SET
 		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
 		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
-		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type} WHERE PRODUCT_ID=#{productId}
+		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type}}
+		WHERE PRODUCT_ID=#{productId}
 	</update>
     <delete id="deleteProduct" parameterType="int">
 		DELETE FROM PRODUCT
@@ -271,7 +327,7 @@
 		p.product_id=pc.product_id
 		INNER JOIN CATEGORIES c ON
 		c.category_id=pc.category_id WHERE
-		c.TYPE=#{categoryType} AND p.TYPE='DEAD_PAWNAGE';
+		c.TYPE=#{categoryType};
 	</select>
     <select id="queryProductCategoryRelation" parameterType="com.pgt.product.bean.ProductCategoryRelation"
             resultMap="ProductCategoryResult">
@@ -290,7 +346,7 @@
         p.product_id=pc.product_id
         INNER JOIN CATEGORIES
         c ON c.category_id=pc.category_id WHERE
-        c.CATEGORY_ID=#{categoryId} AND p.TYPE='DEAD_PAWNAGE'
+        c.CATEGORY_ID=#{categoryId}
         <if test="isHot!=null">
             AND p.IS_HOT=#{isHot}
         </if>
@@ -365,7 +421,7 @@
     <select id="queryRelatedCategoryId" resultType="string" parameterType="int">
         SELECT CATEGORY_ID FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=#{productId}
     </select>
-    <select id="queryProductByTenderId" resultMap="resultProduct" parameterType="int">
+    <select id="queryProductByTenderId" resultMap="resultTenderProduct" parameterType="int">
         SELECT * FROM PRODUCT WHERE TENDER_ID=#{tenderId} AND TYPE ='LIVE_PAWNAGE'
     </select>
 

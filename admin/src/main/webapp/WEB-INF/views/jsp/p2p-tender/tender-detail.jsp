@@ -231,7 +231,7 @@
                                             <thead>
                                             <tr role="row">
                                                 <th>
-                                                    顺序
+                                                    典当状态
                                                 </th>
                                                 <th>
                                                     序号
@@ -259,7 +259,9 @@
                                             <c:forEach items="${tender.products}" var="product" varStatus="status">
                                             <tr class="gradeX odd" role="row">
                                                 <td>
-                                                    <input style="width: 30px;" type="text"/>
+                                                    <c:if test="${product.pawnageStatus==10}">在当期状态</c:if>
+                                                    <c:if test="${product.pawnageStatus==20}">绝当状态</c:if>
+                                                    <c:if test="${product.pawnageStatus==30}">赎当状态</c:if>
                                                 </td>
                                                 <td>
                                                     ${product.productId}

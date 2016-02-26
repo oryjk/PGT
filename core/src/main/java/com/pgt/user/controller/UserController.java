@@ -532,7 +532,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public ModelAndView logout(HttpSession session, ModelAndView modelAndView) {
+    public ModelAndView logout(HttpSession session, ModelAndView modelAndView,HttpServletRequest request,HttpServletResponse response) {
         User currentUser = (User) session.getAttribute(UserConstant.CURRENT_USER);
         session.removeAttribute(UserConstant.CURRENT_USER);
         session.removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
@@ -540,7 +540,30 @@ public class UserController {
         session.removeAttribute(CartConstant.CURRENT_ORDER);
         session.removeAttribute(SessionConstant.RECENT_PRODUCT_IDS);
         modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
-        ssoService.deleteCacheUser(currentUser.getId());
+
+        Cookie [] cookies= request.getCookies();
+        String token=null;
+        if(ObjectUtils.isEmpty(cookies)){
+            LOGGER.debug("The cookie is empty");
+        }
+        for (Cookie cookie:cookies) {
+            LOGGER.debug("cookie name is {}.,values is {}.",cookie.getName(),cookie.getValue());
+            if (cookie.getName().endsWith(configuration.getUserCacheTokenKey())){
+                token=cookie.getValue();
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+                break;
+            }
+        }
+
+        if(StringUtils.isEmpty(token)){
+            LOGGER.debug("Token is empty");
+        }
+        String tokenId=ssoService.findSSOTokenId(token);
+        if(!StringUtils.isEmpty(tokenId)){
+            ssoService.deleteCacheUser(tokenId);
+            LOGGER.debug("The delete token is success");
+        }
         return modelAndView;
     }
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.report.day_sale_statistics.dao.OneWeekSaleDao">
+	<resultMap id="salesInfo" type="com.pgt.report.day_sale_statistics.bean.OneWeekSale">
+		<result column="sale_prices" property="saleStocks" />
+		<result column="stocks" property="salePrices" />
+	</resultMap>
+
+	<select id="reportOneWeekSales" resultMap="salesInfo">
+		select sum(c.SALE_PRICE) as sale_prices,count(*) as stocks from mp.COMMERCE_ITEM c
+		left join mp.ORDER o on c.ORDER_ID = o.ORDER_ID
+		<where>
+			(to_days(c.CREATION_DATE) - to_days(now()) between -8 and 1)
+			and o.STATUS >= 30
+			group by to_days(c.CREATION_DATE)
+		</where>
+	</select>
+
+	<resultMap id="todaySalesInfo" type="com.pgt.report.day_sale_statistics.bean.OneWeekSale">
+		<result column="sale_prices" property="saleStocks" />
+		<result column="stocks" property="salePrices" />
+		<association property="todaySalesNum" column="today" select="selectSuccessOrder"></association>
+	</resultMap>
+	<select id="todaySales" resultMap="todaySalesInfo">
+		select sum(c.SALE_PRICE) as sale_prices,count(*) as stocks,to_days(now()) as today from mp.COMMERCE_ITEM c
+		left join mp.ORDER o on c.ORDER_ID = o.ORDER_ID
+		where  to_days(c.CREATION_DATE) - to_days(now()) = 0
+		and o.STATUS >= 30
+	</select>
+
+	<select id="selectSuccessOrder" resultType="java.lang.Integer">
+		select count(*),to_days(now()) as today from mp.ORDER as ord
+		where to_days(ord.CREATION_DATE) - to_days(now()) = 0 and to_days(now()) = #{today}
+	</select>
+</mapper>

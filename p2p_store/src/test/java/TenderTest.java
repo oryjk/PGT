@@ -1,5 +1,6 @@
 import com.google.common.collect.Lists;
 import com.pgt.constant.Constants;
+import com.pgt.product.bean.P2PProduct;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESTerm;
@@ -61,8 +62,8 @@ public class TenderTest {
         SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
         searchPaginationBean.setCategoryId(44 + "");
         searchPaginationBean.setCapacity(100);
-        List<Product> products = productService.queryProducts(searchPaginationBean);
-        tender.setProducts(products);
+//        List<P2PProduct> products = productService.queryProducts(searchPaginationBean);
+//        tender.setProducts(products);
         tenderCategoryMapper.createTenderCategory(tenderCategory);
         Assert.assertNotNull(tenderId);
     }

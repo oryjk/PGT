@@ -4,10 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pgt.cart.bean.Order;
 import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
+import com.pgt.search.bean.ESFilter;
+import com.pgt.search.bean.ESSort;
 import com.pgt.search.service.AbstractSearchEngineService;
 import com.pgt.sso.bean.UserCache;
 import com.pgt.user.bean.User;
-import com.sun.javafx.collections.MappingChange;
 import org.apache.commons.lang3.ArrayUtils;
 import org.elasticsearch.action.delete.DeleteRequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -18,7 +19,6 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.collect.HppcMaps;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -32,6 +32,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -60,12 +61,12 @@ public class SSOService extends AbstractSearchEngineService {
             ObjectMapper mapper = new ObjectMapper();
             String data = mapper.writeValueAsString(userCache);
             IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants
-                            .USER_CACHE_INDEX_TYPE,
-                    user.getId() + "")
+                            .USER_CACHE_INDEX_TYPE,null
+                    )
                     .setSource(data);
             IndexResponse indexResponse = indexRequestBuilder.execute().get();
             if (!indexResponse.isCreated()) {
-                LOGGER.debug("Not success create the user cache index.");
+                LOGGER.warn("Not success create the user cache index.");
                 return false;
             }
 
@@ -86,29 +87,31 @@ public class SSOService extends AbstractSearchEngineService {
         cookie.setDomain(configuration.getDomain());
         cookie.setPath("/");
         cookie.setMaxAge(-1);
-        response.addCookie(cookie);
+       response.addCookie(cookie);
     }
 
 
-    public boolean updateCacheUser(User user, Order b2cOrder, Order p2pOrder) {
+    public boolean updateCacheUser(User user, Order b2cOrder, Order p2pOrder,String tokenId,String token) {
         if (ObjectUtils.isEmpty(user)) {
             LOGGER.debug("The user is empty.");
             return false;
         }
         try {
             UserCache userCache = new UserCache(new Date(), user, b2cOrder, p2pOrder);
+            userCache.setToken(token);
             Client client = getIndexClient();
             ObjectMapper mapper = new ObjectMapper();
             String data = mapper.writeValueAsString(userCache);
             UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
                             .USER_CACHE_INDEX_TYPE,
-                    user.getId() + "")
+                    tokenId)
                     .setDoc(data);
-            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
-            if (updateResponse.getShardInfo().getFailed() > 0) {
-                LOGGER.debug("Not success update the user cache index.");
-                return false;
-            }
+
+               UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(1000000);
+               if (updateResponse.getShardInfo().getFailed() > 0) {
+                   LOGGER.debug("Not success update the user cache index.");
+                   return false;
+               }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,8 +121,8 @@ public class SSOService extends AbstractSearchEngineService {
     }
 
 
-    public boolean deleteCacheUser(Long userId) {
-        if (ObjectUtils.isEmpty(userId)) {
+    public boolean deleteCacheUser(String tokenId) {
+        if (ObjectUtils.isEmpty(tokenId)) {
             LOGGER.debug("The user is empty.");
             return false;
         }
@@ -127,12 +130,11 @@ public class SSOService extends AbstractSearchEngineService {
             Client client = getIndexClient();
             DeleteRequestBuilder deleteRequestBuilder = client.prepareDelete(Constants.SITE_INDEX_NAME, Constants
                             .USER_CACHE_INDEX_TYPE,
-                    userId + "");
-
+                    tokenId);
             DeleteResponse deleteResponse = deleteRequestBuilder.execute().get();
             if (!deleteResponse.isFound()) {
 
-                LOGGER.debug("Can not find the user with id is {}.", userId);
+                LOGGER.debug("Can not find the user token with id is {}.",tokenId);
                 return true;
             }
 
@@ -153,7 +155,7 @@ public class SSOService extends AbstractSearchEngineService {
             return true;
         }
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             qb.must(termQuery("user.id", userId));
@@ -190,7 +192,7 @@ public class SSOService extends AbstractSearchEngineService {
             return true;
         }
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             qb.must(termQuery("token", userCacheToken));
@@ -227,7 +229,7 @@ public class SSOService extends AbstractSearchEngineService {
             return null;
            }
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             qb.must(termQuery("token", userCacheToken));
@@ -259,6 +261,40 @@ public class SSOService extends AbstractSearchEngineService {
     }
 
 
+    public String findSSOTokenId(String userCacheToken) {
+        if (ObjectUtils.isEmpty(userCacheToken)) {
+            LOGGER.debug("The user cache token is empty.");
+            return null;
+        }
+        try {
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            BoolQueryBuilder qb = boolQuery();
+            searchRequestBuilder.setQuery(qb);
+            qb.must(termQuery("token", userCacheToken));
+            SearchResponse response = searchRequestBuilder.execute().actionGet();
+            SearchHits searchHits = response.getHits();
+            if (ObjectUtils.isEmpty(searchHits) || ArrayUtils.isEmpty(searchHits.getHits())) {
+                LOGGER.debug("Can not find the user with token is {}, so may not login", userCacheToken);
+                return null;
+            }
+            SearchHit[] searchHits1 = searchHits.getHits();
+            if (searchHits1.length > 1) {
+                LOGGER.debug("Is not the only user ID. ");
+                return null;
+            }
+            SearchHit searchHit = searchHits1[0];
+            String tokenId  =searchHit.getId();
+            LOGGER.debug("The find username is success and token Id {}.",tokenId);
+            return tokenId;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        LOGGER.debug("The tokenId not expire.");
+        return null;
+    }
+
+
+
     @Override
     public void index() {
 
@@ -271,6 +307,16 @@ public class SSOService extends AbstractSearchEngineService {
 
     @Override
     public void initialIndex() {
+
+    }
+
+    @Override
+    protected void buildSort(SearchRequestBuilder searchRequestBuilder, List<ESSort> esSorts) {
+
+    }
+
+    @Override
+    protected void buildFilter(BoolQueryBuilder boolQueryBuilder, ESFilter esFilter) {
 
     }
 }

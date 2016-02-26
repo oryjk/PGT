@@ -2,16 +2,11 @@ package com.pgt.search.service;
 
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
-import com.pgt.constant.Constants;
-import com.pgt.search.bean.ESAggregation;
-import com.pgt.search.bean.ESRange;
-import com.pgt.search.bean.ESSort;
-import com.pgt.search.bean.ESTerm;
+import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
-import org.elasticsearch.action.indexedscripts.delete.DeleteIndexedScriptRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -22,6 +17,7 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,7 +131,7 @@ public abstract class AbstractSearchEngineService {
 
         SearchResponse response = null;
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(indexName, indexType);
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(indexName, indexType);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             buildQueryBuilder(null, null, null, null, null, null, searchRequestBuilder, qb);
@@ -149,11 +145,40 @@ public abstract class AbstractSearchEngineService {
     }
 
 
-    protected SearchRequestBuilder buildSearchRequestBuilder(String siteIndexName, String indexType) throws IOException {
+    protected SearchRequestBuilder initialSearchRequestBuilder(String siteIndexName, String indexType) throws IOException {
         return getSearchClient().prepareSearch(siteIndexName)
                 .setTypes(indexType)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
     }
+
+    protected void buildSearchRequestBuilder(ESTerm esTerm, ESFilter esFilter, PaginationBean paginationBean,
+                                             List<ESSort> esSorts, SearchRequestBuilder searchRequestBuilder) {
+        BoolQueryBuilder boolQueryBuilder = boolQuery();
+        searchRequestBuilder.setQuery(boolQueryBuilder);
+        if (!ObjectUtils.isEmpty(esTerm)) {
+            QueryStringQueryBuilder queryStringQueryBuilder = new QueryStringQueryBuilder(esTerm.getTermValue());
+            queryStringQueryBuilder.defaultField(esTerm.getPropertyName());
+            boolQueryBuilder.must(queryStringQueryBuilder);
+        }
+        buildFilter(boolQueryBuilder, esFilter);
+        buildSort(searchRequestBuilder, esSorts);
+        buildPagination(searchRequestBuilder, paginationBean);
+    }
+
+    private void buildPagination(SearchRequestBuilder searchRequestBuilder, PaginationBean paginationBean) {
+        if (paginationBean != null) {
+            if (paginationBean.getCapacity() == 0) {
+                paginationBean.setCapacity(configuration
+                        .getProductListPageCapacity());
+            }
+            searchRequestBuilder.setFrom((int) paginationBean.getCurrentIndex()).setSize((int) paginationBean.getCapacity()).setExplain(true);
+        }
+    }
+
+    protected abstract void buildSort(SearchRequestBuilder searchRequestBuilder, List<ESSort> esSorts);
+
+    protected abstract void buildFilter(BoolQueryBuilder boolQueryBuilder, ESFilter esFilter);
+
 
     protected void buildQueryBuilder(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList, PaginationBean paginationBean,
                                      ESAggregation esAggregation,

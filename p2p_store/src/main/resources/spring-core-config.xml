@@ -2,25 +2,20 @@
 	   xmlns:context="http://www.springframework.org/schema/context"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	<import resource="yeepay-config.xml"/>
 	<import resource="alipay-config.xml"/>
 	<import resource="scheduling-job.xml"/>
 	<context:component-scan base-package="com.*"/>
 	<!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
-
-
 	<import resource="persistence3-db.xml"/>
-
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath*:config/mybatis/mappers/*Mapper.xml"/>
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 	</bean>
-
 	<bean id="transactionManager"
 		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
@@ -28,17 +23,15 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"/>
 	</bean>
-
 	<!-- Mapper interface scanner -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.*"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 		<property name="markerInterface" value="com.pgt.base.mapper.SqlMapper"/>
 	</bean>
-
 	<bean id="passwordRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
 		<!-- at least a char lower case, upper case and a number within 6 - 20
-			length -->
+        length -->
 		<property name="regexPattern" value="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$"/>
 	</bean>
 	<bean id="loginRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
@@ -53,7 +46,6 @@
 		<property name="regexPattern"
 				  value="^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,3})$"/>
 	</bean>
-
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:customValidationMessages"></property>
 		<property name="defaultEncoding" value="utf-8"></property>
@@ -118,7 +110,6 @@
 				<value>keyWord</value>
 			</list>
 		</property>
-
 		<property name="categoryAnalyzerFields">
 			<list value-type="java.lang.String">
 				<value>name</value>
@@ -140,7 +131,6 @@
 		<property name="needIndex" value="true"/>
 		<property name="clearIndex" value="true"/>
 	</bean>
-
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<property name="caches">
 			<set>
@@ -150,7 +140,6 @@
 			</set>
 		</property>
 	</bean>
-
 	<bean class="com.pgt.data.MigrateDataListener">
 		<property name="searchEngineServiceList">
 			<list value-type="com.pgt.search.service.AbstractSearchEngineService">
@@ -159,9 +148,7 @@
 			</list>
 		</property>
 	</bean>
-
 	<bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
-
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.mxhichina.com"/>
 		<property name="username" value="service@dianjinzi.com"/>
@@ -173,7 +160,6 @@
 			</props>
 		</property>
 	</bean>
-
 	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
 		<property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/"/>
 		<property name="velocityProperties">
@@ -184,7 +170,6 @@
 			</props>
 		</property>
 	</bean>
-
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
@@ -192,5 +177,4 @@
 			</list>
 		</property>
 	</bean>
-
 </beans>
