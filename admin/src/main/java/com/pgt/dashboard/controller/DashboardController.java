@@ -64,7 +64,11 @@ public class DashboardController extends InternalTransactionBaseController imple
 		//select one week sale info and select today sale info
 		List<OneWeekSale> oneWeekSalesList = oneWeekService.reportOneWeekSales();
 		OneWeekSale todaySaleBean = oneWeekService.todaySales();
-		todaySaleBean.setAverge((float)1.0*todaySaleBean.getSaleStocks()/todaySaleBean.getSalePrices());
+		todaySaleBean.setAverge(0);
+		if(todaySaleBean.getSalePrices()!=0){
+			todaySaleBean.setAverge((float)1.0*todaySaleBean.getSaleStocks()/todaySaleBean.getSalePrices());
+		}
+
 		mav.addObject("oneWeekSaleList", oneWeekSalesList);
 		mav.addObject("todaySaleBean", todaySaleBean);
 
