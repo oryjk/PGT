@@ -3,6 +3,7 @@ package com.pgt.product.dao;
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.hot.bean.HotSearch;
+import com.pgt.product.bean.P2PProduct;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductCategoryRelation;
 import com.pgt.product.bean.ProductMedia;
@@ -27,6 +28,10 @@ public interface ProductMapper extends SqlMapper {
     Integer createProduct(Product product);
 
     Integer updateProduct(Product product);
+
+    Integer createTenderProduct(P2PProduct p2PProduct);
+
+    Integer updateTenderProduct(P2PProduct p2PProduct);
 
     void deleteProduct(@Param("productId") Integer productId);
 

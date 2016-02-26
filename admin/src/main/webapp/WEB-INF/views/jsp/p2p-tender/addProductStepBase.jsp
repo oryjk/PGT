@@ -95,6 +95,21 @@
 									</div>
 								</div>
 							</div>
+
+							<div class="form-group">
+								<label class="control-label col-xs-3">典当状态</label>
+								<div class="col-xs-9">
+									<div class="radio-list">
+										<select path="pawnageStatus" class="form-control input-medium">
+											<option value="10">请选择</option>
+											<option value="10">在当期状态</option>
+											<option value="20">绝当状态</option>
+											<option value="30">赎当状态</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
 							<div class="form-group">
 								<label class="col-xs-3 control-label">所属商家id</label>
 
