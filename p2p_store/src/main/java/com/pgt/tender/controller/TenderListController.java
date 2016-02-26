@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,25 +37,36 @@ public class TenderListController {
     @Autowired
     private TenderSearchEngineService tenderSearchEngineService;
 
-    @RequestMapping("/tenderList")
-    public ResponseEntity get(@RequestParam(value = "sorts", required = false) List<ESSort> esSorts,
-                              @RequestParam(value = "term", required = false) ESTerm esTerm,
-                              @RequestParam(value = "esTenderListFilter", required = false) ESTenderListFilter esTenderListFilter,
-                              @RequestParam(value = "paginationBean", required = false) PaginationBean paginationBean
+    @RequestMapping(value = "/tenderList", method = RequestMethod.GET)
+    public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "sorts", required = false) List<ESSort> esSorts,
+                            @RequestParam(value = "term", required = false) ESTerm esTerm,
+                            @RequestParam(value = "esTenderListFilter", required = false) ESTenderListFilter esTenderListFilter,
+                            @RequestParam(value = "paginationBean", required = false) PaginationBean paginationBean
+    ) {
+        SearchResponse response = tenderSearchEngineService.findTenders(esTerm, esTenderListFilter, paginationBean, esSorts);
+        List list = SearchConverToList.searchConvertToList(response);
+        modelAndView.addObject("tenderListResult", list);
+        modelAndView.setViewName("/tenderList/tenderList");
+        return modelAndView;
+
+    }
+
+
+    @RequestMapping("/ajaxtenderList")
+    public ResponseEntity ajaxGet(@RequestParam(value = "sorts", required = false) List<ESSort> esSorts,
+                                  @RequestParam(value = "term", required = false) ESTerm esTerm,
+                                  @RequestParam(value = "esTenderListFilter", required = false) ESTenderListFilter esTenderListFilter,
+                                  @RequestParam(value = "paginationBean", required = false) PaginationBean paginationBean
     ) {
         ResponseBuilder rb = responseBuilderFactory.buildResponseBean().setSuccess(true);
         Map<String, Object> data = new HashMap<>();
         rb.setData(data);
         SearchResponse response = tenderSearchEngineService.findTenders(esTerm, esTenderListFilter, paginationBean, esSorts);
-        List list= SearchConverToList.searchConvertToList(response);
+        List list = SearchConverToList.searchConvertToList(response);
         data.put("tenderListResult", list);
         return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 
     }
-
-
-
-
 
 
 }
