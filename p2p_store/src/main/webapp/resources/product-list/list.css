@@ -178,6 +178,12 @@ a {
       transition: all 1s;
       box-shadow: 0 10px 15px #555555; }
     .all-list .products .item-name {
+      margin: 10px auto 0;
+      width: 260px;
+      height: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       text-align: center;
       font-size: 14px;
       color: black; }

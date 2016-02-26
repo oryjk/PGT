@@ -68,6 +68,11 @@
 
     }
     .item-name {
+      margin: 10px auto 0;
+      @include wh(260px, 14px);
+      overflow: hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
       text-align: center;
       font-size: 14px;
       color: black;
