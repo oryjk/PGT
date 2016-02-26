@@ -2,13 +2,21 @@ package com.pgt.tender.controller;
 
 import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.service.ResponseBuilderFactory;
+import com.pgt.search.bean.ESSort;
+import com.pgt.search.bean.ESTenderListFilter;
+import com.pgt.search.bean.ESTerm;
+import com.pgt.search.service.TenderSearchEngineService;
+import com.pgt.utils.PaginationBean;
+import org.elasticsearch.action.search.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,26 +29,23 @@ public class TenderListController {
 
     @Autowired
     private ResponseBuilderFactory responseBuilderFactory;
+    @Autowired
+    private TenderSearchEngineService tenderSearchEngineService;
 
     @RequestMapping("/tenderList")
-    public ResponseEntity get(@RequestParam(value = "categoryId") Integer categoryId, @RequestParam(value = "rootCategoryId") Integer rootCategoryId,
-                              @RequestParam(value = "newest") Boolean newest,
-                              @RequestParam(value = "cycle") Boolean cycle,
-                              @RequestParam(value = "end") Boolean end,
-                              @RequestParam(value = "all") Boolean all,
-                              @RequestParam(value = "beginInMinute") Boolean beginInMinute,
-                              @RequestParam(value = "underway", required = false) Boolean underway,
-                              @RequestParam(value = "ended", required = false) Boolean ended) {
-        Map<String, Object> data = buildData();
-        return null;
-
-    }
-
-
-    private Map<String, Object> buildData() {
+    public ResponseEntity get(@RequestParam(value = "sorts") List<ESSort> esSorts,
+                              @RequestParam(value = "term") ESTerm esTerm,
+                              @RequestParam(value = "esTenderListFilter") ESTenderListFilter esTenderListFilter,
+                              @RequestParam(value = "paginationBean") PaginationBean paginationBean
+    ) {
         ResponseBuilder rb = responseBuilderFactory.buildResponseBean().setSuccess(true);
         Map<String, Object> data = new HashMap<>();
         rb.setData(data);
-        return data;
+        SearchResponse response = tenderSearchEngineService.findTenders(esTerm, esTenderListFilter, paginationBean, esSorts);
+        data.put("tenderListResult", response);
+        return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+
     }
+
+
 }

@@ -811,6 +811,16 @@ public class ESSearchService extends AbstractSearchEngineService {
 
     }
 
+    @Override
+    protected void buildSort(SearchRequestBuilder searchRequestBuilder, List<ESSort> esSorts) {
+
+    }
+
+    @Override
+    protected void buildFilter(BoolQueryBuilder boolQueryBuilder, ESFilter esFilter) {
+
+    }
+
 
     public ESConfiguration getEsConfiguration() {
         return esConfiguration;

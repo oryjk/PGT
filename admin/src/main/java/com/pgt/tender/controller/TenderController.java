@@ -404,7 +404,7 @@ public class TenderController extends InternalTransactionBaseController {
             }
 
             //delete db
-            List<Product> products=tender.getProducts();
+            List<P2PProduct> products=tender.getProducts();
             tenderService.deleteTender(tenderId);
             tenderCategoryService.deleteTenderCategoryByTenderId(tenderId);
             if(!CollectionUtils.isEmpty(products)){

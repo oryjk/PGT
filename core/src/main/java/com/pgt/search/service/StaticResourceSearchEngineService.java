@@ -8,16 +8,12 @@ import com.pgt.help.bean.HelpCategoryVo;
 import com.pgt.help.bean.HelpCenter;
 import com.pgt.help.bean.HelpCenterSites;
 import com.pgt.help.service.HelpCenterService;
-import com.pgt.search.bean.ESAggregation;
-import com.pgt.search.bean.ESRange;
-import com.pgt.search.bean.ESSort;
-import com.pgt.search.bean.ESTerm;
+import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
-import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequestBuilder;
@@ -28,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -123,7 +118,7 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
                                      ESAggregation categoryIdAggregation) {
         SearchResponse response = null;
         try {
-            SearchRequestBuilder   searchRequestBuilder = buildSearchRequestBuilder(Constants.STATIC_RESOURCE_INDEX_NAME, Constants
+            SearchRequestBuilder   searchRequestBuilder = initialSearchRequestBuilder(Constants.STATIC_RESOURCE_INDEX_NAME, Constants
                     .HELP_CENTER_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
@@ -153,6 +148,16 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
     @Override
     public void initialIndex() {
         createIndex(Constants.STATIC_RESOURCE_INDEX_NAME, esConfiguration.isNeedIndex());
+    }
+
+    @Override
+    protected void buildSort(SearchRequestBuilder searchRequestBuilder, List<ESSort> esSorts) {
+
+    }
+
+    @Override
+    protected void buildFilter(BoolQueryBuilder boolQueryBuilder, ESFilter esFilter) {
+
     }
 
     protected SearchResponse findAll() {

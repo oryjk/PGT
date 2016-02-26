@@ -4,10 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pgt.cart.bean.Order;
 import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
+import com.pgt.search.bean.ESFilter;
+import com.pgt.search.bean.ESSort;
 import com.pgt.search.service.AbstractSearchEngineService;
 import com.pgt.sso.bean.UserCache;
 import com.pgt.user.bean.User;
-import com.sun.javafx.collections.MappingChange;
 import org.apache.commons.lang3.ArrayUtils;
 import org.elasticsearch.action.delete.DeleteRequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -18,7 +19,6 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.collect.HppcMaps;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -32,6 +32,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -154,7 +155,7 @@ public class SSOService extends AbstractSearchEngineService {
             return true;
         }
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             qb.must(termQuery("user.id", userId));
@@ -191,7 +192,7 @@ public class SSOService extends AbstractSearchEngineService {
             return true;
         }
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             qb.must(termQuery("token", userCacheToken));
@@ -228,7 +229,7 @@ public class SSOService extends AbstractSearchEngineService {
             return null;
            }
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             qb.must(termQuery("token", userCacheToken));
@@ -266,7 +267,7 @@ public class SSOService extends AbstractSearchEngineService {
             return null;
         }
         try {
-            SearchRequestBuilder searchRequestBuilder = buildSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
+            SearchRequestBuilder searchRequestBuilder = initialSearchRequestBuilder(Constants.SITE_INDEX_NAME, Constants.USER_CACHE_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             qb.must(termQuery("token", userCacheToken));
@@ -306,6 +307,16 @@ public class SSOService extends AbstractSearchEngineService {
 
     @Override
     public void initialIndex() {
+
+    }
+
+    @Override
+    protected void buildSort(SearchRequestBuilder searchRequestBuilder, List<ESSort> esSorts) {
+
+    }
+
+    @Override
+    protected void buildFilter(BoolQueryBuilder boolQueryBuilder, ESFilter esFilter) {
 
     }
 }

@@ -7,16 +7,15 @@ import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.Constants;
+import com.pgt.constant.ESConstants;
 import com.pgt.home.bean.HomeTender;
-import com.pgt.product.bean.CategoryHierarchy;
-import com.pgt.product.bean.Product;
 import com.pgt.search.bean.*;
 import com.pgt.tender.bean.ESTender;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import com.pgt.utils.PaginationBean;
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -27,6 +26,7 @@ import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
@@ -140,7 +141,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                     if (!ObjectUtils.isEmpty(category)) {
                         rootCategory = category.getParent();
                     }
-                    ESTender esTender = new ESTender(tender, rootCategory);
+                    ESTender esTender = new ESTender(tender, category, rootCategory);
                     ObjectMapper mapper = new ObjectMapper();
                     String data = null;
                     try {
@@ -187,9 +188,9 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         try {
             SearchRequestBuilder searchRequestBuilder = null;
             if (ObjectUtils.isEmpty(indexType)) {
-                searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
+                searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
             } else {
-                searchRequestBuilder = buildSearchRequestBuilder(Constants.P2P_INDEX_NAME, indexType);
+                searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, indexType);
             }
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
@@ -281,5 +282,66 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         LOGGER.debug("Begin to create tender mapping.");
         super.createMapping(indexName, indexType, analyseFields);
         LOGGER.debug("End to create tender mapping.");
+    }
+
+    @Override
+    protected void buildSort(SearchRequestBuilder searchRequestBuilder, List<ESSort> esSorts) {
+        if (CollectionUtils.isEmpty(esSorts)) {
+            LOGGER.debug("sorts is empty.");
+            return;
+        }
+        esSorts.stream().forEach(esSort -> searchRequestBuilder.addSort(esSort.getPropertyName(), esSort.getSortOrder()));
+    }
+
+    @Override
+    protected void buildFilter(BoolQueryBuilder boolQueryBuilder, ESFilter esFilter) {
+        if (ObjectUtils.isEmpty(esFilter)) {
+            LOGGER.debug("The esFiter is empty.");
+            return;
+        }
+        ESTenderListFilter esTenderListFilter = (ESTenderListFilter) esFilter;
+        if (!StringUtils.isBlank(esTenderListFilter.getCategoryId())) {
+            boolQueryBuilder.filter(QueryBuilders.termQuery(ESConstants.PARENT_CATEGORY_ID, esTenderListFilter.getCategoryId()));
+        }
+        if (!StringUtils.isBlank(esTenderListFilter.getRootCategoryId())) {
+            boolQueryBuilder.filter(QueryBuilders.termQuery(ESConstants.ROOT_CATEGORY_ID, esTenderListFilter.getCategoryId()));
+        }
+        if (esTenderListFilter.isAll()) {
+            LOGGER.debug("The filter is all.");
+            return;
+        }
+        if (esTenderListFilter.isBeginInMinute()) {
+            LOGGER.debug("The filter is isBeginInMinute.");
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.PUBLISH_DATE).gt(new Date()));
+            return;
+        }
+        if (esTenderListFilter.isUnderway()) {
+            LOGGER.debug("The filter is isUnderway.");
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.PUBLISH_DATE).lt(new Date()));
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.DUE_DATE).gt(new Date()));
+            return;
+        }
+        if (esTenderListFilter.isEnded()) {
+            LOGGER.debug("The filter is isEnded.");
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.DUE_DATE).lt(new Date()));
+            return;
+        }
+
+    }
+
+    public SearchResponse findTenders(ESTerm esTerm, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean, List<ESSort> esSorts) {
+
+        SearchResponse response = null;
+        try {
+            SearchRequestBuilder searchRequestBuilder;
+            searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
+            buildSearchRequestBuilder(esTerm, esTenderListFilter, paginationBean, esSorts, searchRequestBuilder);
+            response = searchRequestBuilder.execute()
+                    .actionGet();
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 }

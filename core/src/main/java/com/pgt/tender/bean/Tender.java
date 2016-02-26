@@ -4,6 +4,7 @@ import com.pgt.category.bean.Category;
 import com.pgt.common.bean.Media;
 import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.pawn.validation.group.PawnGroup;
+import com.pgt.product.bean.P2PProduct;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.user.validation.group.LoginGroup;
@@ -29,7 +30,7 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
      * 当铺的id
      */
     @NotNull(message = "{NotEmpty.tender.pawnShopId}", groups = {CreateTender.class})
-   // @Pattern(regexp = "[0-9]{0,30}", message = "{Pattern.tender.pawnShopId}", groups = {CreateTender.class})
+    // @Pattern(regexp = "[0-9]{0,30}", message = "{Pattern.tender.pawnShopId}", groups = {CreateTender.class})
     private Integer pawnShopId;
     /**
      * 当铺所有者的id
@@ -77,13 +78,13 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
      * 投资名称
      */
     @NotEmpty(message = "{NotEmpty.tender.name}", groups = {CreateTender.class})
-    @Length(min = 2,max = 20,message = "{Length.tender.name}", groups = {CreateTender.class})
+    @Length(min = 2, max = 20, message = "{Length.tender.name}", groups = {CreateTender.class})
     private String name;
     /**
      * 投资的详情
      */
     @NotEmpty(message = "{NotEmpty.tender.description}", groups = {CreateTender.class})
-    @Length(min = 2,max = 20,message = "{Length.tender.descriptione}", groups = {CreateTender.class})
+    @Length(min = 2, max = 20, message = "{Length.tender.descriptione}", groups = {CreateTender.class})
     private String description;
     /**
      * 投资后多久天后开始算收益
@@ -98,7 +99,7 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     /**
      * 被投资的产品
      */
-    private List<Product> products;
+    private List<P2PProduct> products;
     /**
      * 投资创建日期
      */
@@ -173,6 +174,12 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
      */
     private Integer productQuantity;
 
+
+    /**
+     * 剩余产品数量
+     */
+    private Integer productResidue;
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -219,10 +226,10 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     }
 
     public Integer getProductQuantity() {
-        Integer total=0;
-        if(!ObjectUtils.isEmpty(this.products)){
-            for (Product product: products) {
-                total=total+product.getStock();
+        Integer total = 0;
+        if (!ObjectUtils.isEmpty(this.products)) {
+            for (P2PProduct product : products) {
+                total = total + product.getOriginStock();
             }
         }
         return total;
@@ -314,11 +321,11 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     }
 
     public Double getTenderTotal() {
-        List<Product> products = this.products;
+        List<P2PProduct> products = this.products;
         Double tenderTotal = 0.0;
         if (!ObjectUtils.isEmpty(products)) {
-            for (Product product : products) {
-                tenderTotal = tenderTotal + product.getStock() * product.getSalePrice();
+            for (P2PProduct product : products) {
+                tenderTotal = tenderTotal + product.getOriginStock() * product.getSalePrice();
             }
         }
         return tenderTotal;
@@ -392,11 +399,11 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
         this.postPeriod = postPeriod;
     }
 
-    public List<Product> getProducts() {
+    public List<P2PProduct> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<P2PProduct> products) {
         this.products = products;
     }
 
@@ -486,5 +493,20 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 
     public void setPawnshop(final Pawnshop pPawnshop) {
         mPawnshop = pPawnshop;
+    }
+
+    public Integer getProductResidue() {
+
+        Integer residue = 0;
+        if (!ObjectUtils.isEmpty(this.products)) {
+            for (Product product : products) {
+                residue = residue + product.getStock();
+            }
+        }
+        return residue;
+    }
+
+    public void setProductResidue(Integer productResidue) {
+        this.productResidue = productResidue;
     }
 }

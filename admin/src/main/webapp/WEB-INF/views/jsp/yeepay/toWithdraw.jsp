@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>点金子绝当淘商城</title>
+    <title>点金子典当行绝当品销售平台</title>
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/my-account/pay-binding/pay-binding.css"/>" />
     <link rel="stylesheet"
