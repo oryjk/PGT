@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * Created by Yove on 16/02/24.
  */
 @RequestMapping("/myAccount")
-@RestController
+//@RestController("UserOrderController")
 public class UserOrderController extends TransactionBaseController {
 
 	@Resource(name = "userOrderService")

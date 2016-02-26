@@ -104,7 +104,7 @@ public class Constants {
     public static final String ONLINE_PAWN_UPDATE = "";
 
     //tender
-    public static final String TENDER_ID = "tenderId";
+    public static final String TENDER_ID = "tender.tenderId";
 
     public static final String P2P_HELPCENTER="helpCenterList.site";
 }

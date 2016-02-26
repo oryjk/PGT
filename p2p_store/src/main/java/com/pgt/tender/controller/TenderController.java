@@ -45,18 +45,9 @@ public class TenderController {
             LOGGER.debug("The tender is exist");
             return modelAndView;
         }
-        Map tender =tenders[0].getSource();
+        Map ESTender =tenders[0].getSource();
         LOGGER.debug("The query tender id is {}.",tenderId);
-
-        if(ObjectUtils.isEmpty(tender.get("products"))){
-            ArrayList products=(ArrayList) tender.get("products");
-
-        }
-
-
-
-
-        modelAndView.addObject("tender",tender);
+        modelAndView.addObject("ESTender",ESTender);
         modelAndView.setViewName("/detail/detail");
         return modelAndView;
     }
