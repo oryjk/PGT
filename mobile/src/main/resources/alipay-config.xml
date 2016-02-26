@@ -1,19 +1,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 	<bean id="alipayConfig" class="com.pgt.integration.alipay.AlipayConfig">
-		<property name="partner" value="2088021829216373" />
-		<property name="sellerEmail" value="3238989449@qq.com" />
-		<property name="key" value="31gaccf9qfq9ntnkvefs1hb35b58oee4" />
-		<property name="service" value="create_direct_pay_by_user" />
-		<property name="inputCharset" value="utf-8" />
-		<property name="signType" value="MD5" />
-		<property name="paymentType" value="1" />
-		<property name="returnUrl" value="http://localhost:8080/b2c_store/alipay/return" />
-		<property name="notifyUrl" value="http://localhost:8080/b2c_store/alipay/notify" />
-		<property name="alipayUrl" value="https://mapi.alipay.com/gateway.do" />
-		<property name="orderIdPrefix" value="test" />
+		<property name="partner" value="2088021829216373"/>
+		<property name="sellerEmail" value="3238989449@qq.com"/>
+		<property name="key" value="31gaccf9qfq9ntnkvefs1hb35b58oee4"/>
+		<property name="service" value="create_direct_pay_by_user"/>
+		<property name="inputCharset" value="utf-8"/>
+		<property name="signType" value="MD5"/>
+		<property name="paymentType" value="1"/>
+		<property name="returnUrl" value="http://localhost:8080/b2c_store/alipay/return"/>
+		<property name="notifyUrl" value="http://localhost:8080/b2c_store/alipay/notify"/>
+		<property name="alipayUrl" value="https://mapi.alipay.com/gateway.do"/>
+		<property name="orderIdPrefix" value="${orderIdPrefix}"/>
 	</bean>
 </beans>
