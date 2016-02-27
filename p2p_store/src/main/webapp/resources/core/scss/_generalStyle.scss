@@ -1,3 +1,4 @@
+@import "variable";
 body {
   font-family: '微软雅黑', serif;
 }
@@ -9,6 +10,14 @@ ol {
 
 a {
   text-decoration: none;
+}
+
+.link-btn {
+  color: $em-light;
+
+  &:hover {
+    color: $em;
+  }
 }
 
 .hide {

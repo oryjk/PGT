@@ -30,10 +30,6 @@
     display: table;
     clear: both; }
 
-/*select*/
-/*color-btn*/
-/*cost*/
-/*progress-bar*/
 .header .nav, .about-us, .approve, .order-info .info-row-1,
 .order-info .info-row-2,
 .order-info .info-row-3,
@@ -69,6 +65,74 @@
 /*color-btn*/
 /*cost*/
 /*progress-bar*/
+/*page-box*/
+.header .nav, .about-us, .approve, .order-info .info-row-1,
+.order-info .info-row-2,
+.order-info .info-row-3,
+.order-info .info-row-4,
+.order-info .info-row-5, .order-confirm .confirm-row-1,
+.order-confirm .confirm-row-2,
+.order-confirm .confirm-row-3,
+.order-confirm .confirm-row-4,
+.order-confirm .confirm-row-5 {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row-1:after,
+  .order-info .info-row-2:after,
+  .order-info .info-row-3:after,
+  .order-info .info-row-4:after,
+  .order-info .info-row-5:after, .order-confirm .confirm-row-1:after,
+  .order-confirm .confirm-row-2:after,
+  .order-confirm .confirm-row-3:after,
+  .order-confirm .confirm-row-4:after,
+  .order-confirm .confirm-row-5:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row-1:before,
+  .order-info .info-row-2:before,
+  .order-info .info-row-3:before,
+  .order-info .info-row-4:before,
+  .order-info .info-row-5:before, .order-confirm .confirm-row-1:before,
+  .order-confirm .confirm-row-2:before,
+  .order-confirm .confirm-row-3:before,
+  .order-confirm .confirm-row-4:before,
+  .order-confirm .confirm-row-5:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.header .nav, .about-us, .approve, .order-info .info-row-1,
+.order-info .info-row-2,
+.order-info .info-row-3,
+.order-info .info-row-4,
+.order-info .info-row-5, .order-confirm .confirm-row-1,
+.order-confirm .confirm-row-2,
+.order-confirm .confirm-row-3,
+.order-confirm .confirm-row-4,
+.order-confirm .confirm-row-5 {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row-1:after,
+  .order-info .info-row-2:after,
+  .order-info .info-row-3:after,
+  .order-info .info-row-4:after,
+  .order-info .info-row-5:after, .order-confirm .confirm-row-1:after,
+  .order-confirm .confirm-row-2:after,
+  .order-confirm .confirm-row-3:after,
+  .order-confirm .confirm-row-4:after,
+  .order-confirm .confirm-row-5:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row-1:before,
+  .order-info .info-row-2:before,
+  .order-info .info-row-3:before,
+  .order-info .info-row-4:before,
+  .order-info .info-row-5:before, .order-confirm .confirm-row-1:before,
+  .order-confirm .confirm-row-2:before,
+  .order-confirm .confirm-row-3:before,
+  .order-confirm .confirm-row-4:before,
+  .order-confirm .confirm-row-5:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
@@ -166,6 +230,11 @@ ol {
 
 a {
   text-decoration: none; }
+
+.link-btn {
+  color: #86b5ed; }
+  .link-btn:hover {
+    color: #2d7fe0; }
 
 .hide {
   display: none; }

@@ -8,10 +8,6 @@
     display: table;
     clear: both; }
 
-/*select*/
-/*color-btn*/
-/*cost*/
-/*progress-bar*/
 .all-list .products, .all-list .products .info-box, .page-box {
   *zoom: 1; }
   .all-list .products:after, .all-list .products .info-box:after, .page-box:after, .all-list .products:before, .all-list .products .info-box:before, .page-box:before {
@@ -23,6 +19,26 @@
 /*color-btn*/
 /*cost*/
 /*progress-bar*/
+/*page-box*/
+.all-list .products, .all-list .products .info-box, .page-box {
+  *zoom: 1; }
+  .all-list .products:after, .all-list .products .info-box:after, .page-box:after, .all-list .products:before, .all-list .products .info-box:before, .page-box:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.all-list .products, .all-list .products .info-box, .page-box {
+  *zoom: 1; }
+  .all-list .products:after, .all-list .products .info-box:after, .page-box:after, .all-list .products:before, .all-list .products .info-box:before, .page-box:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
@@ -120,6 +136,11 @@ ol {
 
 a {
   text-decoration: none; }
+
+.link-btn {
+  color: #86b5ed; }
+  .link-btn:hover {
+    color: #2d7fe0; }
 
 .hide {
   display: none; }

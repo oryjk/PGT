@@ -155,31 +155,5 @@
 
 .page-box {
   padding-top: 20px;
-  @extend %clear;
-
-  ol {
-    float: right;
-    padding-right: 20px;
-  }
-
-  li {
-    float: left;
-    @include wh(30px, 30px);
-    line-height: 30px;
-    margin-right: 10px;
-    text-align: center;
-  }
-
-  a {
-    display: block;
-    @include color-btn(30px, 30px, 3px, 14px, $main, $main-dark);
-  }
-
-  .current-page,
-  .current-page:hover {
-    background: white;
-    color: $main;
-    font-size: 18px;
-    font-weight: 900;
-  }
+  @include page-box;
 }

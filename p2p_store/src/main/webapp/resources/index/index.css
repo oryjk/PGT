@@ -8,10 +8,6 @@
     display: table;
     clear: both; }
 
-/*select*/
-/*color-btn*/
-/*cost*/
-/*progress-bar*/
 .header .nav, .about-us, .approve, .menu-1 .menu-2, .advantage, .advantage ul, .hot .hot-head, .hot .hot-tab, .invest-list, .category .each-category, .category .help-hot {
   *zoom: 1; }
   .header .nav:after, .about-us:after, .approve:after, .menu-1 .menu-2:after, .advantage:after, .advantage ul:after, .hot .hot-head:after, .hot .hot-tab:after, .invest-list:after, .category .each-category:after, .category .help-hot:after, .header .nav:before, .about-us:before, .approve:before, .menu-1 .menu-2:before, .advantage:before, .advantage ul:before, .hot .hot-head:before, .hot .hot-tab:before, .invest-list:before, .category .each-category:before, .category .help-hot:before {
@@ -23,6 +19,26 @@
 /*color-btn*/
 /*cost*/
 /*progress-bar*/
+/*page-box*/
+.header .nav, .about-us, .approve, .menu-1 .menu-2, .advantage, .advantage ul, .hot .hot-head, .hot .hot-tab, .invest-list, .category .each-category, .category .help-hot {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .menu-1 .menu-2:after, .advantage:after, .advantage ul:after, .hot .hot-head:after, .hot .hot-tab:after, .invest-list:after, .category .each-category:after, .category .help-hot:after, .header .nav:before, .about-us:before, .approve:before, .menu-1 .menu-2:before, .advantage:before, .advantage ul:before, .hot .hot-head:before, .hot .hot-tab:before, .invest-list:before, .category .each-category:before, .category .help-hot:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.header .nav, .about-us, .approve, .menu-1 .menu-2, .advantage, .advantage ul, .hot .hot-head, .hot .hot-tab, .invest-list, .category .each-category, .category .help-hot {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .menu-1 .menu-2:after, .advantage:after, .advantage ul:after, .hot .hot-head:after, .hot .hot-tab:after, .invest-list:after, .category .each-category:after, .category .help-hot:after, .header .nav:before, .about-us:before, .approve:before, .menu-1 .menu-2:before, .advantage:before, .advantage ul:before, .hot .hot-head:before, .hot .hot-tab:before, .invest-list:before, .category .each-category:before, .category .help-hot:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
@@ -120,6 +136,11 @@ ol {
 
 a {
   text-decoration: none; }
+
+.link-btn {
+  color: #86b5ed; }
+  .link-btn:hover {
+    color: #2d7fe0; }
 
 .hide {
   display: none; }
