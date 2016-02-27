@@ -5,10 +5,12 @@ import com.pgt.common.bean.Media;
 import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.pawn.validation.group.PawnGroup;
 import com.pgt.product.bean.P2PProduct;
+import com.pgt.product.bean.P2PProductStatus;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.user.validation.group.LoginGroup;
 import com.pgt.user.validation.group.RegistrationGroup;
+import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.common.collect.HppcMaps;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -179,6 +181,36 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
      * 剩余产品数量
      */
     private Integer productResidue;
+
+
+    public Integer getTenderStatus() {
+        if (tenderStatus != null) {
+            return tenderStatus;
+        }
+        if (CollectionUtils.isEmpty(this.products)) {
+            return P2PProductStatus.REVIEW_PAWNAGE;
+        }
+        final int[] livePawnage = new int[1];
+        this.products.stream().forEach(p2PProduct -> {
+            if (P2PProductStatus.LIVE_PAWNAGE == p2PProduct.getPawnageStatus()) {
+                livePawnage[0] = P2PProductStatus.LIVE_PAWNAGE;
+                return;
+            }
+        });
+        if (livePawnage.length == 0) {
+            if (((new Date().getTime() / 1000) - (dueDate.getTime() / 1000)) / (1000 * 60 * 60 * 24) <= 0) {
+                return P2PProductStatus.DEAD_PAWNAGE;
+            }
+            return P2PProductStatus.REDEEM_PAWNAGE;
+        }
+        return livePawnage[0];
+    }
+
+    public void setTenderStatus(Integer tenderStatus) {
+        this.tenderStatus = tenderStatus;
+    }
+
+    private Integer tenderStatus;
 
     @Override
     public String toString() {

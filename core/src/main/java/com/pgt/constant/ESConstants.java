@@ -8,4 +8,7 @@ public class ESConstants {
     public static final String ROOT_CATEGORY_ID = "rootCategoryId";
     public static final String PUBLISH_DATE = "publishDate";
     public static final String DUE_DATE = "dueDate";
+    public static final String TENDER_LIST_RESULT = "tenderListResult";
+    public static final String ROOT_CATEGORY_LIST = "rootCategoryList";
+    public static final String PAGINATION = "paginationBean";
 }

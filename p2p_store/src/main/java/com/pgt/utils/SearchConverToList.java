@@ -5,19 +5,20 @@ import org.elasticsearch.search.SearchHit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangxiaodong on 16-2-26.
  */
 public class SearchConverToList {
 
-    public static List searchConvertToList(SearchResponse searchResponse){
+    public static List<Map<String,Object>> searchConvertToList(SearchResponse searchResponse){
         SearchHit[] searchHits= searchResponse.getHits().getHits();
-        List message = new ArrayList();
+        List list = new ArrayList();
         for(SearchHit searchHit:searchHits){
-            message.add(searchHit.getSource());
+            list.add(searchHit.getSource());
         }
-        return message;
+        return list;
     }
 
 }

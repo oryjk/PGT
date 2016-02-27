@@ -23,6 +23,7 @@ public class ESConfiguration {
     private boolean clearIndex = true;
     private boolean needIndex = true;
     private List<String> useToSearch = new ArrayList<>();
+    private int tenderListCapacity=12;
 
     private Map<String, Integer> priceAggrs = new HashMap<String, Integer>() {
         {
@@ -130,5 +131,14 @@ public class ESConfiguration {
 
     public void setTenderAnalyzerFields(List<String> tenderAnalyzerFields) {
         this.tenderAnalyzerFields = tenderAnalyzerFields;
+    }
+
+
+    public int getTenderListCapacity() {
+        return tenderListCapacity;
+    }
+
+    public void setTenderListCapacity(int tenderListCapacity) {
+        this.tenderListCapacity = tenderListCapacity;
     }
 }

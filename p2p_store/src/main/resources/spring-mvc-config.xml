@@ -16,7 +16,7 @@
             validator="validatorFactoryBean">
     </mvc:annotation-driven>
     <!--Do not interceptor static files.-->
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <!--<mvc:resources mapping="/resources/**" location="/resources/"/>-->
 
     <mvc:interceptors>
 
