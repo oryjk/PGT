@@ -8,7 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 //创建style任务
 gulp.task('style', function() {
     //源路径
-     gulp.src('./resources/*/*.scss')
+     gulp.src('./resources/**/*.scss')
          .pipe(sourcemaps.init())
          //进行sass编译
         .pipe(sass())

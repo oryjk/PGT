@@ -29,10 +29,6 @@
     display: table;
     clear: both; }
 
-/*select*/
-/*color-btn*/
-/*cost*/
-/*progress-bar*/
 .header .nav, .about-us, .approve, .recommend-box ul, .recommend-box .recommend-progress, .recommend-box .recommend-join, .invest .invest-info, .invest .data-row-2, .invest .data-row-3, .detail-content, .detail-content .tab, .content-item-list .item-row-1,
 .content-item-list .item-row-2,
 .content-item-list .item-row-3,
@@ -65,6 +61,68 @@
 /*color-btn*/
 /*cost*/
 /*progress-bar*/
+/*page-box*/
+.header .nav, .about-us, .approve, .recommend-box ul, .recommend-box .recommend-progress, .recommend-box .recommend-join, .invest .invest-info, .invest .data-row-2, .invest .data-row-3, .detail-content, .detail-content .tab, .content-item-list .item-row-1,
+.content-item-list .item-row-2,
+.content-item-list .item-row-3,
+.content-item-list .item-row-4,
+.content-item-list .item-row-5,
+.content-item-list .item-row-6,
+.content-item-list .item-row-7,
+.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .invest .invest-info:after, .invest .data-row-2:after, .invest .data-row-3:after, .detail-content:after, .detail-content .tab:after, .content-item-list .item-row-1:after,
+  .content-item-list .item-row-2:after,
+  .content-item-list .item-row-3:after,
+  .content-item-list .item-row-4:after,
+  .content-item-list .item-row-5:after,
+  .content-item-list .item-row-6:after,
+  .content-item-list .item-row-7:after,
+  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .header .nav:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
+  .content-item-list .item-row-2:before,
+  .content-item-list .item-row-3:before,
+  .content-item-list .item-row-4:before,
+  .content-item-list .item-row-5:before,
+  .content-item-list .item-row-6:before,
+  .content-item-list .item-row-7:before,
+  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.header .nav, .about-us, .approve, .recommend-box ul, .recommend-box .recommend-progress, .recommend-box .recommend-join, .invest .invest-info, .invest .data-row-2, .invest .data-row-3, .detail-content, .detail-content .tab, .content-item-list .item-row-1,
+.content-item-list .item-row-2,
+.content-item-list .item-row-3,
+.content-item-list .item-row-4,
+.content-item-list .item-row-5,
+.content-item-list .item-row-6,
+.content-item-list .item-row-7,
+.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .invest .invest-info:after, .invest .data-row-2:after, .invest .data-row-3:after, .detail-content:after, .detail-content .tab:after, .content-item-list .item-row-1:after,
+  .content-item-list .item-row-2:after,
+  .content-item-list .item-row-3:after,
+  .content-item-list .item-row-4:after,
+  .content-item-list .item-row-5:after,
+  .content-item-list .item-row-6:after,
+  .content-item-list .item-row-7:after,
+  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .header .nav:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
+  .content-item-list .item-row-2:before,
+  .content-item-list .item-row-3:before,
+  .content-item-list .item-row-4:before,
+  .content-item-list .item-row-5:before,
+  .content-item-list .item-row-6:before,
+  .content-item-list .item-row-7:before,
+  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
@@ -162,6 +220,11 @@ ol {
 
 a {
   text-decoration: none; }
+
+.link-btn {
+  color: #86b5ed; }
+  .link-btn:hover {
+    color: #2d7fe0; }
 
 .hide {
   display: none; }

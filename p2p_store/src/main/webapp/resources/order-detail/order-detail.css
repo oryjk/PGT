@@ -17,10 +17,6 @@
     display: table;
     clear: both; }
 
-/*select*/
-/*color-btn*/
-/*cost*/
-/*progress-bar*/
 .header .nav, .about-us, .approve, .base-info .base-row-1,
 .base-info .base-row-3, .base-info .base-row-2, .send-info .send-row-1,
 .send-info .send-row-2,
@@ -41,6 +37,44 @@
 /*color-btn*/
 /*cost*/
 /*progress-bar*/
+/*page-box*/
+.header .nav, .about-us, .approve, .base-info .base-row-1,
+.base-info .base-row-3, .base-info .base-row-2, .send-info .send-row-1,
+.send-info .send-row-2,
+.send-info .send-row-3, .compensate .compensate-info {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .base-info .base-row-1:after,
+  .base-info .base-row-3:after, .base-info .base-row-2:after, .send-info .send-row-1:after,
+  .send-info .send-row-2:after,
+  .send-info .send-row-3:after, .compensate .compensate-info:after, .header .nav:before, .about-us:before, .approve:before, .base-info .base-row-1:before,
+  .base-info .base-row-3:before, .base-info .base-row-2:before, .send-info .send-row-1:before,
+  .send-info .send-row-2:before,
+  .send-info .send-row-3:before, .compensate .compensate-info:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.header .nav, .about-us, .approve, .base-info .base-row-1,
+.base-info .base-row-3, .base-info .base-row-2, .send-info .send-row-1,
+.send-info .send-row-2,
+.send-info .send-row-3, .compensate .compensate-info {
+  *zoom: 1; }
+  .header .nav:after, .about-us:after, .approve:after, .base-info .base-row-1:after,
+  .base-info .base-row-3:after, .base-info .base-row-2:after, .send-info .send-row-1:after,
+  .send-info .send-row-2:after,
+  .send-info .send-row-3:after, .compensate .compensate-info:after, .header .nav:before, .about-us:before, .approve:before, .base-info .base-row-1:before,
+  .base-info .base-row-3:before, .base-info .base-row-2:before, .send-info .send-row-1:before,
+  .send-info .send-row-2:before,
+  .send-info .send-row-3:before, .compensate .compensate-info:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
 /*
 html5doctor.com Reset Stylesheet
 v1.4.1
@@ -138,6 +172,11 @@ ol {
 
 a {
   text-decoration: none; }
+
+.link-btn {
+  color: #86b5ed; }
+  .link-btn:hover {
+    color: #2d7fe0; }
 
 .hide {
   display: none; }
@@ -334,11 +373,6 @@ a {
 **************************************************************************************************************************************************/
 body {
   background: #f3f3f3; }
-
-.link-btn {
-  color: #86b5ed; }
-  .link-btn:hover {
-    color: #2d7fe0; }
 
 .content {
   position: relative;
