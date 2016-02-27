@@ -1,20 +1,21 @@
 package com.pgt.tender.controller;
 
+import com.google.common.collect.Lists;
 import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.category.bean.CategoryType;
+import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.ESConstants;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTenderListFilter;
-import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.CategorySearchEngineService;
-import com.pgt.search.service.ESSearchService;
 import com.pgt.search.service.TenderSearchEngineService;
+import com.pgt.util.TenderListUtil;
 import com.pgt.utils.PaginationBean;
+import com.pgt.utils.PaginationUtils;
 import com.pgt.utils.SearchConverToList;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,19 +50,28 @@ public class TenderListController {
     private CategorySearchEngineService categorySearchEngineService;
     @Autowired
     private ESConfiguration esConfiguration;
+    @Autowired
+    private PaginationUtils paginationUtils;
 
     @RequestMapping(value = "/tenderList", method = RequestMethod.GET)
-    public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "sorts", required = false) List<ESSort> esSorts,
-                            @RequestParam(value = "term", required = false) ESTerm esTerm,
-                            @RequestParam(value = "esTenderListFilter", required = false) ESTenderListFilter esTenderListFilter,
-                            @RequestParam(value = "paginationBean", required = false) PaginationBean paginationBean
+    public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "sort", required = false) Integer sort,
+                            @RequestParam(value = "keyword", required = false) String keyword,
+                            @RequestParam(value = "tenderFilter", required = false) Integer tenderFilter,
+                            @RequestParam(value = "cid", required = false) String categoryId,
+                            @RequestParam(value = "page", required = false) Integer currentIndex
     ) {
 
-        if (ObjectUtils.isEmpty(esTenderListFilter)) {
-
-        }
+        ESTenderListFilter esTenderListFilter = new ESTenderListFilter(categoryId);
+        TenderListUtil.buildESTenderListFilter(tenderFilter, esTenderListFilter);
+        CommPaginationBean paginationBean = paginationUtils.createPagination(currentIndex);
         LOGGER.debug("Begin to build tenderList.");
-        List<Map<String, Object>> tenderList = buildTenderList(esTerm, esTenderListFilter, paginationBean, esSorts);
+        ESSort esSort = TenderListUtil.getESSort(sort);
+        List<ESSort> esSorts = null;
+        if (!ObjectUtils.isEmpty(esSort)) {
+            esSorts = new ArrayList<>();
+            esSorts.add(esSort);
+        }
+        List<Map<String, Object>> tenderList = buildTenderList(keyword, esTenderListFilter, paginationBean, esSorts);
         modelAndView.addObject(ESConstants.TENDER_LIST_RESULT, tenderList);
         LOGGER.debug("Complete to begin tenderList.");
 
@@ -71,7 +81,7 @@ public class TenderListController {
         LOGGER.debug("Complete to begin categoryList.");
 
         LOGGER.debug("Begin to build paginationBean.");
-        paginationBean = buildPagination(paginationBean, modelAndView);
+        paginationBean = buildResultPagination(paginationBean, modelAndView);
         modelAndView.addObject(ESConstants.PAGINATION, paginationBean);
         LOGGER.debug("Complete to begin paginationBean.");
         modelAndView.setViewName("/tenderList/tenderList");
@@ -79,9 +89,10 @@ public class TenderListController {
 
     }
 
-    private PaginationBean buildPagination(PaginationBean paginationBean, ModelAndView modelAndView) {
+
+    private CommPaginationBean buildResultPagination(CommPaginationBean paginationBean, ModelAndView modelAndView) {
         if (ObjectUtils.isEmpty(paginationBean)) {
-            paginationBean = new PaginationBean();
+            paginationBean = new CommPaginationBean();
             paginationBean.setCurrentIndex(0);
         }
         List<Map<String, Object>> productList = (List<Map<String, Object>>) modelAndView.getModelMap().get(ESConstants.TENDER_LIST_RESULT);
@@ -94,23 +105,23 @@ public class TenderListController {
 
     @RequestMapping("/ajaxtenderList")
     public ResponseEntity ajaxGet(@RequestParam(value = "sorts", required = false) List<ESSort> esSorts,
-                                  @RequestParam(value = "term", required = false) ESTerm esTerm,
+                                  @RequestParam(value = "term", required = false) String keyword,
                                   @RequestParam(value = "esTenderListFilter", required = false) ESTenderListFilter esTenderListFilter,
                                   @RequestParam(value = "paginationBean", required = false) PaginationBean paginationBean
     ) {
         ResponseBuilder rb = responseBuilderFactory.buildResponseBean().setSuccess(true);
         Map<String, Object> data = new HashMap<>();
         rb.setData(data);
-        SearchResponse response = tenderSearchEngineService.findTenders(esTerm, esTenderListFilter, paginationBean, esSorts);
+        SearchResponse response = tenderSearchEngineService.findTenders(keyword, esTenderListFilter, paginationBean, esSorts);
         List list = SearchConverToList.searchConvertToList(response);
         data.put(ESConstants.TENDER_LIST_RESULT, list);
         return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 
     }
 
-    private List<Map<String, Object>> buildTenderList(ESTerm esTerm, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean,
+    private List<Map<String, Object>> buildTenderList(String keyword, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean,
                                                       List<ESSort> esSorts) {
-        SearchResponse response = tenderSearchEngineService.findTenders(esTerm, esTenderListFilter, paginationBean, esSorts);
+        SearchResponse response = tenderSearchEngineService.findTenders(keyword, esTenderListFilter, paginationBean, esSorts);
         List<Map<String, Object>> list = SearchConverToList.searchConvertToList(response);
         return list;
     }

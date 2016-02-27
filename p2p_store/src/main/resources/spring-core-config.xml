@@ -103,6 +103,11 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 				<value>keyWord</value>
 			</list>
 		</property>
+		<property name="tenderSearchProperties">
+			<list value-type="java.lang.String">
+				<value>tender.name</value>
+			</list>
+		</property>
 		<property name="useToSearch">
 			<list value-type="java.lang.String">
 				<value>name</value>
