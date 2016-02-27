@@ -229,7 +229,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, category,rootCategory);
+            ESTender esTender = new ESTender(tender, category, rootCategory);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -266,7 +266,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender,category, rootCategory);
+            ESTender esTender = new ESTender(tender, category, rootCategory);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -358,6 +358,12 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
     public SearchResponse findTenders(ESTerm esTerm, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean, List<ESSort> esSorts) {
 
         SearchResponse response = null;
+        if (ObjectUtils.isEmpty(paginationBean)) {
+            paginationBean = new PaginationBean();
+            paginationBean.setCapacity(esConfiguration.getTenderListCapacity());
+            paginationBean.setAsc(true);
+            paginationBean.setCurrentIndex(0);
+        }
         try {
             SearchRequestBuilder searchRequestBuilder;
             searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);

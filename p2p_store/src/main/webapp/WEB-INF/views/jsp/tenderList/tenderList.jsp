@@ -87,7 +87,7 @@
 				<div class="products">
 
 					<c:forEach items="${tenderListResult}" var="tenderItem">
-						<a href="#" class="item">
+						<a href="/tender/${tenderItem.tender.tenderId}" class="item">
 							<div class="item-img">
 								<img src="${tenderItem.tender.p2pFrontMedia.path}" alt=""/>
 							</div>
@@ -128,7 +128,7 @@
 									</c:when>
 								</c:choose>
 							</div>
-							<a class="invest-join-favorite" href="javascript:void(0);"></a>
+							<a class="invest-join-favorite" href=""></a>
 						</a>
 					</c:forEach>
 				</div>
