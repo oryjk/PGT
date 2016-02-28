@@ -52,17 +52,23 @@
     <div class="main">
         <h2 class="main-head">我的交易订单</h2>
         <ul class="filter-invest-status">
-            <li class="filter-invest-choose"><a href="javascript:void(0);">全部</a></li>
-            <li><a href="javascript:void(0);">在当</a></li>
+            <li class="filter-invest-choose"><a href="javascript:void(0);">在当</a></li>
             <li><a href="javascript:void(0);">绝当</a></li>
             <li class="filter-invest-end"><a href="javascript:void(0);">赎当</a></li>
         </ul>
         <ul class="filter-order-status">
+            <!-- super:下面的每个子项, 根据上面的逻辑出现或者不出现.在a上面加选中"filter-order-choose", 在最后一个li上面添加"filter-order-end"-->
             <li><a class="filter-order-choose" href="javascript:void(0);">全部</a></li>
-            <li><a href="javascript:void(0);">待付款</a></li>
-            <li><a href="javascript:void(0);">支付成功</a></li>
+            <!-- 在当-->
+            <li><a href="javascript:void(0);">未支付</a></li>
+            <li><a href="javascript:void(0);">已支付</a></li>
+            <!-- 绝当-->
+            <li><a href="javascript:void(0);">已发货</a></li>
+            <li><a href="javascript:void(0);">未发货</a></li>
             <li><a href="javascript:void(0);">订单完成</a></li>
-            <li class="filter-order-end"><a href="javascript:void(0);">已完成</a></li>
+            <!-- 赎当-->
+            <li><a href="javascript:void(0);">已赔付</a></li>
+            <li class="filter-order-end"><a href="javascript:void(0);">未赔付</a></li>
         </ul>
         <div class="order-list">
             <table>
@@ -92,9 +98,14 @@
                     <td>
                         <!-- super:下面几种状态选择其中一种展示-->
                         <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
+                        <span>已付款</span>
+
                         <span>订单完成</span>
-                        <span>已关闭</span>
+                        <span>已发货</span>
+                        <span>未发货</span>
+
+                        <span>已赔付</span>
+                        <span>未赔付</span>
                     </td>
                     <td class="order-handle">
                         <!-- 下面四种状态,根据不同情况进行展示-->
@@ -104,6 +115,7 @@
                         <p><a class="link-btn" href="#">删除订单</a></p>
                     </td>
                 </tr>
+
                 <tr class="order-list-item">
                     <td class="order-img">
                         <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
@@ -118,9 +130,14 @@
                     <td>
                         <!-- super:下面几种状态选择其中一种展示-->
                         <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
+                        <span>已付款</span>
+
                         <span>订单完成</span>
-                        <span>已关闭</span>
+                        <span>已发货</span>
+                        <span>未发货</span>
+
+                        <span>已赔付</span>
+                        <span>未赔付</span>
                     </td>
                     <td class="order-handle">
                         <!-- 下面四种状态,根据不同情况进行展示-->
@@ -130,6 +147,7 @@
                         <p><a class="link-btn" href="#">删除订单</a></p>
                     </td>
                 </tr>
+
                 <tr class="order-list-item">
                     <td class="order-img">
                         <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
@@ -144,9 +162,14 @@
                     <td>
                         <!-- super:下面几种状态选择其中一种展示-->
                         <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
+                        <span>已付款</span>
+
                         <span>订单完成</span>
-                        <span>已关闭</span>
+                        <span>已发货</span>
+                        <span>未发货</span>
+
+                        <span>已赔付</span>
+                        <span>未赔付</span>
                     </td>
                     <td class="order-handle">
                         <!-- 下面四种状态,根据不同情况进行展示-->
@@ -156,6 +179,7 @@
                         <p><a class="link-btn" href="#">删除订单</a></p>
                     </td>
                 </tr>
+
                 <tr class="order-list-item">
                     <td class="order-img">
                         <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
@@ -170,9 +194,14 @@
                     <td>
                         <!-- super:下面几种状态选择其中一种展示-->
                         <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
+                        <span>已付款</span>
+
                         <span>订单完成</span>
-                        <span>已关闭</span>
+                        <span>已发货</span>
+                        <span>未发货</span>
+
+                        <span>已赔付</span>
+                        <span>未赔付</span>
                     </td>
                     <td class="order-handle">
                         <!-- 下面四种状态,根据不同情况进行展示-->
@@ -182,6 +211,7 @@
                         <p><a class="link-btn" href="#">删除订单</a></p>
                     </td>
                 </tr>
+
                 <tr class="order-list-item">
                     <td class="order-img">
                         <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
@@ -196,9 +226,14 @@
                     <td>
                         <!-- super:下面几种状态选择其中一种展示-->
                         <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
+                        <span>已付款</span>
+
                         <span>订单完成</span>
-                        <span>已关闭</span>
+                        <span>已发货</span>
+                        <span>未发货</span>
+
+                        <span>已赔付</span>
+                        <span>未赔付</span>
                     </td>
                     <td class="order-handle">
                         <!-- 下面四种状态,根据不同情况进行展示-->
@@ -208,6 +243,7 @@
                         <p><a class="link-btn" href="#">删除订单</a></p>
                     </td>
                 </tr>
+
                 <tr class="order-list-item">
                     <td class="order-img">
                         <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
@@ -222,9 +258,14 @@
                     <td>
                         <!-- super:下面几种状态选择其中一种展示-->
                         <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
+                        <span>已付款</span>
+
                         <span>订单完成</span>
-                        <span>已关闭</span>
+                        <span>已发货</span>
+                        <span>未发货</span>
+
+                        <span>已赔付</span>
+                        <span>未赔付</span>
                     </td>
                     <td class="order-handle">
                         <!-- 下面四种状态,根据不同情况进行展示-->
@@ -234,6 +275,7 @@
                         <p><a class="link-btn" href="#">删除订单</a></p>
                     </td>
                 </tr>
+
                 <tr class="order-list-item">
                     <td class="order-img">
                         <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
@@ -248,9 +290,14 @@
                     <td>
                         <!-- super:下面几种状态选择其中一种展示-->
                         <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
+                        <span>已付款</span>
+
                         <span>订单完成</span>
-                        <span>已关闭</span>
+                        <span>已发货</span>
+                        <span>未发货</span>
+
+                        <span>已赔付</span>
+                        <span>未赔付</span>
                     </td>
                     <td class="order-handle">
                         <!-- 下面四种状态,根据不同情况进行展示-->
@@ -260,6 +307,7 @@
                         <p><a class="link-btn" href="#">删除订单</a></p>
                     </td>
                 </tr>
+
                 <tr class="order-list-item">
                     <td class="order-img">
                         <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
@@ -274,9 +322,14 @@
                     <td>
                         <!-- super:下面几种状态选择其中一种展示-->
                         <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
+                        <span>已付款</span>
+
                         <span>订单完成</span>
-                        <span>已关闭</span>
+                        <span>已发货</span>
+                        <span>未发货</span>
+
+                        <span>已赔付</span>
+                        <span>未赔付</span>
                     </td>
                     <td class="order-handle">
                         <!-- 下面四种状态,根据不同情况进行展示-->
@@ -286,58 +339,7 @@
                         <p><a class="link-btn" href="#">删除订单</a></p>
                     </td>
                 </tr>
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
-                        <span>订单完成</span>
-                        <span>已关闭</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>正在进行</span>
-                        <span>订单完成</span>
-                        <span>已关闭</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
+
                 <!-- tbody end-->
             </table>
         </div>
