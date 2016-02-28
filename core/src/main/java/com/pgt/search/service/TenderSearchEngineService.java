@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -229,7 +230,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, category,rootCategory);
+            ESTender esTender = new ESTender(tender, category, rootCategory);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -266,7 +267,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender,category, rootCategory);
+            ESTender esTender = new ESTender(tender, category, rootCategory);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -355,13 +356,21 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
     }
 
-    public SearchResponse findTenders(ESTerm esTerm, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean, List<ESSort> esSorts) {
+    public SearchResponse findTenders(String keyword, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean, List<ESSort> esSorts) {
 
         SearchResponse response = null;
+        if (ObjectUtils.isEmpty(paginationBean)) {
+            paginationBean = new PaginationBean();
+            paginationBean.setCapacity(esConfiguration.getTenderListCapacity());
+            paginationBean.setAsc(true);
+            paginationBean.setCurrentIndex(0);
+        }
         try {
             SearchRequestBuilder searchRequestBuilder;
             searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
-            buildSearchRequestBuilder(esTerm, esTenderListFilter, paginationBean, esSorts, searchRequestBuilder);
+            List<ESTerm> esTerms = buildESTerms(keyword,esConfiguration.getTenderSearchProperties());
+            buildSearchRequestBuilder(esTerms, esTenderListFilter, paginationBean, esSorts, searchRequestBuilder);
+            LOGGER.debug("The query is {}.",searchRequestBuilder.toString());
             response = searchRequestBuilder.execute()
                     .actionGet();
             return response;
@@ -370,4 +379,5 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         }
         return response;
     }
+
 }

@@ -132,7 +132,6 @@
 				<value>keyWord</value>
 			</list>
 		</property>
-
 		<property name="categoryAnalyzerFields">
 			<list value-type="java.lang.String">
 				<value>name</value>

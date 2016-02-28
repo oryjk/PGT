@@ -5,6 +5,14 @@ package com.pgt.search.bean;
  */
 public class ESTenderListFilter implements ESFilter {
 
+
+    public ESTenderListFilter() {
+    }
+
+    public ESTenderListFilter(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
     private boolean all = true;
     private boolean beginInMinute;
     private boolean underway;

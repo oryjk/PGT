@@ -4,6 +4,9 @@ import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
+import freemarker.template.utility.StringUtil;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
@@ -26,6 +29,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
@@ -151,14 +155,23 @@ public abstract class AbstractSearchEngineService {
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
     }
 
-    protected void buildSearchRequestBuilder(ESTerm esTerm, ESFilter esFilter, PaginationBean paginationBean,
+    /**
+     * need use this one.
+     *
+     * @param esTerms
+     * @param esFilter
+     * @param paginationBean
+     * @param esSorts
+     * @param searchRequestBuilder
+     */
+    protected void buildSearchRequestBuilder(List<ESTerm> esTerms, ESFilter esFilter, PaginationBean paginationBean,
                                              List<ESSort> esSorts, SearchRequestBuilder searchRequestBuilder) {
         BoolQueryBuilder boolQueryBuilder = boolQuery();
         searchRequestBuilder.setQuery(boolQueryBuilder);
-        if (!ObjectUtils.isEmpty(esTerm)) {
-            QueryStringQueryBuilder queryStringQueryBuilder = new QueryStringQueryBuilder(esTerm.getTermValue());
-            queryStringQueryBuilder.defaultField(esTerm.getPropertyName());
-            boolQueryBuilder.must(queryStringQueryBuilder);
+
+        String queryString = buildQueryString(esTerms);
+        if (!StringUtils.isEmpty(queryString)) {
+            boolQueryBuilder.must(QueryBuilders.queryStringQuery(queryString));
         }
         buildFilter(boolQueryBuilder, esFilter);
         buildSort(searchRequestBuilder, esSorts);
@@ -226,6 +239,45 @@ public abstract class AbstractSearchEngineService {
             e.printStackTrace();
         }
         return true;
+    }
+
+    protected String buildQueryString(List<ESTerm> esMatches) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (CollectionUtils.isEmpty(esMatches)) {
+            LOGGER.debug("The match term is empty.");
+            return null;
+        }
+        for (int i = 0; i < esMatches.size(); i++) {
+            ESTerm esTerm = esMatches.get(i);
+            if (i == 0) {
+                stringBuilder.append(esTerm.getPropertyName() + ":" + esTerm.getTermValue());
+                continue;
+            }
+            stringBuilder.append(" OR ");
+            stringBuilder.append(esTerm.getPropertyName() + ":" + esTerm.getTermValue());
+        }
+        return stringBuilder.toString();
+
+    }
+
+
+    protected List<ESTerm> buildESTerms(String keyword,List<String> searchProperties) {
+        if(StringUtils.isBlank(keyword)){
+            return null;
+        }
+
+        List<String> useToSearch  = searchProperties;
+        List<ESTerm> esTerms=new ArrayList<>();
+        if (!ObjectUtils.isEmpty(useToSearch)) {
+            final String finalTerm = keyword;
+            useToSearch.stream().forEach(s -> {
+                ESTerm esMatch = new ESTerm();
+                esMatch.setPropertyName(s);
+                esMatch.setTermValue(finalTerm);
+                esTerms.add(esMatch);
+            });
+        }
+        return esTerms;
     }
 
     public Configuration getConfiguration() {
