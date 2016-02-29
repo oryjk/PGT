@@ -26,7 +26,6 @@ body {
   @extend %clear;
   box-shadow: 0 0 2px 2px $gray-light;
   background: $gray-account;
-
 }
 
 .menu {
@@ -111,4 +110,9 @@ body {
   width: 906px;
   min-height: 733px;
   background: white;
+}
+
+.main-head {
+  padding: 26px 0 0 13px;
+  font-size: 18px;
 }

@@ -41,7 +41,7 @@ $(document).ready(function(){
 
         num++;
         if(num > limitQuantity){
-            alert("此款商品不允许买" +limitQuantity + "件");
+            alert("此商品购买的数量不能超过" +limitQuantity + "件");
             return ;
         }
         //set buy quantity

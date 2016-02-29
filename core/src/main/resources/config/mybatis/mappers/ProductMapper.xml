@@ -265,7 +265,7 @@
         VALUES
         (#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},
         #{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},
-        #{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type},#{pawnageStatus},#{stock})
+        #{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type},#{pawnageStatus},#{originStock})
     </insert>
 
     <update id="updateTenderProduct" parameterType="com.pgt.product.bean.P2PProduct">
