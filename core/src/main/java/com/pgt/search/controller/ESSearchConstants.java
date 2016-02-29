@@ -36,7 +36,7 @@ public class ESSearchConstants {
 	public static final String HOT_PROPERTY="isHot";
 	public static final String HOT_VALUE="true";
 	public static final Integer HOT_SIEZ=6;
-
+	public static final String SORT_PROPERTY="salePrice";
 	
 	
 	
