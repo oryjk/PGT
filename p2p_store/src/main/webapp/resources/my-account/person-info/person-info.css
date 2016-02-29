@@ -1,0 +1,122 @@
+/*import
+**************************************************************************************************************************************************/
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
+/*pop-up*/
+/*file*/
+/*style
+**************************************************************************************************************************************************/
+.person-info-tab-box {
+  padding: 30px 0 0 160px; }
+  .person-info-tab-box .person-info-tab {
+    padding-bottom: 5px;
+    margin-right: 40px;
+    font-size: 18px;
+    color: black; }
+  .person-info-tab-box .person-info-tab-choose {
+    border-bottom: 2px solid #fe4040;
+    color: #fe4040; }
+
+.person-info-box {
+  position: relative;
+  padding-top: 50px; }
+  .person-info-box label {
+    margin-right: 20px; }
+  .person-info-box .link-btn {
+    margin-left: 20px;
+    font-size: 14px; }
+
+.person-face {
+  position: absolute;
+  top: 70px;
+  right: 150px; }
+  .person-face img {
+    border: 2px solid #cccccc;
+    border-radius: 80px;
+    padding: 5px;
+    display: block;
+    margin: 0 auto;
+    width: 120px;
+    height: 120px; }
+  .person-face .like-file {
+    margin: 20px auto;
+    width: 120px;
+    height: 35px;
+    color: #fe4040;
+    position: relative;
+    border: 1px solid #fe4040;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px; }
+    .person-face .like-file:hover {
+      color: #d70101; }
+    .person-face .like-file .original-input-file {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer; }
+
+.modify-password-box {
+  padding-top: 50px; }
+
+tr {
+  height: 45px; }
+
+th {
+  width: 230px;
+  text-align: right;
+  vertical-align: middle; }
+
+td {
+  padding-left: 30px;
+  vertical-align: middle; }
+
+.input-text {
+  width: 250px;
+  height: 26px; }
+
+.error {
+  font-size: 14px;
+  color: #fe4040; }
+
+.person-info-submit {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 130px;
+  height: 40px;
+  font-size: 18px;
+  background: #fe4040;
+  border-radius: 3px;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  cursor: pointer; }
+  .person-info-submit:hover {
+    background: #d70101; }
+
+.person-info-cancel {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 120px;
+  height: 40px;
+  font-size: 18px;
+  background: #cccccc;
+  border-radius: 3px;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  color: black; }
+  .person-info-cancel:hover {
+    background: #bbb; }
+
+/*# sourceMappingURL=../../../maps/my-account/person-info/person-info.css.map */

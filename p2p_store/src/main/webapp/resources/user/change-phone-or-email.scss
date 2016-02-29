@@ -1,0 +1,115 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+
+/*part
+**************************************************************************************************************************************************/
+@include header;
+@include footer;
+
+/*style
+**************************************************************************************************************************************************/
+body {
+  background: #f3f3f3;
+}
+
+.content {
+  margin: 100px auto 50px;
+  padding-bottom: 50px;
+  border: 1px solid $gray-light;
+  width: $main-width;
+  background: white;
+}
+
+h2 {
+  padding: 28px 0 0 47px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.step {
+  margin: 56px auto 70px;
+  @include wh($main-width, 50px);
+  text-align: center;
+  background: white;
+
+  li {
+    float: left;
+    @include wh(33%, 100%);
+    line-height: 50px;
+  }
+}
+
+table {
+  table-layout: fixed;
+}
+
+tr {
+  height: 40px;
+}
+
+th {
+  width: 500px;
+  text-align: right;
+  vertical-align: middle;
+}
+
+td {
+  padding-left: 30px;
+  vertical-align: middle;
+}
+
+.input-text {
+  @include wh(200px, 30px);
+}
+
+.input-next {
+  @include color-btn(100px, 30px, 3px, 16px, $main, $main-dark);
+}
+
+.input-cancel {
+  @include color-btn(80px, 30px, 3px, 16px, $gray-light, #bbb);
+  color: black;
+}
+
+.error {
+  font-size: 14px;
+  color: $main;
+}
+
+.get-phone-confirm-code,
+.get-email-confirm-code {
+  margin-left: 20px;
+  @include color-btn(120px, 30px, 3px, 14px, $main, $main-dark);
+}
+
+.input-new {
+  .error {
+    padding-left: 20px;
+  }
+}
+
+.binding-success {
+  padding-left: 528px;
+
+  .success-row-1 {
+    font-size: 25px;
+    color: $main;
+  }
+
+  .success-row-2,
+  .success-row-3 {
+    padding-top: 20px;
+  }
+
+  .link-btn {
+    margin-right: 20px;
+  }
+}
