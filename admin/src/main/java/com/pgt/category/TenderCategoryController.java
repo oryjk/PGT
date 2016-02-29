@@ -9,7 +9,6 @@ import com.pgt.internal.bean.Role;
 import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
-import com.pgt.product.service.ProductService;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
@@ -37,8 +36,7 @@ public class TenderCategoryController extends InternalTransactionBaseController 
 
 	@Autowired
 	private CategoryService categoryService;
-	@Autowired
-	private ProductService  productService;
+
 	@Autowired
 	private Configuration   configuration;
 
@@ -58,11 +56,11 @@ public class TenderCategoryController extends InternalTransactionBaseController 
 	@RequestMapping(value = "/categoryList", method = RequestMethod.GET)
 	public ModelAndView get (HttpServletRequest pRequest, ModelAndView modelAndView, @RequestParam(value = "type", required = false) CategoryType categoryType,
 	                         @RequestParam(value = "currentIndex", required = false) Integer currentIndex) {
-		/*
+
 		if (!verifyPermission(pRequest)) {
 			return new ModelAndView(PERMISSION_DENIED);
 		}
-		*/
+
 		LOGGER.debug("Get all {} categories", categoryType);
 		if (ObjectUtils.isEmpty(categoryType)) {
 			LOGGER.debug("The category type is empty,use default category type tender_Root.");
@@ -94,12 +92,12 @@ public class TenderCategoryController extends InternalTransactionBaseController 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create (HttpServletRequest pRequest, ModelAndView modelAndView) {
 
-		/*
+
 		// verify permission
 		if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
 			return new ModelAndView(PERMISSION_DENIED);
 		}
-		*/
+
 		// main logic
 		LOGGER.debug("create GET.");
 		modelAndView.addObject("category", new Category());
@@ -111,11 +109,11 @@ public class TenderCategoryController extends InternalTransactionBaseController 
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView create (HttpServletRequest pRequest, Category category, ModelAndView modelAndView, BindingResult bindingResult) {
-		/*
+
 		// verify permission
 		if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
 			return new ModelAndView(PERMISSION_DENIED);
-		}*/
+		}
 		// main logic
 		LOGGER.debug("Begin create category.");
 		if (bindingResult.hasErrors()) {
@@ -142,12 +140,12 @@ public class TenderCategoryController extends InternalTransactionBaseController 
 	@RequestMapping(value = "/update/{categoryId}", method = RequestMethod.GET)
 	public ModelAndView update (HttpServletRequest pRequest, @PathVariable("categoryId") Integer categoryId, ModelAndView modelAndView) {
 
-		/*
+
 		// verify permission
 		if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
 			return new ModelAndView(PERMISSION_DENIED);
 		}
-		*/
+
 		// main logic
 		LOGGER.debug("Update category id is {}.", categoryId);
 		Category category = categoryService.queryCategory(categoryId);
@@ -162,12 +160,12 @@ public class TenderCategoryController extends InternalTransactionBaseController 
 
 	@RequestMapping(value = "/update/", method = RequestMethod.POST)
 	public ModelAndView update (HttpServletRequest pRequest, Category category, ModelAndView modelAndView, BindingResult bindingResult) {
-		/*
+
 		// verify permission
 		if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
 			return new ModelAndView(PERMISSION_DENIED);
 		}
-		*/
+
 		// main logic
 		if (bindingResult.hasErrors()) {
 			LOGGER.debug("Some property not valid.");
