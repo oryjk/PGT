@@ -54,27 +54,20 @@ var app = new Vue({
         },
         setDate: function(event){
             var data = this.$data.tender;
-            window.clearInterval(app.time);
-            app.time = window.setInterval(function(){
-                if(event.target.value.length >= 0){
-                    var key = event.target.__v_model.expression.split(".")[1];
-                    for(var o in data) {
-                        if (o == key) {
-                            data[o] = $("input[id=" + key + "]").val();
-                            console.log(data[o]);
-                            event.target.value = $("input[id=" + key + "]").val();
-                        }
-                    }
-                    app.excuteVolidata(event);
-                }
-            }, 10);
-            $(document).click(function(event){
-                if(event.target.nodeName != "INPUT" || event.target.nodeName == "A"){
-                    window.setTimeout(function(){
-                        window.clearInterval(app.time);
-                    }, 10);
-                }
-            })
+            var vue_event = event;
+            $(".calendar_daysCell").click(function(event){
+               if(event.target.nodeName == "A"){
+                   var key = vue_event.target.__v_model.expression.split(".")[1];
+                   for(var o in data) {
+                       if (o == key) {
+                           data[o] = $("input[id=" + key + "]").val();
+                           console.log(data[o]);
+                           vue_event.target.value = $("input[id=" + key + "]").val();
+                       }
+                   }
+                   app.excuteVolidata(vue_event);
+               }
+            });
         }
     }
 })
