@@ -58,11 +58,15 @@ public class TenderListController {
                             @RequestParam(value = "keyword", required = false) String keyword,
                             @RequestParam(value = "tenderFilter", required = false) Integer tenderFilter,
                             @RequestParam(value = "cid", required = false) String categoryId,
-                            @RequestParam(value = "page", required = false) Integer currentIndex
+                            @RequestParam(value = "page", required = false) Integer page
     ) {
 
         ESTenderListFilter esTenderListFilter = new ESTenderListFilter(categoryId);
         TenderListUtil.buildESTenderListFilter(tenderFilter, esTenderListFilter);
+        if (ObjectUtils.isEmpty(page)) {
+            page = 1;
+        }
+        Integer currentIndex = page - 1;
         CommPaginationBean paginationBean = paginationUtils.createPagination(currentIndex);
         LOGGER.debug("Begin to build tenderList.");
         ESSort esSort = TenderListUtil.getESSort(sort);

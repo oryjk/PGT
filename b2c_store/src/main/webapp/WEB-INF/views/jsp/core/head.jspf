@@ -8,6 +8,7 @@
     <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}${param.cssPath}"/>"/>
+    <meta property="qc:admins" content="10704026424116216216375" />
     <!--
     <script>
         var _hmt = _hmt || [];

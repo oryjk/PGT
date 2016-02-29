@@ -146,7 +146,7 @@
                                     <label class="col-md-3 control-label">开标时间:</label>
                                     <div class="col-md-4">
                                         <input id="publishDate" type="text" name="publishDate"
-                                               value="<fmt:formatDate value="${tender.publishDate}" type="both" />"
+                                               value="<fmt:formatDate value="${tender.publishDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>"
                                                class="form-control" placeholder="" maxlength="35"
                                                onfocus="$(this).calendar()"
                                                v-model="tender.publishDate"
@@ -163,7 +163,7 @@
                                     <label class="col-md-3 control-label">截止时间:</label>
                                     <div class="col-md-4">
                                         <input id="dueDate" type="text" name="dueDate"
-                                               value="<fmt:formatDate value="${tender.dueDate}" type="both" />"
+                                               value="<fmt:formatDate value="${tender.dueDate}" type="both" pattern="yyyy-MM-dd hh:mm"/>"
                                                class="form-control" placeholder="" maxlength="35"
                                                onfocus="$(this).calendar()"
                                                v-model="tender.dueDate"

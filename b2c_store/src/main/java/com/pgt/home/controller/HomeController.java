@@ -217,18 +217,24 @@ public class HomeController {
         paginationBean.setCapacity(ESSearchConstants.HOT_SIEZ);
         LOGGER.debug("The HOT_SIZE is {}",ESSearchConstants.HOT_SIEZ);
 
+        ESSort esSort = new ESSort();
+        esSort.setPropertyName(ESSearchConstants.SORT_PROPERTY);
+        esSort.setSortOrder(SortOrder.DESC);
+        List<ESSort> sortList= new ArrayList<>();
+        sortList.add(esSort);
+
         for (SearchHit category:categoryHist) {
                 HotProducts  hot = new HotProducts();
                 Integer categoryId = (Integer) category.getSource().get("id");
                 LOGGER.debug("The category Id is {}",categoryId);
-                SearchResponse categoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),listTerm ,null,paginationBean,null,null);
+                SearchResponse categoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),listTerm ,null,paginationBean,null,sortList);
 
                 if(!ObjectUtils.isEmpty(categoryProduct)){
                     SearchHits categoryProducts=categoryProduct.getHits();
                     SearchHit[] hotProducts =categoryProducts.getHits();
                     if(hotProducts.length<6){
                         LOGGER.debug("The hotProducts is less than 6,so find to all products");
-                        SearchResponse otherCategoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),null ,null,paginationBean,null,null);
+                        SearchResponse otherCategoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),null ,null,paginationBean,null,sortList);
                         SearchHits otherCategoryProducts=otherCategoryProduct.getHits();
                         hotProducts =otherCategoryProducts.getHits();
                     }

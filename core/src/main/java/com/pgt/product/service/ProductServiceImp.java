@@ -9,6 +9,7 @@ import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.mapper.TenderMapper;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,9 +99,12 @@ public class ProductServiceImp extends TransactionService implements ProductServ
                 product.setUpdateDate(new Date());
             }
             product.setType(ProductType.LIVE_PAWNAGE.toString());
-            Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
-            tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
+            product.setOriginStock(product.getStock());
             productMapper.createTenderProduct(product);
+            Tender tender = tenderMapper.queryTenderById(product.getTenderId(), false);
+            tender.setTenderTotal(tender.getTenderTotal() + product.getSalePrice() * product.getStock());
+            buildTenderStatus(tender);
+            tenderMapper.updateTender(tender);
         } catch (Exception e) {
             LOGGER.error("Some thing wrong when create a product with product is is {productId}",
                     product.getProductId());
@@ -109,6 +113,32 @@ public class ProductServiceImp extends TransactionService implements ProductServ
             getTransactionManager().commit(transactionStatus);
         }
         return product.getProductId();
+    }
+
+    private void buildTenderStatus(Tender tender) {
+        if (ObjectUtils.isEmpty(tender)) {
+            LOGGER.debug("The tender is empty.");
+            return;
+        }
+        List<P2PProduct> products = tender.getProducts();
+        if (CollectionUtils.isEmpty(products)) {
+            tender.setTenderStatus(P2PProductStatus.REVIEW_PAWNAGE);
+        }
+        final int[] livePawnage = new int[1];
+        products.stream().forEach(p2PProduct -> {
+            if (P2PProductStatus.LIVE_PAWNAGE == p2PProduct.getPawnageStatus()) {
+                tender.setTenderStatus(P2PProductStatus.LIVE_PAWNAGE);
+                return;
+            }
+        });
+        if (livePawnage.length == 0) {
+            if (((new Date().getTime() / 1000) - (tender.getDueDate().getTime() / 1000)) / (1000 * 60 * 60 * 24) <= 0) {
+                tender.setTenderStatus(P2PProductStatus.DEAD_PAWNAGE);
+                return;
+            }
+            tender.setTenderStatus(P2PProductStatus.REDEEM_PAWNAGE);
+            return;
+        }
     }
 
     @Override
@@ -185,43 +215,44 @@ public class ProductServiceImp extends TransactionService implements ProductServ
     public Integer updateTenderProduct(P2PProduct product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
-        Tender tender= tenderMapper.queryTenderById(product.getTenderId(),false);
-        Product old_product=productMapper.queryProduct(product.getProductId());
-        tender.setTenderTotal(tender.getTenderTotal()-old_product.getSalePrice()*old_product.getStock());
-        tender.setTenderTotal(tender.getTenderTotal()+product.getSalePrice()*product.getStock());
-        tenderMapper.updateTender(tender);
-        product.setType(ProductType.LIVE_PAWNAGE.toString());
-        productMapper.updateTenderProduct(product);
+            Product old_product = productMapper.queryProduct(product.getProductId());
+            product.setType(ProductType.LIVE_PAWNAGE.toString());
+            productMapper.updateTenderProduct(product);
+            Tender tender = tenderMapper.queryTenderById(product.getTenderId(), false);
+            tender.setTenderTotal(tender.getTenderTotal() - old_product.getSalePrice() * old_product.getStock());
+            tender.setTenderTotal(tender.getTenderTotal() + product.getSalePrice() * product.getStock());
+            buildTenderStatus(tender);
+            tenderMapper.updateTender(tender);
+        } catch (Exception e) {
+            LOGGER.error("Some thing wrong when update a product with product is is {productId}",
+                    product.getProductId());
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
+        return product.getProductId();
+    }
 
-    } catch (Exception e) {
-        LOGGER.error("Some thing wrong when update a product with product is is {productId}",
-                product.getProductId());
-        getTransactionManager().rollback(transactionStatus);
-    } finally {
-        getTransactionManager().commit(transactionStatus);
-    }
-    return product.getProductId();
-    }
     @Override
     public Integer updateProduct(Product product) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
 
-                productMapper.updateProduct(product);
-                mediaMapper.deleteAllProductMedia(product.getProductId());
-                mediaMapper.createMedia(product.getThumbnailMedia());
-                mediaMapper.createMedia(product.getAdvertisementMedia());
-                mediaMapper.createMedia(product.getFrontMedia());
-                mediaMapper.createMedia(product.getExpertMedia());
-                if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
-                    product.getHeroMedias().stream().forEach(productMedia -> {
-                        mediaMapper.createMedia(productMedia);
-                    });
-                }
-                if (!ObjectUtils.isEmpty(product.getMainMedias())) {
-                    product.getMainMedias().stream().forEach(productMedia -> {
-                        mediaMapper.createMedia(productMedia);
-                    });
+            productMapper.updateProduct(product);
+            mediaMapper.deleteAllProductMedia(product.getProductId());
+            mediaMapper.createMedia(product.getThumbnailMedia());
+            mediaMapper.createMedia(product.getAdvertisementMedia());
+            mediaMapper.createMedia(product.getFrontMedia());
+            mediaMapper.createMedia(product.getExpertMedia());
+            if (!ObjectUtils.isEmpty(product.getHeroMedias())) {
+                product.getHeroMedias().stream().forEach(productMedia -> {
+                    mediaMapper.createMedia(productMedia);
+                });
+            }
+            if (!ObjectUtils.isEmpty(product.getMainMedias())) {
+                product.getMainMedias().stream().forEach(productMedia -> {
+                    mediaMapper.createMedia(productMedia);
+                });
             }
 
         } catch (Exception e) {

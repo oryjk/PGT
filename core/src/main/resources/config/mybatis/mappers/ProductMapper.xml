@@ -265,7 +265,7 @@
         VALUES
         (#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},
         #{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},
-        #{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type},#{pawnageStatus},#{stock})
+        #{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type},#{pawnageStatus},#{originStock})
     </insert>
 
     <update id="updateTenderProduct" parameterType="com.pgt.product.bean.P2PProduct">
@@ -290,7 +290,7 @@
 		UPDATE PRODUCT SET
 		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
 		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
-		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type}}
+		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type}
 		WHERE PRODUCT_ID=#{productId}
 	</update>
     <delete id="deleteProduct" parameterType="int">

@@ -14,14 +14,15 @@ import org.springframework.util.ObjectUtils;
 @Scope(value = "singleton")
 public class PaginationUtils {
     @Autowired
-    private  ESConfiguration esConfiguration;
+    private ESConfiguration esConfiguration;
 
     public CommPaginationBean createPagination(Integer currentIndex) {
         if (ObjectUtils.isEmpty(currentIndex)) {
-            currentIndex = 1;
+            currentIndex = 0;
         }
+
         CommPaginationBean paginationBean = new CommPaginationBean();
-        paginationBean.setCurrentIndex(currentIndex);
+        paginationBean.setCurrentIndex(currentIndex * esConfiguration.getTenderListCapacity());
         paginationBean.setCapacity(esConfiguration.getTenderListCapacity());
         return paginationBean;
     }
