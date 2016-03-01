@@ -10,6 +10,13 @@
     <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/user/login.css"/>"/>
 </head>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101296740" data-redirecturi="http://dev.b2c.dianjinzi.com" charset="utf-8"></script>
+<span id="qqLoginBtn"></span>
+<script type="text/javascript">
+    QC.Login({
+        btnId:"qqLoginBtn"    //插入按钮的节点id
+    });
+</script>
 <body>
 <div class="header" id="header">
     <jsp:include page="../core/header-simple.jsp"/>
