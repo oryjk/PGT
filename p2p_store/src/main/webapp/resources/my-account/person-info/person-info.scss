@@ -1,0 +1,95 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../../core/scss/variable',
+'../../core/scss/commomExtend',
+'../../core/scss/commonMixin',
+'../../core/scss/components';
+
+/*style
+**************************************************************************************************************************************************/
+.person-info-tab-box {
+  padding: 30px 0 0 160px;
+
+  .person-info-tab {
+    padding-bottom: 5px;
+    margin-right: 40px;
+    font-size: 18px;
+    color: black;
+  }
+
+  .person-info-tab-choose {
+    border-bottom: 2px solid $main;
+    color: $main;
+  }
+}
+
+.person-info-box {
+  position: relative;
+  padding-top: 50px;
+
+  label {
+    margin-right: 20px;
+  }
+
+  .link-btn {
+    margin-left: 20px;
+    font-size: 14px;
+  }
+}
+
+.person-face {
+  position: absolute;
+  top: 70px;
+  right: 150px;
+
+  img {
+    border: 2px solid $gray-light;
+    border-radius: 80px;
+    padding: 5px;
+    display: block;
+    margin: 0 auto;
+    @include wh(120px, 120px);
+  }
+
+  .like-file {
+    margin: 20px auto;
+    @include like-file(120px, 35px, 16px);
+  }
+}
+
+.modify-password-box {
+  padding-top: 50px;
+}
+
+tr {
+  height: 45px;
+}
+
+th {
+  width: 230px;
+  text-align: right;
+  vertical-align: middle;
+}
+
+td {
+  padding-left: 30px;
+  vertical-align: middle;
+}
+
+.input-text {
+  @include wh(250px, 26px);
+}
+
+.error {
+  font-size: 14px;
+  color: $main;
+}
+
+.person-info-submit {
+  @include color-btn(130px, 40px, 3px, 18px, $main, $main-dark);
+}
+
+.person-info-cancel {
+  @include color-btn(120px, 40px, 3px, 18px, $gray-light, #bbb);
+  color: black;
+}

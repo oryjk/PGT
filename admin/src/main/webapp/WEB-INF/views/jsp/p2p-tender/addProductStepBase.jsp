@@ -100,8 +100,7 @@
 								<label class="control-label col-xs-3">典当状态</label>
 								<div class="col-xs-9">
 									<div class="radio-list">
-										<select path="pawnageStatus" class="form-control input-medium">
-											<option value="10">请选择</option>
+										<select name="pawnageStatus" class="form-control input-medium">
 											<option value="10">在当期状态</option>
 											<option value="20">绝当状态</option>
 											<option value="30">赎当状态</option>

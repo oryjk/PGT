@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="../my_account_base.css"/>
-    <link rel="stylesheet" href="my-property.css"/>
+    <link rel="stylesheet" href="person-info.css"/>
 </head>
 <body>
 <!--header begin-->
@@ -50,62 +50,123 @@
         </div>
     </div>
     <div class="main">
-        <h2 class="main-head">我的交易订单</h2>
+        <h2 class="main-head">个人信息</h2>
         <!-- super: will-binding和already-binding,根据不同的情况显示和隐藏-->
-        <div class="will-binding" style="display: block;">
-            <div class="will-row-1">
-                您还没有绑定易宝!
-            </div>
-            <div class="will-row-2">
-                为了您的购物更加安全方便快捷,淘在当网站推荐用户与易宝进行支付绑定!
-            </div>
-            <div class="will-row-3">
-                <a class="yeepay-binding" href="#">绑定易宝</a>
-                <span class="yeepay-tips">点击跳转到易宝绑定页面</span>
-            </div>
+        <div class="person-info-tab-box">
+            <a class="person-info-tab person-info-tab-choose" href="#">基本信息</a>
+            <a class="person-info-tab" href="#">修改登录密码</a>
         </div>
-        <div class="already-binding" style="display: block;">
-            <div class="already-row-1">
-                <span>已绑定易宝账号:</span>
-                <span class="yeepay-username">157****0997</span>
-                <a class="yeepay-goto" href="#">进入易宝</a>
-            </div>
-            <div class="already-row-2">
-                <div class="already-title">易宝余额</div>
-                <div class="already-value">
-                    <span class="cost">¥</span><span class="cost">12,000.00</span>
-                    <a class="yeepay-shift-into" href="javascript:void(0);">转入</a>
-                    <a class="yeepay-shift-out link-btn" href="javascript:void(0);">转出</a>
+        <!-- super: person-info-box和modify-password-box根据不同的情况显示-->
+        <!-- person-info-box begin-->
+        <div class="person-info-box" style="display: block;">
+            <form action="">
+                <table>
+                    <tr>
+                        <th>用户名:</th>
+                        <td>tangchao111</td>
+                    </tr>
+                    <tr>
+                        <th>真实姓名:</th>
+                        <td><input class="input-text" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <th>手机号码:</th>
+                        <td>
+                            <span>13198585611</span>
+                            <a class="link-btn" href="#">更换</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>性别:</th>
+                        <td>
+                            <label><input type="radio" name="gender"/>男</label>
+                            <label><input type="radio" name="gender"/>女</label>
+                            <label><input type="radio" name="gender"/>保密</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>邮箱:</th>
+                        <td>
+                            <span>819127251@qq.com</span>
+                            <a class="link-btn" href="#">更换</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>身份证号码:</th>
+                        <td><input class="input-text" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <th>婚姻状况:</th>
+                        <td>
+                            <label><input type="radio" name="marriage"/>已婚</label>
+                            <label><input type="radio" name="marriage"/>未婚</label>
+                            <label><input type="radio" name="marriage"/>保密</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>所在行业:</th>
+                        <td><input class="input-text" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <th>年收入:</th>
+                        <td><input class="input-text" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><span class="error">错误提示</span></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="person-info-submit" type="button" value="确认修改"/>
+                            <input class="person-info-cancel" type="button" value="放弃修改"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <form class="person-face" action="#">
+                <img src="../../core/images/my_account/" alt=""/>
+                <!--file begin-->
+                <div class="like-file">
+                    点击上传头像
+                    <input class="original-input-file" type="file" value="上传">
                 </div>
-            </div>
-            <div class="already-row-3">
-                <div class="already-title">易宝账户:</div>
-                <div class="already-value">157****0097</div>
-            </div>
-            <div class="already-row-4">
-                <div class="already-title">账户类型:</div>
-                <div class="already-value">个人账户</div>
-            </div>
-            <div class="already-row-5">
-                <div class="already-title">绑定状态:</div>
-                <div class="already-value">
-                    <span>已于点金子进行绑定</span>
-                    <a class="yeepay-un-binding link-btn" href="javascript:void(0);">解绑</a>
-                </div>
-            </div>
-            <div class="already-row-6">
-                <div class="already-title">姓名:</div>
-                <div class="already-value">核弹</div>
-            </div>
-            <div class="already-row-7">
-                <div class="already-title">绑定手机号:</div>
-                <div class="already-value">157****0097</div>
-            </div>
-            <div class="already-row-8">
-                <div class="already-title">身份证号:</div>
-                <div class="already-value">4*****************1</div>
-            </div>
+                <!-- file end-->
+            </form>
         </div>
+        <!-- person-info-box end-->
+
+        <!-- modify-password-box begin-->
+        <div class="modify-password-box" style="display: block;">
+            <form action="">
+                <table>
+                    <tr>
+                        <th>旧密码:</th>
+                        <td><input class="input-text" type="password"/></td>
+                    </tr>
+                    <tr>
+                        <th>新密码:</th>
+                        <td><input class="input-text" type="password"/></td>
+                    </tr>
+                    <tr>
+                        <th>确认密码:</th>
+                        <td><input class="input-text" type="password"/></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><span class="error">错误提示</span></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="person-info-submit" type="button" value="确认修改"/>
+                            <input class="person-info-cancel" type="button" value="放弃修改"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <!-- modify-password-box end-->
     </div>
 </div>
 

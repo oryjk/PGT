@@ -11,28 +11,7 @@ Vue.prototype.excuteVolidata = function (event) {
     var regex_entity = this.regexEntity;
     for (var o in regex_entity) {
         if (o == key) {
-            if (regex_entity[o].notRegex) {
-                if ($.trim(val) == "") {
-                    event.target.style.outline = "1px solid red";
-                    for (var key in this.volidateEntity) {
-                        if (o.match(key)) {
-                            this.volidateEntity[key] = regex_entity[o].error;
-                        }
-                    }
-                }
-                else {
-                    event.target.style.outline = "1px solid green";
-                    for (var key in this.volidateEntity) {
-                        if (o.match(key)) {
-                            this.volidateEntity[key] = true;
-                        }
-                    }
-                }
-
-                continue;
-            }
-
-            if (val.match(regex_entity[o].regex) == null) {//不匹配正则
+            if (val.match(regex_entity[o].regex) == null || val.length <= 0) {//不匹配正则
                 event.target.style.outline = "1px solid red";
                 for (var key in this.volidateEntity) {
                     if (o.match(key)) {
@@ -102,7 +81,7 @@ Vue.prototype.submitVolidata = function (funData, fun) {
             var flag = o.split(".")[1];
             for (var key in data) {
                 if (flag == key) {
-                    if (data[key].match(regex_entity[o].regex) == null) {
+                    if (data[key].match(regex_entity[o].regex) == null || data[key].length <= 0) {
                         for (var v in this.volidateEntity) {
                             if (flag == v) {
                                 this.volidateEntity[v] = regex_entity[o].error;

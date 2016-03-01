@@ -248,3 +248,29 @@
     color: black;
   }
 }
+
+/*file*/
+@mixin like-file($width:100px, $height: 25px, $fontSize:14px) {
+  @include wh($width, $height);
+  color: $main;
+  position: relative;
+  border: 1px solid $main;
+  border-radius: 3px;
+  text-align: center;
+  line-height: $height;
+  font-size: $fontSize;
+
+  &:hover {
+    color: $main-dark;
+  }
+
+  .original-input-file {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+}

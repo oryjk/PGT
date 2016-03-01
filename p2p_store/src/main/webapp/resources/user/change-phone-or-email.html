@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="../my_account_base.css"/>
-    <link rel="stylesheet" href="my-property.css"/>
+    <link rel="stylesheet" href="change-phone-or-email.css"/>
 </head>
 <body>
 <!--header begin-->
@@ -29,85 +28,117 @@
 </div>
 <!--header end-->
 
+<!--content begin-->
 <div class="content">
-    <div class="menu">
-        <div class="user-face">
-            <div class="img-box"><img src="" alt=""/></div>
-            <p class="face-title">用户名</p>
-        </div>
-        <ul class="menu-list">
-            <li><a href="#">我的交易单</a></li>
-            <li><a class="menu-choose" href="#">我的资产</a></li>
-            <li><a href="#">我的收藏</a></li>
-            <li><a href="#">最近浏览</a></li>
-            <li><a href="#">个人信息</a></li>
-            <li><a href="#">地址管理</a></li>
-            <li><a href="#">修改密码</a></li>
-        </ul>
-        <div class="menu-two-dimension">
-            <img src="" alt=""/>
-            <p>扫一扫,淘在当手机版</p>
+    <h2>忘记密码</h2>
+    <!-- step begin-->
+    <!--super: 下面四步依次加上step-1到step-3-->
+    <ul class="step step-1">
+        <li>订单详情</li>
+        <li>订单确认</li>
+        <li>支付</li>
+    </ul>
+    <!--step end-->
+
+    <!-- super: 一下四个步骤,根据不同的步骤进行显示-->
+    <!-- input-password begin-->
+    <form class="input-password"  style="display: block">
+        <table>
+            <!-- super: 原手机号和原邮箱号根据情况显示-->
+            <tr>
+                <th>原手机号 :</th>
+                <td>13198585611</td>
+            </tr>
+
+            <tr>
+                <th>原邮箱号 :</th>
+                <td>13198585611</td>
+            </tr>
+
+            <tr>
+                <th>输入密码 :</th>
+                <td>
+                    <input class="input-text" type="text"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th></th>
+                <td><span class="error">错误提示!</span></td>
+            </tr>
+
+            <tr>
+                <th></th>
+                <td>
+                    <input class="input-next" type="button" value="下一步"/>
+                    <input class="input-cancel" type="button" value="取消"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <!-- input-username end-->
+
+    <!-- test-identity begin-->
+    <form class="input-new"  style="display: block">
+        <table>
+            <!-- 手机号或者邮箱号根据情况显示-->
+            <tbody>
+            <tr>
+                <th>手机号码 :</th>
+                <td>
+                    <input class="input-text" type="text"/>
+                    <input class="get-phone-confirm-code" type="button" value="获取手机验证码"/>
+                </td>
+            </tr>
+            <tr>
+                <th>手机验证码 :</th>
+                <td>
+                    <input class="input-text" type="text"/>
+                    <span class="error">错误提示!</span>
+                </td>
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+                <th>邮箱号码 :</th>
+                <td>
+                    <input class="input-text" type="text"/>
+                    <input class="get-email-confirm-code" type="button" value="获取邮箱验证码"/>
+                </td>
+            </tr>
+            <tr>
+                <th>邮箱验证码 :</th>
+                <td>
+                    <input class="input-text" type="text"/>
+                    <span class="error">错误提示!</span>
+                </td>
+            </tr>
+            </tbody>
+
+            <tr>
+                <th></th>
+                <td>
+                    <input class="input-next" type="button" value="下一步"/>
+                    <input class="input-cancel" type="button" value="取消"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <!-- test-identity end-->
+
+    <!-- reset-success begin-->
+    <div class="binding-success" style="display: block">
+        <div class="success-row-1">恭喜您!修改绑定成功!</div>
+        <!--<div class="success-row-2">请牢记您的新密码</div>-->
+        <div class="success-row-3">
+            <a class="link-btn" href="#">返回首页</a>
+            <a class="link-btn" href="#">立即登录</a>
         </div>
     </div>
-    <div class="main">
-        <h2 class="main-head">我的交易订单</h2>
-        <!-- super: will-binding和already-binding,根据不同的情况显示和隐藏-->
-        <div class="will-binding" style="display: block;">
-            <div class="will-row-1">
-                您还没有绑定易宝!
-            </div>
-            <div class="will-row-2">
-                为了您的购物更加安全方便快捷,淘在当网站推荐用户与易宝进行支付绑定!
-            </div>
-            <div class="will-row-3">
-                <a class="yeepay-binding" href="#">绑定易宝</a>
-                <span class="yeepay-tips">点击跳转到易宝绑定页面</span>
-            </div>
-        </div>
-        <div class="already-binding" style="display: block;">
-            <div class="already-row-1">
-                <span>已绑定易宝账号:</span>
-                <span class="yeepay-username">157****0997</span>
-                <a class="yeepay-goto" href="#">进入易宝</a>
-            </div>
-            <div class="already-row-2">
-                <div class="already-title">易宝余额</div>
-                <div class="already-value">
-                    <span class="cost">¥</span><span class="cost">12,000.00</span>
-                    <a class="yeepay-shift-into" href="javascript:void(0);">转入</a>
-                    <a class="yeepay-shift-out link-btn" href="javascript:void(0);">转出</a>
-                </div>
-            </div>
-            <div class="already-row-3">
-                <div class="already-title">易宝账户:</div>
-                <div class="already-value">157****0097</div>
-            </div>
-            <div class="already-row-4">
-                <div class="already-title">账户类型:</div>
-                <div class="already-value">个人账户</div>
-            </div>
-            <div class="already-row-5">
-                <div class="already-title">绑定状态:</div>
-                <div class="already-value">
-                    <span>已于点金子进行绑定</span>
-                    <a class="yeepay-un-binding link-btn" href="javascript:void(0);">解绑</a>
-                </div>
-            </div>
-            <div class="already-row-6">
-                <div class="already-title">姓名:</div>
-                <div class="already-value">核弹</div>
-            </div>
-            <div class="already-row-7">
-                <div class="already-title">绑定手机号:</div>
-                <div class="already-value">157****0097</div>
-            </div>
-            <div class="already-row-8">
-                <div class="already-title">身份证号:</div>
-                <div class="already-value">4*****************1</div>
-            </div>
-        </div>
-    </div>
+    <!-- reset-success end-->
 </div>
+<!--content end-->
 
 <!--footer begin-->
 <div class="footer" id="footer">
@@ -207,28 +238,28 @@
         <div class="us">
             <div class="our-app">
                 <a class="apple-dimension" href="#">
-                    <img class="app-icon" src="../../core/images/footer/apple.png" alt="苹果客户端下载"/>
+                    <img class="app-icon" src="../core/images/footer/apple.png" alt="苹果客户端下载"/>
 
                     <h3>苹果客户端</h3>
-                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="android-dimension" href="#">
-                    <img class="app-icon" src="../../core/images/footer/android.png" alt="安卓客户端下载"/>
+                    <img class="app-icon" src="../core/images/footer/android.png" alt="安卓客户端下载"/>
 
                     <h3>安卓客户端</h3>
-                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="online-server" href="#">
-                    <img class="app-icon" src="../../core/images/footer/weixin.png" alt="微信客户端下载"/>
+                    <img class="app-icon" src="../core/images/footer/weixin.png" alt="微信客户端下载"/>
 
                     <h3>微信公众号</h3>
-                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="online-server" href="#">
-                    <img class="app-icon" src="../../core/images/footer/weibo.png" alt="点金子在线投资"/>
+                    <img class="app-icon" src="../core/images/footer/weibo.png" alt="点金子在线投资"/>
 
                     <h3>点金子投资</h3>
-                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
             </div>
             <div class="our-info">
@@ -246,10 +277,10 @@
     <div class="approve-box">
         <div class="approve">
             <a href="#">
-                <img src="../../core/images/footer/approve-0.png" alt=""/>
+                <img src="../core/images/footer/approve-0.png" alt=""/>
             </a>
             <a href="#">
-                <img src="../../core/images/footer/approve-1.jpg" alt=""/>
+                <img src="../core/images/footer/approve-1.jpg" alt=""/>
             </a>
         </div>
         <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
