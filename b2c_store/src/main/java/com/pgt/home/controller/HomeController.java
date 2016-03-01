@@ -219,7 +219,7 @@ public class HomeController {
 
         ESSort esSort = new ESSort();
         esSort.setPropertyName(ESSearchConstants.SORT_PROPERTY);
-        esSort.setSortOrder(SortOrder.DESC);
+        esSort.setSortOrder(SortOrder.ASC);
         List<ESSort> sortList= new ArrayList<>();
         sortList.add(esSort);
 
