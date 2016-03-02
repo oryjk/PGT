@@ -27,7 +27,7 @@
                     <li>
                         <a href="#">手机绝当品</a>
                     </li>
-                    <li><a href="#">帮助中心</a></li>
+                    <li><a href="<spring:url value="${urlConfiguration.helpCenterPage}"/>">帮助中心</a></li>
                     <li><a href="#">网站导航</a></li>
                 </ul>
                 <ul class="have-login">

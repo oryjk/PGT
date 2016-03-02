@@ -64,6 +64,25 @@ public class User implements Serializable {
     private String smsError;
     private String phoneExist;
     private String yeepayUserNo;
+    private String  qqAccessToken;
+    private String qqOpenid;
+
+
+    public String getQqAccessToken() {
+        return qqAccessToken;
+    }
+
+    public void setQqAccessToken(String qqAccessToken) {
+        this.qqAccessToken = qqAccessToken;
+    }
+
+    public String getQqOpenid() {
+        return qqOpenid;
+    }
+
+    public void setQqOpenid(String qqOpenid) {
+        this.qqOpenid = qqOpenid;
+    }
 
     public String getYeepayUserNo() {
         return yeepayUserNo;

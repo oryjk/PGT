@@ -14,13 +14,111 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
-task copyWar << {
-    println 'Hello world!'
+//加载properties配置文件
+File configFile = file('src/main/resources/gradle.properties')
+FileInputStream inputStream = new FileInputStream(configFile)
+Properties properties = new Properties()
+properties.load(inputStream)
+
+//定义jetty的webapp路径
+def JETTYURL = properties.getProperty("JETTYURL")
+//定义项目路径
+def PROJECTURL = properties.get("PROJECTURL")
+
+
+
+
+
+
+
+
+/**
+ * 定义命令行打包
+ */
+//输入打包的项目
+//def warName
+//输入war重命名的名字
+//def newWarName
+//task buildToWebapps {
+//    doLast{
+//        println "war name is $warName"
+//        String url = "/home/liqiang/Projects/PGT/" + warName + "/build/libs/"
+//        def f = new File("/home/liqiang/Projects/jetty-distribution-9.3.6.v20151106/webapps/" + warName + ".war")
+//        try{
+//            if(f.exists() && f.isFile()){
+//                f.delete();
+//                println "del same war"
+//            }
+//        }catch(Exception e){
+//            e.printStackTrace()
+//        }finally{
+//            println "copy to webapp"
+//            copy{
+//                from url
+//                into JETTYURL
+//                if(newWarName != ''){
+//                    rename('admin.war',newWarName + ".war")
+//                }
+//            }
+//            println "copy finish"
+//        }
+//    }
+//    doFirst{
+//        warName = System.console().readLine("\n please Enter your war of project name:")
+//        newWarName = System.console().readLine("\n please Enter your war rename:")
+//    }
+//}
+
+
+/**
+ * 通过配置properties打包
+ * 根据实践 - grovvy通过修改 shell脚本 动态生成war 包
+ * shell 脚本需要 chmod +x 文件名.sh 授权
+ */
+//查找properties配置文件
+task buildThoughWeb << {
+    for(def key : properties.propertyNames()){
+        boolean  flag = properties.getProperty(key)
+        if(flag == true && key != "JETTYURL" && key != "PROJECTURL" && key != "SH"){
+            String url = PROJECTURL + key + "/build/libs/"
+            def fs = new File(JETTYURL + key + ".war")
+            try{
+                if(fs.exists() && fs.isFile()){
+                    fs.delete();
+                    println "del same war"
+                }
+                String shUrl = properties.getProperty("SH")
+                Process p= shUrl.execute();
+                p.waitFor();
+            }catch(Exception e){
+                e.printStackTrace()
+            }finally{
+                println "copy to webapp"
+                copy{
+                    from url
+                    into JETTYURL
+                }
+                println "copy finish"
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+//task copyWar << {
+//    println 'Hello world!'
+//}
 
 //task copyWar << {
 //    copy {
 //        from '/home/liqiang/Projects/PGT/b2c_store/build/libs/'
 //        into '/home/liqiang/Projects/jetty-distribution-9.3.6.v20151106/webapps/'
+//        rename('admin.war','baidu.war')   第一个参数是项目名，第二个参数是修改后的名字
 //    }
 //}

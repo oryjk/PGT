@@ -180,7 +180,7 @@
                                     <label class="col-md-3 control-label">违约赔付利率:</label>
                                     <div class="col-md-4">
                                         <input type="text"
-                                               class="form-control" name="interestRate" value="${tender.interestRate}" placeholder="违约赔付利率"
+                                               class="form-control" name="interestRate" value="${tender.interestRate*100}" placeholder="违约赔付利率"
                                                v-model="tender.interestRate"
                                                v-on:keyup="volidate">
                                     </div>
@@ -228,7 +228,7 @@
                                     <label class="col-md-3 control-label">手续费费率:</label>
                                     <div class="col-md-4">
                                         <input type="text"
-                                               class="form-control" name="handlingFeeRate" value="${tender.handlingFeeRate}" placeholder="手续费费率"
+                                               class="form-control" name="handlingFeeRate" value="${tender.handlingFeeRate*100}" placeholder="手续费费率"
                                                v-model="tender.handlingFeeRate"
                                                v-on:keyup="volidate">
                                     </div>

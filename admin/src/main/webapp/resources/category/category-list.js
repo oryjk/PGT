@@ -15,6 +15,13 @@
 //    }
 //});
 
+
+$("#term").change(function(){
+    $("#term_hidden").val($(this).val())
+    $('#submitBtn').click();
+});
+
+
 $('#categorySelect').change(function() {
     var $this = $(this);
     window.location = '/category/getSubCategories/' + $this.val();

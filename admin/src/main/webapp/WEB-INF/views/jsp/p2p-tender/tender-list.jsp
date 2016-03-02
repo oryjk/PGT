@@ -51,17 +51,8 @@
                                 <div class="row">
                                     <div class="col-md-2 col-sm-2">
                                         <div class="dataTables_filter">
-                                            <label>ID:
-                                                <input
-                                                       class="form-control input-small input-inline" placeholder="订单ID"
-                                                       aria-controls="sample_3"/>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-sm-2">
-                                        <div class="dataTables_filter">
-                                            <label>标名:
-                                                <input
+                                            <label>名称:
+                                                <input id="term"
                                                        class="form-control input-small input-inline" placeholder=""
                                                        aria-controls="sample_3">
                                             </label>
@@ -87,9 +78,8 @@
                                                         class="form-control input-small input-inline select2-offscreen"
                                                         tabindex="-1" title="">
                                                     <option value="-1">所有</option>
-                                                    <option value="5">状态1</option>
-                                                    <option value="15">状态1</option>
-                                                    <option value="20">状态1</option>
+                                                    <option value="5">启用</option>
+                                                    <option value="15">禁用</option>
                                                 </select>
                                             </label>
                                         </div>
@@ -411,9 +401,10 @@
                                     <div class="col-xs-2">
                                         <form class="dataTables_filter pgt-goto-page" action="/tender/tenderList" method="get">
                                             <label>
+                                                <input id="term_hidden" type="hidden" name="term">
                                                 <input type="search" value="${currentIndex+1}" name="currentIndex"
                                                        class="form-control input-xsmall input-inline" placeholder="第几页">
-                                                <input type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
+                                                <input id="submitBtn" type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
                                             </label>
                                         </form>
                                     </div>
