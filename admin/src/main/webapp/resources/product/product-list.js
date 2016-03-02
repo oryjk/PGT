@@ -40,6 +40,43 @@ $(document).on('click', '[data-pgt-btn="delete"]', function () {
 });
 
 
+$("#updateIndex").click(function(){
+
+    var list = new Array();
+    var i = 0;
+
+    $("input[type='checkbox']").each(function(){
+
+       if($(this).is(":checked")) {
+
+           if($(this).attr("id")!='checkAll') {
+
+               list[i] = $(this).parent().next().text();
+               i++;
+           }
+
+       }
+   });
+
+
+    $.ajax({
+        type: "POST",
+        url: "/product/update/index",
+        data: {
+            products: list.toString(),
+        },
+        success: function(status){
+
+          if(status.status=='success'){
+              alert("同步成功!");
+          }
+
+        }
+    });
+
+
+});
+
 $('#checkAll').change(function () {
     var that = $(this);
     var allCheck = $('#list input[type="checkbox"]');

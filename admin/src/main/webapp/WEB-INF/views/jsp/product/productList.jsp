@@ -51,7 +51,7 @@
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li>
-                                    <a href="javascript:;">
+                                    <a id="updateIndex" href="javascript:;">
                                         同步到索引库 </a>
                                 </li>
                             </ul>

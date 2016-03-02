@@ -15,6 +15,7 @@ import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.search.service.SearchService;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -396,5 +397,48 @@ public class ProductController extends InternalTransactionBaseController {
         responseEntity.getBody().put("status","success");
        return responseEntity;
    }
+
+
+    @RequestMapping(value = "/update/index", method = RequestMethod.POST)
+    public ResponseEntity updateIndex(HttpServletRequest pRequest,String[] products) {
+        LOGGER.debug("The method for product to index");
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        TransactionStatus status = ensureTransaction();
+        try {
+            if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+                return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
+            }
+            if (products == null ) {
+                LOGGER.debug("The products  is null.");
+                return responseEntity;
+            }
+
+            for (String productId:products) {
+               Product product= productService.queryProduct(Integer.parseInt(productId));
+                LOGGER.debug("The index productId is {}.",productId);
+                if(!ObjectUtils.isEmpty(product)){
+                    SearchResponse searchResponse= esSearchService.findProduct(productId);
+                    if(searchResponse.getHits().getTotalHits()<1){
+                        LOGGER.debug("The es to createIndex,productId is {}.",productId);
+                         esSearchService.productIndex(product);
+                    }else{
+                        LOGGER.debug("The es to updateIndex,productId is {}.",productId);
+                        esSearchService.updateProductIndex(product);
+                    }
+                }
+
+            }
+            LOGGER.debug("The products has index to es.");
+            responseEntity.getBody().put("status","success");
+            return responseEntity;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return responseEntity;
+    }
+
+
 
 }
