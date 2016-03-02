@@ -1,6 +1,5 @@
 package com.pgt.tender.controller;
 
-import com.google.common.collect.Lists;
 import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.category.bean.CategoryType;
@@ -95,15 +94,10 @@ public class TenderListController {
 
 
     private CommPaginationBean buildResultPagination(CommPaginationBean paginationBean, ModelAndView modelAndView) {
-        if (ObjectUtils.isEmpty(paginationBean)) {
-            paginationBean = new CommPaginationBean();
-            paginationBean.setCurrentIndex(0);
-        }
         List<Map<String, Object>> productList = (List<Map<String, Object>>) modelAndView.getModelMap().get(ESConstants.TENDER_LIST_RESULT);
-        int totalAmount = productList.size();
-        paginationBean.setTotalAmount(totalAmount);
-        paginationBean.setCapacity(esConfiguration.getTenderListCapacity());
-        return paginationBean;
+        CommPaginationBean commPaginationBean = new CommPaginationBean(esConfiguration.getTenderListCapacity(), paginationBean.getCurrentIndex(),
+                paginationBean.getTotalAmount());
+        return commPaginationBean;
     }
 
 
@@ -127,6 +121,7 @@ public class TenderListController {
                                                       List<ESSort> esSorts) {
         SearchResponse response = tenderSearchEngineService.findTenders(keyword, esTenderListFilter, paginationBean, esSorts);
         List<Map<String, Object>> list = SearchConverToList.searchConvertToList(response);
+        paginationBean.setTotalAmount(response.getHits().getTotalHits());
         return list;
     }
 

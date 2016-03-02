@@ -197,6 +197,12 @@ require(['jquery', 'component', 'product'], function($, Cpn, Prd) {
             });
         }
 
+        $('.logo-box').on('mouseover',function(){
+            window.history.pushState(null,null,'/baidu.html');
+            window.location.href='#!sdasdada';
+        })
+
     })
 
 });
+

@@ -4,7 +4,7 @@
 /**
  * Created by supersoup on 16/2/17.
  */
-require.config({
+ require.config({
     paths: {
         jquery: '../core/js/jquery.min',
         handlebar: '../core/js/handlebars-v4.0.5',
@@ -12,11 +12,11 @@ require.config({
     }
 });
 
-require(['jquery', 'handlebar', 'ajax'], function($, Handlebar, Ajax) {
-
-    $(document).ready(function() {
+ require(['jquery', 'handlebar', 'ajax'], function($, Handlebar, Ajax) {
+     $(document).ready(function() {
         $('#main').on('click',function(event){
             alert(event);
         })
+
     });
-});
+ });
