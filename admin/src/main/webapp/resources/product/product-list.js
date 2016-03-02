@@ -69,10 +69,10 @@ $('#mainCategory').change(function () {
     });
 });
 
-$('#viceCategory').change(function () {
-    var $this = $(this);
-    window.location = '/product/productList?categoryId=' + $this.val() + '&currentIndex=0';
-});
+//$('#viceCategory').change(function () {
+  //  var $this = $(this);
+    //window.location = '/product/productList?categoryId=' + $this.val() + '&currentIndex=0';
+//});
 
 $('.pgt-goto-page-btn').on('click', function () {
     var oValue = $('.pgt-goto-page .input-inline').val();
@@ -81,24 +81,70 @@ $('.pgt-goto-page-btn').on('click', function () {
     }
 });
 
-$('#pagination').on('click', 'a', function(event) {
-    var $this = $(this);
-    var str = '';
+$(".is-Hot>li>a").click(function(){
 
-    event.preventDefault();
-    if ($.url.param('categoryId')) {
-         str += '&categoryId=' + $.url.param("categoryId");
-    }
-    if ($.url.param('term')) {
-        str += '&term=' + $.url.param('term');
-    }
-    window.location = $this.attr('href') + str;
+    var productId= $(this).attr("data-value");
+    var hot= $(this).attr("data-pgt-value");
+
+    var a=$(this).parent().parent().prev();
+
+    $.ajax({
+        type: "GET",
+        url: "/product/updateIsHot",
+        data: {
+            productId: productId,
+            isHot: hot
+        },
+        success: function(param){
+
+            if(param.status=='success'){
+                if(hot==1){
+                    a.text('是');
+                }else{
+                    a.text('否');
+                }
+            }
+        }
+    });
+
 });
+
+
+$('#pagination').on('click', 'a', function(event) {
+    event.preventDefault();
+    var pageIndex=$(this).text();
+    if(pageIndex=='首页'){
+        pageIndex=0;
+    }
+    if(pageIndex=='末页'){
+        pageIndex=$("#maxIndex").val();
+    }
+    $("#currentIndex").val(pageIndex);
+    $("#pageSubmit").submit();
+});
+
+
+
 $('#searchBtn').click(function() {
     var str = '?';
-    if ($.url.param("categoryId")) {
-        str += 'categoryId=' + $.url.param("categoryId") + '&';
+    var categoryId=$("#viceCategory").val();
+    if (categoryId!=null){
+        if(categoryId!=null){
+            str+='categoryId=' + categoryId+"&";
+        }
     }
     str += 'term=' + $('#term').val();
+    if($("#isHot").is(':checked')){
+        str+='&isHot=1';
+    }
+    var dateSort=$("#dateSort").val();
+    if(dateSort!=null){
+        str+='&sortBeans[0].propertyName=salePrice&sortBeans[0].sort='+dateSort;
+    }
+    var priceSort=$("#priceSort").val();
+    if(priceSort!=null){
+        str+='&sortBeans[1].propertyName=creationDate&sortBeans[1].sort='+priceSort;
+    }
+
     window.location = str;
 });

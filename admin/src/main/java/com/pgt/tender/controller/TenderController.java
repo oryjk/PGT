@@ -93,7 +93,7 @@ public class TenderController extends InternalTransactionBaseController {
     public ModelAndView get(@RequestParam(value = "term", required = false) String term,
                             @RequestParam(value = "sortProperty", required = false) String sortProperty,
                             @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue,
-                            @RequestParam(value = "currentIndex", required = false) Long currentIndex, ModelAndView modelAndView,HttpServletRequest pRequest) {
+                            @RequestParam(value = "currentIndex", required = false) Long currentIndex, ModelAndView modelAndView,HttpServletRequest pRequest, TenderQuery tenderQuery) {
 
         // verify permission
         if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
@@ -107,7 +107,6 @@ public class TenderController extends InternalTransactionBaseController {
         }
         paginationBean.setCurrentIndex(currentIndex);
         paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
-        TenderQuery tenderQuery = new TenderQuery();
 
         if (!StringUtils.isEmpty(term)) {
             LOGGER.debug("The query term is {}", term);

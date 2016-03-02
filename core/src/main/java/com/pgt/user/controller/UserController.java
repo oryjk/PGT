@@ -352,7 +352,6 @@ public class UserController {
         }
         LOGGER.debug("This is reset password step {}.", resetPasswordStep.toString());
         modelAndView.setViewName(Constants.RESET_PASSWORD);
-        modelAndView.addObject(Constants.STEP, resetPasswordStep.toString());
         modelAndView.addObject(Constants.USER, new User());
         return modelAndView;
     }

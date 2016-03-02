@@ -1,6 +1,5 @@
 package com.pgt.product.controller;
 
-import com.google.common.collect.Lists;
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
@@ -9,10 +8,12 @@ import com.pgt.configuration.Configuration;
 import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.product.bean.Product;
+import com.pgt.product.bean.SortBeanList;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.bean.SortBean;
 import com.pgt.utils.PaginationBean;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,16 +51,17 @@ public class ProductListController extends InternalTransactionBaseController {
 	                         @RequestParam(value = "categoryId", required = false) Integer categoryId,
 	                         @RequestParam(value = "stock", required = false) Integer stock,
 	                         @RequestParam(value = "term", required = false) String term,
-	                         @RequestParam(value = "sortProperty", required = false) String sortProperty,
-	                         @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue,
-	                         @RequestParam(value = "currentIndex", required = false) Long currentIndex, ModelAndView modelAndView) {
+							 SortBeanList sortBeanList,
+	                         @RequestParam(value = "currentIndex", required = false) Long currentIndex,
+							 @RequestParam(value = "isHot", required = false) Integer isHot,
+							 ModelAndView modelAndView) {
 		// verify permission
 		if (!verifyPermission(pRequest)) {
 			return new ModelAndView(PERMISSION_DENIED);
 		}
 		// main logic
 		LOGGER.debug("The category is {}.", categoryId);
-		SearchPaginationBean searchPaginationBean = buildSearchPagination(categoryId, stock, term, sortProperty, sortValue, currentIndex);
+		SearchPaginationBean searchPaginationBean = buildSearchPagination(categoryId, stock, term,sortBeanList, currentIndex,isHot,modelAndView);
 		List<Product> productList = productService.queryProducts(searchPaginationBean);
 		CategoryHierarchy categoryHierarchy = categoryService.queryCategoryHierarchy(categoryId);
 		if (!ObjectUtils.isEmpty(categoryHierarchy)) {
@@ -101,13 +103,16 @@ public class ProductListController extends InternalTransactionBaseController {
 	private SearchPaginationBean buildSearchPagination (Integer categoryId,
 	                                                    Integer stock,
 	                                                    String term,
-	                                                    String sortProperty,
-	                                                    String sortValue,
-	                                                    Long currentIndex) {
+														SortBeanList sortBeanList,
+	                                                    Long currentIndex,
+														Integer isHot,ModelAndView modelAndView) {
 		SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
 		searchPaginationBean.setCategoryId(String.valueOf(categoryId));
 		if (ObjectUtils.isEmpty(categoryId)) {
 			searchPaginationBean.setCategoryId(null);
+		}
+		if (!ObjectUtils.isEmpty(categoryId)) {
+            modelAndView.addObject("categoryId",categoryId);
 		}
 
 		if (ObjectUtils.isEmpty(stock)) {
@@ -116,12 +121,19 @@ public class ProductListController extends InternalTransactionBaseController {
 		searchPaginationBean.setStock(stock);
 		if (!StringUtils.isBlank(term)) {
 			searchPaginationBean.setTerm(term);
+			modelAndView.addObject("term",term);
 		}
-		if (!StringUtils.isBlank(sortProperty)) {
-			SortBean sortBean = new SortBean();
-			sortBean.setPropertyName(sortProperty);
-			sortBean.setSort(sortValue);
-			searchPaginationBean.setSortBeans(Lists.newArrayList(sortBean));
+
+		if(!ObjectUtils.isEmpty(sortBeanList)){
+			if (!CollectionUtils.isEmpty(sortBeanList.getSortBeans())) {
+				searchPaginationBean.setSortBeans(sortBeanList.getSortBeans());
+				modelAndView.addObject("sortBean",sortBeanList.getSortBeans());
+			}
+		}
+
+		if (!ObjectUtils.isEmpty(isHot)) {
+             searchPaginationBean.setIsHot(isHot);
+			modelAndView.addObject("isHot",isHot);
 		}
 		if (ObjectUtils.isEmpty(currentIndex)) {
 			currentIndex = 0L;

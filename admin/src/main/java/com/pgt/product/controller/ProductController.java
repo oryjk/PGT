@@ -363,4 +363,38 @@ public class ProductController extends InternalTransactionBaseController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/updateIsHot", method = RequestMethod.GET)
+   public ResponseEntity updateIsHot(ModelAndView modelAndView,Integer productId,Boolean isHot){
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        TransactionStatus status = ensureTransaction();
+        try {
+
+        if(ObjectUtils.isEmpty(productId)){
+            LOGGER.debug("The productId is empty");
+            responseEntity.getBody().put("status","fail");
+            return responseEntity;
+        }
+        if(ObjectUtils.isEmpty(isHot)){
+            LOGGER.debug("The isHot is empty");
+            responseEntity.getBody().put("status","fail");
+            return responseEntity;
+        }
+        Product product=productService.queryProduct(productId);
+        if(ObjectUtils.isEmpty(product)){
+            LOGGER.debug("The product is empty");
+            responseEntity.getBody().put("status","fail");
+            return responseEntity;
+        }
+        product.setIsHot(isHot);
+        productService.updateProduct(product);
+
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        responseEntity.getBody().put("status","success");
+       return responseEntity;
+   }
+
 }

@@ -213,6 +213,10 @@
             OR p.PRODUCT_ID =#{term}
         </if>
 
+        <if test="isHot!=null">
+            AND p.IS_HOT = #{isHot}
+        </if>
+
         <if test="isNew!=null">
             <where>
                 p.IS_NEW = #{isNew}
