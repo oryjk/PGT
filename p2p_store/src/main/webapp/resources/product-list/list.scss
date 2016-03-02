@@ -13,7 +13,7 @@
 .all-list {
   width: 100%;
 
-  .title1 {
+  .breadcrumb {
     padding-top: 15px;
     height: 20px;
     font-size: 15px;
@@ -23,7 +23,7 @@
       font-size: 13px;
     }
   }
-  .title2 {
+  .status-filter {
     @include wh(900px, 35px);
     padding-top: 20px;
     font-size: 14px;
@@ -32,7 +32,7 @@
       padding-right: 30px;
     }
   }
-  .title3 {
+  .sort {
     @include wh(900px, 35px);
     background: $gray-bg;
     border-top: 3px solid #474e5d;
@@ -147,10 +147,7 @@
     .invest-have-favorite {
 
     }
-
   }
-
-
 }
 
 .page-box {

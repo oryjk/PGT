@@ -71,14 +71,14 @@
 
 			<div class="all-list">
 				<div class="filter">
-					<div class="title1">当前位置：文玩杂项<span>查询结果共1000个相关项目</span></div>
-					<ul class="title2">
+					<div class="breadcrumb">当前位置：文玩杂项<span>查询结果共1000个相关项目</span></div>
+					<ul class="status-filter">
 						<li><input type="radio" name="sex" value="n"/>全部</li>
 						<li><input type="radio" name="sex" value="v"/>即将开始</li>
 						<li><input type="radio" name="sex" value="n"/>进行中</li>
 						<li><input type="radio" name="sex" value="v"/>已结束</li>
 					</ul>
-					<div class="title3">
+					<div class="sort">
 						<a href="#">综合推荐</a>
 						<a href="#">最新上线</a>
 						<a href="#">金额最多</a>

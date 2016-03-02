@@ -48,7 +48,7 @@
 				<li>...</li>
 				<li><a href="javascript:void(0);">${currentPage-2}</a></li>
 				<li><a href="javascript:void(0);">${currentPage-1}</a></li>
-				<li><a href="javascript:void(0);">${currentPage}</a></li>
+				<li><a class="current-page" href="javascript:void(0);">${currentPage}</a></li>
 				<li><a href="javascript:void(0);">${currentPage+1}</a></li>
 				<li><a href="javascript:void(0);">${currentPage+2}</a></li>
 			</c:otherwise>
