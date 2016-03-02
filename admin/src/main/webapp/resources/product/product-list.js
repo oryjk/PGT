@@ -149,13 +149,10 @@ $(".is-Hot>li>a").click(function(){
 
 $('#pagination').on('click', 'a', function(event) {
     event.preventDefault();
-    var pageIndex=$(this).text();
-    if(pageIndex=='首页'){
-        pageIndex=0;
-    }
-    if(pageIndex=='末页'){
-        pageIndex=$("#maxIndex").val();
-    }
+    var pageIndex="";
+    var href =$(this).attr("href");
+    var start=href.lastIndexOf("=");
+    pageIndex=href.substring(start+1);
     $("#currentIndex").val(pageIndex);
     $("#pageSubmit").submit();
 });
@@ -175,12 +172,19 @@ $('#searchBtn').click(function() {
         str+='&isHot=1';
     }
     var dateSort=$("#dateSort").val();
-    if(dateSort!=null){
-        str+='&sortBeans[0].propertyName=salePrice&sortBeans[0].sort='+dateSort;
-    }
     var priceSort=$("#priceSort").val();
-    if(priceSort!=null){
-        str+='&sortBeans[1].propertyName=creationDate&sortBeans[1].sort='+priceSort;
+    if(dateSort!=null&&dateSort!=""){
+        if(priceSort!=null&&priceSort!=""){
+            str+='&sortBeans[0].propertyName=CREATION_DATE&sortBeans[0].sort='+dateSort;
+            str+='&sortBeans[1].propertyName=SALE_PRICE&sortBeans[1].sort='+priceSort;
+        }else{
+            str+='&sortBeans[0].propertyName=CREATION_DATE&sortBeans[0].sort='+dateSort;
+        }
+    }
+    if(priceSort!=null&&priceSort!=""){
+        if(dateSort==null||dateSort=="") {
+            str += '&sortBeans[0].propertyName=SALE_PRICE&sortBeans[0].sort=' + priceSort;
+        }
     }
 
     window.location = str;

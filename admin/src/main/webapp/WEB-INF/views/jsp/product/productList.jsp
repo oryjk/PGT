@@ -89,7 +89,7 @@
                                         <select name="sample_3_length" aria-controls="sample_3"
                                                 class="form-control input-small input-inline select2-offscreen"
                                                 id="viceCategory" tabindex="-1" title="">
-                                            <option value="5">全部</option>
+                                            <option value="">全部</option>
                                             <c:forEach items="${subCategories}" var="subCategory">
                                                 <c:choose>
                                                     <c:when test="${subCategory.id == categoryId}">
@@ -123,6 +123,7 @@
                                         <select id="dateSort" name="dateSort" aria-controls="sample_3"
                                                 class="form-control input-small input-inline select2-offscreen"
                                                 tabindex="-1" title="">
+                                            <option value="">请选择</option>
                                             <option value="DESC">时间最近</option>
                                             <option value="ASC">时间最远</option>
                                         </select> </label>
@@ -134,6 +135,7 @@
                                         <select id="priceSort" name="priceSort" aria-controls="sample_3"
                                                 class="form-control input-small input-inline select2-offscreen"
                                                 tabindex="-1" title="">
+                                            <option value="">请选择</option>
                                             <option value="ASC">由低到高</option>
                                             <option value="DESC">由高到低</option>
                                         </select> </label>
@@ -379,19 +381,19 @@
                                                         <a href="javascript:;">...</a>
                                                     </li>
                                                     <li class="paginate_button ">
-                                                        <a >${currentIndex-1}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex-2}">${currentIndex-1}</a>
                                                     </li>
                                                     <li class="paginate_button ">
-                                                        <a >${currentIndex}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex-1}">${currentIndex}</a>
                                                     </li>
                                                     <li class="paginate_button active">
-                                                        <a >${currentIndex+1}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex}">${currentIndex+1}</a>
                                                     </li>
                                                     <li class="paginate_button">
-                                                        <a >${currentIndex+2}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex+1}">${currentIndex+2}</a>
                                                     </li>
                                                     <li class="paginate_button">
-                                                        <a >${currentIndex+3}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex+2}">${currentIndex+3}</a>
                                                     </li>
                                                     <li class="paginate_button disabled">
                                                         <a href="javascript:;">...</a>
@@ -400,17 +402,15 @@
                                                 <c:if test="${searchPaginationBean.currentIndex<3}">
 
                                                     <c:forEach var="current" begin="1" end="${currentIndex+1}">
-                                                        <li class="paginate_button
-                            <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if>
-                            ">
-                                                            <a >${current}</a>
+                                                        <li class="paginate_button <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if> ">
+                                                            <a href="/product/productList?currentIndex=${current-1}">${current}</a>
                                                         </li>
                                                     </c:forEach>
                                                     <li class="paginate_button">
-                                                        <a >${currentIndex+2}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex+1}">${currentIndex+2}</a>
                                                     </li>
                                                     <li class="paginate_button">
-                                                        <a >${currentIndex+3}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex+2}">${currentIndex+3}</a>
                                                     </li>
                                                     <li class="paginate_button disabled">
                                                         <a href="javascript:;">...</a>
@@ -421,16 +421,14 @@
                                                         <a href="javascript:;">...</a>
                                                     </li>
                                                     <li class="paginate_button">
-                                                        <a >${currentIndex-2}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex-2}">${currentIndex-2}</a>
                                                     </li>
                                                     <li class="paginate_button">
-                                                        <a >${currentIndex-1}</a>
+                                                        <a href="/product/productList?currentIndex=${currentIndex-1}">${currentIndex-1}</a>
                                                     </li>
                                                     <c:forEach var="current" begin="${currentIndex+1}" end="${maxIndex+1}">
-                                                        <li class="paginate_button
-                            <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if>
-                            ">
-                                                            <a >${current}</a>
+                                                        <li class="paginate_button <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if> ">
+                                                            <a href="/product/productList?currentIndex=${current-1}">${current}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </c:if>
@@ -438,16 +436,14 @@
                                             <c:otherwise>
                                                 <c:forEach var="current" begin="1" end="${searchPaginationBean.maxIndex+1}">
 
-                                                    <li class="paginate_button
-                        <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if>
-                        ">
-                                                        <a >${current}</a>
+                                                    <li class="paginate_button <c:if test="${searchPaginationBean.currentIndex+1==current}">active</c:if> ">
+                                                        <a href="/product/productList?currentIndex=${current-1}">${current}</a>
                                                     </li>
                                                 </c:forEach>
                                             </c:otherwise>
                                         </c:choose>
 
-                                        <input type="hidden" id="maxIndex" value="${searchPaginationBean.maxIndex}">
+
                                         <li class="paginate_button"><a
                                                 href="/product/productList?currentIndex=${searchPaginationBean.maxIndex}">末页</a></li>
 

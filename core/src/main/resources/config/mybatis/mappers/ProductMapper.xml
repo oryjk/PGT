@@ -225,13 +225,11 @@
 
         <if test="sortBeans!=null">
             ORDER BY
-            <foreach collection="sortBeans" item="sortBean" index="index">
-                #{sortBean.propertyName} #{sortBean.sort}
-                <if test="index+1 != sortBeans.size">
-                    ,
-                </if>
+            <foreach collection="sortBeans" separator="," item="sortBean">
+                ${sortBean.propertyName} ${sortBean.sort}
             </foreach>
         </if>
+
         <if test="currentIndex != null">
             <choose>
                 <when test="currentIndex >-1">
@@ -249,6 +247,8 @@
                 </otherwise>
             </choose>
         </if>
+
+
     </select>
 
     <select id="queryAllProducts" resultMap="resultProduct"
