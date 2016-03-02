@@ -40,3 +40,13 @@ compileJava {
     options.setEncoding("utf-8")
 }
 
+//task copyWar << {
+//    println 'Hello world!'
+//}
+
+//task copyWar << {
+//    copy {
+//        from '/home/liqiang/Projects/PGT/b2c_store/build/libs/'
+//        into '/home/liqiang/Projects/jetty-distribution-9.3.6.v20151106/webapps/'
+//    }
+//}

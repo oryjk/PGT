@@ -1,0 +1,13 @@
+println "1"
+Integer i = 3;
+return i;
+
+int add(int x, int y) {
+    int sum = x + y + x*2;
+    return  sum;
+}
+
+//Process p="ls /home/peigen".execute()
+//println "${p.text}"
+
+

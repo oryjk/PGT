@@ -109,7 +109,9 @@
                                     </p>
 
                                     <c:if test="${product['stock']<1}">
+                                        <div class="out-of-stock">
 
+                                        </div>
                                     </c:if>
 
                                     <div class="product-message">添加成功</div>
@@ -167,7 +169,9 @@
                                     </p>
 
                                     <c:if test="${product['stock']<1}">
+                                        <div class="out-of-stock">
 
+                                        </div>
                                     </c:if>
 
                                     <div class="product-message">添加成功</div>

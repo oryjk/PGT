@@ -17,6 +17,15 @@ public class SearchPaginationBean extends PaginationBean {
     private Boolean isNew;
     private Integer priceStart;
     private Integer priceEnd;
+    private Integer isHot;
+
+    public Integer getIsHot() {
+        return isHot;
+    }
+
+    public void setIsHot(Integer isHot) {
+        this.isHot = isHot;
+    }
 
     public Integer getPriceStart() {
         return priceStart;

@@ -13,6 +13,11 @@ public class TenderQuery extends Tender {
 
 	private PaginationBean paginationBean;
 
+	private Boolean categoryHot = true;
+
+	private Boolean siteHot = true;
+
+
 	/**
 	 * 是否启用模糊查询
 	 */
@@ -88,6 +93,28 @@ public class TenderQuery extends Tender {
 		orderFields.add(new OrderField("publishDate", isAsc ? "ASC" : "DESC"));
 		return this;
 	}
+
+	@Override
+	public Boolean getCategoryHot() {
+		return categoryHot;
+	}
+
+	@Override
+	public void setCategoryHot(Boolean categoryHot) {
+		this.categoryHot = categoryHot;
+	}
+
+	@Override
+	public Boolean getSiteHot() {
+		return siteHot;
+	}
+
+	@Override
+	public void setSiteHot(Boolean siteHot) {
+		this.siteHot = siteHot;
+	}
+
+
 
 	public PaginationBean getPaginationBean () {
 		return paginationBean;
