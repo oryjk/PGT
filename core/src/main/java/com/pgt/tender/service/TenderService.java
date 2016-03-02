@@ -1,5 +1,6 @@
 package com.pgt.tender.service;
 
+import com.pgt.product.bean.Product;
 import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.bean.TenderCategory;
@@ -123,4 +124,8 @@ public class TenderService {
         return tenderId;
     }
 
+
+    public List<Product> queryTenderProduct(int tenderId) {
+        return tenderMapper.queryTenderProduct(tenderId);
+    }
 }

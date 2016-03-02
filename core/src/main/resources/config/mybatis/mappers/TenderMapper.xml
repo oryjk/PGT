@@ -45,6 +45,11 @@
 		<result column="index" property="index"></result>
 	</resultMap>
 
+
+	<resultMap id="tenderProduct" type="com.pgt.product.bean.Product">
+		<id column="PRODUCT_ID" property="productId"/>
+	</resultMap>
+
 	<!-- 分页sql -->
 	<sql id="pageBean">
 		<if test="paginationBean != null">
@@ -225,5 +230,7 @@
 		DELETE FROM TENDER WHERE ID=#{tenderId}
 	</delete>
 
-
+	<select id="queryTenderProduct" parameterType="int" resultMap="tenderProduct">
+		select * from product where TENDER_ID = #{id}
+	</select>
 </mapper>
