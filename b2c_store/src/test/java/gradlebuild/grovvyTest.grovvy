@@ -7,4 +7,7 @@ int add(int x, int y) {
     return  sum;
 }
 
+//Process p="ls /home/peigen".execute()
+//println "${p.text}"
+
 
