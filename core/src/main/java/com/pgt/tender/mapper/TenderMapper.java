@@ -1,6 +1,7 @@
 package com.pgt.tender.mapper;
 
 import com.pgt.base.mapper.SqlMapper;
+import com.pgt.product.bean.Product;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.bean.TenderMedia;
 import com.pgt.tender.bean.TenderQuery;
@@ -45,5 +46,8 @@ public interface TenderMapper extends SqlMapper {
     TenderMedia queryTenderP2PExpertMedia(@Param("tenderId") Integer tenderId);
 
     TenderMedia queryTenderMobileDetailMedia(@Param("tenderId") Integer tenderId);
+
+
+    List<Product> queryTenderProduct(int tenderId);
 
 }

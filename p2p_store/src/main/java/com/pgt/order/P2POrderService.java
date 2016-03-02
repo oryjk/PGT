@@ -9,6 +9,12 @@ import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.com.pgt.order.bean.P2PInfo;
+import com.pgt.integration.yeepay.YeePayConstants;
+import com.pgt.integration.yeepay.YeePayHelper;
+import com.pgt.integration.yeepay.direct.service.DirectYeePay;
+import com.pgt.payment.PaymentConstants;
+import com.pgt.payment.bean.Transaction;
+import com.pgt.payment.service.PaymentService;
 import com.pgt.product.bean.Product;
 import com.pgt.tender.bean.Tender;
 import com.pgt.user.bean.User;
@@ -16,10 +22,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by Samli on 2016/1/18.
@@ -38,6 +42,9 @@ public class P2POrderService extends OrderService {
 
     private P2PMapper p2PMapper;
 
+    private DirectYeePay directTransactionYeepay;
+
+    private PaymentService paymentService;
 
 
     public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, String[] quantities) throws OrderPersistentException {
@@ -313,6 +320,116 @@ public class P2POrderService extends OrderService {
         return result;
     }
 
+
+    public boolean completeTenderProduct(int productId, boolean ocuppy, Date dueDate) {
+        boolean result = true;
+        updateCommerceItemStatus(productId, ocuppy);
+        List<Order> orders = findReleatedOrder(productId);
+        if (null == orders || orders.isEmpty()) {
+            //TODO LOG
+            return result;
+        }
+        for (Order order : orders) {
+            result = result && completeOrder(order, ocuppy, dueDate);
+        }
+        return result;
+    }
+
+    private boolean completeOrder(Order order, boolean ocuppy, Date dueDate) {
+        boolean result = true;
+        if (ocuppy) {
+
+            // toDo status
+            order.setStatus(OrderStatus.NO_PENDING_ACTION);
+        } else {
+            P2PInfo info = queryP2PInfoByOrderId(order.getId());
+            double actualIncoming =  calculateIncoming(info.getPayTime(),dueDate,info.getPrePeriod(), order.getTotal(), info.getInterestRate());
+            info.setActualDueDate(dueDate);
+            info.setActualIncoming(actualIncoming);
+            p2PMapper.updateInfo(info);
+            result = giveIncomingToBuyer(order, info);
+            if (result) {
+                order.setStatus(OrderStatus.NO_PENDING_ACTION);
+            } else {
+                // TODO
+                //  order.setStatus();
+            }
+        }
+        updateOrder(order);
+        return result;
+    }
+
+    public boolean giveIncomingToBuyer(Order order, P2PInfo info)  {
+        boolean result = false;
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            Transaction transaction = new Transaction();
+            transaction.setOrderId(Long.valueOf(order.getUserId()));
+            transaction.setAmount(info.getActualIncoming());
+            transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_YEEPAY);
+            transaction.setPaymentGroupId(Long.valueOf(PaymentConstants.PLATFORM_PAYMENT_GROUP_ID));
+            getPaymentService().createTransaction(transaction);
+
+            params.put(YeePayConstants.PARAM_NAME_USER_ID, Long.valueOf(order.getUserId()));
+            params.put(YeePayConstants.PARAM_NAME_ORDER_ID, transaction.getOrderId());
+//		params.put(YeePayConstants.PARAM_NAME_PAYMENTGROUP_ID, transactionLog.getPaymentGroupId());
+
+
+            params.put(YeePayConstants.PARAM_NAME_TRANSACTION_ID, transaction.getId());
+//		String trackingNo = YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId());
+//		params.put(YeePayConstants.PARAM_NAME_REQUEST_NO, trackingNo);
+            params.put(YeePayConstants.PARAM_NAME_MODE, YeePayConstants.MODE_CONFIRM);
+            params.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, getDirectTransactionYeepay().getConfig().getCompleteTransactionNotifyUrl());
+
+            params.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MERCHANT);
+
+            params.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO, getDirectTransactionYeepay().getConfig().getTargetPlatformUserNo());
+            Map<String, Object> detailsMap = new HashMap<String, Object>();
+            List<Map<String, Object>> detailsList = new ArrayList<>();
+            params.put(YeePayConstants.PARAM_NAME_DETAILS, detailsMap);
+            detailsMap.put(YeePayConstants.PARAM_NAME_DETAIL, detailsList);
+            Map<String, Object> detailMap = new HashMap<String, Object>();
+            detailsList.add(detailMap);
+
+            Map<String, Object> detail = new HashMap<String, Object>();
+            detail.put(YeePayConstants.PARAM_NAME_TARGET_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
+            // TODO
+            String platformUserNo = YeePayHelper.generateOutboundRequestNo(getDirectTransactionYeepay().getConfig(), Long.valueOf(order.getUserId()));
+            detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, platformUserNo);
+            detail.put(YeePayConstants.PARAM_NAME_AMOUNT, info.getActualIncoming());
+            detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
+            Map<String, String> invokResult = getDirectTransactionYeepay().invoke(params);
+            transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
+            if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
+                transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
+                order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWENER);
+                result = true;
+            } else {
+                transaction.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
+            }
+            getPaymentService().updateTransaction(transaction);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+        return result;
+
+    }
+
+    private P2PInfo queryP2PInfoByOrderId(int id) {
+        // TODO
+        return null;
+    }
+
+    private void updateCommerceItemStatus(int productId, boolean ocuppy) {
+        // todo;
+    }
+
+    private List<Order> findReleatedOrder(int productId) {
+        // todo
+        return null;
+    }
+
+
     public Tender queryTenderById(int tenderId) {
         return getP2PMapper().queryTenderById(tenderId);
     }
@@ -334,4 +451,19 @@ public class P2POrderService extends OrderService {
         this.p2PMapper = p2PMapper;
     }
 
+    public DirectYeePay getDirectTransactionYeepay() {
+        return directTransactionYeepay;
+    }
+
+    public void setDirectTransactionYeepay(DirectYeePay directTransactionYeepay) {
+        this.directTransactionYeepay = directTransactionYeepay;
+    }
+
+    public PaymentService getPaymentService() {
+        return paymentService;
+    }
+
+    public void setPaymentService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 }

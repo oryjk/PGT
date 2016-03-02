@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service(value = "paymentService")
-public class PaymentService extends Transactionable {
+public class  PaymentService extends Transactionable {
 
     @Autowired
     private PaymentMapper paymentMapper;
