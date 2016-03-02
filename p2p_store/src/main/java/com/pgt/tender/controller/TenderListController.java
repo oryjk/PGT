@@ -84,7 +84,7 @@ public class TenderListController {
         LOGGER.debug("Complete to begin categoryList.");
 
         LOGGER.debug("Begin to build paginationBean.");
-        paginationBean = buildResultPagination(paginationBean, modelAndView);
+        paginationBean = buildResultPagination(paginationBean);
         modelAndView.addObject(ESConstants.PAGINATION, paginationBean);
         LOGGER.debug("Complete to begin paginationBean.");
         modelAndView.setViewName("/tenderList/tenderList");
@@ -93,26 +93,43 @@ public class TenderListController {
     }
 
 
-    private CommPaginationBean buildResultPagination(CommPaginationBean paginationBean, ModelAndView modelAndView) {
-        List<Map<String, Object>> productList = (List<Map<String, Object>>) modelAndView.getModelMap().get(ESConstants.TENDER_LIST_RESULT);
-        CommPaginationBean commPaginationBean = new CommPaginationBean(esConfiguration.getTenderListCapacity(), paginationBean.getCurrentIndex(),
-                paginationBean.getTotalAmount());
-        return commPaginationBean;
-    }
-
-
     @RequestMapping("/ajaxtenderList")
-    public ResponseEntity ajaxGet(@RequestParam(value = "sorts", required = false) List<ESSort> esSorts,
-                                  @RequestParam(value = "term", required = false) String keyword,
-                                  @RequestParam(value = "esTenderListFilter", required = false) ESTenderListFilter esTenderListFilter,
-                                  @RequestParam(value = "paginationBean", required = false) PaginationBean paginationBean
+    public ResponseEntity ajaxGet(@RequestParam(value = "sort", required = false) Integer sort,
+                                  @RequestParam(value = "keyword", required = false) String keyword,
+                                  @RequestParam(value = "tenderFilter", required = false) Integer tenderFilter,
+                                  @RequestParam(value = "cid", required = false) String categoryId,
+                                  @RequestParam(value = "page", required = false) Integer page
     ) {
         ResponseBuilder rb = responseBuilderFactory.buildResponseBean().setSuccess(true);
         Map<String, Object> data = new HashMap<>();
         rb.setData(data);
-        SearchResponse response = tenderSearchEngineService.findTenders(keyword, esTenderListFilter, paginationBean, esSorts);
-        List list = SearchConverToList.searchConvertToList(response);
-        data.put(ESConstants.TENDER_LIST_RESULT, list);
+        ESTenderListFilter esTenderListFilter = new ESTenderListFilter(categoryId);
+        TenderListUtil.buildESTenderListFilter(tenderFilter, esTenderListFilter);
+        if (ObjectUtils.isEmpty(page)) {
+            page = 1;
+        }
+        Integer currentIndex = page - 1;
+        CommPaginationBean paginationBean = paginationUtils.createPagination(currentIndex);
+        LOGGER.debug("Begin to build tenderList.");
+        ESSort esSort = TenderListUtil.getESSort(sort);
+        List<ESSort> esSorts = null;
+        if (!ObjectUtils.isEmpty(esSort)) {
+            esSorts = new ArrayList<>();
+            esSorts.add(esSort);
+        }
+        List<Map<String, Object>> tenderList = buildTenderList(keyword, esTenderListFilter, paginationBean, esSorts);
+        data.put(ESConstants.TENDER_LIST_RESULT, tenderList);
+        LOGGER.debug("Complete to begin tenderList.");
+
+        LOGGER.debug("Begin to build categoryList.");
+        List<Map<String, Object>> categoryList = buildCategoryList();
+        data.put(ESConstants.ROOT_CATEGORY_LIST, categoryList);
+        LOGGER.debug("Complete to begin categoryList.");
+
+        LOGGER.debug("Begin to build paginationBean.");
+        paginationBean = buildResultPagination(paginationBean);
+        data.put(ESConstants.PAGINATION, paginationBean);
+        LOGGER.debug("Complete to begin paginationBean.");
         return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 
     }
@@ -130,6 +147,12 @@ public class TenderListController {
         List<Map<String, Object>> list = SearchConverToList.searchConvertToList(searchResponse);
         return list;
 
+    }
+
+    private CommPaginationBean buildResultPagination(CommPaginationBean paginationBean) {
+        CommPaginationBean commPaginationBean = new CommPaginationBean(esConfiguration.getTenderListCapacity(), paginationBean.getCurrentIndex(),
+                paginationBean.getTotalAmount());
+        return commPaginationBean;
     }
 
 

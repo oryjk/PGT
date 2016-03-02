@@ -1,7 +1,7 @@
 /**
  * Created by supersoup on 15/11/25.
  */
-define(function() {
+define(function () {
     /**
      * slider 轮播图
      * next:下一个播放 1,
@@ -9,15 +9,15 @@ define(function() {
      * navBox:导航的父元素 $('#bannerNav'),
      * time:切换的时间 600
      * */
-    var slider = function(sliderObj) {
+    var slider = function (sliderObj) {
         var sliderIng = setInterval(slider, 5000);
-        $('#bannerNav').mouseenter(function() {
+        $('#bannerNav').mouseenter(function () {
             clearInterval(sliderIng);
-        }).mouseleave(function() {
+        }).mouseleave(function () {
             sliderIng = setInterval(slider, 5000);
         });
 
-        sliderObj.navBox.mouseover(function(event) {
+        sliderObj.navBox.mouseover(function (event) {
             if (event.target.nodeName == 'LI' || event.target.nodeName == 'li') {
                 sliderObj.next = event.target.innerHTML;
                 slider();
@@ -28,7 +28,7 @@ define(function() {
             sliderObj.imgBox.children().fadeOut(sliderObj.time).eq(sliderObj.next).fadeIn(slider.time);
             $('#bannerFrontEnd').children().fadeOut(sliderObj.time).eq(sliderObj.next).fadeIn(slider.time);
             sliderObj.navBox.children().removeClass('banner-nav-current').eq(sliderObj.next).addClass('banner-nav-current');
-            sliderObj.next ++;
+            sliderObj.next++;
             if (sliderObj.next >= sliderObj.navBox.children().size()) {
                 sliderObj.next = 0;
             }
@@ -45,7 +45,7 @@ define(function() {
      * 需要有.choose 的样式
      * */
     var tab = function (tabObj, time) {
-        tabObj.tabTarget.click(function(event) {
+        tabObj.tabTarget.click(function (event) {
             tabObj.tabArea.hide();
             tabObj.tabLi.removeClass('choose');
             $(event.target).parent().addClass('choose');
@@ -66,32 +66,32 @@ define(function() {
      * x: 95,
      * y: 95
      * */
-    var pic = function(picObj) {
-        picObj.small.mouseover(function(event) {
+    var pic = function (picObj) {
+        picObj.small.mouseover(function (event) {
             picObj.src = $(event.target).attr('src');
             if (picObj.src) {
                 picObj.middle.attr('src', picObj.src);
                 picObj.big.css({
-                    background: 'url('+picObj.src + ')'
+                    background: 'url(' + picObj.src + ')'
                 })
             }
         });
-        picObj.middle.parent().mouseover(function() {
+        picObj.middle.parent().mouseover(function () {
             picObj.big.show();
             picObj.glass.show();
-        }).mouseout(function() {
+        }).mouseout(function () {
             picObj.big.hide();
             picObj.glass.hide();
         });
-        picObj.middle.parent().get(0).onmousemove = function(event) {
+        picObj.middle.parent().get(0).onmousemove = function (event) {
             picObj.x = event.pageX - picObj.middleX;
             picObj.y = event.pageY - picObj.middleY;
-            if(picObj.x < 95) {
+            if (picObj.x < 95) {
                 picObj.x = 95;
             } else if (picObj.x > 285) {
                 picObj.x = 285;
             }
-            if(picObj.y < 95) {
+            if (picObj.y < 95) {
                 picObj.y = 95;
             } else if (picObj.y > 285) {
                 picObj.y = 285;
@@ -101,7 +101,7 @@ define(function() {
                 top: picObj.y - 95 + 'px'
             });
             picObj.big.css({
-                backgroundPosition: '-' + (picObj.x - 95)*2 + 'px -' + (picObj.y-95)*2 + 'px'
+                backgroundPosition: '-' + (picObj.x - 95) * 2 + 'px -' + (picObj.y - 95) * 2 + 'px'
             })
         };
     };
@@ -113,21 +113,21 @@ define(function() {
      * height 零界点
      * time 出现时间
      * */
-    var fixedHead = function(fixedObj) {
+    var fixedHead = function (fixedObj) {
         var doc = $(document);
         var height = 0;
         var fix = fixedObj.head;
         var flag = 1;
-        $("#right-menu").mouseover(function(){
+        $("#right-menu").mouseover(function () {
             flag = 0;
             //$("body").css("overflow",'hidden')
         })
-        $("#right-menu").mouseout(function(){
+        $("#right-menu").mouseout(function () {
             flag = 1;
             //$("body").css("overflow",'scroll')
         })
 
-        $(window).scroll(function(event) {
+        $(window).scroll(function (event) {
 
             height = doc.scrollTop();
 
@@ -151,16 +151,16 @@ define(function() {
      * left: 点击向左 $('#moveLeft')
      * right 点击向右 $('#moveRight')
      */
-    var rowList = function(rowListObj) {
+    var rowList = function (rowListObj) {
         var width = rowListObj.list.children().outerWidth(true);
         var count = rowListObj.list.children().size();
         var left = 0;
 
         showTest(left, count, width);
 
-        rowListObj.left.click(function(event) {
+        rowListObj.left.click(function (event) {
             event.preventDefault();
-            if (left > - ((count - 5) * width)) {
+            if (left > -((count - 5) * width)) {
                 left -= width;
                 rowListObj.list.animate({
                     left: left + 'px'
@@ -168,7 +168,7 @@ define(function() {
             }
             showTest(left, count, width);
         });
-        rowListObj.right.click(function(event) {
+        rowListObj.right.click(function (event) {
             event.preventDefault();
             //移动到最左边时有可能是一个极小的小数left: -5.6843418860808e-14px,所以;
             if (left < -1) {
@@ -182,7 +182,7 @@ define(function() {
 
         function showTest(left, count, width) {
             //向右点击按钮的显示和消失
-            if (left > - ((count - 5) * width)) {
+            if (left > -((count - 5) * width)) {
                 rowListObj.left.show();
             } else {
                 rowListObj.left.hide();
@@ -203,7 +203,7 @@ define(function() {
      * top: 点击向左 $('#moveTop')
      * bottom 点击向右 $('#moveBottom')
      */
-    var verticalList = function(verticalListObj) {
+    var verticalList = function (verticalListObj) {
         var top = 0;
         var verticalList = verticalListObj.list;
         var ulHeight = verticalList.outerHeight(true);
@@ -214,7 +214,7 @@ define(function() {
         testBottomShow(top, moveBottom);
         testTopShow(top, moveTop);
 
-        moveBottom.click(function(event) {
+        moveBottom.click(function (event) {
             var that = $(this);
             event.preventDefault();
 
@@ -222,7 +222,7 @@ define(function() {
                 top = top - 246;
                 verticalList.animate({
                     top: top + 'px'
-                },100);
+                }, 100);
             }
 
             testBottomShow(top, moveBottom);
@@ -230,7 +230,7 @@ define(function() {
 
 
         });
-        moveTop.click(function(event) {
+        moveTop.click(function (event) {
             var that = $(this);
             event.preventDefault();
 
@@ -238,7 +238,7 @@ define(function() {
                 top = top + 246;
                 verticalList.animate({
                     top: top + 'px'
-                },100);
+                }, 100);
             }
 
             testBottomShow(top, moveBottom);
@@ -267,11 +267,11 @@ define(function() {
      * popUp: 弹出框jq
      * close: 关闭jq
      */
-    var pop = function(popObj) {
-        popObj.close.click(function() {
+    var pop = function (popObj) {
+        popObj.close.click(function () {
             popObj.popUp.fadeOut(300);
         });
-        popObj.popUp.click(function(event) {
+        popObj.popUp.click(function (event) {
             if (event.target == popObj.popUp.get(0)) {
                 popObj.popUp.fadeOut(300);
             }
@@ -282,8 +282,8 @@ define(function() {
      * foldToggle 折叠
      * munu: 折叠开关
      */
-    var foldToggle = function(menu) {
-        menu.click(function(event) {
+    var foldToggle = function (menu) {
+        menu.click(function (event) {
             var that = $(this);
 
             if (that.siblings('ul').size() > 0) {
@@ -308,7 +308,7 @@ define(function() {
      *     capacity: 5
      * };
      */
-    var page = function(productLIst, previousPage, nextPage, pageCount, pageWhich, pageSub, pages, url, pageObj, loadBolean, callbackFunction) {
+    var page = function (productLIst, previousPage, nextPage, pageCount, pageWhich, pageSub, pages, url, pageObj, loadBolean, callbackFunction) {
         var maxIndex = -1;
 
         //载入时
@@ -317,21 +317,21 @@ define(function() {
         }
 
         //前页后页
-        previousPage.click(function(event) {
+        previousPage.click(function (event) {
             event.preventDefault();
 
-            pageObj.currentIndex --;
+            pageObj.currentIndex--;
             getPage(pageObj);
         });
-        nextPage.click(function(event) {
+        nextPage.click(function (event) {
             event.preventDefault();
 
-            pageObj.currentIndex ++;
+            pageObj.currentIndex++;
             getPage(pageObj);
         });
 
         //填写页码并确定
-        pageSub.click(function(event) {
+        pageSub.click(function (event) {
             event.preventDefault();
 
             var page = pageWhich.val() - 1;
@@ -346,7 +346,7 @@ define(function() {
         });
 
         //选择页码
-        pages.delegate('a', 'click', function(event) {
+        pages.delegate('a', 'click', function (event) {
             event.preventDefault();
 
             var that = $(event.target);
@@ -361,7 +361,7 @@ define(function() {
                 data: {
                     currentIndex: pageObj.currentIndex
                 },
-                success: function(param) {
+                success: function (param) {
                     if (param.success == 1) {
                         pageObj.currentIndex = param.data.currentIndex;
                         maxIndex = param.data.maxIndex;
@@ -383,7 +383,7 @@ define(function() {
 
                         //创造页码
                         var pageStr = '';
-                        for (var i = 1; i <= maxIndex + 1; i ++) {
+                        for (var i = 1; i <= maxIndex + 1; i++) {
                             pageStr += '<li><a href="#">' + i + '</a></li>';
                         }
                         pages.html(pageStr);
@@ -402,14 +402,14 @@ define(function() {
      * selectView: 点击的a标签
      * optionView: 选择的a标签
      */
-    var select = function(selectView, optionView) {
-        selectView.click(function(event) {
+    var select = function (selectView, optionView) {
+        selectView.click(function (event) {
             event.preventDefault();
             var that = $(this);
 
             that.siblings('ul').slideToggle(200);
         });
-        optionView.click(function(event) {
+        optionView.click(function (event) {
             event.preventDefault();
             var that = $(this);
             var ul = that.parents('ul');
@@ -427,14 +427,14 @@ define(function() {
      * selectView: 点击的a标签
      * [fnc]: 回调函数
      */
-    var select2 = function(selectView, fnc) {
-        selectView.click(function(event) {
+    var select2 = function (selectView, fnc) {
+        selectView.click(function (event) {
             event.preventDefault();
             var that = $(this);
 
             that.siblings('ul').slideToggle(200);
         });
-        selectView.siblings('.options').delegate('a', 'click', function(event) {
+        selectView.siblings('.options').delegate('a', 'click', function (event) {
             event.preventDefault();
 
             var that = $(event.target);
@@ -461,11 +461,11 @@ define(function() {
      * selectView: 点击的a标签
      * optionView: 选择的a标签
      */
-    var checkbox = function(obj) {
+    var checkbox = function (obj) {
         //页面载入时先检查所有checkbox框是否被选中
         checkboxIcon(obj);
 
-        obj.click(function() {
+        obj.click(function () {
             var that = $(this);
             var input = that.children('input');
             if (input.val() == 0) {
@@ -485,6 +485,23 @@ define(function() {
             }
         }
     };
+    var getJsonUrlParam = function getJsonUrlParam() {
+        var url=window.location.href;
+        var obj={};
+        var paraString=url.substring(url.indexOf("?")+1,url.length).split("&");
+        for(var i in paraString)
+        {
+            keyvalue=paraString[i].split("=");
+            key=keyvalue[0];
+            value=keyvalue[1];
+            obj[key]=value;
+        }
+        return obj;
+    };
+    var getUrlHash = function getUrlHash() {
+        // body...
+    };
+
 
     return {
         slider: slider,
@@ -498,6 +515,8 @@ define(function() {
         page: page,
         select: select,
         select2: select2,
-        checkbox: checkbox
+        checkbox: checkbox,
+        getJsonUrlParam: getJsonUrlParam,
+        getUrlHash: getUrlHash
     }
 });
