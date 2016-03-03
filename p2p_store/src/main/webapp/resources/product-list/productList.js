@@ -25,7 +25,7 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                 sort: Con.getParamValue(window.location.href, 'sort') != null ? Con.getParamValue(window.location.href, 'sort') : '',
                 page: Con.getParamValue(window.location.href, 'page') != null ? Con.getParamValue(window.location.href, 'page') : '',
                 keyword: Con.getParamValue(window.location.href, 'keyword') != null ? Con.getParamValue(window.location.href, 'keyword') : '',
-                tenderFilter: Con.getParamValue(window.location.href, 'tenderFilter'),
+                tenderFilter: Con.getParamValue(window.location.href, 'tenderFilter') != null ? Con.getParamValue(window.location.href, 'tenderFilter') : '',
                 cid: Con.getParamValue(window.location.href, 'cid') != null ? Con.getParamValue(window.location.href, 'cid') : ''
             },
             methods: {

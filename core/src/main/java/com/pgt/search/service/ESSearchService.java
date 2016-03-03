@@ -476,6 +476,7 @@ public class ESSearchService extends AbstractSearchEngineService {
                 qb.must(termQuery(esTerm.getPropertyName(), esTerm.getTermValue()));
             }
             buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
+            LOGGER.debug(searchRequestBuilder.toString());
             response = searchRequestBuilder.execute().actionGet();
             return response;
         } catch (IOException e) {
@@ -559,6 +560,7 @@ public class ESSearchService extends AbstractSearchEngineService {
 
             }
             buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, esAggregation, searchRequestBuilder, qb);
+            LOGGER.debug(searchRequestBuilder.toString());
             response = searchRequestBuilder.execute().actionGet();
             return response;
         } catch (IOException e) {
@@ -596,7 +598,6 @@ public class ESSearchService extends AbstractSearchEngineService {
         }
 
     }
-
 
 
     /**
