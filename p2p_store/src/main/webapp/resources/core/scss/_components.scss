@@ -158,7 +158,7 @@
 
   li {
     float: left;
-    @include wh(30px, 30px);
+    height: 30px;
     line-height: 30px;
     margin-right: 10px;
     text-align: center;
@@ -166,15 +166,28 @@
 
   a {
     display: block;
-    @include color-btn(30px, 30px, 3px, 14px, $main, $main-dark);
+    border: 1px solid $gray-light;
+    border-radius: 3px;
+    padding: 0 10px;
+    height: 30px;
+    color: $gray;
+
+    &:hover {
+      border-color: $main;
+      color: white;
+      background: $main;
+    }
+
   }
 
   .current-page,
   .current-page:hover {
+    border-color: white;
     background: white;
     color: $main;
     font-size: 18px;
     font-weight: 900;
+    cursor: default;
   }
 }
 

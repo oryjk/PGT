@@ -11,6 +11,7 @@ import com.pgt.order.P2POrderService;
 import com.pgt.product.bean.Product;
 import com.pgt.session.SessionHelper;
 import com.pgt.tender.bean.Tender;
+import com.pgt.tender.service.TenderService;
 import com.pgt.user.bean.User;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -49,13 +50,20 @@ public class P2PCheckoutController {
 
 	private InventoryService inventoryService;
 
+	private TenderService tenderService;
+
 	@Autowired
 	private URLConfiguration urlConfiguration;
 
 	public ModelAndView createOrder (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		User user = SessionHelper.getUser(pRequest, pResponse);
+		LOGGER.debug("============= P2PCheckoutController#createOrder start =============");
+
+
 		if (null == user) {
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
+			LOGGER.debug("no user redirect to login page");
+			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
 			return modelAndView;
 		}
 		String tenderIdStr = pRequest.getParameter("tenderId");
@@ -63,23 +71,28 @@ public class P2PCheckoutController {
 		String[] quantities = pRequest.getParameterValues("quantities");
 		if (StringUtils.isBlank(tenderIdStr) || !StringUtils.isNumeric(tenderIdStr)) {
 			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+			LOGGER.debug("tenderId is not a number, redirect to home page");
+			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
 			return modelAndView;
 		}
 		int tenderId = Integer.valueOf(tenderIdStr);
 
 		// check if has not pay order
 		if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER)) {
+			LOGGER.debug("user has incomplete order redirect to tender page");
+			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
 			// TODO redirect to tendId
 		}
 		getInventoryService().ensureTransaction();
 
 		Tender tender = getOrderService().queryTenderById(tenderId);
-		// TODO QUERY related product
-		List<Product> relatedProducts = null;
+		List<Product> relatedProducts = getTenderService().queryTenderProduct(tenderId);
 
 		// check productIds is valid
 		int errorCode = isProductIdsValid(productIds, quantities, relatedProducts, tender);
 		if (NO_ERROR != errorCode) {
+			LOGGER.debug("product parameter is not correct redirect to tender page");
+			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
 			// TODO redirect to tendId
 		}
 		// create order
@@ -88,35 +101,43 @@ public class P2PCheckoutController {
 			Order order = result.getLeft();
 			// check inventory
 			getInventoryService().lockInventory(order);
-		} catch (OrderPersistentException e) {
-			// TODO EXCEIPTOIN
-		} catch (LockInventoryException e) {
-			// TODO EXCEIPTOIN
+		} catch (OrderPersistentException  | LockInventoryException ex ) {
+			LOGGER.error(ex.getMessage(), ex);
+			getInventoryService().setAsRollback();
+			// TODO RETURN TENDER PAGE
+		} finally {
+			getInventoryService().commit();
 		}
+		// TODO SHIPPING PAGE
 		return null;
 	}
 
 	private int isProductIdsValid(String[] productIds, String[] quantities, List<Product> relatedProducts, Tender tender) {
 		if (productIds == null || productIds.length == 0) {
+			LOGGER.error("productIds is null or length == 0");
 			return NO_PRODUCT_IDS;
 		}
 
 		if (quantities == null || quantities.length == 0) {
+			LOGGER.error("quantities is null or length == 0");
 			return NO_QUANTITIES;
 		}
 
 		for (String productId : productIds) {
 			if (StringUtils.isBlank(productId)) {
+				LOGGER.error("productIds has blank data");
 				return BLANK_PRODUCT_ID;
 			}
 		}
 
 		for (String quantity : quantities) {
 			if (StringUtils.isBlank(quantity)) {
+				LOGGER.error("quantities has blank data");
 				return BLANK_QUANTITY;
 			}
 		}
 		if (productIds.length != quantities.length) {
+			LOGGER.error("productIds length and quantities length is not match");
 			return ID_QUANTITY_NOT_MATCH;
 		}
 
@@ -124,7 +145,7 @@ public class P2PCheckoutController {
 		if (null != productIds) {
 			// check relatedProducts need contains productIds
 			if (null == relatedProducts || relatedProducts.isEmpty()) {
-				// TODO LOG
+				LOGGER.error("no relate product");
 				return PRODUCT_NOT_EXIST;
 			}
 			for (String productId : productIds) {
@@ -135,7 +156,7 @@ public class P2PCheckoutController {
 				try {
 					id = Integer.valueOf(productId);
 				} catch (Exception e) {
-					// TODO log
+					LOGGER.error("productId is not number");
 					return PRODUCT_NOT_EXIST;
 				}
 				boolean match = false;
@@ -149,7 +170,7 @@ public class P2PCheckoutController {
 					}
 				}
 				if (!match) {
-					// TODO log
+					LOGGER.error("productId[" + productId + "] is match.");
 					return PRODUCT_NOT_EXIST;
 				}
 			}
@@ -278,5 +299,13 @@ public class P2PCheckoutController {
 
 	public void setUrlConfiguration(URLConfiguration urlConfiguration) {
 		this.urlConfiguration = urlConfiguration;
+	}
+
+	public TenderService getTenderService() {
+		return tenderService;
+	}
+
+	public void setTenderService(TenderService tenderService) {
+		this.tenderService = tenderService;
 	}
 }

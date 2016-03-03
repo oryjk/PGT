@@ -159,34 +159,34 @@ a {
 **************************************************************************************************************************************************/
 .all-list {
   width: 100%; }
-  .all-list .title1 {
+  .all-list .breadcrumb {
     padding-top: 15px;
     height: 20px;
     font-size: 15px; }
-    .all-list .title1 span {
+    .all-list .breadcrumb span {
       width: 100px;
       height: 20px;
       padding-left: 30px;
       font-size: 13px; }
-  .all-list .title2 {
+  .all-list .status-filter {
     width: 900px;
     height: 35px;
     padding-top: 20px;
     font-size: 14px; }
-    .all-list .title2 li {
+    .all-list .status-filter li {
       float: left;
       padding-right: 30px; }
-  .all-list .title3 {
+  .all-list .sort {
     width: 900px;
     height: 35px;
     background: #f2f2f2;
     border-top: 3px solid #474e5d; }
-    .all-list .title3 a {
+    .all-list .sort a {
       padding-left: 20px;
       line-height: 35px;
       font-size: 14px;
       color: #000; }
-    .all-list .title3 .current-tab {
+    .all-list .sort .current-tab {
       color: #2d7fe0; }
   .all-list .products {
     padding-top: 10px; }
@@ -277,32 +277,28 @@ a {
     padding-right: 20px; }
   .page-box li {
     float: left;
-    width: 30px;
     height: 30px;
     line-height: 30px;
     margin-right: 10px;
     text-align: center; }
   .page-box a {
     display: block;
-    display: inline-block;
-    padding: 0;
-    border: none;
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-    background: #fe4040;
+    border: 1px solid #cccccc;
     border-radius: 3px;
-    line-height: 30px;
-    color: white;
-    text-align: center;
-    cursor: pointer; }
+    padding: 0 10px;
+    height: 30px;
+    color: #555555; }
     .page-box a:hover {
-      background: #d70101; }
+      border-color: #fe4040;
+      color: white;
+      background: #fe4040; }
   .page-box .current-page,
   .page-box .current-page:hover {
+    border-color: white;
     background: white;
     color: #fe4040;
     font-size: 18px;
-    font-weight: 900; }
+    font-weight: 900;
+    cursor: default; }
 
 /*# sourceMappingURL=../../maps/product-list/list.css.map */

@@ -91,9 +91,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			Map<String, String> result = getCompleteTransactionYeepay().invoke(params);
 			Transaction transaction = getPaymentService().findTransactionByTrackingNumber(trackingNo);
 			Date now = new Date();
-			
 
-			
 			handleResult(paymentGroup, trackingNo, result, transaction, now, order);
 			if (YeePayConstants.CODE_SUCCESS.equals(result.get(YeePayConstants.PARAM_NAME_CODE)) &&
 					order.getType() == OrderType.P2P_ORDER) {
@@ -145,13 +143,14 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 		Map<String, Object> detail = new HashMap<String, Object>();
 		detail.put(YeePayConstants.PARAM_NAME_TARGET_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
+		// TODO
 		String platformUserNo = YeePayHelper.generateOutboundRequestNo(getConfig(), Long.valueOf(info.getPawnShopOwnerId()));
 		detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, platformUserNo);
 		detail.put(YeePayConstants.PARAM_NAME_AMOUNT, resultAmount);
 		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
 		Map<String, String> invokResult = getDirectTransactionYeepay().invoke(params);
 		transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
-		if (YeePayConstants.CODE_SUCCESS.equals(result.get(YeePayConstants.PARAM_NAME_CODE))) {
+		if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
 			order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWENER);
 		} else {

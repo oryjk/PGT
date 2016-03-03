@@ -7,7 +7,17 @@ int add(int x, int y) {
     return  sum;
 }
 
-//Process p="ls /home/peigen".execute()
+//分号隔开执行多条 gradle 命令
+Process p= "cd /home/liqiang/Projects/PGT/;gradle buildToWebapps".execute();
+
+//p.in.text
 //println "${p.text}"
+
+//def sout = new StringBuffer(), serr = new StringBuffer()
+//proc.consumeProcessOutput(sout, serr)
+
+//proc.waitForOrKill(1000)
+
+
 
 

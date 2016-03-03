@@ -141,32 +141,28 @@
     padding-right: 20px; }
   .page-box li {
     float: left;
-    width: 30px;
     height: 30px;
     line-height: 30px;
     margin-right: 10px;
     text-align: center; }
   .page-box a {
     display: block;
-    display: inline-block;
-    padding: 0;
-    border: none;
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-    background: #fe4040;
+    border: 1px solid #cccccc;
     border-radius: 3px;
-    line-height: 30px;
-    color: white;
-    text-align: center;
-    cursor: pointer; }
+    padding: 0 10px;
+    height: 30px;
+    color: #555555; }
     .page-box a:hover {
-      background: #d70101; }
+      border-color: #fe4040;
+      color: white;
+      background: #fe4040; }
   .page-box .current-page,
   .page-box .current-page:hover {
+    border-color: white;
     background: white;
     color: #fe4040;
     font-size: 18px;
-    font-weight: 900; }
+    font-weight: 900;
+    cursor: default; }
 
 /*# sourceMappingURL=../../../maps/my-account/my-orders/my-order.css.map */
