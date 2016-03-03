@@ -2,6 +2,7 @@ package com.pgt.category.dao;
 
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.category.bean.Category;
+import com.pgt.category.bean.CategoryQuery;
 import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.utils.PaginationBean;
 import org.apache.ibatis.annotations.Param;
@@ -53,6 +54,8 @@ public interface CategoryMapper extends SqlMapper {
 
 
     Category queryCategoryByTenderId(@Param("tenderId")Integer tenderId);
+
+    List<Category> queryCategoryByQuery(CategoryQuery categoryQuery);
 
 
 }

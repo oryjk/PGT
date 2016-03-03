@@ -3,13 +3,14 @@ package com.pgt.tender.bean;
 import com.pgt.base.bean.OrderField;
 import com.pgt.utils.PaginationBean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by xiaodong on 16-1-27.
  */
-public class TenderQuery extends Tender {
+public class TenderQuery extends Tender implements Serializable{
 
 	private PaginationBean paginationBean;
 

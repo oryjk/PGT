@@ -1,6 +1,7 @@
 package com.pgt.category.service;
 
 import com.pgt.category.bean.Category;
+import com.pgt.category.bean.CategoryQuery;
 import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.utils.PaginationBean;
 
@@ -48,4 +49,6 @@ public interface CategoryService {
     List<Category> querySubCategories(Integer rootCategoryId);
 
     List<Category> queryOnlinePawnCategories ();
+
+    List<Category> queryCategoryByQuery(CategoryQuery categoryQuery);
 }
