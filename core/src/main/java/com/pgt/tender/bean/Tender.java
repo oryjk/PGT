@@ -10,7 +10,9 @@ import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.user.validation.group.LoginGroup;
 import com.pgt.user.validation.group.RegistrationGroup;
+import com.pgt.utils.TenderDateUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.elasticsearch.common.collect.HppcMaps;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -131,6 +133,9 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     private Integer categoryId;
 
 
+    private Integer deadline;
+
+
     public Double getCompleteRate() {
         if (ObjectUtils.isEmpty(productQuantity) || productQuantity == 0) {
             return 0.00;
@@ -140,6 +145,18 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 
     public void setCompleteRate(Double completeRate) {
         this.completeRate = completeRate;
+    }
+
+    public Integer getDeadline() {
+        Integer end=0;
+        if(!ObjectUtils.isEmpty(dueDate)){
+            end=TenderDateUtils.getDaySub(new Date().toString(),dueDate.toString());
+        }
+        return end;
+    }
+
+    public void setDeadline(Integer deadline) {
+        this.deadline = deadline;
     }
 
     /**
