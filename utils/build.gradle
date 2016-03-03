@@ -76,31 +76,40 @@ def PROJECTURL = properties.get("PROJECTURL")
  * shell 脚本需要 chmod +x 文件名.sh 授权
  */
 //查找properties配置文件
+
+File shellFile = file('buildwar.sh')
 task buildThoughWeb << {
+    String allwar = "";
     for(def key : properties.propertyNames()){
         boolean  flag = properties.getProperty(key)
-        if(flag == true && key != "JETTYURL" && key != "PROJECTURL" && key != "SH"){
+        if(flag == true && key != "JETTYURL" && key != "PROJECTURL"){
+            allwar = allwar + " " + key
             String url = PROJECTURL + key + "/build/libs/"
             def fs = new File(JETTYURL + key + ".war")
-            try{
-                if(fs.exists() && fs.isFile()){
-                    fs.delete();
-                    println "del same war"
-                }
-                String shUrl = properties.getProperty("SH")
-                Process p= shUrl.execute();
-                p.waitFor();
-            }catch(Exception e){
-                e.printStackTrace()
-            }finally{
-                println "copy to webapp"
-                copy{
-                    from url
-                    into JETTYURL
-                }
-                println "copy finish"
+            if(fs.exists() && fs.isFile()){
+                fs.delete();
+                println "del same war"
             }
         }
+    }
+    try{
+        String shUrl = shellFile
+        shUrl = shUrl + " " + PROJECTURL + allwar
+        println shUrl
+        Process p= shUrl.execute();
+        p.waitFor();
+    }catch(Exception e){
+        e.printStackTrace()
+    }finally{
+        println "copy to webapp"
+        for(def key : properties.propertyNames()){
+            String url = PROJECTURL + key + "/build/libs/"
+            copy{
+                from url
+                into JETTYURL
+            }
+        }
+        println "copy finish"
     }
 }
 
