@@ -13,7 +13,7 @@ public class ESTenderListFilter implements ESFilter {
         this.categoryId = categoryId;
     }
 
-    private boolean all = true;
+    private boolean all;
     private boolean beginInMinute;
     private boolean underway;
     private boolean ended;

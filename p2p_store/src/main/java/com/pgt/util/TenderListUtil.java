@@ -24,7 +24,7 @@ public class TenderListUtil {
     }};
 
     public static ESSort getESSort(Integer id) {
-        if(ObjectUtils.isEmpty(id)){
+        if (ObjectUtils.isEmpty(id)) {
             return null;
         }
         return tenderSortMap.get(id);
@@ -44,7 +44,11 @@ public class TenderListUtil {
                 esTenderListFilter.setBeginInMinute(true);//即将开始
                 break;
             case 3:
-                esTenderListFilter.setEnded(true);//即将结束
+                esTenderListFilter.setUnderway(true);//进行中
+                break;
+            case 4:
+                esTenderListFilter.setEnded(true);//已结束
+                break;
         }
     }
 }

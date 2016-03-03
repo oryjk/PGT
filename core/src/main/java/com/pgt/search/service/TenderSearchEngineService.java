@@ -339,18 +339,18 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         }
         if (esTenderListFilter.isBeginInMinute()) {
             LOGGER.debug("The filter is isBeginInMinute.");
-            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.PUBLISH_DATE).gt(new Date()));
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.PUBLISH_DATE).gt(new Date().getTime()));
             return;
         }
         if (esTenderListFilter.isUnderway()) {
             LOGGER.debug("The filter is isUnderway.");
-            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.PUBLISH_DATE).lt(new Date()));
-            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.DUE_DATE).gt(new Date()));
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.PUBLISH_DATE).lt(new Date().getTime()));
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.DUE_DATE).gt(new Date().getTime()));
             return;
         }
         if (esTenderListFilter.isEnded()) {
             LOGGER.debug("The filter is isEnded.");
-            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.DUE_DATE).lt(new Date()));
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery(ESConstants.DUE_DATE).lt(new Date().getTime()));
             return;
         }
 
