@@ -18,6 +18,14 @@ require.config({
 require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], function ($, Handlebars, Ajax, _, Vue, Con) {
     $(document).ready(function () {
 
+        $(document).on('mouseenter', '.menu-level-1', function() {
+            $(this).children('.menu-2').slideDown(300);
+        });
+
+        $(document).on('mouseleave', '.menu-level-1', function() {
+            $(this).children('.menu-2').slideUp(300);
+        });
+
         Handlebars.registerHelper('isTrue', function (status, exceptStatus) {
             if (status == exceptStatus) {
                 return true;

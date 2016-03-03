@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="product-list.css"/>
-    <link href="list.css" rel="stylesheet">
-    <script src="../core/js/jquery.min.js" data-main="invest"></script>
-    <script type="text/javascript" src="productList.js"></script>
+    <!--<script src="../core/js/jquery.min.js" data-main="invest"></script>-->
+    <!--<script type="text/javascript" src="productList.js"></script>-->
 </head>
 <body>
 <!--header begin-->
@@ -39,46 +38,68 @@
         </div>
     </div>
     <div class="main">
-        <div  class="menu">
-            <a  href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list1.png">
-                <h4>全部</h4>
-            </a>
-            <a href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list2.png">
-                <h4>文玩杂项</h4>
-            </a>
-            <a  href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list3.png">
-                <h4>翡翠玉石</h4>
-            </a>
-            <a href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list4.png">
-                <h4>琥珀蜜蜡</h4>
-            </a>
-            <a href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list5.png">
-                <h4>木制品</h4>
-            </a>
-            <a href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list6.png">
-                <h4>钻石饰品</h4>
-            </a>
-            <a href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list7.png">
-                <h4>精品钟表</h4>
-            </a>
-            <a href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list8.png">
-                <h4>科技产品</h4>
-            </a>
-            <a href="javascript:" path="list-all.html" class="list" >
-                <img src="../core/images/icon/list9.png">
-                <h4>其他</h4>
-            </a>
+        <ul  class="menu">
+            <li class="menu-level-1">
+                <a  href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list1.png">
+                    <h4>全部</h4>
+                </a>
+            </li>
+            <li class="menu-level-1">
+                <a href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list2.png">
+                    <h4>文玩杂项</h4>
+                </a>
+                <ul class="menu-2">
+                    <li class="menu-level-2"><a href="#">文玩</a></li>
+                    <li class="menu-level-2"><a href="#">墨宝</a></li>
+                </ul>
+            </li>
+            <li class="menu-level-1">
+                <a  href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list3.png">
+                    <h4>翡翠玉石</h4>
+                </a>
+            </li>
+            <li class="menu-level-1">
+                <a href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list4.png">
+                    <h4>琥珀蜜蜡</h4>
+                </a>
+            </li>
+            <li class="menu-level-1">
+                <a href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list5.png">
+                    <h4>木制品</h4>
+                </a>
+            </li>
+            <li class="menu-level-1">
+                <a href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list6.png">
+                    <h4>钻石饰品</h4>
+                </a>
+            </li>
+            <li class="menu-level-1">
+                <a href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list7.png">
+                    <h4>精品钟表</h4>
+                </a>
+            </li>
+            <li class="menu-level-1">
+                <a href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list8.png">
+                    <h4>科技产品</h4>
+                </a>
+            </li>
+            <li class="menu-level-1">
+                <a href="javascript:" path="list-all.html" class="list" >
+                    <img src="../core/images/icon/list9.png">
+                    <h4>其他</h4>
+                </a>
+            </li>
             <div class="list-end"></div>
 
-        </div>
+        </ul>
         <div class="box-all">
 
             <div class="all-list">
@@ -91,7 +112,7 @@
                         <li><input type="radio" name="sex" value="v" />已结束</li>
                     </ul>
                     <div class="sort">
-                        <a href="#">综合推荐</a>
+                        <a class="current-tab" href="#">综合推荐</a>
                         <a href="#">最新上线</a>
                         <a href="#">金额最多</a>
                         <a href="#">即将结束</a>
@@ -712,6 +733,7 @@
         <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
     </div>
 </div>
+<script src="../core/js/require.js" data-main="productList"></script>
 <!--footer end-->
 </body>
 </html>
