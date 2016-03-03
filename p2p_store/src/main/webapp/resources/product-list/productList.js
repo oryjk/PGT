@@ -71,7 +71,7 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
             console.log(data);
             if (data != null) {
                 $.ajax({
-                    url: '/resources/product-list/tenders_templete.html',
+                    url: '/resources/product-list/tenders_template.html',
                     type: 'GET',
                     dataType: 'html',
                 })
