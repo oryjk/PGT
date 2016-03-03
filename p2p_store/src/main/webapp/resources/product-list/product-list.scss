@@ -16,7 +16,6 @@
 
 /*style
 **************************************************************************************************************************************************/
-
 .content {
   margin: 120px auto 0;
   width: $main-width;
@@ -56,32 +55,37 @@
     .menu {
       @include wh(260px, 1776px);
       overflow: hidden;
-
       float: left;
+
+      .menu-level-1 {
+        @extend %clear;
+        margin: 2px 0;
+        border: 2px solid $gray-bg;
+      }
+
       .list-end,
       .list {
-        float: left;
+        //float: left;
+        display: block;
         @include wh(260px, 45px);
-        background: $gray-bg;
-        margin: 1px 0;
+
         background-repeat: no-repeat;
+        background: $gray-bg;
         img {
           padding: 13px 13px 0 13px;
           float: left;
         }
         h4 {
           color: #000000;
-          font-size: 12px;
-          padding: 15px 25px 0 25px;
+          font-size: 14px;
+          padding: 14px 25px 0 25px;
           float: left;
         }
       }
-      .list:link,
-      .list:visited {
-      }
+
       .list:hover,
       .list:active {
-        background: white;
+        background: #dddddd;
         background-repeat: no-repeat;
       }
 
@@ -95,7 +99,183 @@
       width: 900px;
     }
   }
+
+  .menu-2 {
+    background: white;
+  }
+
+  .menu-level-2 {
+    border-top: 2px solid $gray-bg;
+
+    a {
+      display: block;
+      padding: 10px 0 10px 70px;
+      //@include wh(100%, 100%);
+      height: 100%;
+      font-size: 14px;
+      background: white;
+      color: black;
+
+      &:hover {
+        background: #dddddd;
+      }
+    }
+  }
 }
 
+
+.all-list {
+  width: 100%;
+
+  .breadcrumb {
+    padding-top: 15px;
+    height: 20px;
+    font-size: 15px;
+    span {
+      @include wh(100px, 20px);
+      padding-left: 30px;
+      font-size: 13px;
+    }
+  }
+  .status-filter {
+    @include wh(900px, 35px);
+    padding-top: 20px;
+    font-size: 14px;
+    li {
+      float: left;
+      padding-right: 30px;
+    }
+  }
+  .sort {
+    @include wh(900px, 35px);
+    background: $gray-bg;
+    border-top: 3px solid #474e5d;
+    a {
+      border: 2px solid #f2f2f2;
+      border-radius: 3px;
+      padding: 5px 3px;
+      margin-left: 20px;
+      line-height: 35px;
+      font-size: 14px;
+      color: #000;
+
+      &:hover {
+        border-color: $em-light;
+      }
+    }
+
+    .current-tab {
+      border-color: $em-light;
+      color: white;
+      background: $em-light;
+    }
+  }
+  .products {
+    padding-top: 10px;
+    @extend %clear;
+
+    .item {
+      position: relative;
+      top: 0;
+      float: left;
+      margin-top: 15px;
+      margin-right: ($main-width-s - 250px * 4) / 3;
+      //@include wh(280px, 335px);
+      border: 1px solid $gray-light;
+      transition: all .4s;
+    }
+    .item:hover{
+      top: -5px;
+      transition: all 1s;
+      box-shadow: 0 10px 15px #555555;
+
+    }
+    .item-name {
+      margin: 10px auto 0;
+      @include wh(260px, 14px);
+      overflow: hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      text-align: center;
+      font-size: 14px;
+      color: black;
+
+      &:hover {
+        color: $main;
+      }
+    }
+
+    .item-img {
+      @include wh(280px, 280px);
+
+      img {
+        @include wh(100%, 100%);
+      }
+    }
+
+    .progress-bar {
+      margin: 10px 0 0 20px;
+      @include progress-bar(230px, 5px);
+    }
+
+    .info-box {
+      padding: 10px 0 20px;
+      @extend %clear;
+      text-align: center;
+    }
+
+    .surplus-count {
+      float: left;
+      width: 30%;
+    }
+
+    .cost-sum {
+      float: left;
+      width: 40%;
+    }
+
+    .surplus-time {
+      float: left;
+      width: 30%;
+    }
+
+    .info-title {
+      color: $gray-light;
+      font-size: 13px;
+    }
+
+    .info-value {
+      color: $gray;
+    }
+
+    .invest-status {
+      position: absolute;
+      top: 0;
+      left: 0;
+      @include wh(60px, 30px);
+      line-height: 30px;
+      text-align: center;
+      color: white;
+      background: $em-light;
+      font-size: 13px;
+    }
+
+    .invest-join-favorite {
+      position: absolute;
+      top: 0;
+      left: 0;
+      @include wh(30px, 30px);
+    }
+
+    .invest-have-favorite {
+
+    }
+  }
+}
+
+.page-box {
+  padding-top: 20px;
+  @include page-box;
+}
 
 
