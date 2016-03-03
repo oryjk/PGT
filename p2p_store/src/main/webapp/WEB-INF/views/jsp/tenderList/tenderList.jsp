@@ -88,7 +88,9 @@
 				<div class="products">
 					<jsp:include page="tenders.jsp"/>
 				</div>
-				<jsp:include page="pagination.jsp"/>
+				<div class="page-box">
+					<jsp:include page="pagination.jsp"/>
+				</div>
 			</div>
 
 		</div>

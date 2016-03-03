@@ -24,13 +24,13 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
             }
             return false;
         });
-        Handlebars.registerHelper('pagination', function (currentPage, exceptPage))
+        Handlebars.registerHelper('pagination', function (currentPage, exceptPage)
         {
             if (currentPage < exceptPage) {
                 return true;
             }
             return false;
-        }
+        });
 
         Handlebars.registerHelper("compare", function (v1, v2, options) {
             if (v1 > v2) {
@@ -64,7 +64,9 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                     this.page = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
                     $(event.target).addClass('current-page');
                     sendRequest(vm);
-                }
+                },
+                onmouseover: function () {
+                },
             }
         });
 
@@ -116,6 +118,8 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
             }
 
         }
+
+
 
         console.log(vm);
     });
