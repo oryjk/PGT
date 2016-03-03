@@ -16,7 +16,7 @@ require.config({
 
 require(['jquery', 'handlebar', 'ajax', 'underscore', 'component'], function ($, Handlebar, Ajax, _, Con) {
     $(document).ready(function () {
-       var requestParam={};
+       var requestParam={}
         $('.page-box ol li').on('click', function (event) {
             event.preventDefault();
             var tenderListParamObj = new TenderListParam();
@@ -24,7 +24,7 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'component'], function ($,
             tenderListParamObj.sort=$('.title3 .current').attr('sort-value');
             requestParam.page=$(this).children('a').html();
             requestParam.keyword=$('.search input').val();
-            requestParam.tenderFilter=$('')
+            $('.statusFilter input')
         });
     });
 });
