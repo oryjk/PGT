@@ -71,18 +71,18 @@
 			<div class="all-list">
 				<div class="filter">
 					<div class="breadcrumb">当前位置：文玩杂项<span>查询结果共1000个相关项目</span></div>
-					<ul class="status-filter">
-						<li><input type="radio" name="sex" value="n" v-on:click="tenderFilterAction" data-value="1"/>全部</li>
-						<li><input type="radio" name="sex" value="v" v-on:click="tenderFilterAction" data-value="2"/>即将开始</li>
-						<li><input type="radio" name="sex" value="n" v-on:click="tenderFilterAction" data-value="3"/>进行中</li>
-						<li><input type="radio" name="sex" value="v" v-on:click="tenderFilterAction" data-value="4"/>已结束</li>
+					<ul class="status-filter" v-on:click="tenderFilterAction">
+						<li><input type="radio" name="sex" value="n" data-value="1"/>全部</li>
+						<li><input type="radio" name="sex" value="v" data-value="2"/>即将开始</li>
+						<li><input type="radio" name="sex" value="n" data-value="3"/>进行中</li>
+						<li><input type="radio" name="sex" value="v" data-value="4"/>已结束</li>
 					</ul>
-					<div class="sort">
-						<a href="#" v-on:click="sortBy">综合推荐</a>
-						<a href="#" v-on:click="sortBy" data-value="1">最新上线</a>
-						<a href="#" v-on:click="sortBy" data-value="2">金额最多</a>
-						<a href="#" v-on:click="sortBy" data-value="4">周期最短</a>
-						<a href="#" v-on:click="sortBy" data-value="5">即将结束</a>
+					<div class="sort" v-on:click="sortBy">
+						<a href="#">综合推荐</a>
+						<a href="#" data-value="1">最新上线</a>
+						<a href="#" data-value="2">金额最多</a>
+						<a href="#" data-value="4">周期最短</a>
+						<a href="#" data-value="5">即将结束</a>
 					</div>
 				</div>
 				<div class="products">
