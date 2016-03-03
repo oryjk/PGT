@@ -18,7 +18,29 @@ require.config({
 require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], function ($, Handlebars, Ajax, _, Vue, Con) {
     $(document).ready(function () {
 
+        Handlebars.registerHelper('isTrue', function (status, exceptStatus) {
+            if (status == exceptStatus) {
+                return true;
+            }
+            return false;
+        });
+        Handlebars.registerHelper('pagination', function (currentPage, exceptPage))
+        {
+            if (currentPage < exceptPage) {
+                return true;
+            }
+            return false;
+        }
 
+        Handlebars.registerHelper("compare", function (v1, v2, options) {
+            if (v1 > v2) {
+                //满足添加继续执行
+                return options.fn(this);
+            } else {
+                //不满足条件执行{{else}}部分
+                return options.inverse(this);
+            }
+        });
         var vm = new Vue({
             el: '#mainContent',
             data: {
@@ -40,6 +62,7 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                 },
                 paginationAction: function (event) {
                     this.page = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
+                    $(event.target).addClass('current-page');
                     sendRequest(vm);
                 }
             }
@@ -78,12 +101,7 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                     .done(function (response) {
                         console.log("success");
                         console.log(response);
-                        Handlebars.registerHelper('isTrue', function (status, exceptStatus) {
-                            if (status == exceptStatus) {
-                                return true;
-                            }
-                            return false;
-                        })
+
                         var template = Handlebars.compile(response);
                         var html = template(data.data);
                         $('.products').html(html);
