@@ -68,11 +68,11 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
             methods: {
                 sortBy: function (event) {
                     event.preventDefault();
-                    this.sort = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
+                    this.queryRequest.sort = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
                     vm.sendRequest(vm);
                 },
                 tenderFilterAction: function (event) {
-                    this.tenderFilter = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
+                    this.queryRequest.tenderFilter = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
                     vm.sendRequest(vm);
                 },
                 paginationAction: function (event) {

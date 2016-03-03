@@ -8,7 +8,6 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<link rel="stylesheet" href="/resources/product-list/product-list.css"/>
-	<link rel="stylesheet" href="/resources/product-list/list.css">
 	<script src="/resources/core/js/jquery.min.js" data-main="invest"></script>
 </head>
 <body>
@@ -26,45 +25,67 @@
 	</div>
 	<div class="main" id="mainContent">
 		<div class="menu">
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list1.png">
-				<h4>全部</h4>
-			</a>
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list2.png">
-				<h4>文玩杂项</h4>
-			</a>
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list3.png">
-				<h4>翡翠玉石</h4>
-			</a>
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list4.png">
-				<h4>琥珀蜜蜡</h4>
-			</a>
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list5.png">
-				<h4>木制品</h4>
-			</a>
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list6.png">
-				<h4>钻石饰品</h4>
-			</a>
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list7.png">
-				<h4>精品钟表</h4>
-			</a>
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list8.png">
-				<h4>科技产品</h4>
-			</a>
-			<a href="javascript:" path="list-all.html" class="list">
-				<img src="../core/images/icon/list9.png">
-				<h4>其他</h4>
-			</a>
-
-			<div class="list-end"></div>
-
+			<ul class="menu">
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list1.png">
+						<h4>全部</h4>
+					</a>
+				</li>
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list2.png">
+						<h4>文玩杂项</h4>
+					</a>
+					<ul class="menu-2">
+						<li class="menu-level-2"><a href="#">文玩</a></li>
+						<li class="menu-level-2"><a href="#">墨宝</a></li>
+					</ul>
+				</li>
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list3.png">
+						<h4>翡翠玉石</h4>
+					</a>
+				</li>
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list4.png">
+						<h4>琥珀蜜蜡</h4>
+					</a>
+				</li>
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list5.png">
+						<h4>木制品</h4>
+					</a>
+				</li>
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list6.png">
+						<h4>钻石饰品</h4>
+					</a>
+				</li>
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list7.png">
+						<h4>精品钟表</h4>
+					</a>
+				</li>
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list8.png">
+						<h4>科技产品</h4>
+					</a>
+				</li>
+				<li class="menu-level-1">
+					<a href="javascript:" path="list-all.html" class="list">
+						<img src="../core/images/icon/list9.png">
+						<h4>其他</h4>
+					</a>
+				</li>
+				<div class="list-end"></div>
+			</ul>
 		</div>
 		<div class="box-all">
 
@@ -78,11 +99,11 @@
 						<li><input type="radio" name="sex" value="v" data-value="4"/>已结束</li>
 					</ul>
 					<div class="sort" v-on:click="sortBy">
-						<a href="#">综合推荐</a>
-						<a href="#" data-value="1">最新上线</a>
-						<a href="#" data-value="2">金额最多</a>
-						<a href="#" data-value="4">周期最短</a>
-						<a href="#" data-value="5">即将结束</a>
+						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==''}">综合推荐</a>
+						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==1}" data-value="1">最新上线</a>
+						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==2}" data-value="2">金额最多</a>
+						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==4}" data-value="4">周期最短</a>
+						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==5}" data-value="5">即将结束</a>
 					</div>
 				</div>
 				<div class="products">
