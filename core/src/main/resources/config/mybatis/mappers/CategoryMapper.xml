@@ -5,6 +5,55 @@
 <mapper namespace="com.pgt.category.dao.CategoryMapper">
 
 
+	<!--查询条件 -->
+	<sql id="categoryListWhere">
+		<where>
+			<if test="type!= null">
+					AND TYPE=#{type}
+			</if>
+			<if test="name!= null">
+				AND NAME LIKE "%"#{name}"%"
+			</if>
+			<if test="parent!=null">
+				AND PARENT_CATEGORY_ID=#{parent.id}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 排序条件 -->
+	<sql id="categoryListOrder">
+		<if test="orderFields != null and orderFields.size > 0">
+			order by
+			<foreach collection="orderFields" separator="," item="orderField">
+				${orderField.fieldName} ${orderField.order}
+			</foreach>
+		</if>
+	</sql>
+
+	<!-- 分页sql -->
+	<sql id="pageBean">
+		<if test="paginationBean != null">
+			<if test="paginationBean.currentIndex != null">
+				<choose>
+					<when test="paginationBean.currentIndex >-1">
+						<if test="paginationBean.capacity != null">
+							<choose>
+								<when test="paginationBean.capacity>-1">
+									limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+								</when>
+								<otherwise>
+								</otherwise>
+							</choose>
+						</if>
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+			</if>
+		</if>
+	</sql>
+
+
 	<!--category result map -->
 	<resultMap id="CategoryResult" type="com.pgt.category.bean.Category">
 		<id column="CATEGORY_ID" property="id"/>
@@ -79,6 +128,13 @@
         DELETE FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
     </delete>
 
+	<select id="queryCategoryByQuery" parameterType="com.pgt.category.bean.CategoryQuery" resultMap="CategoryResult">
+         SELECT * FROM CATEGORIES
+		 <include refid="categoryListWhere"/>
+		 <include refid="categoryListOrder"/>
+		 <include refid="pageBean"/>
+	</select>
+
 	<select id="queryCategory" resultMap="CategoryResult">
 		SELECT * FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
 	</select>
@@ -94,6 +150,7 @@
 	<select id="queryAllTenderParentCategories" resultMap="CategoryResult">
 		SELECT * FROM CATEGORIES WHERE TYPE ='TENDER_HIERARCHY'
 	</select>
+
 
 
 	<select id="queryCategories" parameterType="com.pgt.category.bean.Category"

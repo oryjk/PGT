@@ -10,9 +10,9 @@ import java.util.Date;
 public class TenderDateUtils {
 
 
-    public static long getDaySub(String beginDateStr,String endDateStr)
+    public static Integer getDaySub(String beginDateStr,String endDateStr)
     {
-        long day=0;
+        Integer day=0;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date beginDate;
         Date endDate;
@@ -20,11 +20,9 @@ public class TenderDateUtils {
         {
             beginDate = format.parse(beginDateStr);
             endDate= format.parse(endDateStr);
-            day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
-            //System.out.println("相隔的天数="+day);
+            day=(int) (endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
         } catch (ParseException e)
         {
-            // TODO 自动生成 catch 块
             e.printStackTrace();
         }
         return day;

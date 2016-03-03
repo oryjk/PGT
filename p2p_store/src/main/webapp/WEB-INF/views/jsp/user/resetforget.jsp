@@ -22,10 +22,10 @@
     <!-- step begin-->
     <!--super: 下面四步依次加上step-1到step-4-->
     <ul class="step step-1">
-        <li>订单详情</li>
-        <li>订单确认</li>
-        <li>支付</li>
-        <li>完成</li>
+        <li class="main-font1">填写用户名</li>
+        <li class="main-font2">验证身份</li>
+        <li class="main-font3">设置新密码</li>
+        <li class="main-font4">完成</li>
     </ul>
     <!--step end-->
 
@@ -92,11 +92,12 @@
                     <td>
                         <input class="input-text" type="text" name="smsCode"/>
                         <input type="hidden" id="smsPath" data-value="/sms/resetPassword?phoneNumber=${userResult.phoneNumber}">
-                        <span class="error"></span>
+                        <span class="error"><form:errors path="loginError"/></span>
                     </td>
                 </tr>
             </tbody>
 
+            <!--
             <tbody>
                 <tr class="test-row-2">
                     <th>邮箱号码 :</th>
@@ -113,6 +114,7 @@
                     </td>
                 </tr>
             </tbody>
+            -->
 
             <tr class="input-row-4">
                 <th></th>
@@ -141,7 +143,7 @@
             </tr>
             <tr class="input-row-3">
                 <th></th>
-                <td><span class="error">错误提示!</span></td>
+                <td><span class="error"><form:errors path="loginError"/></span></td>
             </tr>
             <tr class="input-row-4">
                 <th></th>

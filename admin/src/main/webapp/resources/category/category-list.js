@@ -21,11 +21,28 @@ $("#term").change(function(){
     $('#submitBtn').click();
 });
 
-
+/*
 $('#categorySelect').change(function() {
     var $this = $(this);
     window.location = '/category/getSubCategories/' + $this.val();
 });
+*/
+/*
+$('#categorySelect').change(function() {
+
+    var categoryId= $(this).val();
+
+    if(categoryId=="all"){
+        $("#type").val("ROOT");
+        $("#category").val("");
+    }else{
+        $("#type").val("HIERARCHY");
+        $("#category").val(categoryId);
+    }
+
+    $("#pageSubmit").submit();
+});
+*/
 
 $('#tenderCategorySelect').change(function() {
     var $this = $(this);
@@ -75,3 +92,30 @@ $(document).on('click', '[data-pgt-btn="delete"]', function () {
 });
 
 
+$('#searchBtn').click(function() {
+
+
+    var categoryId= $("#categorySelect").val();
+
+    if(categoryId=="all"){
+        $("#type").val("ROOT");
+        $("#category").val("");
+    }else{
+        $("#type").val("HIERARCHY");
+        $("#category").val(categoryId);
+    }
+    var term = $("#name").val();
+    $("#term").val(term);
+
+    $("#pageSubmit").submit();
+});
+
+$('#pagination').on('click', 'a', function(event) {
+    event.preventDefault();
+    var pageIndex="";
+    var href =$(this).attr("href");
+    var start=href.lastIndexOf("=");
+    pageIndex=href.substring(start+1);
+    $("#currentIndex").val(pageIndex);
+    $("#pageSubmit").submit();
+});

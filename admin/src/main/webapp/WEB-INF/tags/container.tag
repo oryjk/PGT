@@ -293,7 +293,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/category/categoryList">
+                                        <a href="/category/query">
                                             <i class="fa-angle-right"></i>
                                             分类管理
                                         </a>

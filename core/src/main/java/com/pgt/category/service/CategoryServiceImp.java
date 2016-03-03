@@ -2,6 +2,7 @@ package com.pgt.category.service;
 
 import com.pgt.base.service.TransactionService;
 import com.pgt.category.bean.Category;
+import com.pgt.category.bean.CategoryQuery;
 import com.pgt.category.dao.CategoryMapper;
 import com.pgt.common.bean.Media;
 import com.pgt.common.dao.MediaMapper;
@@ -169,6 +170,11 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     @Override
     public List<Category> querySubCategories(Integer rootCategoryId) {
         return categoryMapper.querySubCategories(rootCategoryId);
+    }
+
+    @Override
+    public List<Category> queryCategoryByQuery(CategoryQuery categoryQuery) {
+        return categoryMapper.queryCategoryByQuery(categoryQuery);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.pgt.category;
 
 import com.pgt.category.bean.Category;
+import com.pgt.category.bean.CategoryQuery;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.Media;
@@ -11,8 +12,11 @@ import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.service.ESSearchService;
+import com.pgt.tender.bean.Tender;
+import com.pgt.tender.bean.TenderQuery;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +92,76 @@ public class CategoryController extends InternalTransactionBaseController {
 		modelAndView.setViewName("category/categoryList");
 		return modelAndView;
 	}
+
+
+	@RequestMapping(value = "/query", method = RequestMethod.GET)
+	public ModelAndView get(@RequestParam(value = "term", required = false) String term,
+							@RequestParam(value = "sortProperty", required = false) String sortProperty,
+							@RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue,
+							@RequestParam(value = "currentIndex", required = false) Long currentIndex,
+							@RequestParam(value = "categoryId", required = false)Integer categoryId,ModelAndView modelAndView, HttpServletRequest pRequest, CategoryQuery categoryQuery) {
+
+		// verify permission
+		if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+			return new ModelAndView(PERMISSION_DENIED);
+		}
+		modelAndView.setViewName("category/categoryList");
+		LOGGER.debug("The method query Category");
+		PaginationBean paginationBean = new PaginationBean();
+		if (ObjectUtils.isEmpty(currentIndex)) {
+			currentIndex = 0L;
+		}
+		paginationBean.setCurrentIndex(currentIndex);
+		paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
+
+		if(ObjectUtils.isEmpty(categoryQuery)){
+			categoryQuery=new CategoryQuery();
+		}
+
+		if(ObjectUtils.isEmpty(categoryQuery.getType())){
+            categoryQuery.setType(CategoryType.ROOT);
+		}
+
+		if(!ObjectUtils.isEmpty(categoryId)&&categoryQuery.getType()!=CategoryType.ROOT){
+			LOGGER.debug("The category Id is {}.",categoryId);
+			Category parentCategory = new Category();
+			parentCategory.setId(categoryId);
+			categoryQuery.setParent(parentCategory);
+			modelAndView.addObject("categoryId",categoryId);
+		}
+
+		if (!StringUtils.isEmpty(term)) {
+			LOGGER.debug("The query term is {}", term);
+			categoryQuery.setName(term);
+			modelAndView.addObject("term",term);
+		}
+
+		if (!StringUtils.isEmpty(sortProperty)&&!StringUtils.isEmpty(sortValue)) {
+			LOGGER.debug("The sortProperty is {} and sortValve is {}", sortProperty, sortValue);
+			modelAndView.addObject("sortProperty",sortProperty);
+			modelAndView.addObject("sortValue",sortValue);
+			categoryQuery.orderbyCondition(sortValue.endsWith("ASC") ? true : false, sortProperty);
+		}
+
+		List<Category> categoryAll=categoryService.queryCategoryByQuery(categoryQuery);
+		if (CollectionUtils.isEmpty( categoryAll)) {
+			LOGGER.debug("The query category is empty");
+			return modelAndView;
+		}
+		paginationBean.setTotalAmount(categoryAll.size());
+		categoryQuery.setPaginationBean(paginationBean);
+		List<Category> categories= categoryService.queryCategoryByQuery(categoryQuery);
+		if (!CollectionUtils.isEmpty(categories)) {
+			modelAndView.addObject("categories", categories);
+			modelAndView.addObject("paginationBean", paginationBean);
+		}
+		List<Category> rootCategory=categoryService.queryRootCategories();
+		modelAndView.addObject("rootCategory",rootCategory);
+		modelAndView.addObject("categoryType", categoryQuery.getType());
+		modelAndView.addObject("staticServer", configuration.getStaticServer());
+		return modelAndView;
+	}
+
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
