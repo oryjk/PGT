@@ -130,6 +130,23 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 
     private Integer categoryId;
 
+
+    public Double getCompleteRate() {
+        if (ObjectUtils.isEmpty(productQuantity) || productQuantity == 0) {
+            return 0.00;
+        }
+        return Double.valueOf((1 - getProductResidue() / productQuantity) * 100);
+    }
+
+    public void setCompleteRate(Double completeRate) {
+        this.completeRate = completeRate;
+    }
+
+    /**
+     * 进行了的百分比
+     */
+    private Double completeRate;
+
     /**
      * 状态
      */

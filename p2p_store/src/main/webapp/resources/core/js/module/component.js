@@ -522,7 +522,7 @@ define(function () {
     var buildURLParamByJson=function buildURLParam(json){
         var urlParam='';
         _.map(json, function (value, key) {
-             urlParam += (key+'='+value);
+             urlParam += (key+'='+value)+'&';
         })
         return urlParam;
     }

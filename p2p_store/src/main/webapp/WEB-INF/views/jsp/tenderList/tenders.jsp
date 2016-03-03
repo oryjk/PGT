@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="products">
+
 
   <c:forEach items="${tenderListResult}" var="tenderItem">
     <a href="/tender/${tenderItem.tender.tenderId}" class="item">
@@ -60,4 +60,3 @@
       <a class="invest-join-favorite" href=""></a>
     </a>
   </c:forEach>
-</div>

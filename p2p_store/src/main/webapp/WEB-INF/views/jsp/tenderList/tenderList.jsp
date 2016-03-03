@@ -85,8 +85,9 @@
 						<a href="#" v-on:click="sortBy" data-value="5">即将结束</a>
 					</div>
 				</div>
-
-				<jsp:include page="tenders.jsp"/>
+				<div class="products">
+					<jsp:include page="tenders.jsp"/>
+				</div>
 				<jsp:include page="pagination.jsp"/>
 			</div>
 

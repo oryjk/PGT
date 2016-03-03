@@ -15,31 +15,31 @@ require.config({
     }
 });
 
-require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], function ($, Handlebar, Ajax, _, Vue, Con) {
+require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], function ($, Handlebars, Ajax, _, Vue, Con) {
     $(document).ready(function () {
 
 
         var vm = new Vue({
             el: '#mainContent',
             data: {
-                sort: Con.getParamValue(window.location.href, 'sort'),
-                page: Con.getParamValue(window.location.href, 'page'),
-                keyword: Con.getParamValue(window.location.href, 'keyword'),
+                sort: Con.getParamValue(window.location.href, 'sort') != null ? Con.getParamValue(window.location.href, 'sort') : '',
+                page: Con.getParamValue(window.location.href, 'page') != null ? Con.getParamValue(window.location.href, 'page') : '',
+                keyword: Con.getParamValue(window.location.href, 'keyword') != null ? Con.getParamValue(window.location.href, 'keyword') : '',
                 tenderFilter: Con.getParamValue(window.location.href, 'tenderFilter'),
-                cid: Con.getParamValue(window.location.href, 'cid')
+                cid: Con.getParamValue(window.location.href, 'cid') != null ? Con.getParamValue(window.location.href, 'cid') : ''
             },
             methods: {
                 sortBy: function (event) {
                     event.preventDefault();
-                    this.sort = $(event.target).attr('data-value');
+                    this.sort = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
                     sendRequest(vm);
                 },
                 tenderFilterAction: function (event) {
-                    this.tenderFilter = $(event.target).attr('data-value');
+                    this.tenderFilter = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
                     sendRequest(vm);
                 },
                 paginationAction: function (event) {
-                    this.page = $(event.target).attr('data-value');
+                    this.page = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
                     sendRequest(vm);
                 }
             }
@@ -56,8 +56,7 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                 data: JSON.parse(JSON.stringify(vm.$data)),
             })
                 .done(function (response) {
-                    console.log("success");
-                    console.log(response);
+                    loadTenderList(response)
                 })
                 .fail(function () {
                     console.log("error");
@@ -67,6 +66,38 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                 });
 
         };
+
+        function loadTenderList(data) {
+            console.log(data);
+            if (data != null) {
+                $.ajax({
+                    url: '/resources/product-list/tenders_templete.html',
+                    type: 'GET',
+                    dataType: 'html',
+                })
+                    .done(function (response) {
+                        console.log("success");
+                        console.log(response);
+                        Handlebars.registerHelper('isTrue', function (status, exceptStatus) {
+                            if (status == exceptStatus) {
+                                return true;
+                            }
+                            return false;
+                        })
+                        var template = Handlebars.compile(response);
+                        var html = template(data.data);
+                        $('.products').html(html);
+                    })
+                    .fail(function () {
+                        console.log("error");
+                    })
+                    .always(function () {
+                        console.log("complete");
+                    });
+
+            }
+
+        }
 
         console.log(vm);
     });
