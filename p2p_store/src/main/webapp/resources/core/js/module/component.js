@@ -519,6 +519,13 @@ define(function () {
         }
         return items;
     }
+    var buildURLParamByJson=function buildURLParam(json){
+        var urlParam='';
+        _.map(json, function (value, key) {
+             urlParam += (key+'='+value);
+        })
+        return urlParam;
+    }
 
     return {
         slider: slider,
@@ -535,6 +542,7 @@ define(function () {
         checkbox: checkbox,
         getJsonUrlParam: getJsonUrlParam,
         getUrlHash: getUrlHash,
+        buildURLParamByJson: buildURLParamByJson,
         getParamValue: getParamValue
     }
 });

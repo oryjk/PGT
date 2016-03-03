@@ -30,22 +30,30 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
             },
             methods: {
                 sortBy: function (event) {
+                    event.preventDefault();
                     this.sort = $(event.target).attr('data-value');
                     sendRequest(vm);
                 },
                 tenderFilterAction: function (event) {
                     this.tenderFilter = $(event.target).attr('data-value');
                     sendRequest(vm);
+                },
+                paginationAction: function (event) {
+                    this.page = $(event.target).attr('data-value');
+                    sendRequest(vm);
                 }
             }
         });
 
         function sendRequest(vm) {
+
+            var urlParam = Con.buildURLParamByJson(JSON.parse(JSON.stringify(vm.$data)));
+            window.history.pushState(null, null, '?' + urlParam);
             $.ajax({
                 url: '/tender/ajaxTenderList',
                 type: 'GET',
                 dataType: 'json',
-                data: vm.data,
+                data: JSON.parse(JSON.stringify(vm.$data)),
             })
                 .done(function (response) {
                     console.log("success");
@@ -58,7 +66,7 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                     console.log("complete");
                 });
 
-        }
+        };
 
         console.log(vm);
     });
