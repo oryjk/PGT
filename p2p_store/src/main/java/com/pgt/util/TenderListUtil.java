@@ -16,9 +16,10 @@ public class TenderListUtil {
     private static Map<Integer, ESSort> tenderSortMap = new HashMap<Integer, ESSort>() {{
         put(1, new ESSort("newest", SortOrder.ASC));//最新
         put(2, new ESSort("tenderTotal", SortOrder.DESC));//金额最多
-        put(3, new ESSort("cycle", SortOrder.ASC));//周期最短
-        put(1, new ESSort("cycle", SortOrder.DESC));//周期最长
-        put(1, new ESSort("end", SortOrder.ASC));//即将结束
+        put(3, new ESSort("tenderTotal", SortOrder.ASC));//金额最多
+        put(4, new ESSort("cycle", SortOrder.ASC));//周期最短
+        put(5, new ESSort("cycle", SortOrder.DESC));//周期最长
+        put(6, new ESSort("end", SortOrder.ASC));//即将结束
 
     }};
 

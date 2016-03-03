@@ -10,21 +10,56 @@ require.config({
         handlebar: '../core/js/handlebars-v4.0.5',
         ajax: '../core/js/module/ajax',
         underscore: '../core/js/underscore',
+        vue: '../core/js/vue.min',
         component: '../core/js/module/component'
     }
 });
 
-require(['jquery', 'handlebar', 'ajax', 'underscore', 'component'], function ($, Handlebar, Ajax, _, Con) {
+require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], function ($, Handlebar, Ajax, _, Vue, Con) {
     $(document).ready(function () {
-       var requestParam={}
-        $('.page-box ol li').on('click', function (event) {
-            event.preventDefault();
-            var tenderListParamObj = new TenderListParam();
-            tenderListParamObj.sort=$('.title3 .current').attr('sort-value');
-            tenderListParamObj.sort=$('.title3 .current').attr('sort-value');
-            requestParam.page=$(this).children('a').html();
-            requestParam.keyword=$('.search input').val();
-            $('.statusFilter input')
+
+
+        var vm = new Vue({
+            el: '#mainContent',
+            data: {
+                sort: Con.getParamValue(window.location.href, 'sort'),
+                page: Con.getParamValue(window.location.href, 'page'),
+                keyword: Con.getParamValue(window.location.href, 'keyword'),
+                tenderFilter: Con.getParamValue(window.location.href, 'tenderFilter'),
+                cid: Con.getParamValue(window.location.href, 'cid')
+            },
+            methods: {
+                sortBy: function (event) {
+                    this.sort = $(event.target).attr('data-value');
+                    sendRequest(vm);
+                },
+                tenderFilterAction: function (event) {
+                    this.tenderFilter = $(event.target).attr('data-value');
+                    sendRequest(vm);
+                }
+            }
         });
+
+        function sendRequest(vm) {
+            $.ajax({
+                url: '/tender/ajaxTenderList',
+                type: 'GET',
+                dataType: 'json',
+                data: vm.data,
+            })
+                .done(function (response) {
+                    console.log("success");
+                    console.log(response);
+                })
+                .fail(function () {
+                    console.log("error");
+                })
+                .always(function () {
+                    console.log("complete");
+                });
+
+        }
+
+        console.log(vm);
     });
 });

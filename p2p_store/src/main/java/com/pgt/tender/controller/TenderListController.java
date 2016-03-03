@@ -93,7 +93,7 @@ public class TenderListController {
     }
 
 
-    @RequestMapping("/ajaxtenderList")
+    @RequestMapping("/ajaxTenderList")
     public ResponseEntity ajaxGet(@RequestParam(value = "sort", required = false) Integer sort,
                                   @RequestParam(value = "keyword", required = false) String keyword,
                                   @RequestParam(value = "tenderFilter", required = false) Integer tenderFilter,

@@ -1,4 +1,3 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -25,7 +24,7 @@
 			<h2>项目列表</h2>
 		</div>
 	</div>
-	<div class="main">
+	<div class="main" id="mainContent">
 		<div class="menu">
 			<a href="javascript:" path="list-all.html" class="list">
 				<img src="../core/images/icon/list1.png">
@@ -73,16 +72,17 @@
 				<div class="filter">
 					<div class="breadcrumb">当前位置：文玩杂项<span>查询结果共1000个相关项目</span></div>
 					<ul class="status-filter">
-						<li><input type="radio" name="sex" value="n"/>全部</li>
-						<li><input type="radio" name="sex" value="v"/>即将开始</li>
-						<li><input type="radio" name="sex" value="n"/>进行中</li>
-						<li><input type="radio" name="sex" value="v"/>已结束</li>
+						<li><input type="radio" name="sex" value="n" v-on:click="tenderFilterAction" data-value="1"/>全部</li>
+						<li><input type="radio" name="sex" value="v" v-on:click="tenderFilterAction" data-value="2"/>即将开始</li>
+						<li><input type="radio" name="sex" value="n" v-on:click="tenderFilterAction" data-value="3"/>进行中</li>
+						<li><input type="radio" name="sex" value="v" v-on:click="tenderFilterAction" data-value="4"/>已结束</li>
 					</ul>
 					<div class="sort">
-						<a href="#">综合推荐</a>
-						<a href="#">最新上线</a>
-						<a href="#">金额最多</a>
-						<a href="#">即将结束</a>
+						<a href="#" v-on:click="sortBy">综合推荐</a>
+						<a href="#" v-on:click="sortBy" data-value="1">最新上线</a>
+						<a href="#" v-on:click="sortBy" data-value="2">金额最多</a>
+						<a href="#" v-on:click="sortBy" data-value="4">周期最短</a>
+						<a href="#" v-on:click="sortBy" data-value="5">即将结束</a>
 					</div>
 				</div>
 
