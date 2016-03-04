@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":utils" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="pgt" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":utils" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="pgt" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="web" name="Web Gradle : utils.war">
       <configuration>
@@ -31,6 +31,51 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="core" />
+    <orderEntry type="module-library">
+      <library name="Gradle: ueditor-1.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../core/libs/ueditor-1.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: bcprov-jdk15-1.45">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../core/libs/bcprov-jdk15-1.45.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.cfca.certkitjs-1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../core/libs/com.cfca.certkitjs-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: elasticsearch-analysis-ik-1.5.1-sources">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../core/libs/elasticsearch-analysis-ik-1.5.1-sources.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.cfca.pkibase-1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../core/libs/com.cfca.pkibase-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.1.3" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:4.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.4" level="project" />
@@ -158,45 +203,9 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.2.2.RELEASE" level="project" />
     <orderEntry type="module-library">
-      <library name="Gradle: ueditor-1.1.2">
+      <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../core/libs/ueditor-1.1.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: bcprov-jdk15-1.45">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../core/libs/bcprov-jdk15-1.45.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: com.cfca.certkitjs-1.0">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../core/libs/com.cfca.certkitjs-1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: elasticsearch-analysis-ik-1.5.1-sources">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../core/libs/elasticsearch-analysis-ik-1.5.1-sources.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: com.cfca.pkibase-1.0">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../core/libs/com.cfca.pkibase-1.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../b2c_store/libs/groovy-all-2.4.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
