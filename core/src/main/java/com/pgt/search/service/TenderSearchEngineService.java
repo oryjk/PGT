@@ -301,7 +301,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
     @Override
     public void initialIndex() {
-        createIndex(esConfiguration.getIndexName(), esConfiguration.isNeedIndex());
+        createIndex(esConfiguration.getIndexName(), esConfiguration.isClearIndex());
         createMapping(esConfiguration.getIndexName(), Constants.TENDER_INDEX_TYPE, getEsConfiguration().getTenderAnalyzerFields());
     }
 

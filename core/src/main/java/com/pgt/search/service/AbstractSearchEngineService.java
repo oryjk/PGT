@@ -65,6 +65,7 @@ public abstract class AbstractSearchEngineService {
             boolean exists = getIndexClient().admin().indices().prepareExists(indexName).execute().actionGet().isExists();
             if (exists && !override) {
                 LOGGER.debug("The index {indexName} is exist,and not need override.");
+                esConfiguration.setClearIndex(false);
                 return;
             }
             if (exists) {

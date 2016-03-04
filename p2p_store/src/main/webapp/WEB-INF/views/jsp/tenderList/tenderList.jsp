@@ -99,13 +99,27 @@
 						<li><input type="radio" name="sex" value="n" data-value="3"/>进行中</li>
 						<li><input type="radio" name="sex" value="v" data-value="4"/>已结束</li>
 					</ul>
-					<div class="sort" v-on:click="sortBy">
-						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==''}">综合推荐</a>
-						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==1}" data-value="1">最新上线</a>
-						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==2}" data-value="2">金额最多</a>
-						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==4}" data-value="4">周期最短</a>
-						<a href="#" v-bind:class="{'current-tab':queryRequest.sort==5}" data-value="5">即将结束</a>
-					</div>
+					<ul class="sort" v-on:click="sortBy">
+						<li class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==''}">
+							<a href="#">综合推荐</a>
+						</li>
+						<li class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==1}">
+							<a href="#" data-value="1">最新上线</a>
+						</li>
+						<li id="sortMoney" class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==2}">
+							<a class="sort-view" href="#" data-value="2">金额最多</a>
+							<ul>
+								<li class="sort-tab-item hide"><a href="#" data-value="2">金额最多</a></li>
+								<li class="sort-tab-item"><a href="#" data-value="2">金额最少</a></li>
+							</ul>
+						</li>
+						<li class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==4}">
+							<a class="sort-tab" href="#" data-value="4">周期最短</a>
+						</li>
+						<li class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==5}">
+							<a class="sort-tab" href="#" data-value="5">即将结束</a>
+						</li>
+					</ul>
 				</div>
 				<div class="products">
 					<jsp:include page="tenders.jsp"/>
