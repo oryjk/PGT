@@ -10,18 +10,22 @@ import com.pgt.internal.bean.InternalUser;
 import com.pgt.internal.bean.Role;
 import com.pgt.internal.constant.ResponseConstant;
 import com.pgt.internal.controller.InternalTransactionBaseController;
+import com.pgt.internal.service.InternalUserService;
 import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.pawn.bean.PawnTicket;
 import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.pawn.service.PawnRelatedValidationService;
 import com.pgt.pawn.service.PawnService;
+import com.pgt.product.bean.Product;
+import org.elasticsearch.action.search.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,7 +33,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yove on 16/2/7.
@@ -65,6 +71,9 @@ public class PawnController extends InternalTransactionBaseController implements
 
 	@Autowired
 	private MediaService mediaService;
+
+	@Autowired
+	private InternalUserService internalUserService;
 
 	@RequestMapping(value = "/pawn-shop-list", method = RequestMethod.GET)
 	public ModelAndView listPawnshops(HttpServletRequest pRequest, HttpServletResponse pResponse,
@@ -333,6 +342,33 @@ public class PawnController extends InternalTransactionBaseController implements
 		}
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
+
+
+	@RequestMapping(value = "/queryUser", method = RequestMethod.POST)
+	public ResponseEntity queryUser(HttpServletRequest pRequest,Integer userId) {
+		LOGGER.debug("The method for queryUser");
+		ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+
+			if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+				return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
+			}
+			if (userId == null ) {
+				LOGGER.debug("The userId  is null.");
+				responseEntity.getBody().put("status","fail");
+				return responseEntity;
+			}
+		    InternalUser internalUser=internalUserService.findInternalUser(userId);
+            if(ObjectUtils.isEmpty(internalUser)){
+				LOGGER.debug("The user is null.");
+				responseEntity.getBody().put("status","fail");
+				return responseEntity;
+			}
+		    responseEntity.getBody().put("internalUser",internalUser);
+		    LOGGER.debug("The query InternalUser id is {}.",internalUser.getId());
+			responseEntity.getBody().put("status","success");
+			return responseEntity;
+	}
+
 
 	public PawnService getPawnService() {
 		return mPawnService;
