@@ -15,18 +15,18 @@ import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
 import com.pgt.media.MediaService;
 import com.pgt.product.service.ProductService;
-import com.pgt.search.bean.ESSort;
-import com.pgt.search.bean.ESTerm;
-import com.pgt.search.bean.HotProducts;
+import com.pgt.search.bean.*;
 import com.pgt.search.controller.ESSearchConstants;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.style.bean.PageBackground;
 import com.pgt.style.bean.PageBackgroundQuery;
 import com.pgt.style.service.PageBackgroundService;
+import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
@@ -227,14 +227,23 @@ public class HomeController {
                 HotProducts  hot = new HotProducts();
                 Integer categoryId = (Integer) category.getSource().get("id");
                 LOGGER.debug("The category Id is {}",categoryId);
-                SearchResponse categoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),listTerm ,null,paginationBean,null,sortList);
+
+               //  SearchResponse categoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),listTerm ,null,paginationBean,null,sortList);
+            ESTerm esterm = new ESTerm();
+            esterm.setPropertyName("rootCategoryId");
+            esterm.setTermValue(categoryId.toString());
+            listTerm.add(esterm);
+            SearchResponse categoryProduct =esSearchService.findProducts(null,listTerm,null,sortList,paginationBean,null,true);
 
                 if(!ObjectUtils.isEmpty(categoryProduct)){
                     SearchHits categoryProducts=categoryProduct.getHits();
                     SearchHit[] hotProducts =categoryProducts.getHits();
                     if(hotProducts.length<6){
                         LOGGER.debug("The hotProducts is less than 6,so find to all products");
-                        SearchResponse otherCategoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),null ,null,paginationBean,null,sortList);
+                       // SearchResponse otherCategoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),null ,null,paginationBean,null,sortList);
+                        listTerm.clear();
+                        listTerm.add(esterm);
+                        SearchResponse otherCategoryProduct =esSearchService.findProducts(null,listTerm,null,sortList,paginationBean,null,true);
                         SearchHits otherCategoryProducts=otherCategoryProduct.getHits();
                         hotProducts =otherCategoryProducts.getHits();
                     }

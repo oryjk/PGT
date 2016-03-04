@@ -31,7 +31,7 @@ public class CreateIndexController {
         Map<String, Object> message = new HashMap<>();
         esSearchService.initialIndex(true);
         esSearchService.categoryIndex();
-        esSearchService.hotSaleIndex();
+       // esSearchService.hotSaleIndex();
         BulkResponse responses = esSearchService.productsIndex();
         message.put("responses", responses);
         if (responses.hasFailures()) {
