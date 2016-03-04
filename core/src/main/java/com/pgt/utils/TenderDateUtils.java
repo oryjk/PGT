@@ -2,7 +2,9 @@ package com.pgt.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by zhangxiaodong on 16-3-3.
@@ -10,16 +12,21 @@ import java.util.Date;
 public class TenderDateUtils {
 
 
-    public static Integer getDaySub(String beginDateStr,String endDateStr)
+    public static Integer getDaySub(Date beginDate,Date endDate)
     {
         Integer day=0;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date beginDate;
-        Date endDate;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         try
         {
-            beginDate = format.parse(beginDateStr);
-            endDate= format.parse(endDateStr);
+            Calendar c = Calendar.getInstance();
+            c.setTimeInMillis(endDate.getTime());
+            String endStringDate= format.format(c.getTime());
+            endDate=format.parse(endStringDate);
+
+            c.setTimeInMillis(beginDate.getTime());
+            String beginStringDate=format.format(c.getTime());
+            beginDate = format.parse(beginStringDate);
+
             day=(int) (endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
         } catch (ParseException e)
         {

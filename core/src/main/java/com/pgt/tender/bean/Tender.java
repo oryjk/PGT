@@ -150,7 +150,7 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     public Integer getDeadline() {
         Integer end=0;
         if(!ObjectUtils.isEmpty(dueDate)){
-            end=TenderDateUtils.getDaySub(new Date().toString(),dueDate.toString());
+            end=TenderDateUtils.getDaySub(new Date(),dueDate);
         }
         return end;
     }

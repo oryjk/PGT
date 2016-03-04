@@ -18,6 +18,7 @@ require.config({
 require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], function ($, Handlebars, Ajax, _, Vue, Con) {
     $(document).ready(function () {
 
+        //初始化下拉菜单
         $(document).on('mouseenter', '.menu-level-1', function() {
             $(this).children('.menu-2').slideDown(300);
         });
@@ -25,6 +26,26 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
         $(document).on('mouseleave', '.menu-level-1', function() {
             $(this).children('.menu-2').slideUp(300);
         });
+
+        //初始化sort-tab下拉菜单
+        $('#sortMoney').mouseenter(function() {
+            $(this).children('ul').show();
+        }).mouseleave(function() {
+            $(this).children('ul').hide();
+        });
+
+
+        $('.sort-tab-item').click(function(event) {
+            event.preventDefault();
+            var $this = $(this);
+            var sibling = $this.siblings();
+            //$this.siblings('li').hide();
+            $this.addClass('hide');
+            sibling.removeClass('hide');
+            $this.parent().siblings().text($this.text());
+        });
+
+
 
         Handlebars.registerHelper('isTrue', function (status, exceptStatus) {
             if (status == exceptStatus) {

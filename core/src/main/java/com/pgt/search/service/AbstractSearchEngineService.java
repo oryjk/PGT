@@ -267,6 +267,25 @@ public abstract class AbstractSearchEngineService {
 
     }
 
+    protected String buildQueryAndString(List<ESTerm> esMatches) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (CollectionUtils.isEmpty(esMatches)) {
+            LOGGER.debug("The match term is empty.");
+            return null;
+        }
+        for (int i = 0; i < esMatches.size(); i++) {
+            ESTerm esTerm = esMatches.get(i);
+            if (i == 0) {
+                stringBuilder.append(esTerm.getPropertyName() + ":" + esTerm.getTermValue());
+                continue;
+            }
+            stringBuilder.append(" AND ");
+            stringBuilder.append(esTerm.getPropertyName() + ":" + esTerm.getTermValue());
+        }
+        return stringBuilder.toString();
+
+    }
+
 
     protected List<ESTerm> buildESTerms(String keyword, List<String> searchProperties) {
         if (StringUtils.isBlank(keyword)) {

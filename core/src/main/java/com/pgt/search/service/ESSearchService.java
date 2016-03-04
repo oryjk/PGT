@@ -87,6 +87,7 @@ public class ESSearchService extends AbstractSearchEngineService {
         createIndex(Constants.SITE_INDEX_NAME, override);
         createProductMapping();
         createHotSaleMapping();
+
     }
 
 
@@ -246,6 +247,7 @@ public class ESSearchService extends AbstractSearchEngineService {
         return bulkResponse;
     }
 
+
     /**
      * Do product update
      *
@@ -325,7 +327,7 @@ public class ESSearchService extends AbstractSearchEngineService {
             LOGGER.error(e.getMessage());
         }
         if (product.isHot()) {
-            createHotSaleIndex(rootCategory.getId());
+            //createHotSaleIndex(rootCategory.getId());
         }
     }
 
@@ -414,7 +416,7 @@ public class ESSearchService extends AbstractSearchEngineService {
                 //operator will add to configuration or from request
                 qb.must(termQuery(esTerm.getPropertyName(), esTerm.getTermValue()));
             }
-            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
+            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb, false);
             LOGGER.debug(searchRequestBuilder.toString());
             response = searchRequestBuilder.execute().actionGet();
             return response;
@@ -490,7 +492,7 @@ public class ESSearchService extends AbstractSearchEngineService {
      * @return
      */
     public SearchResponse findProducts(List<ESTerm> esTerms, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
-                                       PaginationBean paginationBean, ESAggregation esAggregation) {
+                                       PaginationBean paginationBean, ESAggregation esAggregation, boolean matchesisAnd) {
         SearchResponse response = null;
         try {
             SearchRequestBuilder searchRequestBuilder = buildProductRequestBuilder();
@@ -503,7 +505,7 @@ public class ESSearchService extends AbstractSearchEngineService {
                 //operator will add to configuration or from request
 
             }
-            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, esAggregation, searchRequestBuilder, qb);
+            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, esAggregation, searchRequestBuilder, qb, matchesisAnd);
             LOGGER.debug(searchRequestBuilder.toString());
             response = searchRequestBuilder.execute().actionGet();
             return response;
@@ -514,9 +516,16 @@ public class ESSearchService extends AbstractSearchEngineService {
     }
 
     private void buildQueryBuilder(List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList, PaginationBean paginationBean,
-                                   ESAggregation esAggregation, SearchRequestBuilder searchRequestBuilder, BoolQueryBuilder qb) {
+                                   ESAggregation esAggregation, SearchRequestBuilder searchRequestBuilder, BoolQueryBuilder qb,
+                                   boolean matchesisAnd) {
 
-        String queryString = buildQueryString(esMatches);
+        String queryString = null;
+
+        if (matchesisAnd == false) {
+            queryString = buildQueryString(esMatches);
+        } else {
+            queryString = buildQueryAndString(esMatches);
+        }
 
 
         if (!ObjectUtils.isEmpty(queryString)) {
@@ -591,7 +600,7 @@ public class ESSearchService extends AbstractSearchEngineService {
                         LOGGER.debug("Can not find the child categories.");
                         return response;
                     }
-                    return findProducts(esTerms, esMatches, esRange, esSorts, paginationBean, esAggregation);
+                    return findProducts(esTerms, esMatches, esRange, esSorts, paginationBean, esAggregation, false);
                 }
                 LOGGER.debug("This category id is not belong to ROOT category.");
 
