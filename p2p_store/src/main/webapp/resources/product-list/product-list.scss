@@ -168,24 +168,51 @@ $main-light: lighten($main, 2%);
   @include wh(900px, 35px);
   background: $gray-bg;
   border-top: 3px solid $main-light;
-  a {
-    border: 2px solid #f2f2f2;
-    border-radius: 3px;
-    padding: 5px 3px;
-    margin-left: 20px;
-    line-height: 35px;
-    font-size: 14px;
-    color: #000;
 
-    &:hover {
-      border-color: $em-light;
+  .sort-tab {
+    position: relative;
+    float: left;
+    text-align: center;
+    line-height: 35px;
+    @include wh(80px, 100%);
+    font-size: 14px;
+
+    a {
+      display: block;
+      color: #000;
+
+      &:hover {
+        background: $gray-light;
+      }
     }
+
+    ul {
+      display: none;
+      position: absolute;
+      z-index: 1;
+      top: 35px;
+      left: 0;
+      width: 100%;
+    }
+
+    li {
+      @include wh(100%, 35px);
+      background: #f2f2f2;
+    }
+
+
   }
 
   .current-tab {
-    border-color: $em-light;
-    color: white;
+    a {
+      color: white;
+    }
     background: $em-light;
+  }
+
+  .sort-tab-item {
+    display: block;
+    @include wh(100%, 100%);
   }
 }
 

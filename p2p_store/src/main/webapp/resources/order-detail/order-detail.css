@@ -183,7 +183,7 @@ a {
     color: #2d7fe0; }
 
 .hide {
-  display: none; }
+  display: none !important; }
 
 .show {
   display: block; }
