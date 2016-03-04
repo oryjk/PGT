@@ -101,6 +101,7 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 				<value>title</value>
 				<value>shortDescription</value>
 				<value>keyWord</value>
+				<value>description</value>
 			</list>
 		</property>
 		<property name="tenderSearchProperties">
@@ -119,12 +120,15 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 			<list value-type="java.lang.String">
 				<value>name</value>
 				<value>sort</value>
+				<value>description</value>
 			</list>
 		</property>
 		<property name="hotSaleAnalyzerFields">
 			<list value-type="java.lang.String">
 				<value>name</value>
 				<value>sort</value>
+				<value>description</value>
+
 			</list>
 		</property>
 		<property name="tenderAnalyzerFields">
@@ -135,6 +139,10 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 		</property>
 		<property name="needIndex" value="true"/>
 		<property name="clearIndex" value="true"/>
+		<property name="indexName" value="live_pawnage"/>
+		<property name="categoryTypeName" value="category"/>
+		<property name="productTypeName" value="product"/>
+		<property name="categoryType" value="TENDER_ROOT"/>
 	</bean>
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<property name="caches">
@@ -145,9 +153,12 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 			</set>
 		</property>
 	</bean>
-	<bean class="com.pgt.data.MigrateDataListener">
+
+
+	<bean class="com.pgt.data.index.service.AllIndexService">
 		<property name="searchEngineServiceList">
 			<list value-type="com.pgt.search.service.AbstractSearchEngineService">
+				<ref bean="categorySearchEngineService"/>
 				<ref bean="tenderSearchEngineService"/>
 				<ref bean="staticResourceSearchEngineService"/>
 			</list>

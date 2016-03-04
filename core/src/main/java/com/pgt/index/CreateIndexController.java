@@ -1,5 +1,8 @@
 package com.pgt.index;
 
+import com.pgt.data.index.service.AllIndexService;
+import com.pgt.data.service.MigrateDataService;
+import com.pgt.search.service.AbstractSearchEngineService;
 import com.pgt.search.service.ESSearchService;
 import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -21,26 +24,20 @@ import java.util.Map;
 @RequestMapping("/index")
 @RestController
 public class CreateIndexController {
-
+    private List<AbstractSearchEngineService> searchEngineServiceList = new ArrayList<>();
+    @Autowired
+    private AllIndexService allIndexService;
 
     @Autowired
     private ESSearchService esSearchService;
 
     @RequestMapping(value = "/createProductIndex", method = RequestMethod.GET)
     public Map<String, Object> createProductIndex() {
-        Map<String, Object> message = new HashMap<>();
-        esSearchService.initialIndex(true);
-        esSearchService.categoryIndex();
-        esSearchService.hotSaleIndex();
-        BulkResponse responses = esSearchService.productsIndex();
-        message.put("responses", responses);
-        if (responses.hasFailures()) {
 
-            message.put("message", "error");
-            return message;
-        }
-        message.put("message", "success");
-        return message;
+        allIndexService.createIndex();
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        return response;
     }
 
 
@@ -68,4 +65,11 @@ public class CreateIndexController {
         this.esSearchService = esSearchService;
     }
 
+    public List<AbstractSearchEngineService> getSearchEngineServiceList() {
+        return searchEngineServiceList;
+    }
+
+    public void setSearchEngineServiceList(List<AbstractSearchEngineService> searchEngineServiceList) {
+        this.searchEngineServiceList = searchEngineServiceList;
+    }
 }

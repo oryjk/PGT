@@ -124,6 +124,7 @@
 				<value>title</value>
 				<value>shortDescription</value>
 				<value>keyWord</value>
+				<value>description</value>
 			</list>
 		</property>
 		<property name="useToSearch">
@@ -136,17 +137,13 @@
 			<list value-type="java.lang.String">
 				<value>name</value>
 				<value>sort</value>
+				<value>description</value>
 			</list>
 		</property>
 		<property name="hotSaleAnalyzerFields">
 			<list value-type="java.lang.String">
 				<value>name</value>
 				<value>sort</value>
-			</list>
-		</property>
-		<property name="tenderAnalyzerFields">
-			<list value-type="java.lang.String">
-				<value>name</value>
 			</list>
 		</property>
 		<property name="needIndex" value="true"/>
@@ -163,15 +160,16 @@
 		</property>
 	</bean>
 
-	<bean class="com.pgt.data.MigrateDataListener">
+
+	<bean class="com.pgt.data.index.service.AllIndexService">
 		<property name="searchEngineServiceList">
 			<list value-type="com.pgt.search.service.AbstractSearchEngineService">
-				<ref bean="staticResourceSearchEngineService"/>
+				<ref bean="categorySearchEngineService"/>
 				<ref bean="esSearchService"/>
+				<ref bean="staticResourceSearchEngineService"/>
 			</list>
 		</property>
 	</bean>
-
 	<bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

@@ -27,6 +27,7 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -300,8 +301,8 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
     @Override
     public void initialIndex() {
-        createIndex(Constants.P2P_INDEX_NAME, esConfiguration.isNeedIndex());
-        createMapping(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, getEsConfiguration().getTenderAnalyzerFields());
+        createIndex(esConfiguration.getIndexName(), esConfiguration.isNeedIndex());
+        createMapping(esConfiguration.getIndexName(), Constants.TENDER_INDEX_TYPE, getEsConfiguration().getTenderAnalyzerFields());
     }
 
     @Override
@@ -317,7 +318,12 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             LOGGER.debug("sorts is empty.");
             return;
         }
-        esSorts.stream().forEach(esSort -> searchRequestBuilder.addSort(esSort.getPropertyName(), esSort.getSortOrder()));
+        esSorts.stream().forEach(esSort -> {
+            FieldSortBuilder sortBuilder = new FieldSortBuilder(esSort.getPropertyName());
+            sortBuilder.order(esSort.getSortOrder());
+            sortBuilder.unmappedType("long");
+            searchRequestBuilder.addSort(sortBuilder);
+        });
     }
 
     @Override
@@ -368,9 +374,9 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         try {
             SearchRequestBuilder searchRequestBuilder;
             searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
-            List<ESTerm> esTerms = buildESTerms(keyword,esConfiguration.getTenderSearchProperties());
+            List<ESTerm> esTerms = buildESTerms(keyword, esConfiguration.getTenderSearchProperties());
             buildSearchRequestBuilder(esTerms, esTenderListFilter, paginationBean, esSorts, searchRequestBuilder);
-            LOGGER.debug("The query is {}.",searchRequestBuilder.toString());
+            LOGGER.debug("The query is {}.", searchRequestBuilder.toString());
             response = searchRequestBuilder.execute()
                     .actionGet();
             return response;

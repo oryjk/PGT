@@ -22,6 +22,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,7 @@ public abstract class AbstractSearchEngineService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        esConfiguration.setClearIndex(false);
     }
 
     protected Client getIndexClient() throws IOException {
@@ -207,7 +209,12 @@ public abstract class AbstractSearchEngineService {
         }
         if (!ObjectUtils.isEmpty(esSortList)) {
             esSortList.stream().forEach(esSort1 ->
-                            searchRequestBuilder.addSort(esSort1.getPropertyName(), esSort1.getSortOrder())
+                    {
+                        FieldSortBuilder sortBuilder = new FieldSortBuilder(esSort1.getPropertyName());
+                        sortBuilder.order(esSort1.getSortOrder());
+                        sortBuilder.unmappedType("long");
+                        searchRequestBuilder.addSort(sortBuilder);
+                    }
             );
         }
         if (!ObjectUtils.isEmpty(esAggregation)) {
@@ -261,13 +268,13 @@ public abstract class AbstractSearchEngineService {
     }
 
 
-    protected List<ESTerm> buildESTerms(String keyword,List<String> searchProperties) {
-        if(StringUtils.isBlank(keyword)){
+    protected List<ESTerm> buildESTerms(String keyword, List<String> searchProperties) {
+        if (StringUtils.isBlank(keyword)) {
             return null;
         }
 
-        List<String> useToSearch  = searchProperties;
-        List<ESTerm> esTerms=new ArrayList<>();
+        List<String> useToSearch = searchProperties;
+        List<ESTerm> esTerms = new ArrayList<>();
         if (!ObjectUtils.isEmpty(useToSearch)) {
             final String finalTerm = keyword;
             useToSearch.stream().forEach(s -> {

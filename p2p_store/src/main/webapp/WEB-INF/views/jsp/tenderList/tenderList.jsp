@@ -25,6 +25,7 @@
 	</div>
 	<div class="main" id="mainContent">
 		<div class="menu">
+			rootCategoryList${rootCategoryList}
 			<ul class="menu">
 				<li class="menu-level-1">
 					<a href="javascript:" path="list-all.html" class="list">

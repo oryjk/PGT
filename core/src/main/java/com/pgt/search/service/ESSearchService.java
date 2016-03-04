@@ -18,7 +18,6 @@ import com.pgt.product.helper.ProductHelper;
 import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -36,8 +35,6 @@ import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.Requests;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -45,6 +42,7 @@ import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -54,7 +52,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.*;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
@@ -85,69 +82,11 @@ public class ESSearchService extends AbstractSearchEngineService {
     @Autowired
     private HotProductHelper hotProductHelper;
 
-    private Client indexClient;
-    private Client searchClient;
-
 
     public void initialIndex(Boolean override) {
         createIndex(Constants.SITE_INDEX_NAME, override);
         createProductMapping();
-        createCategoryMapping();
         createHotSaleMapping();
-    }
-
-    /**
-     * Do category index.
-     *
-     * @return
-     */
-    public BulkResponse categoryIndex() {
-        BulkResponse bulkResponse = null;
-        try {
-            LOGGER.debug("Begin to category index.");
-
-            Client client = getIndexClient();
-            BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Category> rootCategories = categoryHelper.findRootCategories();
-            if (!ObjectUtils.isEmpty(rootCategories)) {
-                rootCategories.stream().forEach(rootCategory -> {
-                    LOGGER.debug("The root category id {categoryId}.", rootCategory.getId());
-                    List<Category> subCategories = rootCategory.getChildren();
-                    ObjectMapper mapper = new ObjectMapper();
-                    try {
-                        byte[] rootByte = mapper.writeValueAsBytes(rootCategory);
-                        IndexRequestBuilder indexRequestBuilder =
-                                client.prepareIndex(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE, rootCategory.getId() + "")
-                                        .setSource(rootByte);
-                        bulkRequest.add(indexRequestBuilder);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    if (!ObjectUtils.isEmpty(subCategories)) {
-                        subCategories.stream().forEach(category -> {
-                            LOGGER.debug("The category id {categoryId}.", category.getId());
-                            try {
-                                byte[] bytes = mapper.writeValueAsBytes(category);
-                                IndexRequestBuilder indexRequestBuilder =
-                                        client.prepareIndex(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE, category.getId() + "")
-                                                .setSource(bytes);
-                                bulkRequest.add(indexRequestBuilder);
-                            } catch (JsonProcessingException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
-                });
-            }
-            bulkResponse = bulkRequest.execute().actionGet(100000);
-            if (bulkResponse.hasFailures()) {
-                LOGGER.error("The category index is failed.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        LOGGER.debug("End to category index.");
-        return bulkResponse;
     }
 
 
@@ -164,7 +103,7 @@ public class ESSearchService extends AbstractSearchEngineService {
 
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Category> rootCategories = categoryHelper.findRootCategories();
+            List<Category> rootCategories = categoryHelper.findRootCategories(null);
             if (!ObjectUtils.isEmpty(rootCategories)) {
                 rootCategories.stream().forEach(rootCategory -> {
                     LOGGER.debug("The root category id {categoryId}.", rootCategory.getId());
@@ -272,7 +211,7 @@ public class ESSearchService extends AbstractSearchEngineService {
 
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Category> rootCategories = categoryHelper.findRootCategories();
+            List<Category> rootCategories = categoryHelper.findRootCategories(null);
             if (!ObjectUtils.isEmpty(rootCategories)) {
                 rootCategories.stream().forEach(rootCategory -> {
                     LOGGER.debug("The root category id {categoryId}.", rootCategory.getId());
@@ -510,9 +449,14 @@ public class ESSearchService extends AbstractSearchEngineService {
         SearchResponse response = null;
         try {
             SearchRequestBuilder searchRequestBuilder = buildHotSalesRequestBuilder();
-            searchRequestBuilder.addSort(Constants.SORT, SortOrder.ASC);
+            FieldSortBuilder sortBuilder = new FieldSortBuilder(Constants.SORT);
+            sortBuilder.order(SortOrder.ASC);
+            sortBuilder.unmappedType("long");
+            searchRequestBuilder.addSort(sortBuilder);
             if (esSort != null) {
-                searchRequestBuilder.addSort(Constants.SORT, esSort.getSortOrder());
+                sortBuilder.order(esSort.getSortOrder());
+                sortBuilder.unmappedType("long");
+                searchRequestBuilder.addSort(sortBuilder);
             }
             response = searchRequestBuilder.execute().actionGet();
             return response;
@@ -523,13 +467,13 @@ public class ESSearchService extends AbstractSearchEngineService {
     }
 
     private SearchRequestBuilder buildHotSalesRequestBuilder() throws IOException {
-        return getSearchClient().prepareSearch(Constants.SITE_INDEX_NAME).setTypes(Constants.HOT_PRODUCT_INDEX_TYPE)
+        return getSearchClient().prepareSearch(esConfiguration.getIndexName()).setTypes(esConfiguration.getHotProductTypeName())
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
     }
 
 
     private SearchRequestBuilder buildProductRequestBuilder() throws IOException {
-        return getSearchClient().prepareSearch(Constants.SITE_INDEX_NAME).setTypes(Constants.PRODUCT_INDEX_TYPE)
+        return getSearchClient().prepareSearch(esConfiguration.getIndexName()).setTypes(esConfiguration.getProductTypeName())
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
     }
 
@@ -579,7 +523,12 @@ public class ESSearchService extends AbstractSearchEngineService {
             qb.must(QueryBuilders.queryStringQuery(queryString));
         }
         if (!ObjectUtils.isEmpty(esSortList)) {
-            esSortList.stream().forEach(esSort1 -> searchRequestBuilder.addSort(esSort1.getPropertyName(), esSort1.getSortOrder()));
+            esSortList.stream().forEach(esSort1 -> {
+                FieldSortBuilder sortBuilder = new FieldSortBuilder(esSort1.getPropertyName());
+                sortBuilder.order(esSort1.getSortOrder());
+                sortBuilder.unmappedType("long");
+                searchRequestBuilder.addSort(sortBuilder);
+            });
         }
         if (!ObjectUtils.isEmpty(esAggregation)) {
             searchRequestBuilder
@@ -692,7 +641,10 @@ public class ESSearchService extends AbstractSearchEngineService {
                 esTerms.stream().forEach(esTerm -> qb.should(matchQuery(esTerm.getPropertyName(), esTerm.getTermValue())));
             }
             if (!ObjectUtils.isEmpty(esSort)) {
-                searchRequestBuilder.addSort(esSort.getPropertyName(), esSort.getSortOrder());
+                FieldSortBuilder sortBuilder = new FieldSortBuilder(esSort.getPropertyName());
+                sortBuilder.order(esSort.getSortOrder());
+                sortBuilder.unmappedType("long");
+                searchRequestBuilder.addSort(sortBuilder);
             }
             searchRequestBuilder.setTerminateAfter(Integer.MAX_VALUE);
             response = searchRequestBuilder.execute().actionGet();
@@ -707,7 +659,6 @@ public class ESSearchService extends AbstractSearchEngineService {
 
     @Override
     public void index() {
-        categoryIndex();
         hotSaleIndex();
         productsIndex();
     }
@@ -719,9 +670,8 @@ public class ESSearchService extends AbstractSearchEngineService {
 
     @Override
     public void initialIndex() {
-        createIndex(Constants.SITE_INDEX_NAME, esConfiguration.isClearIndex());
+        createIndex(esConfiguration.getIndexName(), esConfiguration.isClearIndex());
         createProductMapping();
-        createCategoryMapping();
         createHotSaleMapping();
     }
 
@@ -755,11 +705,6 @@ public class ESSearchService extends AbstractSearchEngineService {
         LOGGER.debug("End to create product mapping.");
     }
 
-    private void createCategoryMapping() {
-        LOGGER.debug("Begin to create category mapping");
-        createMapping(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE, esConfiguration.getCategoryAnalyzerFields());
-        LOGGER.debug("End to create category mapping.");
-    }
 
     private void createHotSaleMapping() {
         LOGGER.debug("Begin to create hot sale mapping.");

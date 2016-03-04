@@ -13,12 +13,10 @@ import com.pgt.hot.bean.HotSearch;
 import com.pgt.hot.service.HotProductHelper;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductService;
-import com.pgt.search.bean.ESSort;
 import com.pgt.search.service.ESSearchService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +83,7 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
         } else {
             if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
                 // get root categories
-                List<Category> rootCategories = categoryHelper.findRootCategories();
+                List<Category> rootCategories = categoryHelper.findRootCategories(null);
 
                 if (!ObjectUtils.isEmpty(rootCategories)) {
                     List<HomeCategory> rootHomeCategories = new ArrayList<>();

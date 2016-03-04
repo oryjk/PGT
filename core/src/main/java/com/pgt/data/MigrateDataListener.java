@@ -1,6 +1,7 @@
 package com.pgt.data;
 
 import com.pgt.configuration.ESConfiguration;
+import com.pgt.data.index.service.AllIndexService;
 import com.pgt.data.service.MigrateDataService;
 import com.pgt.search.service.AbstractSearchEngineService;
 import com.pgt.search.service.ESSearchService;
@@ -11,8 +12,11 @@ import org.elasticsearch.action.bulk.BulkResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +25,8 @@ import java.util.List;
  * Created by carlwang on 12/8/15.
  */
 
-
+@Service
+@Scope("singleton")
 public class MigrateDataListener implements ApplicationListener<ContextRefreshedEvent> {
 
 
@@ -30,7 +35,8 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
     @Autowired
     private MigrateDataService migrateDateService;
 
-    private List<AbstractSearchEngineService> searchEngineServiceList = new ArrayList<>();
+    @Autowired
+    private AllIndexService allIndexService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -49,15 +55,7 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
 
     public void createIndex() {
 
-
-        if (CollectionUtils.isEmpty(searchEngineServiceList)) {
-            LOGGER.debug("The searchEngineServiceList is empty.");
-            return;
-        }
-        searchEngineServiceList.stream().forEach(abstractSearchEngineService -> {
-            abstractSearchEngineService.initialIndex();
-            abstractSearchEngineService.index();
-        });
+        allIndexService.createIndex();
     }
 
     public ESConfiguration getEsConfiguration() {
@@ -80,11 +78,4 @@ public class MigrateDataListener implements ApplicationListener<ContextRefreshed
 
     private ESSearchService esSearchService;
 
-    public List<AbstractSearchEngineService> getSearchEngineServiceList() {
-        return searchEngineServiceList;
-    }
-
-    public void setSearchEngineServiceList(List<AbstractSearchEngineService> searchEngineServiceList) {
-        this.searchEngineServiceList = searchEngineServiceList;
-    }
 }

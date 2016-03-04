@@ -37,7 +37,6 @@ public class IndexTest {
     public void indexTest() throws IOException {
 
         esSearchService.initialIndex(true);
-        esSearchService.categoryIndex();
         BulkResponse responses = esSearchService.productsIndex();
         Assert.assertFalse(responses.hasFailures());
 
@@ -98,11 +97,12 @@ public class IndexTest {
 
 
     @Test
-    public void updateInventory(){
-        List<Integer> ids=new ArrayList<>();
+    public void updateInventory() {
+        List<Integer> ids = new ArrayList<>();
         ids.add(131);
 //        esSearchService.modifyProductInventory(ids, InventoryType.DEDUCT);
     }
+
     public ESSearchService getEsSearchService() {
         return esSearchService;
     }

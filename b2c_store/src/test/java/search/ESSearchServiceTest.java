@@ -42,7 +42,6 @@ public class ESSearchServiceTest {
     public void productIndex() {
 
         esSearchService.initialIndex(true);
-        esSearchService.categoryIndex();
         BulkResponse responses = esSearchService.productsIndex();
         esSearchService.hotSaleIndex();
         Assert.assertFalse(responses.hasFailures());

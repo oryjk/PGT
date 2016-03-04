@@ -121,7 +121,7 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
         } else {
             if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.ROOT_CATEGORIES))) {
                 // get root categories
-                List<Category> rootCategories = categoryHelper.findRootCategories();
+                List<Category> rootCategories = categoryHelper.findRootCategories(null);
 
                 if (!ObjectUtils.isEmpty(rootCategories)) {
                     List<HomeCategory> rootHomeCategories = new ArrayList<>();

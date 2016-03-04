@@ -34,8 +34,8 @@ public class CategoryHelper {
 		return categoryService.queryCategories(category, null);
 	}
 
-	public List<Category> findRootCategories() {
-		List<Category>	categoryList=findCategories(CategoryType.ROOT);
+	public List<Category> findRootCategories(CategoryType categoryType) {
+		List<Category>	categoryList=findCategories(categoryType);
 		List<Category>  newCategoryList= new ArrayList<>();
 		for (Category category:categoryList) {
 			BannerQuery bannerQuery= new BannerQuery();

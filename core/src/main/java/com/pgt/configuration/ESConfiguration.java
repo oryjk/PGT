@@ -1,5 +1,7 @@
 package com.pgt.configuration;
 
+import com.pgt.category.bean.CategoryType;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Map;
  * Created by carlwang on 11/30/15.
  */
 @Component
+@Scope("singleton")
 public class ESConfiguration {
     private String host = "localhost";
     private Integer indexPort = 9300;
@@ -24,7 +27,15 @@ public class ESConfiguration {
     private boolean needIndex = true;
     private List<String> useToSearch = new ArrayList<>();
     private List<String> tenderSearchProperties = new ArrayList<>();
-    private int tenderListCapacity=12;
+    private int tenderListCapacity = 12;
+
+    //index,type
+    private String indexName = "mp";
+    private String categoryTypeName = "category";
+    private String productTypeName = "product";
+    private CategoryType categoryType = CategoryType.ROOT;
+    private String hotProductTypeName="hotProduct";
+
 
     private Map<String, Integer> priceAggrs = new HashMap<String, Integer>() {
         {
@@ -149,5 +160,46 @@ public class ESConfiguration {
 
     public void setTenderSearchProperties(List<String> tenderSearchProperties) {
         this.tenderSearchProperties = tenderSearchProperties;
+    }
+
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
+    }
+
+    public String getCategoryTypeName() {
+        return categoryTypeName;
+    }
+
+    public void setCategoryTypeName(String categoryTypeName) {
+        this.categoryTypeName = categoryTypeName;
+    }
+
+    public String getIndexName() {
+        return indexName;
+    }
+
+    public void setIndexName(String indexName) {
+        this.indexName = indexName;
+    }
+
+    public CategoryType getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(CategoryType categoryType) {
+        this.categoryType = categoryType;
+    }
+
+    public String getHotProductTypeName() {
+        return hotProductTypeName;
+    }
+
+    public void setHotProductTypeName(String hotProductTypeName) {
+        this.hotProductTypeName = hotProductTypeName;
     }
 }
