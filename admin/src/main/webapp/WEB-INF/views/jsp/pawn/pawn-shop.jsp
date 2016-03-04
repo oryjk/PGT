@@ -152,20 +152,7 @@
             </div>
         </div>
     </div>
+
 </pgt:container>
-    <script>
-    $('#modifySwitch').click(function() {
-    var that = $(this);
-
-    that.parent().siblings('.pgt-scan').toggle();
-    that.parent().siblings('.pgt-modify').toggle();
-    });
-
-    $(document).on('click', '[data-pgt-btn="rec"]', function() {
-
-    $('#confirmModal').modal('show');
-    });
 
 
-
-    </script>

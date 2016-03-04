@@ -155,4 +155,29 @@
             </div>
         </div>
     </div>
+    <!--modal-->
+    <div class="modal fade bs-modal-sm" id="confirmModal" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">用户：</h4>
+                </div>
+                <form action="#" class="form-horizontal">
+                    <div class="modal-body" id="confirmText">
+                        用户的id: <br>
+                        用户名:  <br>
+                        用户的电话: <br>
+                        用户创建的时间:<br>
+                        用户的易宝账户信息:<br>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
+    </div>
+
 </pgt:container>
+<script src="${adminStaticPath}/p2p-pawnshop/pawn-shop.js"></script>
