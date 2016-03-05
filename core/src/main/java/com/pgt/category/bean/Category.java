@@ -26,6 +26,7 @@ public class Category extends BaseBean {
     private List<Category> children;
     private Integer status;
     private ProductMedia frontMedia;// 新加分类显示图片
+    private  ProductMedia iconMedia;
     private String color;
     private Integer sort = 1;
     private String description;
@@ -59,8 +60,13 @@ public class Category extends BaseBean {
         this.color = color;
     }
 
+    public ProductMedia getIconMedia() {
+        return iconMedia;
+    }
 
-
+    public void setIconMedia(ProductMedia iconMedia) {
+        this.iconMedia = iconMedia;
+    }
     public Integer getId() {
         return id;
     }

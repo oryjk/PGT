@@ -65,6 +65,8 @@
 		<result column="CATEGORY_INDEX" property="categoryIndex"/>
 		<association property="frontMedia" column="CATEGORY_ID"
 					 select="queryCategoryMedia"/>
+		<association property="iconMedia" column="CATEGORY_ID"
+					 select="queryIconMedia"/>
 		<association property="parent" column="PARENT_CATEGORY_ID"
 					 javaType="com.pgt.category.bean.Category" select="queryCategory"/>
 		<collection property="children" column="CATEGORY_ID"
@@ -192,6 +194,14 @@
         SELECT c.id FROM CATEGORIES c WHERE c.CODE=${code}
     </select>
 
+
+	<select id="queryIconMedia" parameterType="int" resultMap="productMedia">
+		SELECT *
+		FROM MEDIA
+		WHERE reference_id = #{categoryId} AND TYPE='icon'
+		ORDER BY 'index'
+		asc
+	</select>
 
 	<select id="queryCategoryMedia" parameterType="int" resultMap="productMedia">
         SELECT *

@@ -43,11 +43,12 @@ $('#categorySelect').change(function() {
     $("#pageSubmit").submit();
 });
 */
-
+/*
 $('#tenderCategorySelect').change(function() {
     var $this = $(this);
     window.location = '/tenderCategory/getSubCategories/' + $this.val();
 });
+*/
 
 $('.tenderIndex').click(function(){
          var url=$(this).attr('data-url');
@@ -108,6 +109,24 @@ $('#searchBtn').click(function() {
     $("#term").val(term);
 
     $("#pageSubmit").submit();
+});
+
+$('#tenderSearchBtn').click(function(){
+
+    var categoryId= $("#categorySelect").val();
+
+    if(categoryId=="all"){
+        $("#type").val("TENDER_ROOT");
+        $("#category").val("");
+    }else{
+        $("#type").val("TENDER_HIERARCHY");
+        $("#category").val(categoryId);
+    }
+    var term = $("#name").val();
+    $("#term").val(term);
+
+    $("#pageSubmit").submit();
+
 });
 
 $('#pagination').on('click', 'a', function(event) {

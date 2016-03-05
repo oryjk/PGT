@@ -342,7 +342,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="/tenderCategory/categoryList">
+                                    <a href="/tenderCategory/query">
                                         <i class="fa-angle-right"></i>
                                         投资分类管理
                                     </a>
