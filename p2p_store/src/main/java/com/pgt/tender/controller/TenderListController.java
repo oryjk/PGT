@@ -56,11 +56,12 @@ public class TenderListController {
     public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "sort", required = false) Integer sort,
                             @RequestParam(value = "keyword", required = false) String keyword,
                             @RequestParam(value = "tenderFilter", required = false) Integer tenderFilter,
+                            @RequestParam(value = "ctype", required = false) CategoryType categoryType,
                             @RequestParam(value = "cid", required = false) String categoryId,
                             @RequestParam(value = "page", required = false) Integer page
     ) {
 
-        ESTenderListFilter esTenderListFilter = new ESTenderListFilter(categoryId);
+        ESTenderListFilter esTenderListFilter = new ESTenderListFilter(categoryType, categoryId);
         TenderListUtil.buildESTenderListFilter(tenderFilter, esTenderListFilter);
         if (ObjectUtils.isEmpty(page)) {
             page = 1;
@@ -97,13 +98,14 @@ public class TenderListController {
     public ResponseEntity ajaxGet(@RequestParam(value = "sort", required = false) Integer sort,
                                   @RequestParam(value = "keyword", required = false) String keyword,
                                   @RequestParam(value = "tenderFilter", required = false) Integer tenderFilter,
+                                  @RequestParam(value = "ctype", required = false) CategoryType categoryType,
                                   @RequestParam(value = "cid", required = false) String categoryId,
                                   @RequestParam(value = "page", required = false) Integer page
     ) {
         ResponseBuilder rb = responseBuilderFactory.buildResponseBean().setSuccess(true);
         Map<String, Object> data = new HashMap<>();
         rb.setData(data);
-        ESTenderListFilter esTenderListFilter = new ESTenderListFilter(categoryId);
+        ESTenderListFilter esTenderListFilter = new ESTenderListFilter(categoryType, categoryId);
         TenderListUtil.buildESTenderListFilter(tenderFilter, esTenderListFilter);
         if (ObjectUtils.isEmpty(page)) {
             page = 1;

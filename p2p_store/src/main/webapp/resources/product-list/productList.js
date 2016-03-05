@@ -19,23 +19,23 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
     $(document).ready(function () {
 
         //初始化下拉菜单
-        $(document).on('mouseenter', '.menu-level-1', function() {
+        $(document).on('mouseenter', '.menu-level-1', function () {
             $(this).children('.menu-2').slideDown(300);
         });
 
-        $(document).on('mouseleave', '.menu-level-1', function() {
+        $(document).on('mouseleave', '.menu-level-1', function () {
             $(this).children('.menu-2').slideUp(300);
         });
 
         //初始化sort-tab下拉菜单
-        $('#sortMoney').mouseenter(function() {
+        $('#sortMoney').mouseenter(function () {
             $(this).children('ul').show();
-        }).mouseleave(function() {
+        }).mouseleave(function () {
             $(this).children('ul').hide();
         });
 
 
-        $('.sort-tab-item').click(function(event) {
+        $('.sort-tab-item').click(function (event) {
             event.preventDefault();
             var $this = $(this);
             var sibling = $this.siblings();
@@ -44,7 +44,6 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
             sibling.removeClass('hide');
             $this.parent().siblings().text($this.text());
         });
-
 
 
         Handlebars.registerHelper('isTrue', function (status, exceptStatus) {
@@ -78,23 +77,25 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                     keyword: Con.getParamValue(window.location.href, 'keyword') != null ? Con.getParamValue(window.location.href, 'keyword') : '',
                     tenderFilter: Con.getParamValue(window.location.href, 'tenderFilter') != null ? Con.getParamValue(window.location.href, 'tenderFilter') : '',
                     cid: Con.getParamValue(window.location.href, 'cid') != null ? Con.getParamValue(window.location.href, 'cid') : '',
+                    ctype: Con.getParamValue(window.location.href, 'ctype') != null ? Con.getParamValue(window.location.href, 'ctype') : ''
                 },
                 ajax: false,
                 isPre: false,
                 isPost: false,
                 isOther: false,
                 pageList: '',
-                pagination: ''
+                pagination: '',
+                categoryMenu: ''
             },
             methods: {
                 sortBy: function (event) {
                     event.preventDefault();
                     this.queryRequest.sort = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
-                    vm.sendRequest(vm);
+                    this.sendRequest(vm);
                 },
                 tenderFilterAction: function (event) {
                     this.queryRequest.tenderFilter = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
-                    vm.sendRequest(vm);
+                    this.sendRequest(vm);
                 },
                 paginationAction: function (event) {
                     if ($(event.target).attr('class') == 'pre') {
@@ -110,6 +111,11 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                     this.queryRequest.page = $(event.target).attr('data-value') ? $(event.target).attr('data-value') : '';
                     this.sendRequest(vm);
 
+                },
+                chooseCategoryAction: function (type, event) {
+                    this.queryRequest.cid = $(event.currentTarget).attr('data-value') ? $(event.currentTarget).attr('data-value') : '';
+                    this.queryRequest.ctype = type;
+                    this.sendRequest(vm);
                 },
                 sendRequest: function () {
                     this.ajax = true;
@@ -131,12 +137,17 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                             console.log("complete");
                         });
                 },
+
                 loadTenderList: function (data) {
-                    console.log(data);
                     if (data != null) {
                         this.renderTenders(data);
                         this.renderPagination(data);
+                        this.renderCategoryMenu(data);
                     }
+                },
+                renderCategoryMenu: function (data) {
+                    var categoryMenu = data.data.rootCategoryList;
+                    this.categoryMenu = categoryMenu;
                 },
                 renderTenders: function (data) {
                     $.ajax({
@@ -146,7 +157,6 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                     })
                         .done(function (response) {
                             console.log("success");
-                            console.log(response);
 
                             var template = Handlebars.compile(response);
                             var html = template(data.data);
@@ -181,13 +191,9 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                     }
                     this.isOther = true;
                     this.pageList = pagination.totalPage;
-                    console.log(pagination);
                 }
 
             }
         });
-
-
-        console.log(vm);
     });
 });

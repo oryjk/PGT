@@ -1,5 +1,7 @@
 package com.pgt.search.bean;
 
+import com.pgt.category.bean.CategoryType;
+
 /**
  * Created by carlwang on 2/26/16.
  */
@@ -9,7 +11,11 @@ public class ESTenderListFilter implements ESFilter {
     public ESTenderListFilter() {
     }
 
-    public ESTenderListFilter(String categoryId) {
+    public ESTenderListFilter(CategoryType categoryType, String categoryId) {
+        if (categoryType == CategoryType.TENDER_ROOT) {
+            this.rootCategoryId = categoryId;
+            return;
+        }
         this.categoryId = categoryId;
     }
 

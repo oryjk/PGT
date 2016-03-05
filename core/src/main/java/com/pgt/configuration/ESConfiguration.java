@@ -35,6 +35,9 @@ public class ESConfiguration {
     private String productTypeName = "product";
     private CategoryType categoryType = CategoryType.ROOT;
     private String hotProductTypeName="hotProduct";
+    //search key
+    private String tenderRootCategoryIdTerm="rootCategory.id";
+    private String tenderParentCategoryIdTerm="parentCategory.id";
 
 
     private Map<String, Integer> priceAggrs = new HashMap<String, Integer>() {
@@ -201,5 +204,21 @@ public class ESConfiguration {
 
     public void setHotProductTypeName(String hotProductTypeName) {
         this.hotProductTypeName = hotProductTypeName;
+    }
+
+    public String getTenderRootCategoryIdTerm() {
+        return tenderRootCategoryIdTerm;
+    }
+
+    public void setTenderRootCategoryIdTerm(String tenderRootCategoryIdTerm) {
+        this.tenderRootCategoryIdTerm = tenderRootCategoryIdTerm;
+    }
+
+    public String getTenderParentCategoryIdTerm() {
+        return tenderParentCategoryIdTerm;
+    }
+
+    public void setTenderParentCategoryIdTerm(String tenderParentCategoryIdTerm) {
+        this.tenderParentCategoryIdTerm = tenderParentCategoryIdTerm;
     }
 }

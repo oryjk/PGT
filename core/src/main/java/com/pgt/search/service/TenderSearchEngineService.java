@@ -334,10 +334,10 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         }
         ESTenderListFilter esTenderListFilter = (ESTenderListFilter) esFilter;
         if (!StringUtils.isBlank(esTenderListFilter.getCategoryId())) {
-            boolQueryBuilder.filter(QueryBuilders.termQuery(ESConstants.PARENT_CATEGORY_ID, esTenderListFilter.getCategoryId()));
+            boolQueryBuilder.filter(QueryBuilders.termQuery(esConfiguration.getTenderParentCategoryIdTerm(), esTenderListFilter.getCategoryId()));
         }
         if (!StringUtils.isBlank(esTenderListFilter.getRootCategoryId())) {
-            boolQueryBuilder.filter(QueryBuilders.termQuery(ESConstants.ROOT_CATEGORY_ID, esTenderListFilter.getCategoryId()));
+            boolQueryBuilder.filter(QueryBuilders.termQuery(esConfiguration.getTenderRootCategoryIdTerm(), esTenderListFilter.getCategoryId()));
         }
         if (esTenderListFilter.isAll()) {
             LOGGER.debug("The filter is all.");
