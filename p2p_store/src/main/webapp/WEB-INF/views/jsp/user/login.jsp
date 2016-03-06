@@ -27,7 +27,7 @@
 
             <form:form modelAttribute="user" method="post" action="login" id="login">
 
-            <div class="login-box">
+            <div class="login-box" id="login-box">
                 <div class="username-box username-focus">
                     <label for="username"></label>
                     <form:input path="username" class="username" id="username" type="text" placeholder="登录账户名"/>
