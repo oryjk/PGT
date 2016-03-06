@@ -4,11 +4,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
-    <title>绝当淘商城</title>
+    <title>绝当淘--点金子旗下绝当品交易网</title>
     <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}${param.cssPath}"/>"/>
-    <meta property="qc:admins" content="10704026424116216216375" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="keywords" content="绝当淘,典当,易当,易当典当,申牛典当,物贷,网络典当,网上典当,线上典当,在线典当,网络当铺,小微资产,典当融资,典当贷款,成都典当,民品典当">
+    <meta name="description" content="绝当淘--国内首家网络绝当品销售平台。">
     <!--
     <script>
         var _hmt = _hmt || [];
