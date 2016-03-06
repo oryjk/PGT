@@ -420,6 +420,9 @@ body {
         .content .login .login-box .other-box a:hover {
           color: #fe4040;
           text-decoration: underline; }
+      .content .login .login-box .other-box span {
+        display: block;
+        color: #fe4040; }
       .content .login .login-box .auth-box input {
         width: 100px;
         height: 34px;

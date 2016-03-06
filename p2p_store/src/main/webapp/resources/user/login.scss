@@ -120,6 +120,11 @@ body {
           }
         }
 
+        span {
+          display: block;
+          color: $main;
+        }
+
       }
       .auth-box {
         input {
