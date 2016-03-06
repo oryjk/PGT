@@ -1,6 +1,5 @@
 package com.pgt.user.Interceptor;
 
-import com.pgt.cart.constant.CartConstant;
 import com.pgt.configuration.Configuration;
 import com.pgt.constant.PathConstant;
 import com.pgt.constant.UserConstant;
