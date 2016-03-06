@@ -23,7 +23,10 @@ body {
   margin: 100px auto 50px;
   padding: 50px 0;
   border: 1px solid $gray-light;
-  @include wh(100%, 390px);
+  //下面这一行是小土豪的错误代码
+  //@include wh(100%, 390px);
+  height: 390px;
+
   background: white;
   .content-box {
     margin: 0 auto;
@@ -54,7 +57,7 @@ body {
       }
       span {
         padding-left: 100px;
-        font-size: 10px;
+        font-size: 14px;
         text-align: center;
         line-height: 50px;
         a {
@@ -107,7 +110,7 @@ body {
       }
       .other-box {
         a {
-          padding-left: 170px;
+          margin-left: 170px;
           text-decoration: none;
           color: $main;
 
@@ -166,53 +169,48 @@ body {
 }
 
 /*for js
-********************************************************************
-
-.username-focus {
-  label {
-    background-position: 0 -48px;
-    border-color: #84bcdf;
+********************************************************************/
+.content .content-box .login {
+  .username-focus {
+    label {
+      background-position: 0 -48px;
+      border-color: #84bcdf;
+    }
+    input {
+      border-color: #84bcdf;
+    }
   }
-  input {
-    border-color: #84bcdf;
+
+  .password-focus {
+    label {
+      background-position: -48px -48px;
+      border-color: #84bcdf;
+    }
+    input {
+      border-color: #84bcdf;
+    }
+  }
+
+  .username-wrong {
+    label {
+      background-position: 0 -96px;
+      border-color: #e08385;
+    }
+    input {
+      border-color: #e08385;
+    }
+
+  }
+  .password-wrong {
+    label {
+      background-position: -48px -96px;
+      border-color: #e08385;
+    }
+    input {
+      border-color: #e08385;
+    }
   }
 }
 
-.password-focus {
-  label {
-    background-position: -48px -48px;
-    border-color: #84bcdf;
-  }
-  input {
-    border-color: #84bcdf;
-  }
-}
-
-.username-wrong {
-  label {
-    background-position: 0 -96px;
-    border-color: #e08385;
-  }
-  input {
-    border-color: #e08385;
-  }
-
-}
-.password-wrong {
-  label {
-    background-position: -48px -96px;
-    border-color: #e08385;
-  }
-  input {
-    border-color: #e08385;
-  }
-}
-
-.hide {
-  display: none;
-}
-
-
-******************************/
 
 
