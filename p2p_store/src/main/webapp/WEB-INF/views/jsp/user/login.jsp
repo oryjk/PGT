@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="/resources/user/login.css"/>
-    <link rel="stylesheet" href="/resources/user/login.css"/>
+    <link rel="stylesheet" href="/resources/user/login.js"/>
 </head>
 <body>
 <!--header begin-->
