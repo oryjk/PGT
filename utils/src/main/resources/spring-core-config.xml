@@ -82,7 +82,6 @@
 		<property name="serviceTels">
 			<list value-type="java.lang.String">
 				<value>18602812970</value>
-				<value>15881116008</value>
 			</list>
 		</property>
 		<property name="pawnType">
@@ -125,20 +124,20 @@
 				<value>title</value>
 				<value>shortDescription</value>
 				<value>keyWord</value>
+				<value>description</value>
 			</list>
 		</property>
 		<property name="useToSearch">
 			<list value-type="java.lang.String">
 				<value>name</value>
-				<value>shortDescription</value>
 				<value>keyWord</value>
 			</list>
 		</property>
-
 		<property name="categoryAnalyzerFields">
 			<list value-type="java.lang.String">
 				<value>name</value>
 				<value>sort</value>
+				<value>description</value>
 			</list>
 		</property>
 		<property name="hotSaleAnalyzerFields">
@@ -161,11 +160,16 @@
 		</property>
 	</bean>
 
-	<bean class="com.pgt.data.MigrateDataListener">
-		<property name="esConfiguration" ref="esConfiguration"/>
-		<property name="esSearchService" ref="esSearchService"/>
-	</bean>
 
+	<bean class="com.pgt.data.index.service.AllIndexService">
+		<property name="searchEngineServiceList">
+			<list value-type="com.pgt.search.service.AbstractSearchEngineService">
+				<ref bean="categorySearchEngineService"/>
+				<ref bean="esSearchService"/>
+				<ref bean="staticResourceSearchEngineService"/>
+			</list>
+		</property>
+	</bean>
 	<bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

@@ -46,6 +46,7 @@ public class MediaController {
         mediaService.create(productMedia);
         responseEntity.getBody().put("success", true);
         responseEntity.getBody().put("mediaId", productMedia.getId());
+        responseEntity.getBody().put("mediaType",productMedia.getType());
         return responseEntity;
     }
 

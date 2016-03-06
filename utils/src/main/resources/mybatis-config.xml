@@ -8,4 +8,4 @@
         <setting name="aggressiveLazyLoading" value="true"/>
         <setting name="cacheEnabled" value="true"/>
     </settings>
-</configuration>
+</configuration>   

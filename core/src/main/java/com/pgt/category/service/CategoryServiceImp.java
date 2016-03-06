@@ -40,9 +40,16 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
         Integer rootCategory = category.getId();
         Media media = category.getFrontMedia();
         if (!ObjectUtils.isEmpty(media)) {
-            LOGGER.debug("Create category media,the category id is {}.", rootCategory);
+            LOGGER.debug(" Create category media,the category id is {}.", rootCategory);
             media.setReferenceId(rootCategory);
             media.setType(MediaType.category);
+            mediaMapper.createMedia(media);
+        }
+        Media icon = category.getIconMedia();
+        if (!ObjectUtils.isEmpty(icon)) {
+            LOGGER.debug("Create  category media,the category id is {}.", rootCategory);
+            media.setReferenceId(rootCategory);
+            media.setType(MediaType.icon);
             mediaMapper.createMedia(media);
         }
         LOGGER.debug("The category id is {}.", rootCategory);
@@ -68,6 +75,13 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
             if (!ObjectUtils.isEmpty(media)) {
                 media.setReferenceId(category.getId());
                 mediaService.updateMedia(media);
+            }
+
+            Media icon = mediaService.findMedia(category.getIconMedia().getId(), MediaType.icon);
+            if (!ObjectUtils.isEmpty(icon)) {
+                LOGGER.debug(" Create  category media,the category id is {}.", category.getId());
+                icon.setReferenceId(category.getId());
+                mediaService.updateMedia(icon);
             }
 
             LOGGER.debug("End create category.");
