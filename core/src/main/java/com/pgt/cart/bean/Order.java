@@ -1,6 +1,7 @@
 package com.pgt.cart.bean;
 
 import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.com.pgt.order.bean.P2PInfo;
 import com.pgt.payment.bean.PaymentGroup;
 import com.pgt.shipping.bean.ShippingVO;
 import org.springframework.util.CollectionUtils;
@@ -32,8 +33,10 @@ public class Order implements OrderType, OrderStatus {
 
 	// TODO PERSISTANCE
 	private Integer p2pInfoId;
-	private String orderHolderAlias;
-	private Double shippingFee;
+
+	private P2PInfo p2pInfo;
+
+	private Double  mShippingFee;
 
 	public Order() {
 
@@ -296,19 +299,19 @@ public class Order implements OrderType, OrderStatus {
 		this.p2pInfoId = p2pInfoId;
 	}
 
-	public String getOrderHolderAlias() {
-		return orderHolderAlias;
-	}
-
-	public void setOrderHolderAlias(String orderHolderAlias) {
-		this.orderHolderAlias = orderHolderAlias;
-	}
-
 	public Double getShippingFee() {
-		return shippingFee;
+		return mShippingFee;
 	}
 
-	public void setShippingFee(Double shippingFee) {
-		this.shippingFee = shippingFee;
+	public void setShippingFee(Double pShippingFee) {
+		mShippingFee = pShippingFee;
+	}
+
+	public P2PInfo getP2pInfo() {
+		return p2pInfo;
+	}
+
+	public void setP2pInfo(final P2PInfo pP2pInfo) {
+		p2pInfo = pP2pInfo;
 	}
 }

@@ -24,9 +24,11 @@ import java.util.Locale;
  */
 public class TransactionBaseController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionBaseController.class);
+	protected static final String REDIRECT = "redirect:";
 
-	private static final String REDIRECT = "redirect:";
+	protected static final String REDIRECT_LOGIN = "redirect:/user/login?redirect=";
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionBaseController.class);
 
 	@Autowired
 	private DataSourceTransactionManager mTransactionManager;
