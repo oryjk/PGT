@@ -40,12 +40,16 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                             }
 
                             $('#login').submit();
+                        },
+                        qqLogin: function () {
+                            QC.Login({'btnId': 'qqLoginBtn'});
                         }
                     }
 
                 });
+
+
             }
         )
-        ;
     }
 )

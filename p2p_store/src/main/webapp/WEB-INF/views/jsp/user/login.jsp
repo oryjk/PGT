@@ -5,77 +5,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="/resources/user/login.css"/>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="/resources/user/login.css"/>
+
 </head>
 <body>
 <!--header begin-->
-<jsp:include page="../core/header-main.jsp" />
+<jsp:include page="../core/header-main.jsp"/>
 <!--header end-->
 <!--content begin-->
 <div class="content">
-    <div class="content-box">
-        <div class="content-img"></div>
+	<div class="content-box">
+		<div class="content-img"></div>
 
-        <div class="login">
+		<div class="login">
 
-            <div class="login-title">
-                <h2>登录点金子网</h2>
-                <span>还没账号？<a href="/user/register"> 立即注册</a></span>
-            </div>
+			<div class="login-title">
+				<h2>登录点金子网</h2>
+				<span>还没账号？<a href="/user/register"> 立即注册</a></span>
+			</div>
 
-            <form:form modelAttribute="user" method="post" action="login" id="login">
+			<form:form modelAttribute="user" method="post" action="login" id="login">
 
-            <div class="login-box" id="login-box">
-                <div class="username-box username-focus">
-                    <label for="username"></label>
-                    <form:input path="username" class="username" id="username" type="text" placeholder="登录账户名" v-model="username"/>
-                </div>
-                <!-- 下面div,使用.password-focus呈现蓝色,使用.password-wrong呈现红色.-->
-                <div class="password-box password-focus password-wrong">
-                    <label  for="password"></label>
-                    <form:input class="username" id="password" path="password" type="password" placeholder="密码" v-model="password"/>
-                </div>
-                <form:errors path="loginError"/>
-                <div class="other-box">
-                    <form:checkbox id="autoLogin" path="autoLogin"/>
-                    <label for="autoLogin">自动登录</label>
-                    <a href="/user/resetPassword"/>忘记密码</a>
-                    <!-- 下面span,使用.hide时隐藏,移除.hide时显示-->
-                    <span class="hide" id="loginPrompt">请填写验证码</span>
-                </div>
-                <!-- 下面span,使用.hide时隐藏,移除.hide时显示-->
-                <c:if test="${code!=null||user.count>2}">
-                <div id="authBox" class="auth-box">
-                    <form:input id="authNum" path="authCode" type="text" v-model="authNum"/>
-                    <img id="loginCode" src="/code/login" alt=""/>
-                    <a href="#">看不清楚？</a>
-                </div>
-                </c:if>
-                <div class="sub-box">
-                    <input @click.prevent="login" id="loginSub" type="submit" value="登录"/>
-                </div>
-                <form:input id="loginCount" type="hidden" path="count" value=""/>
-                <div class="domain">
-                    快捷登录方式：
-                    <a href="#"><img src="../core/images/user/QQ.png"></a>
-                    <a href="#"><img src="../core/images/user/pay.jpg"></a>
-                    <a href="#"><img src="../core/images/user/wet.jpg"></a>
-                    <a href="#"><img src="../core/images/user/sina.jpg"></a>
-                </div>
-            </div>
+				<div class="login-box" id="login-box">
+					<div class="username-box username-focus">
+						<label for="username"></label>
+						<form:input path="username" class="username" id="username" type="text" placeholder="登录账户名" v-model="username"/>
+					</div>
+					<!-- 下面div,使用.password-focus呈现蓝色,使用.password-wrong呈现红色.-->
+					<div class="password-box password-focus password-wrong">
+						<label for="password"></label>
+						<form:input class="username" id="password" path="password" type="password" placeholder="密码" v-model="password"/>
+					</div>
+					<form:errors path="loginError"/>
+					<div class="other-box">
+						<form:checkbox id="autoLogin" path="autoLogin"/>
+						<label for="autoLogin">自动登录</label>
+						<a href="/user/resetPassword"/>忘记密码</a>
+						<!-- 下面span,使用.hide时隐藏,移除.hide时显示-->
+						<span class="hide" id="loginPrompt">请填写验证码</span>
+					</div>
+					<!-- 下面span,使用.hide时隐藏,移除.hide时显示-->
+					<c:if test="${code!=null||user.count>2}">
+						<div id="authBox" class="auth-box">
+							<form:input id="authNum" path="authCode" type="text" v-model="authNum"/>
+							<img id="loginCode" src="/code/login" alt=""/>
+							<a href="#">看不清楚？</a>
+						</div>
+					</c:if>
+					<div class="sub-box">
+						<input @click.prevent="login" id="loginSub" type="submit" value="登录"/>
+					</div>
+					<form:input id="loginCount" type="hidden" path="count" value=""/>
+					<div class="domain">
+						快捷登录方式：
+						<a href="#" id="qqLoginBtn"></a>
+						<a href="#"><img src="../core/images/user/pay.jpg"/></a>
+						<a href="#"><img src="../core/images/user/wet.jpg"/></a>
+						<a href="#"><img src="../core/images/user/sina.jpg"/></a>
+					</div>
+				</div>
 
-            </form:form>
-        </div>
-    </div>
+			</form:form>
+		</div>
+	</div>
 </div>
 <!--content end-->
 
 
 <!--footer begin-->
-<jsp:include page="../core/footer-main.jsp" />
+<jsp:include page="../core/footer-main.jsp"/>
 <!--footer end-->
+
 <script src="/resources/core/js/require.js" data-main="/resources/user/login"></script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101296740" data-redirecturi="http://dev.p2p.dianjinzi.com"
+		charset="utf-8"></script>
+<script type="text/javascript">
+	//调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
+	QC.Login({
+				//btnId：插入按钮的节点id，必选
+				btnId: "qqLoginBtn"
+			}, function (reqData, opts) {//登录成功
+				//根据返回数据，更换按钮显示状态方法
+				var dom = document.getElementById(opts['btnId']),
+						_logoutTemplate = [
+							//头像
+							'<span><img src="{figureurl}" class="{size_key}"/></span>',
+							//昵称
+							'<span>{nickname}</span>',
+							//退出
+							'<span><a href="javascript:QC.Login.signOut();">退出</a></span>'
+						].join("");
+				dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+					nickname: QC.String.escHTML(reqData.nickname),
+					figureurl: reqData.figureurl
+				}));
+			}, function (opts) {//注销成功
+				alert('QQ登录 注销成功');
+			}
+	);
+</script>
 </body>
 </html>

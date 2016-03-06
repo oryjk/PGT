@@ -85,6 +85,10 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
                     }
                 });
             }
+            if (bulkRequest.numberOfActions() == 0) {
+                LOGGER.debug("Not need create index, cause request number is 0.");
+                return;
+            }
             bulkResponse = bulkRequest.execute().actionGet(100000);
             if (bulkResponse.hasFailures()) {
                 LOGGER.error("The category index is failed.");
