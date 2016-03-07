@@ -60,7 +60,7 @@
 					<form:input id="loginCount" type="hidden" path="count" value=""/>
 					<div class="domain">
 						快捷登录方式：
-						<a href="#" id="qqLoginBtn"></a>
+						<a href="/qqLogin/login"><img src="../core/images/user/QQ.png"></a>
 						<a href="#"><img src="../core/images/user/pay.jpg"/></a>
 						<a href="#"><img src="../core/images/user/wet.jpg"/></a>
 						<a href="#"><img src="../core/images/user/sina.jpg"/></a>
@@ -79,33 +79,6 @@
 <!--footer end-->
 
 <script src="/resources/core/js/require.js" data-main="/resources/user/login"></script>
-<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101296740" data-redirecturi="http://dev.p2p.dianjinzi.com"
-		charset="utf-8"></script>
-<script type="text/javascript">
-	//调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
-	QC.Login({
-				//btnId：插入按钮的节点id，必选
-				btnId: "qqLoginBtn"
-			}, function (reqData, opts) {//登录成功
-				//根据返回数据，更换按钮显示状态方法
-				var dom = document.getElementById(opts['btnId']),
-						_logoutTemplate = [
-							//头像
-							'<span><img src="{figureurl}" class="{size_key}"/></span>',
-							//昵称
-							'<span>{nickname}</span>',
-							//退出
-							'<span><a href="javascript:QC.Login.signOut();">退出</a></span>'
-						].join("");
-				dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
-					nickname: QC.String.escHTML(reqData.nickname),
-					figureurl: reqData.figureurl
-				}));
-			}, function (opts) {//注销成功
-				alert('QQ登录 注销成功');
-			}
-	);
-</script>
 <jsp:include page="../core/baidu.jsp" />
 </body>
 </html>
