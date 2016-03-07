@@ -64,6 +64,7 @@
 <div class="footer" id="footer">
     <jsp:include page="../core/footer-simple.jsp"/>
 </div>
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
         data-main="<spring:url value="${juedangpinStaticPath}/user/login.js"/>"></script>

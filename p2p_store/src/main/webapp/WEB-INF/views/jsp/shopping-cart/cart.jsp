@@ -151,7 +151,7 @@
     <jsp:include page="horizontal-recommend-bar.jsp"/>
     <jsp:include page="../core/footer-main.jsp"/>
 </div>
-
+<jsp:include page="../core/baidu.jsp" />
 </body>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"

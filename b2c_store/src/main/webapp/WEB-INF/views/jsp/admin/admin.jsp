@@ -73,6 +73,6 @@ $(document).ready(function(){
 <input  type="submit" value="提交"/>
 </form>
 
-
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 </html>

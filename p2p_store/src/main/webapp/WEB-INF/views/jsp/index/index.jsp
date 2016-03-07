@@ -13,5 +13,6 @@
 <body>
 index page
 ${currentUser.username}
+<jsp:include page="../core/baidu.jsp" />
 </body>
 </html>

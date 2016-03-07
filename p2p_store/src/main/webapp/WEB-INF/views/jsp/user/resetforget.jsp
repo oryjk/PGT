@@ -172,5 +172,6 @@
 <!--footer begin-->
 <jsp:include page="../core/footer-main.jsp" />
 <!--footer end-->
+<jsp:include page="../core/baidu.jsp" />
 </body>
 </html>

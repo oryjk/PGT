@@ -106,5 +106,6 @@
 			}
 	);
 </script>
+<jsp:include page="../core/baidu.jsp" />
 </body>
 </html>

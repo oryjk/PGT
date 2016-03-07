@@ -405,5 +405,6 @@
     <!-- recommend end-->
 
     <jsp:include page="../core/footer-main.jsp" />
+<jsp:include page="../core/baidu.jsp" />
 </body>
 </html>
