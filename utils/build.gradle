@@ -31,8 +31,6 @@ def PROJECTURL = properties.get("PROJECTURL")
 
 
 
-
-
 /**
  * 定义命令行打包
  */
@@ -80,10 +78,15 @@ def PROJECTURL = properties.get("PROJECTURL")
 
 File shellFile = file('buildwar.sh')
 task buildThoughWeb << {
+    configFile = file('build/resources/main/gradle.properties')
+    inputStream = new FileInputStream(configFile)
+    properties = new Properties()
+    properties.load(inputStream)
+
     String allwar = "";
     for(def key : properties.propertyNames()){
-        boolean  flag = properties.getProperty(key)
-        if(flag == true && key != "JETTYURL" && key != "PROJECTURL"){
+        String  flag = properties.getProperty(key)
+        if(flag == "true"){
             allwar = allwar + " " + key
             String url = PROJECTURL + key + "/build/libs/"
             def fs = new File(JETTYURL + key + ".war")
@@ -94,6 +97,7 @@ task buildThoughWeb << {
         }
     }
     try{
+        println allwar
         String shUrl = shellFile
         String chmod = "chmod +x" + shUrl
         println "chmod +x file"
@@ -108,10 +112,13 @@ task buildThoughWeb << {
     }finally{
         println "copy to webapp"
         for(def key : properties.propertyNames()){
-            String url = PROJECTURL + key + "/build/libs/"
-            copy{
-                from url
-                into JETTYURL
+            String  flag = properties.getProperty(key)
+            if(flag == "true") {
+                String url = PROJECTURL + key + "/build/libs/"
+                copy {
+                    from url
+                    into JETTYURL
+                }
             }
         }
         println "copy finish"

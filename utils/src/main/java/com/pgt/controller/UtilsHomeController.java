@@ -1,8 +1,9 @@
 package com.pgt.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.pgt.controller.bean.War;
 import com.pgt.controller.bean.Wars;
+import com.pgt.controller.constant.WarConstant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +19,17 @@ import java.util.*;
  * Created by fei on 2016/3/5.
  */
 @Controller
+@Scope("singleton")
 @RequestMapping("/gradle")
 public class UtilsHomeController {
+    @Autowired
+    WarConstant warConstant;
+
     @RequestMapping("home")
-    public ModelAndView main(ModelAndView modelAndView, HttpServletRequest request){
+    public ModelAndView main(ModelAndView modelAndView){
         try{
            //方法三
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("gradle.properties");
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(warConstant.GRADLEURL);
             Properties properties = new Properties();
             properties.load(inputStream);
             Enumeration es =  properties.propertyNames();
@@ -32,8 +37,8 @@ public class UtilsHomeController {
             while (es.hasMoreElements()){
                 String name = (String) es.nextElement();
                 Map<String, Object> map = new HashMap<>();
-                map.put("name", name);
-                map.put("value", properties.getProperty(name));
+                map.put(warConstant.NAME, name);
+                map.put(warConstant.VALUE, properties.getProperty(name));
                 list.add(map);
             }
             modelAndView.addObject("wars", list);
@@ -47,16 +52,16 @@ public class UtilsHomeController {
     @RequestMapping("execute")
     public ModelAndView warExecute(ModelAndView modelAndView, Wars wars){
         try{
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("gradle.properties");
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(warConstant.GRADLEURL);
             Properties properties = new Properties();
             properties.load(inputStream);
-            String path = this.getClass().getClassLoader().getResource("gradle.properties").getPath();
+            String path = this.getClass().getClassLoader().getResource(warConstant.GRADLEURL).getPath();
             for (War obj:wars.getWars()){
                 OutputStream out = new FileOutputStream(path);
                 properties.setProperty(obj.getName(), obj.getValue());
                 properties.store(out, "Update " + obj.getName() + " name");
             }
-            String execueWarPath = this.getClass().getClassLoader().getResource("executewar.sh").getPath();
+            String execueWarPath = this.getClass().getClassLoader().getResource(warConstant.EXETUTESHURL).getPath();
             Process  chmod = Runtime.getRuntime().exec("chmod +x " + execueWarPath);
             chmod.waitFor();
             Process  process = Runtime.getRuntime().exec(execueWarPath + " " + properties.getProperty("PROJECTURL"));
