@@ -1,0 +1,174 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../../core/scss/variable',
+'../../core/scss/commomExtend',
+'../../core/scss/commonMixin',
+'../../core/scss/components';
+
+/*style
+**************************************************************************************************************************************************/
+.filter-invest-status {
+  @extend %clear;
+  padding-top: 50px;
+
+  li {
+    float: left;
+    border-bottom: 2px solid $gray-light;
+    @include wh(110px, 25px);
+    text-align: center;
+
+    a {
+      display: block;
+      width: 109px;
+      border-right: 1px solid $gray-light;
+      color: black;
+      font-size: 18px;
+    }
+  }
+
+  .filter-invest-choose {
+    border-bottom: 2px solid $main;
+
+    a {
+      color: $main;
+    }
+  }
+
+  .filter-invest-end {
+    a {
+      border-right: none;
+    }
+  }
+}
+
+.filter-order-status {
+  @extend %clear;
+  padding: 15px 0 0 15px;
+
+  li {
+    float: left;
+    padding: 0 15px;
+    border-right: 1px solid $gray-light;
+  }
+
+  a {
+    padding: 3px 7px;
+    color: black;
+  }
+
+  .filter-order-choose {
+    border-radius: 4px;
+    background: $gray-account;
+  }
+
+  .filter-order-end {
+    border-right: none;
+  }
+}
+
+.order-list {
+  padding-top: 22px;
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 14px;
+  }
+
+  .order-list-head {
+    background: $gray-account;
+    height: 32px;
+  }
+
+  .order-list-item {
+    height: 129px;
+    border-bottom: 1px solid $gray-light;
+  }
+
+
+  .col-1 {
+    width: 120px;
+  }
+
+  .col-2 {
+    width: 280px;
+  }
+
+  .col-3 {
+    width: 80px;
+  }
+
+  .col-4 {
+    width: 160px;
+  }
+
+  .col-5 {
+    width: 120px;
+  }
+
+  th,
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .order-img {
+    a {
+      display: block;
+      margin: 0 auto;
+      padding:3px;
+      border: 1px solid $gray-light;
+      border-radius: 5px;
+      @include wh(100px, 100px);
+      text-align: center;
+
+      &:hover {
+        border-color: $em;
+        box-shadow: 0 0 2px 1px $em;
+      }
+    }
+    img {
+      @include wh(100%, 100%);
+    }
+  }
+
+  .order-base-info {
+    text-align: left;
+    text-indent: 15px;
+
+    p {
+      line-height: 30px;
+      color: $gray;
+      width: 280px;
+      overflow: hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+
+    a {
+      color: black;
+      &:hover {
+        color: $main;
+      }
+    }
+  }
+
+  .will-pay {
+    color: $main;
+  }
+
+  .order-handle {
+    p {
+      line-height: 30px;
+    }
+
+    .pay-now {
+      @include color-btn(90px, 25px, 3px, 14px, $main, $main-dark);
+    }
+  }
+}
+
+.page-box {
+  padding-top: 20px;
+  @include page-box;
+}

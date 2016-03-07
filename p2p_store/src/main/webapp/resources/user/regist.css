@@ -342,6 +342,12 @@ a {
 body {
   background: #f3f3f3; }
 
+.search-img {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  background: red; }
+
 .content {
   margin: 100px auto 50px;
   padding: 50px 0;
@@ -396,58 +402,36 @@ body {
       -moz-border-radius: 3px;
       border-radius: 3px;
       border: 1px solid #ccc; }
-    .content .login .login-content .username input,
-    .content .login .login-content .username-red input {
+    .content .login .login-content .username input {
       background: url("../core/images/user/user_03.png") no-repeat 9px 15px; }
-    .content .login .login-content .username-red input {
-      border: 1px solid #fe4040; }
-    .content .login .login-content .userPhone input,
-    .content .login .login-content .userPhone-red input {
+    .content .login .login-content .userPhone input {
       background: url("../core/images/user/phone_03.png") no-repeat 10px 13px; }
-    .content .login .login-content .userPhone-red input {
-      border: 1px solid #fe4040; }
-    .content .login .login-content .security-code input,
-    .content .login .login-content .security-code-red input {
+    .content .login .login-content .security-code input {
       width: 180px;
       background: url("../core/images/user/yanzhengma_07.png") no-repeat 12px 15px; }
-    .content .login .login-content .security-code .authImgBox,
-    .content .login .login-content .security-code-red .authImgBox {
+    .content .login .login-content .security-code .authImgBox {
       margin: 6px 40px 0 0;
       float: right;
       width: 100px;
-      height: 40px;
-      background: #fe4040; }
-    .content .login .login-content .security-code-red input {
-      border: 1px solid #fe4040; }
-    .content .login .login-content .phone-security input[type="text"],
-    .content .login .login-content .phone-security-red input[type="text"] {
+      height: 40px; }
+    .content .login .login-content .phone-security input[type="text"] {
       width: 180px;
       background: url("../core/images/user/message_09.png") no-repeat 11px 16px; }
-    .content .login .login-content .phone-security input[type="button"],
-    .content .login .login-content .phone-security-red input[type="button"] {
+    .content .login .login-content .phone-security input[type="button"] {
       margin: 0 0 0 3px;
       border: 1px solid #fe4040;
       padding: 0;
       width: 100px;
       color: #fe4040;
       background: white; }
-      .content .login .login-content .phone-security input[type="button"]:hover,
-      .content .login .login-content .phone-security-red input[type="button"]:hover {
+      .content .login .login-content .phone-security input[type="button"]:hover {
         border: none;
         color: white;
         background: #ff6d6d; }
-    .content .login .login-content .phone-security-red input[type="text"] {
-      border: 1px solid #fe4040; }
-    .content .login .login-content .password input,
-    .content .login .login-content .password-red input {
+    .content .login .login-content .password input {
       background: url("../core/images/user/password_07.png") no-repeat 13px 15px; }
-    .content .login .login-content .password-red input {
-      border: 1px solid #fe4040; }
-    .content .login .login-content .confirm input,
-    .content .login .login-content .confirm-red input {
+    .content .login .login-content .confirm input {
       background: url("../core/images/user/password_07.png") no-repeat 13px 15px; }
-    .content .login .login-content .confirm-red input {
-      border: 1px solid #fe4040; }
     .content .login .login-content .submit {
       border: none;
       padding: 0;
@@ -462,5 +446,11 @@ body {
       font-size: 12px; }
       .content .login .login-content .agreement a {
         color: #2d7fe0; }
+
+.content .login .input-focus .input-text {
+  border-color: #2d7fe0; }
+
+.content .login .input-error .input-text {
+  border-color: #fe4040; }
 
 /*# sourceMappingURL=../../maps/user/regist.css.map */

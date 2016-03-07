@@ -80,30 +80,23 @@ body {
       .username-box,
       .password-box {
         width: 100%;
-        label {
-          float: left;
-          border: 1px solid $gray-light;
-          border-right: none;
-          border-image: none;
-          @include wh(37px, 37px);
-        }
-
         input {
           border: 1px solid $gray-light;
-          padding-left: 6px;
-          width: 300px;
+          border-radius: 3px;
+          padding-left: 36px;
+          width: 260px;
           height: 35px;
           outline: none;
         }
       }
       .username-box {
-        label {
-          background: url("../core/images/user/login-icons.png") 0 0 no-repeat;
+         input {
+          background: url("../core/images/user/user_03.png") 10px 12px no-repeat;
         }
       }
       .password-box {
-        label {
-          background: url("../core/images/user/login-icons.png") -48px 0 no-repeat;
+        input {
+          background: url("../core/images/user/password_07.png") 10px 12px no-repeat;
         }
       }
       .other-box {
