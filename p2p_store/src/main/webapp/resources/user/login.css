@@ -452,32 +452,10 @@ body {
 
 /*for js
 ********************************************************************/
-.content .content-box .login .username-focus label {
-  background-position: 0 -48px;
-  border-color: #84bcdf; }
+.content .content-box .login .input-focus input {
+  border-color: #2d7fe0; }
 
-.content .content-box .login .username-focus input {
-  border-color: #84bcdf; }
-
-.content .content-box .login .password-focus label {
-  background-position: -48px -48px;
-  border-color: #84bcdf; }
-
-.content .content-box .login .password-focus input {
-  border-color: #84bcdf; }
-
-.content .content-box .login .username-wrong label {
-  background-position: 0 -96px;
-  border-color: #e08385; }
-
-.content .content-box .login .username-wrong input {
-  border-color: #e08385; }
-
-.content .content-box .login .password-wrong label {
-  background-position: -48px -96px;
-  border-color: #e08385; }
-
-.content .content-box .login .password-wrong input {
-  border-color: #e08385; }
+.content .content-box .login .input-error input {
+  border-color: #fe4040; }
 
 /*# sourceMappingURL=../../maps/user/login.css.map */
