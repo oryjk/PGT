@@ -178,9 +178,9 @@ body {
 
 .content {
   .login {
-    .input-focus {
-      .input-text {
-        border-color: $em;
+    .input-text {
+      &:focus {
+        border-color: $em !important;
       }
     }
 

@@ -447,8 +447,8 @@ body {
       .content .login .login-content .agreement a {
         color: #2d7fe0; }
 
-.content .login .input-focus .input-text {
-  border-color: #2d7fe0; }
+.content .login .input-text:focus {
+  border-color: #2d7fe0 !important; }
 
 .content .login .input-error .input-text {
   border-color: #fe4040; }

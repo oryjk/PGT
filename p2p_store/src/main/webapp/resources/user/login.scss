@@ -87,6 +87,10 @@ body {
           width: 260px;
           height: 35px;
           outline: none;
+
+          &:focus {
+            border-color: $em;
+          }
         }
       }
       .username-box {
@@ -167,11 +171,6 @@ body {
 /*for js
 ********************************************************************/
 .content .content-box .login {
-  .input-focus {
-    input {
-      border-color: $em;
-    }
-  }
 
   .input-error {
     input {

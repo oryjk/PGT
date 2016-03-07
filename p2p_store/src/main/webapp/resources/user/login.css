@@ -402,6 +402,9 @@ body {
           width: 260px;
           height: 35px;
           outline: none; }
+          .content .login .login-box .username-box input:focus,
+          .content .login .login-box .password-box input:focus {
+            border-color: #2d7fe0; }
       .content .login .login-box .username-box input {
         background: url("../core/images/user/user_03.png") 10px 12px no-repeat; }
       .content .login .login-box .password-box input {
@@ -452,9 +455,6 @@ body {
 
 /*for js
 ********************************************************************/
-.content .content-box .login .input-focus input {
-  border-color: #2d7fe0; }
-
 .content .content-box .login .input-error input {
   border-color: #fe4040; }
 
