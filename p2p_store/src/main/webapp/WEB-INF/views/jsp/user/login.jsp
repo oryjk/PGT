@@ -29,13 +29,13 @@
 			<form:form modelAttribute="user" method="post" action="login" id="login">
 
 				<div class="login-box" id="login-box">
-					<div class="username-box" v-on:click="onFocus">
+					<div class="username-box {{usernameFocus}} {{showUsernameError}}" v-on:click="userOnFocus">
 						<label for="username"></label>
 						<form:input path="username" class="username" id="username" type="text" placeholder="登录账户名" v-model="username"/>
 					</div>
 					<!-- 下面div,使用.password-focus呈现蓝色,使用.password-wrong呈现红色.-->
-					<div class="password-box" @click="onFocus" v-bind:class="{'error':showPasswordError}">
-						<label for="password" ></label>
+					<div class="password-box {{passwordFocus}} {{showPasswordError}}" v-on:click="passwordOnFocus">
+						<label for="password"></label>
 						<form:input class="username" id="password" path="password" type="password" placeholder="密码" v-model="password"/>
 					</div>
 					<form:errors path="loginError"/>
@@ -48,7 +48,7 @@
 					</div>
 					<!-- 下面span,使用.hide时隐藏,移除.hide时显示-->
 					<c:if test="${code!=null||user.count>2}">
-						<div id="authBox" class="auth-box" v-bind:class="{'error':showAuthError}">
+						<div id="authBox" class="auth-box {{authFocus}} {{showAuthError}}" @click="authOnFocus">
 							<form:input id="authNum" path="authCode" type="text" v-model="authNum"/>
 							<img id="loginCode" src="/code/login" alt=""/>
 							<a href="#">看不清楚？</a>
@@ -79,6 +79,6 @@
 <!--footer end-->
 
 <script src="/resources/core/js/require.js" data-main="/resources/user/login"></script>
-<jsp:include page="../core/baidu.jsp" />
+<jsp:include page="../core/baidu.jsp"/>
 </body>
 </html>

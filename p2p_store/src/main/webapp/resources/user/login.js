@@ -21,10 +21,13 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                         password: '',
                         authNum: '',
                         needAuth: false,
-                        showUsernameError:false,
-                        showPasswordError:false,
-                        showAuthError:false,
-                        error:'asdasdasdas'
+                        showUsernameError: '',
+                        showPasswordError: '',
+                        showAuthError: '',
+                        usernameFocus: '',
+                        passwordFocus: '',
+                        authFocus: '',
+                        error: ''
                     },
                     methods: {
                         login: function (event) {
@@ -44,8 +47,29 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                             }
                             $('#login').submit();
                         },
-                        onFocus: function (event) {
-                            this.error="haha";
+                        userOnFocus: function (event) {
+                            this.usernameFocus = 'input-focus';
+                            this.showUsernameError = '';
+                            this.showPasswordError = '';
+                            this.showAuthError = '';
+                            this.passwordFocus = '';
+                            this.authFocus = '';
+                        },
+                        passwordOnFocus: function (event) {
+                            this.usernameFocus = '';
+                            this.showUsernameError = '';
+                            this.showPasswordError = 'input-focus';
+                            this.showAuthError = '';
+                            this.passwordFocus = '';
+                            this.authFocus = '';
+                        },
+                        authOnFocus: function (event) {
+                            this.usernameFocus = '';
+                            this.showUsernameError = '';
+                            this.showPasswordError = '';
+                            this.showAuthError = '';
+                            this.passwordFocus = '';
+                            this.authFocus = 'input-focus';
                         },
                         qqLogin: function () {
                             QC.Login({'btnId': 'qqLoginBtn'});
