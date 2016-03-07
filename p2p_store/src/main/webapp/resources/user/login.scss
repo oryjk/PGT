@@ -167,43 +167,15 @@ body {
 /*for js
 ********************************************************************/
 .content .content-box .login {
-  .username-focus {
-    label {
-      background-position: 0 -48px;
-      border-color: #84bcdf;
-    }
+  .input-focus {
     input {
-      border-color: #84bcdf;
+      border-color: $em;
     }
   }
 
-  .password-focus {
-    label {
-      background-position: -48px -48px;
-      border-color: #84bcdf;
-    }
+  .input-error {
     input {
-      border-color: #84bcdf;
-    }
-  }
-
-  .username-wrong {
-    label {
-      background-position: 0 -96px;
-      border-color: #e08385;
-    }
-    input {
-      border-color: #e08385;
-    }
-
-  }
-  .password-wrong {
-    label {
-      background-position: -48px -96px;
-      border-color: #e08385;
-    }
-    input {
-      border-color: #e08385;
+      border-color: $main;
     }
   }
 }
