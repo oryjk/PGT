@@ -394,25 +394,18 @@ body {
       .content .login .login-box .username-box,
       .content .login .login-box .password-box {
         width: 100%; }
-        .content .login .login-box .username-box label,
-        .content .login .login-box .password-box label {
-          float: left;
-          border: 1px solid #cccccc;
-          border-right: none;
-          border-image: none;
-          width: 37px;
-          height: 37px; }
         .content .login .login-box .username-box input,
         .content .login .login-box .password-box input {
           border: 1px solid #cccccc;
-          padding-left: 6px;
-          width: 300px;
+          border-radius: 3px;
+          padding-left: 36px;
+          width: 260px;
           height: 35px;
           outline: none; }
-      .content .login .login-box .username-box label {
-        background: url("../core/images/user/login-icons.png") 0 0 no-repeat; }
-      .content .login .login-box .password-box label {
-        background: url("../core/images/user/login-icons.png") -48px 0 no-repeat; }
+      .content .login .login-box .username-box input {
+        background: url("../core/images/user/user_03.png") 10px 12px no-repeat; }
+      .content .login .login-box .password-box input {
+        background: url("../core/images/user/password_07.png") 10px 12px no-repeat; }
       .content .login .login-box .other-box a {
         margin-left: 170px;
         text-decoration: none;
