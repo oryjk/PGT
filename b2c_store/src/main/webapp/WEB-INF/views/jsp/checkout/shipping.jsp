@@ -252,6 +252,9 @@
 <jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp" />
 <!--主脚部-->
 <jsp:include page="../core/footer-main.jsp"></jsp:include>
+
+<jsp:include page="../core/baidu.jsp"></jsp:include>
+
 </body>
 <!-- 弹出框-->
 <!--<div id="popUp" class="pop-up">-->

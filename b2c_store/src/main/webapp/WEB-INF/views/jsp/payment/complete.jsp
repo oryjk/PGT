@@ -106,6 +106,7 @@
 
 <!--主脚部-->
 <jsp:include page="../core/footer-main.jsp"/>
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" defer async="true" data-main="<spring:url value="${juedangpinStaticPath}/shopping-cart/shopping-cart.js"/>"></script>
 

@@ -3,6 +3,7 @@ package com.pgt.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.pgt.controller.bean.War;
 import com.pgt.controller.bean.Wars;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,7 @@ import java.util.*;
  * Created by fei on 2016/3/5.
  */
 @Controller
+@Scope("singleton")
 @RequestMapping("/gradle")
 public class UtilsHomeController {
     @RequestMapping("home")

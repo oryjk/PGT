@@ -177,6 +177,7 @@
 <!--footer begin-->
 <div class="footer"></div>
 <!--footer end-->
+<jsp:include page="../core/baidu.jsp" />
 </body>
 <script src="${pageContext.request.contextPath}/resources/core/js/require.js" data-main="${pageContext.request.contextPath}/resources/invest/invest"></script>
 </html>
