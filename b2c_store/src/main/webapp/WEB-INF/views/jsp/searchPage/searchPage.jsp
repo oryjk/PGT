@@ -348,7 +348,7 @@
 				<jsp:include page="../core/footer-main.jsp" >
 					<jsp:param name="useside" value="true" />
 				</jsp:include>
-
+	<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 
 <script

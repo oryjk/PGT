@@ -98,6 +98,7 @@
     <span>点金子绝当品</span>
     <span>京ICP备100000000号</span>
 </div>
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
         data-main="<spring:url value="${juedangpinStaticPath}/user/regist.js"/>"></script>

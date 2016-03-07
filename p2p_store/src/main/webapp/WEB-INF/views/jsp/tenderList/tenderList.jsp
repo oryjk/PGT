@@ -80,5 +80,6 @@
 <!--footer end-->
 
 <script src="/resources/core/js/require.js" data-main="/resources/product-list/productList"></script>
+<jsp:include page="../core/baidu.jsp" />
 </body>
 </html>

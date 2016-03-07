@@ -204,5 +204,6 @@
     </div>
 </div>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/index/index.js"/>"></script>
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 </html>
