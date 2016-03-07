@@ -20,7 +20,11 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                         username: '',
                         password: '',
                         authNum: '',
-                        needAuth: false
+                        needAuth: false,
+                        showUsernameError:false,
+                        showPasswordError:false,
+                        showAuthError:false,
+                        error:'asdasdasdas'
                     },
                     methods: {
                         login: function (event) {
@@ -38,8 +42,10 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
                                 console.log('The auth number is empty.');
                                 //need focus on password input.
                             }
-
                             $('#login').submit();
+                        },
+                        onFocus: function (event) {
+                            this.error="haha";
                         },
                         qqLogin: function () {
                             QC.Login({'btnId': 'qqLoginBtn'});

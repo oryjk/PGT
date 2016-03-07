@@ -29,13 +29,13 @@
 			<form:form modelAttribute="user" method="post" action="login" id="login">
 
 				<div class="login-box" id="login-box">
-					<div class="username-box username-focus">
+					<div class="username-box" v-on:click="onFocus">
 						<label for="username"></label>
 						<form:input path="username" class="username" id="username" type="text" placeholder="登录账户名" v-model="username"/>
 					</div>
 					<!-- 下面div,使用.password-focus呈现蓝色,使用.password-wrong呈现红色.-->
-					<div class="password-box password-focus password-wrong">
-						<label for="password"></label>
+					<div class="password-box" @click="onFocus" v-bind:class="{'error':showPasswordError}">
+						<label for="password" ></label>
 						<form:input class="username" id="password" path="password" type="password" placeholder="密码" v-model="password"/>
 					</div>
 					<form:errors path="loginError"/>
@@ -48,7 +48,7 @@
 					</div>
 					<!-- 下面span,使用.hide时隐藏,移除.hide时显示-->
 					<c:if test="${code!=null||user.count>2}">
-						<div id="authBox" class="auth-box">
+						<div id="authBox" class="auth-box" v-bind:class="{'error':showAuthError}">
 							<form:input id="authNum" path="authCode" type="text" v-model="authNum"/>
 							<img id="loginCode" src="/code/login" alt=""/>
 							<a href="#">看不清楚？</a>
@@ -60,7 +60,7 @@
 					<form:input id="loginCount" type="hidden" path="count" value=""/>
 					<div class="domain">
 						快捷登录方式：
-						<a href="/qqLogin/login"><img src="../core/images/user/QQ.png"></a>
+						<a href="#" id="qqLoginBtn"></a>
 						<a href="#"><img src="../core/images/user/pay.jpg"/></a>
 						<a href="#"><img src="../core/images/user/wet.jpg"/></a>
 						<a href="#"><img src="../core/images/user/sina.jpg"/></a>

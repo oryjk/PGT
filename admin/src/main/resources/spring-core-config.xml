@@ -26,14 +26,6 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
-    <bean class="com.pgt.data.MigrateDataListener">
-        <property name="searchEngineServiceList">
-            <list value-type="com.pgt.search.service.AbstractSearchEngineService">
-                <ref bean="staticResourceSearchEngineService"/>
-                <ref bean="esSearchService"/>
-            </list>
-        </property>
-    </bean>
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -205,6 +197,15 @@
             <array>
                 <ref bean="adminSessionPathInitHandler"/>
             </array>
+        </property>
+    </bean>
+    <bean class="com.pgt.data.index.service.AllIndexService">
+        <property name="searchEngineServiceList">
+            <list value-type="com.pgt.search.service.AbstractSearchEngineService">
+                <ref bean="categorySearchEngineService"/>
+                <ref bean="esSearchService"/>
+                <ref bean="staticResourceSearchEngineService"/>
+            </list>
         </property>
     </bean>
 
