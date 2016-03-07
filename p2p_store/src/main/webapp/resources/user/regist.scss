@@ -19,6 +19,13 @@ body {
   background: #f3f3f3;
 }
 
+.search-img {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  background: red;
+}
+
 .content {
   margin: 100px auto 50px;
   padding: 50px 0;
@@ -30,23 +37,26 @@ body {
     margin: 0 auto;
     @include wh($main-width, 600px);
   }
+
   .content-img {
     float: left;
     @extend %clear;
     @include wh(535px, 600px);
     background: url("../core/images/user/login-img.jpg") no-repeat left 40px;
   }
-  .login {
 
+  .login {
     margin-left: 82px;
     float: left;
     border: 1px solid $gray-light;
     border-top: 3px solid $main;
     @include wh(400px, 600px);
     box-shadow: 0 10px 15px $gray;
+
     .login-title {
       padding-top: 20px;
       @include wh(auto, 50px);
+
       h2 {
         float: left;
         padding: 15px 0 0 40px;
@@ -54,6 +64,7 @@ body {
         font-weight: 700;
         @extend %clear;
       }
+
       span {
         padding-left: 100px;
         font-size: 14px;
@@ -65,10 +76,9 @@ body {
             text-decoration: underline;
           }
         }
-
       }
-
     }
+
     .login-content {
       span{
         color: $main;
@@ -84,53 +94,38 @@ body {
         border-radius: 3px;
         border: 1px solid #ccc;
       }
-      .username,
-      .username-red{
+
+      .username {
         input {
           background: url("../core/images/user/user_03.png") no-repeat 9px 15px;
         }
       }
-      .username-red {
-        input {
-          border: 1px solid $main;
-        }
-      }
-      .userPhone,
-      .userPhone-red{
+
+      .userPhone {
         input {
           background: url("../core/images/user/phone_03.png") no-repeat 10px 13px;
         }
       }
-      .userPhone-red{
-        input{
-          border: 1px solid $main;
-        }
-      }
 
-      .security-code,
-      .security-code-red{
+      .security-code {
         input {
           width: 180px;
           background: url("../core/images/user/yanzhengma_07.png") no-repeat 12px 15px;
         }
+
         .authImgBox {
           margin: 6px 40px 0 0;
           float: right;
           @include wh(100px, 40px);
-          background: $main;
         }
       }
-      .security-code-red{
-        input{
-          border: 1px solid $main;
-        }
-      }
-      .phone-security,
-      .phone-security-red {
+
+      .phone-security {
         input[type="text"] {
           width: 180px;
           background: url("../core/images/user/message_09.png") no-repeat 11px 16px;
         }
+
         input[type="button"] {
           margin: 0 0 0 3px;
           border: 1px solid $main;
@@ -145,33 +140,19 @@ body {
           }
         }
       }
-      .phone-security-red{
-        input[type="text"]{
-          border: 1px solid $main;
-        }
-      }
-      .password,
-      .password-red {
+
+      .password {
         input {
           background: url("../core/images/user/password_07.png") no-repeat 13px 15px;
         }
       }
-      .password-red{
-        input{
-          border: 1px solid $main;
-        }
-      }
-      .confirm,
-      .confirm-red{
+
+      .confirm {
         input {
           background: url("../core/images/user/password_07.png") no-repeat 13px 15px;
         }
       }
-      .confirm-red{
-        input{
-          border: 1px solid $main;
-        }
-      }
+
       .submit {
         border: none;
         padding: 0;
@@ -181,9 +162,9 @@ body {
         background: $main;
         &:hover{
           background: #ff6d6d;
-
         }
       }
+
       .agreement{
         margin: 15px 0 0 30px;
         font-size: 12px;
@@ -194,5 +175,22 @@ body {
     }
   }
 }
+
+.content {
+  .login {
+    .input-focus {
+      .input-text {
+        border-color: $em;
+      }
+    }
+
+    .input-error {
+      .input-text {
+        border-color: $main;
+      }
+    }
+  }
+}
+
 
 

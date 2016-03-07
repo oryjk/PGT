@@ -1,0 +1,168 @@
+/*import
+**************************************************************************************************************************************************/
+.filter-invest-status, .filter-order-status, .page-box {
+  *zoom: 1; }
+  .filter-invest-status:after, .filter-order-status:after, .page-box:after, .filter-invest-status:before, .filter-order-status:before, .page-box:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.filter-invest-status, .filter-order-status, .page-box {
+  *zoom: 1; }
+  .filter-invest-status:after, .filter-order-status:after, .page-box:after, .filter-invest-status:before, .filter-order-status:before, .page-box:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
+/*pop-up*/
+/*file*/
+/*style
+**************************************************************************************************************************************************/
+.filter-invest-status {
+  padding-top: 50px; }
+  .filter-invest-status li {
+    float: left;
+    border-bottom: 2px solid #cccccc;
+    width: 110px;
+    height: 25px;
+    text-align: center; }
+    .filter-invest-status li a {
+      display: block;
+      width: 109px;
+      border-right: 1px solid #cccccc;
+      color: black;
+      font-size: 18px; }
+  .filter-invest-status .filter-invest-choose {
+    border-bottom: 2px solid #fe4040; }
+    .filter-invest-status .filter-invest-choose a {
+      color: #fe4040; }
+  .filter-invest-status .filter-invest-end a {
+    border-right: none; }
+
+.filter-order-status {
+  padding: 15px 0 0 15px; }
+  .filter-order-status li {
+    float: left;
+    padding: 0 15px;
+    border-right: 1px solid #cccccc; }
+  .filter-order-status a {
+    padding: 3px 7px;
+    color: black; }
+  .filter-order-status .filter-order-choose {
+    border-radius: 4px;
+    background: #eaedf4; }
+  .filter-order-status .filter-order-end {
+    border-right: none; }
+
+.order-list {
+  padding-top: 22px; }
+  .order-list table {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 14px; }
+  .order-list .order-list-head {
+    background: #eaedf4;
+    height: 32px; }
+  .order-list .order-list-item {
+    height: 129px;
+    border-bottom: 1px solid #cccccc; }
+  .order-list .col-1 {
+    width: 120px; }
+  .order-list .col-2 {
+    width: 280px; }
+  .order-list .col-3 {
+    width: 80px; }
+  .order-list .col-4 {
+    width: 160px; }
+  .order-list .col-5 {
+    width: 120px; }
+  .order-list th,
+  .order-list td {
+    vertical-align: middle;
+    text-align: center; }
+  .order-list .order-img a {
+    display: block;
+    margin: 0 auto;
+    padding: 3px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    width: 100px;
+    height: 100px;
+    text-align: center; }
+    .order-list .order-img a:hover {
+      border-color: #2d7fe0;
+      box-shadow: 0 0 2px 1px #2d7fe0; }
+  .order-list .order-img img {
+    width: 100%;
+    height: 100%; }
+  .order-list .order-base-info {
+    text-align: left;
+    text-indent: 15px; }
+    .order-list .order-base-info p {
+      line-height: 30px;
+      color: #555555;
+      width: 280px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
+    .order-list .order-base-info a {
+      color: black; }
+      .order-list .order-base-info a:hover {
+        color: #fe4040; }
+  .order-list .will-pay {
+    color: #fe4040; }
+  .order-list .order-handle p {
+    line-height: 30px; }
+  .order-list .order-handle .pay-now {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 90px;
+    height: 25px;
+    font-size: 14px;
+    background: #fe4040;
+    border-radius: 3px;
+    line-height: 25px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .order-list .order-handle .pay-now:hover {
+      background: #d70101; }
+
+.page-box {
+  padding-top: 20px; }
+  .page-box ol {
+    float: right;
+    padding-right: 20px; }
+  .page-box li {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+    text-align: center; }
+  .page-box a {
+    display: block;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    padding: 0 10px;
+    height: 30px;
+    color: #555555; }
+    .page-box a:hover {
+      border-color: #fe4040;
+      color: white;
+      background: #fe4040; }
+  .page-box .current-page,
+  .page-box .current-page:hover {
+    border-color: white;
+    background: white;
+    color: #fe4040;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: default; }
+
+/*# sourceMappingURL=../../../maps/my-account/my-favorite/my-favorite.css.map */

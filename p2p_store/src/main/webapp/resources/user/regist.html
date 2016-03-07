@@ -37,31 +37,32 @@
                 <span>已有账号？<a href="#"> 直接登陆</a></span>
             </div>
             <div class="login-content">
-                <div class="username username-red">
-                    <input name="username" type="text" placeholder="您的用户名">
+                <!-- 出现错误请在div上面加上input-error页面-->
+                <div class="username input-error">
+                    <input class="input-text" name="username" type="text" placeholder="您的用户名">
                     <span>请输入用户名</span>
                 </div>
-                <div class="userPhone userPhone-red">
-                    <input name="userPhone" type="text" placeholder="您的手机号">
+                <div class="userPhone input-focus">
+                    <input class="input-text" name="userPhone" type="text" placeholder="您的手机号">
                     <span>请输入手机号</span>
                 </div>
-                <div class="security-code security-code-red">
-                    <input name="security-code" type="text" placeholder="请输入右侧验证码">
-                    <div class="authImgBox"></div>
+                <div class="security-code">
+                    <input class="input-text" name="security-code" type="text" placeholder="请输入右侧验证码">
+                    <img src="" class="authImgBox">
                     <span>请输入验证码</span>
                 </div>
-                <div class="phone-security phone-security-red">
-                    <input name="phone-security" type="text" placeholder="短信验证码">
+                <div class="phone-security">
+                    <input class="input-text" name="phone-security" type="text" placeholder="短信验证码">
                     <input name="getPhoneCom" type="button" value="获取验证码">
                     <!-- <input name="getPhoneCom" type="button" value="60秒重新发送"> -->
                     <span>请输入短信验证码</span>
                 </div>
-                <div class="password password-red">
-                    <input name="password" type="password" placeholder="密码，6-16位字母、数字或符号">
+                <div class="password">
+                    <input class="input-text" name="password" type="password" placeholder="密码，6-16位字母、数字或符号">
                     <span>请输入密码</span>
                 </div>
-                <div class="confirm confirm-red">
-                    <input name="confirm" type="password" placeholder="确认密码">
+                <div class="confirm">
+                    <input class="input-text" name="confirm" type="password" placeholder="确认密码">
                     <span>请确认密码</span>
                 </div>
                 <input class="submit" type="submit" value="注册">
