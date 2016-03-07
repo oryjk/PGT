@@ -57,7 +57,8 @@ public class UploadImageController {
         }
         String originalFilename = uploadPicture.getOriginalFilename();
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
-        originalFilename = new Date().getTime() + suffix;
+        long currentTime = new Date().getTime();
+        originalFilename = currentTime + suffix;
         String filePath = configuration.getImagePath() + configuration.getImageFolder() + originalFilename;
         LOGGER.debug("The file path is {}.", filePath);
 

@@ -1,0 +1,198 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+/*part
+**************************************************************************************************************************************************/
+@include header;
+@include footer;
+
+/*style
+**************************************************************************************************************************************************/
+body {
+  background: #f3f3f3;
+}
+
+.content {
+  margin: 100px auto 50px;
+  padding: 50px 0;
+  border: 1px solid $gray-light;
+  height: 600px;
+
+  background: white;
+  .content-box {
+    margin: 0 auto;
+    @include wh($main-width, 600px);
+  }
+  .content-img {
+    float: left;
+    @extend %clear;
+    @include wh(535px, 600px);
+    background: url("../core/images/user/login-img.jpg") no-repeat left 40px;
+  }
+  .login {
+
+    margin-left: 82px;
+    float: left;
+    border: 1px solid $gray-light;
+    border-top: 3px solid $main;
+    @include wh(400px, 600px);
+    box-shadow: 0 10px 15px $gray;
+    .login-title {
+      padding-top: 20px;
+      @include wh(auto, 50px);
+      h2 {
+        float: left;
+        padding: 15px 0 0 40px;
+        font-size: 18px;
+        font-weight: 700;
+        @extend %clear;
+      }
+      span {
+        padding-left: 100px;
+        font-size: 14px;
+        text-align: center;
+        line-height: 50px;
+        a {
+          color: $main;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+      }
+
+    }
+    .login-content {
+      span{
+        color: $main;
+        margin-left: 40px;
+        font-size: 12px;
+      }
+      input {
+        margin: 5px 0 5px 30px;
+        padding-left: 40px;
+        @include wh(300px, 40px);
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+      }
+      .username,
+      .username-red{
+        input {
+          background: url("../core/images/user/user_03.png") no-repeat 9px 15px;
+        }
+      }
+      .username-red {
+        input {
+          border: 1px solid $main;
+        }
+      }
+      .userPhone,
+      .userPhone-red{
+        input {
+          background: url("../core/images/user/phone_03.png") no-repeat 10px 13px;
+        }
+      }
+      .userPhone-red{
+        input{
+          border: 1px solid $main;
+        }
+      }
+
+      .security-code,
+      .security-code-red{
+        input {
+          width: 180px;
+          background: url("../core/images/user/yanzhengma_07.png") no-repeat 12px 15px;
+        }
+        .authImgBox {
+          margin: 6px 40px 0 0;
+          float: right;
+          @include wh(100px, 40px);
+          background: $main;
+        }
+      }
+      .security-code-red{
+        input{
+          border: 1px solid $main;
+        }
+      }
+      .phone-security,
+      .phone-security-red {
+        input[type="text"] {
+          width: 180px;
+          background: url("../core/images/user/message_09.png") no-repeat 11px 16px;
+        }
+        input[type="button"] {
+          margin: 0 0 0 3px;
+          border: 1px solid $main;
+          padding: 0;
+          width: 100px;
+          color: $main;
+          background: white;
+          &:hover {
+            border: none;
+            color: white;
+            background: #ff6d6d;
+          }
+        }
+      }
+      .phone-security-red{
+        input[type="text"]{
+          border: 1px solid $main;
+        }
+      }
+      .password,
+      .password-red {
+        input {
+          background: url("../core/images/user/password_07.png") no-repeat 13px 15px;
+        }
+      }
+      .password-red{
+        input{
+          border: 1px solid $main;
+        }
+      }
+      .confirm,
+      .confirm-red{
+        input {
+          background: url("../core/images/user/password_07.png") no-repeat 13px 15px;
+        }
+      }
+      .confirm-red{
+        input{
+          border: 1px solid $main;
+        }
+      }
+      .submit {
+        border: none;
+        padding: 0;
+        width: 343px;
+        color: white;
+        letter-spacing:10px;
+        background: $main;
+        &:hover{
+          background: #ff6d6d;
+
+        }
+      }
+      .agreement{
+        margin: 15px 0 0 30px;
+        font-size: 12px;
+        a{
+          color: $em;
+        }
+      }
+    }
+  }
+}
+
+
