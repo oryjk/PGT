@@ -95,7 +95,11 @@ task buildThoughWeb << {
     }
     try{
         String shUrl = shellFile
-        shUrl = shUrl + " " + PROJECTURL + allwar
+        String chmod = "chmod +x" + shUrl
+        println "chmod +x file"
+        Process chmodExe = chmod.execute();
+        chmodExe.waitFor();
+        shUrl = "sh -x " + shUrl + " " + PROJECTURL + allwar
         println shUrl
         Process p= shUrl.execute();
         p.waitFor();
