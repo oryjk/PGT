@@ -18,7 +18,6 @@ import java.util.*;
  * Created by fei on 2016/3/5.
  */
 @Controller
-@Scope("singleton")
 @RequestMapping("/gradle")
 public class UtilsHomeController {
     @RequestMapping("home")
@@ -55,10 +54,11 @@ public class UtilsHomeController {
             for (War obj:wars.getWars()){
                 OutputStream out = new FileOutputStream(path);
                 properties.setProperty(obj.getName(), obj.getValue());
-                System.out.println(JSONObject.toJSONString(properties));
                 properties.store(out, "Update " + obj.getName() + " name");
             }
             String execueWarPath = this.getClass().getClassLoader().getResource("executewar.sh").getPath();
+            Process  chmod = Runtime.getRuntime().exec("chmod +x " + execueWarPath);
+            chmod.waitFor();
             Process  process = Runtime.getRuntime().exec(execueWarPath + " " + properties.getProperty("PROJECTURL"));
             process.waitFor();
         }catch (Exception e){
