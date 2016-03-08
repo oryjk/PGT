@@ -172,5 +172,14 @@
             </list>
         </property>
     </bean>
+    <bean class="com.pgt.data.index.service.AllIndexService">
+        <property name="searchEngineServiceList">
+            <list value-type="com.pgt.search.service.AbstractSearchEngineService">
+                <ref bean="categorySearchEngineService"/>
+                <ref bean="esSearchService"/>
+                <ref bean="staticResourceSearchEngineService"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>
