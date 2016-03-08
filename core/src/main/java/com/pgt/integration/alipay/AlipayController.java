@@ -50,7 +50,7 @@ public class AlipayController extends TransactionBaseController {
     private AlipayService alipayService;
     @Autowired
     private ShoppingCartService shoppingCartService;
-    @Autowired
+    @Resource(name="orderService")
     private OrderService orderService;
     @Autowired
     private URLConfiguration urlConfiguration;

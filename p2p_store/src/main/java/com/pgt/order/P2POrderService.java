@@ -21,7 +21,10 @@ import com.pgt.user.bean.User;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
 
@@ -29,7 +32,7 @@ import java.util.*;
  * Created by Samli on 2016/1/18.
  */
 
-// TODO log debug
+@Service(value = "p2pOrderService")
 public class P2POrderService extends OrderService {
 
     public static final long MILLISECOND_ONE_DAY = 1000 * 60 * 60 * 24;
@@ -38,12 +41,16 @@ public class P2POrderService extends OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(P2POrderService.class);
 
+    @Autowired
     private ShoppingCartService shoppingCartService;
 
+    @Autowired
     private P2PMapper p2PMapper;
 
+    @Resource(name = "completeTransactionYeepay")
     private DirectYeePay directTransactionYeepay;
 
+    @Autowired
     private PaymentService paymentService;
 
 
@@ -114,6 +121,7 @@ public class P2POrderService extends OrderService {
             }
             count++;
         }
+        order.setCommerceItems(commerceItems);
 
     }
 

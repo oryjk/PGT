@@ -18,8 +18,12 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -27,6 +31,9 @@ import java.util.List;
 /**
  * Created by Samli on 2016/1/16.
  */
+
+@RestController
+@RequestMapping("/order")
 public class P2PCheckoutController {
 	private static final int NO_ERROR = 0;
 
@@ -46,26 +53,30 @@ public class P2PCheckoutController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(P2PCheckoutController.class);
 
+	@Resource(name = "p2pOrderService")
 	private P2POrderService orderService;
 
+	@Autowired
 	private InventoryService inventoryService;
 
+	@Autowired
 	private TenderService tenderService;
 
 	@Autowired
 	private URLConfiguration urlConfiguration;
 
+	@RequestMapping(value = "/create")
 	public ModelAndView createOrder (HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		User user = SessionHelper.getUser(pRequest, pResponse);
-		LOGGER.debug("============= P2PCheckoutController#createOrder start =============");
-
-
-		if (null == user) {
-			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
-			LOGGER.debug("no user redirect to login page");
-			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
-			return modelAndView;
-		}
+//		User user = SessionHelper.getUser(pRequest, pResponse);
+//		LOGGER.debug("============= P2PCheckoutController#createOrder start =============");
+//		if (null == user) {
+//			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
+//			LOGGER.debug("no user redirect to login page");
+//			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
+//			return modelAndView;
+//		}
+		User user = new User();
+		user.setId(1L);
 		String tenderIdStr = pRequest.getParameter("tenderId");
 		String[] productIds = pRequest.getParameterValues("productIds");
 		String[] quantities = pRequest.getParameterValues("quantities");
@@ -93,6 +104,7 @@ public class P2PCheckoutController {
 		if (NO_ERROR != errorCode) {
 			LOGGER.debug("product parameter is not correct redirect to tender page");
 			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
+			getInventoryService().setAsRollback();
 			// TODO redirect to tendId
 		}
 		// create order
