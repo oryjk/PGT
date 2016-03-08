@@ -17,7 +17,7 @@ import java.io.File;
 /**
  * Created by liqiang on 16-3-1.
  */
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-core-config.xml")
 public class gradleTest {
