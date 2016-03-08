@@ -15,6 +15,8 @@
     </head>
 
     <body>
+    <img class="search-img" src="../core/images/app-qrcode.png" alt="点金子绝当淘"/>
+
 
 
     <div class="right">

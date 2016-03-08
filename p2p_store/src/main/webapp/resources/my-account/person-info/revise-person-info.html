@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="login.css"/>
+    <link rel="stylesheet" href="../my_account_base.css"/>
+    <link rel="stylesheet" href="person-info.css"/>
 </head>
 <body>
 <!--header begin-->
@@ -27,54 +28,106 @@
     </div>
 </div>
 <!--header end-->
-<!--content begin-->
+
 <div class="content">
-    <div class="content-box">
-        <div class="content-img"></div>
-        <div class="login">
-            <div class="login-title">
-                <h2>登录点金子网</h2>
-                <span>还没账号？<a href="#"> 立即注册</a></span>
-            </div>
-            <div class="login-box">
-                <div class="username-box input-focus">
-                    <input class="username" id="username" name="username" type="text" placeholder="登录账户名"/>
-                </div>
-                <!-- 下面div,出现错误请在div上面加上input-error页面, 聚焦请加上input-focus.-->
-                <div class="password-box input-error">
-                    <input class="username" id="password" name="password" type="password" placeholder="密码"/>
-                </div>
-                <div class="font-box">输入错误，请重新输入</div>
-                <div class="other-box">
-                    <input id="autoLogin" name="autoLogin" type="checkbox"/>
-                    <label for="autoLogin">自动登录</label>
-                    <a href="forget.html">忘记密码</a>
-                    <!-- 下面span,使用.hide时隐藏,移除.hide时显示-->
-                    <span class="hide" id="loginPrompt">请填写验证码</span>
-                </div>
-                <!-- 下面span,使用.hide时隐藏,移除.hide时显示-->
-                <div id="authBox" class="auth-box hide">
-                    <input id="authNum" name="authNum" type="text"/>
-                    <img id="loginCode" src="/dianjinzi/code" alt=""/>
-                    <a href="#">看不清楚？</a>
-                </div>
-                <div class="sub-box">
-                    <input id="loginSub" type="submit" value="登录"/>
-                </div>
-                <input id="loginCount" type="hidden" value="0"/>
-                <div class="domain">
-                    快捷登录方式：
-                    <a href="#"><img src="../core/images/user/QQ.png"></a>
-                    <a href="#"><img src="../core/images/user/pay.jpg"></a>
-                    <a href="#"><img src="../core/images/user/wet.jpg"></a>
-                    <a href="#"><img src="../core/images/user/sina.jpg"></a>
-                </div>
-            </div>
+    <div class="menu">
+        <div class="user-face">
+            <div class="img-box"><img src="" alt=""/></div>
+            <p class="face-title">用户名</p>
+        </div>
+        <ul class="menu-list">
+            <li><a href="#">我的交易单</a></li>
+            <li><a class="menu-choose" href="#">我的资产</a></li>
+            <li><a href="#">我的收藏</a></li>
+            <li><a href="#">最近浏览</a></li>
+            <li><a href="#">个人信息</a></li>
+            <li><a href="#">地址管理</a></li>
+            <li><a href="#">修改密码</a></li>
+        </ul>
+        <div class="menu-two-dimension">
+            <img src="" alt=""/>
+            <p>扫一扫,淘在当手机版</p>
         </div>
     </div>
+    <div class="main">
+        <h2 class="main-head">个人信息</h2>
+        <!-- super: will-binding和already-binding,根据不同的情况显示和隐藏-->
+        <div class="person-info-tab-box">
+            <a class="person-info-tab person-info-tab-choose" href="#">基本信息</a>
+            <a class="person-info-tab" href="#">修改登录密码</a>
+        </div>
+        <!-- super: person-info-box和modify-password-box根据不同的情况显示-->
+        <!-- person-info-box begin-->
+        <div class="person-info-box" style="display: block;">
+            <form action="">
+                <table>
+                    <tr>
+                        <th>用户名:</th>
+                        <td>tangchao111</td>
+                    </tr>
+                    <tr>
+                        <th>真实姓名:</th>
+                        <td>周杰伦</td>
+                    </tr>
+                    <tr>
+                        <th>手机号码:</th>
+                        <td>
+                            <span>13198585611</span>
+                            <a class="link-btn" href="#">更换</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>性别:</th>
+                        <td>
+                            <label>男</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>邮箱:</th>
+                        <td>
+                            <span>819127251@qq.com</span>
+                            <a class="link-btn" href="#">更换</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>身份证号码:</th>
+                        <td>1233211234567</td>
+                    </tr>
+                    <tr>
+                        <th>婚姻状况:</th>
+                        <td>
+                            <label>已婚</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>所在行业:</th>
+                        <td>IT业</td>
+                    </tr>
+                    <tr>
+                        <th>年收入:</th>
+                        <td>10元</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input class="person-info-submit" type="button" value="编辑"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <form class="person-face" action="#">
+                <img src="../../core/images/my_account/" alt=""/>
+                <!--file begin-->
+                <div class="like-file">
+                    点击上传头像
+                    <input class="original-input-file" type="file" value="上传">
+                </div>
+                <!-- file end-->
+            </form>
+        </div>
+        <!-- person-info-box end-->
+    </div>
 </div>
-<!--content end-->
-
 
 <!--footer begin-->
 <div class="footer" id="footer">
@@ -174,28 +227,28 @@
         <div class="us">
             <div class="our-app">
                 <a class="apple-dimension" href="#">
-                    <img class="app-icon" src="../core/images/footer/apple.png" alt="苹果客户端下载"/>
+                    <img class="app-icon" src="../../core/images/footer/apple.png" alt="苹果客户端下载"/>
 
                     <h3>苹果客户端</h3>
-                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="android-dimension" href="#">
-                    <img class="app-icon" src="../core/images/footer/android.png" alt="安卓客户端下载"/>
+                    <img class="app-icon" src="../../core/images/footer/android.png" alt="安卓客户端下载"/>
 
                     <h3>安卓客户端</h3>
-                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="online-server" href="#">
-                    <img class="app-icon" src="../core/images/footer/weixin.png" alt="微信客户端下载"/>
+                    <img class="app-icon" src="../../core/images/footer/weixin.png" alt="微信客户端下载"/>
 
                     <h3>微信公众号</h3>
-                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="online-server" href="#">
-                    <img class="app-icon" src="../core/images/footer/weibo.png" alt="点金子在线投资"/>
+                    <img class="app-icon" src="../../core/images/footer/weibo.png" alt="点金子在线投资"/>
 
                     <h3>点金子投资</h3>
-                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
             </div>
             <div class="our-info">
@@ -213,15 +266,16 @@
     <div class="approve-box">
         <div class="approve">
             <a href="#">
-                <img src="../core/images/footer/approve-0.png" alt=""/>
+                <img src="../../core/images/footer/approve-0.png" alt=""/>
             </a>
             <a href="#">
-                <img src="../core/images/footer/approve-1.jpg" alt=""/>
+                <img src="../../core/images/footer/approve-1.jpg" alt=""/>
             </a>
         </div>
         <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
     </div>
 </div>
 <!--footer end-->
+
 </body>
 </html>

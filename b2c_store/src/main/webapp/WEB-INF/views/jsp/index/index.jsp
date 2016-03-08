@@ -9,6 +9,8 @@
     <jsp:param name="cssPath" value="/index/index.css" />
 </jsp:include>
 <body>
+<img class="search-img" src="/resources/juedangpin/core/images/index/baidu_logo.jpg" alt="点金子绝当淘"/>
+
 <!--头部-->
 <div class="header" id="header">
     <jsp:include page="../core/header-main.jsp"/>
@@ -16,6 +18,7 @@
 </div>
 
 <!--正文-->
+
 <div id="content" class="content-box">
     <div id="bannerBox" class="banner-box">
 

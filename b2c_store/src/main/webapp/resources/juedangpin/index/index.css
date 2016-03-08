@@ -1805,6 +1805,11 @@ span {
 .foundicon-search {
   *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = "&#xf02e;"); }
 
+.search-img {
+  position: fixed;
+  top: 0;
+  left: -10000px; }
+
 .content-box {
   overflow: hidden;
   *zoom: 1;

@@ -11,6 +11,13 @@
 @import "../core/foundation_icons_all/foundation_icons_general/sass/general_foundicons";
 @import "../core/foundation_icons_all/foundation_icons_general/sass/general_foundicons_ie7";
 
+.search-img {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+}
+
+
 //mixin
 @mixin small-title($where,$mr, $ml) {
   float: left;
