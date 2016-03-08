@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: cwang7
-  Date: 10/18/15
-  Time: 10:14 AM
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,91 +7,72 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/user/regist.css"/>"/>
+    <link rel="stylesheet" href="/resources/user/regist.css"/>
 </head>
 <body>
-<!--简单头部-->
-<div class="header" id="header">
-    <div class="logo-box">
-        <h1 class="logo">
-            <a href="<spring:url value="${urlConfiguration.loginPage}"/>">点金子绝当品——欢迎登录
-                <div class="light"></div>
-            </a>
-        </h1>
-        <h1 id="pageName">欢迎注册</h1>
-    </div>
-</div>
-
-<!--表格内容区-->
-<div class="content-box">
-    <div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/regist-bg.jpg"/>') right center no-repeat;">
-        <form:form commandName="user" id="regist" method="post" action="register">
-            <table>
-                <tr>
-                    <td><label>登录帐号</label></td>
-                    <td class="input-texts" colspan="2">
-                        <form:input id="username" path="username" type="text" placeholder="6-20位数字或字母"/></td>
-                    <td class="prompt" id="usernamePrompt"><form:errors path="userExist"/><form:errors path="username"/></td>
-                </tr>
-                <tr>
-                    <td><label>手机号码</label></td>
-                    <td colspan="2"><form:input id="userPhone" path="phoneNumber" type="text"
-                                                placeholder="用于密码保护"/></td>
-                    <td class="prompt" id="userPhonePrompt"><form:errors path="phoneNumber"/><form:errors path="phoneExist"/></td>
-                </tr>
-                <tr>
-                    <td><label>登录密码</label></td>
-                    <td colspan="2"><form:input id="password" path="password" type="password"
-                                                placeholder="6-20为数字或字母"/></td>
-                    <td class="prompt" id="passwordPrompt"><form:errors path="password"/></td>
-                </tr>
-                <tr>
-                    <td><label>确认密码</label></td>
-                    <td colspan="2"><form:input id="confirm" path="password2" type="password"
-                                                placeholder="再次确认密码"/></td>
-                    <td class="prompt" id="confirmPrompt"><<form:errors path="password2"/>/td>
-                </tr>
-
-                <tr class="security-code-box">
+<!--header begin-->
+<jsp:include page="../core/header-main.jsp"/>
+<!--header end-->
+<!--content begin-->
+<div class="content">
+    <div class="content-box">
+        <div class="content-img"></div>
+        <div class="login">
+            <div class="login-title">
+                <h2>新用户注册</h2>
+                <span>已有账号？<a href="/user/login"> 直接登陆</a></span>
+            </div>
+            <form:form modelAttribute="user" method="post" action="login" id="login">
+            <div class="login-content">
+                <!-- 出现错误请在div上面加上input-error页面, 聚焦请加上input-focus-->
+                <div class="username input-error">
+                    <form:input path="username" class="username" id="username" type="text" placeholder="登录账户名" v-model="username"/>
+                    <span><form:errors path="userExist"/><form:errors path="username"/></span>
+                </div>
+                <div class="userPhone input-focus">
                     <input type="hidden" id="smsPath" data-value="<spring:url value="/sms/register?phoneNumber="/>">
-                    <td><label>验证码</label></td>
-                    <td><form:input class="security-code" path="authCode" type="text" placeholder="不区分大小写"/></td>
-                    <td><img id="loginCode" src="<spring:url value="/code/register"/>" alt="#"/></td>
-                    <td class="prompt" id="securityCodePrompt"><form:errors path="authCode"/></td>
-                </tr>
-                <tr>
-                    <td><label>手机验证码</label></td>
-                    <td><form:input class="phone-security" id="phoneCom" path="smsCode" type="text"
-                                    placeholder="手机验证码"/>
-                    </td>
-                    <td><input class="getPhoneCom" id="getPhoneCom" type="button" value="获取"/></td>
-                    <td class="prompt" id="getPhoneComPrompt"><form:errors path="smsCode"/></td>
-                </tr>
-                <tr>
-                    <td>
-                        <form:checkbox id="agree" path="agree"/>
-                        同意<a class="regist-protocol" href="#">注册协议</a>
-                    </td>
-                    <td colspan="2"><input class="registSub" id="registSub" type="submit" value="免费注册"/></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>已有账号？<a class="toLogin" href="login">立即登录</a></td>
-                </tr>
-            </table>
-        </form:form>
+                    <form:input id="userPhone" path="phoneNumber" type="text"
+                                placeholder="您的手机号"/>
+                    <span><form:errors path="phoneNumber"/><form:errors path="phoneExist"/></span>
+                </div>
+                <div class="security-code">
+                    <form:input class="security-code" path="authCode" type="text" placeholder="不区分大小写"/>
+                    <img src="/code/register" class="authImgBox">
+                    <span><form:errors path="authCode"/></span>
+                </div>
+                <div class="phone-security">
+                    <form:input class="phone-security" id="phoneCom" path="smsCode" type="text"
+                                placeholder="手机验证码"/>
+                    <input class="getPhoneCom" id="getPhoneCom" type="button" value="获取"/>
+                    <!-- <input name="getPhoneCom" type="button" value="60秒重新发送"> -->
+                    <span><form:errors path="smsCode"/></span>
+                </div>
+                <div class="password">
+                    <form:input id="password" path="password" type="password"
+                                placeholder="6-20为数字或字母"/>
+                    <span><form:errors path="password"/></span>
+                </div>
+                <div class="confirm">
+                    <form:input id="confirm" path="password2" type="password" placeholder="再次确认密码"/>
+                    <span><form:errors path="password2"/></span>
+                </div>
+                <input class="submit" type="submit" value="注册">
+                <div class="agreement">
+                    注册即接受<a href="#">点金子网《注册协议》</a>
+                </div>
+            </div>
+            </form:form>
+        </div>
     </div>
 </div>
 
-
-<!--简单脚部-->
-<div class="footer" id="footer">
-    <span>版权所有</span>
-    <span>点金子绝当品</span>
-    <span>京ICP备100000000号</span>
-</div>
+<!--content end-->
+<!--footer begin-->
+<jsp:include page="../core/footer-main.jsp"/>
 <jsp:include page="../core/baidu.jsp" />
+<!--footer end-->
 </body>
-<script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/user/regist.js"/>"></script>
+<script type="application/javascript" src="/resources/core/js/require.js"></script>
+<script type="application/javascript" src="/resources/user/regist.js"></script>
+
 </html>
