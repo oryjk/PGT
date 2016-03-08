@@ -9,7 +9,7 @@
     <jsp:param name="cssPath" value="/index/index.css" />
 </jsp:include>
 <body>
-<img class="search-img" src="../core/images/app-qrcode.png" alt="点金子绝当淘"/>
+<img class="search-img" src="/resources/juedangpin/core/images/index/baidu_logo.jpg" alt="点金子绝当淘"/>
 
 <!--头部-->
 <div class="header" id="header">

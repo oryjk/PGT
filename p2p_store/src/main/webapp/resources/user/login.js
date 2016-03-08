@@ -8,11 +8,12 @@ require.config({
         ajax: '../core/js/module/ajax',
         underscore: '../core/js/underscore',
         vue: '../core/js/vue',
-        component: '../core/js/module/component'
+        component: '../core/js/module/component',
+        validate: '../core/js/module/validate'
     }
 });
 
-require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], function ($, Handlebars, Ajax, _, Vue, Con) {
+require(['jquery', 'handlebar', 'ajax', 'underscore', 'component', 'vue', 'validate'], function ($, Handlebars, Ajax, yyyyyyyyyy, Con, Vue) {
         $(document).ready(function () {
                 var vm = new Vue({
                     el: '#login-box',
