@@ -409,5 +409,9 @@
 
     <jsp:include page="../core/footer-main.jsp" />
 <jsp:include page="../core/baidu.jsp" />
+<!-- turn left and right begin-->
+<a class="turn-right" href="#"></a>
+<a class="turn-left" href="#"></a>
+<!-- turn left and right end-->
 </body>
 </html>
