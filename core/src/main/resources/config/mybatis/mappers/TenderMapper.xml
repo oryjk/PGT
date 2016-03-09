@@ -27,6 +27,8 @@
 		<result column="PAWN_OWNER_ID" property="pawnShopOwnerId"/>
 		<association property="category" column="ID"
 					 select="com.pgt.category.dao.CategoryMapper.queryCategoryByTenderId"/>
+		<association property="pawnshop" column="PAWN_SHOP_ID" select="com.pgt.pawn.dao.PawnDao.loadPawnShop"/>
+		<association property="pawnTicket" column="PAWN_TICKET_ID" select="com.pgt.pawn.dao.PawnDao.loadPawnTicket"/>
 		<association property="p2pAdvertisement" column="ID" select="queryTenderP2PAdvertisement"/>
 		<association property="p2pFrontMedia" column="ID" select="queryTenderP2PFrontMedia"/>
 		<association property="p2pHeroMedias" column="ID" select="queryTenderP2PHeroMedia"/>

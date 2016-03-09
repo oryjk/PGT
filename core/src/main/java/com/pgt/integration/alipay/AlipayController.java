@@ -175,10 +175,10 @@ public class AlipayController extends TransactionBaseController {
             LOGGER.debug("Find the paymentGroup with order id is {}.", orderId);
             PaymentGroup paymentGroup = getPaymentService().findPaymentGroupByOrderId(orderId);
             LOGGER.debug("The notify is {}.", isNotify);
-            if (isNotify) {
-                Transaction transaction = getPaymentService().findTransactionByTrackingNumber(request.getParameter(AlipayConstants.OUT_TRADE_NO));
-                transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
-            }
+//            if (isNotify) {
+            Transaction transaction = getPaymentService().findTransactionByTrackingNumber(request.getParameter(AlipayConstants.OUT_TRADE_NO));
+            transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
+//            }
             if (paymentGroup == null) {
                 LOGGER.error("Cannot get paymentgroup by order id-{} after successing to pay the order by alipay.",
                         orderId);
