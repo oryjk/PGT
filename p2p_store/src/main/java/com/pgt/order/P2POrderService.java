@@ -16,6 +16,8 @@ import com.pgt.payment.PaymentConstants;
 import com.pgt.payment.bean.Transaction;
 import com.pgt.payment.service.PaymentService;
 import com.pgt.product.bean.Product;
+import com.pgt.product.bean.ProductMedia;
+import com.pgt.product.dao.ProductMapper;
 import com.pgt.tender.bean.Tender;
 import com.pgt.user.bean.User;
 import org.apache.commons.lang3.tuple.Pair;
@@ -53,6 +55,8 @@ public class P2POrderService extends OrderService {
     @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private ProductMapper productMapper;
 
     public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, String[] quantities) throws OrderPersistentException {
         LOGGER.debug("==================== Start method createP2POrder ====================");
@@ -191,7 +195,10 @@ public class P2POrderService extends OrderService {
                 ci.setReferenceId(relatedProduct.getProductId());
                 ci.setSalePrice(relatedProduct.getSalePrice());
                 // TODO Snapshotid
-                // ci.setSnapshotId();
+                ProductMedia media =  getProductMapper().queryProductThumbnailMedias(relatedProduct.getProductId());
+                if (null != media) {
+                    CI.setSnapshotId(media.getId());
+                }
                 ci.setType(CommerceItem.TYPE_P2P_NOMAL);
                 productTotal += ci.getAmount();
                 //TODO ROUND
@@ -473,5 +480,13 @@ public class P2POrderService extends OrderService {
 
     public void setPaymentService(PaymentService paymentService) {
         this.paymentService = paymentService;
+    }
+
+    public ProductMapper getProductMapper() {
+        return productMapper;
+    }
+
+    public void setProductMapper(ProductMapper productMapper) {
+        this.productMapper = productMapper;
     }
 }

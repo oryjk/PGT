@@ -238,4 +238,26 @@
 	<select id="queryTenderProduct" parameterType="int" resultMap="tenderProduct">
 		select * from product where TENDER_ID = #{id}
 	</select>
+
+	<select id="getTenderOrderCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM TENDER AS t
+		INNER JOIN p2p_info AS p on p.TENDER_ID = t.ID
+		INNER JOIN `ORDER` AS o ON o.P2P_INFO_ID = p.ID
+		WHERE t.ID = #{id}
+	</select>
+
+	<resultMap id="buyerMap" type="java.util.Map">
+		<result property="alias" column="HOLDER_ALIAS" />
+		<result property="productName" column="NAME" />
+		<result property="path" column="PATH" />
+	</resultMap>
+
+	<select id="getBuyers" parameterType="int" resultMap="buyerMap">
+		SELECT o.HOLDER_ALIAS, c.NAME, m.PATH FROM TENDER AS t
+		INNER JOIN p2p_info AS p on p.TENDER_ID = t.ID
+		INNER JOIN `ORDER` AS o ON o.P2P_INFO_ID = p.ID
+		INNER JOIN commerce_item as c on c.ORDER_ID = o.ORDER_ID
+		INNER JOIN media AS m on m.MEDIA_ID = c.SNAPSHOT_ID
+		WHERE o.STATUS > 30 AND t.id = #{id}
+	</select>
 </mapper>
