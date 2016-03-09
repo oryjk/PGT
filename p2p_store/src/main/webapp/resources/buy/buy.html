@@ -237,7 +237,7 @@
     </div>
 
 
-    <div class="order-pay">
+    <form class="order-pay">
         <h2>最后一步，请尽快付款！</h2>
 
         <div class="pay-content">
@@ -245,32 +245,32 @@
             <div class="pay-info">
                 <div class="amount-payable">应付金额：186000.00元</div>
                 <div class="pay-add">
-                    收货人：周杰伦 &nbsp;1890000000 <br><br>
-                    收货地址：四川省成都市武侯区中环武阳大道三段下一站都市A座302
+                    收货人：<span>周杰伦</span> &nbsp; <span>1890000000</span> <br><br>
+                    收货地址：<span>四川省成都市武侯区中环武阳大道三段下一站都市A座302</span>
                 </div>
             </div>
             <div class="pay-yeepay">
-                <input type="checkbox">使用易宝余额支付（易宝余额为：<span>4.25元</span>）
+                <input type="radio">使用易宝余额支付（易宝余额为：<span>4.25元</span>）
             </div>
             <div class="payment">
-                <div class="pay-check"><input type="radio">支付宝/易宝</div>
-                <div class="pay-Alipay"><input type="checkbox"><img src="../core/images/cart/zhifubao.png"></div>
-                <div class="pay-Alipay"><input type="checkbox"><img src="../core/images/cart/yibao.png"></div>
+                <div class="pay-check">支付宝/易宝</div>
+                <div class="pay-Alipay"><input name="" type="radio"><img src="../core/images/cart/zhifubao.png"></div>
+                <div class="pay-Alipay"><input name="" type="radio"><img src="../core/images/cart/yibao.png"></div>
             </div>
             <div class="pay-submit">
-                <a href="javascript: void(0);">立即支付</a>
+                <input class="pay-submit-btn" type="submit" value="立即支付">
             </div>
         </div>
-    </div>
+    </form>
     <div class="pay-end">
         <h2>支付成功</h2>
         <div class="pay-end-content">
             <div class="pay-end-font">
                 <div class="pay-end-font-num">
-                    <h3>支付成功！</h3> <a href="javascript: void(0);">查看订单详情</a>
+                    <h3>支付成功！</h3> <a class="link-btn" href="javascript: void(0);">查看订单详情</a>
                 </div>
                 <div class="pay-end-font-num">
-                    <h3>订单号：3325000045612</h3>
+                    <h3>订单号：<span>3325000045612</span></h3>
                     <div>已支付金额：<span>3560.00元</span></div>
                 </div>
                 <div class="pay-end-font-num">
@@ -282,7 +282,7 @@
                     如果该产品已被赎当，我们将根据每个产品的赔付率给您进行赔付，祝您购物愉快。<br>
                 </div>
                 <div class="pay-end-font-num">
-                    <a href="javascript:void(0);">>返回首页</a>
+                    <a class="link-btn" href="javascript:void(0);">>返回首页</a>
                 </div>
             </div>
         </div>

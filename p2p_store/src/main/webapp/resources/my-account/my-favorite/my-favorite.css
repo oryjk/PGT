@@ -1,15 +1,15 @@
 /*import
 **************************************************************************************************************************************************/
-.filter-invest-status, .filter-order-status, .page-box {
+.filter-favorite-status, .filter-order-status, .page-box {
   *zoom: 1; }
-  .filter-invest-status:after, .filter-order-status:after, .page-box:after, .filter-invest-status:before, .filter-order-status:before, .page-box:before {
+  .filter-favorite-status:after, .filter-order-status:after, .page-box:after, .filter-favorite-status:before, .filter-order-status:before, .page-box:before {
     content: " ";
     display: table;
     clear: both; }
 
-.filter-invest-status, .filter-order-status, .page-box {
+.filter-favorite-status, .filter-order-status, .page-box {
   *zoom: 1; }
-  .filter-invest-status:after, .filter-order-status:after, .page-box:after, .filter-invest-status:before, .filter-order-status:before, .page-box:before {
+  .filter-favorite-status:after, .filter-order-status:after, .page-box:after, .filter-favorite-status:before, .filter-order-status:before, .page-box:before {
     content: " ";
     display: table;
     clear: both; }
@@ -23,25 +23,25 @@
 /*file*/
 /*style
 **************************************************************************************************************************************************/
-.filter-invest-status {
+.filter-favorite-status {
   padding-top: 50px; }
-  .filter-invest-status li {
+  .filter-favorite-status li {
     float: left;
     border-bottom: 2px solid #cccccc;
     width: 110px;
     height: 25px;
     text-align: center; }
-    .filter-invest-status li a {
+    .filter-favorite-status li a {
       display: block;
       width: 109px;
       border-right: 1px solid #cccccc;
       color: black;
       font-size: 18px; }
-  .filter-invest-status .filter-invest-choose {
+  .filter-favorite-status .filter-favorite-choose {
     border-bottom: 2px solid #fe4040; }
-    .filter-invest-status .filter-invest-choose a {
+    .filter-favorite-status .filter-favorite-choose a {
       color: #fe4040; }
-  .filter-invest-status .filter-invest-end a {
+  .filter-favorite-status .filter-favorite-end a {
     border-right: none; }
 
 .filter-order-status {
@@ -59,33 +59,33 @@
   .filter-order-status .filter-order-end {
     border-right: none; }
 
-.order-list {
+.favorite-list {
   padding-top: 22px; }
-  .order-list table {
+  .favorite-list table {
     width: 100%;
     table-layout: fixed;
     font-size: 14px; }
-  .order-list .order-list-head {
+  .favorite-list .favorite-list-head {
     background: #eaedf4;
     height: 32px; }
-  .order-list .order-list-item {
+  .favorite-list .favorite-list-item {
     height: 129px;
     border-bottom: 1px solid #cccccc; }
-  .order-list .col-1 {
+  .favorite-list .col-1 {
     width: 120px; }
-  .order-list .col-2 {
+  .favorite-list .col-2 {
     width: 280px; }
-  .order-list .col-3 {
+  .favorite-list .col-3 {
     width: 80px; }
-  .order-list .col-4 {
+  .favorite-list .col-4 {
     width: 160px; }
-  .order-list .col-5 {
+  .favorite-list .col-5 {
     width: 120px; }
-  .order-list th,
-  .order-list td {
+  .favorite-list th,
+  .favorite-list td {
     vertical-align: middle;
     text-align: center; }
-  .order-list .order-img a {
+  .favorite-list .favorite-img a {
     display: block;
     margin: 0 auto;
     padding: 3px;
@@ -94,31 +94,29 @@
     width: 100px;
     height: 100px;
     text-align: center; }
-    .order-list .order-img a:hover {
+    .favorite-list .favorite-img a:hover {
       border-color: #2d7fe0;
       box-shadow: 0 0 2px 1px #2d7fe0; }
-  .order-list .order-img img {
+  .favorite-list .favorite-img img {
     width: 100%;
     height: 100%; }
-  .order-list .order-base-info {
+  .favorite-list .favorite-base-info {
     text-align: left;
     text-indent: 15px; }
-    .order-list .order-base-info p {
+    .favorite-list .favorite-base-info p {
       line-height: 30px;
       color: #555555;
       width: 280px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis; }
-    .order-list .order-base-info a {
+    .favorite-list .favorite-base-info a {
       color: black; }
-      .order-list .order-base-info a:hover {
+      .favorite-list .favorite-base-info a:hover {
         color: #fe4040; }
-  .order-list .will-pay {
+  .favorite-list .will-pay {
     color: #fe4040; }
-  .order-list .order-handle p {
-    line-height: 30px; }
-  .order-list .order-handle .pay-now {
+  .favorite-list .favorite-handle .pay-now {
     display: inline-block;
     padding: 0;
     border: none;
@@ -131,8 +129,11 @@
     color: white;
     text-align: center;
     cursor: pointer; }
-    .order-list .order-handle .pay-now:hover {
+    .favorite-list .favorite-handle .pay-now:hover {
       background: #d70101; }
+
+td p {
+  line-height: 30px; }
 
 .page-box {
   padding-top: 20px; }

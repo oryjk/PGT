@@ -51,309 +51,115 @@
     </div>
     <div class="main">
         <h2 class="main-head">我的交易订单</h2>
-        <ul class="filter-invest-status">
-            <li class="filter-invest-choose"><a href="javascript:void(0);">在当</a></li>
-            <li><a href="javascript:void(0);">绝当</a></li>
-            <li class="filter-invest-end"><a href="javascript:void(0);">赎当</a></li>
+        <ul class="filter-favorite-status">
+            <li class="filter-favorite-choose"><a href="javascript:void(0);">收藏的项目</a></li>
+            <li class="filter-favorite-end"><a href="javascript:void(0);">收藏的产品</a></li>
         </ul>
-        <ul class="filter-order-status">
-            <!-- super:下面的每个子项, 根据上面的逻辑出现或者不出现.在a上面加选中"filter-order-choose", 在最后一个li上面添加"filter-order-end"-->
-            <li><a class="filter-order-choose" href="javascript:void(0);">全部</a></li>
-            <!-- 在当-->
-            <li><a href="javascript:void(0);">未支付</a></li>
-            <li><a href="javascript:void(0);">已支付</a></li>
-            <!-- 绝当-->
-            <li><a href="javascript:void(0);">已发货</a></li>
-            <li><a href="javascript:void(0);">未发货</a></li>
-            <li><a href="javascript:void(0);">订单完成</a></li>
-            <!-- 赎当-->
-            <li><a href="javascript:void(0);">已赔付</a></li>
-            <li class="filter-order-end"><a href="javascript:void(0);">未赔付</a></li>
-        </ul>
-        <div class="order-list">
-            <table>
-                <!-- thead begin-->
-                <tr class="order-list-head">
-                    <th class="col-1">项目信息</th>
-                    <th class="col-2"></th>
-                    <th class="col-3">收货人</th>
-                    <th class="col-4">产品金额(元)</th>
-                    <th class="col-5">订单状态</th>
-                    <th class="col-6">操作</th>
-                </tr>
-                <!-- thead end-->
 
-                <!-- tbody begin-->
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>已付款</span>
+        <div class="area-invest">
+            <ul class="filter-order-status">
+                <li><a class="filter-order-choose" href="javascript:void(0);">全部</a></li>
+                <li><a href="javascript:void(0);">在当</a></li>
+                <li><a href="javascript:void(0);">绝当</a></li>
+                <li class="filter-favorite-end"><a href="javascript:void(0);">赎当</a></li>
+            </ul>
+            <div class="favorite-list">
+                <table>
+                    <!-- thead begin-->
+                    <tr class="favorite-list-head">
+                        <th class="col-1">项目信息</th>
+                        <th class="col-2"></th>
+                        <th class="col-3">剩余产品</th>
+                        <th class="col-4">剩余时间</th>
+                        <th class="col-5">剩余认购总额</th>
+                        <th class="col-6">操作</th>
+                    </tr>
+                    <!-- thead end-->
 
-                        <span>订单完成</span>
-                        <span>已发货</span>
-                        <span>未发货</span>
+                    <!-- tbody begin-->
+                    <tr class="favorite-list-item">
+                        <td class="favorite-img">
+                            <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
+                        </td>
+                        <td class="favorite-base-info">
+                            <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
+                        </td>
+                        <td>4</td>
+                        <td><span>5</span>天</td>
+                        <td><span>¥</span><span>134,000.00</span></td>
+                        <td>
+                            <!-- super:下面几种状态选择其中一种展示-->
+                            <p><a class="link-btn">查看详情</a></p>
+                            <p><a class="link-btn">已付款</a></p>
+                        </td>
+                    </tr>
 
-                        <span>已赔付</span>
-                        <span>未赔付</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>已付款</span>
-
-                        <span>订单完成</span>
-                        <span>已发货</span>
-                        <span>未发货</span>
-
-                        <span>已赔付</span>
-                        <span>未赔付</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>已付款</span>
-
-                        <span>订单完成</span>
-                        <span>已发货</span>
-                        <span>未发货</span>
-
-                        <span>已赔付</span>
-                        <span>未赔付</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>已付款</span>
-
-                        <span>订单完成</span>
-                        <span>已发货</span>
-                        <span>未发货</span>
-
-                        <span>已赔付</span>
-                        <span>未赔付</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>已付款</span>
-
-                        <span>订单完成</span>
-                        <span>已发货</span>
-                        <span>未发货</span>
-
-                        <span>已赔付</span>
-                        <span>未赔付</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>已付款</span>
-
-                        <span>订单完成</span>
-                        <span>已发货</span>
-                        <span>未发货</span>
-
-                        <span>已赔付</span>
-                        <span>未赔付</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>已付款</span>
-
-                        <span>订单完成</span>
-                        <span>已发货</span>
-                        <span>未发货</span>
-
-                        <span>已赔付</span>
-                        <span>未赔付</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-
-                <tr class="order-list-item">
-                    <td class="order-img">
-                        <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
-                    </td>
-                    <td class="order-base-info">
-                        <p>订单生成时间: <span>2015年12月29日 12:00</span></p>
-                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
-                        <p>订单编号: <span>134567865432</span></p>
-                    </td>
-                    <td>核弹</td>
-                    <td><span>¥</span><span>134,000.00</span></td>
-                    <td>
-                        <!-- super:下面几种状态选择其中一种展示-->
-                        <span class="will-pay">待付款</span>
-                        <span>已付款</span>
-
-                        <span>订单完成</span>
-                        <span>已发货</span>
-                        <span>未发货</span>
-
-                        <span>已赔付</span>
-                        <span>未赔付</span>
-                    </td>
-                    <td class="order-handle">
-                        <!-- 下面四种状态,根据不同情况进行展示-->
-                        <p><a class="pay-now" href="#">立即支付</a></p>
-                        <p><a class="link-btn" href="#">订单详情</a></p>
-                        <p><a class="link-btn" href="#">取消订单</a></p>
-                        <p><a class="link-btn" href="#">删除订单</a></p>
-                    </td>
-                </tr>
-
-                <!-- tbody end-->
-            </table>
+                    <!-- tbody end-->
+                </table>
+            </div>
+            <div class="page-box">
+                <ol>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li>...</li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li><a href="javascript:void(0);">5</a></li>
+                    <li>...</li>
+                    <li><a href="javascript:void(0);">7</a></li>
+                </ol>
+            </div>
         </div>
-        <div class="page-box">
-            <ol>
-                <li><a href="javascript:void(0);">1</a></li>
-                <li>...</li>
-                <li><a href="javascript:void(0);">3</a></li>
-                <li><a href="javascript:void(0);">4</a></li>
-                <li><a href="javascript:void(0);">5</a></li>
-                <li>...</li>
-                <li><a href="javascript:void(0);">7</a></li>
-            </ol>
+
+
+        <div class="area-product">
+            <ul class="filter-order-status">
+                <li><a href="javascript:void(0);">全部</a></li>
+                <li><a href="javascript:void(0);">有货</a></li>
+                <li class="filter-order-end"><a href="javascript:void(0);">无货</a></li>
+            </ul>
+            <div class="favorite-list">
+                <table>
+                    <!-- thead begin-->
+                    <tr class="favorite-list-head">
+                        <th class="col-1">项目信息</th>
+                        <th class="col-2"></th>
+                        <th class="col-3">库存</th>
+                        <th class="col-4">产品金额(元)</th>
+                        <th class="col-5">操作</th>
+                    </tr>
+                    <!-- thead end-->
+
+                    <!-- tbody begin-->
+                    <tr class="favorite-list-item">
+                        <td class="favorite-img">
+                            <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
+                        </td>
+                        <td class="favorite-base-info">
+                            <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
+                        </td>
+                        <td>12</td>
+                        <td><span>¥</span><span>134,000.00</span></td>
+                        <td class="favorite-handle">
+                            <p><a class="link-btn" href="#">立即抢购</a></p>
+                            <p><a class="link-btn" href="#">取消收藏</a></p>
+                        </td>
+                    </tr>
+                    <!-- tbody end-->
+                </table>
+            </div>
+            <div class="page-box">
+                <ol>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li>...</li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li><a href="javascript:void(0);">5</a></li>
+                    <li>...</li>
+                    <li><a href="javascript:void(0);">7</a></li>
+                </ol>
+            </div>
         </div>
+
     </div>
 </div>
 
