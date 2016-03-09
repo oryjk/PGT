@@ -155,7 +155,7 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 	</bean>
 
 
-	<bean class="com.pgt.data.index.service.AllIndexService">
+	<bean id="allIndexService" class="com.pgt.data.index.service.AllIndexService">
 		<property name="searchEngineServiceList">
 			<list value-type="com.pgt.search.service.AbstractSearchEngineService">
 				<ref bean="categorySearchEngineService"/>
