@@ -51,6 +51,8 @@
 
 	<resultMap id="tenderProduct" type="com.pgt.product.bean.Product">
 		<id column="PRODUCT_ID" property="productId"/>
+		<id column="LIST_PRICE" property="listPrice"/>
+		<id column="SALE_PRICE" property="salePrice"/>
 	</resultMap>
 
 	<!-- 分页sql -->

@@ -189,4 +189,6 @@ public class P2PInfo implements Serializable {
     public void setPayTime(Date payTime) {
         this.payTime = payTime;
     }
+
+
 }

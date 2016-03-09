@@ -18,7 +18,7 @@ import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.dao.OrderMapper;
 import com.pgt.user.bean.User;
 
-@Service
+@Service(value = "orderService")
 public class OrderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
     @Autowired

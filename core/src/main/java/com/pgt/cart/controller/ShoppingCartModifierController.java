@@ -56,7 +56,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	@Autowired
 	private ProductService mProductService;
 
-	@Autowired
+	@Resource(name="orderService")
 	private OrderService mOrderService;
 
 	@Autowired

@@ -51,8 +51,8 @@
         ACTUAL_DUE_DATE, EXPECT_INCOMING, ACTUAL_INCOMING, PUBLISH_DATE, PRE_PERIOD, POST_PERIOD, PLACE_QUANTITY,
         UNIT_PRICE, HANDLING_FEE, INTEREST_RATE, HANDLING_RATE, PAY_TIME, CREATION_DATE, UPDATE_DATE)
         VALUES ( #{id}, #{type}, #{pawnShopId}, #{pawnShopOwnerId}, #{tenderId}, #{expectDueDate}, #{actualDueDate},
-        #{EXPECT_INCOMING}, #{ACTUAL_INCOMING}, #{PUBLISH_DATE}, #{PRE_PERIOD}, #{POST_PERIOD}, #{PLACE_QUANTITY},
-        #{UNIT_PRICE}, #{HANDLING_FEE}, #{INTEREST_RATE}, #{HANDLING_RATE}, #{PAY_TIME}, now(), now() )
+        #{expectIncoming}, #{actualIncoming}, #{publishDate}, #{prePeriod}, #{postPeriod}, #{placeQuantity},
+        #{unitPrice}, #{handlingFee}, #{interestRate}, #{handlingFeeRate}, #{payTime}, now(), now() )
     </insert>
 
 
@@ -60,10 +60,10 @@
         UPDATE P2P_INFO
         SET ID = #{id}, `TYPE` = #{type}, PAWN_SHOP_ID = #{pawnShopId}, PAWN_SHOP_OWNER_ID = #{pawnShopOwnerId},
         TENDER_ID = #{tenderId}, EXPECT_DUE_DATE = #{expectDueDate}, ACTUAL_DUE_DATE = #{actualDueDate},
-        EXPECT_INCOMING = #{EXPECT_INCOMING}, ACTUAL_INCOMING = #{ACTUAL_INCOMING}, PUBLISH_DATE = #{PUBLISH_DATE},
-        PRE_PERIOD = #{PRE_PERIOD}, POST_PERIOD = #{POST_PERIOD}, PLACE_QUANTITY = #{PLACE_QUANTITY},
-        UNIT_PRICE = #{UNIT_PRICE}, HANDLING_FEE = #{HANDLING_FEE}, INTEREST_RATE = #{INTEREST_RATE},
-        HANDLING_RATE = #{HANDLING_RATE}, PAY_TIME = #{PAY_TIME}, UPDATE_DATE = now()
+        EXPECT_INCOMING = #{expectIncoming}, ACTUAL_INCOMING = #{actualIncoming}, PUBLISH_DATE = #{publishDate},
+        PRE_PERIOD = #{prePeriod}, POST_PERIOD = #{postPeriod}, PLACE_QUANTITY = #{placeQuantity},
+        UNIT_PRICE = #{unitPrice}, HANDLING_FEE = #{handlingFee}, INTEREST_RATE = #{interestRate},
+        HANDLING_RATE = #{handlingFeeRate}, PAY_TIME = #{payTime}, UPDATE_DATE = now()
         WHERE ID = #{id}
 
     </update>
