@@ -70,19 +70,18 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 	}
 
 	protected boolean verifyPermission(HttpServletRequest pRequest, Role... pRoles) {
-//
-//		InternalUser iu = getCurrentInternalUser(pRequest);
-//		if (iu != null) {
-//			boolean verified = getRolePermissionService().checkRole(iu.getRole(), pRoles);
-//			if (!verified) {
-//				LOGGER.debug("Permission: {} verify failed for current permission: {} of user: {} with request uri: {}",
-//						Arrays.toString(pRoles), iu.getRole(), iu.getId(), pRequest.getRequestURI());
-//			}
-//			return verified;
-//		}
-//		LOGGER.warn("Cannot find internal user from session but try to request uri: {}", pRequest.getRequestURI());
-//		return false;
-		return true;
+
+		InternalUser iu = getCurrentInternalUser(pRequest);
+		if (iu != null) {
+			boolean verified = getRolePermissionService().checkRole(iu.getRole(), pRoles);
+			if (!verified) {
+				LOGGER.debug("Permission: {} verify failed for current permission: {} of user: {} with request uri: {}",
+						Arrays.toString(pRoles), iu.getRole(), iu.getId(), pRequest.getRequestURI());
+			}
+			return verified;
+		}
+		LOGGER.warn("Cannot find internal user from session but try to request uri: {}", pRequest.getRequestURI());
+		return false;
 	}
 
 	protected boolean verifyPermission(HttpServletRequest pRequest) {
