@@ -108,7 +108,7 @@
     </div>
 
     <jsp:include page="../../core/footer-main.jsp" />
-	<jsp:include page="../core/baidu.jsp"></jsp:include>
+	<jsp:include page="../../core/baidu.jsp"/>
     
 </body>
 <script
