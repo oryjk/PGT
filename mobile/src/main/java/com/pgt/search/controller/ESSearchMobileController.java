@@ -236,4 +236,4 @@ public class ESSearchMobileController extends BaseMobileController{
         return term;
     }
 
-}
+}                                                                                                                                   
