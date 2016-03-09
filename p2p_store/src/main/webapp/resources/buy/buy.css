@@ -785,4 +785,99 @@ body {
     .order-confirm .confirm-reset:hover {
       background: #b6b6b6; }
 
+.order-pay {
+  background: white;
+  border: 1px solid #cccccc; }
+  .order-pay .pay-content {
+    margin: 0 auto 40px auto;
+    width: 1000px; }
+  .order-pay .pay-title {
+    padding: 30px 0 0 0; }
+    .order-pay .pay-title span {
+      color: #fe4040; }
+  .order-pay .pay-info {
+    margin: 50px 0 20px 0;
+    border: 1px solid #cccccc;
+    height: 200px; }
+    .order-pay .pay-info .amount-payable {
+      float: left;
+      margin-top: 50px;
+      border-right: 1px solid #cccccc;
+      width: 30%;
+      height: 100px;
+      line-height: 100px;
+      text-align: center; }
+    .order-pay .pay-info .pay-add {
+      float: left;
+      padding: 70px 0 0 50px;
+      width: 60%;
+      height: 130px; }
+  .order-pay .pay-yeepay {
+    height: 30px; }
+    .order-pay .pay-yeepay input {
+      line-height: 30px; }
+    .order-pay .pay-yeepay span {
+      color: #fe4040; }
+  .order-pay .payment {
+    border: 2px solid #fe4040;
+    height: 250px; }
+    .order-pay .payment .pay-check {
+      padding: 50px 0 0 50px; }
+    .order-pay .payment .pay-Alipay {
+      float: left;
+      margin: 60px;
+      width: 200px;
+      height: 65px; }
+      .order-pay .payment .pay-Alipay input {
+        margin: 0 20px 50px 0; }
+  .order-pay .pay-submit {
+    margin: 70px 0 0 0; }
+    .order-pay .pay-submit a {
+      display: inline-block;
+      padding: 0;
+      border: none;
+      width: 300px;
+      height: 40px;
+      font-size: 18px;
+      background: #fe4040;
+      border-radius: 3px;
+      line-height: 40px;
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto; }
+      .order-pay .pay-submit a:hover {
+        background: #d70101; }
+
+.pay-end {
+  background: white;
+  border: 1px solid #cccccc; }
+  .pay-end .pay-end-content {
+    width: 630px;
+    height: 500px;
+    margin: 0 auto;
+    background: url("../core/images/cart/end-img.png") no-repeat 0 120px; }
+  .pay-end .pay-end-font {
+    float: right;
+    margin-top: 100px;
+    width: 500px;
+    height: 400px; }
+    .pay-end .pay-end-font .pay-end-font-num {
+      padding-top: 30px;
+      height: 20px; }
+      .pay-end .pay-end-font .pay-end-font-num h3 {
+        float: left; }
+      .pay-end .pay-end-font .pay-end-font-num a {
+        float: right; }
+      .pay-end .pay-end-font .pay-end-font-num span {
+        color: #fe4040; }
+      .pay-end .pay-end-font .pay-end-font-num div {
+        float: right; }
+    .pay-end .pay-end-font .pay-end-font-help {
+      padding-top: 20px;
+      font-size: 13px;
+      color: #cccccc;
+      line-height: 20px; }
+
 /*# sourceMappingURL=../../maps/buy/buy.css.map */
