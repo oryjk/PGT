@@ -67,16 +67,14 @@ public class P2PCheckoutController {
 
 	@RequestMapping(value = "/create")
 	public ModelAndView createOrder (HttpServletRequest pRequest, HttpServletResponse pResponse) {
-//		User user = SessionHelper.getUser(pRequest, pResponse);
-//		LOGGER.debug("============= P2PCheckoutController#createOrder start =============");
-//		if (null == user) {
-//			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
-//			LOGGER.debug("no user redirect to login page");
-//			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
-//			return modelAndView;
-//		}
-		User user = new User();
-		user.setId(1L);
+		User user = SessionHelper.getUser(pRequest, pResponse);
+		LOGGER.debug("============= P2PCheckoutController#createOrder start =============");
+		if (null == user) {
+			ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
+			LOGGER.debug("no user redirect to login page");
+			LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
+			return modelAndView;
+		}
 		String tenderIdStr = pRequest.getParameter("tenderId");
 		String[] productIds = pRequest.getParameterValues("productIds");
 		String[] quantities = pRequest.getParameterValues("quantities");
