@@ -94,7 +94,7 @@
 </div>
 <!--主脚部-->
 <jsp:include page="../../core/footer-main.jsp"></jsp:include>
-<jsp:include page="../core/baidu.jsp"></jsp:include>
+<jsp:include page="../../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
         data-main="<spring:url value="${juedangpinStaticPath}/my-account/person-info/recommend-bar"/>"></script>
