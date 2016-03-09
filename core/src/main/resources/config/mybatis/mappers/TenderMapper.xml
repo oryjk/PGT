@@ -13,7 +13,7 @@
 		<result column="DUE_DATE" property="dueDate"/>
 		<result column="INTEREST_RATE" property="interestRate"/>
 		<result column="NAME" property="name"/>
-		<result column="DESCRIPTION" property="description"/>
+		<result column="SHORT_DESCRIPTION" property="description"/>
 		<result column="PRE_PERIOD" property="prePeriod"/>
 		<result column="POST_PERIOD" property="postPeriod"/>
 		<result column="CREATION_DATE" property="creationDate"/>
@@ -213,7 +213,7 @@
 	</select>
 	<insert id="createTender" parameterType="com.pgt.tender.bean.Tender" keyProperty="tenderId" useGeneratedKeys="true">
         INSERT INTO TENDER(PAWN_SHOP_ID,PAWN_TICKET_ID,TENDER_TOTAL,TENDER_QUANTITY,PUBLISH_DATE,DUE_DATE,INTEREST_RATE,
-        NAME,DESCRIPTION,PRE_PERIOD,POST_PERIOD,CREATION_DATE,UPDATE_DATE,CATEGORY_HOT,SITE_HOT,PAWN_OWNER_ID,HANDLING_FEE_RATE,STATUS,IMAGE_DESC) VALUES (#{pawnShopId},#{pawnTicketId},#{tenderTotal},
+        NAME,SHORT_DESCRIPTION,PRE_PERIOD,POST_PERIOD,CREATION_DATE,UPDATE_DATE,CATEGORY_HOT,SITE_HOT,PAWN_OWNER_ID,HANDLING_FEE_RATE,STATUS,IMAGE_DESC) VALUES (#{pawnShopId},#{pawnTicketId},#{tenderTotal},
         #{tenderQuantity},#{publishDate},#{dueDate},#{interestRate},#{name},#{description},#{prePeriod},#{postPeriod},
         #{creationDate},#{updateDate},#{categoryHot},#{siteHot},#{pawnShopOwnerId},#{handlingFeeRate},#{state},#{imageDesc})
     </insert>
@@ -222,7 +222,7 @@
 	<update id="updateTender" parameterType="com.pgt.tender.bean.Tender" keyProperty="tenderId" useGeneratedKeys="true">
 		UPDATE TENDER SET PAWN_SHOP_ID=#{pawnShopId},PAWN_TICKET_ID=#{pawnTicketId},TENDER_TOTAL=#{tenderTotal},TENDER_QUANTITY=#{tenderQuantity},
 		PUBLISH_DATE=#{publishDate},DUE_DATE=#{dueDate},INTEREST_RATE=#{interestRate},
-		NAME=#{name},DESCRIPTION=#{description},PRE_PERIOD=#{prePeriod},POST_PERIOD=#{postPeriod},UPDATE_DATE=#{updateDate},SITE_HOT=#{siteHot},
+		NAME=#{name},SHORT_DESCRIPTION=#{description},PRE_PERIOD=#{prePeriod},POST_PERIOD=#{postPeriod},UPDATE_DATE=#{updateDate},SITE_HOT=#{siteHot},
 		PAWN_OWNER_ID=#{pawnShopOwnerId},HANDLING_FEE_RATE=#{handlingFeeRate},STATUS=#{state},IMAGE_DESC=#{imageDesc}
 		WHERE ID=#{tenderId}
 	</update>

@@ -61,6 +61,7 @@
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
 					<div class="form-horizontal">
+						<p style="text-align: center">添加的图片会自动保存，你可以通过删除按钮，进行删除</p>
 						<div class="form-body">
 							<div>
 								<div>
@@ -211,13 +212,21 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="col-md-8"style="float: right" ><a href="/product/productList">
-											<button id="searchBtn" style="float: right" class="btn blue">
-												回到列表页
-											</button>
+										<div class="col-xs-offset-3 col-xs-9" style="float: right" >
+											<a href="/product/productList" >
+												<button id="goList" style="float: right" class="btn blue">
+													回到列表页
+												</button>
+											</a>
+											<a href="/product/create">
+												<button id="add" style="float: right;margin-right: 10px;" class="btn blue">
+													继续添加
+												</button>
 											</a>
 										</div>
+
 									</div>
+
 								</div>
 
 							</div>
