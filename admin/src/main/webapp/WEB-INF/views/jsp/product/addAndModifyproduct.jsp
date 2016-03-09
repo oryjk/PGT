@@ -125,6 +125,12 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-md-3 control-label">图片描述</label>
+								<div class="col-md-4">
+									<form:input path="imageDesc" class="form-control" placeholder="不超过20字" value=""/>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-md-3 control-label">市场价</label>
 								<div class="col-md-4">
 									<form:input path="listPrice" class="form-control" placeholder="格式为xxxx.xx"/>

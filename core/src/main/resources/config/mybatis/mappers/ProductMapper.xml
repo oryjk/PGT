@@ -26,6 +26,7 @@
         <result column="TITLE" property="title"/>
         <result column="KEY_WORD" property="keyWord"/>
         <result column="MERCHANT" property="merchant"/>
+        <result column="IMAGE_DESC" property="imageDesc"/>
         <result column="IS_HOT" property="isHot"/>
         <result column="TYPE" property="type"/>
         <association property="relatedCategoryId" column="PRODUCT_ID"
@@ -62,6 +63,7 @@
     <result column="MERCHANT" property="merchant"/>
     <result column="IS_HOT" property="isHot"/>
     <result column="TYPE" property="type"/>
+        <result column="IMAGE_DESC" property="imageDesc"/>
     <result column="PAWNAGE_STATUS" property="pawnageStatus"/>
     <result column="ORIGIN_STOCK" property="originStock"/>
     <association property="relatedCategoryId" column="PRODUCT_ID"
@@ -265,18 +267,18 @@
 
         INSERT INTO
         PRODUCT(NAME,SERIAL_NUMBER,LIST_PRICE,SALE_PRICE,STATUS,DESCRIPTION,
-        SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID,TYPE,PAWNAGE_STATUS,ORIGIN_STOCK)
+        SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID,TYPE,PAWNAGE_STATUS,ORIGIN_STOCK,IMAGE_DESC)
         VALUES
         (#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},
         #{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},
-        #{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type},#{pawnageStatus},#{originStock})
+        #{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type},#{pawnageStatus},#{originStock},#{imageDesc})
     </insert>
 
     <update id="updateTenderProduct" parameterType="com.pgt.product.bean.P2PProduct">
         UPDATE PRODUCT SET
         NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
         DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
-        UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type},PAWNAGE_STATUS=#{pawnageStatus}
+        UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type},PAWNAGE_STATUS=#{pawnageStatus},IMAGE_DESC=#{imageDesc}
         WHERE PRODUCT_ID=#{productId}
     </update>
 
@@ -285,16 +287,16 @@
 
 		INSERT INTO
 		PRODUCT(NAME,SERIAL_NUMBER,LIST_PRICE,SALE_PRICE,STATUS,DESCRIPTION,
-		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID,TYPE)
+		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID,TYPE,IMAGE_DESC)
 		VALUES
-		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type})
+		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{type},#{imageDesc})
 	</insert>
 
     <update id="updateProduct" parameterMap="paramProduct">
 		UPDATE PRODUCT SET
 		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
 		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
-		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type}
+		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},TYPE=#{type},IMAGE_DESC=#{imageDesc}
 		WHERE PRODUCT_ID=#{productId}
 	</update>
     <delete id="deleteProduct" parameterType="int">

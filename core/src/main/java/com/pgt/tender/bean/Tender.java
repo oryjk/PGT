@@ -135,6 +135,8 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 
     private Integer deadline;
 
+    private String imageDesc;
+
 
     public Double getCompleteRate() {
         if (ObjectUtils.isEmpty(productQuantity) || productQuantity == 0) {
@@ -145,6 +147,14 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
 
     public void setCompleteRate(Double completeRate) {
         this.completeRate = completeRate;
+    }
+
+    public String getImageDesc() {
+        return imageDesc;
+    }
+
+    public void setImageDesc(String imageDesc) {
+        this.imageDesc = imageDesc;
     }
 
     public Integer getDeadline() {

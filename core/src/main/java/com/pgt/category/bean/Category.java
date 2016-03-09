@@ -35,7 +35,14 @@ public class Category extends BaseBean {
     private Banner banner;
     private CategoryType type;
     private List<Product> products;
+    private String imageDesc;
 
+    public String getImageDesc() {
+        return imageDesc;
+    }
+    public void setImageDesc(String imageDesc) {
+        this.imageDesc = imageDesc;
+    }
     public Banner getBanner() {
         return banner;
     }
