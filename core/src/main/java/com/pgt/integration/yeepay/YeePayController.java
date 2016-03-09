@@ -46,594 +46,598 @@ import com.yeepay.g3.utils.security.cfca.SignUtil;
 @RequestMapping("/yeepay")
 public class YeePayController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(YeePayController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(YeePayController.class);
 
-	@Resource(name = "yeePayConfig")
-	private YeePayConfig config;
+    @Resource(name = "yeePayConfig")
+    private YeePayConfig config;
 
-	@Resource(name = "transactionLogService")
-	private TransactionLogService transactionLogService;
-	
-	@Autowired
+    @Resource(name = "transactionLogService")
+    private TransactionLogService transactionLogService;
+
+    @Autowired
     private URLConfiguration urlConfiguration;
-	
-	@Resource(name = "paymentService")
-	private PaymentService paymentService;
-	
-	@Autowired
-	private UserService userService;
-	
-	@Resource(name = "completeTransactionNotificationHandler")
-	private CompleteTransactionNotificationHandler completeTransactionNotificationHandler;
 
-	@Resource(name = "userOrderService")
-	private UserOrderService userOrderService;
+    @Resource(name = "paymentService")
+    private PaymentService paymentService;
 
-	@RequestMapping(value = "/getSgin", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity getSign(HttpServletRequest pRequest, HttpServletResponse pResponse, Model pModel) {
+    @Autowired
+    private UserService userService;
 
-		try {
+    @Resource(name = "completeTransactionNotificationHandler")
+    private CompleteTransactionNotificationHandler completeTransactionNotificationHandler;
 
-			pRequest.setCharacterEncoding("UTF-8");
+    @Resource(name = "userOrderService")
+    private UserOrderService userOrderService;
 
-			String serviceName = pRequest.getParameter(YeePayConstants.PARAM_SERVICE_NAME);
-			if (StringUtils.isBlank(serviceName)) {
-				throw new IllegalArgumentException(YeePayConstants.PARAM_SERVICE_NAME);
-			}
+    @RequestMapping(value = "/getSgin", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity getSign(HttpServletRequest pRequest, HttpServletResponse pResponse, Model pModel) {
 
-			if (null == getConfig().getRequestParamConfig()) {
-				throw new IllegalArgumentException("Invalid RequestParamConfig");
-			}
-			Map<String, String> paramConfig = getConfig().getRequestParamConfig().get(serviceName);
-			if (null == paramConfig) {
-				throw new IllegalArgumentException("No RequestParamConfig for service: " + serviceName);
-			}
-			if (null == getConfig().getRequestUrl()) {
-				throw new IllegalArgumentException("No RequestUrl");
-			}
-			String requestURL = getConfig().getRequestUrl().get(serviceName);
-			if (StringUtils.isBlank(requestURL)) {
-				throw new IllegalArgumentException("No RequestUrl.");
-			}
-			
-			User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
-			// if there is other api has additional loigc need add a interface here.
-			if (YeePayConstants.SERVICE_NAME_TOREGISTER.equals(serviceName)) {
-				String name = pRequest.getParameter("realName");
-				String id = pRequest.getParameter("idCardNo");
-				user.setYeepayUserName(name);
-				user.setYeepayUserId(id);
-				getUserService().updateUser(user);
-			}
-			
-			
-			TransactionLog transactionLog = new TransactionLog();
-			transactionLog.setPaymentType(YeePayConstants.PAYMENT_TYPE);
-			transactionLog.setServiceName(serviceName);
-			
-			if (null != user) {
-				transactionLog.setUserId(user.getId());
-			}
+        try {
 
-			Map<String, Object> params = extractParams(pRequest, serviceName, paramConfig, transactionLog);
-			String requestXML = YeePayHelper.generateRequestXml(getConfig(), params);
-			String sign = YeePayHelper.generateSign(getConfig(), requestXML);
-			Map<String, String> responseContent = new HashMap<String, String>();
-			StringBuilder outBoundBuilder = new StringBuilder();
-			outBoundBuilder.append("serviceName:\n");
-			outBoundBuilder.append(serviceName);
-			outBoundBuilder.append("\n");
-			outBoundBuilder.append("req: \n");
-			outBoundBuilder.append(requestXML);
-			outBoundBuilder.append("\n");
-			outBoundBuilder.append("sign: \n");
-			outBoundBuilder.append(sign);
-			transactionLog.setOutbound(outBoundBuilder.toString());
-			transactionLog.setOutboundTime(new Date());
-			LOGGER.info(outBoundBuilder.toString());
-			getTransactionLogService().updateTransactionLog(transactionLog);
+            pRequest.setCharacterEncoding("UTF-8");
 
-			responseContent.put("status", "200");
-			responseContent.put("requestXML", requestXML);
-			responseContent.put("sign", sign);
-			responseContent.put("requestURL", requestURL);
-			return new ResponseEntity(responseContent, HttpStatus.OK);
+            String serviceName = pRequest.getParameter(YeePayConstants.PARAM_SERVICE_NAME);
+            if (StringUtils.isBlank(serviceName)) {
+                throw new IllegalArgumentException(YeePayConstants.PARAM_SERVICE_NAME);
+            }
 
-		} catch (Exception e) {
-			LOGGER.error("Ajax get sign failed",e);
-			String error = e.getMessage();
-			Map<String, String> responseContent = new HashMap<String, String>();
-			responseContent.put("status", "200");
-			responseContent.put("error", error);
-			return new ResponseEntity(responseContent, HttpStatus.OK);
-		}
-	}
+            if (null == getConfig().getRequestParamConfig()) {
+                throw new IllegalArgumentException("Invalid RequestParamConfig");
+            }
+            Map<String, String> paramConfig = getConfig().getRequestParamConfig().get(serviceName);
+            if (null == paramConfig) {
+                throw new IllegalArgumentException("No RequestParamConfig for service: " + serviceName);
+            }
+            if (null == getConfig().getRequestUrl()) {
+                throw new IllegalArgumentException("No RequestUrl");
+            }
+            String requestURL = getConfig().getRequestUrl().get(serviceName);
+            if (StringUtils.isBlank(requestURL)) {
+                throw new IllegalArgumentException("No RequestUrl.");
+            }
 
-	@RequestMapping(value = "/yeepayForm", method = RequestMethod.GET)
-	public ModelAndView yeepayForm(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+            User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
+            // if there is other api has additional loigc need add a interface here.
+            if (YeePayConstants.SERVICE_NAME_TOREGISTER.equals(serviceName)) {
+                String name = pRequest.getParameter("realName");
+                String id = pRequest.getParameter("idCardNo");
+                user.setYeepayUserName(name);
+                user.setYeepayUserId(id);
+                getUserService().updateUser(user);
+            }
 
-		String serviceName = pRequest.getParameter(YeePayConstants.PARAM_SERVICE_NAME);
-		if (StringUtils.isBlank(serviceName)) {
-			throw new IllegalArgumentException("serviceName is blank");
-		}
-		if (null == getConfig().getServiceJspPath()) {
-			throw new IllegalArgumentException("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=serviceJspPath ");
-		}
-		String jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_FORM_JSP);
-		if (StringUtils.isBlank(jspPath)) {
-			throw new IllegalArgumentException("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=serviceJspPath, key=" + serviceName );
-		}
-		ModelAndView mav = new ModelAndView(jspPath);
-		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
-		if (null != user) {
-			mav.addObject(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
-			mav.addObject(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
-//					YeePayHelper.generateOutboundUserNo(getConfig(), user.getId()));
-			user.getYeepayUserNo());
-			mav.addObject(YeePayConstants.PARAM_NAME_YEEPAY_CONFIG, getConfig());
-		}
-		mav.addObject(YeePayConstants.PARAM_SERVICE_NAME, serviceName);
-		return mav;
-	}
 
-	@RequestMapping(value = "/yeepayCallback", method = RequestMethod.POST)
-	public ModelAndView yeepayCallback(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			RedirectAttributes redirectAttributes) {
+            TransactionLog transactionLog = new TransactionLog();
+            transactionLog.setPaymentType(YeePayConstants.PAYMENT_TYPE);
+            transactionLog.setServiceName(serviceName);
 
-		String inboundXML = pRequest.getParameter(YeePayConstants.PARAM_NAME_RESP);
-		String inboundSign = pRequest.getParameter(YeePayConstants.PARAM_NAME_SIGN);
-		
-		boolean pass = SignUtil.verifySign(inboundXML, inboundSign, "yeepay.com");
-		if (!pass) {
-			new IllegalArgumentException("Not pass sign validation");
-		}
+            if (null != user) {
+                transactionLog.setUserId(user.getId());
+            }
 
-		Map<String, String> responseParams = YeePayHelper.parseXml(inboundXML);
-		String requestNoStr = responseParams.get(YeePayConstants.PARAM_NAME_REQUEST_NO);
-		int requestNo = YeePayHelper.parseRequestId(getConfig(), requestNoStr);
-		TransactionLog transactionLog = getTransactionLogService().findById(requestNo);
-		StringBuilder inboundBuilder = new StringBuilder();
-		inboundBuilder.append("inboundXML: \n").append(inboundXML).append("\ninboundSign: \n").append(inboundSign);
-		transactionLog.setInbound(inboundBuilder.toString());
-		transactionLog.setInboundTime(new Date());
-		getTransactionLogService().updateTransactionLog(transactionLog);
+            Map<String, Object> params = extractParams(pRequest, serviceName, paramConfig, transactionLog);
+            String requestXML = YeePayHelper.generateRequestXml(getConfig(), params);
+            String sign = YeePayHelper.generateSign(getConfig(), requestXML);
+            Map<String, String> responseContent = new HashMap<String, String>();
+            StringBuilder outBoundBuilder = new StringBuilder();
+            outBoundBuilder.append("serviceName:\n");
+            outBoundBuilder.append(serviceName);
+            outBoundBuilder.append("\n");
+            outBoundBuilder.append("req: \n");
+            outBoundBuilder.append(requestXML);
+            outBoundBuilder.append("\n");
+            outBoundBuilder.append("sign: \n");
+            outBoundBuilder.append(sign);
+            transactionLog.setOutbound(outBoundBuilder.toString());
+            transactionLog.setOutboundTime(new Date());
+            LOGGER.info(outBoundBuilder.toString());
+            getTransactionLogService().updateTransactionLog(transactionLog);
 
-		if (null == getConfig().getNotificationHandler()) {
-			new IllegalArgumentException("NotificationHandle not config.");
-		}
+            responseContent.put("status", "200");
+            responseContent.put("requestXML", requestXML);
+            responseContent.put("sign", sign);
+            responseContent.put("requestURL", requestURL);
+            return new ResponseEntity(responseContent, HttpStatus.OK);
 
-		String serviceName = transactionLog.getServiceName();
-		if (StringUtils.isBlank(serviceName)) {
-			new IllegalArgumentException("serviceName is blank");
-		}
+        } catch (Exception e) {
+            LOGGER.error("Ajax get sign failed", e);
+            String error = e.getMessage();
+            Map<String, String> responseContent = new HashMap<String, String>();
+            responseContent.put("status", "200");
+            responseContent.put("error", error);
+            return new ResponseEntity(responseContent, HttpStatus.OK);
+        }
+    }
 
-		// use service name to get handler from config. and call handler.
-		YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
-		if (null == notificationHandler) {
-			new IllegalArgumentException("no notificationHandler for serviceName: "  + serviceName);
-		}
+    @RequestMapping(value = "/yeepayForm", method = RequestMethod.GET)
+    public ModelAndView yeepayForm(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 
-		Map<String, String> inboundParam = YeePayHelper.parseXml(inboundXML);
-		String jspPath = null;
-		ModelAndView mav = null;
-		try {
-			jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_SUCCESS_JSP);
-			if (YeePayConstants.SERVICE_NAME_TOCPTRANSACTION.equals(serviceName)) {
-				jspPath += "?orderId=" + transactionLog.getOrderId();
-			}
-			mav = new ModelAndView(jspPath);
-			redirectAttributes.addFlashAttribute(PaymentConstants.PAID_SUCCESS_FLAG, Constants.TRUE);
-			notificationHandler.handleCallback(inboundParam, transactionLog);
-		} catch (YeePayException e) {
-			jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_ERROR_JSP);
-			mav = new ModelAndView(jspPath);
-			mav.addObject(YeePayConstants.PARAM_NAME_ERROR, e);
-		}
+        String serviceName = pRequest.getParameter(YeePayConstants.PARAM_SERVICE_NAME);
+        if (StringUtils.isBlank(serviceName)) {
+            throw new IllegalArgumentException("serviceName is blank");
+        }
+        if (null == getConfig().getServiceJspPath()) {
+            throw new IllegalArgumentException("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=serviceJspPath ");
+        }
+        String jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_FORM_JSP);
+        if (StringUtils.isBlank(jspPath)) {
+            throw new IllegalArgumentException("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=serviceJspPath, key=" +
+                    serviceName);
+        }
+        ModelAndView mav = new ModelAndView(jspPath);
+        User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
+        if (null != user) {
+            String platformNumber = user.getYeepayUserNo();
+            if (StringUtils.isBlank(platformNumber)) {
+                platformNumber = YeePayHelper.generateOutboundUserNo(getConfig(), user.getId());
+            }
 
-		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
-		if (null != user) {
-			mav.addObject(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
-		}
-		mav.addObject(YeePayConstants.PARAM_SERVICE_NAME, serviceName);
-		return mav;
-	}
+            mav.addObject(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
+            mav.addObject(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
+                    platformNumber);
+            mav.addObject(YeePayConstants.PARAM_NAME_YEEPAY_CONFIG, getConfig());
+        }
+        mav.addObject(YeePayConstants.PARAM_SERVICE_NAME, serviceName);
+        return mav;
+    }
 
-	@RequestMapping(value = "/yeepayNotify", method = RequestMethod.POST)
-	public ResponseEntity yeepayNotify(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		String inboundXML = pRequest.getParameter(YeePayConstants.PARAM_NAME_NOTIFY);
-		String inboundSign = pRequest.getParameter(YeePayConstants.PARAM_NAME_SIGN);
-		
-		boolean pass = SignUtil.verifySign(inboundXML, inboundSign, "yeepay.com");
-		if (!pass) {
-			return new ResponseEntity(HttpStatus.OK);
-		}
+    @RequestMapping(value = "/yeepayCallback", method = RequestMethod.POST)
+    public ModelAndView yeepayCallback(HttpServletRequest pRequest, HttpServletResponse pResponse,
+                                       RedirectAttributes redirectAttributes) {
 
-		Map<String, String> responseParams = YeePayHelper.parseXml(inboundXML);
-		String requestNoStr = responseParams.get(YeePayConstants.PARAM_NAME_REQUEST_NO);
-		int requestNo = YeePayHelper.parseRequestId(getConfig(), requestNoStr);
-		TransactionLog transactionLog = getTransactionLogService().findById(requestNo);
-		StringBuilder inboundBuilder = new StringBuilder();
-		inboundBuilder.append("inboundXML: \n").append(inboundXML).append("\ninboudSign: \n").append(inboundSign);
-		transactionLog.setInbound(inboundBuilder.toString());
-		transactionLog.setInboundTime(new Date());
-		getTransactionLogService().updateTransactionLog(transactionLog);
+        String inboundXML = pRequest.getParameter(YeePayConstants.PARAM_NAME_RESP);
+        String inboundSign = pRequest.getParameter(YeePayConstants.PARAM_NAME_SIGN);
 
-		if (null == getConfig().getNotificationHandler()) {
-			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler");
-			return new ResponseEntity(HttpStatus.OK);
-		}
+        boolean pass = SignUtil.verifySign(inboundXML, inboundSign, "yeepay.com");
+        if (!pass) {
+            new IllegalArgumentException("Not pass sign validation");
+        }
 
-		String serviceName = transactionLog.getServiceName();
-		if (StringUtils.isBlank(serviceName)) {
-			LOGGER.error("serviceName is blank");
-			return new ResponseEntity(HttpStatus.OK);
-		}
+        Map<String, String> responseParams = YeePayHelper.parseXml(inboundXML);
+        String requestNoStr = responseParams.get(YeePayConstants.PARAM_NAME_REQUEST_NO);
+        int requestNo = YeePayHelper.parseRequestId(getConfig(), requestNoStr);
+        TransactionLog transactionLog = getTransactionLogService().findById(requestNo);
+        StringBuilder inboundBuilder = new StringBuilder();
+        inboundBuilder.append("inboundXML: \n").append(inboundXML).append("\ninboundSign: \n").append(inboundSign);
+        transactionLog.setInbound(inboundBuilder.toString());
+        transactionLog.setInboundTime(new Date());
+        getTransactionLogService().updateTransactionLog(transactionLog);
 
-		// use service name to get handler from config. and call handler.
-		YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
-		if (null == notificationHandler) {
-			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler, key=" + serviceName);
-			return new ResponseEntity(HttpStatus.OK);
-		}
+        if (null == getConfig().getNotificationHandler()) {
+            new IllegalArgumentException("NotificationHandle not config.");
+        }
 
-		Map<String, String> inboundParam = YeePayHelper.parseXml(inboundXML);
-		try {
-			notificationHandler.handleNotify(inboundParam, transactionLog);
-			
-			return new ResponseEntity(YeePayConstants.SUCCESS, HttpStatus.OK);
-		} catch (YeePayException e) {
-			return new ResponseEntity(HttpStatus.OK);
-		}
-	}
+        String serviceName = transactionLog.getServiceName();
+        if (StringUtils.isBlank(serviceName)) {
+            new IllegalArgumentException("serviceName is blank");
+        }
 
-	@RequestMapping(value = "/yeepayB2cPay", method = RequestMethod.GET)
-	public ModelAndView b2cPay(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
-		if (null == user) {
-			ModelAndView modelAndView = new ModelAndView("redirect:" +getUrlConfiguration().getLoginPage());
-			return modelAndView;
-		}
-		String orderIdStr = pRequest.getParameter("orderId");
-		// TODO: LOG
-		if (StringUtils.isBlank(orderIdStr)) {
-			throw new IllegalArgumentException("orderId is blank");
-		}
-		int orderId = 0;
-		try {
-			orderId = Integer.valueOf(orderIdStr);
-		} catch (Exception e) {
-			throw new IllegalArgumentException("orderId is not integer.");
-		}
-		// TODO: LOG
-		Order order = getUserOrderService().loadOrderHistory(orderId);
-		if (null == order) {
-			// TODO: LOG
-			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
-			return modelAndView;
-		}
-		if (order.getUserId() != user.getId().intValue()) {
-			// TODO: LOG
-			ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
-			return modelAndView;
-		}
+        // use service name to get handler from config. and call handler.
+        YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
+        if (null == notificationHandler) {
+            new IllegalArgumentException("no notificationHandler for serviceName: " + serviceName);
+        }
 
-		String jspPath = null;
-		ModelAndView mav = null;
-		try {
-			getPaymentService().ensureTransaction();
-			PaymentGroup paymentGroup = new PaymentGroup();
-			Date now = new Date();
-			paymentGroup.setOrderId(Long.valueOf(order.getId()));
-			paymentGroup.setAmount(order.getTotal());
-			paymentGroup.setCreateDate(now);
-			paymentGroup.setUpdateDate(now);
-			paymentGroup.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
-			paymentGroup.setType(PaymentConstants.PAYMENT_TYPE_YEEPAY);
-			getPaymentService().maintainPaymentGroup(paymentGroup);
-			
-			Transaction transaction = new Transaction();
-			transaction.setAmount(order.getTotal());
-			transaction.setCreationDate(now);
-			transaction.setUpdateDate(now);
-			transaction.setOrderId(Long.valueOf(order.getId()));
-			transaction.setPaymentGroupId(paymentGroup.getId());
-			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
-			transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_YEEPAY);
-			getPaymentService().createTransaction(transaction);
+        Map<String, String> inboundParam = YeePayHelper.parseXml(inboundXML);
+        String jspPath = null;
+        ModelAndView mav = null;
+        try {
+            jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_SUCCESS_JSP);
+            if (YeePayConstants.SERVICE_NAME_TOCPTRANSACTION.equals(serviceName)) {
+                jspPath += "?orderId=" + transactionLog.getOrderId();
+            }
+            mav = new ModelAndView(jspPath);
+            redirectAttributes.addFlashAttribute(PaymentConstants.PAID_SUCCESS_FLAG, Constants.TRUE);
+            notificationHandler.handleCallback(inboundParam, transactionLog);
+        } catch (YeePayException e) {
+            jspPath = getConfig().getServiceJspPath().get(serviceName).get(YeePayConstants.PARAM_NAME_ERROR_JSP);
+            mav = new ModelAndView(jspPath);
+            mav.addObject(YeePayConstants.PARAM_NAME_ERROR, e);
+        }
 
-			TransactionLog transactionLog = new TransactionLog();
-			transactionLog.setUserId(Long.valueOf(order.getUserId()));
-			transactionLog.setOrderId(Long.valueOf(order.getId()));
-			transactionLog.setTransactionId(transaction.getId());
-			transactionLog.setPaymentGroupId(paymentGroup.getId());
+        User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
+        if (null != user) {
+            mav.addObject(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
+        }
+        mav.addObject(YeePayConstants.PARAM_SERVICE_NAME, serviceName);
+        return mav;
+    }
 
-			transactionLog.setPaymentType(YeePayConstants.PAYMENT_TYPE);
-			transactionLog.setServiceName(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION);
+    @RequestMapping(value = "/yeepayNotify", method = RequestMethod.POST)
+    public ResponseEntity yeepayNotify(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+        String inboundXML = pRequest.getParameter(YeePayConstants.PARAM_NAME_NOTIFY);
+        String inboundSign = pRequest.getParameter(YeePayConstants.PARAM_NAME_SIGN);
 
-			getTransactionLogService().createTransactionLog(transactionLog);
+        boolean pass = SignUtil.verifySign(inboundXML, inboundSign, "yeepay.com");
+        if (!pass) {
+            return new ResponseEntity(HttpStatus.OK);
+        }
 
-			Map<String, Object> paramMap = getPaymentParamMap(order, user, transactionLog, pRequest, pResponse);
-			String outboundXML = YeePayHelper.generateRequestXml(getConfig(), paramMap);
-			String sign = YeePayHelper.generateSign(getConfig(), outboundXML);
-			StringBuilder outBoundBuilder = new StringBuilder();
-			outBoundBuilder.append("serviceName:\n");
-			outBoundBuilder.append(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION);
-			outBoundBuilder.append("\n");
-			outBoundBuilder.append("req: \n");
-			outBoundBuilder.append(outboundXML);
-			outBoundBuilder.append("\n");
-			outBoundBuilder.append("sign: \n");
-			outBoundBuilder.append(sign);
-			transactionLog.setOutbound(outBoundBuilder.toString());
-			transactionLog.setOutboundTime(new Date());
-			getTransactionLogService().updateTransactionLog(transactionLog);
-			jspPath = getConfig().getServiceJspPath().get(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION)
-					.get(YeePayConstants.PARAM_NAME_FORM_JSP);
-			mav = new ModelAndView(jspPath);
-			String requestURL = getConfig().getRequestUrl().get(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION);
-			mav.addObject(YeePayConstants.PARAM_NAME_REQ, outboundXML);
-			mav.addObject(YeePayConstants.PARAM_NAME_SIGN, sign);
-			mav.addObject("requestURL", requestURL);
-			String trackingNo = YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId());
-			transaction.setTrackingNo(trackingNo);
-			getPaymentService().updateTransaction(transaction);
-			
-			
-			
-		} catch (Exception e) {
-			jspPath = getConfig().getServiceJspPath().get(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION)
-					.get(YeePayConstants.PARAM_NAME_ERROR_JSP);
-			mav = new ModelAndView(jspPath);
-			mav.addObject(YeePayConstants.PARAM_NAME_ERROR, e);
-			getPaymentService().setAsRollback();
-		} finally {
-			getPaymentService().commit();
-		}
-		return mav;
-	}
+        Map<String, String> responseParams = YeePayHelper.parseXml(inboundXML);
+        String requestNoStr = responseParams.get(YeePayConstants.PARAM_NAME_REQUEST_NO);
+        int requestNo = YeePayHelper.parseRequestId(getConfig(), requestNoStr);
+        TransactionLog transactionLog = getTransactionLogService().findById(requestNo);
+        StringBuilder inboundBuilder = new StringBuilder();
+        inboundBuilder.append("inboundXML: \n").append(inboundXML).append("\ninboudSign: \n").append(inboundSign);
+        transactionLog.setInbound(inboundBuilder.toString());
+        transactionLog.setInboundTime(new Date());
+        getTransactionLogService().updateTransactionLog(transactionLog);
 
-	@RequestMapping(value = "/completeTransactionNotify", method = RequestMethod.POST)
-	public ResponseEntity handleCompleteTransactionNotify(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		String inboundXML = pRequest.getParameter(YeePayConstants.PARAM_NAME_NOTIFY);
-		String inboundSign = pRequest.getParameter(YeePayConstants.PARAM_NAME_SIGN);
+        if (null == getConfig().getNotificationHandler()) {
+            LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler");
+            return new ResponseEntity(HttpStatus.OK);
+        }
 
-		boolean pass = SignUtil.verifySign(inboundXML, inboundSign, "yeepay.com");
-		if (!pass) {
-			return new ResponseEntity(HttpStatus.OK);
-		}
+        String serviceName = transactionLog.getServiceName();
+        if (StringUtils.isBlank(serviceName)) {
+            LOGGER.error("serviceName is blank");
+            return new ResponseEntity(HttpStatus.OK);
+        }
 
-		Map<String, String> responseParams = YeePayHelper.parseXml(inboundXML);
-		String requestNoStr = responseParams.get(YeePayConstants.PARAM_NAME_REQUEST_NO);
-		int requestNo = YeePayHelper.parseRequestId(getConfig(), requestNoStr);
-		TransactionLog transactionLog = getTransactionLogService().findByTrackingNo(requestNoStr);
-		StringBuilder inboundBuilder = new StringBuilder();
-		inboundBuilder.append("inboundXML: \n").append(inboundXML).append("\ninboudSign: \n").append(inboundSign);
-		transactionLog.setInbound(inboundBuilder.toString());
-		transactionLog.setInboundTime(new Date());
-		getTransactionLogService().updateTransactionLog(transactionLog);
+        // use service name to get handler from config. and call handler.
+        YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
+        if (null == notificationHandler) {
+            LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler, key=" + serviceName);
+            return new ResponseEntity(HttpStatus.OK);
+        }
 
-		if (null == getConfig().getNotificationHandler()) {
-			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler");
-			return new ResponseEntity(HttpStatus.OK);
-		}
+        Map<String, String> inboundParam = YeePayHelper.parseXml(inboundXML);
+        try {
+            notificationHandler.handleNotify(inboundParam, transactionLog);
 
-		String serviceName = transactionLog.getServiceName();
-		if (StringUtils.isBlank(serviceName)) {
-			LOGGER.error("serviceName is blank.");
-			return new ResponseEntity(HttpStatus.OK);
-		}
+            return new ResponseEntity(YeePayConstants.SUCCESS, HttpStatus.OK);
+        } catch (YeePayException e) {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+    }
 
-		// use service name to get handler from config. and call handler.
-		YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
-		if (null == notificationHandler) {
-			LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler, key=" + serviceName);
-			return new ResponseEntity(HttpStatus.OK);
-		}
+    @RequestMapping(value = "/yeepayB2cPay", method = RequestMethod.GET)
+    public ModelAndView b2cPay(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+        User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
+        if (null == user) {
+            ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
+            return modelAndView;
+        }
+        String orderIdStr = pRequest.getParameter("orderId");
+        // TODO: LOG
+        if (StringUtils.isBlank(orderIdStr)) {
+            throw new IllegalArgumentException("orderId is blank");
+        }
+        int orderId = 0;
+        try {
+            orderId = Integer.valueOf(orderIdStr);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("orderId is not integer.");
+        }
+        // TODO: LOG
+        Order order = getUserOrderService().loadOrderHistory(orderId);
+        if (null == order) {
+            // TODO: LOG
+            ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+            return modelAndView;
+        }
+        if (order.getUserId() != user.getId().intValue()) {
+            // TODO: LOG
+            ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+            return modelAndView;
+        }
 
-		Map<String, String> inboundParam = YeePayHelper.parseXml(inboundXML);
-		getCompleteTransactionNotificationHandler().ensureTransaction();
-		try {
-			PaymentGroup paymentGroup = null;
-			if (null == transactionLog.getPaymentGroupId()) {
-				LOGGER.error("no paymentGroupId for transactionlog(id=" + transactionLog.getId() + ")");
-				return new ResponseEntity(HttpStatus.OK);
-			}
-			paymentGroup = getPaymentService().findPaymentGroupById(transactionLog.getPaymentGroupId());
-			if (null == paymentGroup) {
-				LOGGER.error("no paymentGroup found(id=" + transactionLog.getPaymentGroupId() + ")");
-				return new ResponseEntity(HttpStatus.OK);
-			}
+        String jspPath = null;
+        ModelAndView mav = null;
+        try {
+            getPaymentService().ensureTransaction();
+            PaymentGroup paymentGroup = new PaymentGroup();
+            Date now = new Date();
+            paymentGroup.setOrderId(Long.valueOf(order.getId()));
+            paymentGroup.setAmount(order.getTotal());
+            paymentGroup.setCreateDate(now);
+            paymentGroup.setUpdateDate(now);
+            paymentGroup.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
+            paymentGroup.setType(PaymentConstants.PAYMENT_TYPE_YEEPAY);
+            getPaymentService().maintainPaymentGroup(paymentGroup);
 
-			Transaction transaction = null;
-			transaction = getPaymentService().findTransactionByTrackingNumber(requestNoStr);
-			if (null == transaction) {
-				LOGGER.error("no transaction found(trackingNo=" + requestNoStr + ")");
-				return new ResponseEntity(HttpStatus.OK);
-			}
-			Order order = null;
-			if (null == transactionLog.getOrderId()) {
-				LOGGER.error("no orderId for transactionLog(id=" + transactionLog.getId() + ")");
-				return new ResponseEntity(HttpStatus.OK);
-			}
-			order = getCompleteTransactionNotificationHandler().getUserOrderDao().loadOrderHistory(transactionLog.getOrderId().intValue());
-			if (null == order) {
-				LOGGER.error("no order found(id=" + transactionLog.getOrderId() + ")");
-				return new ResponseEntity(HttpStatus.OK);
-			}
-			getCompleteTransactionNotificationHandler().handleResult(paymentGroup, requestNoStr, inboundParam, transaction, new Date(), order);
-			return new ResponseEntity(YeePayConstants.SUCCESS, HttpStatus.OK);
-		} catch (Exception e) {
-			getCompleteTransactionNotificationHandler().setAsRollback();
-			return new ResponseEntity(HttpStatus.OK);
-		} finally {
-			getCompleteTransactionNotificationHandler().commit();
-		}
+            Transaction transaction = new Transaction();
+            transaction.setAmount(order.getTotal());
+            transaction.setCreationDate(now);
+            transaction.setUpdateDate(now);
+            transaction.setOrderId(Long.valueOf(order.getId()));
+            transaction.setPaymentGroupId(paymentGroup.getId());
+            transaction.setStatus(PaymentConstants.PAYMENT_STATUS_PROCCESSING);
+            transaction.setPaymentType(PaymentConstants.PAYMENT_TYPE_YEEPAY);
+            getPaymentService().createTransaction(transaction);
 
-	}
+            TransactionLog transactionLog = new TransactionLog();
+            transactionLog.setUserId(Long.valueOf(order.getUserId()));
+            transactionLog.setOrderId(Long.valueOf(order.getId()));
+            transactionLog.setTransactionId(transaction.getId());
+            transactionLog.setPaymentGroupId(paymentGroup.getId());
 
-	private Map<String, Object> getPaymentParamMap(Order order, User user, TransactionLog transactionLog,
-												   HttpServletRequest pRequest, HttpServletResponse pResponse) {
+            transactionLog.setPaymentType(YeePayConstants.PAYMENT_TYPE);
+            transactionLog.setServiceName(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION);
 
-		Long userId = Long.valueOf(order.getUserId());
+            getTransactionLogService().createTransactionLog(transactionLog);
+
+            Map<String, Object> paramMap = getPaymentParamMap(order, user, transactionLog, pRequest, pResponse);
+            String outboundXML = YeePayHelper.generateRequestXml(getConfig(), paramMap);
+            String sign = YeePayHelper.generateSign(getConfig(), outboundXML);
+            StringBuilder outBoundBuilder = new StringBuilder();
+            outBoundBuilder.append("serviceName:\n");
+            outBoundBuilder.append(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION);
+            outBoundBuilder.append("\n");
+            outBoundBuilder.append("req: \n");
+            outBoundBuilder.append(outboundXML);
+            outBoundBuilder.append("\n");
+            outBoundBuilder.append("sign: \n");
+            outBoundBuilder.append(sign);
+            transactionLog.setOutbound(outBoundBuilder.toString());
+            transactionLog.setOutboundTime(new Date());
+            getTransactionLogService().updateTransactionLog(transactionLog);
+            jspPath = getConfig().getServiceJspPath().get(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION)
+                    .get(YeePayConstants.PARAM_NAME_FORM_JSP);
+            mav = new ModelAndView(jspPath);
+            String requestURL = getConfig().getRequestUrl().get(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION);
+            mav.addObject(YeePayConstants.PARAM_NAME_REQ, outboundXML);
+            mav.addObject(YeePayConstants.PARAM_NAME_SIGN, sign);
+            mav.addObject("requestURL", requestURL);
+            String trackingNo = YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId());
+            transaction.setTrackingNo(trackingNo);
+            getPaymentService().updateTransaction(transaction);
+
+
+        } catch (Exception e) {
+            jspPath = getConfig().getServiceJspPath().get(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION)
+                    .get(YeePayConstants.PARAM_NAME_ERROR_JSP);
+            mav = new ModelAndView(jspPath);
+            mav.addObject(YeePayConstants.PARAM_NAME_ERROR, e);
+            getPaymentService().setAsRollback();
+        } finally {
+            getPaymentService().commit();
+        }
+        return mav;
+    }
+
+    @RequestMapping(value = "/completeTransactionNotify", method = RequestMethod.POST)
+    public ResponseEntity handleCompleteTransactionNotify(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+        String inboundXML = pRequest.getParameter(YeePayConstants.PARAM_NAME_NOTIFY);
+        String inboundSign = pRequest.getParameter(YeePayConstants.PARAM_NAME_SIGN);
+
+        boolean pass = SignUtil.verifySign(inboundXML, inboundSign, "yeepay.com");
+        if (!pass) {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        Map<String, String> responseParams = YeePayHelper.parseXml(inboundXML);
+        String requestNoStr = responseParams.get(YeePayConstants.PARAM_NAME_REQUEST_NO);
+        int requestNo = YeePayHelper.parseRequestId(getConfig(), requestNoStr);
+        TransactionLog transactionLog = getTransactionLogService().findByTrackingNo(requestNoStr);
+        StringBuilder inboundBuilder = new StringBuilder();
+        inboundBuilder.append("inboundXML: \n").append(inboundXML).append("\ninboudSign: \n").append(inboundSign);
+        transactionLog.setInbound(inboundBuilder.toString());
+        transactionLog.setInboundTime(new Date());
+        getTransactionLogService().updateTransactionLog(transactionLog);
+
+        if (null == getConfig().getNotificationHandler()) {
+            LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler");
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        String serviceName = transactionLog.getServiceName();
+        if (StringUtils.isBlank(serviceName)) {
+            LOGGER.error("serviceName is blank.");
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        // use service name to get handler from config. and call handler.
+        YeepayNotificationHandler notificationHandler = getConfig().getNotificationHandler().get(serviceName);
+        if (null == notificationHandler) {
+            LOGGER.error("Please check yeepay-config.xml. bean: id=yeePayConfig, property: name=notificationHandler, key=" + serviceName);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        Map<String, String> inboundParam = YeePayHelper.parseXml(inboundXML);
+        getCompleteTransactionNotificationHandler().ensureTransaction();
+        try {
+            PaymentGroup paymentGroup = null;
+            if (null == transactionLog.getPaymentGroupId()) {
+                LOGGER.error("no paymentGroupId for transactionlog(id=" + transactionLog.getId() + ")");
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            paymentGroup = getPaymentService().findPaymentGroupById(transactionLog.getPaymentGroupId());
+            if (null == paymentGroup) {
+                LOGGER.error("no paymentGroup found(id=" + transactionLog.getPaymentGroupId() + ")");
+                return new ResponseEntity(HttpStatus.OK);
+            }
+
+            Transaction transaction = null;
+            transaction = getPaymentService().findTransactionByTrackingNumber(requestNoStr);
+            if (null == transaction) {
+                LOGGER.error("no transaction found(trackingNo=" + requestNoStr + ")");
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            Order order = null;
+            if (null == transactionLog.getOrderId()) {
+                LOGGER.error("no orderId for transactionLog(id=" + transactionLog.getId() + ")");
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            order = getCompleteTransactionNotificationHandler().getUserOrderDao().loadOrderHistory(transactionLog.getOrderId().intValue());
+            if (null == order) {
+                LOGGER.error("no order found(id=" + transactionLog.getOrderId() + ")");
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            getCompleteTransactionNotificationHandler().handleResult(paymentGroup, requestNoStr, inboundParam, transaction, new Date(), order);
+            return new ResponseEntity(YeePayConstants.SUCCESS, HttpStatus.OK);
+        } catch (Exception e) {
+            getCompleteTransactionNotificationHandler().setAsRollback();
+            return new ResponseEntity(HttpStatus.OK);
+        } finally {
+            getCompleteTransactionNotificationHandler().commit();
+        }
+
+    }
+
+    private Map<String, Object> getPaymentParamMap(Order order, User user, TransactionLog transactionLog,
+                                                   HttpServletRequest pRequest, HttpServletResponse pResponse) {
+
+        Long userId = Long.valueOf(order.getUserId());
 //		String platformUserNo = YeePayHelper.generateOutboundUserNo(getConfig(), userId);
-		String platformUserNo = user.getYeepayUserNo();
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put(YeePayConstants.PARAM_NAME_REQUEST_NO,
-				YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId()));
-		paramMap.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO, platformUserNo);
+        String platformUserNo = user.getYeepayUserNo();
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put(YeePayConstants.PARAM_NAME_REQUEST_NO,
+                YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId()));
+        paramMap.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO, platformUserNo);
 
-		//if user platform, need change type to merchant.
+        //if user platform, need change type to merchant.
 //		paramMap.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MERCHANT);
-		paramMap.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
-		paramMap.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
+        paramMap.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
+        paramMap.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.MINUTE, getConfig().getTransactionExpiredMin());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MINUTE, getConfig().getTransactionExpiredMin());
 //		paramMap.put(YeePayConstants.PARAM_NAME_EXPIRED, DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd HH:mm:ss"));
 
 
-		Map<String, Object> detailsMap = new HashMap<String, Object>();
-		List<Map<String, Object>> detailsList = new ArrayList<>();
-		paramMap.put(YeePayConstants.PARAM_NAME_DETAILS, detailsMap);
-		detailsMap.put(YeePayConstants.PARAM_NAME_DETAILS, detailsList);
-		Map<String, Object> detailMap = new HashMap<String, Object>();
-		detailsList.add(detailMap);
+        Map<String, Object> detailsMap = new HashMap<String, Object>();
+        List<Map<String, Object>> detailsList = new ArrayList<>();
+        paramMap.put(YeePayConstants.PARAM_NAME_DETAILS, detailsMap);
+        detailsMap.put(YeePayConstants.PARAM_NAME_DETAILS, detailsList);
+        Map<String, Object> detailMap = new HashMap<String, Object>();
+        detailsList.add(detailMap);
 
-		Map<String, Object> detail = new HashMap<String, Object>();
-		detail.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
-		detail.put(YeePayConstants.PARAM_NAME_TARGET_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
-		detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, getConfig().getTargetPlatformUserNo());
-		detail.put(YeePayConstants.PARAM_NAME_AMOUNT, String.valueOf(order.getTotal()));
-		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
+        Map<String, Object> detail = new HashMap<String, Object>();
+        detail.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
+        detail.put(YeePayConstants.PARAM_NAME_TARGET_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
+        detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, getConfig().getTargetPlatformUserNo());
+        detail.put(YeePayConstants.PARAM_NAME_AMOUNT, String.valueOf(order.getTotal()));
+        detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
 
-		String callBackUrl = getConfig().getCallbackUrl() + "?servieName="
-				+ YeePayConstants.SERVICE_NAME_TOCPTRANSACTION  + ";jsessionid=" + pRequest.getSession().getId();
-		paramMap.put(YeePayConstants.PARAM_NAME_CALLBACK_URL, callBackUrl);
+        String callBackUrl = getConfig().getCallbackUrl() + "?servieName="
+                + YeePayConstants.SERVICE_NAME_TOCPTRANSACTION + ";jsessionid=" + pRequest.getSession().getId();
+        paramMap.put(YeePayConstants.PARAM_NAME_CALLBACK_URL, callBackUrl);
 
-		String notifyUrl = getConfig().getNotifyUrl();
-		paramMap.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, notifyUrl);
+        String notifyUrl = getConfig().getNotifyUrl();
+        paramMap.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, notifyUrl);
 
-		paramMap.put(YeePayConstants.PARAM_NAME_REMARK, "支付订单：" + order.getId());
-		return paramMap;
-	}
+        paramMap.put(YeePayConstants.PARAM_NAME_REMARK, "支付订单：" + order.getId());
+        return paramMap;
+    }
 
-	private Map<String, Object> extractParams(HttpServletRequest pRequest, String serviceName,
-			Map<String, String> paramConfig, TransactionLog transactionLog) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		for (Map.Entry<String, String> entry : paramConfig.entrySet()) {
-			if (YeePayConstants.PARAM_NAME_PLATFORM_NO.equals(entry.getKey())
-					&& YeePayConstants.VALUE_REQUIRE.equals(entry.getValue())) {
-				result.put(YeePayConstants.PARAM_NAME_PLATFORM_NO, getConfig().getPlatformNo());
-			} else if (YeePayConstants.PARAM_NAME_FEE_MODE.equals(entry.getKey())
-					&& YeePayConstants.VALUE_REQUIRE.equals(entry.getValue())) {
-				result.put(YeePayConstants.PARAM_NAME_FEE_MODE, getConfig().getFeeMode().get(serviceName));
-			} else if (YeePayConstants.PARAM_NAME_REQUEST_NO.equals(entry.getKey())) {
-				continue;
-			} else if (YeePayConstants.PARAM_NAME_CALLBACK_URL.equals(entry.getKey())) {
-				continue;
-			} else if (YeePayConstants.PARAM_NAME_NOTIFY_URL.equals(entry.getKey())) {
-				continue;
-			} else {
-				String value = pRequest.getParameter(entry.getKey());
-				if (YeePayConstants.VALUE_REQUIRE.equals(entry.getValue()) && StringUtils.isBlank(value)) {
-					throw new IllegalArgumentException(entry.getKey());
-				}
-				result.put(entry.getKey(), value);
-			}
-		}
+    private Map<String, Object> extractParams(HttpServletRequest pRequest, String serviceName,
+                                              Map<String, String> paramConfig, TransactionLog transactionLog) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        for (Map.Entry<String, String> entry : paramConfig.entrySet()) {
+            if (YeePayConstants.PARAM_NAME_PLATFORM_NO.equals(entry.getKey())
+                    && YeePayConstants.VALUE_REQUIRE.equals(entry.getValue())) {
+                result.put(YeePayConstants.PARAM_NAME_PLATFORM_NO, getConfig().getPlatformNo());
+            } else if (YeePayConstants.PARAM_NAME_FEE_MODE.equals(entry.getKey())
+                    && YeePayConstants.VALUE_REQUIRE.equals(entry.getValue())) {
+                result.put(YeePayConstants.PARAM_NAME_FEE_MODE, getConfig().getFeeMode().get(serviceName));
+            } else if (YeePayConstants.PARAM_NAME_REQUEST_NO.equals(entry.getKey())) {
+                continue;
+            } else if (YeePayConstants.PARAM_NAME_CALLBACK_URL.equals(entry.getKey())) {
+                continue;
+            } else if (YeePayConstants.PARAM_NAME_NOTIFY_URL.equals(entry.getKey())) {
+                continue;
+            } else {
+                String value = pRequest.getParameter(entry.getKey());
+                if (YeePayConstants.VALUE_REQUIRE.equals(entry.getValue()) && StringUtils.isBlank(value)) {
+                    throw new IllegalArgumentException(entry.getKey());
+                }
+                result.put(entry.getKey(), value);
+            }
+        }
 
-		if (YeePayConstants.VALUE_REQUIRE.equals(paramConfig.get(YeePayConstants.PARAM_NAME_CALLBACK_URL))) {
-			String callBackUrl = getConfig().getCallbackUrl() + "?servieName=" + serviceName + ";jsessionid="
-					+ pRequest.getSession().getId();
-			result.put(YeePayConstants.PARAM_NAME_CALLBACK_URL, callBackUrl);
-		}
+        if (YeePayConstants.VALUE_REQUIRE.equals(paramConfig.get(YeePayConstants.PARAM_NAME_CALLBACK_URL))) {
+            String callBackUrl = getConfig().getCallbackUrl() + "?servieName=" + serviceName + ";jsessionid="
+                    + pRequest.getSession().getId();
+            result.put(YeePayConstants.PARAM_NAME_CALLBACK_URL, callBackUrl);
+        }
 
-		if (YeePayConstants.VALUE_REQUIRE.equals(paramConfig.get(YeePayConstants.PARAM_NAME_NOTIFY_URL))) {
-			String notifyUrl = getConfig().getNotifyUrl();
-			result.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, notifyUrl);
-		}
+        if (YeePayConstants.VALUE_REQUIRE.equals(paramConfig.get(YeePayConstants.PARAM_NAME_NOTIFY_URL))) {
+            String notifyUrl = getConfig().getNotifyUrl();
+            result.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, notifyUrl);
+        }
 
-		String userId = paramConfig.get(YeePayConstants.PARAM_NAME_USER_ID);
-		String orderId = paramConfig.get(YeePayConstants.PARAM_NAME_ORDER_ID);
-		String paymentGroupId = paramConfig.get(YeePayConstants.PARAM_NAME_PAYMENTGROUP_ID);
-		String transactoinId = paramConfig.get(YeePayConstants.PARAM_NAME_TRANSACTION_ID);
-		if (StringUtils.isNotBlank(userId)) {
-			transactionLog.setUserId(Long.valueOf(userId));
-		}
-		if (StringUtils.isNotBlank(orderId)) {
-			transactionLog.setOrderId(Long.valueOf(orderId));
-		}
-		if (StringUtils.isNotBlank(paymentGroupId)) {
-			transactionLog.setPaymentGroupId(Long.valueOf(paymentGroupId));
-		}
-		if (StringUtils.isNotBlank(transactoinId)) {
-			transactionLog.setTransactionId(Long.valueOf(transactoinId));
-		}
-		getTransactionLogService().createTransactionLog(transactionLog);
+        String userId = paramConfig.get(YeePayConstants.PARAM_NAME_USER_ID);
+        String orderId = paramConfig.get(YeePayConstants.PARAM_NAME_ORDER_ID);
+        String paymentGroupId = paramConfig.get(YeePayConstants.PARAM_NAME_PAYMENTGROUP_ID);
+        String transactoinId = paramConfig.get(YeePayConstants.PARAM_NAME_TRANSACTION_ID);
+        if (StringUtils.isNotBlank(userId)) {
+            transactionLog.setUserId(Long.valueOf(userId));
+        }
+        if (StringUtils.isNotBlank(orderId)) {
+            transactionLog.setOrderId(Long.valueOf(orderId));
+        }
+        if (StringUtils.isNotBlank(paymentGroupId)) {
+            transactionLog.setPaymentGroupId(Long.valueOf(paymentGroupId));
+        }
+        if (StringUtils.isNotBlank(transactoinId)) {
+            transactionLog.setTransactionId(Long.valueOf(transactoinId));
+        }
+        getTransactionLogService().createTransactionLog(transactionLog);
 
-		if (YeePayConstants.VALUE_REQUIRE.equals(paramConfig.get(YeePayConstants.PARAM_NAME_REQUEST_NO))) {
-			result.put(YeePayConstants.PARAM_NAME_REQUEST_NO,
-					YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId()));
-		}
-		return result;
-	}
+        if (YeePayConstants.VALUE_REQUIRE.equals(paramConfig.get(YeePayConstants.PARAM_NAME_REQUEST_NO))) {
+            result.put(YeePayConstants.PARAM_NAME_REQUEST_NO,
+                    YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId()));
+        }
+        return result;
+    }
 
-	public YeePayConfig getConfig() {
-		return config;
-	}
+    public YeePayConfig getConfig() {
+        return config;
+    }
 
-	public void setConfig(YeePayConfig config) {
-		this.config = config;
-	}
+    public void setConfig(YeePayConfig config) {
+        this.config = config;
+    }
 
-	public TransactionLogService getTransactionLogService() {
-		return transactionLogService;
-	}
+    public TransactionLogService getTransactionLogService() {
+        return transactionLogService;
+    }
 
-	public void setTransactionLogService(TransactionLogService transactionLogService) {
-		this.transactionLogService = transactionLogService;
-	}
+    public void setTransactionLogService(TransactionLogService transactionLogService) {
+        this.transactionLogService = transactionLogService;
+    }
 
-	public URLConfiguration getUrlConfiguration() {
-		return urlConfiguration;
-	}
+    public URLConfiguration getUrlConfiguration() {
+        return urlConfiguration;
+    }
 
-	public void setUrlConfiguration(URLConfiguration urlConfiguration) {
-		this.urlConfiguration = urlConfiguration;
-	}
+    public void setUrlConfiguration(URLConfiguration urlConfiguration) {
+        this.urlConfiguration = urlConfiguration;
+    }
 
-	public PaymentService getPaymentService() {
-		return paymentService;
-	}
+    public PaymentService getPaymentService() {
+        return paymentService;
+    }
 
-	public void setPaymentService(PaymentService paymentService) {
-		this.paymentService = paymentService;
-	}
+    public void setPaymentService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
-	public UserService getUserService() {
-		return userService;
-	}
+    public UserService getUserService() {
+        return userService;
+    }
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
-	public CompleteTransactionNotificationHandler getCompleteTransactionNotificationHandler() {
-		return completeTransactionNotificationHandler;
-	}
+    public CompleteTransactionNotificationHandler getCompleteTransactionNotificationHandler() {
+        return completeTransactionNotificationHandler;
+    }
 
-	public void setCompleteTransactionNotificationHandler(
-			CompleteTransactionNotificationHandler completeTransactionNotificationHandler) {
-		this.completeTransactionNotificationHandler = completeTransactionNotificationHandler;
-	}
+    public void setCompleteTransactionNotificationHandler(
+            CompleteTransactionNotificationHandler completeTransactionNotificationHandler) {
+        this.completeTransactionNotificationHandler = completeTransactionNotificationHandler;
+    }
 
-	public UserOrderService getUserOrderService() {
-		return userOrderService;
-	}
+    public UserOrderService getUserOrderService() {
+        return userOrderService;
+    }
 
-	public void setUserOrderService(UserOrderService userOrderService) {
-		this.userOrderService = userOrderService;
-	}
+    public void setUserOrderService(UserOrderService userOrderService) {
+        this.userOrderService = userOrderService;
+    }
 }

@@ -177,6 +177,12 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-md-3 control-label">图片描述</label>
+								<div class="col-md-4">
+									<input name="imageDesc" class="form-control" placeholder="不超过20字" value=""/>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-xs-3 control-label">绝当价</label>
 
 								<div class="col-xs-4">

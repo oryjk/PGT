@@ -143,7 +143,7 @@
 
 <!--主脚部-->
     <jsp:include page="../../core/footer-main.jsp"></jsp:include>
-    <jsp:include page="../core/baidu.jsp"></jsp:include>
+    <jsp:include page="../../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.min.js"/>"></script>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.form.js"/>"></script>

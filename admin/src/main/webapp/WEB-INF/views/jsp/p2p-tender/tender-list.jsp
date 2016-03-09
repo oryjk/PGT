@@ -145,27 +145,27 @@
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer" style="table-layout: fixed; width: 1370px;">
                                         <thead>
                                         <tr role="row">
-                                            <th>
+                                            <th style="width: 30px;">
                                                 序号
                                             </th>
                                             <th style="width: 120px;">
                                                 名字
                                             </th>
-                                            <th>
+                                            <th style="width: 80px;">
                                                 分类
                                             </th>
-                                            <th style="white-space: normal; width:60px;">
+                                            <th style="white-space: normal; width:100px;">
                                                 所属典当行
                                             </th>
 
-                                            <th style="white-space: normal; width:60px;">
+                                            <th style="white-space: normal; width:100px;">
                                                 当票编号
                                             </th>
                                             <th style="width: 80px;">
                                                 总金额
                                             </th>
 
-                                            <th style="white-space: normal; width:50px;">
+                                            <th style="white-space: normal; width:40px;">
                                                 产品数量
                                             </th>
 
@@ -178,22 +178,22 @@
                                             <th  style="white-space: normal; width:60px;">
                                                 截止时间
                                             </th>
-                                            <th  style="white-space: normal; width:60px;">
+                                            <th  style="white-space: normal; width:40px;">
                                                 准备计息天数
                                             </th>
-                                            <th  style="white-space: normal; width:50px;">
+                                            <th  style="white-space: normal; width:40px;">
                                                 无息天数
                                             </th>
-                                            <th  style="white-space: normal; width:50px;">
+                                            <th  style="white-space: normal; width:40px;">
                                                 手续费率
                                             </th>
-                                            <th  style="white-space: normal; width:50px;">
+                                            <th  style="white-space: normal; width:40px;">
                                                 分类热门
                                             </th>
-                                            <th  style="white-space: normal; width:50px;">
+                                            <th  style="white-space: normal; width:40px;">
                                                 网站热门
                                             </th>
-                                            <th>
+                                            <th style="white-space: normal; width:40px;">
                                                 状态
                                             </th>
                                             <th  style="white-space: normal; width:120px;">
@@ -219,7 +219,7 @@
                                             </td>
 
                                             <td style="word-break: break-all;">
-                                                    ${tender.pawnTicketId}
+                                                    ${tender.pawnTicket.number}
                                             </td>
                                             <td>
                                                     ${tender.tenderTotal}

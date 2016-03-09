@@ -158,7 +158,7 @@
         </form>
     </div>
 </div>
-<jsp:include page="../core/baidu.jsp"></jsp:include>
+<jsp:include page="../../core/baidu.jsp"></jsp:include>
 </body>
 <script src="${staticPath}/core/js/require.js" defer async="true" data-main="${staticPath}/my-account/person-info/address"></script>
 </html>

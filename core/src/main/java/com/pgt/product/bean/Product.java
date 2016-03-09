@@ -43,6 +43,16 @@ public class Product implements Serializable {
     private String merchant;
     private ProductMedia mobileDetailMedia;
     private String type;
+    private String imageDesc;
+
+
+    public String getImageDesc() {
+        return imageDesc;
+    }
+
+    public void setImageDesc(String imageDesc) {
+        this.imageDesc = imageDesc;
+    }
 
     private Integer tenderId;
 

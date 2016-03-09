@@ -29,6 +29,7 @@ public class MigrateDataService {
 
             flyway.migrate();
         } catch (Exception e) {
+            e.printStackTrace();
             LOGGER.error(e.getMessage());
         }
 

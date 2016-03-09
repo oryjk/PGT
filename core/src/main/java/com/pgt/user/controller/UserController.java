@@ -579,9 +579,12 @@ public class UserController {
         if (YeePayConstants.REGISTOR_STATUS_SUCCESS == user.getYeepayStatus()) {
             Map<String, Object> params = new HashMap();
             params.put(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
+            String platformNumber = user.getYeepayUserNo();
+            if (StringUtils.isBlank(platformNumber)) {
+                platformNumber = YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId());
+            }
             params.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
-//                    YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId()));
-                    user.getYeepayUserNo());
+                    platformNumber);
             try {
                 Map<String, String> result = getAccountInfoYeepay().invoke(params);
                 ModelAndView mav = new ModelAndView("/my-account/yeepay/accountInfo");

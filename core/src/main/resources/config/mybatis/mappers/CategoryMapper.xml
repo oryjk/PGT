@@ -62,6 +62,7 @@
 		<result column="TYPE" property="type"></result>
 		<result column="STATUS" property="status"></result>
 		<result column="COLOR" property="color"/>
+		<result column="IMAGE_DESC" property="imageDesc"/>
 		<result column="CATEGORY_INDEX" property="categoryIndex"/>
 		<association property="frontMedia" column="CATEGORY_ID"
 					 select="queryCategoryMedia"/>
@@ -87,6 +88,7 @@
 		<result column="STOCK" property="stock"></result>
 		<result column="CREATION_DATE" property="creationDate"></result>
 		<result column="UPDATE_DATE" property="updateDate"></result>
+		<result column="IMAGE_DESC" property="imageDesc"/>
 		<result column="KEY_WORD" property="keyWord"/>
 		<result column="MERCHANT" property="merchant"/>
 		<collection property="medias" column="PRODUCT_ID" select="queryProductMedias"/>
@@ -114,9 +116,9 @@
 	<!--insert a hot product bean -->
 	<insert id="createCategory" parameterType="com.pgt.category.bean.Category"
 			keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO CATEGORIES(NAME,CODE,PARENT_CATEGORY_ID,STATUS,TYPE,COLOR,DESCRIPTION)
+		INSERT INTO CATEGORIES(NAME,CODE,PARENT_CATEGORY_ID,STATUS,TYPE,COLOR,DESCRIPTION,IMAGE_DESC)
 		VALUES
-		(#{name},#{code},#{parent.id},#{status},#{type},#{color},#{description})
+		(#{name},#{code},#{parent.id},#{status},#{type},#{color},#{description},#{imageDesc})
 	</insert>
 	<!--update a hot product bean -->
 	<update id="updateCategory" parameterType="com.pgt.category.bean.Category"

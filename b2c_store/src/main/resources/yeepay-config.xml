@@ -168,6 +168,7 @@
 
 	<bean id="registerNotificationHandler" class="com.pgt.integration.yeepay.notification.service.RegisterNotificationHandler">
 		<property name="userMapper" ref="userMapper"></property>
+		<property name="config" ref="yeePayConfig"/>
 	</bean>
 	
 	
