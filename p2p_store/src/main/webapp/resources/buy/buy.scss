@@ -414,7 +414,7 @@ body {
 
   .pay-submit{
       margin: 70px 0 0 0 ;
-      a{
+      .pay-submit-btn {
         @include color-btn(300px, 40px, 3px, 18px, $main, $main-dark);
         display: block;
         margin: 0 auto;
@@ -453,7 +453,7 @@ body {
     .pay-end-font-help{
       padding-top: 20px;
       font-size: 13px;
-      color: $gray-light;
+      color: $gray;
       line-height:20px;
     }
 

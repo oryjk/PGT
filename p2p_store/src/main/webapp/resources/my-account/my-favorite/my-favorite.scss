@@ -7,7 +7,7 @@
 
 /*style
 **************************************************************************************************************************************************/
-.filter-invest-status {
+.filter-favorite-status {
   @extend %clear;
   padding-top: 50px;
 
@@ -26,7 +26,7 @@
     }
   }
 
-  .filter-invest-choose {
+  .filter-favorite-choose {
     border-bottom: 2px solid $main;
 
     a {
@@ -34,7 +34,7 @@
     }
   }
 
-  .filter-invest-end {
+  .filter-favorite-end {
     a {
       border-right: none;
     }
@@ -66,7 +66,7 @@
   }
 }
 
-.order-list {
+.favorite-list {
   padding-top: 22px;
 
   table {
@@ -75,12 +75,12 @@
     font-size: 14px;
   }
 
-  .order-list-head {
+  .favorite-list-head {
     background: $gray-account;
     height: 32px;
   }
 
-  .order-list-item {
+  .favorite-list-item {
     height: 129px;
     border-bottom: 1px solid $gray-light;
   }
@@ -112,7 +112,7 @@
     text-align: center;
   }
 
-  .order-img {
+  .favorite-img {
     a {
       display: block;
       margin: 0 auto;
@@ -132,7 +132,7 @@
     }
   }
 
-  .order-base-info {
+  .favorite-base-info {
     text-align: left;
     text-indent: 15px;
 
@@ -157,14 +157,17 @@
     color: $main;
   }
 
-  .order-handle {
-    p {
-      line-height: 30px;
-    }
+  .favorite-handle {
 
     .pay-now {
       @include color-btn(90px, 25px, 3px, 14px, $main, $main-dark);
     }
+  }
+}
+
+td {
+  p {
+    line-height: 30px;
   }
 }
 

@@ -832,7 +832,7 @@ body {
         margin: 0 20px 50px 0; }
   .order-pay .pay-submit {
     margin: 70px 0 0 0; }
-    .order-pay .pay-submit a {
+    .order-pay .pay-submit .pay-submit-btn {
       display: inline-block;
       padding: 0;
       border: none;
@@ -847,7 +847,7 @@ body {
       cursor: pointer;
       display: block;
       margin: 0 auto; }
-      .order-pay .pay-submit a:hover {
+      .order-pay .pay-submit .pay-submit-btn:hover {
         background: #d70101; }
 
 .pay-end {
@@ -877,7 +877,7 @@ body {
     .pay-end .pay-end-font .pay-end-font-help {
       padding-top: 20px;
       font-size: 13px;
-      color: #cccccc;
+      color: #555555;
       line-height: 20px; }
 
 /*# sourceMappingURL=../../maps/buy/buy.css.map */
