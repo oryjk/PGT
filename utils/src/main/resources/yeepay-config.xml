@@ -181,7 +181,7 @@
 		<property name="paymentService" ref="paymentService"/>
 		<property name="shoppingCartDao" ref="shoppingCartDao"/>
 		<property name="userOrderDao" ref="userOrderDao"/>
-		<property name="inventoryService" ref="inventoryService"/>
+		<property name="tenderInventoryService" ref="tenderInventoryService"/>
 	</bean>
 
 	<!-- yeepay direct config -->

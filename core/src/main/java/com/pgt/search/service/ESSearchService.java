@@ -254,6 +254,9 @@ public class ESSearchService extends AbstractSearchEngineService {
      * @param productPairs
      * @return
      */
+
+
+    @Override
     public boolean modifyProductInventory(List<Pair<Integer, Integer>> productPairs) {
         LOGGER.debug("Begin to reduce the product inventory.");
         BulkResponse bulkResponse;

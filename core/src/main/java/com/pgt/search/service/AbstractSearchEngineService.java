@@ -4,9 +4,9 @@ import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
-import freemarker.template.utility.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
@@ -20,7 +20,6 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.slf4j.Logger;
@@ -306,6 +305,12 @@ public abstract class AbstractSearchEngineService {
         }
         return esTerms;
     }
+
+
+    public boolean modifyProductInventory(List<Pair<Integer, Integer>> productPairs) {
+        return false;
+    }
+
 
     public Configuration getConfiguration() {
         return configuration;

@@ -1,7 +1,6 @@
 package com.pgt.tender.service;
 
 import com.pgt.product.bean.Product;
-import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.bean.TenderCategory;
 import com.pgt.tender.bean.TenderQuery;
@@ -32,7 +31,7 @@ public class TenderService {
     @Autowired
     private TenderCategoryMapper tenderCategoryMapper;
 
-    public List<Tender> queryTenderByQuery (TenderQuery tenderQuery) {
+    public List<Tender> queryTenderByQuery(TenderQuery tenderQuery) {
         List<Tender> tenderList = tenderMapper.queryTenderByQuery(tenderQuery);
         if (ObjectUtils.isEmpty(tenderList)) {
             LOGGER.debug("Can not find tenderList");
@@ -80,16 +79,16 @@ public class TenderService {
         tender.setCreationDate(new Date());
         tender.setUpdateDate(new Date());
         tender.setTenderTotal(0.00);
-        tender.setHandlingFeeRate(tender.getHandlingFeeRate()*0.01);
-        tender.setInterestRate(tender.getInterestRate()*0.01);
+        tender.setHandlingFeeRate(tender.getHandlingFeeRate() * 0.01);
+        tender.setInterestRate(tender.getInterestRate() * 0.01);
         tenderMapper.createTender(tender);
         LOGGER.debug("The new tender id is {}.", tender.getTenderId());
-        if(!ObjectUtils.isEmpty(tender.getTenderId())){
+        if (!ObjectUtils.isEmpty(tender.getTenderId())) {
             TenderCategory tenderCategory = new TenderCategory();
             tenderCategory.setCategoryId(tender.getCategoryId());
             tenderCategory.setTenderId(tender.getTenderId());
             tenderCategoryMapper.createTenderCategory(tenderCategory);
-            LOGGER.debug("The new tenderCategory tenderId is {},and categoryId is{}",tenderCategory.getTenderId(),tenderCategory.getCategoryId());
+            LOGGER.debug("The new tenderCategory tenderId is {},and categoryId is{}", tenderCategory.getTenderId(), tenderCategory.getCategoryId());
         }
         return tender.getTenderId();
     }
@@ -98,21 +97,23 @@ public class TenderService {
     public Integer updateTender(Tender tender) {
         LOGGER.debug("Begin to update tender,the tender id is {}.", tender.getTenderId());
 
-        Tender old_tender=tenderMapper.queryTenderById(tender.getTenderId(),false);
-        if(!ObjectUtils.isEmpty(old_tender)){
+        Tender old_tender = tenderMapper.queryTenderById(tender.getTenderId(), false);
+        if (!ObjectUtils.isEmpty(old_tender)) {
             TenderCategory tenderCategory = new TenderCategory();
 
             tenderCategory.setCategoryId(old_tender.getCategory().getId());
             tenderCategory.setTenderId(old_tender.getTenderId());
-            TenderCategory old_tenderCategory= tenderCategoryMapper.findTenderByTenderIdAndCategoryId(tenderCategory);
-            LOGGER.debug("The told_TenderCategory tenderId is {},and categoryId is{}",old_tenderCategory.getTenderId(),old_tenderCategory.getCategoryId());
+            TenderCategory old_tenderCategory = tenderCategoryMapper.findTenderByTenderIdAndCategoryId(tenderCategory);
+            LOGGER.debug("The told_TenderCategory tenderId is {},and categoryId is{}", old_tenderCategory.getTenderId(), old_tenderCategory
+                    .getCategoryId());
             old_tenderCategory.setCategoryId(tender.getCategoryId());
             tenderCategoryMapper.updateTenderCategory(old_tenderCategory);
-            LOGGER.debug("The update tenderCategory tenderId is {},and categoryId is{}",old_tenderCategory.getTenderId(),old_tenderCategory.getCategoryId());
+            LOGGER.debug("The update tenderCategory tenderId is {},and categoryId is{}", old_tenderCategory.getTenderId(), old_tenderCategory
+                    .getCategoryId());
         }
         tender.setUpdateDate(new Date());
-        tender.setHandlingFeeRate(tender.getHandlingFeeRate()*0.01);
-        tender.setInterestRate(tender.getInterestRate()*0.01);
+        tender.setHandlingFeeRate(tender.getHandlingFeeRate() * 0.01);
+        tender.setInterestRate(tender.getInterestRate() * 0.01);
         tenderMapper.updateTender(tender);
         LOGGER.debug("Success for update tender.");
         return tender.getTenderId();
@@ -122,6 +123,17 @@ public class TenderService {
         LOGGER.debug("Begin to delete tender with id is {}.", tenderId);
         tenderMapper.deleteTender(tenderId);
         return tenderId;
+    }
+
+    public Tender queryTenderByProductId(Integer productId) {
+        LOGGER.debug("The product id is {}.", productId);
+        Tender tender = tenderMapper.queryTenderByProductId(productId);
+        if (ObjectUtils.isEmpty(tender)) {
+            LOGGER.debug("Can not find tender with product id is {}.", productId);
+            return tender;
+        }
+        LOGGER.debug("Find tender with product id is {}.", productId);
+        return tender;
     }
 
 

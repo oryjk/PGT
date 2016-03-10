@@ -22,6 +22,7 @@ import org.springframework.transaction.TransactionDefinition;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by samli on 2015/12/20.
@@ -61,10 +62,7 @@ public class InventoryService extends Transactionable {
                     ") No commerce Item return; -------------------- ");
             return;
         }
-        Set<Integer> productIdsOnOrder = new HashSet<Integer>();
-        for (CommerceItem commerceItem : commerceItems) {
-            productIdsOnOrder.add(commerceItem.getReferenceId());
-        }
+        Set<Integer> productIdsOnOrder = commerceItems.stream().map(CommerceItem::getReferenceId).collect(Collectors.toSet());
         LOGGER.debug("Lock Inventory for Order(id=" + orderId + ") productIdsOnOrder: "
                 + StringUtils.join(productIdsOnOrder, ","));
         Set<Integer> needLockIdsSet = new HashSet<Integer>(productIdsOnOrder);
@@ -93,9 +91,13 @@ public class InventoryService extends Transactionable {
             commit();
             LOGGER.debug("--------------------  End lock Inventory for Order(id=" + orderId + ") --------------------");
             if (!isRollbackOnly) {
-                getEsSearchService().modifyProductInventory(inventoryStatistic);
+                modifyProductInventoryIndex(inventoryStatistic);
             }
         }
+    }
+
+    public void modifyProductInventoryIndex(List<Pair<Integer, Integer>> inventoryStatistic) {
+        getEsSearchService().modifyProductInventory(inventoryStatistic);
     }
 
     public void releaseInventories() {
@@ -150,7 +152,7 @@ public class InventoryService extends Transactionable {
             isRollbackOnly = isRollbackOnly();
             commit();
             if (!isRollbackOnly) {
-                getEsSearchService().modifyProductInventory(inventoryStatistic);
+                modifyProductInventoryIndex(inventoryStatistic);
             }
         }
 

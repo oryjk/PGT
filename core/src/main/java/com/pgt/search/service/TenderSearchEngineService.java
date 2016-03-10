@@ -16,6 +16,7 @@ import com.pgt.tender.service.TenderService;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -35,12 +36,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
-import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 /**
  * Created by carlwang on 1/19/16.
@@ -238,8 +237,6 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-            byte[] bytes = mapper.writeValueAsBytes(tender);
-
             UpdateRequestBuilder updateRequestBuilder =
                     getIndexClient().prepareUpdate(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE, tender.getTenderId() + "")
                             .setDoc(data);
@@ -360,6 +357,25 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             return;
         }
 
+    }
+
+    @Override
+    public boolean modifyProductInventory(List<Pair<Integer, Integer>> productPairs) {
+        LOGGER.debug("Begin to reduce the product inventory.");
+        if (productPairs.size() != 0) {
+            try {
+                productPairs.stream().forEach(integerIntegerPair -> {
+                    Tender tender = tenderService.queryTenderByProductId(integerIntegerPair.getKey());
+                    if (!ObjectUtils.isEmpty(tender)) {
+                        updateTender(tender);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        LOGGER.debug("End to reduce the product inventory.");
+        return true;
     }
 
     public SearchResponse findTenders(String keyword, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean, List<ESSort> esSorts) {

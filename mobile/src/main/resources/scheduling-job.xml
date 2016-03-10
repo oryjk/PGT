@@ -5,7 +5,7 @@
 
 
     <bean name="inventoryReleaseJob" class="com.pgt.inventory.scheduling.InventoryReleaseJob">
-        <property name="inventoryService" ref="inventoryService" />
+        <property name="tenderInventoryService" ref="tenderInventoryService" />
     </bean>
 
 
