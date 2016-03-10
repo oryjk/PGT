@@ -4,6 +4,23 @@
 
 $(document).ready(function () {
 
+    $('.jqzoom').jqzoom({
+        zoomType: 'standard',
+        lens: true,
+        preloadImages: false,
+        alwaysOn: false,
+        zoomWidth: 400,
+        zoomHeight: 400,
+        hideEffect: 'fadeout'
+    });
+
+    $('#indicatorContainer').radialIndicator({
+        barColor: '#2d7fe0',
+        barWidth: 10,
+        initValue: 40,
+        roundCorner: true,
+        percentage: true
+    });
 
     $(".detail-content>ul>li").click(function () {
 
@@ -28,8 +45,8 @@ $(document).ready(function () {
 
     });
 
-    var setQuantity = function(obj, num) {
-            $(obj).parent('.each-item').find('.quantity').val(num);
+    var setQuantity = function (obj, num) {
+        $(obj).parent('.each-item').find('.quantity').val(num);
     }
     //add product quantity
     $(".item-buy-plus").click(function () {
@@ -47,7 +64,7 @@ $(document).ready(function () {
         }
         //set buy quantity
         $(this).parent().prev().text(num);
-        setQuantity(this,num);
+        setQuantity(this, num);
     });
 
 
@@ -65,7 +82,7 @@ $(document).ready(function () {
         }
 
         $(this).parent().prev().text(num);
-        setQuantity(this,num);
+        setQuantity(this, num);
 
     });
     $('#item-buy-now').on('click', function (event) {
