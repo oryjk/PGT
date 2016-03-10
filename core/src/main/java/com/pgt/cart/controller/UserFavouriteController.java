@@ -12,7 +12,7 @@ import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.cart.service.UserFavouriteService;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.user.bean.User;
 import com.pgt.utils.URLMapping;
 import org.apache.commons.lang3.StringUtils;
@@ -51,7 +51,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 	private PriceOrderService mPriceOrderService;
 
 	@Autowired
-	private ProductService mProductService;
+	private ProductServiceImp productServiceImp;
 
 	@Autowired
 	private URLMapping mURLMapping;
@@ -76,7 +76,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
-		Product product = getProductService().queryProduct(productId);
+		Product product = getProductServiceImp().queryProduct(productId);
 		if (product == null || !RepositoryUtils.idIsValid(product.getProductId())) {
 			LOGGER.debug("Add item to favourite failed for cannot find product with id: {}", productId);
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
@@ -214,7 +214,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 			return mav;
 		}
 		// query product
-		Product product = getProductService().queryProduct(productId);
+		Product product = getProductServiceImp().queryProduct(productId);
 		if (product == null || !RepositoryUtils.idIsValid(product.getProductId())) {
 			LOGGER.debug("Favourite item from cart failed for cannot find product with id: {}", productId);
 			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_INVALID, StringUtils.EMPTY));
@@ -358,7 +358,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		// query product
-		Product product = getProductService().queryProduct(productId);
+		Product product = getProductServiceImp().queryProduct(productId);
 		if (product == null || !RepositoryUtils.idIsValid(product.getProductId())) {
 			LOGGER.debug("Favourite item from cart failed for cannot find product with id: {}", productId);
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
@@ -482,7 +482,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 				getUserFavouriteService().deleteFavouriteItem(favouriteId);
 				// check order contains commerce item
 				// check product
-				Product product = getProductService().queryProduct(favourite.getProductId());
+				Product product = getProductServiceImp().queryProduct(favourite.getProductId());
 				if (!getShoppingCartService().checkProductValidity(product)) {
 					LOGGER.debug("Stop move item to cart from favourite item for product: {} not available", favourite.getProductId());
 					rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
@@ -553,12 +553,12 @@ public class UserFavouriteController extends TransactionBaseController implement
 		mPriceOrderService = pPriceOrderService;
 	}
 
-	public ProductService getProductService() {
-		return mProductService;
+	public ProductServiceImp getProductServiceImp() {
+		return productServiceImp;
 	}
 
-	public void setProductService(final ProductService pProductService) {
-		mProductService = pProductService;
+	public void setProductServiceImp(final ProductServiceImp pProductServiceImp) {
+		productServiceImp = pProductServiceImp;
 	}
 
 	public ResponseBuilderFactory getResponseBuilderFactory() {

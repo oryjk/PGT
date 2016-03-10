@@ -6,7 +6,7 @@ import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.common.bean.Media;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class ShoppingCartService {
     private ShoppingCartConfiguration mShoppingCartConfiguration;
 
     @Autowired
-    private ProductService mProductService;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private DataSourceTransactionManager mTransactionManager;
@@ -315,7 +315,7 @@ public class ShoppingCartService {
         int count = 0;
         for (String prodId : prodIds) {
             count++;
-            Product product = getProductService().queryProduct(Integer.valueOf(prodId));
+            Product product = getProductServiceImp().queryProduct(Integer.valueOf(prodId));
             if (null == product) {
                 continue;
             }
@@ -355,12 +355,12 @@ public class ShoppingCartService {
         mShoppingCartConfiguration = pShoppingCartConfiguration;
     }
 
-    public ProductService getProductService() {
-        return mProductService;
+    public ProductServiceImp getProductServiceImp() {
+        return productServiceImp;
     }
 
-    public void setProductService(ProductService pProductService) {
-        mProductService = pProductService;
+    public void setProductServiceImp(ProductServiceImp pProductServiceImp) {
+        productServiceImp = pProductServiceImp;
     }
 
     public DataSourceTransactionManager getTransactionManager() {

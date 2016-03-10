@@ -3,7 +3,7 @@ package product;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.bean.SortBean;
 
@@ -26,7 +26,7 @@ import java.util.*;
 public class ProductTest {
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Test
     public void createManyTest() {
@@ -61,14 +61,14 @@ public class ProductTest {
             media.setTitle("呵呵");
             media.setType(MediaType.copy_write);
             product.setFrontMedia(media);
-            productService.createProduct(2, product);
+            productServiceImp.createProduct(2, product);
         }
 
     }
 
     @Test
     public void queryProductTest() {
-        Product product = productService.queryProduct(1);
+        Product product = productServiceImp.queryProduct(1);
         Assert.assertNotNull(product);
     }
 
@@ -80,28 +80,28 @@ public class ProductTest {
         paginationBean.setCurrentIndex(0);
         paginationBean.setSortFiledName("creationDate");
         paginationBean.setTotalAmount(100);
-        List<Product> productList = productService.queryProducts(paginationBean);
+        List<Product> productList = productServiceImp.queryProducts(paginationBean);
         Assert.assertNotNull(productList);
     }
 
     @Test
     public void queryAllProductsTest() {
-        List<Product> products = productService.queryAllProducts(-1);
+        List<Product> products = productServiceImp.queryAllProducts(-1);
         Assert.assertNotNull(products);
 
     }
 
     @Test
     public void updateProductTest() {
-        Product product = productService.queryProduct(1);
+        Product product = productServiceImp.queryProduct(1);
         product.setDescription("update");
         product.setName("update name");
-        productService.updateProduct(product);
+        productServiceImp.updateProduct(product);
     }
 
     @Test
     public void deleteProductTest() {
-        productService.deleteProduct("3b7957c0-a790-44ce-a360-29f5d1f4bcbc");
+        productServiceImp.deleteProduct("3b7957c0-a790-44ce-a360-29f5d1f4bcbc");
     }
 
     @Test
@@ -111,7 +111,7 @@ public class ProductTest {
         deleteList.add("35982a44-2a1c-47a8-9f6c-b5c8fa1b3c28");
         deleteList.add("3e8181b8-adcf-439b-bb87-f0bec6d0469d");
         deleteList.add("4b337656-7e98-4e3a-b002-cfe53523a106");
-        productService.deleteProducts(deleteList);
+        productServiceImp.deleteProducts(deleteList);
 
     }
 
@@ -134,7 +134,7 @@ public class ProductTest {
 
         searchPaginationBean.setTerm("金");
 
-        List<Product> list = productService.queryProducts(searchPaginationBean);
+        List<Product> list = productServiceImp.queryProducts(searchPaginationBean);
 
         System.out.println(list.size());
 

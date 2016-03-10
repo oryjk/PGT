@@ -2,7 +2,7 @@ import com.google.common.collect.Lists;
 import com.pgt.constant.Constants;
 import com.pgt.product.bean.P2PProduct;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.TenderProductService;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.service.TenderSearchEngineService;
@@ -33,7 +33,7 @@ public class TenderTest {
     @Autowired
     private TenderService tenderService;
     @Autowired
-    private ProductService productService;
+    private TenderProductService tenderProductService;
     @Autowired
     private TenderCategoryMapper tenderCategoryMapper;
     @Autowired
@@ -62,7 +62,7 @@ public class TenderTest {
         SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
         searchPaginationBean.setCategoryId(44 + "");
         searchPaginationBean.setCapacity(100);
-//        List<P2PProduct> products = productService.queryProducts(searchPaginationBean);
+//        List<P2PProduct> products = tenderProductService.queryProducts(searchPaginationBean);
 //        tender.setProducts(products);
         tenderCategoryMapper.createTenderCategory(tenderCategory);
         Assert.assertNotNull(tenderId);
@@ -78,25 +78,7 @@ public class TenderTest {
 
     @Test
     public void queryTender() {
-        SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
-        searchPaginationBean.setCategoryId("44");
-        searchPaginationBean.setCapacity(100);
 
-        List<Product> productList = productService.queryProducts(searchPaginationBean);
-        Assert.assertTrue(productList.size() > 0);
-        productList.stream().forEach(product -> {
-            product.setTenderId(2);
-            productService.updateProduct(product);
-        });
-
-        Tender tender = tenderService.queryTenderById(2, false);
-        Assert.assertNotNull(tender);
-        Assert.assertNotNull(tender.getName());
-        Assert.assertNotNull(tender.getProducts());
-        Assert.assertTrue(tender.getProducts().size() > 0);
-        Assert.assertNotNull(tender.getTenderId());
-        Assert.assertNotNull(tender);
-        Assert.assertNotNull(tender);
     }
 
     @Test

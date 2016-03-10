@@ -20,6 +20,7 @@ import java.util.List;
 public interface ProductMapper extends SqlMapper {
 
     Product queryProduct(@Param("productId") int productId);
+    P2PProduct queryTenderProduct(@Param("productId") int productId);
 
     List<Product> queryProducts(SearchPaginationBean searchPaginationBean);
 

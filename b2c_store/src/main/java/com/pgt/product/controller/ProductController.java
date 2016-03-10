@@ -15,7 +15,7 @@ import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
@@ -48,7 +48,7 @@ public class ProductController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private ConsultingService consultingService;
@@ -192,7 +192,7 @@ public class ProductController {
             return modelAndView;
         }
         LOGGER.debug("The product id is {product}", productId);
-        Product product = productService.queryProduct(Integer.valueOf(productId));
+        Product product = productServiceImp.queryProduct(Integer.valueOf(productId));
 
         if (ObjectUtils.isEmpty(product)) {
             LOGGER.debug("Can not find the product with id is {productId}", productId);
