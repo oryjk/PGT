@@ -62,14 +62,17 @@
             </div>
         </div>
         <div class="item-nav">
-            <ul>
-                <li><a href="#"><img src="../core/images/product/hero_1_00.jpg" alt=""/></a></li>
-                <li><a href="#"><img src="../core/images/product/hero_1_01.jpg" alt=""/></a></li>
-                <li><a href="#"><img src="../core/images/product/hero_1_02.jpg" alt=""/></a></li>
-                <li><a href="#"><img src="../core/images/product/hero_1_03.jpg" alt=""/></a></li>
+            <ul id="itemNavBox" style="left: 0;top: 0;">
+                <!-- super:以下a标签href属性的值为锚点的id-->
+                <li><a href="#item1"><img src="../core/images/product/hero_1_00.jpg" alt=""/></a></li>
+                <li><a href="#item2"><img src="../core/images/product/hero_1_01.jpg" alt=""/></a></li>
+                <li><a href="#item3"><img src="../core/images/product/hero_1_02.jpg" alt=""/></a></li>
+                <li><a href="#item4"><img src="../core/images/product/hero_1_03.jpg" alt=""/></a></li>
+                <li><a href="#item5"><img src="../core/images/product/hero_1_02.jpg" alt=""/></a></li>
+                <li><a href="#item6"><img src="../core/images/product/hero_1_03.jpg" alt=""/></a></li>
             </ul>
-            <a class="item-nav-right" href="#"></a>
-            <a class="item-nav-left" href="#"></a>
+            <a class="item-nav-right" id="itemNavRight" href="javascript:void(0);"></a>
+            <a class="item-nav-left" id="itemNavLeft" href="javascript:void(0);"></a>
         </div>
 
         <img class="what-is-this" src="" alt=""/>
@@ -92,6 +95,8 @@
             <!-- content-item-list begin -->
             <div class="content-item-list content-choose">
                 <div class="each-item">
+                    <!--锚点-->
+                    <div class="anchor"  id="item1"></div>
 
                     <div class="item-img-box">
                         <div class="middle-img-box">
@@ -166,6 +171,8 @@
                 </div>
 
                 <div class="each-item">
+                    <!--锚点-->
+                    <div class="anchor"  id="item2"></div>
 
                     <div class="item-img-box">
                         <div class="middle-img-box">
@@ -647,33 +654,6 @@
     <a class="turn-left" href="#"></a>
     <!-- turn left and right end-->
 
-    <script src="../core/js/jquery.min.js"></script>
-    <script src="../core/js/jquery.jqzoom-core.js"></script>
-    <script src="../core/js/radialindicator.js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-            $('.jqzoom').jqzoom({
-                zoomType: 'standard',
-                lens:true,
-                preloadImages: false,
-                alwaysOn:false,
-                zoomWidth:400,
-                zoomHeight: 400,
-                hideEffect: 'fadeout'
-            });
-
-            $('#indicatorContainer').radialIndicator({
-                barColor: '#2d7fe0',
-                barWidth: 10,
-                initValue: 40,
-                roundCorner : true,
-                percentage: true
-            });
-
-        });
-
-
-    </script>
+    <script src="../core/js/require.js" data-main="detail"></script>
 </body>
 </html>

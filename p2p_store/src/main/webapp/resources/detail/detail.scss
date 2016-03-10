@@ -27,6 +27,11 @@ body {
   background: $gray-bg;
 }
 
+.anchor {
+  position: relative;
+  top: -100px;
+}
+
 .invest {
   margin: 100px auto 0;
   width: $main-width-s;
@@ -166,6 +171,7 @@ body {
     }
 
     ul {
+      position: relative;
       width: 10000px;
     }
 

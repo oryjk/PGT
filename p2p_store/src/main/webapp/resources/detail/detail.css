@@ -557,6 +557,10 @@ a {
 body {
   background: #f2f2f2; }
 
+.anchor {
+  position: relative;
+  top: -100px; }
+
 .invest {
   margin: 100px auto 0;
   width: 1040px; }
@@ -677,6 +681,7 @@ body {
       height: 75px;
       background: url("../core/images/detail/turn-right.png"); }
     .invest .item-nav ul {
+      position: relative;
       width: 10000px; }
     .invest .item-nav li {
       float: left;
