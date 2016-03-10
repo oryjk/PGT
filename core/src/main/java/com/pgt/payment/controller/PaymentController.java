@@ -55,7 +55,7 @@ public class PaymentController implements CartMessages {
 	@Resource(name = "inventoryService")
 	private InventoryService inventoryService;
 
-	@Autowired
+	@Resource(name = "orderService")
 	private OrderService orderService;
 
 	@Autowired

@@ -124,7 +124,6 @@
 				<value>title</value>
 				<value>shortDescription</value>
 				<value>keyWord</value>
-				<value>description</value>
 			</list>
 		</property>
 		<property name="useToSearch">
@@ -137,7 +136,6 @@
 			<list value-type="java.lang.String">
 				<value>name</value>
 				<value>sort</value>
-				<value>description</value>
 			</list>
 		</property>
 		<property name="hotSaleAnalyzerFields">
@@ -161,7 +159,7 @@
 	</bean>
 
 
-	<bean class="com.pgt.data.index.service.AllIndexService">
+	<bean id="allIndexService" class="com.pgt.data.index.service.AllIndexService">
 		<property name="searchEngineServiceList">
 			<list value-type="com.pgt.search.service.AbstractSearchEngineService">
 				<ref bean="categorySearchEngineService"/>

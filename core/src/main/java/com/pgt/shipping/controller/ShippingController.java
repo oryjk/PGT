@@ -64,7 +64,7 @@ public class ShippingController implements CartMessages {
     private ShippingService shippingService;
     @Autowired
     private ShoppingCartService shoppingCartService;
-    @Autowired
+    @Resource(name = "orderService")
     private OrderService orderService;
     @Autowired
     private CityService cityService;

@@ -70,6 +70,7 @@ public abstract class InternalTransactionBaseController implements AdminSessionC
 	}
 
 	protected boolean verifyPermission(HttpServletRequest pRequest, Role... pRoles) {
+
 		InternalUser iu = getCurrentInternalUser(pRequest);
 		if (iu != null) {
 			boolean verified = getRolePermissionService().checkRole(iu.getRole(), pRoles);

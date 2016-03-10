@@ -25,11 +25,26 @@
         <property name="cronExpression" value="0 0/1 * * * ?" /><!-- run each five min-->
     </bean>
 
+    <bean id="indexJobTriggerJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="allIndexService" />
+        </property>
+        <property name="targetMethod">
+            <value>createIndex</value>
+        </property>
+    </bean>
+    <bean id="indexJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="indexJobTriggerJobDetail"/>
+        <property name="cronExpression" value="0 0 0 * * ?" /><!-- ever day 00:00-->
+    </bean>
+
 
     <bean name="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="inventoryReleaseJobTrigger"/>
+                <ref bean="indexJobTrigger"/>
             </list>
         </property>
     </bean>

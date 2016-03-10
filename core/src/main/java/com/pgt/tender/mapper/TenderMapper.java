@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by carlwang on 1/16/16.
@@ -49,5 +50,9 @@ public interface TenderMapper extends SqlMapper {
 
 
     List<Product> queryTenderProduct(int tenderId);
+
+    int getTenderOrderCount(int tenderId);
+
+    List<Map<String,Object>> getBuyers(int tenderId);
 
 }

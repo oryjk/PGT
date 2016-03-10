@@ -16,12 +16,17 @@ import com.pgt.payment.PaymentConstants;
 import com.pgt.payment.bean.Transaction;
 import com.pgt.payment.service.PaymentService;
 import com.pgt.product.bean.Product;
+import com.pgt.product.bean.ProductMedia;
+import com.pgt.product.dao.ProductMapper;
 import com.pgt.tender.bean.Tender;
 import com.pgt.user.bean.User;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
 
@@ -29,7 +34,7 @@ import java.util.*;
  * Created by Samli on 2016/1/18.
  */
 
-// TODO log debug
+@Service(value = "p2pOrderService")
 public class P2POrderService extends OrderService {
 
     public static final long MILLISECOND_ONE_DAY = 1000 * 60 * 60 * 24;
@@ -38,14 +43,20 @@ public class P2POrderService extends OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(P2POrderService.class);
 
+    @Autowired
     private ShoppingCartService shoppingCartService;
 
+    @Autowired
     private P2PMapper p2PMapper;
 
+    @Resource(name = "completeTransactionYeepay")
     private DirectYeePay directTransactionYeepay;
 
+    @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private ProductMapper productMapper;
 
     public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, String[] quantities) throws OrderPersistentException {
         LOGGER.debug("==================== Start method createP2POrder ====================");
@@ -114,6 +125,7 @@ public class P2POrderService extends OrderService {
             }
             count++;
         }
+        order.setCommerceItems(commerceItems);
 
     }
 
@@ -183,7 +195,10 @@ public class P2POrderService extends OrderService {
                 ci.setReferenceId(relatedProduct.getProductId());
                 ci.setSalePrice(relatedProduct.getSalePrice());
                 // TODO Snapshotid
-                // ci.setSnapshotId();
+                ProductMedia media =  getProductMapper().queryProductThumbnailMedias(relatedProduct.getProductId());
+                if (null != media) {
+                    ci.setSnapshotId(media.getId());
+                }
                 ci.setType(CommerceItem.TYPE_P2P_NOMAL);
                 productTotal += ci.getAmount();
                 //TODO ROUND
@@ -465,5 +480,13 @@ public class P2POrderService extends OrderService {
 
     public void setPaymentService(PaymentService paymentService) {
         this.paymentService = paymentService;
+    }
+
+    public ProductMapper getProductMapper() {
+        return productMapper;
+    }
+
+    public void setProductMapper(ProductMapper productMapper) {
+        this.productMapper = productMapper;
     }
 }

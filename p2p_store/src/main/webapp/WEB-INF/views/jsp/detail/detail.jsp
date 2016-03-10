@@ -150,16 +150,19 @@
                         <div class="item-row-8">
                             <div class="col-title">&nbsp; </div>
                             <div class="col-content">
-                                <a class="item-buy-now" href="#">立即抢订</a>
+                                <a class="item-buy-now" id="item-buy-now" href="#">立即抢订</a>
                                 <a class="item-join-favorite" href="#">添加收藏</a>
+                                <form method="post" class="addToCart" action="/order/create">
+                                    <input type="hidden" name="productIds" value="${ESTender.tender.tenderId}"/>
+                                    <input type="hidden" name="tenderId" value="${product.productId}"/>
+                                    <input type="hidden" name="quantities" class="quantity" value="1"/>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
                 </c:forEach>
+
 
             </div>
             <!-- content-item-list end-->
@@ -406,5 +409,9 @@
 
     <jsp:include page="../core/footer-main.jsp" />
 <jsp:include page="../core/baidu.jsp" />
+<!-- turn left and right begin-->
+<a class="turn-right" href="#"></a>
+<a class="turn-left" href="#"></a>
+<!-- turn left and right end-->
 </body>
 </html>

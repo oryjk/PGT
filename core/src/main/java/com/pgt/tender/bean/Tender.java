@@ -2,6 +2,7 @@ package com.pgt.tender.bean;
 
 import com.pgt.category.bean.Category;
 import com.pgt.common.bean.Media;
+import com.pgt.pawn.bean.PawnTicket;
 import com.pgt.pawn.bean.Pawnshop;
 import com.pgt.pawn.validation.group.PawnGroup;
 import com.pgt.product.bean.P2PProduct;
@@ -136,6 +137,16 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     private Integer deadline;
 
     private String imageDesc;
+
+    public PawnTicket getPawnTicket() {
+        return pawnTicket;
+    }
+
+    public void setPawnTicket(PawnTicket pawnTicket) {
+        this.pawnTicket = pawnTicket;
+    }
+
+    private PawnTicket pawnTicket;
 
 
     public Double getCompleteRate() {
