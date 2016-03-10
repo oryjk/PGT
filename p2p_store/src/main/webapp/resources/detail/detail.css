@@ -291,7 +291,39 @@ a {
         background: white;
         transition: width .2s linear; }
   .header .status {
-    float: right; }
+    float: right;
+    width: 234px;
+    height: 100px;
+    line-height: 100px;
+    text-align: right; }
+  .header .status-help-center,
+  .header .status-register-btn {
+    margin-left: 20px; }
+  .header .status-help-center,
+  .header .status-login-btn,
+  .header .status-register-btn,
+  .header .status-help-center,
+  .header .status-my-account {
+    vertical-align: middle; }
+  .header .status-my-account {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px; }
+  .header .status-my-account-detail {
+    position: absolute;
+    border: 1px solid black;
+    width: 200px;
+    height: 300px;
+    top: 40px;
+    right: -50px; }
+  .header .status-user-face-box {
+    float: left;
+    width: 100%;
+    height: 100%; }
+  .header .status-user-face {
+    width: 100%;
+    height: 100%; }
 
 .footer {
   background: #3f3f3f; }
@@ -588,8 +620,7 @@ body {
     float: right;
     margin-right: 30px;
     width: 115px;
-    height: 115px;
-    background: #fefefe; }
+    height: 115px; }
   .invest .cost-box {
     font-size: 25px; }
   .invest .invest-begin-time {
@@ -670,6 +701,9 @@ body {
     display: none; }
   .detail-content .content-box .content-choose {
     display: block; }
+
+.content-item-list .zoomThumbActive {
+  outline: 2px solid #86b5ed; }
 
 .content-item-list .each-item {
   margin-bottom: 20px;

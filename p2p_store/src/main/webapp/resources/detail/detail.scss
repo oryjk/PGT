@@ -104,7 +104,6 @@ body {
     float: right;
     margin-right: 30px;
     @include wh(115px, 115px);
-    background: $gray-lighter;
   }
 
   .cost-box {
@@ -250,6 +249,10 @@ body {
 }
 
 .content-item-list {
+  .zoomThumbActive {
+    outline: 2px solid $em-light;
+  }
+
   .each-item {
     margin-bottom: 20px;
     border: 1px solid $gray-light;
