@@ -91,7 +91,7 @@
 
                         <a class="product-main" href="${pageContext.request.contextPath}/essearch?rootCategoryId=${category.id}">
                             <img
-                                    src="${pageContext.request.contextPath}/resources${category.frontMedia.path}" alt="${category.name}" />
+                                    src="${pageContext.request.contextPath}/resources${category.frontMedia.path}" alt="${category.imageDesc}" />
                             <div class="light"></div>
                         </a>
 
@@ -103,7 +103,7 @@
                                 <a href="product/${product['productId']}">
                                     <img
                                             src="${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}"
-                                            alt="${product['name']}" />
+                                            alt="${product['imageDesc']}" />
 
                                     <p class="product-name">${product['name']}</p>
 
@@ -152,7 +152,7 @@
                     <div class="products">
 
                         <a class="product-main" href="${pageContext.request.contextPath}/essearch?rootCategoryId=${category.id}"> <img
-                                src="${pageContext.request.contextPath}/resources${category.frontMedia.path}" alt="${category.name}" />
+                                src="${pageContext.request.contextPath}/resources${category.frontMedia.path}" alt="${category.imageDesc}" />
                             <div class="light"></div>
                         </a>
 
@@ -163,7 +163,7 @@
                             <c:if test="${st.index<6}">
                                 <a href="product/${product['productId']}"> <img
                                         src="${pageContext.request.contextPath}/resources${product['advertisementMedia']['path']}"
-                                        alt="${product['name']}" />
+                                        alt="${product['imageDesc']}" />
 
                                     <p class="product-name">${product['name']}</p>
 

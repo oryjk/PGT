@@ -28,7 +28,7 @@
     <p class="invest-sub-head"><date:date value="${ESTender.tender.publishDate}" style="yyyy-MM-dd HH:mm:ss"/>-<date:date value="${ESTender.tender.dueDate}" style="yyyy-MM-dd HH:mm:ss"/>  火热抢购中</p>
 
     <div class="invest-info">
-        <div class="invest-img"><img src="${ESTender.tender.p2pHeroMedias[0].path}" alt=""/></div>
+        <div class="invest-img"><img src="${ESTender.tender.p2pHeroMedias[0].path}" alt="${ESTender.tender.imageDesc}"/></div>
         <div class="invest-handle">
             <div class="invest-handle-group">
                 <a class="invest-add-favorite" href="javascript:void(0);">收藏</a>
@@ -56,7 +56,7 @@
     <div class="item-nav">
         <ul>
             <c:forEach items="${ESTender.tender. p2pHeroMedias}" var="media">
-                <li><a href="#"><img src="${media.path}" alt=""/></a></li>
+                <li><a href="#"><img src="${media.path}" alt="${ESTender.tender.imageDesc}"/></a></li>
             </c:forEach>
         </ul>
         <a class="item-nav-right" href="#"></a>
@@ -170,7 +170,7 @@
             <!-- content-invest-detail begin-->
             <div class="content-invest-detail">
                 <c:forEach items="${ESTender.tender.p2pMainMedia}" var="media">
-                <img class="content-detail-image" src="${media.path}" alt=""/>
+                <img class="content-detail-image" src="${media.path}" alt="${ESTender.tender.imageDesc}"/>
                 </c:forEach>
             </div>
             <!-- content-invest-detail end-->
