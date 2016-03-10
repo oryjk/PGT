@@ -310,6 +310,8 @@ public class ESSearchService extends AbstractSearchEngineService {
 
     public void updateProductIndex(Product product) {
         Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
+        Product oldProduct = productService.queryProduct(product.getProductId());
+        mergeProductMedias(product, oldProduct);
         Category rootCategory = parentCategory.getParent();
         ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
         ObjectMapper mapper = new ObjectMapper();
@@ -332,6 +334,16 @@ public class ESSearchService extends AbstractSearchEngineService {
         if (product.isHot()) {
             //createHotSaleIndex(rootCategory.getId());
         }
+    }
+
+    private void mergeProductMedias(Product product, Product oldProduct) {
+        product.setThumbnailMedia(oldProduct.getThumbnailMedia());
+        product.setAdvertisementMedia(oldProduct.getAdvertisementMedia());
+        product.setFrontMedia(oldProduct.getFrontMedia());
+        product.setHeroMedias(oldProduct.getHeroMedias());
+        product.setMainMedias(oldProduct.getMainMedias());
+        product.setExpertMedia(oldProduct.getExpertMedia());
+        product.setMobileDetailMedia(oldProduct.getMobileDetailMedia());
     }
 
     public void updateCategoryIndex(Category category) {

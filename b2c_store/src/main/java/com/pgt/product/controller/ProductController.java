@@ -1,6 +1,5 @@
 package com.pgt.product.controller;
 
-import com.pgt.cart.bean.Order;
 import com.pgt.category.bean.Category;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.BreadBuilder;
@@ -20,11 +19,6 @@ import com.pgt.product.service.ProductService;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.utils.PaginationBean;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
@@ -39,6 +33,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by carlwang on 10/31/15.
