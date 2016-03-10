@@ -12,6 +12,7 @@
 	<meta name="keywords" content="${param.keywords}">
 	<meta name="description" content="${param.description}">
 	<meta name="baidu-site-verification" content="qx3F1rIr3x" />
+	<style>  #DivId{display:none;}  </style>
 	<script>
 		var _hmt = _hmt || [];
 		(function() {
