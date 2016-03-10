@@ -216,7 +216,7 @@
 									<a class="list-img-box"
 										href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}"><img
 										src="${pageContext.request.contextPath}/resources/${searchHit.source['frontMedia']['path']}"
-										alt="${searchHit.source['name']}" /></a>
+										alt="${searchHit.source['imageDesc']}" /></a>
 
 									<c:if test="${searchHit.source['stock']<1}">
 
