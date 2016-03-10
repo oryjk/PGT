@@ -171,7 +171,7 @@
                                     <p>金额:<span class="cost">¥<span>${historyOrder.total}</span></span></p>
                                     <!-- 付款链接只有在未付款状态才显示-->
                                     <c:choose>
-                                        <c:when test="${historyOrder.status>=40}">
+                                        <c:when test="${historyOrder.status>=30}">
                                             已付款
                                         </c:when>
                                         <c:otherwise>
