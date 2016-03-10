@@ -81,12 +81,13 @@
 		<!-- content-item-list begin -->
 		<div class="content-item-list content-choose">
 
-			<c:forEach items="${ESTender.tender.products}" var="product">
+			<c:forEach items="${ESTender.tender.products}" var="product" varStatus="status">
+				<c:set var="sq" value="${status.index}"/>
 				<div class="each-item">
 					<div class="item-img-box">
 						<div class="middle-img-box">
 							<!-- super:rel传入item的id号-->
-							<a href="${product.heroMedias[0].path}" class="jqzoom" rel='1' title="triumph">
+							<a href="${product.heroMedias[0].path}" class="jqzoom" rel='${sq}' title="triumph">
 								<img class="middle-img" src="${product.heroMedias[0].path}" title="triumph">
 							</a>
 						</div>
@@ -100,7 +101,7 @@
 										<c:when test="${status.index==0}">
 											<li>
 												<a class="zoomThumbActive" href='javascript:void(0);'
-												   rel="{gallery: '1', smallimage: '${media.path}',largeimage: '${media.path}'}">
+												   rel="{gallery: '${sq}', smallimage: '${media.path}',largeimage: '${media.path}'}">
 													<img class="small-img" src='${media.path}'>
 												</a>
 											</li>
@@ -108,7 +109,7 @@
 										<c:otherwise>
 											<li>
 												<a class="" href='javascript:void(0);'
-												   rel="{gallery:'1', smallimage: '${media.path}',largeimage: '${media.path}'}">
+												   rel="{gallery:'${sq}', smallimage: '${media.path}',largeimage: '${media.path}'}">
 													<img class="small-img" src='${media.path}'>
 												</a>
 											</li>
