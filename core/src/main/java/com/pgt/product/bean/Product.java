@@ -27,7 +27,6 @@ public class Product implements Serializable {
     private Integer stock;
     private Date creationDate;
     private Date updateDate;
-    //    private List<ProductMedia> medias;
     private List<ProductMedia> mainMedias;
     private List<ProductMedia> heroMedias;
     private ProductMedia thumbnailMedia;
@@ -42,7 +41,6 @@ public class Product implements Serializable {
     private String keyWord;
     private String merchant;
     private ProductMedia mobileDetailMedia;
-    private String type;
     private String imageDesc;
 
 
@@ -54,18 +52,9 @@ public class Product implements Serializable {
         this.imageDesc = imageDesc;
     }
 
-    private Integer tenderId;
 
     public List<ProductMedia> getMainMedias() {
         return mainMedias;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void setMainMedias(List<ProductMedia> mainMedias) {
@@ -218,13 +207,6 @@ public class Product implements Serializable {
         this.updateDate = updateDate;
     }
 
-//    public List<ProductMedia> getMedias() {
-//        return medias;
-//    }
-//
-//    public void setMedias(List<ProductMedia> medias) {
-//        this.medias = medias;
-//    }
 
     public ProductMedia getFrontMedia() {
         return frontMedia;
@@ -308,11 +290,5 @@ public class Product implements Serializable {
         this.mobileDetailMedia = mobileDetailMedia;
     }
 
-    public Integer getTenderId() {
-        return tenderId;
-    }
 
-    public void setTenderId(Integer tenderId) {
-        this.tenderId = tenderId;
-    }
 }

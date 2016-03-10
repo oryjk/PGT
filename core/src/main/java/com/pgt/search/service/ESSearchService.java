@@ -683,7 +683,7 @@ public class ESSearchService extends AbstractSearchEngineService {
 
     @Override
     public void index() {
-        hotSaleIndex();
+//        hotSaleIndex();
         productsIndex();
     }
 

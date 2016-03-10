@@ -12,6 +12,9 @@ public class P2PProduct extends Product {
      */
     private int originStock;
 
+    private String type;
+    private Integer tenderId;
+
 
     public int getPawnageStatus() {
         return pawnageStatus;
@@ -27,5 +30,21 @@ public class P2PProduct extends Product {
 
     public void setOriginStock(int originStock) {
         this.originStock = originStock;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getTenderId() {
+        return tenderId;
+    }
+
+    public void setTenderId(Integer tenderId) {
+        this.tenderId = tenderId;
     }
 }
