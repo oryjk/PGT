@@ -197,7 +197,7 @@ public class P2POrderService extends OrderService {
                 // TODO Snapshotid
                 ProductMedia media =  getProductMapper().queryProductThumbnailMedias(relatedProduct.getProductId());
                 if (null != media) {
-                    CI.setSnapshotId(media.getId());
+                    ci.setSnapshotId(media.getId());
                 }
                 ci.setType(CommerceItem.TYPE_P2P_NOMAL);
                 productTotal += ci.getAmount();

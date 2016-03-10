@@ -153,9 +153,9 @@
                                 <a class="item-buy-now" id="item-buy-now" href="#">立即抢订</a>
                                 <a class="item-join-favorite" href="#">添加收藏</a>
                                 <form method="post" class="addToCart" action="/order/create">
-                                    <input type="hidden" name="productId" value="${ESTender.tender.tenderId}"/>
+                                    <input type="hidden" name="productIds" value="${ESTender.tender.tenderId}"/>
                                     <input type="hidden" name="tenderId" value="${product.productId}"/>
-                                    <input type="hidden" name="quantity" class="quantity" value="1"/>
+                                    <input type="hidden" name="quantities" class="quantity" value="1"/>
                                 </form>
                             </div>
                         </div>
