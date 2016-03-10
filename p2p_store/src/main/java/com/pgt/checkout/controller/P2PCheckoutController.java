@@ -112,7 +112,6 @@ public class P2PCheckoutController {
             return modelAndView;
         }
         // create order
-        Order
         try {
             Pair<Order, P2PInfo> result = getOrderService().createP2POrder(user, tender, relatedProducts, productIds, quantities);
             Order order = result.getLeft();
