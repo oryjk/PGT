@@ -100,14 +100,15 @@
 										<c:when test="${status.index==0}">
 											<li>
 												<a class="zoomThumbActive" href='javascript:void(0);'
-												   rel="{gallery: '${media.id}', smallimage: '${media.path}',largeimage: '${media.path}'}">
+												   rel="{gallery: '1', smallimage: '${media.path}',largeimage: '${media.path}'}">
 													<img class="small-img" src='${media.path}'>
 												</a>
 											</li>
 										</c:when>
 										<c:otherwise>
 											<li>
-												<a class="" href='javascript:void(0);' rel="{gallery: '${media.id}', smallimage: '${media.path}',largeimage: '${media.path}'}">
+												<a class="" href='javascript:void(0);'
+												   rel="{gallery:'1', smallimage: '${media.path}',largeimage: '${media.path}'}">
 													<img class="small-img" src='${media.path}'>
 												</a>
 											</li>
@@ -115,6 +116,7 @@
 									</c:choose>
 
 								</c:forEach>
+
 							</ul>
 						</div>
 					</div>
