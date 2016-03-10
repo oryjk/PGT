@@ -7,6 +7,8 @@
 <html lang="en">
 <jsp:include page="../core/head.jspf">
     <jsp:param name="cssPath" value="/index/index.css" />
+    <jsp:param name="keywords" value="点金子,淘在当,绝当淘,典当,典当行,当铺,在线典当,在线典当商城,绝当商城,绝当预售,网上抵押借款,网上当铺,网上典当" />
+    <jsp:param name="description" value="点金子，典当行业互联网风控专家，专业绝当品销售、在当品预售平台，绝当品保真价优，方便享受典当业务，操作便捷，放款迅速。" />
 </jsp:include>
 <body>
 <img class="search-img" src="/resources/juedangpin/core/images/index/baidu_logo.jpg" alt="点金子绝当淘"/>
