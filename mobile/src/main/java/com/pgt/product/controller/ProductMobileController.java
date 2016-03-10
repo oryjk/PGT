@@ -3,10 +3,9 @@ package com.pgt.product.controller;
 import com.pgt.base.controller.BaseMobileController;
 import com.pgt.configuration.Configuration;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.ESSearchService;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
@@ -15,11 +14,9 @@ import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +31,7 @@ public class ProductMobileController extends BaseMobileController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductMobileController.class);
 
 	@Autowired
-	private ProductService productService;
+	private ProductServiceImp productServiceImp;
 
 	@Autowired
 	private ESSearchService esSearchService;
@@ -79,7 +76,7 @@ public class ProductMobileController extends BaseMobileController {
 			return responseMobileFail(responseMap, "ProductId.empty");
 		}
 		LOGGER.debug("The product id is {product}", productId);
-		Product product = productService.queryProduct(Integer.valueOf(productId));
+		Product product = productServiceImp.queryProduct(Integer.valueOf(productId));
 
 		if (ObjectUtils.isEmpty(product)) {
 			LOGGER.debug("Can not find the product with id is {productId}", productId);

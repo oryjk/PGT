@@ -26,7 +26,7 @@ import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.Constants;
 import com.pgt.constant.UserConstant;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.user.bean.User;
 import com.pgt.utils.ResponseUtils;
 
@@ -41,7 +41,7 @@ public class DiscussController {
 	private Configuration configuration;
 
 	@Autowired
-	private ProductService productService;
+	private ProductServiceImp productServiceImp;
 
 	@Autowired
 	private URLConfiguration urlConfiguration;
@@ -107,7 +107,7 @@ public class DiscussController {
 			LOGGER.debug("The product id is empty.");
 			return;
 		}
-		Product product = productService.queryProduct(productId);
+		Product product = productServiceImp.queryProduct(productId);
 		// 获取ip
 		String ip = request.getRemoteAddr();
 		User user = (User) session.getAttribute(UserConstant.CURRENT_USER);

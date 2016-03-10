@@ -8,7 +8,7 @@ import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
 import com.pgt.constant.UserConstant;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.user.bean.User;
 import com.pgt.utils.ResponseUtils;
 import org.json.JSONObject;
@@ -39,7 +39,7 @@ public class ConsultingController {
 	private Configuration configuration;
 
 	@Autowired
-	private ProductService productService;
+	private ProductServiceImp productServiceImp;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultingController.class);
 
@@ -93,7 +93,7 @@ public class ConsultingController {
 			LOGGER.debug("The product id is empty.");
 			return;
 		}
-		Product product = productService.queryProduct(productId);
+		Product product = productServiceImp.queryProduct(productId);
 		if(ObjectUtils.isEmpty(product)){
 			LOGGER.debug("The product is empty for product id is {}",productId);
 			return;

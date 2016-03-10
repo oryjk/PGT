@@ -36,6 +36,8 @@ public class Order implements OrderType, OrderStatus {
 
 	private P2PInfo p2pInfo;
 
+	private String holderAlias;
+
 	private Double  mShippingFee;
 
 	public Order() {
@@ -313,5 +315,13 @@ public class Order implements OrderType, OrderStatus {
 
 	public void setP2pInfo(final P2PInfo pP2pInfo) {
 		p2pInfo = pP2pInfo;
+	}
+
+	public String getHolderAlias() {
+		return holderAlias;
+	}
+
+	public void setHolderAlias(String holderAlias) {
+		this.holderAlias = holderAlias;
 	}
 }

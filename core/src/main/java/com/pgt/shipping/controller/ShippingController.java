@@ -291,6 +291,11 @@ public class ShippingController implements CartMessages {
                 getInventoryService().lockInventory(order);
                 order.setStatus(OrderStatus.FILLED_SHIPPING);
                 order.setSubmitDate(new Date());
+                if (null != order.getShippingVO() && null != order.getShippingVO().getShippingAddress()) {
+                    String alias = order.getShippingVO().getShippingAddress().getName();
+                    order.setHolderAlias(alias);
+                }
+
                 getOrderService().updateOrder(order);
             } catch (LockInventoryException e) {
                 String oosProdId = StringUtils.join(e.getOosProductIds(), "_");

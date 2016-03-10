@@ -24,7 +24,7 @@ public class Product implements Serializable {
     private String description;
     private Double shippingFee;
     private String relatedCategoryId;
-    private Integer stock;
+    private Integer stock=0;
     private Date creationDate;
     private Date updateDate;
     private List<ProductMedia> mainMedias;

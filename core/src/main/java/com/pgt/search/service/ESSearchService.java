@@ -15,7 +15,7 @@ import com.pgt.hot.service.HotProductHelper;
 import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.lang3.StringUtils;
@@ -77,7 +77,7 @@ public class ESSearchService extends AbstractSearchEngineService {
     private CategoryHelper categoryHelper;
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private HotProductHelper hotProductHelper;
@@ -271,7 +271,7 @@ public class ESSearchService extends AbstractSearchEngineService {
                 });
 
                 productPairs.stream().forEach(integerIntegerPair -> {
-                    Product product = productService.queryProduct(integerIntegerPair.getKey());
+                    Product product = productServiceImp.queryProduct(integerIntegerPair.getKey());
                     if (!ObjectUtils.isEmpty(product)) {
                         Category parentCategory = categoryService.queryParentCategoryByProductId(integerIntegerPair.getKey());
                         Category rootCategory = parentCategory.getParent();
@@ -310,7 +310,7 @@ public class ESSearchService extends AbstractSearchEngineService {
 
     public void updateProductIndex(Product product) {
         Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
-        Product oldProduct = productService.queryProduct(product.getProductId());
+        Product oldProduct = productServiceImp.queryProduct(product.getProductId());
         mergeProductMedias(product, oldProduct);
         Category rootCategory = parentCategory.getParent();
         ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);

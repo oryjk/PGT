@@ -29,6 +29,7 @@
 		<result column="submit_Date" property="submitDate" />
 		<result column="easy_buy" property="easyBuy" />
 		<result column="p2p_info_id" property="p2pInfoId" />
+		<result column="HOLDER_ALIAS" property="holderAlias" />
 		<association column="p2p_info_id" property="p2pInfo" select="loadP2PInfo" />
 		<collection column="order_id" property="commerceItems"
 		            select="com.pgt.cart.dao.UserOrderDao.loadCommerceItemsFromOrder" />
@@ -47,6 +48,7 @@
 		<result column="submit_Date" property="submitDate" />
 		<result column="easy_buy" property="easyBuy" />
 		<result column="p2p_info_id" property="p2pInfoId" />
+		<result column="HOLDER_ALIAS" property="holderAlias" />
 		<association column="p2p_info_id" property="p2pInfo" select="loadP2PInfo" />
 		<collection column="order_id" property="commerceItems"
 		            select="com.pgt.cart.dao.UserOrderDao.loadCommerceItemsFromOrder" />
