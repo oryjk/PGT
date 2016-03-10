@@ -107,13 +107,15 @@
                         </div>
 
                         <div class="small-img-box" >
-                            <ul class="thumblist">
-                                <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
-                                <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_00.jpg',largeimage: '../core/images/product/hero_1_00.jpg'}"><img class="small-img" src='../core/images/product/hero_1_00.jpg'></a></li>
-                                <li><a href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_01.jpg',largeimage: '../core/images/product/hero_1_01.jpg'}"><img class="small-img" src='../core/images/product/hero_1_01.jpg'></a></li>
-                                <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_02.jpg',largeimage: '../core/images/product/hero_1_02.jpg'}"><img class="small-img" src='../core/images/product/hero_1_02.jpg'></a></li>
-                                <li class="item-samll-end"><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_03.jpg',largeimage: '../core/images/product/hero_1_03.jpg'}"><img class="small-img" src='../core/images/product/hero_1_03.jpg'></a></li>
-                            </ul>
+                            <div class="thumblist">
+                                <ul>
+                                    <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+                                    <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_00.jpg',largeimage: '../core/images/product/hero_1_00.jpg'}"><img class="small-img" src='../core/images/product/hero_1_00.jpg'></a></li>
+                                    <li><a href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_01.jpg',largeimage: '../core/images/product/hero_1_01.jpg'}"><img class="small-img" src='../core/images/product/hero_1_01.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_02.jpg',largeimage: '../core/images/product/hero_1_02.jpg'}"><img class="small-img" src='../core/images/product/hero_1_02.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_03.jpg',largeimage: '../core/images/product/hero_1_03.jpg'}"><img class="small-img" src='../core/images/product/hero_1_03.jpg'></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
@@ -183,13 +185,15 @@
                         </div>
 
                         <div class="small-img-box" >
-                            <ul class="thumblist">
-                                <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
-                                <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
-                                <li><a href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
-                                <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
-                                <li class="item-samll-end"><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
-                            </ul>
+                            <div class="thumblist">
+                                <ul>
+                                    <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+                                    <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
+                                    <li><a href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
@@ -246,6 +250,166 @@
                     </div>
 
                 </div>
+
+                <div class="each-item">
+                    <!--锚点-->
+                    <div class="anchor"  id="item3"></div>
+
+                    <div class="item-img-box">
+                        <div class="middle-img-box">
+                            <!-- super:rel传入item的id号-->
+                            <a href="../core/images/product/hero_2_00.jpg" class="jqzoom" rel='2'  title="triumph" >
+                                <img class="middle-img" src="../core/images/product/hero_2_00.jpg"  title="triumph">
+                            </a>
+                        </div>
+
+                        <div class="small-img-box" >
+                            <div class="thumblist">
+                                <ul>
+                                    <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+                                    <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
+                                    <li><a href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-info-box">
+                        <div class="item-row-1">
+                            <div class="col-title">产品名称:</div>
+                            <div class="col-content">金AU754镶钻水金戒指</div>
+                        </div>
+                        <div class="item-row-2">
+                            <div class="col-title">产品介绍:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-3">
+                            <div class="col-title">购买说明:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水<span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-4">
+                            <div class="col-title">配送费用:</div>
+                            <div class="col-content">免运费</div>
+                        </div>
+                        <div class="item-row-5">
+                            <div class="col-title">预计收获时间:</div>
+                            <div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
+                        </div>
+                        <div class="item-row-6">
+                            <div class="col-title">金额: </div>
+                            <div class="col-content">
+                                <span class="item-cost">¥</span><span class="item-cost">1800,00</span>
+                            </div>
+                        </div>
+                        <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span class="item-surplus-count">5</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
+                            <div class="col-title">&nbsp; </div>
+                            <div class="col-content">
+                                <a class="item-buy-now" href="#">立即抢订</a>
+                                <a class="item-join-favorite" href="#">添加收藏</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="each-item">
+                    <!--锚点-->
+                    <div class="anchor"  id="item4"></div>
+
+                    <div class="item-img-box">
+                        <div class="middle-img-box">
+                            <!-- super:rel传入item的id号-->
+                            <a href="../core/images/product/hero_2_00.jpg" class="jqzoom" rel='4'  title="triumph" >
+                                <img class="middle-img" src="../core/images/product/hero_2_00.jpg"  title="triumph">
+                            </a>
+                        </div>
+
+                        <div class="small-img-box" >
+                            <div class="thumblist">
+                                <ul>
+                                    <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+                                    <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '4', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
+                                    <li><a href='javascript:void(0);' rel="{gallery: '4', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '4', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
+                                    <li class="item-samll-end"><a  href='javascript:void(0);' rel="{gallery: '4', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-info-box">
+                        <div class="item-row-1">
+                            <div class="col-title">产品名称:</div>
+                            <div class="col-content">金AU754镶钻水金戒指</div>
+                        </div>
+                        <div class="item-row-2">
+                            <div class="col-title">产品介绍:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-3">
+                            <div class="col-title">购买说明:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水<span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-4">
+                            <div class="col-title">配送费用:</div>
+                            <div class="col-content">免运费</div>
+                        </div>
+                        <div class="item-row-5">
+                            <div class="col-title">预计收获时间:</div>
+                            <div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
+                        </div>
+                        <div class="item-row-6">
+                            <div class="col-title">金额: </div>
+                            <div class="col-content">
+                                <span class="item-cost">¥</span><span class="item-cost">1800,00</span>
+                            </div>
+                        </div>
+                        <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span class="item-surplus-count">5</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
+                            <div class="col-title">&nbsp; </div>
+                            <div class="col-content">
+                                <a class="item-buy-now" href="#">立即抢订</a>
+                                <a class="item-join-favorite" href="#">添加收藏</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
 
             </div>
             <!-- content-item-list end-->

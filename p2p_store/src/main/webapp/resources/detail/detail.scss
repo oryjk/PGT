@@ -288,7 +288,17 @@ body {
   }
 
   .small-img-box {
-    padding-top: 13px;
+    padding: 13px 2px 2px 2px;
+    margin: 0 -2px;
+    overflow: hidden;
+
+    .thumblist {
+      width: 400px;
+    }
+
+    ul {
+      width: 10000px;
+    }
 
     li {
       @include wh(90px, 90px);
