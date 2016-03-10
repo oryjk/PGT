@@ -5,7 +5,7 @@ import com.pgt.common.bean.Banner;
 import com.pgt.common.service.BannerService;
 import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.service.ESSearchService;
 import org.elasticsearch.action.search.SearchResponse;
@@ -31,7 +31,7 @@ import java.util.Map;
 public class HomeController{
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
     @Autowired
     private ESSearchService esSearchService;
     @Autowired
@@ -49,7 +49,7 @@ public class HomeController{
             responseMap.put("hotProducts",hotProducts);
         }
         // get hot search
-        List<HotSearch> hotSearchList = productService.queryAllHotsearch();
+        List<HotSearch> hotSearchList = productServiceImp.queryAllHotsearch();
         responseMap.put("hotSearchList",hotSearchList);
 
         Banner banner = bannerService.queryBannerByType(Constants.BANNER_TYPE_HOME);

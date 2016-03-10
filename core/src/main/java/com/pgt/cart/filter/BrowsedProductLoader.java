@@ -18,33 +18,26 @@ import java.util.List;
  */
 public class BrowsedProductLoader extends ItemLoadInterceptor {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BrowsedProductLoader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BrowsedProductLoader.class);
 
-	@Autowired
-	private ESSearchProductService mESSearchProductService;
+    @Autowired
+    private ESSearchProductService mESSearchProductService;
 
-	@Override
-	public boolean loadItems(final HttpServletRequest pRequest, final HttpServletResponse pResponse, final Object pHandler) {
-		if (!interceptRequest(pRequest)) {
-			LOGGER.debug("Skip load browsed product for request URI not match intercept rules.");
-			return true;
-		}
-		List<Integer> productIds = (List<Integer>) pRequest.getSession().getAttribute(SessionConstant.RECENT_PRODUCT_IDS);
-		if (CollectionUtils.isEmpty(productIds)) {
-			LOGGER.debug("No recent browsed products ids were found.");
-			return true;
-		}
-		// append logic to load favourites & recently browsed products
-		List<SearchHit> recentBrowsedProducts = getESSearchProductService().queryProducts(productIds);
-		pRequest.setAttribute(CartConstant.BROWSED_PRODUCTS, recentBrowsedProducts);
-		return true;
-	}
+    @Override
+    public boolean loadItems(final HttpServletRequest pRequest, final HttpServletResponse pResponse, final Object pHandler) {
+        if (!interceptRequest(pRequest)) {
+            LOGGER.debug("Skip load browsed product for request URI not match intercept rules.");
+            return true;
+        }
+        List<Integer> productIds = (List<Integer>) pRequest.getSession().getAttribute(SessionConstant.RECENT_PRODUCT_IDS);
+        if (CollectionUtils.isEmpty(productIds)) {
+            LOGGER.debug("No recent browsed products ids were found.");
+            return true;
+        }
+        // append logic to load favourites & recently browsed products
+        List<SearchHit> recentBrowsedProducts = mESSearchProductService.queryProducts(productIds);
+        pRequest.setAttribute(CartConstant.BROWSED_PRODUCTS, recentBrowsedProducts);
+        return true;
+    }
 
-	public ESSearchProductService getESSearchProductService() {
-		return mESSearchProductService;
-	}
-
-	public void setESSearchProductService(final ESSearchProductService pESSearchProductService) {
-		mESSearchProductService = pESSearchProductService;
-	}
 }
