@@ -126,7 +126,7 @@
 								<label class="col-xs-3 control-label">标题</label>
 
 								<div class="col-xs-4">
-									<form:input path="title" class="form-control" placeholder="不超过20字"/>
+									<form:input path="title" class="form-control" placeholder="不超过20字" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -179,7 +179,7 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label">图片描述</label>
 								<div class="col-md-4">
-									<input name="imageDesc" class="form-control" placeholder="不超过20字" value=""/>
+									<input name="imageDesc" class="form-control" placeholder="不超过20字" value="${product.imageDesc}"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -211,7 +211,7 @@
 						<div class="form-actions top">
 							<div class="row">
 								<div class="col-xs-offset-3 col-xs-9">
-									<button type="submit" class="btn blue-hoki" id="newStep">下一步</button>
+									<button type="submit" class="btn blue-hoki" id="newStep">保存并添加或者修改图片信息</button>
 									<button type="button" class="btn default">取消</button>
 								</div>
 							</div>

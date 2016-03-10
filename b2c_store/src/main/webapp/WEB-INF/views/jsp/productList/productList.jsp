@@ -13,14 +13,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>点金子典当行绝当品销售平台</title>
-<link rel="stylesheet"
-	href="<spring:url value="${juedangpinStaticPath}/productList/productList.css"/>" />
-<script
-	src="<spring:url value="${juedangpinStaticPath}/core/js/pageView.js"/>"></script>
-</head>
+<jsp:include page="../core/head.jspf">
+	<jsp:param name="cssPath" value="/productList/productList.css" />
+</jsp:include>
 <body>
 	<!--主头部-->
 	<div class="header" id="header">
@@ -42,6 +37,7 @@
 	<jsp:include page="../core/footer-main.jsp" />
 	<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
+<script src="<spring:url value="${juedangpinStaticPath}/core/js/pageView.js"/>"></script>
 <script
 	src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
 	data-main="<spring:url value="${juedangpinStaticPath}/productList/productList.js"/>"></script>

@@ -4,11 +4,9 @@ import com.pgt.base.service.TransactionService;
 import com.pgt.common.bean.Media;
 import com.pgt.common.dao.HotSearchMapper;
 import com.pgt.common.dao.MediaMapper;
-import com.pgt.common.service.HotSearchService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
-import com.pgt.share.dao.ShareOrderMapper;
 import com.pgt.style.dao.PageBackgroundMapper;
 import com.pgt.tender.bean.TenderMedia;
 import com.pgt.tender.mapper.TenderMapper;
@@ -78,7 +76,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
 
     @Override
     public ProductMedia findThumbnailMediasByProductId(String productId) {
-        return productMapper.queryProductThumbnailMedias(Integer.valueOf(productId));
+        return productMapper.queryProductThumbnailMedia(Integer.valueOf(productId));
     }
 
     @Override

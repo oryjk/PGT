@@ -133,13 +133,7 @@ public class ProductController extends InternalTransactionBaseController {
                 responseEntity.getBody().put("message", "Can not update product index.");
                 return responseEntity;
             }
-
-            if(product.getType()!=null&&product.getType().endsWith(ProductType.LIVE_PAWNAGE.toString())){
-                LOGGER.debug("The product type is {}.",ProductType.LIVE_PAWNAGE);
-            }else{
-                esSearchService.updateProductIndex(product);
-                LOGGER.debug("The product type is {}.",ProductType.DEAD_PAWNAGE);
-            }
+            esSearchService.updateProductIndex(product);
             responseEntity.getBody().put("success", true);
             responseEntity.getBody().put("mediaId", mediaId);
             return responseEntity;
@@ -365,42 +359,42 @@ public class ProductController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/updateIsHot", method = RequestMethod.GET)
-   public ResponseEntity updateIsHot(ModelAndView modelAndView,Integer productId,Boolean isHot){
+    public ResponseEntity updateIsHot(ModelAndView modelAndView, Integer productId, Boolean isHot) {
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         TransactionStatus status = ensureTransaction();
         try {
 
-        if(ObjectUtils.isEmpty(productId)){
-            LOGGER.debug("The productId is empty");
-            responseEntity.getBody().put("status","fail");
-            return responseEntity;
-        }
-        if(ObjectUtils.isEmpty(isHot)){
-            LOGGER.debug("The isHot is empty");
-            responseEntity.getBody().put("status","fail");
-            return responseEntity;
-        }
-        Product product=productService.queryProduct(productId);
-        if(ObjectUtils.isEmpty(product)){
-            LOGGER.debug("The product is empty");
-            responseEntity.getBody().put("status","fail");
-            return responseEntity;
-        }
-        product.setIsHot(isHot);
-        productService.updateProduct(product);
+            if (ObjectUtils.isEmpty(productId)) {
+                LOGGER.debug("The productId is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            if (ObjectUtils.isEmpty(isHot)) {
+                LOGGER.debug("The isHot is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            Product product = productService.queryProduct(productId);
+            if (ObjectUtils.isEmpty(product)) {
+                LOGGER.debug("The product is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            product.setIsHot(isHot);
+            productService.updateProduct(product);
 
         } catch (Exception e) {
             status.setRollbackOnly();
         } finally {
             getTransactionManager().commit(status);
         }
-        responseEntity.getBody().put("status","success");
-       return responseEntity;
-   }
+        responseEntity.getBody().put("status", "success");
+        return responseEntity;
+    }
 
 
     @RequestMapping(value = "/update/index", method = RequestMethod.POST)
-    public ResponseEntity updateIndex(HttpServletRequest pRequest,String[] products) {
+    public ResponseEntity updateIndex(HttpServletRequest pRequest, String[] products) {
         LOGGER.debug("The method for product to index");
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         TransactionStatus status = ensureTransaction();
@@ -408,28 +402,28 @@ public class ProductController extends InternalTransactionBaseController {
             if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
                 return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
             }
-            if (products == null ) {
+            if (products == null) {
                 LOGGER.debug("The products  is null.");
                 return responseEntity;
             }
 
-            for (String productId:products) {
-               Product product= productService.queryProduct(Integer.parseInt(productId));
-                LOGGER.debug("The index productId is {}.",productId);
-                if(!ObjectUtils.isEmpty(product)){
-                    SearchResponse searchResponse= esSearchService.findProduct(productId);
-                    if(searchResponse.getHits().getTotalHits()<1){
-                        LOGGER.debug("The es to createIndex,productId is {}.",productId);
-                         esSearchService.productIndex(product);
-                    }else{
-                        LOGGER.debug("The es to updateIndex,productId is {}.",productId);
+            for (String productId : products) {
+                Product product = productService.queryProduct(Integer.parseInt(productId));
+                LOGGER.debug("The index productId is {}.", productId);
+                if (!ObjectUtils.isEmpty(product)) {
+                    SearchResponse searchResponse = esSearchService.findProduct(productId);
+                    if (searchResponse.getHits().getTotalHits() < 1) {
+                        LOGGER.debug("The es to createIndex,productId is {}.", productId);
+                        esSearchService.productIndex(product);
+                    } else {
+                        LOGGER.debug("The es to updateIndex,productId is {}.", productId);
                         esSearchService.updateProductIndex(product);
                     }
                 }
 
             }
             LOGGER.debug("The products has index to es.");
-            responseEntity.getBody().put("status","success");
+            responseEntity.getBody().put("status", "success");
             return responseEntity;
         } catch (Exception e) {
             status.setRollbackOnly();
@@ -438,7 +432,6 @@ public class ProductController extends InternalTransactionBaseController {
         }
         return responseEntity;
     }
-
 
 
 }

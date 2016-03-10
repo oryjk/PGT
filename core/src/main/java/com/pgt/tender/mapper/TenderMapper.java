@@ -55,4 +55,5 @@ public interface TenderMapper extends SqlMapper {
 
     List<Map<String,Object>> getBuyers(int tenderId);
 
+    Tender queryTenderByProductId(Integer productId);
 }

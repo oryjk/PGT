@@ -260,4 +260,8 @@
 		INNER JOIN media AS m on m.MEDIA_ID = c.SNAPSHOT_ID
 		WHERE o.STATUS > 30 AND t.id = #{id}
 	</select>
+
+	<select id="queryTenderByProductId" parameterType="int" resultMap="tenderResult">
+		SELECT * FROM TENDER t LEFT JOIN PRODUCT p ON t.ID=p.TENDER_ID WHERE p.PRODUCT_ID=#{productId}
+	</select>
 </mapper>
