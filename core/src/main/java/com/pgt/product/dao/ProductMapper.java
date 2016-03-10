@@ -43,7 +43,7 @@ public interface ProductMapper extends SqlMapper {
 
     List<ProductMedia> queryProductMainMedias(@Param("productId") int pProductId);
 
-    ProductMedia queryProductThumbnailMedias(@Param("productId") int pProductId);
+    ProductMedia queryProductThumbnailMedia(@Param("productId") int pProductId);
 
     ProductMedia queryProductMobileDetailMedias(@Param("productId") int pProductId);
 
