@@ -254,14 +254,12 @@ a {
   .header .status-help-center,
   .header .status-login-btn,
   .header .status-register-btn,
-  .header .status-help-center,
-  .header .status-my-account {
+  .header .status-help-center {
     vertical-align: middle; }
     .header .status-help-center:hover,
     .header .status-login-btn:hover,
     .header .status-register-btn:hover,
-    .header .status-help-center:hover,
-    .header .status-my-account:hover {
+    .header .status-help-center:hover {
       color: #fe4040; }
   .header .status-my-account {
     position: relative;
@@ -272,19 +270,18 @@ a {
     position: absolute;
     display: none;
     width: 100px;
-    top: 40px;
-    right: -40px;
+    top: 55px;
+    right: -60px;
     line-height: 25px;
     background: white; }
     .header .status-my-account-detail li {
-      margin-top: 3px;
       text-align: center; }
     .header .status-my-account-detail a {
-      background: #86b5ed;
+      background: #ff6d6d;
       color: white;
       display: block; }
       .header .status-my-account-detail a:hover {
-        background: #2d7fe0; }
+        background: #fe4040; }
   .header .status-user-face-box {
     float: left;
     width: 100%;
