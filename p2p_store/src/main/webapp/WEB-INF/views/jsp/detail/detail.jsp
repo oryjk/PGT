@@ -94,7 +94,6 @@
 
 						<div class="small-img-box">
 							<ul class="thumblist">
-
 								<!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
 								<c:forEach items="${product.heroMedias}" var="media" varStatus="status">
 									<c:choose>
@@ -106,6 +105,7 @@
 												</a>
 											</li>
 										</c:when>
+
 										<c:otherwise>
 											<li>
 												<a class="" href='javascript:void(0);'
@@ -115,9 +115,7 @@
 											</li>
 										</c:otherwise>
 									</c:choose>
-
 								</c:forEach>
-
 							</ul>
 						</div>
 					</div>
