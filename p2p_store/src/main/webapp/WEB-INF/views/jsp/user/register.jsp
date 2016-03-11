@@ -30,7 +30,7 @@
                     <span><form:errors path="userExist"/><form:errors path="username"/></span>
                 </div>
                 <div class="userPhone input-focus">
-                    <input type="hidden" id="smsPath" data-value="<spring:url value="/sms/register?phoneNumber="/>">
+                    <input type="hidden" id="smsPath" data-value="/sms/register?phoneNumber=">
                     <form:input id="userPhone" path="phoneNumber" type="text"
                                 placeholder="您的手机号"/>
                     <span><form:errors path="phoneNumber"/><form:errors path="phoneExist"/></span>
@@ -72,7 +72,8 @@
 <jsp:include page="../core/baidu.jsp" />
 <!--footer end-->
 </body>
-<script type="application/javascript" src="/resources/core/js/require.js"></script>
-<script type="application/javascript" src="/resources/user/regist.js"></script>
+
+<script src="/resources/core/js/require.js"
+        data-main="/resources/user/regist.js"></script>
 
 </html>
