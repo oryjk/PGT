@@ -44,7 +44,7 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
     private HotProductHelper hotProductHelper;
 
     @Autowired
-    private productServiceImp productServiceImp;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private CategoryHelper categoryHelper;
@@ -157,7 +157,7 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
         this.hotProductHelper = hotProductHelper;
     }
 
-    public productServiceImp getProductServiceImp() {
+    public ProductServiceImp getProductServiceImp() {
         return productServiceImp;
     }
 
