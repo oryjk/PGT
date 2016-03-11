@@ -2,7 +2,7 @@ package product;
 
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
-import com.pgt.hot.service.HotProductService;
+import com.pgt.hot.service.HotProductServiceImp;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductCategoryRelation;
 import org.junit.Ignore;
@@ -24,7 +24,7 @@ import java.util.Random;
 public class HotProductTest {
 
     @Autowired
-    private HotProductService hotProductService;
+    private HotProductServiceImp hotProductServiceImp;
 
     @Test
     public void createTest() {
@@ -49,7 +49,7 @@ public class HotProductTest {
         ProductCategoryRelation productCategoryRelation = new ProductCategoryRelation();
         productCategoryRelation.setCategoryId(2);
         productCategoryRelation.setProductId(2);
-        hotProductService.createProductCategoryRelation(productCategoryRelation);
+        hotProductServiceImp.createProductCategoryRelation(productCategoryRelation);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class HotProductTest {
         ProductCategoryRelation productCategoryRelation = new ProductCategoryRelation();
         productCategoryRelation.setCategoryId(1);
         productCategoryRelation.setProductId(1);
-        hotProductService.deleteProductCategoryRelation(productCategoryRelation);
+        hotProductServiceImp.deleteProductCategoryRelation(productCategoryRelation);
     }
 
 

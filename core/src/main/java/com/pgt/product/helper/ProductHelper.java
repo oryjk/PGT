@@ -1,7 +1,7 @@
 package com.pgt.product.helper;
 
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.SearchPaginationBean;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ import java.util.List;
 public class ProductHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductHelper.class);
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     public List<Product> findProductsByCategoryId(String categoryId) {
         return findProductsByCategoryId(categoryId, -1);
@@ -37,7 +37,7 @@ public class ProductHelper {
         }
         SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
         searchPaginationBean.setTerm(productName);
-        return productService.queryProducts(searchPaginationBean);
+        return productServiceImp.queryProducts(searchPaginationBean);
 
     }
 
@@ -47,7 +47,7 @@ public class ProductHelper {
             return new ArrayList<>();
         }
         List<Product> products = new ArrayList<>();
-        productIds.stream().forEach(productId -> products.add(productService.queryProduct(productId)));
+        productIds.stream().forEach(productId -> products.add(productServiceImp.queryProduct(productId)));
         return products;
     }
 
@@ -60,11 +60,11 @@ public class ProductHelper {
         searchPaginationBean.setTerm(productName);
         searchPaginationBean.setCurrentIndex(offset);
         searchPaginationBean.setCapacity(limit);
-        return productService.queryProducts(searchPaginationBean);
+        return productServiceImp.queryProducts(searchPaginationBean);
     }
 
     public List<Product> findProducts(SearchPaginationBean searchPaginationBean) {
-        return productService.queryProducts(searchPaginationBean);
+        return productServiceImp.queryProducts(searchPaginationBean);
     }
 
 
@@ -83,7 +83,7 @@ public class ProductHelper {
      * @return
      */
     public List<Product> findAllProducts(Integer stock) {
-        return productService.queryAllProducts(stock);
+        return productServiceImp.queryAllProducts(stock);
     }
 
     private List<Product> findProductsByCategoryId(String categoryId, Integer stock) {
@@ -103,15 +103,8 @@ public class ProductHelper {
 
     public void createProduct(Integer categoryId, Product product) {
         LOGGER.debug("The categoryId is {categoryId}.", categoryId);
-        productService.createProduct(categoryId, product);
+        productServiceImp.createProduct(categoryId, product);
     }
 
 
-    public ProductService getProductService() {
-        return productService;
-    }
-
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
 }

@@ -73,6 +73,66 @@
 
     .status {
       float: right;
+      @include wh(234px, 100px);
+      line-height: 100px;
+      text-align: right;
+    }
+
+    .status-help-center,
+    .status-register-btn {
+      margin-left: 20px;
+    }
+
+    .status-help-center,
+    .status-login-btn,
+    .status-register-btn,
+    .status-help-center,
+    .status-my-account {
+      vertical-align: middle;
+
+      &:hover {
+        color: $main;
+      }
+    }
+
+    .status-my-account {
+      position: relative;
+      display: inline-block;
+      @include wh(40px, 40px);
+    }
+
+    .status-my-account-detail {
+      position: absolute;
+      display: none;
+      @include wh(100px);
+      top: 40px;
+      right: -40px;
+      line-height: 25px;
+      background: white;
+
+      li {
+        margin-top: 3px;
+        text-align: center;
+      }
+
+      a {
+        background: $em-light;
+        color: white;
+        display: block;
+
+        &:hover {
+          background: $em;
+        }
+      }
+    }
+
+    .status-user-face-box {
+      float: left;
+      @include wh(100%, 100%);
+    }
+
+    .status-user-face {
+      @include wh(100%, 100%);
     }
   }
 }

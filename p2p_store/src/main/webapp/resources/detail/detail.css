@@ -291,7 +291,55 @@ a {
         background: white;
         transition: width .2s linear; }
   .header .status {
-    float: right; }
+    float: right;
+    width: 234px;
+    height: 100px;
+    line-height: 100px;
+    text-align: right; }
+  .header .status-help-center,
+  .header .status-register-btn {
+    margin-left: 20px; }
+  .header .status-help-center,
+  .header .status-login-btn,
+  .header .status-register-btn,
+  .header .status-help-center,
+  .header .status-my-account {
+    vertical-align: middle; }
+    .header .status-help-center:hover,
+    .header .status-login-btn:hover,
+    .header .status-register-btn:hover,
+    .header .status-help-center:hover,
+    .header .status-my-account:hover {
+      color: #fe4040; }
+  .header .status-my-account {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px; }
+  .header .status-my-account-detail {
+    position: absolute;
+    display: none;
+    width: 100px;
+    top: 40px;
+    right: -40px;
+    line-height: 25px;
+    background: white; }
+    .header .status-my-account-detail li {
+      margin-top: 3px;
+      text-align: center; }
+    .header .status-my-account-detail a {
+      background: #86b5ed;
+      color: white;
+      display: block; }
+      .header .status-my-account-detail a:hover {
+        background: #2d7fe0; }
+  .header .status-user-face-box {
+    float: left;
+    width: 100%;
+    height: 100%; }
+  .header .status-user-face {
+    width: 100%;
+    height: 100%; }
 
 .footer {
   background: #3f3f3f; }
@@ -509,6 +557,10 @@ a {
 body {
   background: #f2f2f2; }
 
+.anchor {
+  position: relative;
+  top: -100px; }
+
 .invest {
   margin: 100px auto 0;
   width: 1040px; }
@@ -588,8 +640,7 @@ body {
     float: right;
     margin-right: 30px;
     width: 115px;
-    height: 115px;
-    background: #fefefe; }
+    height: 115px; }
   .invest .cost-box {
     font-size: 25px; }
   .invest .invest-begin-time {
@@ -630,6 +681,7 @@ body {
       height: 75px;
       background: url("../core/images/detail/turn-right.png"); }
     .invest .item-nav ul {
+      position: relative;
       width: 10000px; }
     .invest .item-nav li {
       float: left;
@@ -671,6 +723,9 @@ body {
   .detail-content .content-box .content-choose {
     display: block; }
 
+.content-item-list .zoomThumbActive {
+  outline: 2px solid #86b5ed; }
+
 .content-item-list .each-item {
   margin-bottom: 20px;
   border: 1px solid #cccccc;
@@ -696,7 +751,13 @@ body {
   height: 400px; }
 
 .content-item-list .small-img-box {
-  padding-top: 13px; }
+  padding: 13px 2px 2px 2px;
+  margin: 0 -2px;
+  overflow: hidden; }
+  .content-item-list .small-img-box .thumblist {
+    width: 400px; }
+  .content-item-list .small-img-box ul {
+    width: 10000px; }
   .content-item-list .small-img-box li {
     width: 90px;
     height: 90px;

@@ -15,7 +15,7 @@ import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.user.bean.User;
 import com.pgt.utils.URLMapping;
 import org.apache.commons.collections.CollectionUtils;
@@ -54,7 +54,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	private PriceOrderService mPriceOrderService;
 
 	@Autowired
-	private ProductService mProductService;
+	private ProductServiceImp productServiceImp;
 
 	@Resource(name="orderService")
 	private OrderService mOrderService;
@@ -139,7 +139,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	                                                 @RequestParam(value = "easyBuy", required = false, defaultValue = "0") int easyBuy) {
 		ModelAndView mav = new ModelAndView(getRedirectView(getURLMapping().getPDPUrl(String.valueOf(productId))));
 		// check product
-		Product product = getProductService().queryProduct(productId);
+		Product product = getProductServiceImp().queryProduct(productId);
 		if (!mShoppingCartService.checkProductValidity(product)) {
 			LOGGER.debug("Stop add item to cart for product: {} not available", productId);
 			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_NOT_AVAILABLE, StringUtils.EMPTY));
@@ -238,7 +238,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	                                          @RequestParam(value = "productId", required = true) int productId) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check product
-		Product product = getProductService().queryProduct(productId);
+		Product product = getProductServiceImp().queryProduct(productId);
 		if (!mShoppingCartService.checkProductValidity(product)) {
 			LOGGER.debug("Stop add item to cart for product: {} not available", productId);
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_NOT_AVAILABLE);
@@ -623,12 +623,12 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		mPriceOrderService = pPriceOrderService;
 	}
 
-	public ProductService getProductService () {
-		return mProductService;
+	public ProductServiceImp getProductServiceImp () {
+		return productServiceImp;
 	}
 
-	public void setProductService (final ProductService pProductService) {
-		mProductService = pProductService;
+	public void setProductServiceImp (final ProductServiceImp pProductServiceImp) {
+		productServiceImp = pProductServiceImp;
 	}
 
 	public URLMapping getURLMapping () {

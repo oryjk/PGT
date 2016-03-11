@@ -15,6 +15,7 @@
         <result column="update_date" property="updateDate"/>
         <result column="easy_buy" property="easyBuy"/>
         <result column="P2P_INFO_ID" property="p2pInfoId" />
+        <result column="HOLDER_ALIAS" property="holderAlias" />
         <result column="SUBMIT_DATE" property="submitDate"/>
         <association property="shippingVO" column="shipping_id"
                      select="com.pgt.shipping.dao.ShippingVOMapper.findShipping"/>
@@ -55,7 +56,7 @@
         UPDATE `ORDER`
         <set>
             status = #{status}, shipping_fee = #{shippingFee}, subtotal = #{subtotal}, total = #{total}, user_comments =
-            #{userComments},P2P_INFO_ID = #{p2pInfoId},
+            #{userComments},P2P_INFO_ID = #{p2pInfoId},HOLDER_ALIAS = #{holderAlias},
             submit_date = #{submitDate}, update_date = now()
         </set>
         WHERE order_id = #{id}

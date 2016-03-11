@@ -1,7 +1,7 @@
 package com.pgt.share.service;
 
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.share.bean.ShareOrder;
 import com.pgt.share.bean.ShareOrderQuery;
 import com.pgt.share.dao.ShareOrderMapper;
@@ -32,7 +32,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
     private UserService userService;
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Override
     public void createShareOrder(ShareOrder shareOrder) {
@@ -117,7 +117,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
             LOGGER.debug("The productId is empty");
             return null;
         }
-        Product product=productService.queryProduct(productId);
+        Product product=productServiceImp.queryProduct(productId);
         if(ObjectUtils.isEmpty(product)){
             LOGGER.debug("The product is empty and id is {}",productId);
             return null;
