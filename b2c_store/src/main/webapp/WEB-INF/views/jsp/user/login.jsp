@@ -57,7 +57,14 @@
             </div>
             <form:input id="loginCount" type="hidden" path="count" value=""/>
             <input type="hidden" name="redirect" value="${param.redirect }"/>
+            <div class="domain">
+                快捷登录方式：
+                <a href="/qqLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/QQ.png"/>"></a>
+                <a href="#"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/wet.jpg"/>"></a>
+                <a href="#"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/sina.jpg"/>"></a>
+            </div>
         </form:form>
+
     </div>
 </div>
 

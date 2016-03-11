@@ -1,5 +1,7 @@
 package com.pgt.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +35,23 @@ public class TenderDateUtils {
             e.printStackTrace();
         }
         return day;
+    }
+
+    public static Date convert(String value) {
+
+        String date = "" + value;
+        long time = Long.valueOf(date);
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(time);
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String s = dateformat.format(c.getTime());
+
+        try {
+        return   dateformat.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
