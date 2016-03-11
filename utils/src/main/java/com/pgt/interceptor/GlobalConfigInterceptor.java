@@ -161,8 +161,8 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
         return productServiceImp;
     }
 
-    public void setProductServiceImp(productServiceImp ProductServiceImp) {
-        this.productServiceImp = ProductServiceImp;
+    public void setProductServiceImp(ProductServiceImp productServiceImp ) {
+        this.productServiceImp = productServiceImp;
     }
 
     public CategoryHelper getCategoryHelper() {
