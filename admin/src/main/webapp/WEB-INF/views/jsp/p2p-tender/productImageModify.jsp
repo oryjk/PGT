@@ -10,10 +10,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<admin:container id="productList" pageJsPath="/resources/p2p-tender/product-add-and-modify.js" pageCssPath="/resources/product/product-add-and-modify.css" >
+<admin:container id="productList" pageJsPath="/resources/p2p-tender/product-add-and-modify.js" pageCssPath="/resources/product/product-add-and-modify.css">
 	<input type="hidden" value="${pageContext.request.contextPath}" id="contextPath"/>
 	<input type="hidden" value="${product.name}" id="productName"/>
 	<input type="hidden" value="${product.productId}" id="productId"/>
+
 	<div class="row">
 		<div class="col-xs-12">
 			<ul class="page-breadcrumb breadcrumb">
@@ -65,6 +66,7 @@
 								<div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">略缩图</label>
+
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
 												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
@@ -79,15 +81,17 @@
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.thumbnailMedia.id}">删除</a>
 												</div>
 												<img class="pgt-thumbnail-img" src="${product.thumbnailMedia.path}" alt=""/>
+
 												<p></p>
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">首页图</label>
+
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture"  data-pgt-btn="single" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
 												<input name="mediaType" type="hidden" value="advertisement"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -99,15 +103,17 @@
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.advertisementMedia.id}">删除</a>
 												</div>
 												<img class="pgt-advertisement-img" src="${product.advertisementMedia.path}" alt=""/>
+
 												<p></p>
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">列表图</label>
+
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-												<input class="pgt-file-btn" name="uploadPicture"  data-pgt-btn="single" type="file"/>
+												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
 												<input name="mediaType" type="hidden" value="front"/>
 												<button type="button" class="btn blue">选择图片</button>
 											</form>
@@ -119,12 +125,14 @@
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.frontMedia.id}">删除</a>
 												</div>
 												<img class="pgt-front-img" src="${product.frontMedia.path}" alt=""/>
+
 												<p></p>
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">主图</label>
+
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
 												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="multiple" type="file"/>
@@ -140,6 +148,7 @@
 														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${heroMedia.id}">删除</a>
 													</div>
 													<img class="pgt-hero-img" src="${heroMedia.path}" alt=""/>
+
 													<p class="pgt-img-size"></p>
 												</div>
 											</c:forEach>
@@ -147,6 +156,7 @@
 									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">详情图</label>
+
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
 												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="multiple" type="file"/>
@@ -162,6 +172,7 @@
 														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-multiple" data-url="/media/delete/${mainMedia.id}">删除</a>
 													</div>
 													<img class="pgt-hero-img" src="${mainMedia.path}" alt=""/>
+
 													<p class="pgt-img-size">100 * 100</p>
 												</div>
 											</c:forEach>
@@ -169,6 +180,7 @@
 									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">专家点评</label>
+
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
 												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
@@ -179,17 +191,19 @@
 										</div>
 
 										<div class="col-md-8">
-												<div class="pgt-each-img">
-													<div class="pgt-handle-box">
-														<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.expertMedia.id}">删除</a>
-													</div>
-													<img class="pgt-hero-img" src="${product.expertMedia.path}" alt=""/>
-													<p class="pgt-img-size"></p>
+											<div class="pgt-each-img">
+												<div class="pgt-handle-box">
+													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.expertMedia.id}">删除</a>
 												</div>
+												<img class="pgt-hero-img" src="${product.expertMedia.path}" alt=""/>
+
+												<p class="pgt-img-size"></p>
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">手机详情图</label>
+
 										<div class="col-md-2">
 											<form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
 												<input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
@@ -205,15 +219,23 @@
 													<a class="pgt-img-delete" href="#" data-pgt-btn="delete-single" data-url="/media/delete/${product.mobileDetailMedia.id}">删除</a>
 												</div>
 												<img class="pgt-hero-img" src="${product.mobileDetailMedia.path}" alt=""/>
+
 												<p class="pgt-img-size"></p>
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="col-md-8"style="float: right" ><a href="/tender/addProductStepBase?tenderId=${product.tenderId}">
-											<button id="searchBtn" style="float: right" class="btn blue">
-												继续添加产品
-											</button>
+										<div class="col-md-8" style="float: right">
+
+											<a href="/tender/addProductStepBase?tenderId=${product.tenderId}">
+												<button id="searchBtn" style="float: right" class="btn blue">
+													继续添加产品
+												</button>
+											</a>
+											<a href="/tender/queryTenderById/${product.tenderId}">
+												<button id="" style="float: right" class="btn blue">
+													回到当品列表
+												</button>
 											</a>
 										</div>
 									</div>
