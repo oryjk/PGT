@@ -557,6 +557,10 @@ a {
 body {
   background: #f2f2f2; }
 
+.anchor {
+  position: relative;
+  top: -100px; }
+
 .invest {
   margin: 100px auto 0;
   width: 1040px; }
@@ -677,6 +681,7 @@ body {
       height: 75px;
       background: url("../core/images/detail/turn-right.png"); }
     .invest .item-nav ul {
+      position: relative;
       width: 10000px; }
     .invest .item-nav li {
       float: left;
@@ -746,7 +751,13 @@ body {
   height: 400px; }
 
 .content-item-list .small-img-box {
-  padding-top: 13px; }
+  padding: 13px 2px 2px 2px;
+  margin: 0 -2px;
+  overflow: hidden; }
+  .content-item-list .small-img-box .thumblist {
+    width: 400px; }
+  .content-item-list .small-img-box ul {
+    width: 10000px; }
   .content-item-list .small-img-box li {
     width: 90px;
     height: 90px;
