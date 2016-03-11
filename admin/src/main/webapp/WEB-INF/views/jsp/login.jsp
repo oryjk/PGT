@@ -56,9 +56,6 @@
 <!-- END SIDEBAR TOGGLER BUTTON -->
 <!-- BEGIN LOGO -->
 <div class="logo">
-    <a href="index.html">
-        <img src="${ctx}/resources/assets/admin/layout3/img/logo-big.png" alt="" />
-    </a>
 </div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->

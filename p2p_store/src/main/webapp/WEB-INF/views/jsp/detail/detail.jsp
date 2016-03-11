@@ -52,7 +52,7 @@
 		</div>
 	</div>
 	<div class="item-nav">
-		<ul  id="itemNavBox" style="left: 0;top: 0;">
+		<ul id="itemNavBox" style="left: 0;top: 0;">
 			<c:forEach items="${ESTender.tender. p2pHeroMedias}" var="media">
 				<li><a href="#"><img src="${media.path}" alt="${ESTender.tender.imageDesc}"/></a></li>
 			</c:forEach>
@@ -81,43 +81,44 @@
 		<!-- content-item-list begin -->
 		<div class="content-item-list content-choose">
 
-			<c:forEach items="${ESTender.tender.products}" var="product">
+			<c:forEach items="${ESTender.tender.products}" var="product" varStatus="status">
+				<c:set var="sq" value="${status.index}"/>
 				<div class="each-item">
 					<div class="item-img-box">
 						<div class="middle-img-box">
 							<!-- super:rel传入item的id号-->
-							<a href="${product.heroMedias[0].path}" class="jqzoom" rel='1' title="triumph">
+							<a href="${product.heroMedias[0].path}" class="jqzoom" rel='${sq}' title="triumph">
 								<img class="middle-img" src="${product.heroMedias[0].path}" title="triumph">
 							</a>
 						</div>
 
 						<div class="small-img-box">
-							<ul class="thumblist">
+							<div class="thumblist">
+								<ul>
+									<!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+									<c:forEach items="${product.heroMedias}" var="media" varStatus="status">
+										<c:choose>
+											<c:when test="${status.index==0}">
+												<li>
+													<a class="zoomThumbActive" href='javascript:void(0);'
+													   rel="{gallery: '${sq}', smallimage: '${media.path}',largeimage: '${media.path}'}">
+														<img class="small-img" src='${media.path}'>
+													</a>
+												</li>
+											</c:when>
 
-								<!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
-								<c:forEach items="${product.heroMedias}" var="media" varStatus="status">
-									<c:choose>
-										<c:when test="${status.index==0}">
-											<li>
-												<a class="zoomThumbActive" href='javascript:void(0);'
-												   rel="{gallery: '1', smallimage: '${media.path}',largeimage: '${media.path}'}">
-													<img class="small-img" src='${media.path}'>
-												</a>
-											</li>
-										</c:when>
-										<c:otherwise>
-											<li>
-												<a class="" href='javascript:void(0);'
-												   rel="{gallery:'1', smallimage: '${media.path}',largeimage: '${media.path}'}">
-													<img class="small-img" src='${media.path}'>
-												</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
-
-								</c:forEach>
-
-							</ul>
+											<c:otherwise>
+												<li>
+													<a class="" href='javascript:void(0);'
+													   rel="{gallery:'${sq}', smallimage: '${media.path}',largeimage: '${media.path}'}">
+														<img class="small-img" src='${media.path}'>
+													</a>
+												</li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</ul>
+							</div>
 						</div>
 					</div>
 
