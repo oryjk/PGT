@@ -132,7 +132,7 @@ input, select {
   vertical-align: middle; }
 
 body {
-  font-family: '微软雅黑', serif; }
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
 
 ul,
 ol {
@@ -142,9 +142,9 @@ a {
   text-decoration: none; }
 
 .link-btn {
-  color: #86b5ed; }
+  color: #5a98e6; }
   .link-btn:hover {
-    color: #2d7fe0; }
+    text-decoration: underline; }
 
 .hide {
   display: none !important; }
@@ -191,7 +191,7 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
@@ -224,7 +224,7 @@ a {
     .header .status-login-btn:hover,
     .header .status-register-btn:hover,
     .header .status-help-center:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .status-my-account {
     position: relative;
     display: inline-block;
@@ -245,7 +245,7 @@ a {
       color: white;
       display: block; }
       .header .status-my-account-detail a:hover {
-        background: #fe4040; }
+        background: #ff6d6d; }
   .header .status-user-face-box {
     float: left;
     width: 100%;
@@ -280,7 +280,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #fe4040;
+    background: #ff6d6d;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -426,11 +426,11 @@ body {
       line-height: 40px;
       font-size: 16px; }
       .menu .menu-list a:hover {
-        color: #fe4040; }
+        color: #ff6d6d; }
     .menu .menu-list .menu-choose {
       border-top: 1px solid #cccccc;
       border-bottom: 1px solid #cccccc;
-      border-left: 5px solid #fe4040;
+      border-left: 5px solid #ff6d6d;
       background: white; }
       .menu .menu-list .menu-choose:hover {
         color: black; }

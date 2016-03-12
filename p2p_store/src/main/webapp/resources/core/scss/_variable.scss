@@ -1,15 +1,15 @@
 //color:
-$main: #fe4040;
+$main: #ff6d6d;
 $vice: yellow;
-$em: #2d7fe0;
+$em: #86b4ed;
 
-$main-dark: darken($main, 20%);
-$vice-dark: darken($vice, 20%);
-$em-dark: darken($em, 20%);
+$main-dark: darken($main, 10%);
+$vice-dark: darken($vice, 10%);
+$em-dark: darken($em, 10%);
 
-$main-light: lighten($main, 20%);
-$vice-light: lighten($vice, 20%);
-$em-light: lighten($em, 20%);
+$main-light: lighten($main, 10%);
+$vice-light: lighten($vice, 10%);
+$em-light: lighten($em, 10%);
 
 $gray-base: #000 !default;
 $gray-darker: lighten($gray-base, 13.5%) !default; // #222

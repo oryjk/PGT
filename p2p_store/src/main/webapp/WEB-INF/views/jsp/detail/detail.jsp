@@ -148,7 +148,7 @@
 							<div class="col-content">免运费</div>
 						</div>
 						<div class="item-row-5">
-							<div class="col-title">预计收获时间:</div>
+							<div class="col-title">预计收货时间:</div>
 							<div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
 						</div>
 						<div class="item-row-6">

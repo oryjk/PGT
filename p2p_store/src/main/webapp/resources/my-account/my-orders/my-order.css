@@ -38,9 +38,9 @@
       color: black;
       font-size: 18px; }
   .filter-invest-status .filter-invest-choose {
-    border-bottom: 2px solid #fe4040; }
+    border-bottom: 2px solid #ff6d6d; }
     .filter-invest-status .filter-invest-choose a {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .filter-invest-status .filter-invest-end a {
     border-right: none; }
 
@@ -95,8 +95,8 @@
     height: 100px;
     text-align: center; }
     .order-list .order-img a:hover {
-      border-color: #2d7fe0;
-      box-shadow: 0 0 2px 1px #2d7fe0; }
+      border-color: #86b4ed;
+      box-shadow: 0 0 2px 1px #86b4ed; }
   .order-list .order-img img {
     width: 100%;
     height: 100%; }
@@ -113,9 +113,9 @@
     .order-list .order-base-info a {
       color: black; }
       .order-list .order-base-info a:hover {
-        color: #fe4040; }
+        color: #ff6d6d; }
   .order-list .will-pay {
-    color: #fe4040; }
+    color: #ff6d6d; }
   .order-list .order-handle p {
     line-height: 30px; }
   .order-list .order-handle .pay-now {
@@ -125,14 +125,14 @@
     width: 90px;
     height: 25px;
     font-size: 14px;
-    background: #fe4040;
+    background: #ff6d6d;
     border-radius: 3px;
     line-height: 25px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .order-list .order-handle .pay-now:hover {
-      background: #d70101; }
+      background: #ff3a3a; }
 
 .page-box {
   padding-top: 20px; }
@@ -153,14 +153,14 @@
     height: 30px;
     color: #555555; }
     .page-box a:hover {
-      border-color: #fe4040;
+      border-color: #ff6d6d;
       color: white;
-      background: #fe4040; }
+      background: #ff6d6d; }
   .page-box .current-page,
   .page-box .current-page:hover {
     border-color: white;
     background: white;
-    color: #fe4040;
+    color: #ff6d6d;
     font-size: 18px;
     font-weight: 900;
     cursor: default; }

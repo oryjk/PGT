@@ -132,7 +132,7 @@ input, select {
   vertical-align: middle; }
 
 body {
-  font-family: '微软雅黑', serif; }
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
 
 ul,
 ol {
@@ -142,9 +142,9 @@ a {
   text-decoration: none; }
 
 .link-btn {
-  color: #86b5ed; }
+  color: #5a98e6; }
   .link-btn:hover {
-    color: #2d7fe0; }
+    text-decoration: underline; }
 
 .hide {
   display: none !important; }
@@ -191,7 +191,7 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
@@ -224,7 +224,7 @@ a {
     .header .status-login-btn:hover,
     .header .status-register-btn:hover,
     .header .status-help-center:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .status-my-account {
     position: relative;
     display: inline-block;
@@ -245,7 +245,7 @@ a {
       color: white;
       display: block; }
       .header .status-my-account-detail a:hover {
-        background: #fe4040; }
+        background: #ff6d6d; }
   .header .status-user-face-box {
     float: left;
     width: 100%;
@@ -280,7 +280,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #fe4040;
+    background: #ff6d6d;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -406,7 +406,7 @@ body {
     margin-left: 82px;
     float: left;
     border: 1px solid #cccccc;
-    border-top: 3px solid #fe4040;
+    border-top: 3px solid #ff6d6d;
     width: 400px;
     height: 380px;
     box-shadow: 0 10px 15px #555555; }
@@ -425,7 +425,7 @@ body {
         text-align: center;
         line-height: 50px; }
         .content .login .login-title span a {
-          color: #fe4040; }
+          color: #ff6d6d; }
           .content .login .login-title span a:hover {
             text-decoration: underline; }
     .content .login .login-box {
@@ -449,25 +449,25 @@ body {
           outline: none; }
           .content .login .login-box .username-box input:focus,
           .content .login .login-box .password-box input:focus {
-            border-color: #2d7fe0; }
+            border-color: #86b4ed; }
       .content .login .login-box .username-box input {
         background: url("../core/images/user/user_03.png") 10px 12px no-repeat; }
       .content .login .login-box .password-box input {
         background: url("../core/images/user/password_07.png") 10px 12px no-repeat; }
       .content .login .login-box .font-box {
-        color: #fe4040;
+        color: #ff6d6d;
         padding: 5px 0 0 35px;
         font-size: 14px; }
       .content .login .login-box .other-box a {
         margin-left: 170px;
         text-decoration: none;
-        color: #fe4040; }
+        color: #ff6d6d; }
         .content .login .login-box .other-box a:hover {
-          color: #fe4040;
+          color: #ff6d6d;
           text-decoration: underline; }
       .content .login .login-box .other-box span {
         display: block;
-        color: #fe4040; }
+        color: #ff6d6d; }
       .content .login .login-box .auth-box input {
         width: 100px;
         height: 34px;
@@ -481,7 +481,7 @@ body {
         text-decoration: none;
         color: #cccccc; }
         .content .login .login-box .auth-box a:hover {
-          color: #fe4040;
+          color: #ff6d6d;
           text-decoration: underline; }
       .content .login .login-box .sub-box input {
         margin: 10px 0 0 35px;
@@ -491,7 +491,7 @@ body {
         height: 40px;
         font-size: 20px;
         color: white;
-        background: #fe4040; }
+        background: #ff6d6d; }
         .content .login .login-box .sub-box input:hover {
           color: white;
           background: #ff6d6d; }
@@ -505,6 +505,6 @@ body {
 /*for js
 ********************************************************************/
 .content .content-box .login .input-error input {
-  border-color: #fe4040; }
+  border-color: #ff6d6d; }
 
 /*# sourceMappingURL=../../maps/user/login.css.map */

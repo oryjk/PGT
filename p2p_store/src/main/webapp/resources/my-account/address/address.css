@@ -42,14 +42,14 @@
     width: 120px;
     height: 35px;
     font-size: 16px;
-    background: #fe4040;
+    background: #ff6d6d;
     border-radius: 3px;
     line-height: 35px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .address-altogether .address-add:hover {
-      background: #d70101; }
+      background: #ff3a3a; }
 
 .address-list li {
   position: relative;
@@ -58,7 +58,7 @@
   border: 2px solid #cccccc; }
 
 .address-list .address-default {
-  border: 2px solid #fe4040;
+  border: 2px solid #ff6d6d;
   background: url("../../core/images/my_account/address-default.jpg") no-repeat left top; }
 
 .address-list .receive-name {
@@ -113,7 +113,7 @@
     overflow: hidden; }
   .pop-up h3 {
     padding: 10px 20px;
-    background: #fe4040;
+    background: #ff6d6d;
     color: white; }
     .pop-up h3 .pop-title {
       color: white;
@@ -138,14 +138,14 @@
     width: 60px;
     height: 30px;
     font-size: 16px;
-    background: #fe4040;
+    background: #ff6d6d;
     border-radius: 3px;
     line-height: 30px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .pop-up .pop-confirm:hover {
-      background: #d70101; }
+      background: #ff3a3a; }
   .pop-up .pop-cancel {
     margin-left: 10px;
     display: inline-block;
@@ -255,6 +255,6 @@
     width: 470px;
     height: 26px; }
   .pop-up .pop-error {
-    color: #fe4040; }
+    color: #ff6d6d; }
 
 /*# sourceMappingURL=../../../maps/my-account/address/address.css.map */

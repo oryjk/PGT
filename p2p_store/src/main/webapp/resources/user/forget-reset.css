@@ -132,7 +132,7 @@ input, select {
   vertical-align: middle; }
 
 body {
-  font-family: '微软雅黑', serif; }
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
 
 ul,
 ol {
@@ -142,9 +142,9 @@ a {
   text-decoration: none; }
 
 .link-btn {
-  color: #86b5ed; }
+  color: #5a98e6; }
   .link-btn:hover {
-    color: #2d7fe0; }
+    text-decoration: underline; }
 
 .hide {
   display: none !important; }
@@ -191,7 +191,7 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
@@ -224,7 +224,7 @@ a {
     .header .status-login-btn:hover,
     .header .status-register-btn:hover,
     .header .status-help-center:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .status-my-account {
     position: relative;
     display: inline-block;
@@ -245,7 +245,7 @@ a {
       color: white;
       display: block; }
       .header .status-my-account-detail a:hover {
-        background: #fe4040; }
+        background: #ff6d6d; }
   .header .status-user-face-box {
     float: left;
     width: 100%;
@@ -280,7 +280,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #fe4040;
+    background: #ff6d6d;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -434,14 +434,14 @@ td {
   width: 100px;
   height: 30px;
   font-size: 16px;
-  background: #fe4040;
+  background: #ff6d6d;
   border-radius: 3px;
   line-height: 30px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .input-next:hover {
-    background: #d70101; }
+    background: #ff3a3a; }
 
 .input-cancel {
   display: inline-block;
@@ -462,7 +462,7 @@ td {
 
 .error {
   font-size: 14px;
-  color: #fe4040; }
+  color: #ff6d6d; }
 
 .input-username .input-row-1, .set-password .input-row-1,
 .input-username .input-row-2, .set-password .input-row-2,
@@ -494,7 +494,7 @@ td {
   width: 120px;
   height: 30px;
   font-size: 14px;
-  background: #fe4040;
+  background: #ff6d6d;
   border-radius: 3px;
   line-height: 30px;
   color: white;
@@ -502,7 +502,7 @@ td {
   cursor: pointer; }
   .test-identity .get-phone-confirm-code:hover,
   .test-identity .get-email-confirm-code:hover {
-    background: #d70101; }
+    background: #ff3a3a; }
 
 .test-identity select {
   width: 120px;
@@ -512,7 +512,7 @@ td {
   padding-left: 528px; }
   .reset-success .success-row-1 {
     font-size: 25px;
-    color: #fe4040; }
+    color: #ff6d6d; }
   .reset-success .success-row-2,
   .reset-success .success-row-3 {
     padding-top: 20px; }

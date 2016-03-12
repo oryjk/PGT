@@ -216,7 +216,7 @@ input, select {
   vertical-align: middle; }
 
 body {
-  font-family: '微软雅黑', serif; }
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
 
 ul,
 ol {
@@ -226,9 +226,9 @@ a {
   text-decoration: none; }
 
 .link-btn {
-  color: #86b5ed; }
+  color: #5a98e6; }
   .link-btn:hover {
-    color: #2d7fe0; }
+    text-decoration: underline; }
 
 .hide {
   display: none !important; }
@@ -275,7 +275,7 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
@@ -308,7 +308,7 @@ a {
     .header .status-login-btn:hover,
     .header .status-register-btn:hover,
     .header .status-help-center:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .status-my-account {
     position: relative;
     display: inline-block;
@@ -329,7 +329,7 @@ a {
       color: white;
       display: block; }
       .header .status-my-account-detail a:hover {
-        background: #fe4040; }
+        background: #ff6d6d; }
   .header .status-user-face-box {
     float: left;
     width: 100%;
@@ -364,7 +364,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #fe4040;
+    background: #ff6d6d;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -486,7 +486,7 @@ a {
     line-height: 1;
     color: #555555; }
     .recommend-box .recommend-change:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .recommend-box li {
     position: relative;
     top: 0;
@@ -516,7 +516,7 @@ a {
     .recommend-box h4 a {
       color: black; }
       .recommend-box h4 a:hover {
-        color: #fe4040; }
+        color: #ff6d6d; }
   .recommend-box .recommend-progress-bar {
     position: relative;
     display: inline-block;
@@ -530,7 +530,7 @@ a {
       position: absolute;
       top: 0;
       left: 0;
-      background: #86b5ed;
+      background: #b2d0f4;
       border-radius: 5px;
       height: 10px; }
   .recommend-box .recommend-progress-text {
@@ -547,9 +547,9 @@ a {
 /*style
 **************************************************************************************************************************************************/
 .detail-content .tab a:hover, .detail-content .tab a.tab-choose {
-  color: #fe4040;
+  color: #ff6d6d;
   padding-bottom: 4px;
-  border-bottom: 2px solid #fe4040; }
+  border-bottom: 2px solid #ff6d6d; }
 
 body {
   background: #f2f2f2; }
@@ -567,7 +567,7 @@ body {
     font-family: '黑体', serif; }
   .invest .invest-sub-head {
     padding-top: 10px;
-    color: #fe4040; }
+    color: #ff6d6d; }
   .invest .invest-info {
     padding-top: 24px; }
   .invest .invest-img {
@@ -595,7 +595,7 @@ body {
     width: 131px;
     height: 43px;
     font-size: 16px;
-    background: #fe4040;
+    background: #ff6d6d;
     border-radius: 3px;
     line-height: 43px;
     color: white;
@@ -603,7 +603,7 @@ body {
     cursor: pointer;
     margin-top: 16px; }
     .invest .invest-add-favorite:hover {
-      background: #d70101; }
+      background: #ff3a3a; }
   .invest .invest-scan-count {
     float: right;
     display: inline-block;
@@ -612,7 +612,7 @@ body {
     width: 131px;
     height: 43px;
     font-size: 16px;
-    background: #2d7fe0;
+    background: #86b4ed;
     border-radius: 3px;
     line-height: 43px;
     color: white;
@@ -620,7 +620,7 @@ body {
     cursor: pointer;
     margin-top: 16px; }
     .invest .invest-scan-count:hover {
-      background: #2d7fe0; }
+      background: #86b4ed; }
   .invest .invest-data {
     float: right;
     margin-top: 25px;
@@ -721,7 +721,7 @@ body {
     display: block; }
 
 .content-item-list .zoomThumbActive {
-  outline: 2px solid #86b5ed; }
+  outline: 2px solid #b2d0f4; }
 
 .content-item-list .each-item {
   margin-bottom: 20px;
@@ -761,7 +761,7 @@ body {
     float: left;
     margin-right: 13.33333px; }
     .content-item-list .small-img-box li:hover {
-      outline: 2px solid #ffa5a5; }
+      outline: 2px solid #ffa0a0; }
   .content-item-list .small-img-box .item-samll-end {
     margin-right: 0; }
   .content-item-list .small-img-box a {
@@ -800,7 +800,7 @@ body {
   line-height: 1.5; }
 
 .content-item-list .item-cost {
-  color: #d70101;
+  color: #ff3a3a;
   font-size: 22px;
   font-weight: 900; }
 
@@ -811,14 +811,14 @@ body {
   width: 160px;
   height: 40px;
   font-size: 20px;
-  background: #fe4040;
+  background: #ff6d6d;
   border-radius: 0;
   line-height: 40px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .content-item-list .item-buy-now:hover {
-    background: #d70101; }
+    background: #ff3a3a; }
 
 .content-item-list .item-join-favorite {
   display: inline-block;
@@ -827,14 +827,14 @@ body {
   width: 160px;
   height: 40px;
   font-size: 20px;
-  background: #2d7fe0;
+  background: #86b4ed;
   border-radius: 0;
   line-height: 40px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .content-item-list .item-join-favorite:hover {
-    background: #154e92; }
+    background: #5a98e6; }
 
 .content-item-list .item-row-7 {
   position: relative; }
@@ -850,12 +850,12 @@ body {
     display: block;
     width: 50px;
     height: 15px;
-    background: #fe4040;
+    background: #ff6d6d;
     text-align: center;
     line-height: 15px;
     color: white; }
     .content-item-list .plus-and-minus a:hover {
-      background: #d70101; }
+      background: #ff3a3a; }
 
 .content-item-list .item-buy-minus {
   margin-top: 1px; }
@@ -900,14 +900,14 @@ body {
     width: 80px;
     height: 25px;
     font-size: 16px;
-    background: #fe4040;
+    background: #ff6d6d;
     border-radius: 3px;
     line-height: 25px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .content-question .ask-submit:hover, .content-discuss .ask-submit:hover {
-      background: #d70101; }
+      background: #ff3a3a; }
   .content-question .question-list, .content-discuss .question-list {
     padding-top: 20px;
     margin: 0 auto;
@@ -933,9 +933,9 @@ body {
   .content-question .question-row-3, .content-discuss .question-row-3 {
     font-weight: 700; }
   .content-question .question-row-2, .content-discuss .question-row-2 {
-    color: #2d7fe0; }
+    color: #86b4ed; }
   .content-question .question-row-4, .content-discuss .question-row-4 {
-    color: #fe4040; }
+    color: #ff6d6d; }
   .content-question .question-time, .content-discuss .question-time {
     float: right;
     padding-top: 12px;
