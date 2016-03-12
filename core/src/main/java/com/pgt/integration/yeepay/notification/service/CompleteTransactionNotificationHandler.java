@@ -152,7 +152,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 		transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
 		if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
-			order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWENER);
+			order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWNER);
 		} else {
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
 		}
@@ -183,7 +183,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			transaction.setUpdateDate(now);
 			getPaymentService().updateTransaction(transaction);
 		} else {
-			
+
 			// update payment group status
 			paymentGroup.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
 			getPaymentService().updatePaymentGroup(paymentGroup);

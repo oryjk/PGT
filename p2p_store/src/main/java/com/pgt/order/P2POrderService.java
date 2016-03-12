@@ -416,7 +416,7 @@ public class P2POrderService extends OrderService {
             transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
             if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
                 transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
-                order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWENER);
+                order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWNER);
                 result = true;
             } else {
                 transaction.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
