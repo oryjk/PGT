@@ -117,8 +117,8 @@ public class P2PCheckoutController {
             Order order = result.getLeft();
             // check inventory
             getTenderInventoryService().lockInventory(order);
-            ModelAndView modelAndView = new ModelAndView("redirect:/checkout/shipping");
-            modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
+            ModelAndView modelAndView = new ModelAndView("/checkout/shipping");
+            modelAndView.addObject(CartConstant.ORDER, order);
             return modelAndView;
         } catch (OrderPersistentException | LockInventoryException ex) {
             LOGGER.error(ex.getMessage(), ex);
