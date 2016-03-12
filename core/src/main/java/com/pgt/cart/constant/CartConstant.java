@@ -5,30 +5,32 @@ package com.pgt.cart.constant;
  */
 public interface CartConstant {
 
-	String ERROR_MSG = "error_message";
+    String ERROR_MSG = "error_message";
 
-	String CURRENT_ORDER = "order";
-	
-	String ORDER_ID = "orderId";
+    String CURRENT_ORDER = "order";
 
-	String CURRENT_ORDER_ITEM_COUNT = "itemCount";
+    String ORDER_ID = "orderId";
 
-	String ORDER_HISTORY = "historyOrders";
+    String CURRENT_ORDER_ITEM_COUNT = "itemCount";
 
-	String ORDER_HISTORY_DETAIL = "historyOrder";
+    String ORDER_HISTORY = "historyOrders";
 
-	String ORDER_TENDER = "historyOrderTender";
+    String ORDER_HISTORY_DETAIL = "historyOrder";
 
-	String FAVOURITES = "favourites";
+    String ORDER_TENDER = "historyOrderTender";
 
-	String RECOMMEND_PRODUCTS = "recommendProducts";
+    String FAVOURITES = "favourites";
 
-	String BROWSED_PRODUCTS = "browsedProducts";
-	
-	String ORDER_KEY_PREFIX = "orderId";
+    String RECOMMEND_PRODUCTS = "recommendProducts";
 
-	String ORDER_ITEM_LIMIT = "orderItemLimit";
+    String BROWSED_PRODUCTS = "browsedProducts";
 
-	String PAY_ONLY = "payOnly";
+    String ORDER_KEY_PREFIX = "orderId";
 
+    String ORDER_ITEM_LIMIT = "orderItemLimit";
+
+    String PAY_ONLY = "payOnly";
+    String ESTIMATED_SHIP_DATE = "estimatedShipDate";
+
+    String ORDER = "order";
 }

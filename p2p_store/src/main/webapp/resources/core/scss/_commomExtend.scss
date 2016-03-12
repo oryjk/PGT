@@ -12,6 +12,13 @@
   *zoom: 1;
 }
 
+//inline-block
+%inline-block {
+  display:inline-block;
+  *display:inline;
+  *zoom:1;
+}
+
 //纯链接
 %link {
   color: $main;

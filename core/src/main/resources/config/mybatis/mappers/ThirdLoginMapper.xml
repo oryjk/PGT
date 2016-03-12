@@ -28,6 +28,14 @@
         FROM USERS WHERE user_id = #{USER_ID}
     </select>
 
+    <select id="queryThirdLoginByToken" parameterType="Integer" resultMap="thirdLoginResult">
+     SELECT * FROM THIRD_LOGIN WHERE TOKEN =#{openId}
+    </select>
+
+
+    <select id="queryThirdLoginByOpenId" parameterType="Integer" resultMap="thirdLoginResult">
+        SELECT * FROM THIRD_LOGIN WHERE OPEN_ID =#{token}
+    </select>
 
     <!-- insert a ThirdLogin bean -->
     <insert id="createThirdLogin" parameterType="com.pgt.user.bean.ThirdLogin"

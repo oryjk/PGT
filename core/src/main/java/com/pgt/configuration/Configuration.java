@@ -34,6 +34,7 @@ public class Configuration {
 	private Integer adminCategoryCapacity;
 	private String imageFolder="/image/upload/";
 	private String staticServer="http://www.pgt_admin.com";
+	private Site currentSite;
 	public static final String ADMIN_PHONENUMBER = "";
 
 	private boolean useProxy=true;
@@ -261,5 +262,13 @@ public class Configuration {
 
 	public void setUserCacheTokenKey(String userCacheTokenKey) {
 		this.userCacheTokenKey = userCacheTokenKey;
+	}
+
+	public Site getCurrentSite() {
+		return currentSite;
+	}
+
+	public void setCurrentSite(Site currentSite) {
+		this.currentSite = currentSite;
 	}
 }

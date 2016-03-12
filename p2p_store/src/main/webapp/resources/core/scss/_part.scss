@@ -86,9 +86,12 @@
     .status-help-center,
     .status-login-btn,
     .status-register-btn,
-    .status-help-center,
-    .status-my-account {
+    .status-help-center {
       vertical-align: middle;
+
+      &:hover {
+        color: $main;
+      }
     }
 
     .status-my-account {
@@ -99,10 +102,27 @@
 
     .status-my-account-detail {
       position: absolute;
-      border: 1px solid black;
-      @include wh(200px, 300px);
-      top: 40px;
-      right: -50px;
+      display: none;
+      @include wh(100px);
+      top: 55px;
+      right: -60px;
+      line-height: 25px;
+      background: white;
+
+      li {
+        text-align: center;
+      }
+
+      a {
+        background: #ff6d6d;
+        color: white;
+        display: block;
+
+
+        &:hover {
+          background: $main;
+        }
+      }
     }
 
     .status-user-face-box {

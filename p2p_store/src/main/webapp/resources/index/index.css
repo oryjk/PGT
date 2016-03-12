@@ -132,7 +132,7 @@ input, select {
   vertical-align: middle; }
 
 body {
-  font-family: '微软雅黑', serif; }
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
 
 ul,
 ol {
@@ -142,9 +142,9 @@ a {
   text-decoration: none; }
 
 .link-btn {
-  color: #86b5ed; }
+  color: #5a98e6; }
   .link-btn:hover {
-    color: #2d7fe0; }
+    text-decoration: underline; }
 
 .hide {
   display: none !important; }
@@ -191,7 +191,7 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
@@ -218,9 +218,13 @@ a {
   .header .status-help-center,
   .header .status-login-btn,
   .header .status-register-btn,
-  .header .status-help-center,
-  .header .status-my-account {
+  .header .status-help-center {
     vertical-align: middle; }
+    .header .status-help-center:hover,
+    .header .status-login-btn:hover,
+    .header .status-register-btn:hover,
+    .header .status-help-center:hover {
+      color: #ff6d6d; }
   .header .status-my-account {
     position: relative;
     display: inline-block;
@@ -228,11 +232,20 @@ a {
     height: 40px; }
   .header .status-my-account-detail {
     position: absolute;
-    border: 1px solid black;
-    width: 200px;
-    height: 300px;
-    top: 40px;
-    right: -50px; }
+    display: none;
+    width: 100px;
+    top: 55px;
+    right: -60px;
+    line-height: 25px;
+    background: white; }
+    .header .status-my-account-detail li {
+      text-align: center; }
+    .header .status-my-account-detail a {
+      background: #ff6d6d;
+      color: white;
+      display: block; }
+      .header .status-my-account-detail a:hover {
+        background: #ff6d6d; }
   .header .status-user-face-box {
     float: left;
     width: 100%;
@@ -267,7 +280,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #fe4040;
+    background: #ff6d6d;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -422,7 +435,7 @@ a {
       text-indent: -5000px;
       cursor: pointer; }
     .banner ol .banner-nav-current {
-      background: #fe4040; }
+      background: #ff6d6d; }
 
 .menu-1 {
   position: absolute;
@@ -435,7 +448,7 @@ a {
   .menu-1 .menu-1-item {
     height: 71px; }
     .menu-1 .menu-1-item:hover h3 {
-      color: #fe4040;
+      color: #ff6d6d;
       text-indent: 10px; }
     .menu-1 .menu-1-item:hover .menu-detail {
       display: block; }
@@ -464,7 +477,7 @@ a {
     border-bottom: 1px solid black; }
   .menu-1 small {
     padding-left: 20px;
-    color: #fe4040;
+    color: #ff6d6d;
     font-size: 18px; }
   .menu-1 .menu-2 {
     padding-top: 20px; }
@@ -475,19 +488,19 @@ a {
     .menu-1 .menu-2-item a {
       color: black; }
       .menu-1 .menu-2-item a:hover {
-        color: #fe4040; }
+        color: #ff6d6d; }
   .menu-1 .menu-2-item-end {
     border-right: none; }
   .menu-1 .menu-row-1 {
     padding-top: 75px;
     font-size: 40px;
-    color: #fe4040; }
+    color: #ff6d6d; }
   .menu-1 .menu-row-2 {
     padding: 15px 0 0 10px; }
     .menu-1 .menu-row-2 a {
       color: black; }
       .menu-1 .menu-row-2 a:hover {
-        color: #fe4040; }
+        color: #ff6d6d; }
   .menu-1 .menu-row-3 {
     padding: 10px 0 0 10px; }
   .menu-1 .menu-img-box {
@@ -503,7 +516,7 @@ a {
     font-size: 25px; }
   .menu-1 .menu-people-count {
     font-size: 35px;
-    color: #fe4040; }
+    color: #ff6d6d; }
   .menu-1 .menu-btn-box {
     padding: 144px 0 0 15px; }
     .menu-1 .menu-btn-box a {
@@ -513,14 +526,14 @@ a {
       width: 120px;
       height: 40px;
       font-size: 20px;
-      background: #fe4040;
+      background: #ff6d6d;
       border-radius: 0;
       line-height: 40px;
       color: white;
       text-align: center;
       cursor: pointer; }
       .menu-1 .menu-btn-box a:hover {
-        background: #d70101; }
+        background: #ff3a3a; }
 
 .advantage {
   background: white;
@@ -533,7 +546,7 @@ a {
     background: url("../core/images/index/red-line-left.png") no-repeat left 5px; }
   .advantage h2 {
     font-size: 40px;
-    color: #fe4040;
+    color: #ff6d6d;
     background: url("../core/images/index/red-line-right.png") no-repeat right 5px; }
   .advantage ul {
     padding: 30px 0 22px; }
@@ -573,27 +586,27 @@ a {
 .hot {
   padding-top: 30px; }
   .hot .hot-head {
-    border-bottom: 2px solid #fe4040; }
+    border-bottom: 2px solid #ff6d6d; }
   .hot .hot-tab {
     float: left; }
     .hot .hot-tab a {
       float: left;
       width: 140px;
       height: 50px;
-      color: #fe4040;
+      color: #ff6d6d;
       line-height: 50px;
       text-align: center;
       font-size: 20px;
       font-weight: 700; }
     .hot .hot-tab .hot-tab-choose {
-      background: #fe4040;
+      background: #ff6d6d;
       color: white; }
   .hot .hot-more {
     float: right;
     margin-top: 15px;
     color: #555555; }
     .hot .hot-more:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .hot .hot-main {
     position: relative;
     margin-top: 5px;
@@ -655,7 +668,7 @@ a {
     .invest-list h4 a {
       color: black; }
       .invest-list h4 a:hover {
-        color: #fe4040; }
+        color: #ff6d6d; }
   .invest-list .invest-row-1,
   .invest-list .invest-row-2,
   .invest-list .invest-row-3 {
@@ -663,7 +676,7 @@ a {
     width: 180px;
     line-height: 1.7; }
   .invest-list .invest-row-1 {
-    color: #fe4040; }
+    color: #ff6d6d; }
   .invest-list .invest-row-2,
   .invest-list .invest-row-3 {
     opacity: 0;
@@ -676,7 +689,7 @@ a {
   background: url("../core/images/index/red-line-left.png") no-repeat left 5px; }
   .category h2 {
     font-size: 40px;
-    color: #fe4040;
+    color: #ff6d6d;
     background: url("../core/images/index/red-line-right.png") no-repeat right 5px; }
   .category .each-category {
     margin-top: 30px; }
@@ -740,7 +753,7 @@ a {
     .category .help-list a {
       color: black; }
       .category .help-list a:hover {
-        color: #fe4040; }
+        color: #ff6d6d; }
   .category .app-code {
     float: right;
     width: 320px;
@@ -761,6 +774,6 @@ a {
       height: 153px; }
   .category .app-row-4 {
     padding-top: 15px;
-    color: #fe4040; }
+    color: #ff6d6d; }
 
 /*# sourceMappingURL=../../maps/index/index.css.map */

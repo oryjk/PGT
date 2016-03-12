@@ -132,7 +132,7 @@ input, select {
   vertical-align: middle; }
 
 body {
-  font-family: '微软雅黑', serif; }
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
 
 ul,
 ol {
@@ -142,9 +142,9 @@ a {
   text-decoration: none; }
 
 .link-btn {
-  color: #86b5ed; }
+  color: #5a98e6; }
   .link-btn:hover {
-    color: #2d7fe0; }
+    text-decoration: underline; }
 
 .hide {
   display: none !important; }
@@ -191,7 +191,7 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
@@ -218,9 +218,13 @@ a {
   .header .status-help-center,
   .header .status-login-btn,
   .header .status-register-btn,
-  .header .status-help-center,
-  .header .status-my-account {
+  .header .status-help-center {
     vertical-align: middle; }
+    .header .status-help-center:hover,
+    .header .status-login-btn:hover,
+    .header .status-register-btn:hover,
+    .header .status-help-center:hover {
+      color: #ff6d6d; }
   .header .status-my-account {
     position: relative;
     display: inline-block;
@@ -228,11 +232,20 @@ a {
     height: 40px; }
   .header .status-my-account-detail {
     position: absolute;
-    border: 1px solid black;
-    width: 200px;
-    height: 300px;
-    top: 40px;
-    right: -50px; }
+    display: none;
+    width: 100px;
+    top: 55px;
+    right: -60px;
+    line-height: 25px;
+    background: white; }
+    .header .status-my-account-detail li {
+      text-align: center; }
+    .header .status-my-account-detail a {
+      background: #ff6d6d;
+      color: white;
+      display: block; }
+      .header .status-my-account-detail a:hover {
+        background: #ff6d6d; }
   .header .status-user-face-box {
     float: left;
     width: 100%;
@@ -267,7 +280,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #fe4040;
+    background: #ff6d6d;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -399,7 +412,7 @@ body {
     margin-left: 82px;
     float: left;
     border: 1px solid #cccccc;
-    border-top: 3px solid #fe4040;
+    border-top: 3px solid #ff6d6d;
     width: 400px;
     height: 600px;
     box-shadow: 0 10px 15px #555555; }
@@ -418,11 +431,11 @@ body {
         text-align: center;
         line-height: 50px; }
         .content .login .login-title span a {
-          color: #fe4040; }
+          color: #ff6d6d; }
           .content .login .login-title span a:hover {
             text-decoration: underline; }
     .content .login .login-content span {
-      color: #fe4040;
+      color: #ff6d6d;
       margin-left: 40px;
       font-size: 12px; }
     .content .login .login-content input {
@@ -451,10 +464,10 @@ body {
       background: url("../core/images/user/message_09.png") no-repeat 11px 16px; }
     .content .login .login-content .phone-security input[type="button"] {
       margin: 0 0 0 3px;
-      border: 1px solid #fe4040;
+      border: 1px solid #ff6d6d;
       padding: 0;
       width: 100px;
-      color: #fe4040;
+      color: #ff6d6d;
       background: white; }
       .content .login .login-content .phone-security input[type="button"]:hover {
         border: none;
@@ -470,19 +483,19 @@ body {
       width: 343px;
       color: white;
       letter-spacing: 10px;
-      background: #fe4040; }
+      background: #ff6d6d; }
       .content .login .login-content .submit:hover {
         background: #ff6d6d; }
     .content .login .login-content .agreement {
       margin: 15px 0 0 30px;
       font-size: 12px; }
       .content .login .login-content .agreement a {
-        color: #2d7fe0; }
+        color: #86b4ed; }
 
 .content .login .input-text:focus {
-  border-color: #2d7fe0 !important; }
+  border-color: #86b4ed !important; }
 
 .content .login .input-error .input-text {
-  border-color: #fe4040; }
+  border-color: #ff6d6d; }
 
 /*# sourceMappingURL=../../maps/user/regist.css.map */

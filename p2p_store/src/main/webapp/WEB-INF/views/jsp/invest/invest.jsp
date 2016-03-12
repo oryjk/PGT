@@ -8,31 +8,13 @@
 <head>
     <meta charset="UTF-8">
     <title>在线典当</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/invest/invest.css"/>
+    <link rel="stylesheet" href="/resources/invest/invest.css"/>
 
 
 </head>
 <body>
 <!--header begin-->
-<div class="header">
-    <div class="header-inner">
-        <h1 class="logo">
-            <a href="#"></a>
-        </h1>
-        <ul class="nav">
-            <li><a href="#">在当品大厅</a></li>
-            <li><a href="#">在线典当</a></li>
-            <li><a href="#">绝当品</a></li>
-        </ul>
-        <form class="search" action="">
-            <input type="text" placeholder="点击搜索"/>
-        </form>
-        <div class="status">
-            <div class="status-login"></div>
-            <div class="status-logout"></div>
-        </div>
-    </div>
-</div>
+<jsp:include page="../core/header-main.jsp"/>
 <!--header end-->
 <!--banner begin-->
 <div class="banner">
@@ -179,5 +161,5 @@
 <!--footer end-->
 <jsp:include page="../core/baidu.jsp" />
 </body>
-<script src="${pageContext.request.contextPath}/resources/core/js/require.js" data-main="${pageContext.request.contextPath}/resources/invest/invest"></script>
+<script src="/resources/core/js/require.js" data-main="/resources/invest/invest"></script>
 </html>

@@ -52,13 +52,13 @@
 		</div>
 	</div>
 	<div class="item-nav">
-		<ul>
+		<ul id="itemNavBox" style="left: 0;top: 0;">
 			<c:forEach items="${ESTender.tender. p2pHeroMedias}" var="media">
 				<li><a href="#"><img src="${media.path}" alt="${ESTender.tender.imageDesc}"/></a></li>
 			</c:forEach>
 		</ul>
-		<a class="item-nav-right" href="#"></a>
-		<a class="item-nav-left" href="#"></a>
+		<a class="item-nav-right" id="itemNavRight" href="javascript:void(0);"></a>
+		<a class="item-nav-left" id="itemNavLeft" href="javascript:void(0);"></a>
 	</div>
 
 	<img class="what-is-this" src="" alt=""/>
@@ -81,41 +81,44 @@
 		<!-- content-item-list begin -->
 		<div class="content-item-list content-choose">
 
-			<c:forEach items="${ESTender.tender.products}" var="product">
+			<c:forEach items="${ESTender.tender.products}" var="product" varStatus="status">
+				<c:set var="sq" value="${status.index}"/>
 				<div class="each-item">
 					<div class="item-img-box">
 						<div class="middle-img-box">
 							<!-- super:rel传入item的id号-->
-							<a href="${product.heroMedias[0].path}" class="jqzoom" rel='1' title="triumph">
+							<a href="${product.heroMedias[0].path}" class="jqzoom" rel='${sq}' title="triumph">
 								<img class="middle-img" src="${product.heroMedias[0].path}" title="triumph">
 							</a>
 						</div>
 
 						<div class="small-img-box">
-							<ul class="thumblist">
+							<div class="thumblist">
+								<ul>
+									<!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+									<c:forEach items="${product.heroMedias}" var="media" varStatus="status">
+										<c:choose>
+											<c:when test="${status.index==0}">
+												<li>
+													<a class="zoomThumbActive" href='javascript:void(0);'
+													   rel="{gallery: '${sq}', smallimage: '${media.path}',largeimage: '${media.path}'}">
+														<img class="small-img" src='${media.path}'>
+													</a>
+												</li>
+											</c:when>
 
-								<!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
-								<c:forEach items="${product.heroMedias}" var="media" varStatus="status">
-									<c:choose>
-										<c:when test="${status.index==0}">
-											<li>
-												<a class="zoomThumbActive" href='javascript:void(0);'
-												   rel="{gallery: '${media.id}', smallimage: '${media.path}',largeimage: '${media.path}'}">
-													<img class="small-img" src='${media.path}'>
-												</a>
-											</li>
-										</c:when>
-										<c:otherwise>
-											<li>
-												<a class="" href='javascript:void(0);' rel="{gallery: '${media.id}', smallimage: '${media.path}',largeimage: '${media.path}'}">
-													<img class="small-img" src='${media.path}'>
-												</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
-
-								</c:forEach>
-							</ul>
+											<c:otherwise>
+												<li>
+													<a class="" href='javascript:void(0);'
+													   rel="{gallery:'${sq}', smallimage: '${media.path}',largeimage: '${media.path}'}">
+														<img class="small-img" src='${media.path}'>
+													</a>
+												</li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</ul>
+							</div>
 						</div>
 					</div>
 
@@ -145,7 +148,7 @@
 							<div class="col-content">免运费</div>
 						</div>
 						<div class="item-row-5">
-							<div class="col-title">预计收获时间:</div>
+							<div class="col-title">预计收货时间:</div>
 							<div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
 						</div>
 						<div class="item-row-6">
@@ -451,9 +454,7 @@
 <a class="turn-right" href="#"></a>
 <a class="turn-left" href="#"></a>
 <!-- turn left and right end-->
-<script src="/resources/core/js/jquery.min.js"></script>
-<script src="/resources/core/js/jquery.jqzoom-core.js"></script>
-<script src="/resources/core/js/radialindicator.js"></script>
-<script type="application/javascript" src="/resources/detail/detail.js"></script>
+
+<script src="/resources/core/js/require.js" data-main="/resources/detail/detail"></script>
 </body>
 </html>

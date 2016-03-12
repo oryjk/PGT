@@ -12,6 +12,9 @@ require.config({
 require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
 
     $(document).ready(function() {
+        var statusMyAccount = $('#statusMyAccount');
+        var statusMyAccountDetail = $('#statusMyAccountDetail');
+
         //轮播图
         Cpn.slider({
             next: 1,
@@ -19,5 +22,14 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
             navBox: $('#bannerNav'),
             time: 600
         });
+
+        statusMyAccount.mouseenter(function () {
+            statusMyAccountDetail.slideDown();
+        });
+        statusMyAccount.mouseleave(function () {
+            statusMyAccountDetail.slideUp();
+        });
     });
+
+
 });

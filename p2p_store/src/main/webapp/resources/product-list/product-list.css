@@ -132,7 +132,7 @@ input, select {
   vertical-align: middle; }
 
 body {
-  font-family: '微软雅黑', serif; }
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
 
 ul,
 ol {
@@ -142,9 +142,9 @@ a {
   text-decoration: none; }
 
 .link-btn {
-  color: #86b5ed; }
+  color: #5a98e6; }
   .link-btn:hover {
-    color: #2d7fe0; }
+    text-decoration: underline; }
 
 .hide {
   display: none !important; }
@@ -191,7 +191,7 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
@@ -218,9 +218,13 @@ a {
   .header .status-help-center,
   .header .status-login-btn,
   .header .status-register-btn,
-  .header .status-help-center,
-  .header .status-my-account {
+  .header .status-help-center {
     vertical-align: middle; }
+    .header .status-help-center:hover,
+    .header .status-login-btn:hover,
+    .header .status-register-btn:hover,
+    .header .status-help-center:hover {
+      color: #ff6d6d; }
   .header .status-my-account {
     position: relative;
     display: inline-block;
@@ -228,11 +232,20 @@ a {
     height: 40px; }
   .header .status-my-account-detail {
     position: absolute;
-    border: 1px solid black;
-    width: 200px;
-    height: 300px;
-    top: 40px;
-    right: -50px; }
+    display: none;
+    width: 100px;
+    top: 55px;
+    right: -60px;
+    line-height: 25px;
+    background: white; }
+    .header .status-my-account-detail li {
+      text-align: center; }
+    .header .status-my-account-detail a {
+      background: #ff6d6d;
+      color: white;
+      display: block; }
+      .header .status-my-account-detail a:hover {
+        background: #ff6d6d; }
   .header .status-user-face-box {
     float: left;
     width: 100%;
@@ -267,7 +280,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #fe4040;
+    background: #ff6d6d;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -389,7 +402,7 @@ a {
     line-height: 1;
     color: #555555; }
     .recommend-box .recommend-change:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .recommend-box li {
     position: relative;
     top: 0;
@@ -419,7 +432,7 @@ a {
     .recommend-box h4 a {
       color: black; }
       .recommend-box h4 a:hover {
-        color: #fe4040; }
+        color: #ff6d6d; }
   .recommend-box .recommend-progress-bar {
     position: relative;
     display: inline-block;
@@ -433,7 +446,7 @@ a {
       position: absolute;
       top: 0;
       left: 0;
-      background: #86b5ed;
+      background: #b2d0f4;
       border-radius: 5px;
       height: 10px; }
   .recommend-box .recommend-progress-text {
@@ -456,7 +469,7 @@ a {
 .title {
   width: 1200px;
   height: 50px;
-  background: #fe4a4a; }
+  background: #ff7777; }
   .title .title-left {
     float: left; }
     .title .title-left img {
@@ -490,13 +503,13 @@ a {
     margin: 2px 0;
     border: 1px solid #f2f2f2; }
     .menu .menu-level-1:hover {
-      border-color: #fe4a4a; }
+      border-color: #ff7777; }
       .menu .menu-level-1:hover .list {
-        background: #fe4a4a; }
+        background: #ff7777; }
       .menu .menu-level-1:hover h4 {
         color: white; }
       .menu .menu-level-1:hover .menu-level-2 {
-        border-top: 1px solid #fe4a4a; }
+        border-top: 1px solid #ff7777; }
   .menu .list-end,
   .menu .list {
     display: block;
@@ -528,7 +541,7 @@ a {
       background: white;
       color: black; }
       .menu .menu-level-2 a:hover {
-        color: #fe4a4a; }
+        color: #ff7777; }
 
 .all-list {
   width: 100%; }
@@ -555,7 +568,7 @@ a {
   width: 900px;
   height: 35px;
   background: #f2f2f2;
-  border-top: 3px solid #fe4a4a; }
+  border-top: 3px solid #ff7777; }
   .sort .sort-tab {
     position: relative;
     float: left;
@@ -581,7 +594,7 @@ a {
       height: 35px;
       background: #f2f2f2; }
   .sort .current-tab {
-    background: #86b5ed; }
+    background: #b2d0f4; }
     .sort .current-tab a {
       color: white; }
   .sort .sort-tab-item {
@@ -614,7 +627,7 @@ a {
     font-size: 14px;
     color: black; }
     .products .item-name:hover {
-      color: #fe4a4a; }
+      color: #ff7777; }
   .products .item-img {
     width: 280px;
     height: 280px; }
@@ -633,7 +646,7 @@ a {
       position: absolute;
       top: 0;
       left: 0;
-      background: #86b5ed;
+      background: #b2d0f4;
       border-radius: 5px;
       height: 5px; }
   .products .info-box {
@@ -662,7 +675,7 @@ a {
     line-height: 30px;
     text-align: center;
     color: white;
-    background: #86b5ed;
+    background: #b2d0f4;
     font-size: 13px; }
   .products .invest-join-favorite {
     position: absolute;
@@ -690,14 +703,14 @@ a {
     height: 30px;
     color: #555555; }
     .page-box a:hover {
-      border-color: #fe4040;
+      border-color: #ff6d6d;
       color: white;
-      background: #fe4040; }
+      background: #ff6d6d; }
   .page-box .current-page,
   .page-box .current-page:hover {
     border-color: white;
     background: white;
-    color: #fe4040;
+    color: #ff6d6d;
     font-size: 18px;
     font-weight: 900;
     cursor: default; }
