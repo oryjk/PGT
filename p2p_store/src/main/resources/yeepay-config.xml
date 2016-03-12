@@ -183,6 +183,7 @@
 		<property name="shoppingCartDao" ref="shoppingCartDao"/>
 		<property name="userOrderDao" ref="userOrderDao"/>
 		<property name="inventoryService" ref="inventoryService"/>
+		<property name="p2pMapper" ref="p2pMapper"/>
 	</bean>
 
 	<!-- yeepay direct config -->

@@ -5,6 +5,7 @@ import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.dao.P2PMapper;
+import com.pgt.cart.dao.UserOrderDao;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
@@ -56,6 +57,9 @@ public class P2POrderService extends OrderService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private UserOrderDao userOrderDao;
 
     public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds,
                                                String[] quantities) throws OrderPersistentException {
@@ -343,7 +347,7 @@ public class P2POrderService extends OrderService {
     public boolean completeTenderProduct(int productId, boolean ocuppy, Date dueDate) {
         boolean result = true;
         updateCommerceItemStatus(productId, ocuppy);
-        List<Order> orders = findReleatedOrder(productId);
+        List<Order> orders = findRelatedOrder(productId);
         if (null == orders || orders.isEmpty()) {
             //TODO LOG
             return result;
@@ -435,17 +439,17 @@ public class P2POrderService extends OrderService {
     }
 
     private P2PInfo queryP2PInfoByOrderId(int id) {
-        // TODO
-        return null;
+
+        return getP2PMapper().queryInfoByOrderId(id);
     }
 
     private void updateCommerceItemStatus(int productId, boolean ocuppy) {
-        // todo;
+        getUserOrderDao().updateCommerceItemStatus(productId, ocuppy);
     }
 
-    private List<Order> findReleatedOrder(int productId) {
-        // todo
-        return null;
+    private List<Order> findRelatedOrder(int productId) {
+
+        return getUserOrderDao().findRelatedOrder(productId);
     }
 
 
@@ -492,5 +496,13 @@ public class P2POrderService extends OrderService {
 
     public void setProductMapper(ProductMapper productMapper) {
         this.productMapper = productMapper;
+    }
+
+    public UserOrderDao getUserOrderDao() {
+        return userOrderDao;
+    }
+
+    public void setUserOrderDao(UserOrderDao userOrderDao) {
+        this.userOrderDao = userOrderDao;
     }
 }

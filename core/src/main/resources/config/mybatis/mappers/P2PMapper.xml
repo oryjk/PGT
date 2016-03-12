@@ -72,4 +72,15 @@
         SELECT * FROM TENDER
         WHERE ID = #{id}
     </select>
+
+    <select id="queryInfoById" parameterType="int" resultMap="info">
+        SELECT * FROM P2P_INFO
+        WHERE ID = #{id}
+    </select>
+
+    <select id="queryInfoById" parameterType="int" resultMap="info">
+        SELECT P.* FROM P2P_INFO AS P
+        INNER JOIN `ORDER` AS O ON O.P2P_INFO_ID = P.ID
+        WHERE O.ORDER_ID = #{id}
+    </select>
 </mapper>

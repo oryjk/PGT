@@ -155,4 +155,15 @@
 		</foreach>
 	</update>
 
+	<select id="findRelatedOrder" parameterType="int" resultMap="orderWithCommerceItem">
+		SELECT O.* FROM `ORDER` AS O
+		INNER JOIN COMMERCE_ITEM AS C ON C.ORDER_ID = O.ORDER_ID
+		WHERE C.REFERENCE_ID = #{id}
+	</select>
+
+	<update id="updateCommerceItemStatus" >
+		UPDATE COMMERCE_ITEM
+		SET OCCUPY = #{ocuppy}
+		WHERE REFERENCE_ID = #{productId}
+	</update>
 </mapper>

@@ -8,11 +8,15 @@ import org.springframework.stereotype.Component;
 /**
  * Created by Administrator on 2016/2/18.
  */
-@Component
+@Component(value = "p2pMapper")
 public interface P2PMapper extends SqlMapper {
 
     void createInfo(P2PInfo info);
     void updateInfo(P2PInfo info);
     Tender queryTenderById(Integer id);
+
+    P2PInfo queryInfoById(int id);
+
+    P2PInfo queryInfoByOrderId(int id);
 
 }

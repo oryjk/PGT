@@ -6,6 +6,7 @@ import java.util.*;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.OrderType;
+import com.pgt.cart.dao.P2PMapper;
 import com.pgt.cart.dao.ShoppingCartDao;
 import com.pgt.cart.dao.UserOrderDao;
 import com.pgt.com.pgt.order.bean.P2PInfo;
@@ -42,7 +43,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	private DirectYeePay directTransactionYeepay;
 
-
+	private P2PMapper p2pMapper;
 
 	@Autowired
 	private SmsService smsService;
@@ -108,8 +109,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	private void handleP2POrder(PaymentGroup paymentGroup, Map<String, String> result, Date now, Order order) throws IOException {
 
-		P2PInfo info = null;
-		// TODO get info
+		P2PInfo info = getP2pMapper().queryInfoByOrderId(order.getId());
 		double resultAmount = order.getTotal() - info.getHandlingFee();
 		// TODO ROUND;
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -261,5 +261,13 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	public void setDirectTransactionYeepay(DirectYeePay directTransactionYeepay) {
 		this.directTransactionYeepay = directTransactionYeepay;
+	}
+
+	public P2PMapper getP2pMapper() {
+		return p2pMapper;
+	}
+
+	public void setP2pMapper(P2PMapper p2pMapper) {
+		this.p2pMapper = p2pMapper;
 	}
 }

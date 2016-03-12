@@ -131,6 +131,32 @@ public class P2PCheckoutController {
         }
     }
 
+    @RequestMapping(value = "/shipping")
+    public ModelAndView shippingPage(HttpServletRequest pRequest, HttpServletResponse pResponse)  {
+        String orderIdStr = pRequest.getParameter(CartConstant.ORDER_ID);
+        User user = SessionHelper.getUser(pRequest, pResponse);
+        if (StringUtils.isBlank(orderIdStr) || !StringUtils.isNumeric(orderIdStr)) {
+            ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+        if (null == user) {
+            ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+
+        Order order = getOrderService().loadOrder(Integer.valueOf(orderIdStr));
+        if (null == order) {
+            ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+        if (order.getUserId() != user.getId().intValue()) {
+            ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+        P2PInfo info = getOrderService()
+    }
+
+
     private int isProductIdsValid(String[] productIds, String[] quantities, List<Product> relatedProducts, Tender tender) {
         if (productIds == null || productIds.length == 0) {
             LOGGER.error("productIds is null or length == 0");
