@@ -79,6 +79,7 @@
 		<property name="initialDataPath" value="/json"></property>
 		<property name="imagePath" value="${imagePath}"></property>
 		<property name="imageFolder" value="${imageFolder}"></property>
+		<property name="currentSite" value="B2C"></property>
 		<property name="serviceTels">
 			<list value-type="java.lang.String">
 				<value>18602812970</value>

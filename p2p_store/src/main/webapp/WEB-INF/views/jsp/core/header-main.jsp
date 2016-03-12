@@ -13,7 +13,7 @@
 <div class="header">
     <div class="header-inner">
         <h1 class="logo">
-            <a href="#"></a>
+            <a href="/"></a>
         </h1>
         <ul class="nav">
             <li><a href="#">在当品大厅</a></li>

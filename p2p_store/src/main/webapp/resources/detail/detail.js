@@ -114,7 +114,7 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function (
             setQuantity(this, num);
 
         });
-        $('#item-buy-now').on('click', function (event) {
+        $('.item-buy-now').on('click', function (event) {
             event.preventDefault();
             $(this).parent('.col-content').find('.addToCart').submit();
         })

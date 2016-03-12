@@ -454,9 +454,7 @@
 <a class="turn-right" href="#"></a>
 <a class="turn-left" href="#"></a>
 <!-- turn left and right end-->
-<script src="/resources/core/js/jquery.min.js"></script>
-<script src="/resources/core/js/jquery.jqzoom-core.js"></script>
-<script src="/resources/core/js/radialindicator.js"></script>
-<script type="application/javascript" src="/resources/detail/detail.js"></script>
+
+<script src="/resources/core/js/require.js" data-main="/resources/detail/detail"></script>
 </body>
 </html>
