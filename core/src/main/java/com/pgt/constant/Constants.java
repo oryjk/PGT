@@ -107,4 +107,5 @@ public class Constants {
     public static final String TENDER_ID = "tender.tenderId";
 
     public static final String P2P_HELPCENTER="helpCenterList.site";
+    public static final String B2C_STORE_HOST = "b2cStoreUrl";
 }

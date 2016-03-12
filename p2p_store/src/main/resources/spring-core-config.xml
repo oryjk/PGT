@@ -88,6 +88,10 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 		<property name="plpPage" value="/category"/>
 		<property name="helpCenterPage" value="/helpcenter/query"/>
 		<property name="pawnPersonInfoPage" value="/invest/invest"/>
+		<property name="b2cStoreUrl" value="${b2c_store_host}"/>
+		<property name="p2pStoreUrl" value="${p2p_store_host}"/>
+		<property name="adminStoreUrl" value="${admin_store_host}"/>
+		<property name="mobileStoreUrl" value="${mobile_store_host}"/>
 	</bean>
 	<bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
 		<property name="host" value="localhost"/>

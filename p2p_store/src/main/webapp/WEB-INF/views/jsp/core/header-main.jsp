@@ -16,9 +16,9 @@
             <a href="/"></a>
         </h1>
         <ul class="nav">
-            <li><a href="#">在当品大厅</a></li>
-            <li><a href="#">在线典当</a></li>
-            <li><a href="#">绝当品</a></li>
+            <li><a href="/tender/tenderList">在当品大厅</a></li>
+            <li><a href="/pawnPersonInfo/createPawnPersonInfo">在线典当</a></li>
+            <li><a href="${b2cStoreUrl}">绝当品</a></li>
         </ul>
         <form class="search" action="">
             <input type="text" placeholder="点击搜索"/>

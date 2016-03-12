@@ -21,6 +21,10 @@ public class URLConfiguration {
     private String yeepayPage = "/user/yeepayAccountInfo";
     private String myaccountPage = "/userinformation/query";
     private String createTenderPage = "/tender/create";
+    private String b2cStoreUrl = "";
+    private String p2pStoreUrl = "";
+    private String adminStoreUrl = "";
+    private String mobileStoreUrl = "";
 
     public String getCategoryPage() {
         return categoryPage;
@@ -156,5 +160,37 @@ public class URLConfiguration {
 
     public void setCreateTenderPage(String createTenderPage) {
         this.createTenderPage = createTenderPage;
+    }
+
+    public String getB2cStoreUrl() {
+        return b2cStoreUrl;
+    }
+
+    public void setB2cStoreUrl(String b2cStoreUrl) {
+        this.b2cStoreUrl = b2cStoreUrl;
+    }
+
+    public String getP2pStoreUrl() {
+        return p2pStoreUrl;
+    }
+
+    public void setP2pStoreUrl(String p2pStoreUrl) {
+        this.p2pStoreUrl = p2pStoreUrl;
+    }
+
+    public String getAdminStoreUrl() {
+        return adminStoreUrl;
+    }
+
+    public void setAdminStoreUrl(String adminStoreUrl) {
+        this.adminStoreUrl = adminStoreUrl;
+    }
+
+    public String getMobileStoreUrl() {
+        return mobileStoreUrl;
+    }
+
+    public void setMobileStoreUrl(String mobileStoreUrl) {
+        this.mobileStoreUrl = mobileStoreUrl;
     }
 }

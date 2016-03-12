@@ -109,6 +109,10 @@
 		<property name="pdpPage" value="/product"/>
 		<property name="plpPage" value="/category"/>
 		<property name="helpCenterPage" value="/helpcenter/query"/>
+		<property name="b2cStoreUrl" value="${b2c_store_host}"/>
+		<property name="p2pStoreUrl" value="${p2p_store_host}"/>
+		<property name="adminStoreUrl" value="${admin_store_host}"/>
+		<property name="mobileStoreUrl" value="${mobile_store_host}"/>
 	</bean>
 
 
