@@ -86,8 +86,7 @@
     .status-help-center,
     .status-login-btn,
     .status-register-btn,
-    .status-help-center,
-    .status-my-account {
+    .status-help-center {
       vertical-align: middle;
 
       &:hover {
@@ -105,23 +104,23 @@
       position: absolute;
       display: none;
       @include wh(100px);
-      top: 40px;
-      right: -40px;
+      top: 55px;
+      right: -60px;
       line-height: 25px;
       background: white;
 
       li {
-        margin-top: 3px;
         text-align: center;
       }
 
       a {
-        background: $em-light;
+        background: #ff6d6d;
         color: white;
         display: block;
 
+
         &:hover {
-          background: $em;
+          background: $main;
         }
       }
     }

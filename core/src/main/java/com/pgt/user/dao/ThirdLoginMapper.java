@@ -19,4 +19,8 @@ public interface ThirdLoginMapper extends SqlMapper{
 
     ThirdLogin queryThirdLoginById(Integer id);
 
+    ThirdLogin queryThirdLoginByToken(String token);
+
+    ThirdLogin queryThirdLoginByOpenId(String openId);
+
 }

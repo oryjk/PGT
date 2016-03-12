@@ -15,5 +15,7 @@ public interface ThirdLoginService {
 
     ThirdLogin queryThirdLoginById(Integer id);
 
+    ThirdLogin queryThirdLoginByToken(String token);
 
+    ThirdLogin queryThirdLoginByOpenId(String openId);
 }
