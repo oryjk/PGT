@@ -33,19 +33,19 @@
 
 		<div class="main-content">
 
-			<c:forEach items="${order.commerceItems}" var="item">
+			<c:forEach items="${checkoutOrder.commerceItems}" var="item">
 				<div class="info-row-1">
 					产品信息 : <a class="info-value" href="#">${item.name}</a>
 				</div>
 				<div class="info-row-2">
-					<div class="info-col-1">购买数量: <span class="info-value">${order.commerceItemCount}</span></div>
+					<div class="info-col-1">购买数量: <span class="info-value">${checkoutOrder.commerceItemCount}</span></div>
 					<div class="info-col-2">产品金额: <span class="buy-cost info-value">¥</span><span
-							class="buy-cost">${order.total}</span></div>
+							class="buy-cost">${checkoutOrder.total}</span></div>
 					<div class="info-col-3">配送费用: <span class="info-value">免运费</span></div>
 				</div>
 			</c:forEach>
 			<div class="info-row-3">
-				预计发货时间: <span class="info-value"><fmt:formatDate value='${order.estimatedShipDate}' pattern='yyyy年MM月dd日'/></span>
+				预计发货时间: <span class="info-value"><fmt:formatDate value='${checkoutOrder.estimatedShipDate}' pattern='yyyy年MM月dd日'/></span>
 			</div>
 			<div class="info-row-4">
 				备注信息: <input type="text" placeholder="请填写任何您想告诉我们的信息"/>

@@ -60,8 +60,9 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 		<property name="useES" value="true"></property>
 		<property name="resourcePath" value="/resources"></property>
 		<property name="initialDataPath" value="/json"></property>
-		<property name="imagePath" value="/home/xiaodong/Projects/work/PGT/b2c_store/src/main/webapp"></property>
-		<property name="imageFolder" value="/resources/image/upload/"></property>
+		<property name="imagePath" value="${imagePath}"></property>
+		<property name="imageFolder" value="${imageFolder}"></property>
+		<property name="currentSite" value="P2P"></property>
 		<property name="pawnType">
 			<map>
 				<entry key="jewellery" value="珠宝"></entry>
@@ -80,7 +81,7 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
 		<property name="logoutPage" value="/user/logout"/>
 		<property name="registerPage" value="/user/register"/>
 		<property name="addressBookPage" value="/my-account/person-info/address"/>
-		<property name="shoppingCartPage" value="/shoppingCart/cart"/>
+		<property name="shoppingCartPage" value="/checkout/shipping"/>
 		<property name="myAccountPage" value="/myAccount/orderHistory"/>
 		<property name="shippingPage" value="/checkout/shipping"/>
 		<property name="pdpPage" value="/product"/>
