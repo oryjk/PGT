@@ -22,13 +22,35 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                     district: '请选择',
                     address: '',
                     phone: '',
-                    telephone: ''
+                    telephone: '',
+                    userId: '',
+                    phone: '',
+                    telephone: '',
+                    address: '',
+                    email: '',
+                    addressId: ''
+                },
+                newAddress: {
+                    province: '',
+                    city: '',
+                    district: '',
+                    address: '',
+                    phone: '',
+                    telephone: '',
+                    userId: '',
+                    phone: '',
+                    telephone: '',
+                    address: '',
+                    email: ''
                 },
                 provinces: '',
                 cities: '',
-                district: '',
+                districts: '',
                 display: 'none',
-                province_display: 'none'
+                province_display: 'none',
+                city_display: 'none',
+                district_display: 'none',
+                isUpdate: false
             },
 
             methods: {
@@ -37,22 +59,54 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                     this.currentAddress = '';
                 },
                 queryCityByProvinceId: function (provinceId, event) {
-                    var url = '/getCityByProvinceId/' + provinceId;
+                    this.currentAddress.province = event.currentTarget.text;
+                    this.province_display = 'none';
+
                     $.ajax({
-                        url: url,
-                        data: null,
+                        url: '/getCityByProvinceId/' + provinceId,
                         success: function (response) {
-                            console.log(response);
+                            popUp.cities = JSON.parse(response);
                         }
                     })
                 },
-                showProvince: function () {
-                    this.province_display='block';
+                getAreaByCityId: function (cityId, event) {
+                    this.currentAddress.city = event.currentTarget.text;
+                    this.city_display = 'none';
+                    $.ajax({
+                        url: '/getAreaByCityId/' + cityId,
+                        success: function (response) {
+                            popUp.districts = JSON.parse(response);
+                        }
+                    })
+                },
+                saveDistrict: function (districtId, event) {
+                    this.currentAddress.district = event.currentTarget.text;
+                    this.district_display = 'none';
+                },
+                saveAddress: function () {
+                    $.ajax({
+                        url: this.saveUrl,
+                        success: function (response) {
+                            var response = JSON.parse(response);
+                            console.log('success:' + response.success);
+                            console.log('addedAddressId:' + response.addedAddressId);
+                        }
+                    })
+                }
+            },
+            computed: {
+                saveUrl: function () {
+                    if (this.isUpdate) {
+                        return '/my-account/person-info/updateAddress/' + this.currentAddress.currentAddress;
+                    }
+
+                    return '/my-account/person-info/addAddress';
                 }
             }
 
         })
-
+        //in debug mode.
+        window.popUp = popUp;
 
         var main = new Vue({
             el: '#main',
