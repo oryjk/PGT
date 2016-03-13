@@ -31,4 +31,7 @@ public interface UserOrderDao extends SqlMapper {
 
 	int resetBrowsedProductsBatchUpdateDate(List<Integer> pBrowsedProductIds);
 
+	List<Order> findRelatedOrder(int productId);
+
+	void updateCommerceItemStatus(@Param("productId")int productId,@Param("ocuppy")boolean ocuppy);
 }

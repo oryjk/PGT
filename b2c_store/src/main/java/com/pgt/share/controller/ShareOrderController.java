@@ -6,7 +6,7 @@ import com.pgt.constant.UserConstant;
 import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.share.bean.ShareOrder;
 import com.pgt.share.bean.ShareOrderQuery;
 import com.pgt.share.service.ShareOrderService;
@@ -39,7 +39,7 @@ public class ShareOrderController {
     private ShareOrderService shareOrderService;
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private DiscussService discussService;
@@ -56,7 +56,7 @@ public class ShareOrderController {
             LOGGER.debug("The productId is empty");
             return modelAndView;
         }
-        Product product= productService.queryProduct(productId);
+        Product product= productServiceImp.queryProduct(productId);
         if(ObjectUtils.isEmpty(product)){
             LOGGER.debug("The product is empty");
             return modelAndView;
@@ -81,7 +81,7 @@ public class ShareOrderController {
             modelAndView.addObject("error","productId is empty");
             return modelAndView;
         }
-        Product product=productService.queryProduct(productId);
+        Product product= productServiceImp.queryProduct(productId);
         if(ObjectUtils.isEmpty(product)){
             LOGGER.debug("The product is empty");
             modelAndView.addObject("error","product is empty");

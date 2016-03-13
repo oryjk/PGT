@@ -14,6 +14,7 @@ import com.pgt.util.TenderListUtil;
 import com.pgt.utils.PaginationBean;
 import com.pgt.utils.PaginationUtils;
 import com.pgt.utils.SearchConverToList;
+import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +77,11 @@ public class TenderListController {
             esSorts.add(esSort);
         }
         List<Map<String, Object>> tenderList = buildTenderList(keyword, esTenderListFilter, paginationBean, esSorts);
+        //if no result, need go to no result page.
+        if (CollectionUtils.isEmpty(tenderList)) {
+            modelAndView.setViewName("/tenderList/noResult");
+            return modelAndView;
+        }
         modelAndView.addObject(ESConstants.TENDER_LIST_RESULT, tenderList);
         LOGGER.debug("Complete to begin tenderList.");
 

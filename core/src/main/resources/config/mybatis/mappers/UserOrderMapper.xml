@@ -27,10 +27,10 @@
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 		<result column="submit_Date" property="submitDate" />
-		<association column="order_id" property="shippingVO"
-		             select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
-		<association column="order_id" property="payment"
-		             select="com.pgt.payment.dao.PaymentMapper.findPaymentGroupByOrderId" />
+		<result column="P2P_INFO_ID" property="p2pInfoId" />
+		<result column="HOLDER_ALIAS" property="holderAlias" />
+		<association column="order_id" property="shippingVO" select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
+		<association column="order_id" property="payment" select="com.pgt.payment.dao.PaymentMapper.findPaymentGroupByOrderId" />
 		<collection column="order_id" property="commerceItems" select="loadCommerceItemsFromOrder" />
 	</resultMap>
 
@@ -92,7 +92,7 @@
 			ci.commerce_item_id,
 			order_id,
 			ci.reference_id,
-		`name`,
+			`name`,
 			quality,
 			list_price,
 			sale_price,
@@ -159,4 +159,15 @@
 		</foreach>
 	</update>
 
+	<select id="findRelatedOrder" parameterType="int" resultMap="orderWithCommerceItem">
+		SELECT O.* FROM `ORDER` AS O
+		INNER JOIN COMMERCE_ITEM AS C ON C.ORDER_ID = O.ORDER_ID
+		WHERE C.REFERENCE_ID = #{id}
+	</select>
+
+	<update id="updateCommerceItemStatus" >
+		UPDATE COMMERCE_ITEM
+		SET OCCUPY = #{ocuppy}
+		WHERE REFERENCE_ID = #{productId}
+	</update>
 </mapper>

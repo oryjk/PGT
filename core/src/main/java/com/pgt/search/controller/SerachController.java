@@ -2,10 +2,9 @@ package com.pgt.search.controller;
 
 import com.pgt.configuration.Configuration;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.bean.SortBean;
-import com.pgt.search.service.SearchService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class SerachController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SerachController.class);
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
     @Autowired
     private Configuration configuration;
 
@@ -74,7 +72,7 @@ public class SerachController {
             searchPaginationBean.setPriceStart(Integer.valueOf(priceStart));
             searchPaginationBean.setPriceEnd(Integer.valueOf(priceEnd));
         }
-        List<Product> products = productService.queryProducts(searchPaginationBean);
+        List<Product> products = productServiceImp.queryProducts(searchPaginationBean);
         if (ObjectUtils.isEmpty(products)) {
             LOGGER.debug("The current page is {currentIndex},capacity is {capacity},categoryId is {categoryId}",
                     searchPaginationBean.getCurrentIndex(), searchPaginationBean.getCapacity(),

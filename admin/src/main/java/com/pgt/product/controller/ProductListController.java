@@ -9,7 +9,7 @@ import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.SortBeanList;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.bean.SortBean;
 import com.pgt.utils.PaginationBean;
@@ -37,7 +37,7 @@ public class ProductListController extends InternalTransactionBaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductListController.class);
 	@Autowired
-	private ProductService          productService;
+	private ProductServiceImp          productServiceImp;
 	@Autowired
 	private CategoryService         categoryService;
 	@Autowired
@@ -62,7 +62,7 @@ public class ProductListController extends InternalTransactionBaseController {
 		// main logic
 		LOGGER.debug("The category is {}.", categoryId);
 		SearchPaginationBean searchPaginationBean = buildSearchPagination(categoryId, stock, term,sortBeanList, currentIndex,isHot,modelAndView);
-		List<Product> productList = productService.queryProducts(searchPaginationBean);
+		List<Product> productList = productServiceImp.queryProducts(searchPaginationBean);
 		CategoryHierarchy categoryHierarchy = categoryService.queryCategoryHierarchy(categoryId);
 		if (!ObjectUtils.isEmpty(categoryHierarchy)) {
 			LOGGER.debug("Can not find the categoryHierarchy with id is {}.", categoryId);
@@ -140,7 +140,7 @@ public class ProductListController extends InternalTransactionBaseController {
 		}
 		searchPaginationBean.setCurrentIndex(-1);
 		searchPaginationBean.setCapacity(100000);
-		Integer total = productService.queryProductTotal(searchPaginationBean);
+		Integer total = productServiceImp.queryProductTotal(searchPaginationBean);
 		searchPaginationBean.setCurrentIndex(currentIndex);
 		searchPaginationBean.setCapacity(configuration.getAdminPlpCapacity());
 		searchPaginationBean.setTotalAmount(total);

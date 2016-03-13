@@ -9,7 +9,7 @@ import com.pgt.configuration.Configuration;
 import com.pgt.constant.UserConstant;
 import com.pgt.base.controller.BaseMobileController;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.user.bean.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class DiscussMobileController extends BaseMobileController{
 	@Autowired
 	private Configuration configuration;
 	@Autowired
-	private ProductService productService;
+	private ProductServiceImp productServiceImp;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DiscussMobileController.class);
 
@@ -91,7 +91,7 @@ public class DiscussMobileController extends BaseMobileController{
 			LOGGER.debug("The product id is empty.");
 			return responseMobileFail(responseMap, "Product.empty");
 		}
-		Product product = productService.queryProduct(productId);
+		Product product = productServiceImp.queryProduct(productId);
         if(ObjectUtils.isEmpty(product)){
 			LOGGER.debug("The product id is empty");
 			return responseMobileFail(responseMap, "Product.empty");

@@ -7,7 +7,7 @@ import com.pgt.common.service.BannerService;
 import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
 import com.pgt.base.controller.BaseMobileController;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.bean.HotProducts;
@@ -42,7 +42,7 @@ public class HomeMobileController extends BaseMobileController{
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeMobileController.class);
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
     @Autowired
     private ESSearchService esSearchService;
     @Autowired
@@ -65,7 +65,7 @@ public class HomeMobileController extends BaseMobileController{
                 LOGGER.debug("add hotProducts to json");
                 responseMap.put("hotProducts",hotProducts);
             // get hot search
-            List<HotSearch> hotSearchList = productService.queryAllHotsearch();
+            List<HotSearch> hotSearchList = productServiceImp.queryAllHotsearch();
             if(!CollectionUtils.isEmpty(hotSearchList)){
                 LOGGER.debug("add hotSearchList to json");
                responseMap.put("hotSearchList",hotSearchList);

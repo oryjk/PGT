@@ -5,6 +5,7 @@ import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.dao.P2PMapper;
+import com.pgt.cart.dao.UserOrderDao;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
@@ -27,7 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -58,7 +58,11 @@ public class P2POrderService extends OrderService {
     @Autowired
     private ProductMapper productMapper;
 
-    public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, String[] quantities) throws OrderPersistentException {
+    @Autowired
+    private UserOrderDao userOrderDao;
+
+    public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds,
+                                               String[] quantities) throws OrderPersistentException {
         LOGGER.debug("==================== Start method createP2POrder ====================");
         LOGGER.debug("tender : " + tender.toString());
         P2PInfo info = new P2PInfo();
@@ -81,6 +85,7 @@ public class P2POrderService extends OrderService {
         order.setUserId(user.getId().intValue());
         order.setStatus(OrderStatus.INITIAL);
         order.setP2pInfoId(info.getId());
+        order.setEstimatedShipDate(tender.getDueDate());
 
         // create commerceItem
         maintainCommerceItem(order, info, relatedProducts, productIds, quantities);
@@ -130,7 +135,8 @@ public class P2POrderService extends OrderService {
     }
 
 
-    public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds, int placeQuantity) throws OrderPersistentException {
+    public Pair<Order, P2PInfo> createP2POrder(User user, Tender tender, List<Product> relatedProducts, String[] productIds,
+                                               int placeQuantity) throws OrderPersistentException {
         LOGGER.debug("==================== Start method createP2POrder ====================");
         LOGGER.debug("tender : " + tender.toString());
         P2PInfo info = new P2PInfo();
@@ -195,7 +201,7 @@ public class P2POrderService extends OrderService {
                 ci.setReferenceId(relatedProduct.getProductId());
                 ci.setSalePrice(relatedProduct.getSalePrice());
                 // TODO Snapshotid
-                ProductMedia media =  getProductMapper().queryProductThumbnailMedias(relatedProduct.getProductId());
+                ProductMedia media = getProductMapper().queryProductThumbnailMedia(relatedProduct.getProductId());
                 if (null != media) {
                     ci.setSnapshotId(media.getId());
                 }
@@ -225,11 +231,11 @@ public class P2POrderService extends OrderService {
     }
 
     private void persistenceP2PInfo(P2PInfo info) {
-       if (null == info.getId()) {
-           getP2PMapper().createInfo(info);
-       } else {
-           getP2PMapper().updateInfo(info);
-       }
+        if (null == info.getId()) {
+            getP2PMapper().createInfo(info);
+        } else {
+            getP2PMapper().updateInfo(info);
+        }
     }
 
     private void calculateP2PInfo(P2PInfo info, Order order) {
@@ -237,8 +243,8 @@ public class P2POrderService extends OrderService {
         if (null == payTime) {
             payTime = new Date();
         }
-        double basePrice =  order.getTotal();
-        double incoming = calculateIncoming(payTime, info.getExpectDueDate(), info.getPrePeriod(),basePrice, info.getInterestRate());
+        double basePrice = order.getTotal();
+        double incoming = calculateIncoming(payTime, info.getExpectDueDate(), info.getPrePeriod(), basePrice, info.getInterestRate());
         info.setExpectIncoming(incoming);
         double handlingFee = calculateHandlingFee(info, order);
         info.setHandlingFee(handlingFee);
@@ -253,7 +259,8 @@ public class P2POrderService extends OrderService {
             LOGGER.error("NO handling fee rate for p2p info.tender(id=" + info.getTenderId() + ")");
             throw new IllegalArgumentException("INVALID.TENDER");
         }
-        LOGGER.debug("unitPrice=" + info.getUnitPrice()  + "; placeQuantity=" + info.getPlaceQuantity() + "; HandlingFee=" + info.getHandlingFeeRate());
+        LOGGER.debug("unitPrice=" + info.getUnitPrice() + "; placeQuantity=" + info.getPlaceQuantity() + "; HandlingFee=" + info.getHandlingFeeRate
+                ());
         double total = order.getTotal();
         double result = total * info.getHandlingFeeRate();
         // TODO ROUND
@@ -266,6 +273,7 @@ public class P2POrderService extends OrderService {
      * 1. place order (order.createDate)
      * 2. payment done (payment date)
      * 3. tender done
+     *
      * @param payTime
      * @param dueDate
      * @param prePeriod
@@ -278,27 +286,27 @@ public class P2POrderService extends OrderService {
         boolean hasIllegalArgument = false;
         if (null == payTime) {
             LOGGER.error("No publish date");
-            hasIllegalArgument= true;
+            hasIllegalArgument = true;
         }
         if (null == dueDate) {
             LOGGER.error("No expect due date");
-            hasIllegalArgument= true;
+            hasIllegalArgument = true;
         }
 
         if (null == prePeriod) {
             LOGGER.error("No pre period");
-            hasIllegalArgument= true;
+            hasIllegalArgument = true;
         }
 
         if (null == interestRate) {
             LOGGER.error("No interest rate");
-            hasIllegalArgument= true;
+            hasIllegalArgument = true;
         }
-        if ( hasIllegalArgument) {
+        if (hasIllegalArgument) {
             throw new IllegalArgumentException("INVALID.TENDER");
         }
         if (dueDate.before(payTime)) {
-            LOGGER.error("dueDate before publish date. dueDate(" + dueDate + "); payTime(" + payTime+ ")");
+            LOGGER.error("dueDate before publish date. dueDate(" + dueDate + "); payTime(" + payTime + ")");
             throw new IllegalArgumentException("INVALID.TENDER");
         }
 
@@ -308,7 +316,6 @@ public class P2POrderService extends OrderService {
         payCalendar.set(Calendar.MINUTE, 0);
         payCalendar.set(Calendar.SECOND, 0);
         payCalendar.set(Calendar.MILLISECOND, 0);
-
 
 
         LOGGER.debug("payTime: " + payTime + "; dueDate" + dueDate);
@@ -322,16 +329,17 @@ public class P2POrderService extends OrderService {
 
         int dateGap = (int) ((dueCalendar.getTimeInMillis() - payCalendar.getTimeInMillis()) / MILLISECOND_ONE_DAY);
         if (dateGap < prePeriod) {
-            LOGGER.error("dateGap < prePeriod. dateGap(" + dateGap +"); prePeriod(" + prePeriod + "); dueDate(" + dueDate + "); payTime(" + payTime+ ")");
+            LOGGER.error("dateGap < prePeriod. dateGap(" + dateGap + "); prePeriod(" + prePeriod + "); dueDate(" + dueDate + "); payTime(" +
+                    payTime + ")");
             throw new IllegalArgumentException("INVALID.TENDER");
         }
-        LOGGER.debug("basePrice=" + basePrice  + "; interestRate=" + interestRate);
-        double total = basePrice * ( 1 + interestRate);
+        LOGGER.debug("basePrice=" + basePrice + "; interestRate=" + interestRate);
+        double total = basePrice * (1 + interestRate);
         int effectDates = dateGap - prePeriod;
-        LOGGER.debug("total=" + total  + "; dateGap=" + dateGap + "; prePeriod=" + prePeriod + "; effectDates=" + effectDates );
+        LOGGER.debug("total=" + total + "; dateGap=" + dateGap + "; prePeriod=" + prePeriod + "; effectDates=" + effectDates);
         double result = total * effectDates / DAYS_ONE_YEAR;
         // TODO ROUND
-        LOGGER.debug("Incoming result=" + result );
+        LOGGER.debug("Incoming result=" + result);
         return result;
     }
 
@@ -339,7 +347,7 @@ public class P2POrderService extends OrderService {
     public boolean completeTenderProduct(int productId, boolean ocuppy, Date dueDate) {
         boolean result = true;
         updateCommerceItemStatus(productId, ocuppy);
-        List<Order> orders = findReleatedOrder(productId);
+        List<Order> orders = findRelatedOrder(productId);
         if (null == orders || orders.isEmpty()) {
             //TODO LOG
             return result;
@@ -358,7 +366,7 @@ public class P2POrderService extends OrderService {
             order.setStatus(OrderStatus.NO_PENDING_ACTION);
         } else {
             P2PInfo info = queryP2PInfoByOrderId(order.getId());
-            double actualIncoming =  calculateIncoming(info.getPayTime(),dueDate,info.getPrePeriod(), order.getTotal(), info.getInterestRate());
+            double actualIncoming = calculateIncoming(info.getPayTime(), dueDate, info.getPrePeriod(), order.getTotal(), info.getInterestRate());
             info.setActualDueDate(dueDate);
             info.setActualIncoming(actualIncoming);
             p2PMapper.updateInfo(info);
@@ -374,7 +382,7 @@ public class P2POrderService extends OrderService {
         return result;
     }
 
-    public boolean giveIncomingToBuyer(Order order, P2PInfo info)  {
+    public boolean giveIncomingToBuyer(Order order, P2PInfo info) {
         boolean result = false;
         try {
             Map<String, Object> params = new HashMap<String, Object>();
@@ -414,10 +422,10 @@ public class P2POrderService extends OrderService {
             detail.put(YeePayConstants.PARAM_NAME_AMOUNT, info.getActualIncoming());
             detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
             Map<String, String> invokResult = getDirectTransactionYeepay().invoke(params);
-            transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
+            transaction.setTrackingNo((String) params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
             if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
                 transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
-                order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWENER);
+                order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWNER);
                 result = true;
             } else {
                 transaction.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
@@ -431,17 +439,17 @@ public class P2POrderService extends OrderService {
     }
 
     private P2PInfo queryP2PInfoByOrderId(int id) {
-        // TODO
-        return null;
+
+        return getP2PMapper().queryInfoByOrderId(id);
     }
 
     private void updateCommerceItemStatus(int productId, boolean ocuppy) {
-        // todo;
+        getUserOrderDao().updateCommerceItemStatus(productId, ocuppy);
     }
 
-    private List<Order> findReleatedOrder(int productId) {
-        // todo
-        return null;
+    private List<Order> findRelatedOrder(int productId) {
+
+        return getUserOrderDao().findRelatedOrder(productId);
     }
 
 
@@ -488,5 +496,13 @@ public class P2POrderService extends OrderService {
 
     public void setProductMapper(ProductMapper productMapper) {
         this.productMapper = productMapper;
+    }
+
+    public UserOrderDao getUserOrderDao() {
+        return userOrderDao;
+    }
+
+    public void setUserOrderDao(UserOrderDao userOrderDao) {
+        this.userOrderDao = userOrderDao;
     }
 }

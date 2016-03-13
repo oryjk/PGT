@@ -6,6 +6,7 @@ import java.util.*;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.OrderType;
+import com.pgt.cart.dao.P2PMapper;
 import com.pgt.cart.dao.ShoppingCartDao;
 import com.pgt.cart.dao.UserOrderDao;
 import com.pgt.com.pgt.order.bean.P2PInfo;
@@ -42,7 +43,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	private DirectYeePay directTransactionYeepay;
 
-
+	private P2PMapper p2pMapper;
 
 	@Autowired
 	private SmsService smsService;
@@ -108,8 +109,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	private void handleP2POrder(PaymentGroup paymentGroup, Map<String, String> result, Date now, Order order) throws IOException {
 
-		P2PInfo info = null;
-		// TODO get info
+		P2PInfo info = getP2pMapper().queryInfoByOrderId(order.getId());
 		double resultAmount = order.getTotal() - info.getHandlingFee();
 		// TODO ROUND;
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -152,7 +152,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 		transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
 		if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
-			order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWENER);
+			order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWNER);
 		} else {
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
 		}
@@ -183,7 +183,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			transaction.setUpdateDate(now);
 			getPaymentService().updateTransaction(transaction);
 		} else {
-			
+
 			// update payment group status
 			paymentGroup.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
 			getPaymentService().updatePaymentGroup(paymentGroup);
@@ -261,5 +261,13 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	public void setDirectTransactionYeepay(DirectYeePay directTransactionYeepay) {
 		this.directTransactionYeepay = directTransactionYeepay;
+	}
+
+	public P2PMapper getP2pMapper() {
+		return p2pMapper;
+	}
+
+	public void setP2pMapper(P2PMapper p2pMapper) {
+		this.p2pMapper = p2pMapper;
 	}
 }

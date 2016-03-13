@@ -15,6 +15,7 @@
 		<result column="update_date" property="updateDate" />
 		<result column="easy_buy" property="easyBuy" />
 		<result column="P2P_INFO_ID" property="p2pInfoId" />
+		<result column="HOLDER_ALIAS" property="holderAlias" />
 		<association column="order_id" property="shippingVO"
 		             select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
 		<association column="order_id" property="payment"
@@ -79,15 +80,15 @@
 	</select>
 
 	<insert id="createOrder" parameterType="com.pgt.cart.bean.Order" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO `ORDER` (USER_ID, ORDER_TYPE, `STATUS`, SHIPPING_FEE, SUBTOTAL, TOTAL, CREATION_DATE, UPDATE_DATE, EASY_BUY, USER_COMMENTS, `TYPE`, P2P_INFO_ID)
-		VALUES ( #{userId}, #{type}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments}, #{type}, #{p2pInfoId})
+		INSERT INTO `ORDER` (USER_ID, ORDER_TYPE, `STATUS`, SHIPPING_FEE, SUBTOTAL, TOTAL, CREATION_DATE, UPDATE_DATE, EASY_BUY, USER_COMMENTS, `TYPE`, P2P_INFO_ID, HOLDER_ALIAS)
+		VALUES ( #{userId}, #{type}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments}, #{type}, #{p2pInfoId},  #{holderAlias})
 	</insert>
 
 	<update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
 		UPDATE `ORDER`
 		<set>
 			`STATUS` = #{status}, SHIPPING_FEE = #{shippingFee}, SUBTOTAL = #{subtotal}, TOTAL = #{total}, USER_COMMENTS
-			= #{userComments}, `TYPE` = #{type}, P2P_INFO_ID = #{p2pInfoId},
+			= #{userComments}, `TYPE` = #{type}, P2P_INFO_ID = #{p2pInfoId},HOLDER_ALIAS = #{holderAlias},
 			SUBMIT_DATE = #{submitDate}, UPDATE_DATE = now()
 		</set>
 		WHERE ORDER_ID = #{id}

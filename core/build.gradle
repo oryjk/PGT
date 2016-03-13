@@ -67,3 +67,21 @@ dependencies {
 compileJava {
     options.setEncoding("utf-8")
 }
+
+//def env = System.console().readLine("\n please Enter your war rename:")
+//mainClassName = 'build'
+def env = System.getProperty("env") ?: "dev"
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources", "src/main/profile/$env/"]
+        }
+    }
+}
+
+//注意，gradle  build 是默认就是dev模式，输入命令行打包方式应该是
+//gradle build -Denv=prod
+//gradle build -Denv=dev
+/*
+等号两边不能有空格
+ */

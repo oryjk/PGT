@@ -2,6 +2,7 @@ package com.pgt.checkout.controller;
 
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderType;
+import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.com.pgt.order.bean.P2PInfo;
 import com.pgt.configuration.URLConfiguration;
@@ -92,6 +93,8 @@ public class P2PCheckoutController {
             LOGGER.debug("user has incomplete order redirect to tender page");
             LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
             // TODO redirect to tendId
+            ModelAndView modelAndView = new ModelAndView("redirect:/tender/" + tenderIdStr);
+            return modelAndView;
         }
         getTenderInventoryService().ensureTransaction();
 
@@ -105,6 +108,8 @@ public class P2PCheckoutController {
             LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
             getTenderInventoryService().setAsRollback();
             // TODO redirect to tendId
+            ModelAndView modelAndView = new ModelAndView("redirect:/tender/" + tenderIdStr);
+            return modelAndView;
         }
         // create order
         try {
@@ -112,16 +117,46 @@ public class P2PCheckoutController {
             Order order = result.getLeft();
             // check inventory
             getTenderInventoryService().lockInventory(order);
+            ModelAndView modelAndView = new ModelAndView("redirect:/checkout/shipping");
+            modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
+            return modelAndView;
         } catch (OrderPersistentException | LockInventoryException ex) {
             LOGGER.error(ex.getMessage(), ex);
             getTenderInventoryService().setAsRollback();
-            // TODO RETURN TENDER PAGE
+            LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
+            ModelAndView modelAndView = new ModelAndView("redirect:/tender/" + tenderIdStr);
+            return modelAndView;
         } finally {
             getTenderInventoryService().commit();
         }
-        // TODO SHIPPING PAGE
-        return null;
     }
+
+    @RequestMapping(value = "/shipping")
+    public ModelAndView shippingPage(ModelAndView modelAndView,HttpServletRequest pRequest, HttpServletResponse pResponse)  {
+        String orderIdStr = pRequest.getParameter(CartConstant.ORDER_ID);
+        User user = SessionHelper.getUser(pRequest, pResponse);
+        if (StringUtils.isBlank(orderIdStr) || !StringUtils.isNumeric(orderIdStr)) {
+             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+        if (null == user) {
+             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+
+        Order order = getOrderService().loadOrder(Integer.valueOf(orderIdStr));
+        if (null == order) {
+             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+        if (order.getUserId() != user.getId().intValue()) {
+             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+//        P2PInfo info = getOrderService()
+        return modelAndView;
+    }
+
 
     private int isProductIdsValid(String[] productIds, String[] quantities, List<Product> relatedProducts, Tender tender) {
         if (productIds == null || productIds.length == 0) {

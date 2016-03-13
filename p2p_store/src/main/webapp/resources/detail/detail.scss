@@ -27,6 +27,11 @@ body {
   background: $gray-bg;
 }
 
+.anchor {
+  position: relative;
+  top: -100px;
+}
+
 .invest {
   margin: 100px auto 0;
   width: $main-width-s;
@@ -104,7 +109,6 @@ body {
     float: right;
     margin-right: 30px;
     @include wh(115px, 115px);
-    background: $gray-lighter;
   }
 
   .cost-box {
@@ -167,6 +171,7 @@ body {
     }
 
     ul {
+      position: relative;
       width: 10000px;
     }
 
@@ -250,6 +255,10 @@ body {
 }
 
 .content-item-list {
+  .zoomThumbActive {
+    outline: 2px solid $em-light;
+  }
+
   .each-item {
     margin-bottom: 20px;
     border: 1px solid $gray-light;
@@ -279,7 +288,17 @@ body {
   }
 
   .small-img-box {
-    padding-top: 13px;
+    padding: 13px 2px 2px 2px;
+    margin: 0 -2px;
+    overflow: hidden;
+
+    .thumblist {
+      width: 400px;
+    }
+
+    ul {
+      width: 10000px;
+    }
 
     li {
       @include wh(90px, 90px);

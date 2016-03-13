@@ -14,19 +14,17 @@ import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
 import com.pgt.media.MediaService;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.*;
 import com.pgt.search.controller.ESSearchConstants;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.style.bean.PageBackground;
 import com.pgt.style.bean.PageBackgroundQuery;
 import com.pgt.style.service.PageBackgroundService;
-import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
@@ -43,7 +41,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by carlwang on 10/20/15.
@@ -58,7 +55,7 @@ public class HomeController {
     @Autowired
     private Configuration configuration;
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private ESSearchService esSearchService;
@@ -105,7 +102,7 @@ public class HomeController {
                 modelAndView.addObject("pageBackground", pageBackgroundList.get(0));
             }
             // get hot search
-            List<HotSearch> hotSearchList = productService.queryAllHotsearch();
+            List<HotSearch> hotSearchList = productServiceImp.queryAllHotsearch();
             LOGGER.debug("add hotSearchList to modelAndView");
             modelAndView.addObject("hotSearchList", hotSearchList);
 
@@ -128,7 +125,7 @@ public class HomeController {
         } else {
 
             // get hot search
-            List<HotSearch> hotSearchList = productService.queryAllHotsearch();
+            List<HotSearch> hotSearchList = productServiceImp.queryAllHotsearch();
             modelAndView.addObject("hotSearchList", hotSearchList);
             Banner banner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME, BannerWebSite.B2C_STORE.toString());
             modelAndView.addObject("banner", banner);

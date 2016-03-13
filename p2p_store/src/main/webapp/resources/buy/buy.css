@@ -30,6 +30,11 @@
     display: table;
     clear: both; }
 
+.order-info .info-title, .order-info .info-value {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
+
 .header .nav, .about-us, .approve, .order-info .info-row-1,
 .order-info .info-row-2,
 .order-info .info-row-3,
@@ -60,6 +65,11 @@
     content: " ";
     display: table;
     clear: both; }
+
+.order-info .info-title, .order-info .info-value {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
 
 /*select*/
 /*color-btn*/
@@ -99,6 +109,11 @@
     display: table;
     clear: both; }
 
+.order-info .info-title, .order-info .info-value {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
+
 .header .nav, .about-us, .approve, .order-info .info-row-1,
 .order-info .info-row-2,
 .order-info .info-row-3,
@@ -129,6 +144,11 @@
     content: " ";
     display: table;
     clear: both; }
+
+.order-info .info-title, .order-info .info-value {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
 
 /*select*/
 /*color-btn*/
@@ -226,7 +246,7 @@ input, select {
   vertical-align: middle; }
 
 body {
-  font-family: '微软雅黑', serif; }
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
 
 ul,
 ol {
@@ -236,9 +256,9 @@ a {
   text-decoration: none; }
 
 .link-btn {
-  color: #86b5ed; }
+  color: #5a98e6; }
   .link-btn:hover {
-    color: #2d7fe0; }
+    text-decoration: underline; }
 
 .hide {
   display: none !important; }
@@ -285,7 +305,7 @@ a {
     line-height: 100px;
     color: black; }
     .header .nav a:hover {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .header .search {
     padding-top: 30px; }
     .header .search input {
@@ -301,7 +321,52 @@ a {
         background: white;
         transition: width .2s linear; }
   .header .status {
-    float: right; }
+    float: right;
+    width: 234px;
+    height: 100px;
+    line-height: 100px;
+    text-align: right; }
+  .header .status-help-center,
+  .header .status-register-btn {
+    margin-left: 20px; }
+  .header .status-help-center,
+  .header .status-login-btn,
+  .header .status-register-btn,
+  .header .status-help-center {
+    vertical-align: middle; }
+    .header .status-help-center:hover,
+    .header .status-login-btn:hover,
+    .header .status-register-btn:hover,
+    .header .status-help-center:hover {
+      color: #ff6d6d; }
+  .header .status-my-account {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px; }
+  .header .status-my-account-detail {
+    position: absolute;
+    display: none;
+    width: 100px;
+    top: 55px;
+    right: -60px;
+    line-height: 25px;
+    background: white; }
+    .header .status-my-account-detail li {
+      text-align: center; }
+    .header .status-my-account-detail a {
+      background: #ff6d6d;
+      color: white;
+      display: block; }
+      .header .status-my-account-detail a:hover {
+        background: #ff6d6d; }
+  .header .status-user-face-box {
+    float: left;
+    width: 100%;
+    height: 100%; }
+  .header .status-user-face {
+    width: 100%;
+    height: 100%; }
 
 .footer {
   background: #3f3f3f; }
@@ -329,7 +394,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #fe4040;
+    background: #ff6d6d;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -436,11 +501,6 @@ a {
 body {
   background: #f3f3f3; }
 
-.link-btn {
-  color: #86b5ed; }
-  .link-btn:hover {
-    color: #2d7fe0; }
-
 .step {
   margin: 115px auto 0;
   width: 1200px;
@@ -461,8 +521,9 @@ body {
     border-bottom: 1px solid black; }
   .main .main-content {
     border: 1px solid #cccccc;
-    padding-bottom: 30px;
-    background: white; }
+    padding: 20px 0 30px;
+    background: white;
+    font-size: 14px; }
 
 .order-info .info-row-1,
 .order-info .info-row-2,
@@ -471,8 +532,14 @@ body {
 .order-info .info-row-5 {
   padding: 15px 30px; }
 
+.order-info .info-title {
+  width: 210px;
+  text-align: right;
+  vertical-align: middle; }
+
 .order-info .info-value {
-  padding-left: 15px; }
+  padding-left: 15px;
+  vertical-align: middle; }
 
 .order-info .info-row-1 .time-tips {
   padding-left: 205px; }
@@ -480,18 +547,18 @@ body {
 .order-info .info-row-1 .info-value {
   color: black; }
   .order-info .info-row-1 .info-value:hover {
-    color: #fe4040; }
+    color: #ff6d6d; }
 
 .order-info .info-row-2 .info-col-1 {
   float: left;
-  width: 217px; }
+  width: 300px; }
 
 .order-info .info-row-2 .info-col-2 {
   float: left;
-  width: 238px; }
+  width: 350px; }
 
 .order-info .info-row-2 .buy-cost {
-  color: #fe4040; }
+  color: #ff6d6d; }
 
 .order-info .info-row-2 .info-col-3 {
   float: left; }
@@ -506,7 +573,9 @@ body {
   height: 30px; }
 
 .order-info .info-row-5 .buy-explain-title {
-  float: left; }
+  float: left;
+  width: 210px;
+  text-align: right; }
 
 .order-info .info-row-5 .buy-explain {
   padding-left: 20px;
@@ -516,7 +585,7 @@ body {
   padding-bottom: 10px; }
 
 .order-info .info-row-6 {
-  padding: 80px 30px 0; }
+  padding: 80px 70px 0; }
 
 .order-info .info-row-7 {
   padding: 23px 0 0 70px; }
@@ -526,7 +595,7 @@ body {
   width: 1000px;
   line-height: 35px; }
   .order-info .receive-item .receive-choose {
-    border: 1px solid #fe4040; }
+    border: 1px solid #ff6d6d; }
 
 .order-info .receive-info {
   float: left;
@@ -556,7 +625,15 @@ body {
 .order-info th {
   padding-right: 20px;
   width: 100px;
-  text-align: right; }
+  text-align: right;
+  font-weight: 400; }
+
+.order-info .input-select {
+  width: 120px;
+  height: 32px;
+  border: 1px solid #cccccc;
+  background: white;
+  font-size: 14px; }
 
 .order-info .input-text {
   position: relative;
@@ -564,7 +641,13 @@ body {
   width: 180px;
   height: 28px;
   padding-left: 10px;
-  border: 1px solid black; }
+  border: 1px solid #cccccc; }
+
+.order-info .input-text-address-box {
+  padding-top: 15px; }
+
+.order-info .input-text-address {
+  width: 400px; }
 
 .order-info .invest-province-select,
 .order-info .invest-city-select,
@@ -654,14 +737,14 @@ body {
   width: 160px;
   height: 40px;
   font-size: 18px;
-  background: #2d7fe0;
+  background: #86b4ed;
   border-radius: 3px;
   line-height: 40px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .order-info .receive-button:hover {
-    background: #154e92; }
+    background: #5a98e6; }
 
 .order-info .info-row-8 {
   padding-top: 35px;
@@ -674,127 +757,136 @@ body {
   width: 200px;
   height: 40px;
   font-size: 18px;
-  background: #fe4040;
+  background: #ff6d6d;
   border-radius: 3px;
   line-height: 40px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .order-info .receive-ifo-submit:hover {
-    background: #d70101; }
+    background: #ff3a3a; }
 
-.order-confirm {
-  background: white;
-  border: 1px solid #cccccc; }
-  .order-confirm .confirm-title {
-    float: left;
-    width: 210px;
-    text-align: right; }
-  .order-confirm .confirm-value {
-    float: left;
-    padding-left: 20px;
-    width: 800px; }
-  .order-confirm .confirm-row-1,
-  .order-confirm .confirm-row-2,
-  .order-confirm .confirm-row-3 {
-    padding: 12px 0; }
-  .order-confirm .confirm-row-4 {
-    padding: 12px 0 55px;
-    border-bottom: 1px dotted #cccccc; }
-  .order-confirm .confirm-row-5 {
-    padding: 27px 0 17px;
-    border-bottom: 1px dotted #cccccc; }
-    .order-confirm .confirm-row-5 p {
-      padding-bottom: 13px; }
-  .order-confirm .confirm-row-6 {
-    padding-top: 40px; }
-    .order-confirm .confirm-row-6 table {
-      margin-left: 120px;
-      width: 950px;
-      table-layout: fixed;
-      text-align: left; }
-    .order-confirm .confirm-row-6 tr {
-      border: 1px solid #cccccc; }
-    .order-confirm .confirm-row-6 th {
-      height: 40px;
-      padding-left: 10px;
-      background: #cccccc;
-      vertical-align: middle; }
-    .order-confirm .confirm-row-6 td {
-      padding-left: 10px;
-      height: 80px;
-      vertical-align: middle; }
-    .order-confirm .confirm-row-6 .confirm-name {
-      width: 370px; }
-    .order-confirm .confirm-row-6 .confirm-post-cost {
-      width: 130px; }
-    .order-confirm .confirm-row-6 .confirm-item-cost {
-      width: 140px; }
-    .order-confirm .confirm-row-6 .confirm-item-count {
-      width: 120px; }
-    .order-confirm .confirm-row-6 .item-link {
-      color: black; }
-      .order-confirm .confirm-row-6 .item-link:hover {
-        color: #fe4040; }
-    .order-confirm .confirm-row-6 .cost {
-      color: #fe4040; }
-  .order-confirm .confirm-row-7 {
-    padding: 10px 0 0 135px;
-    color: #fe4040; }
-  .order-confirm .confirm-row-8 {
-    padding: 10px 130px 0 0;
-    text-align: right; }
-    .order-confirm .confirm-row-8 .money-title {
-      padding-right: 10px; }
-    .order-confirm .confirm-row-8 .cost {
-      font-size: 22px;
-      color: #fe4040; }
-  .order-confirm .confirm-row-9 {
-    padding-top: 45px;
-    text-align: center; }
-  .order-confirm .confirm-submit {
-    display: inline-block;
-    padding: 0;
-    border: none;
-    width: 100px;
+.order-confirm .confirm-title {
+  float: left;
+  width: 210px;
+  text-align: right; }
+
+.order-confirm .confirm-value {
+  float: left;
+  padding-left: 20px;
+  width: 800px; }
+
+.order-confirm .confirm-row-1,
+.order-confirm .confirm-row-2,
+.order-confirm .confirm-row-3 {
+  padding: 12px 0; }
+
+.order-confirm .confirm-row-4 {
+  padding: 12px 0 55px;
+  border-bottom: 1px dotted #cccccc; }
+
+.order-confirm .confirm-row-5 {
+  padding: 27px 0 17px;
+  border-bottom: 1px dotted #cccccc; }
+  .order-confirm .confirm-row-5 p {
+    padding-bottom: 13px; }
+
+.order-confirm .confirm-row-6 {
+  padding-top: 40px; }
+  .order-confirm .confirm-row-6 table {
+    margin-left: 120px;
+    width: 950px;
+    table-layout: fixed;
+    text-align: left; }
+  .order-confirm .confirm-row-6 tr {
+    border: 1px solid #cccccc; }
+  .order-confirm .confirm-row-6 th {
     height: 40px;
-    font-size: 18px;
-    background: #fe4040;
-    border-radius: 3px;
-    line-height: 40px;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-    margin-right: 20px; }
-    .order-confirm .confirm-submit:hover {
-      background: #d70101; }
-  .order-confirm .confirm-reset {
-    display: inline-block;
-    padding: 0;
-    border: none;
-    width: 120px;
-    height: 40px;
-    font-size: 18px;
+    padding-left: 10px;
     background: #cccccc;
-    border-radius: 3px;
-    line-height: 40px;
-    color: white;
-    text-align: center;
-    cursor: pointer;
+    vertical-align: middle;
+    font-weight: 400; }
+  .order-confirm .confirm-row-6 td {
+    padding-left: 10px;
+    height: 80px;
+    vertical-align: middle; }
+  .order-confirm .confirm-row-6 .confirm-name {
+    width: 370px; }
+  .order-confirm .confirm-row-6 .confirm-post-cost {
+    width: 130px; }
+  .order-confirm .confirm-row-6 .confirm-item-cost {
+    width: 140px; }
+  .order-confirm .confirm-row-6 .confirm-item-count {
+    width: 120px; }
+  .order-confirm .confirm-row-6 .item-link {
     color: black; }
-    .order-confirm .confirm-reset:hover {
-      background: #b6b6b6; }
+    .order-confirm .confirm-row-6 .item-link:hover {
+      color: #ff6d6d; }
+  .order-confirm .confirm-row-6 .cost {
+    color: #ff6d6d; }
+
+.order-confirm .confirm-row-7 {
+  padding: 10px 0 0 135px;
+  color: #ff6d6d; }
+
+.order-confirm .confirm-row-8 {
+  padding: 10px 130px 0 0;
+  text-align: right; }
+  .order-confirm .confirm-row-8 .money-title {
+    padding-right: 10px; }
+  .order-confirm .confirm-row-8 .cost {
+    font-size: 22px;
+    color: #ff6d6d; }
+
+.order-confirm .confirm-row-9 {
+  padding-top: 45px;
+  text-align: center; }
+
+.order-confirm .confirm-submit {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  background: #ff6d6d;
+  border-radius: 3px;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 20px; }
+  .order-confirm .confirm-submit:hover {
+    background: #ff3a3a; }
+
+.order-confirm .confirm-reset {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 120px;
+  height: 40px;
+  font-size: 18px;
+  background: #cccccc;
+  border-radius: 3px;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  color: black; }
+  .order-confirm .confirm-reset:hover {
+    background: #b6b6b6; }
 
 .order-pay {
   background: white;
-  border: 1px solid #cccccc; }
+  border: 1px solid #cccccc;
+  font-size: 14px; }
   .order-pay .pay-content {
     margin: 0 auto 40px auto;
     width: 1000px; }
   .order-pay .pay-title {
     padding: 30px 0 0 0; }
     .order-pay .pay-title span {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .order-pay .pay-info {
     margin: 50px 0 20px 0;
     border: 1px solid #cccccc;
@@ -817,9 +909,9 @@ body {
     .order-pay .pay-yeepay input {
       line-height: 30px; }
     .order-pay .pay-yeepay span {
-      color: #fe4040; }
+      color: #ff6d6d; }
   .order-pay .payment {
-    border: 2px solid #fe4040;
+    border: 2px solid #ff6d6d;
     height: 250px; }
     .order-pay .payment .pay-check {
       padding: 50px 0 0 50px; }
@@ -839,7 +931,7 @@ body {
       width: 300px;
       height: 40px;
       font-size: 18px;
-      background: #fe4040;
+      background: #ff6d6d;
       border-radius: 3px;
       line-height: 40px;
       color: white;
@@ -848,7 +940,7 @@ body {
       display: block;
       margin: 0 auto; }
       .order-pay .pay-submit .pay-submit-btn:hover {
-        background: #d70101; }
+        background: #ff3a3a; }
 
 .pay-end {
   background: white;
@@ -871,7 +963,7 @@ body {
       .pay-end .pay-end-font .pay-end-font-num a {
         float: right; }
       .pay-end .pay-end-font .pay-end-font-num span {
-        color: #fe4040; }
+        color: #ff6d6d; }
       .pay-end .pay-end-font .pay-end-font-num div {
         float: right; }
     .pay-end .pay-end-font .pay-end-font-help {

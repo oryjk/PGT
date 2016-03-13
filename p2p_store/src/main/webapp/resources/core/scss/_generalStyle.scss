@@ -1,6 +1,6 @@
 @import "variable";
 body {
-  font-family: '微软雅黑', serif;
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif;
 }
 
 ul,
@@ -13,10 +13,10 @@ a {
 }
 
 .link-btn {
-  color: $em-light;
+  color: $em-dark;
 
   &:hover {
-    color: $em;
+    text-decoration: underline;
   }
 }
 

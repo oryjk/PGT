@@ -37,6 +37,7 @@
 	<template v-if="ajax">
 		<template v-for="item in categoryMenu">
 			<li class="menu-level-1">
+				<a href="#" class="list" @click.prevent="chooseCategoryAction('TENDER_ROOT',$event)">
 					<img src="../core/images/icon/list2.png">
 					<h4>{{item.name}}</h4>
 				</a>

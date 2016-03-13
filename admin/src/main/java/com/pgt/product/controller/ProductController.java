@@ -9,8 +9,7 @@ import com.pgt.media.MediaService;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
-import com.pgt.product.bean.ProductType;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.search.service.SearchService;
@@ -42,7 +41,7 @@ public class ProductController extends InternalTransactionBaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private CategoryService categoryService;
@@ -62,7 +61,7 @@ public class ProductController extends InternalTransactionBaseController {
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
     public ModelAndView findProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
         LOGGER.debug("search the product with id {productId}.", productId);
-        Product product = productService.queryProduct(Integer.valueOf(productId));
+        Product product = productServiceImp.queryProduct(Integer.valueOf(productId));
         if (product == null) {
             LOGGER.debug("Can not find the product with id is {}", productId);
             return modelAndView;
@@ -102,7 +101,7 @@ public class ProductController extends InternalTransactionBaseController {
                 LOGGER.debug("The product is empty.");
                 return modelAndView;
             }
-            productService.createProduct(product);
+            productServiceImp.createProduct(product);
             if (product.getStatus() == 1) {
                 esSearchService.productIndex(product);
             }
@@ -126,20 +125,14 @@ public class ProductController extends InternalTransactionBaseController {
         try {
             removeOldProductMediaRef(productMedia);
             Integer mediaId = mediaService.create(productMedia);
-            Product product = productService.queryProduct(productMedia.getReferenceId());
+            Product product = productServiceImp.queryProduct(productMedia.getReferenceId());
             if (ObjectUtils.isEmpty(product)) {
                 LOGGER.debug("The product is empty with id is {}.", productMedia.getReferenceId());
                 responseEntity.getBody().put("success", false);
                 responseEntity.getBody().put("message", "Can not update product index.");
                 return responseEntity;
             }
-
-            if(product.getType()!=null&&product.getType().endsWith(ProductType.LIVE_PAWNAGE.toString())){
-                LOGGER.debug("The product type is {}.",ProductType.LIVE_PAWNAGE);
-            }else{
-                esSearchService.updateProductIndex(product);
-                LOGGER.debug("The product type is {}.",ProductType.DEAD_PAWNAGE);
-            }
+            esSearchService.updateProductIndex(product);
             responseEntity.getBody().put("success", true);
             responseEntity.getBody().put("mediaId", mediaId);
             return responseEntity;
@@ -195,7 +188,7 @@ public class ProductController extends InternalTransactionBaseController {
             }
             product.setCreationDate(new Date());
             product.setUpdateDate(new Date());
-            productService.createProduct(Integer.valueOf(product.getRelatedCategoryId()), product);
+            productServiceImp.createProduct(Integer.valueOf(product.getRelatedCategoryId()), product);
             LOGGER.debug("Product has created, the product is is {}.", product.getProductId());
             return modelAndView;
         } catch (Exception e) {
@@ -226,7 +219,7 @@ public class ProductController extends InternalTransactionBaseController {
                 return responseEntity;
             }
             Category rootCategory = categoryService.queryRootCategoryByProductId(Integer.valueOf(productId));
-            productService.deleteProduct(productId);
+            productServiceImp.deleteProduct(productId);
             esSearchService.deleteProductIndex(productId);
             if (!ObjectUtils.isEmpty(rootCategory)) {
 //                esSearchService.createHotSaleIndex(rootCategory.getId());
@@ -255,7 +248,7 @@ public class ProductController extends InternalTransactionBaseController {
                 LOGGER.debug("The products is null.");
                 return responseEntity;
             }
-            productService.deleteProducts(products);
+            productServiceImp.deleteProducts(products);
             LOGGER.debug("The products has deleted.");
             return responseEntity;
         } catch (Exception e) {
@@ -273,7 +266,7 @@ public class ProductController extends InternalTransactionBaseController {
             return new ModelAndView(PERMISSION_DENIED);
         }
         // main logic
-        Product product = productService.queryProduct(productId);
+        Product product = productServiceImp.queryProduct(productId);
         List<Category> categories = categoryService.queryAllParentCategories();
         modelAndView.setViewName("/product/productBaseModify");
         if (ObjectUtils.isEmpty(product)) {
@@ -301,7 +294,7 @@ public class ProductController extends InternalTransactionBaseController {
         TransactionStatus status = ensureTransaction();
         try {
             product.setUpdateDate(new Date());
-            productService.updateProductBase(product);
+            productServiceImp.updateProductBase(product);
 
         } catch (Exception e) {
             status.setRollbackOnly();
@@ -320,7 +313,7 @@ public class ProductController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/update/productImageModify/{productId}", method = RequestMethod.GET)
     public ModelAndView productImageModify(@PathVariable(value = "productId") Integer productId, ModelAndView modelAndView) {
-        Product product = productService.queryProduct(productId);
+        Product product = productServiceImp.queryProduct(productId);
         modelAndView.addObject("product", product);
         modelAndView.addObject("staticServer", configuration.getStaticServer());
         modelAndView.setViewName("/product/productImageModify");
@@ -342,7 +335,7 @@ public class ProductController extends InternalTransactionBaseController {
                 return modelAndView;
             }
             product.setUpdateDate(new Date());
-            productService.updateProduct(product);
+            productServiceImp.updateProduct(product);
             LOGGER.debug("The product has updated with product is is {}.", product.getProductId());
             return modelAndView;
         } catch (Exception e) {
@@ -365,42 +358,42 @@ public class ProductController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/updateIsHot", method = RequestMethod.GET)
-   public ResponseEntity updateIsHot(ModelAndView modelAndView,Integer productId,Boolean isHot){
+    public ResponseEntity updateIsHot(ModelAndView modelAndView, Integer productId, Boolean isHot) {
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         TransactionStatus status = ensureTransaction();
         try {
 
-        if(ObjectUtils.isEmpty(productId)){
-            LOGGER.debug("The productId is empty");
-            responseEntity.getBody().put("status","fail");
-            return responseEntity;
-        }
-        if(ObjectUtils.isEmpty(isHot)){
-            LOGGER.debug("The isHot is empty");
-            responseEntity.getBody().put("status","fail");
-            return responseEntity;
-        }
-        Product product=productService.queryProduct(productId);
-        if(ObjectUtils.isEmpty(product)){
-            LOGGER.debug("The product is empty");
-            responseEntity.getBody().put("status","fail");
-            return responseEntity;
-        }
-        product.setIsHot(isHot);
-        productService.updateProduct(product);
+            if (ObjectUtils.isEmpty(productId)) {
+                LOGGER.debug("The productId is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            if (ObjectUtils.isEmpty(isHot)) {
+                LOGGER.debug("The isHot is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            Product product = productServiceImp.queryProduct(productId);
+            if (ObjectUtils.isEmpty(product)) {
+                LOGGER.debug("The product is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            product.setIsHot(isHot);
+            productServiceImp.updateProduct(product);
 
         } catch (Exception e) {
             status.setRollbackOnly();
         } finally {
             getTransactionManager().commit(status);
         }
-        responseEntity.getBody().put("status","success");
-       return responseEntity;
-   }
+        responseEntity.getBody().put("status", "success");
+        return responseEntity;
+    }
 
 
     @RequestMapping(value = "/update/index", method = RequestMethod.POST)
-    public ResponseEntity updateIndex(HttpServletRequest pRequest,String[] products) {
+    public ResponseEntity updateIndex(HttpServletRequest pRequest, String[] products) {
         LOGGER.debug("The method for product to index");
         ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
         TransactionStatus status = ensureTransaction();
@@ -408,28 +401,28 @@ public class ProductController extends InternalTransactionBaseController {
             if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
                 return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
             }
-            if (products == null ) {
+            if (products == null) {
                 LOGGER.debug("The products  is null.");
                 return responseEntity;
             }
 
-            for (String productId:products) {
-               Product product= productService.queryProduct(Integer.parseInt(productId));
-                LOGGER.debug("The index productId is {}.",productId);
-                if(!ObjectUtils.isEmpty(product)){
-                    SearchResponse searchResponse= esSearchService.findProduct(productId);
-                    if(searchResponse.getHits().getTotalHits()<1){
-                        LOGGER.debug("The es to createIndex,productId is {}.",productId);
-                         esSearchService.productIndex(product);
-                    }else{
-                        LOGGER.debug("The es to updateIndex,productId is {}.",productId);
+            for (String productId : products) {
+                Product product = productServiceImp.queryProduct(Integer.parseInt(productId));
+                LOGGER.debug("The index productId is {}.", productId);
+                if (!ObjectUtils.isEmpty(product)) {
+                    SearchResponse searchResponse = esSearchService.findProduct(productId);
+                    if (searchResponse.getHits().getTotalHits() < 1) {
+                        LOGGER.debug("The es to createIndex,productId is {}.", productId);
+                        esSearchService.productIndex(product);
+                    } else {
+                        LOGGER.debug("The es to updateIndex,productId is {}.", productId);
                         esSearchService.updateProductIndex(product);
                     }
                 }
 
             }
             LOGGER.debug("The products has index to es.");
-            responseEntity.getBody().put("status","success");
+            responseEntity.getBody().put("status", "success");
             return responseEntity;
         } catch (Exception e) {
             status.setRollbackOnly();
@@ -438,7 +431,6 @@ public class ProductController extends InternalTransactionBaseController {
         }
         return responseEntity;
     }
-
 
 
 }

@@ -1,13 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: zhangxiaodong
-  Date: 16-2-23
-  Time: 下午12:03
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!--footer begin-->
 <div class="footer" id="footer">
     <div class="goods-box">
         <div class="our-goods">
@@ -73,50 +64,69 @@
             </div>
         </div>
     </div>
+
     <div class="about-us">
-        <c:forEach items="${helpCategoryVoList}" var="esHelpCenter">
-            <c:set var="helpcategory" value="${esHelpCenter.source}"/>
-            <ul>
-                <li><h3>${helpcategory.category.name}</h3></li>
-
-                <c:forEach items="${helpcategory.helpCenterList}" var="helpVo">
-                    <li><a href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</a></li>
-                </c:forEach>
-            </ul>
-        </c:forEach>
-
+        <ul>
+            <li><h3>购物与支付</h3></li>
+            <li><a href="">购物流程</a></li>
+            <li><a href="">订单查询</a></li>
+            <li><a href="">支付方式</a></li>
+            <li><a href="">发票领取</a></li>
+        </ul>
+        <ul>
+            <li><h3>配送说明</h3></li>
+            <li><a href="">配送方式和时间</a></li>
+            <li><a href="">配送费用和签收</a></li>
+            <li><a href=""></a></li>
+        </ul>
+        <ul>
+            <li><h3>关于我们</h3></li>
+            <li><a href="">点金子</a></li>
+            <li><a href="">点金子绝当品</a></li>
+            <li><a href="">联系我们</a></li>
+            <li><a href="">招贤纳士</a></li>
+            <li><a href="">业务范围</a></li>
+            <li><a href="">隐私声明</a></li>
+        </ul>
+        <ul>
+            <li><h3>售后服务</h3></li>
+            <li><a href="">退换货政策</a></li>
+            <li><a href="">退款说明</a></li>
+        </ul>
         <div class="us">
             <div class="our-app">
                 <a class="apple-dimension" href="#">
-                    <img class="app-icon" src="/resources/core/images/footer/apple.png" alt="苹果客户端下载"/>
+                    <img class="app-icon" src="../../core/images/footer/apple.png" alt="苹果客户端下载"/>
 
                     <h3>苹果客户端</h3>
-                    <img class="two-dimension" src="/resources/core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="android-dimension" href="#">
-                    <img class="app-icon" src="/resources/core/images/footer/android.png" alt="安卓客户端下载"/>
+                    <img class="app-icon" src="../../core/images/footer/android.png" alt="安卓客户端下载"/>
 
                     <h3>安卓客户端</h3>
-                    <img class="two-dimension" src="/resources/core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="online-server" href="#">
-                    <img class="app-icon" src="/resources/core/images/footer/weixin.png" alt="微信客户端下载"/>
+                    <img class="app-icon" src="../../core/images/footer/weixin.png" alt="微信客户端下载"/>
 
                     <h3>微信公众号</h3>
-                    <img class="two-dimension" src="/resources/core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
                 <a class="online-server" href="#">
-                    <img class="app-icon" src="/resources/core/images/footer/weibo.png" alt="点金子在线投资"/>
+                    <img class="app-icon" src="../../core/images/footer/weibo.png" alt="点金子在线投资"/>
 
                     <h3>点金子投资</h3>
-                    <img class="two-dimension" src="/resources/core/images/footer/erweima.jpg" alt="二维码"/>
+                    <img class="two-dimension" src="../../core/images/footer/erweima.jpg" alt="二维码"/>
                 </a>
             </div>
             <div class="our-info">
-                <h3>点金子联系地址</h3>
-                <p>北京市朝阳区朝外大街乙6号0110</p>
-                <p></p>
-                <p>咨询热线：010-58697606</p>
+                <h3>点金子总部地址</h3>
+
+                <p>成都市武侯区某某某某某某某某</p>
+
+                <p>咨询热线：028-85033350</p>
+
                 <p>企业邮箱：zxhl998@163.com</p>
             </div>
         </div>
@@ -125,33 +135,12 @@
     <div class="approve-box">
         <div class="approve">
             <a href="#">
-                <img src="/resources/core/images/footer/approve-0.png" alt=""/>
+                <img src="../../core/images/footer/approve-0.png" alt=""/>
             </a>
             <a href="#">
-                <img src="/resources/core/images/footer/approve-1.jpg" alt=""/>
+                <img src="../../core/images/footer/approve-1.jpg" alt=""/>
             </a>
         </div>
         <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
     </div>
 </div>
-<!--footer end-->
-
-<script src="/resources/core/js/jquery.min.js"></script>
-<script src="/resources/core/js/jquery.jqzoom-core.js"></script>
-<script type="text/javascript">
-
-    $(document).ready(function() {
-        $('.jqzoom').jqzoom({
-            zoomType: 'standard',
-            lens:true,
-            preloadImages: false,
-            alwaysOn:false,
-            zoomWidth:400,
-            zoomHeight: 400,
-            hideEffect: 'fadeout'
-        });
-
-    });
-
-
-</script>

@@ -6,15 +6,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>点金子典当行绝当品销售平台</title>
-<link rel="stylesheet"
-	href="<spring:url value="${juedangpinStaticPath}/searchPage/searchPage.css"/>" />
-	<link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
-<script
-	src="<spring:url value="${juedangpinStaticPath}/core/js/pageView.js"/>"></script>
-</head>
+
+<jsp:include page="../core/head.jspf">
+	<jsp:param name="cssPath" value="/searchPage/searchPage.css" />
+	<jsp:param name="jsPath" value="/core/js/pageView.js" />
+	<jsp:param name="keywords" value="点金子,淘在当,绝当淘,文玩销售,珠宝典当,黄金典当,铂金典当,玉石典当,钟表典当,奢侈品典当,钻石典当,翡翠典当,琥珀典当,绝当品销售" />
+	<jsp:param name="description" value="点金子，典当行业互联网风控专家，专业销售绝当品、在当品预售，平台销售种当品类繁多，珠宝销售、黄金销售、铂金销售玉石销售、钻石销售、文玩销售、琥珀销售、蜜蜡销售。" />
+</jsp:include>
 <body>
 	<!--主头部-->
 	<div class="header" id="header">

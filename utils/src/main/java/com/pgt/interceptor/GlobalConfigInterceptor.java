@@ -12,7 +12,7 @@ import com.pgt.home.bean.HomeCategory;
 import com.pgt.hot.bean.HotSearch;
 import com.pgt.hot.service.HotProductHelper;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.service.ESSearchService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
@@ -44,7 +44,7 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
     private HotProductHelper hotProductHelper;
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private CategoryHelper categoryHelper;
@@ -107,7 +107,7 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
 
             // get hot search
             if (ObjectUtils.isEmpty(applicationContext.getAttribute(Constants.HOT_PRODUCTS))) {
-                List<HotSearch> hotSearchList = productService.queryAllHotsearch();
+                List<HotSearch> hotSearchList = productServiceImp.queryAllHotsearch();
                 applicationContext.setAttribute(Constants.HOT_SEARCH_LIST, hotSearchList);
             }
 
@@ -157,12 +157,12 @@ public class GlobalConfigInterceptor implements HandlerInterceptor {
         this.hotProductHelper = hotProductHelper;
     }
 
-    public ProductService getProductService() {
-        return productService;
+    public ProductServiceImp getProductServiceImp() {
+        return productServiceImp;
     }
 
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
+    public void setProductServiceImp(ProductServiceImp productServiceImp ) {
+        this.productServiceImp = productServiceImp;
     }
 
     public CategoryHelper getCategoryHelper() {

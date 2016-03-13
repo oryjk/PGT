@@ -20,6 +20,7 @@ import java.util.List;
 public interface ProductMapper extends SqlMapper {
 
     Product queryProduct(@Param("productId") int productId);
+    P2PProduct queryTenderProduct(@Param("productId") int productId);
 
     List<Product> queryProducts(SearchPaginationBean searchPaginationBean);
 
@@ -43,7 +44,7 @@ public interface ProductMapper extends SqlMapper {
 
     List<ProductMedia> queryProductMainMedias(@Param("productId") int pProductId);
 
-    ProductMedia queryProductThumbnailMedias(@Param("productId") int pProductId);
+    ProductMedia queryProductThumbnailMedia(@Param("productId") int pProductId);
 
     ProductMedia queryProductMobileDetailMedias(@Param("productId") int pProductId);
 

@@ -3,23 +3,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <meta charset="UTF-8">
-    <title>绝当淘--点金子旗下绝当品交易网</title>
-    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}${param.cssPath}"/>"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="keywords" content="绝当淘,典当,易当,易当典当,申牛典当,物贷,网络典当,网上典当,线上典当,在线典当,网络当铺,小微资产,典当融资,典当贷款,成都典当,民品典当">
-    <meta name="description" content="绝当淘--国内首家网络绝当品销售平台。">
-    <!--
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?e656160fabe1e08b8ccf41f4a12dc890";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-    -->
+	<meta charset="UTF-8">
+	<title>绝当淘—国内首家绝当品销售平台</title>
+	<link rel="Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
+	<link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}${param.cssPath}"/>"/>
+	<script src="${juedangpinStaticPath}${param.jsPath}"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="${param.keywords}">
+	<meta name="description" content="${param.description}">
+	<meta name="baidu-site-verification" content="qx3F1rIr3x"/>
+	<meta property="wb:webmaster" content="b28fa909e795d052" />
+	<style>
+		#DivId {
+			display: none;
+		}
+
+		#qiao-invite-wrap {
+			display: none;
+		}
+	</style>
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?75b34e22a5fdf2cf1c60a8fb0bd13398";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	<!--
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?e656160fabe1e08b8ccf41f4a12dc890";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	-->
 </head>

@@ -62,9 +62,10 @@
     <result column="MERCHANT" property="merchant"/>
     <result column="IS_HOT" property="isHot"/>
     <result column="TYPE" property="type"/>
-        <result column="IMAGE_DESC" property="imageDesc"/>
+    <result column="IMAGE_DESC" property="imageDesc"/>
     <result column="PAWNAGE_STATUS" property="pawnageStatus"/>
     <result column="ORIGIN_STOCK" property="originStock"/>
+    <result column="TENDER_ID" property="tenderId"/>
     <association property="relatedCategoryId" column="PRODUCT_ID"
                  select="queryRelatedCategoryId"/>
     <association property="shippingAddress" column="PRODUCT_ID"
@@ -181,6 +182,10 @@
 		SELECT *
 		FROM PRODUCT WHERE PRODUCT_ID=#{productId}
 	</select>
+    <select id="queryTenderProduct" parameterType="int" resultMap="resultTenderProduct">
+        SELECT *
+        FROM PRODUCT WHERE PRODUCT_ID=#{productId}
+    </select>
 
     <select id="queryProducts" parameterType="com.pgt.search.bean.SearchPaginationBean"
             resultMap="resultProduct">
@@ -286,9 +291,9 @@
 
 		INSERT INTO
 		PRODUCT(NAME,SERIAL_NUMBER,LIST_PRICE,SALE_PRICE,STATUS,DESCRIPTION,
-		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,TENDER_ID,IMAGE_DESC)
+		SHIPPING_FEE,RELATED_CATEGORY_ID,STOCK,CREATION_DATE,UPDATE_DATE,IS_NEW,SHORT_DESCRIPYION,TITLE,IS_HOT,KEY_WORD,MERCHANT,IMAGE_DESC)
 		VALUES
-		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},#{tenderId},#{imageDesc})
+		(#{name},#{serialNumber},#{listPrice},#{salePrice},#{status},#{description},#{shippingFee},#{relatedCategoryId},#{stock},#{creationDate},#{updateDate},#{isNew},#{shortDescription},#{title},#{isHot},#{keyWord},#{merchant},#{imageDesc})
 	</insert>
 
     <update id="updateProduct" parameterMap="paramProduct">

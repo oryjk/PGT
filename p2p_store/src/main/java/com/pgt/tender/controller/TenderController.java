@@ -1,6 +1,5 @@
 package com.pgt.tender.controller;
 
-import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.TenderSearchEngineService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 /**

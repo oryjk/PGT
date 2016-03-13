@@ -45,21 +45,19 @@
 
         <div class="main-content">
             <div class="info-row-1">
-                产品信息 : <a class="info-value" href="#">什么系列什么产品什么名称</a>
-                <span class="time-tips">( 该产品还剩<span>23</span>天可预定 )</span>
+                <span class="info-title">产品信息:</span> <a class="info-value" href="#">什么系列什么产品什么名称</a>
             </div>
             <div class="info-row-2">
-                <div class="info-col-1">购买数量: <span class="info-value">1</span></div>
-                <div class="info-col-2">产品金额: <span class="buy-cost info-value">¥</span><span
+                <div class="info-col-1"><span class="info-title">购买数量:</span> <span class="info-value">1</span></div>
+                <div class="info-col-2"><span class="info-title">产品金额:</span> <span class="buy-cost info-value">¥</span><span
                         class="buy-cost">18,600.00</span></div>
-                <div class="info-col-3">配送费用: <span class="info-value">免运费</span></div>
+                <div class="info-col-3"><span class="info-title">配送费用:</span> <span class="info-value">免运费</span></div>
             </div>
             <div class="info-row-3">
-                发货时间: <span class="info-value">2016年6月22日</span>
-                <span class="time-tips">( 该产品还剩<span>123</span>天可能绝当 )</span>
+                <span class="info-title">预计发货时间:</span> <span class="info-value">2016年6月22日</span>
             </div>
             <div class="info-row-4">
-                备注信息: <input type="text" placeholder="请填写任何您想告诉我们的信息"/>
+                <span class="info-title">备注信息:</span> <input type="text" placeholder="请填写任何您想告诉我们的信息"/>
             </div>
             <div class="info-row-5">
                 <span class="buy-explain-title">购买说明: </span>
@@ -110,50 +108,30 @@
                                 <tr>
                                     <th>地址:</th>
                                     <td>
-                                        <!-- 仿select组件begin-->
-                                        <div class="invest-province-select">
-                                            <a id="province" class="select-view" href="#">
-                                                <span class="selected">请选择</span>
-                                                <i class="foundicon-down-arrow"></i>
-                                            </a>
-                                            <ul class="options">
-                                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
-                                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
-                                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
-                                            </ul>
-                                            <input class="select-value" name="" type="hidden" value=""/>
-                                        </div>
-                                        <!-- 仿select组件end-->
-                                        <!-- 仿select组件begin-->
-                                        <div class="invest-city-select">
-                                            <a id="city" class="select-view" href="#">
-                                                <span class="selected">请选择</span>
-                                                <i class="foundicon-down-arrow"></i>
-                                            </a>
-                                            <ul class="options">
-                                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
-                                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
-                                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
-                                            </ul>
-                                            <input class="select-value" name="" type="hidden" value=""/>
-                                        </div>
-                                        <!-- 仿select组件begin-->
-                                        <!-- 仿select组件end-->
-                                        <div class="invest-country-select">
-                                            <a id="country" class="select-view" href="#">
-                                                <span class="selected">请选择</span>
-                                                <i class="foundicon-down-arrow"></i>
-                                            </a>
-                                            <ul class="options">
-                                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
-                                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
-                                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
-                                            </ul>
-                                            <input class="select-value" name="" type="hidden" value=""/>
-                                        </div>
-                                        <!-- 仿select组件end-->
-                                        <input class="input-text" type="text"/>
-
+                                        <p>
+                                            <label>
+                                                <select class="input-select">
+                                                    <option value="">四川</option>
+                                                    <option value="">新疆维吾尔族自治区</option>
+                                                </select>
+                                                省
+                                            </label>
+                                            <label>
+                                                <select class="input-select">
+                                                    <option value="">阿坝州藏族羌族自治州</option>
+                                                </select>
+                                                市
+                                            </label>
+                                            <label>
+                                                <select class="input-select">
+                                                    <option value="">汶川县</option>
+                                                </select>
+                                                县
+                                            </label>
+                                        </p>
+                                        <p class="input-text-address-box">
+                                            <input class="input-text input-text-address" type="text"/>
+                                        </p>
                                     </td>
                                 </tr>
                                 <tr>

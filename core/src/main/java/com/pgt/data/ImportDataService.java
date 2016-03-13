@@ -6,7 +6,7 @@ import com.pgt.category.dao.CategoryMapper;
 import com.pgt.common.bean.Media;
 import com.pgt.common.dao.MediaMapper;
 import com.pgt.media.bean.MediaType;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class ImportDataService extends TransactionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImportDataService.class);
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -49,7 +49,7 @@ public class ImportDataService extends TransactionService {
         LOGGER.debug("End to create category sub products.");
         if (!ObjectUtils.isEmpty(catalog.getProducts())) {
             catalog.getProducts().stream().forEach(product ->
-                            productService.createProduct(catalog.getId(), product)
+                            productServiceImp.createProduct(catalog.getId(), product)
             );
         }
         LOGGER.debug("End to create category sub products.");
@@ -68,12 +68,12 @@ public class ImportDataService extends TransactionService {
     }
 
 
-    public ProductService getProductService() {
-        return productService;
+    public ProductServiceImp getProductServiceImp() {
+        return productServiceImp;
     }
 
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
+    public void setProductServiceImp(ProductServiceImp ProductServiceImp) {
+        this.productServiceImp = ProductServiceImp;
     }
 
 

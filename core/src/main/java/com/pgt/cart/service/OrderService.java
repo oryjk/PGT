@@ -24,7 +24,7 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-    public Order loadOrder(Integer orderId) {
+    public Order  loadOrder(Integer orderId) {
         if (orderId == null) {
             return null;
         }

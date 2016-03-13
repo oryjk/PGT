@@ -17,8 +17,8 @@
     font-size: 18px;
     color: black; }
   .person-info-tab-box .person-info-tab-choose {
-    border-bottom: 2px solid #fe4040;
-    color: #fe4040; }
+    border-bottom: 2px solid #ff6d6d;
+    color: #ff6d6d; }
 
 .person-info-box {
   position: relative;
@@ -45,15 +45,15 @@
     margin: 20px auto;
     width: 120px;
     height: 35px;
-    color: #fe4040;
+    color: #ff6d6d;
     position: relative;
-    border: 1px solid #fe4040;
+    border: 1px solid #ff6d6d;
     border-radius: 3px;
     text-align: center;
     line-height: 35px;
     font-size: 16px; }
     .person-face .like-file:hover {
-      color: #d70101; }
+      color: #ff3a3a; }
     .person-face .like-file .original-input-file {
       position: absolute;
       top: 0;
@@ -84,7 +84,7 @@ td {
 
 .error {
   font-size: 14px;
-  color: #fe4040; }
+  color: #ff6d6d; }
 
 .person-info-submit {
   display: inline-block;
@@ -93,14 +93,14 @@ td {
   width: 130px;
   height: 40px;
   font-size: 18px;
-  background: #fe4040;
+  background: #ff6d6d;
   border-radius: 3px;
   line-height: 40px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .person-info-submit:hover {
-    background: #d70101; }
+    background: #ff3a3a; }
 
 .person-info-cancel {
   display: inline-block;
