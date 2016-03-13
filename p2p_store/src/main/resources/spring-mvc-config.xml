@@ -57,6 +57,10 @@
 			<mvc:mapping path="/**"/>
 			<bean class="com.pgt.help.interceptor.HelpCenterInterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/my-account/**"/>
+			<bean class="com.pgt.interceptor.MyAccountInterceptor"></bean>
+		</mvc:interceptor>
 
 	</mvc:interceptors>
 
