@@ -239,7 +239,7 @@
 
 
 	<select id="queryRootTenderCategories" resultMap="CategoryResult">
-    SELECT * FROM CATEGORIES WHERE TYPE='ROOT_TENDER'
+    SELECT * FROM CATEGORIES WHERE TYPE='TENDER_ROOT'
     </select>
 	<select id="queryOnlinePawnCategories" resultMap="CategoryResult">
         SELECT * FROM CATEGORIES WHERE TYPE='ONLINE_PAWN'

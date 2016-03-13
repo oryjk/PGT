@@ -110,4 +110,5 @@ public class Constants {
     public static final String B2C_STORE_HOST = "b2cStoreUrl";
     public static final String NAVIGATION_LIST = "navigationList";
     public static final String CURRENT_ACCOUNT_ITEM = "currentAccountItem";
+    public static final String BREAD_CRUMB = "breadCrumbs";
 }

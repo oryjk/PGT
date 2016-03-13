@@ -23,10 +23,11 @@ public class URLConfiguration {
 
     private String myaccountPage    = "/userinformation/query";
     private String createTenderPage = "/tender/create";
-    private String b2cStoreUrl      = "";
-    private String p2pStoreUrl      = "";
-    private String adminStoreUrl    = "";
-    private String mobileStoreUrl   = "";
+    private String b2cStoreUrl = "";
+    private String p2pStoreUrl = "";
+    private String adminStoreUrl = "";
+    private String mobileStoreUrl = "";
+    private String tenderListPage="/tender/tenderList";
 
     public String getCategoryPage() {
         return categoryPage;
@@ -194,5 +195,13 @@ public class URLConfiguration {
 
     public void setMobileStoreUrl(String mobileStoreUrl) {
         this.mobileStoreUrl = mobileStoreUrl;
+    }
+
+    public String getTenderListPage() {
+        return tenderListPage;
+    }
+
+    public void setTenderListPage(String tenderListPage) {
+        this.tenderListPage = tenderListPage;
     }
 }
