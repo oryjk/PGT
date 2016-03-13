@@ -26,7 +26,7 @@
 		</div>
 		<ul class="address-list">
 			<c:forEach items="${addressList}" var="address" varStatus="status">
-				<li class="${status.index==1?'address-default':''}">
+				<li class="${status.index==0?'address-default':''}">
 					<div class="receive-name">
 						<div class="receive-title">收货人:</div>
 						<div class="receive-value">${address.name}</div>
