@@ -20,8 +20,8 @@
             <li><a href="/pawnPersonInfo/createPawnPersonInfo">在线典当</a></li>
             <li><a href="${b2cStoreUrl}">绝当品</a></li>
         </ul>
-        <form class="search" action="">
-            <input type="text" placeholder="点击搜索"/>
+        <form class="search" action="/tender/tenderList" method="get">
+            <input type="text" name="keyword" placeholder="点击搜索"/>
         </form>
         <div class="status">
             <div class="status-login"></div>
