@@ -147,8 +147,8 @@
 
 	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true"
 	        keyProperty="id">
-		INSERT INTO RECENT_BROWSE (USER_ID, PROD_ID, CREATION_DATE, UPDATE_DATE)
-		VALUES ( #{userId}, #{productId}, now(), now() )
+		INSERT INTO RECENT_BROWSE (USER_ID, PROD_ID, TYPE, CREATION_DATE, UPDATE_DATE)
+		VALUES ( #{userId}, #{productId}, #{type}, now(), now() )
 	</insert>
 
 	<update id="resetBrowsedProductsBatchUpdateDate">
