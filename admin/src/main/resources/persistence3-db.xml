@@ -11,6 +11,7 @@
         <property name="user" value="${db_user}"/>
         <property name="password" value="${db_password}" />
         <property name="preferredTestQuery" value="SELECT 1"/>
+        <property name="testConnectionOnCheckin" value="true"/>
     </bean>
 
 </beans>
