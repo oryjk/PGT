@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="header" id="header">
-  <jsp:include page="../core/header-simple.jsp"/>
+  <jsp:include page="../core/header-main.jsp"/>
 </div>
 
 <div class="content-box">

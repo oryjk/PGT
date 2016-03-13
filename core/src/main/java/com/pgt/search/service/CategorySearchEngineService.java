@@ -19,6 +19,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
@@ -171,6 +172,26 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
                 sortBuilder.unmappedType("long");
                 searchRequestBuilder.addSort(sortBuilder);
             }
+            searchRequestBuilder.setTerminateAfter(Integer.MAX_VALUE);
+            response = searchRequestBuilder.execute().actionGet();
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
+    public SearchResponse findCategoryById(String categoryId) {
+        SearchResponse response = null;
+
+        try {
+            SearchRequestBuilder searchRequestBuilder =
+                    getSearchClient().prepareSearch(esConfiguration.getIndexName()).setTypes(esConfiguration.getCategoryTypeName())
+                            .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
+            BoolQueryBuilder qb = boolQuery();
+            qb.must(QueryBuilders.idsQuery().ids(categoryId));
+            searchRequestBuilder.setQuery(qb);
             searchRequestBuilder.setTerminateAfter(Integer.MAX_VALUE);
             response = searchRequestBuilder.execute().actionGet();
             return response;

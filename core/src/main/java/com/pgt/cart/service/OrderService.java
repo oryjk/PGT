@@ -1,10 +1,10 @@
 package com.pgt.cart.service;
 
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.pgt.cart.bean.CommerceItem;
+import com.pgt.cart.bean.Order;
+import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.dao.OrderMapper;
+import com.pgt.user.bean.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -12,11 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pgt.cart.bean.CommerceItem;
-import com.pgt.cart.bean.Order;
-import com.pgt.cart.constant.CartConstant;
-import com.pgt.cart.dao.OrderMapper;
-import com.pgt.user.bean.User;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Service(value = "orderService")
 public class OrderService {

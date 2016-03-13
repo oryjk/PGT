@@ -33,9 +33,9 @@ public class HomeController{
     @Autowired
     private ProductServiceImp productServiceImp;
     @Autowired
-    private ESSearchService esSearchService;
+    private ESSearchService   esSearchService;
     @Autowired
-    private BannerService bannerService;
+    private BannerService     bannerService;
 
     @RequestMapping("/")
     public ModelAndView home(ModelAndView modelAndView){
