@@ -63,7 +63,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 	@ResponseBody
 	public ResponseEntity favourite(HttpServletRequest pRequest, HttpServletResponse pResponse,
 	                                @RequestParam(value = "productId", required = true) int productId,
-	                                @RequestParam(value = "type", required = true) int favouriteType) {
+	                                @RequestParam(value = "type", required = false, defaultValue = "1") int favouriteType) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -158,7 +158,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 	                               @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
 	                               @RequestParam(value = "keyword", required = false) String keyword,
 	                               @RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
-	                               @RequestParam(value = "type", required = true) int favouriteType) {
+	                               @RequestParam(value = "type", required = false, defaultValue = "1") int favouriteType) {
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
 		if (currentUser == null) {
@@ -184,7 +184,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 	                                     @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
 	                                     @RequestParam(value = "keyword", required = false) String keyword,
 	                                     @RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
-	                                     @RequestParam(value = "type", required = true) int favouriteType) {
+	                                     @RequestParam(value = "type", required = false, defaultValue = "1") int favouriteType) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -208,7 +208,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 	@RequestMapping(value = "/favouriteItemFromCart")
 	public ModelAndView favouriteItemFromCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
 	                                          @RequestParam(value = "productId", required = true) int productId,
-	                                          @RequestParam(value = "type", required = true) int favouriteType) {
+	                                          @RequestParam(value = "type", required = false, defaultValue = "1") int favouriteType) {
 		ModelAndView mav = new ModelAndView(getRedirectView(ShoppingCartModifierController.CART));
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -353,7 +353,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 	@ResponseBody
 	public ResponseEntity ajaxFavouriteItemFromCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
 	                                                @RequestParam(value = "productId", required = true) int productId,
-	                                                @RequestParam(value = "type", required = true) int favouriteType) {
+	                                                @RequestParam(value = "type", required = false, defaultValue = "1") int favouriteType) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
