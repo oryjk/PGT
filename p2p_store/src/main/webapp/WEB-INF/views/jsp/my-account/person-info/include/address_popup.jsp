@@ -4,16 +4,18 @@
 	<div class="wrap">
 		<div class="inner">
 			<h3>
-				<span id="popTitle" class="pop-title">新增收货地址</span>
+				<span id="popTitle" class="pop-title">{{title}}</span>
 				<span id="popClose" @click="closePop" class="close">X</span>
 			</h3>
 
 			<form id="popForm" class="pop-content" action="">
 
-				<div class="pop-address-title">收货人: <span class="pop-error">错误提示</span></div>
-				<div class="pop-address-value"><input class="pop-address-name" type="text" value="{{currentAddress.name}}"/></div>
+				<div class="pop-address-title">收货人:</div>
+				<div class="pop-address-value">
+					<input class="pop-address-name" type="text" v-model="currentAddress.name"/>
+				</div>
 
-				<div class="pop-address-title">所在地区: <span class="pop-error">错误提示</span></div>
+				<div class="pop-address-title">所在地区:</div>
 				<div class="pop-address-value">
 					<!-- 仿select组件begin-->
 					<div class="invest-province-select">
@@ -23,7 +25,7 @@
 						</a>
 						<ul class="options" v-bind:style="{display:province_display}">
 							<c:forEach items="${provinceList}" var="province">
-								<li><a class="option-view" data-value="${province.id}" href="#" @click="queryCityByProvinceId(${province.id},$event)">${province.name}</a></li>
+								<li @click="queryCityByProvinceId(${province.id},$event)"><a class="option-view" data-value="${province.id}" href="#">${province.name}</a></li>
 							</c:forEach>
 						</ul>
 						<input class="select-value" name="" type="hidden" value=""/>
@@ -36,8 +38,8 @@
 							<i class="foundicon-down-arrow"></i>
 						</a>
 						<ul class="options" v-bind:style="{display:city_display}">
-							<li v-for="city in cities">
-								<a class="option-view" @click="getAreaByCityId(city.id,$event)" href="#">{{city.name}}</a>
+							<li v-for="city in cities" @click="getAreaByCityId(city.id,$event)">
+								<a class="option-view"  href="#">{{city.name}}</a>
 							</li>
 						</ul>
 						<input class="select-value" name="" type="hidden" value=""/>
@@ -51,8 +53,8 @@
 						</a>
 						<ul class="options" v-bind:style="{display:district_display}">
 
-							<li v-for="district in districts">
-								<a class="option-view" data-value="0" href="#" @click="saveDistrict(district.id,$event)">{{district.name}}</a>
+							<li v-for="district in districts" @click="saveDistrict(district.id,$event)">
+								<a class="option-view" data-value="0" href="#">{{district.name}}</a>
 							</li>
 						</ul>
 						<input class="select-value" name="" type="hidden" value=""/>
@@ -60,15 +62,17 @@
 					<!-- 仿select组件end-->
 				</div>
 
-				<div class="pop-address-title">详细地址: <span class="pop-error">错误提示</span></div>
-				<div class="pop-address-value"><input class="pop-address-address" type="text" value="{{currentAddress.address}}"/></div>
+				<div class="pop-address-title">详细地址:</div>
+				<div class="pop-address-value"><input class="pop-address-address" type="text" v-model="currentAddress.address"/></div>
 
-				<div class="pop-address-title">手机号码: <span class="pop-error">错误提示</span></div>
-				<div class="pop-address-value"><input class="pop-address-phone" type="text" value="{{currentAddress.phone}}"/></div>
-				<div class="pop-address-title">座机号码: <span class="pop-error">错误提示</span></div>
-				<div class="pop-address-value"><input class="pop-address-telephone" type="text" value="{{currentAddress.telephone}}"/></div>
+				<div class="pop-address-title">手机号码:</div>
+				<div class="pop-address-value"><input class="pop-address-phone" type="text" v-model="currentAddress.phone"/></div>
+				<div class="pop-address-title">座机号码:</div>
+				<div class="pop-address-value"><input class="pop-address-phone" type="text" v-model="currentAddress.telephone"/></div>
 
 				<div class="pop-btn">
+
+					<span class="pop-error" style="float: left" v-if="!isValid">*{{errorMsg}}</span>
 					<input id="popSubmit" class="pop-confirm" type="button" value="确认" @click="saveAddress"/>
 					<input id="popReset" class="pop-cancel" type="reset" value="取消" @click="closePop"/>
 				</div>

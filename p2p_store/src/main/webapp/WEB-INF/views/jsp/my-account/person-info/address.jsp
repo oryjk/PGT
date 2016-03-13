@@ -53,7 +53,7 @@
 						<a class="link-btn" @click="setDefault(${address.id},$event)" href="javascript:void(0);">设为默认地址</a>
 						<a class="link-btn" @click="edit(${address.id},$event)" href="javascript:void(0);">编辑</a>
 					</div>
-					<a class="address-delete" href="javascript:void(0);">X</a>
+					<a class="address-delete" href="javascript:void(0);" @click="deleteAddress(${address.id})">X</a>
 				</li>
 			</c:forEach>
 		</ul>
