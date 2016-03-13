@@ -78,7 +78,7 @@
         WHERE ID = #{id}
     </select>
 
-    <select id="queryInfoById" parameterType="int" resultMap="info">
+    <select id="queryInfoByOrderId" parameterType="int" resultMap="info">
         SELECT P.* FROM P2P_INFO AS P
         INNER JOIN `ORDER` AS O ON O.P2P_INFO_ID = P.ID
         WHERE O.ORDER_ID = #{id}
