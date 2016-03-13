@@ -22,7 +22,7 @@
 
 		<div class="address-altogether">
 			<span class="address-altogether-info">您已经创建了<span>${fn:length(addressList)}</span>个收货地址,最多可以创建<span>20</span>地址</span>
-			<input class="address-add" type="button" value="新增收货地址"/>
+			<input class="address-add" type="button" value="新增收货地址" @click="createAddress"/>
 		</div>
 		<ul class="address-list">
 			<c:forEach items="${addressList}" var="address" varStatus="status">

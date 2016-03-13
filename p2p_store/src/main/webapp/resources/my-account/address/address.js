@@ -86,6 +86,7 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                 saveAddress: function () {
                     $.ajax({
                         url: this.saveUrl,
+                        data: this.currentAddress,
                         success: function (response) {
                             var response = JSON.parse(response);
                             console.log('success:' + response.success);
@@ -130,6 +131,7 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
 
                 },
                 edit: function (addressId, event) {
+                    this.isUpdate = true;
                     $.ajax({
                         url: '/my-account/person-info/findAddress/' + addressId,
                         type: 'GET',
@@ -145,6 +147,10 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                         .always(function () {
                             console.log("complete");
                         });
+                },
+                createAddress: function () {
+                    popUp.isUpdate = false;
+                    popUp.display = 'block';
                 }
             }
         })

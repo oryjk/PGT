@@ -49,7 +49,7 @@
 							<span class="selected">{{currentAddress.district}}</span>
 							<i class="foundicon-down-arrow"></i>
 						</a>
-						<ul class="options">
+						<ul class="options" v-bind:style="{display:district_display}">
 
 							<li v-for="district in districts">
 								<a class="option-view" data-value="0" href="#" @click="saveDistrict(district.id,$event)">{{district.name}}</a>
@@ -70,7 +70,7 @@
 
 				<div class="pop-btn">
 					<input id="popSubmit" class="pop-confirm" type="button" value="确认" @click="saveAddress"/>
-					<input id="popReset" class="pop-cancel" type="reset" value="取消"/>
+					<input id="popReset" class="pop-cancel" type="reset" value="取消" @click="closePop"/>
 				</div>
 			</form>
 		</div>
