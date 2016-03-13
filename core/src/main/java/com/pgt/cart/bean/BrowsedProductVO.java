@@ -10,18 +10,31 @@ import java.util.Date;
 public class BrowsedProductVO {
 
 	private int mId;
+
 	private int mUserId;
+
 	private int mProductId;
+
+	private int mType;
+
 	private Product mProduct;
+
 	private Date mCreationDate;
+
 	private Date mUpdateDate;
 
 	public BrowsedProductVO() {
 	}
 
-	public BrowsedProductVO(final int pUserId, final int pProductId) {
+	public BrowsedProductVO(final int pUserId, final int pProductId, final int pBrowsedType) {
 		mUserId = pUserId;
 		mProductId = pProductId;
+		mType = pBrowsedType;
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder().append("BrowsedProductVO{").append("mId=").append(mId).append(", mUserId=").append(mUserId).append(", mProductId=").append(mProductId).append(", mType=").append(mType).append(", mProduct=").append(mProduct).append(", mCreationDate=").append(mCreationDate).append(", mUpdateDate=").append(mUpdateDate).append('}').toString();
 	}
 
 	public int getId() {
@@ -46,6 +59,14 @@ public class BrowsedProductVO {
 
 	public void setProductId(final int pProductId) {
 		mProductId = pProductId;
+	}
+
+	public int getType() {
+		return mType;
+	}
+
+	public void setType(final int pType) {
+		mType = pType;
 	}
 
 	public Product getProduct() {

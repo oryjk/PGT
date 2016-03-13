@@ -62,7 +62,8 @@ public class UserFavouriteController extends TransactionBaseController implement
 	@RequestMapping(value = "/favourite")
 	@ResponseBody
 	public ResponseEntity favourite(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productId", required = true) int productId) {
+	                                @RequestParam(value = "productId", required = true) int productId,
+	                                @RequestParam(value = "type", required = true) int favouriteType) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -83,14 +84,14 @@ public class UserFavouriteController extends TransactionBaseController implement
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		// check user has already add this item as favourite
-		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId);
+		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId, favouriteType);
 		if (favourite != null && RepositoryUtils.idIsValid(favourite.getId())) {
 			LOGGER.debug("User had added product: {} as favourite: {}", productId, favourite.getId());
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, WARN_FAVOURITE_DUPLICATE);
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		// create favourite
-		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product);
+		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product, favouriteType);
 		// persist favourite
 		TransactionStatus status = ensureTransaction();
 		try {
@@ -118,7 +119,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 	@RequestMapping(value = "/dislike")
 	@ResponseBody
 	public ResponseEntity dislike(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "favouriteId", required = true) int favouriteId) {
+	                              @RequestParam(value = "favouriteId", required = true) int favouriteId) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		if (!RepositoryUtils.idIsValid(favouriteId)) {
 			LOGGER.debug("Remove favourite with an invalid favourite id: {}", favouriteId);
@@ -153,10 +154,11 @@ public class UserFavouriteController extends TransactionBaseController implement
 
 	@RequestMapping(value = "/favourites")
 	public ModelAndView favourites(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
-			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
-			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc) {
+	                               @RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
+	                               @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
+	                               @RequestParam(value = "keyword", required = false) String keyword,
+	                               @RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
+	                               @RequestParam(value = "type", required = true) int favouriteType) {
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
 		if (currentUser == null) {
@@ -170,7 +172,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 		LOGGER.debug("Query favourite items with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
 		InternalPagination pagination = ipb.setSortFieldName("fav.creation_date").setAsc(ascBoolean).createInternalPagination();
-		getUserFavouriteService().queryFavouritePage(currentUser.getId().intValue(), pagination);
+		getUserFavouriteService().queryFavouritePage(currentUser.getId().intValue(), favouriteType, pagination);
 		ModelAndView mav = new ModelAndView("/my-account/favourites");
 		mav.addObject(CartConstant.FAVOURITES, pagination);
 		return mav;
@@ -178,10 +180,11 @@ public class UserFavouriteController extends TransactionBaseController implement
 
 	@RequestMapping(value = "/ajaxFavourites")
 	public ResponseEntity ajaxFavourites(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
-			@RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
-			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "asc", required = false, defaultValue = "true") String asc) {
+	                                     @RequestParam(value = "currentIndex", required = false, defaultValue = "0") String currentIndex,
+	                                     @RequestParam(value = "capacity", required = false, defaultValue = "5") String capacity,
+	                                     @RequestParam(value = "keyword", required = false) String keyword,
+	                                     @RequestParam(value = "asc", required = false, defaultValue = "true") String asc,
+	                                     @RequestParam(value = "type", required = true) int favouriteType) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -197,14 +200,15 @@ public class UserFavouriteController extends TransactionBaseController implement
 		LOGGER.debug("Query favourite items with index: {}, capacity: {} and keyword: {} with order asc: {}", ciLong, caLong, keyword, ascBoolean);
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
 		InternalPagination pagination = ipb.setSortFieldName("fav.creation_date").setAsc(ascBoolean).createInternalPagination();
-		getUserFavouriteService().queryFavouritePage(currentUser.getId().intValue(), pagination);
+		getUserFavouriteService().queryFavouritePage(currentUser.getId().intValue(), favouriteType, pagination);
 		rb.setSuccess(true).setData(pagination);
 		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/favouriteItemFromCart")
 	public ModelAndView favouriteItemFromCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productId", required = true) int productId) {
+	                                          @RequestParam(value = "productId", required = true) int productId,
+	                                          @RequestParam(value = "type", required = true) int favouriteType) {
 		ModelAndView mav = new ModelAndView(getRedirectView(ShoppingCartModifierController.CART));
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -221,7 +225,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 			return mav;
 		}
 		// check user has already add this item as favourite
-		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId);
+		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), favouriteType, productId);
 		Order order = getCurrentOrder(pRequest, true);
 		if (favourite != null && RepositoryUtils.idIsValid(favourite.getId())) {
 			LOGGER.debug("User had added product: {} as favourite: {}", productId, favourite.getId());
@@ -230,7 +234,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 			return mav;
 		}
 		// create favourite
-		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product);
+		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product, favouriteType);
 		// check and generate order
 		synchronized (order) {
 			LOGGER.debug("Synchronized order to add favourite and update order");
@@ -293,62 +297,63 @@ public class UserFavouriteController extends TransactionBaseController implement
 
 	private boolean removeItemFromOrder(@RequestParam(value = "productId", required = true) int productId, ModelAndView mav, Order order) {
 		synchronized (order) {
-            LOGGER.debug("Synchronized order to add favourite and update order");
-            // check order contains commerce item
-            CommerceItem purchasedCommerceItem = order.getCommerceItemByProduct(productId);
-            if (purchasedCommerceItem == null) {
-                LOGGER.debug("Cannot find commerce item with product id: {}", productId);
-                mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_COMMERCE_ITEM_INVALID, StringUtils.EMPTY));
+			LOGGER.debug("Synchronized order to add favourite and update order");
+			// check order contains commerce item
+			CommerceItem purchasedCommerceItem = order.getCommerceItemByProduct(productId);
+			if (purchasedCommerceItem == null) {
+				LOGGER.debug("Cannot find commerce item with product id: {}", productId);
+				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_COMMERCE_ITEM_INVALID, StringUtils.EMPTY));
 				return true;
-            }
-            // remove commerce item
-            purchasedCommerceItem = order.removeCommerceItemByProduct(productId);
-            // persist changes to database
-            TransactionStatus status = ensureTransaction();
-            try {
-                boolean result = true;
-                getPriceOrderService().priceOrder(order);
-                // anonymous user could only add item to cart but not persisted
-                if (RepositoryUtils.idIsValid(order.getUserId())) {
-                    if (purchasedCommerceItem != null && RepositoryUtils.idIsValid(purchasedCommerceItem.getId())) {
-                        result = getShoppingCartService().deleteCommerceItem(purchasedCommerceItem.getId());
-                    }
-                    if (result) {
-                        result = getShoppingCartService().persistInitialOrder(order);
-                        LOGGER.debug("Persist order with result: {}", result ? "success" : "failed");
-                        if (!result) {
-                            status.setRollbackOnly();
-                            throw new OrderPersistentException("Persist order failed, stop favourite item from cart.");
-                        }
-                    }
-                }
-            } catch (PriceOrderException e) {
-                LOGGER.error(String.format("Favourite item from cart with product id: %d failed for price order exception.",
-                        productId), e);
-                status.setRollbackOnly();
-            } catch (OrderPersistentException e) {
-                LOGGER.error(String.format("Favourite item from with product id: %d failed for persist order exception.",
-                        productId), e);
-                status.setRollbackOnly();
-            } catch (Exception e) {
-                LOGGER.error(String.format("Favourite item from with product id: %d failed.", productId), e);
-                status.setRollbackOnly();
-            } finally {
-                if (status.isRollbackOnly()) {
-                    LOGGER.debug("Transaction had been set as roll back during Favourite item from cart for product: {}",
-                            productId);
-                    mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_GENERAL_FAVOURITE_FROM_CART_FAILED, StringUtils.EMPTY));
-                }
-                getTransactionManager().commit(status);
-            }
-        }
+			}
+			// remove commerce item
+			purchasedCommerceItem = order.removeCommerceItemByProduct(productId);
+			// persist changes to database
+			TransactionStatus status = ensureTransaction();
+			try {
+				boolean result = true;
+				getPriceOrderService().priceOrder(order);
+				// anonymous user could only add item to cart but not persisted
+				if (RepositoryUtils.idIsValid(order.getUserId())) {
+					if (purchasedCommerceItem != null && RepositoryUtils.idIsValid(purchasedCommerceItem.getId())) {
+						result = getShoppingCartService().deleteCommerceItem(purchasedCommerceItem.getId());
+					}
+					if (result) {
+						result = getShoppingCartService().persistInitialOrder(order);
+						LOGGER.debug("Persist order with result: {}", result ? "success" : "failed");
+						if (!result) {
+							status.setRollbackOnly();
+							throw new OrderPersistentException("Persist order failed, stop favourite item from cart.");
+						}
+					}
+				}
+			} catch (PriceOrderException e) {
+				LOGGER.error(String.format("Favourite item from cart with product id: %d failed for price order exception.",
+						productId), e);
+				status.setRollbackOnly();
+			} catch (OrderPersistentException e) {
+				LOGGER.error(String.format("Favourite item from with product id: %d failed for persist order exception.",
+						productId), e);
+				status.setRollbackOnly();
+			} catch (Exception e) {
+				LOGGER.error(String.format("Favourite item from with product id: %d failed.", productId), e);
+				status.setRollbackOnly();
+			} finally {
+				if (status.isRollbackOnly()) {
+					LOGGER.debug("Transaction had been set as roll back during Favourite item from cart for product: {}",
+							productId);
+					mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_GENERAL_FAVOURITE_FROM_CART_FAILED, StringUtils.EMPTY));
+				}
+				getTransactionManager().commit(status);
+			}
+		}
 		return false;
 	}
 
 	@RequestMapping(value = "/ajaxFavouriteItemFromCart")
 	@ResponseBody
 	public ResponseEntity ajaxFavouriteItemFromCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productId", required = true) int productId) {
+	                                                @RequestParam(value = "productId", required = true) int productId,
+	                                                @RequestParam(value = "type", required = true) int favouriteType) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check user login state
 		User currentUser = getCurrentUser(pRequest);
@@ -370,14 +375,14 @@ public class UserFavouriteController extends TransactionBaseController implement
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		// check user has already add this item as favourite
-		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId);
+		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), favouriteType, productId);
 		if (favourite != null && RepositoryUtils.idIsValid(favourite.getId())) {
 			LOGGER.debug("User had added product: {} as favourite: {}", productId, favourite.getId());
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, WARN_FAVOURITE_DUPLICATE);
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		// create favourite
-		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product);
+		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product, favouriteType);
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
 		synchronized (order) {
@@ -445,7 +450,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 	@RequestMapping(value = "/ajaxMoveFavouriteToCart")
 	@ResponseBody
 	public ResponseEntity ajaxMoveFavouriteToCart(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "favouriteId", required = true) int favouriteId) {
+	                                              @RequestParam(value = "favouriteId", required = true) int favouriteId) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		if (!RepositoryUtils.idIsValid(favouriteId)) {
 			LOGGER.debug("Move favourite to cart with an invalid favourite id: {}", favouriteId);
