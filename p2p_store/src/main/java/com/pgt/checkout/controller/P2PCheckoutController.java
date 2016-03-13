@@ -153,7 +153,7 @@ public class P2PCheckoutController {
             ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
         }
-        P2PInfo info = getOrderService()
+//        P2PInfo info = getOrderService()
     }
 
 
