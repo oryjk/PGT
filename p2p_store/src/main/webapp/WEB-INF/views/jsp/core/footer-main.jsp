@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="footer" id="footer">
     <div class="goods-box">
         <div class="our-goods">

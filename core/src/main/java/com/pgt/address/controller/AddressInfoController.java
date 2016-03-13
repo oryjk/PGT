@@ -173,6 +173,7 @@ public class AddressInfoController {
         user.setDefaultAddressId(Integer.parseInt(addressId));
         getUserService().updateUser(user);
         map.put("success", "true");
+        map.put("redirectUrl", urlConfiguration.getAddressBookPage());
         return map;
     }
 
