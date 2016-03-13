@@ -1,5 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="popUp" class="pop-up" v-bind:style="{display:display}">
+	省份:{{currentAddress.province}}
 	<div class="wrap">
 		<div class="inner">
 			<h3>
@@ -10,20 +12,20 @@
 			<form id="popForm" class="pop-content" action="">
 
 				<div class="pop-address-title">收货人: <span class="pop-error">错误提示</span></div>
-				<div class="pop-address-value"><input class="pop-address-name" type="text"/></div>
+				<div class="pop-address-value"><input class="pop-address-name" type="text" value="{{currentAddress.name}}"/></div>
 
 				<div class="pop-address-title">所在地区: <span class="pop-error">错误提示</span></div>
 				<div class="pop-address-value">
 					<!-- 仿select组件begin-->
 					<div class="invest-province-select">
-						<a id="province" class="select-view" href="#">{{currentAddress}}
+						<a id="province" class="select-view" href="#" @click="showProvince">
 							<span class="selected">{{currentAddress.province}}</span>
 							<i class="foundicon-down-arrow"></i>
 						</a>
-						<ul class="options">
-							<li><a class="option-view" data-value="0" href="#">四川</a></li>
-							<li><a class="option-view" data-value="1" href="#">湖南</a></li>
-							<li><a class="option-view" data-value="2" href="#">江西</a></li>
+						<ul class="options" v-bind:style="{display:province_display}">
+							<c:forEach items="${provinceList}" var="province">
+								<li><a class="option-view" data-value="${province.id}" href="#" @click="queryCityByProvinceId(${province.id},$event)">${province.name}</a></li>
+							</c:forEach>
 						</ul>
 						<input class="select-value" name="" type="hidden" value=""/>
 					</div>
@@ -35,9 +37,7 @@
 							<i class="foundicon-down-arrow"></i>
 						</a>
 						<ul class="options">
-							<li><a class="option-view" data-value="0" href="#">四川</a></li>
-							<li><a class="option-view" data-value="1" href="#">湖南</a></li>
-							<li><a class="option-view" data-value="2" href="#">江西</a></li>
+							<li v-for="city in cities"><a class="option-view" @click="getAreaByCityId(city.id,$event)" href="#">{{city.name}}</a></li>
 						</ul>
 						<input class="select-value" name="" type="hidden" value=""/>
 					</div>

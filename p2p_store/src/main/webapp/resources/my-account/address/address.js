@@ -24,22 +24,39 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                     phone: '',
                     telephone: ''
                 },
-                display: 'none'
+                provinces: '',
+                cities: '',
+                district: '',
+                display: 'none',
+                province_display: 'none'
             },
 
             methods: {
-                closePop:function(event){
-                    this.display='none';
-                    this.currentAddress='';
+                closePop: function (event) {
+                    this.display = 'none';
+                    this.currentAddress = '';
+                },
+                queryCityByProvinceId: function (provinceId, event) {
+                    var url = '/getCityByProvinceId/' + provinceId;
+                    $.ajax({
+                        url: url,
+                        data: null,
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    })
+                },
+                showProvince: function () {
+                    this.province_display='block';
                 }
             }
+
         })
 
 
         var main = new Vue({
             el: '#main',
-            data: {
-            },
+            data: {},
             methods: {
                 setDefault: function (addressId, event) {
                     $.ajax({
@@ -65,7 +82,7 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                         dataType: 'json'
                     })
                         .done(function (response) {
-                            popUp.currentAddress = response.data;
+                            popUp.currentAddress = JSON.parse(response.data);
                             popUp.display = 'block';
                         })
                         .fail(function () {
