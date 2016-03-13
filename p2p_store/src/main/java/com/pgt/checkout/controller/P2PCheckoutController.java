@@ -177,6 +177,7 @@ public class P2PCheckoutController {
         modelAndView = new ModelAndView("");
         modelAndView.addObject(CartConstant.ORDER, order);
         modelAndView.addObject(CartConstant.P2P_INFO, info);
+        modelAndView.setViewName("/checkout/shipping");
         return modelAndView;
     }
 
