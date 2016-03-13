@@ -3,6 +3,7 @@ package com.pgt.cart.filter;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
 import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.service.ShoppingCartConfiguration;
 import com.pgt.cart.service.UserFavouriteService;
 import com.pgt.user.bean.User;
 import org.slf4j.Logger;
@@ -22,6 +23,9 @@ public class FavouriteLoader extends ItemLoadInterceptor {
 	@Resource(name = "userFavouriteService")
 	private UserFavouriteService mUserFavouriteService;
 
+	@Resource(name = "shoppingCartConfiguration")
+	private ShoppingCartConfiguration mShoppingCartConfiguration;
+
 	@Override
 	public boolean loadItems(final HttpServletRequest pRequest, final HttpServletResponse pResponse, final Object pHandler) {
 		if (!interceptRequest(pRequest)) {
@@ -35,7 +39,7 @@ public class FavouriteLoader extends ItemLoadInterceptor {
 		User currentUser = getCurrentUser(pRequest);
 		// default pagination with 20 capacity
 		InternalPagination favouritePage = InternalPaginationBuilder.createDefaultInternalPagination();
-		getUserFavouriteService().queryFavouritePage(currentUser.getId().intValue(), favouritePage);
+		getUserFavouriteService().queryFavouritePage(currentUser.getId().intValue(), getShoppingCartConfiguration().getDefaultBrowsedType(), favouritePage);
 		pRequest.setAttribute(CartConstant.FAVOURITES, favouritePage);
 		return true;
 	}
@@ -46,5 +50,13 @@ public class FavouriteLoader extends ItemLoadInterceptor {
 
 	public void setUserFavouriteService(final UserFavouriteService pUserFavouriteService) {
 		mUserFavouriteService = pUserFavouriteService;
+	}
+
+	public ShoppingCartConfiguration getShoppingCartConfiguration() {
+		return mShoppingCartConfiguration;
+	}
+
+	public void setShoppingCartConfiguration(final ShoppingCartConfiguration pShoppingCartConfiguration) {
+		mShoppingCartConfiguration = pShoppingCartConfiguration;
 	}
 }

@@ -5,9 +5,9 @@ import com.google.gson.JsonSyntaxException;
 import com.pgt.cart.bean.BrowsedProductVO;
 import com.pgt.cart.constant.CookieConstant;
 import com.pgt.cart.dao.UserOrderDao;
+import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
-import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.user.bean.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -48,12 +48,11 @@ public class ProductBrowseTrackService {
 	@Autowired
 	private URLConfiguration mURLConfiguration;
 
+	@Resource(name = "shoppingCartConfiguration")
+	private ShoppingCartConfiguration mShoppingCartConfiguration;
+
 	@Resource(name = "userOrderDao")
 	private UserOrderDao mUserOrderDao;
-
-	private int mCookieExpiredTime = 604800;//60s * 60m * 24h * 7d
-
-	private int mBrowsedProductCount = 20;
 
 	private boolean mInitialized;
 
@@ -151,7 +150,7 @@ public class ProductBrowseTrackService {
 	}
 
 	public List<BrowsedProductVO> queryBrowsedProducts(final int pUserId) {
-		return getUserOrderDao().queryBrowsedProducts(pUserId);
+		return getUserOrderDao().queryBrowsedProducts(pUserId, getShoppingCartConfiguration().getDefaultBrowsedType());
 	}
 
 	public void mergeBrowsedProductsForLoginUser(HttpServletRequest pRequest, HttpServletResponse pResponse) {
@@ -188,7 +187,7 @@ public class ProductBrowseTrackService {
 					}
 				}
 				if (persistBrowsedProduct == null) {
-					pendingCreateBrowsedProducts.add(new BrowsedProductVO(userId, cookieProductId));
+					pendingCreateBrowsedProducts.add(new BrowsedProductVO(userId, cookieProductId, getShoppingCartConfiguration().getDefaultBrowsedType()));
 				} else {
 					pendingRecordBrowsedProducts.add(persistBrowsedProduct.getId());
 				}
@@ -199,7 +198,7 @@ public class ProductBrowseTrackService {
 					recordBrowsedProductBatch(pendingRecordBrowsedProducts);
 				}
 				// continue if reset operation success
-				int balance = getBrowsedProductCount() - (pendingRecordBrowsedProducts.size() + browsedProducts.size());
+				int balance = getShoppingCartConfiguration().getBrowsedProductCount() - (pendingRecordBrowsedProducts.size() + browsedProducts.size());
 				// it should not be happened, in case
 				if (balance < 0) {
 					balance = 0;
@@ -227,7 +226,7 @@ public class ProductBrowseTrackService {
 			}
 		}
 		// reset cookies
-		List<String> browsedProductIds = new ArrayList<>(getBrowsedProductCount());
+		List<String> browsedProductIds = new ArrayList<>(getShoppingCartConfiguration().getBrowsedProductCount());
 		browsedProducts.forEach(bp -> {
 			browsedProductIds.add(String.valueOf(bp.getProductId()));
 		});
@@ -236,7 +235,7 @@ public class ProductBrowseTrackService {
 		String idString = new Gson().toJson(browsedProductIds);
 		LOGGER.debug("Generate new browsed product id string: {}", idString);
 		Cookie cookie = new Cookie(CookieConstant.BROWSED_PRODUCTS, getEncodeCookie(idString));
-		cookie.setMaxAge(getCookieExpiredTime());
+		cookie.setMaxAge(getShoppingCartConfiguration().getBrowsedCookieExpired());
 		// global path could share the cookie
 		cookie.setPath(pRequest.getContextPath());
 		// set http only to avoid xss attack
@@ -272,21 +271,6 @@ public class ProductBrowseTrackService {
 		mUserOrderDao = pUserOrderDao;
 	}
 
-	public int getCookieExpiredTime() {
-		return mCookieExpiredTime;
-	}
-
-	public void setCookieExpiredTime(final int pCookieExpiredTime) {
-		mCookieExpiredTime = pCookieExpiredTime;
-	}
-
-	public int getBrowsedProductCount() {
-		return mBrowsedProductCount;
-	}
-
-	public void setBrowsedProductCount(final int pBrowsedProductCount) {
-		mBrowsedProductCount = pBrowsedProductCount;
-	}
 
 	public boolean isEnableCookieEncode() {
 		return mEnableCookieEncode;
@@ -294,5 +278,13 @@ public class ProductBrowseTrackService {
 
 	public void setEnableCookieEncode(final boolean pEnableCookieEncode) {
 		mEnableCookieEncode = pEnableCookieEncode;
+	}
+
+	public ShoppingCartConfiguration getShoppingCartConfiguration() {
+		return mShoppingCartConfiguration;
+	}
+
+	public void setShoppingCartConfiguration(final ShoppingCartConfiguration pShoppingCartConfiguration) {
+		mShoppingCartConfiguration = pShoppingCartConfiguration;
 	}
 }

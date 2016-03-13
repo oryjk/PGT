@@ -33,4 +33,6 @@ public interface CartConstant {
     String ESTIMATED_SHIP_DATE = "estimatedShipDate";
 
     String ORDER = "order";
+
+    String P2P_INFO = "p2pInfo";
 }

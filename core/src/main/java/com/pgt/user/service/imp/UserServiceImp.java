@@ -129,10 +129,7 @@ public class UserServiceImp extends TransactionService implements UserService {
     @Override
     public boolean checkExist(String username) {
         User user = authorize(username);
-        if (ObjectUtils.isEmpty(user)) {
-            return false;
-        }
-        return true;
+        return !ObjectUtils.isEmpty(user);
     }
 
     public FieldsRegexValidator getPasswordRegexValidator() {
