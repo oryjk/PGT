@@ -136,7 +136,7 @@ public class P2PCheckoutController {
             Order order = result.getLeft();
             // check inventory
             getTenderInventoryService().lockInventory(order);
-            ModelAndView modelAndView = new ModelAndView("redirect:/checkout/live/shipping");
+            ModelAndView modelAndView = new ModelAndView("redirect:/checkout/shipping");
             modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
             return modelAndView;
         } catch (OrderPersistentException | LockInventoryException ex) {
@@ -150,7 +150,7 @@ public class P2PCheckoutController {
         }
     }
 
-    @RequestMapping(value = "/live/shipping")
+    @RequestMapping(value = "/shipping")
     public ModelAndView shippingPage(ModelAndView modelAndView,HttpServletRequest pRequest, HttpServletResponse pResponse)  {
         String orderIdStr = pRequest.getParameter(CartConstant.ORDER_ID);
         User user = SessionHelper.getUser(pRequest, pResponse);
