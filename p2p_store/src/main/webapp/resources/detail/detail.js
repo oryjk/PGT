@@ -29,7 +29,7 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function (
         });
 
         $('#indicatorContainer').radialIndicator({
-            barColor: '#2d7fe0',
+            barColor: '#a4cc4d',
             barWidth: 10,
             initValue: 40,
             roundCorner: true,
@@ -53,7 +53,8 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function (
             }
         });
 
-        $(".detail-content>ul>li").click(function () {
+        $(".detail-content>ul>li").click(function (event) {
+            event.preventDefault();
 
             $(".detail-content>ul>li").each(function () {
                 $(this).removeAttr("class");

@@ -587,6 +587,10 @@ body {
     width: 287px;
     height: 80px;
     border-bottom: 1px dotted #cccccc; }
+  .invest .invest-share-group {
+    margin: 10px auto 0;
+    width: 287px;
+    height: 80px; }
   .invest .invest-add-favorite {
     float: left;
     display: inline-block;
@@ -622,6 +626,7 @@ body {
     .invest .invest-scan-count:hover {
       background: #86b4ed; }
   .invest .invest-data {
+    position: relative;
     float: right;
     margin-top: 25px;
     border: 1px solid #cccccc;
@@ -629,6 +634,17 @@ body {
     width: 310px;
     height: 205px;
     background: white; }
+  .invest .invest-status {
+    position: absolute;
+    top: 21px;
+    right: -13px;
+    width: 81px;
+    height: 40px;
+    background: url("../core/images/detail/detail_invest_status.png") no-repeat 0 0;
+    text-align: center;
+    line-height: 35px;
+    font-size: 14px;
+    color: white; }
   .invest .data-row-1 {
     font-size: 18px; }
   .invest .data-row-2 {

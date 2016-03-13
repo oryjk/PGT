@@ -28,7 +28,6 @@
   z-index: -1;
   @include wh(100%, 650px);
 
-
   li {
     position: absolute;
     top: 0;
@@ -39,6 +38,7 @@
 }
 
 .banner {
+  position: relative;
   padding-top: 100px;
 
   ul {
@@ -90,6 +90,13 @@
   margin-left: - $main-width / 2;
   @include wh(190px, 600px);
   background: white;
+  @include opacity(0.3);
+  transition: opacity .3s;
+
+  &:hover {
+    transition: opacity .3s;
+    @include opacity(1);
+  }
 
   .menu-1-item {
     height: 71px;

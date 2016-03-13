@@ -14,6 +14,8 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
     $(document).ready(function() {
         var statusMyAccount = $('#statusMyAccount');
         var statusMyAccountDetail = $('#statusMyAccountDetail');
+        var bannerBox = $('#bannerBox');
+        var menu = $('#menu');
 
         //轮播图
         Cpn.slider({
@@ -29,6 +31,7 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
         statusMyAccount.mouseleave(function () {
             statusMyAccountDetail.slideUp();
         });
+
     });
 
 

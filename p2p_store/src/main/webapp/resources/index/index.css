@@ -405,6 +405,7 @@ a {
     background: no-repeat center center; }
 
 .banner {
+  position: relative;
   padding-top: 100px; }
   .banner ul {
     width: 100%;
@@ -444,7 +445,14 @@ a {
   margin-left: -600px;
   width: 190px;
   height: 600px;
-  background: white; }
+  background: white;
+  opacity: 0.3;
+  filter: progid:DXImageTransform.Microsoft.Alpha opacity=30 \9 ;
+  transition: opacity .3s; }
+  .menu-1:hover {
+    transition: opacity .3s;
+    opacity: 1;
+    filter: progid:DXImageTransform.Microsoft.Alpha opacity=100 \9 ; }
   .menu-1 .menu-1-item {
     height: 71px; }
     .menu-1 .menu-1-item:hover h3 {

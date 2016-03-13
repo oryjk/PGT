@@ -491,6 +491,8 @@ body {
       font-size: 12px; }
       .content .login .login-content .agreement a {
         color: #86b4ed; }
+      .content .login .login-content .agreement .agreement-checkbox {
+        width: 20px; }
 
 .content .login .input-text:focus {
   border-color: #86b4ed !important; }

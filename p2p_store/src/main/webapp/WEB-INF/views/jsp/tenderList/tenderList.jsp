@@ -52,9 +52,16 @@
 								<li class="sort-tab-item"><a href="#" data-value="2">金额最少</a></li>
 							</ul>
 						</li>
-						<li class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==4}">
-							<a class="sort-tab" href="#" data-value="4">周期最短</a>
+
+						<li id="sortTime" class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==4}">
+							<a class="sort-view" href="#">周期最长</a>
+
+							<ul>
+								<li class="sort-tab-item hide"><a href="#">周期最长</a></li>
+								<li class="sort-tab-item"><a href="#">周期最短</a></li>
+							</ul>
 						</li>
+
 						<li class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==5}">
 							<a class="sort-tab" href="#" data-value="5">即将结束</a>
 						</li>
