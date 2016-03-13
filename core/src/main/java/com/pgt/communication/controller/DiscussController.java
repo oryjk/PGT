@@ -1,22 +1,5 @@
 package com.pgt.communication.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.communication.bean.Discuss;
 import com.pgt.communication.bean.DiscussCustom;
@@ -29,10 +12,27 @@ import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductServiceImp;
 import com.pgt.user.bean.User;
 import com.pgt.utils.ResponseUtils;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("/discuss")
 public class DiscussController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DiscussController.class);
 
 	@Autowired
 	private DiscussService discussService;
@@ -45,9 +45,6 @@ public class DiscussController {
 
 	@Autowired
 	private URLConfiguration urlConfiguration;
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(DiscussController.class);
-
 
 	/**
 	 * query discuss by productId

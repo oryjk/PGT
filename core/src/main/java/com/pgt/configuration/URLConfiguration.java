@@ -18,16 +18,22 @@ public class URLConfiguration {
     private String helpCenterPage;
     private String pawnPersonInfoPage;
     private String orderHistoryPage = "/myAccount/orderHistory";
-    private String yeepayPage = "/user/yeepayAccountInfo";
-    private String myaccountPage = "/userinformation/query";
+
+    private String yeepayPage       = "/user/yeepayAccountInfo";
+
+    private String myaccountPage    = "/userinformation/query";
     private String createTenderPage = "/tender/create";
-    private String b2cStoreUrl = "";
-    private String p2pStoreUrl = "";
-    private String adminStoreUrl = "";
-    private String mobileStoreUrl = "";
+    private String b2cStoreUrl      = "";
+    private String p2pStoreUrl      = "";
+    private String adminStoreUrl    = "";
+    private String mobileStoreUrl   = "";
 
     public String getCategoryPage() {
         return categoryPage;
+    }
+
+    public void setCategoryPage(String categoryPage) {
+        this.categoryPage = categoryPage;
     }
 
     public String getPawnPersonInfoPage() {
@@ -36,10 +42,6 @@ public class URLConfiguration {
 
     public void setPawnPersonInfoPage(String pawnPersonInfoPage) {
         this.pawnPersonInfoPage = pawnPersonInfoPage;
-    }
-
-    public void setCategoryPage(String categoryPage) {
-        this.categoryPage = categoryPage;
     }
 
     public String getLoginPage() {
