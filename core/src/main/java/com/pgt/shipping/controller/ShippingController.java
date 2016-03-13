@@ -5,6 +5,7 @@ import com.pgt.address.bean.Store;
 import com.pgt.address.service.AddressInfoService;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
+import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.controller.CartMessages;
 import com.pgt.cart.service.OrderService;
@@ -263,8 +264,7 @@ public class ShippingController implements CartMessages {
             return mav;
         }
 
-        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration()
-                .getMaxItemCount4Cart())) {
+        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.B2C_ORDER)) {
             mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
             mav.addObject(CartConstant.ORDER_ID, order.getId());
             mav.addObject("error", "HAS.UNSUBMIT.ORDER");
