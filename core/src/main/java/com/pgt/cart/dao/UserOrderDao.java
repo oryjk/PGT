@@ -21,7 +21,7 @@ public interface UserOrderDao extends SqlMapper {
 
 	Order loadOrderHistory(@Param("orderId") int pOrderId);
 
-	List<BrowsedProductVO> queryBrowsedProducts(@Param("userId") int pUserId);
+	List<BrowsedProductVO> queryBrowsedProducts(@Param("userId") int pUserId, @Param("type") int pBrowsedType);
 
 	int resetBrowsedProductUpdateDate(@Param("browsedProductId") int pBrowsedProductId);
 

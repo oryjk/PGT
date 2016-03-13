@@ -38,6 +38,7 @@
 		<id column="id" property="id" />
 		<result column="user_id" property="userId" />
 		<result column="prod_id" property="productId" />
+		<result column="type" property="type" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 	</resultMap>
@@ -85,12 +86,13 @@
 		<include refid="limit-split-page" />
 	</select>
 
-	<select id="loadCommerceItemsFromOrder" parameterType="int" resultMap="com.pgt.cart.dao.ShoppingCartDao.commerceItem">
+	<select id="loadCommerceItemsFromOrder" parameterType="int"
+	        resultMap="com.pgt.cart.dao.ShoppingCartDao.commerceItem">
 		SELECT
 			ci.commerce_item_id,
 			order_id,
 			ci.reference_id,
-			name,
+			`name`,
 			quality,
 			list_price,
 			sale_price,
@@ -127,6 +129,7 @@
 		SELECT *
 		FROM RECENT_BROWSE
 		WHERE USER_ID = #{userId}
+		AND `TYPE` = #{type}
 		ORDER BY UPDATE_DATE DESC
 	</select>
 
@@ -142,9 +145,10 @@
 		WHERE id = #{browsedProductId}
 	</update>
 
-	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO RECENT_BROWSE (USER_ID, PROD_ID, CREATION_DATE, UPDATE_DATE)
-		VALUES ( #{userId}, #{productId}, now(), now() )
+	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true"
+	        keyProperty="id">
+		INSERT INTO RECENT_BROWSE (USER_ID, PROD_ID, TYPE, CREATION_DATE, UPDATE_DATE)
+		VALUES ( #{userId}, #{productId}, #{type}, now(), now() )
 	</insert>
 
 	<update id="resetBrowsedProductsBatchUpdateDate">

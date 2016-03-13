@@ -7,28 +7,40 @@ import java.util.Date;
 /**
  * Created by Yove on 11/12/2015.
  */
-public class Favourite {
+public class Favourite implements FavouriteType {
 
 	private int mId;
+
 	private int mUserId;
+
 	private int mProductId;
+
 	private String mName;
+
 	private String mDescription;
+
 	private double mFinalPrice;
+
 	private int mSnapshotId;
+
 	private Date mCreationDate;
+
 	private int mProductStock;
 
 	private Media mSnapshotMedia;
+
 	private int mDiscussCount;
+
+	private int mType;
 
 	public Favourite() {
 	}
 
-	public Favourite(final int pId, final int pUserId, final int pProductId, final String pName, final String pDescription, final double pFinalPrice, final int pSnapshotId) {
+	public Favourite(final int pId, final int pUserId, final int pProductId, final int pType, final String pName, final String pDescription, final double pFinalPrice, final int pSnapshotId) {
 		mId = pId;
 		mUserId = pUserId;
 		mProductId = pProductId;
+		mType = pType;
 		mName = pName;
 		mDescription = pDescription;
 		mFinalPrice = pFinalPrice;
@@ -38,7 +50,7 @@ public class Favourite {
 
 	@Override
 	public String toString() {
-		return new StringBuilder().append("Favourite{").append("mId=").append(mId).append(", mUserId=").append(mUserId).append(", mProductId=").append(mProductId).append(", mName='").append(mName).append('\'').append(", mDescription='").append(mDescription).append('\'').append(", mFinalPrice=").append(mFinalPrice).append(", mSnapshotId=").append(mSnapshotId).append(", mCreationDate=").append(mCreationDate).append('}').toString();
+		return new StringBuilder().append("Favourite{").append("mId=").append(mId).append(", mUserId=").append(mUserId).append(", mProductId=").append(mProductId).append(", mName='").append(mName).append('\'').append(", mDescription='").append(mDescription).append('\'').append(", mFinalPrice=").append(mFinalPrice).append(", mSnapshotId=").append(mSnapshotId).append(", mCreationDate=").append(mCreationDate).append(", mProductStock=").append(mProductStock).append(", mSnapshotMedia=").append(mSnapshotMedia).append(", mDiscussCount=").append(mDiscussCount).append(", mType=").append(mType).append('}').toString();
 	}
 
 	public int getId() {
@@ -63,6 +75,14 @@ public class Favourite {
 
 	public void setProductId(final int pProductId) {
 		mProductId = pProductId;
+	}
+
+	public int getType() {
+		return mType;
+	}
+
+	public void setType(final int pType) {
+		mType = pType;
 	}
 
 	public String getName() {

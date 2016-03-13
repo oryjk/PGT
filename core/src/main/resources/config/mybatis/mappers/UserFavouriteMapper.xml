@@ -20,14 +20,17 @@
 		<id column="id" property="id" />
 		<result column="user_id" property="userId" />
 		<result column="prod_id" property="productId" />
+		<result column="type" property="type" />
 		<result column="name" property="name" />
 		<result column="price" property="finalPrice" />
 		<result column="stock" property="productStock" />
 		<result column="description" property="description" />
 		<result column="snapshot_id" property="snapshotId" />
 		<result column="creation_date" property="creationDate" />
-		<association column="prod_id" property="discussCount" select="com.pgt.communication.dao.DiscussMapper.queryAllDiscussCount" />
-		<association column="snapshot_id" property="snapshotMedia" resultMap="com.pgt.product.dao.ProductMapper.productMedia" />
+		<association column="prod_id" property="discussCount"
+		             select="com.pgt.communication.dao.DiscussMapper.queryAllDiscussCount" />
+		<association column="snapshot_id" property="snapshotMedia"
+		             resultMap="com.pgt.product.dao.ProductMapper.productMedia" />
 	</resultMap>
 
 	<select id="queryFavouriteCount" resultType="long">
@@ -40,10 +43,10 @@
 	</select>
 
 	<select id="queryFavouritePage" resultMap="favourite">
-		SELECT fav.id, fav.user_id, fav.prod_id, fav.creation_date, fav.snapshot_id, prod.stock,
-			IFNULL(prod.name, fav.name) `name`, IFNULL(prod.description, fav.description) `description`,
-			IFNULL(IFNULL(prod.sale_price, prod.list_price), fav.price) `price`,
-			m.media_id, m.title, m.path
+		SELECT fav.id, fav.user_id, fav.prod_id, fav.type, fav.creation_date, fav.snapshot_id, prod.stock,
+		IFNULL(prod.name, fav.name) `name`, IFNULL(prod.description, fav.description) `description`,
+		IFNULL(IFNULL(prod.sale_price, prod.list_price), fav.price) `price`,
+		m.media_id, m.title, m.path
 		FROM FAVOURITE fav
 		LEFT JOIN PRODUCT prod ON fav.prod_id = prod.product_id
 		LEFT JOIN MEDIA m ON fav.snapshot_id = m.media_id
@@ -55,10 +58,20 @@
 	</select>
 
 	<select id="queryFavourites" resultMap="favourite">
-		SELECT fav.id, fav.user_id, fav.prod_id, fav.creation_date, fav.snapshot_id, prod.stock,
-			IFNULL(prod.name, fav.name) `name`, IFNULL(prod.description, fav.description) `description`,
+		SELECT
+		fav.id,
+		fav.user_id,
+		fav.prod_id,
+		fav.type,
+		fav.creation_date,
+		fav.snapshot_id,
+		prod.stock,
+		IFNULL(prod.name, fav.name) `name`,
+		IFNULL(prod.description, fav.description) `description`,
 			IFNULL(IFNULL(prod.sale_price, prod.list_price), fav.price) `price`,
-			m.media_id, m.title, m.path
+		m.media_id,
+		m.title,
+		m.path
 		FROM FAVOURITE fav
 		LEFT JOIN PRODUCT prod ON fav.prod_id = prod.product_id
 		LEFT JOIN MEDIA m ON fav.snapshot_id = m.media_id
@@ -71,9 +84,11 @@
 		WHERE user_id = #{userId} AND prod_id = #{productId}
 	</select>
 
-	<insert id="createFavouriteItem" parameterType="com.pgt.cart.bean.Favourite" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO FAVOURITE (`user_id`, `prod_id`, `name`, `price`, `description`, `snapshot_id`, `creation_date`)
-		VALUES (#{userId}, #{productId}, #{name}, #{finalPrice}, #{description}, #{snapshotId}, now())
+	<insert id="createFavouriteItem" parameterType="com.pgt.cart.bean.Favourite" keyProperty="id"
+	        useGeneratedKeys="true">
+		INSERT INTO FAVOURITE (`user_id`, `prod_id`, `type`, `name`, `price`, `description`, `snapshot_id`,
+		`creation_date`)
+		VALUES (#{userId}, #{productId}, #{type}, #{name}, #{finalPrice}, #{description}, #{snapshotId}, now())
 	</insert>
 
 	<delete id="deleteFavouriteItem" parameterType="int">
@@ -82,7 +97,8 @@
 	</delete>
 
 	<select id="queryFavourite" resultMap="favourite">
-		SELECT * FROM FAVOURITE
+		SELECT *
+		FROM FAVOURITE
 		WHERE id = #{favouriteId}
 	</select>
 </mapper>
