@@ -3,6 +3,7 @@ package com.pgt;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +25,10 @@ public class URLInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (ObjectUtils.isEmpty(modelAndView)) {
+            //may ajax request.
+            return;
+        }
         modelAndView.addObject(Constants.B2C_STORE_HOST, urlConfiguration.getB2cStoreUrl());
     }
 
