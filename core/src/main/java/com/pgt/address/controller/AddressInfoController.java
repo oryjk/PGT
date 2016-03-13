@@ -3,9 +3,11 @@ package com.pgt.address.controller;
 import com.google.gson.Gson;
 import com.pgt.address.bean.AddressInfo;
 import com.pgt.address.service.AddressInfoService;
+import com.pgt.base.bean.MyAccountNavigationEnum;
 import com.pgt.city.bean.Province;
 import com.pgt.city.service.CityService;
 import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.Constants;
 import com.pgt.constant.UserConstant;
 import com.pgt.user.bean.User;
 import com.pgt.user.service.UserService;
@@ -208,6 +210,7 @@ public class AddressInfoController {
                 sortedAddressList.add(address);
             }
         }
+        mav.addObject(Constants.CURRENT_ACCOUNT_ITEM, MyAccountNavigationEnum.MY_ADDRESS);
         mav.addObject("addressList", sortedAddressList);
         return mav;
     }

@@ -1,20 +1,27 @@
 package com.pgt.checkout.controller;
 
 import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.constant.CartConstant;
+import com.pgt.cart.controller.CartMessages;
 import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.com.pgt.order.bean.P2PInfo;
 import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.UserConstant;
 import com.pgt.inventory.LockInventoryException;
 import com.pgt.inventory.service.InventoryService;
 import com.pgt.inventory.service.TenderInventoryService;
+import com.pgt.mail.MailConstants;
+import com.pgt.mail.service.MailService;
 import com.pgt.order.P2POrderService;
 import com.pgt.product.bean.Product;
 import com.pgt.session.SessionHelper;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import com.pgt.user.bean.User;
+import com.pgt.user.bean.UserInformation;
+import com.pgt.user.service.UserInformationService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -28,14 +35,18 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Samli on 2016/1/16.
  */
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/checkout")
 public class P2PCheckoutController {
     private static final int NO_ERROR = 0;
 
@@ -66,6 +77,14 @@ public class P2PCheckoutController {
 
     @Autowired
     private URLConfiguration urlConfiguration;
+
+    @Resource(name = "inventoryService")
+    private InventoryService inventoryService;
+
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private UserInformationService userInformationService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView createOrder(HttpServletRequest pRequest, HttpServletResponse pResponse) {
@@ -153,8 +172,93 @@ public class P2PCheckoutController {
              modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
         }
-//        P2PInfo info = getOrderService()
+        P2PInfo info = getOrderService().queryP2PInfoByOrderId(order.getId());
+        // TODO SHIPPING PAGE
+        modelAndView = new ModelAndView("");
+        modelAndView.addObject(CartConstant.ORDER, order);
+        modelAndView.addObject(CartConstant.P2P_INFO, info);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/redirectToPayment", method = RequestMethod.GET)
+    public ModelAndView redirectToPayment(HttpServletRequest request, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        if (null == user) {
+            mav.setViewName("redirect:" + urlConfiguration.getLoginPage());
+            return mav;
+        }
+        Order order = getOrderService().getSessionOrder(request);
+        if (null == order) {
+            mav.setViewName("redirect:" + urlConfiguration.getHomePage());
+            return mav;
+        }
+
+        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER)) {
+            // TODO REDIRECT TO MY ORDERS
+            mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
+            mav.addObject(CartConstant.ORDER_ID, order.getId());
+            mav.addObject("error", "HAS.UNSUBMIT.ORDER");
+            return mav;
+        }
+
+        if (getOrderService().isInvalidOrder(user, order)) {
+            LOGGER.error("Current order is invalid and will redirect to shopping cart.");
+            mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage());
+            return mav;
+        }
+
+        // TODO CHECK SHIPPING
+        getInventoryService().ensureTransaction();
+        try {
+            getInventoryService().lockInventory(order);
+            order.setStatus(OrderStatus.FILLED_SHIPPING);
+            order.setSubmitDate(new Date());
+            if (null != order.getShippingVO() && null != order.getShippingVO().getShippingAddress()) {
+                String alias = order.getShippingVO().getShippingAddress().getName();
+                order.setHolderAlias(alias);
+            }
+            getOrderService().updateOrder(order);
+        } catch (LockInventoryException e) {
+            String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
+
+            // TODO goto my orders page
+            mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
+
+            return mav;
+        } catch (Exception e) {
+            String message = CartMessages.ERROR_INV_CHECK_FAILED;
+            LOGGER.error("lock inventory failed", e);
+            mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
+            return mav;
+        } finally {
+            getInventoryService().commit();
+        }
+        sendEmail(user, order);
+        request.removeAttribute(CartConstant.CURRENT_ORDER);
+        mav.setViewName("redirect:/payment/gateway");
+        request.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
+        mav.addObject(CartConstant.ORDER_ID, order.getId());
+        return mav;
+    }
+
+    public void sendEmail(User user, Order order) {
+        try {
+            UserInformation userInformation = userInformationService.queryUserInformation(user);
+            if (userInformation == null || userInformation.getPersonEmail() == null) {
+                LOGGER.info(
+                        "Current user has not add user information so that cannot send place order email to he/she. User id is:{}.",
+                        user.getId());
+                return;
+            }
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("user", user);
+            map.put("order", order);
+            getMailService().sendEmail(MailConstants.SUBJECT_PLACE_ORDER, map, MailConstants.TEMPLATE_PLACE_ORDER,
+                    userInformation.getPersonEmail());
+        } catch (Exception e) {
+            LOGGER.error("Failed to send place order email to user:" + user.getId() + ".", e);
+        }
     }
 
 
@@ -353,5 +457,30 @@ public class P2PCheckoutController {
 
     public void setTenderService(TenderService tenderService) {
         this.tenderService = tenderService;
+    }
+
+    public InventoryService getInventoryService() {
+        return inventoryService;
+    }
+
+    public void setInventoryService(InventoryService inventoryService) {
+        this.inventoryService = inventoryService;
+    }
+
+
+    public UserInformationService getUserInformationService() {
+        return userInformationService;
+    }
+
+    public void setUserInformationService(UserInformationService userInformationService) {
+        this.userInformationService = userInformationService;
+    }
+
+    public MailService getMailService() {
+        return mailService;
+    }
+
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
     }
 }

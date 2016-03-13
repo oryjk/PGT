@@ -3,8 +3,11 @@ package com.pgt.tender.controller;
 import com.pgt.cart.bean.ResponseBuilder;
 import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.category.bean.CategoryType;
+import com.pgt.common.bean.BreadCrumb;
 import com.pgt.common.bean.CommPaginationBean;
+import com.pgt.common.service.BreadCrumbService;
 import com.pgt.configuration.ESConfiguration;
+import com.pgt.constant.Constants;
 import com.pgt.constant.ESConstants;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTenderListFilter;
@@ -13,7 +16,8 @@ import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.util.TenderListUtil;
 import com.pgt.utils.PaginationBean;
 import com.pgt.utils.PaginationUtils;
-import com.pgt.utils.SearchConverToList;
+import com.pgt.utils.SearchConvertToList;
+import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +55,8 @@ public class TenderListController {
     private ESConfiguration esConfiguration;
     @Autowired
     private PaginationUtils paginationUtils;
+    @Autowired
+    private BreadCrumbService breadCrumbService;
 
     @RequestMapping(value = "/tenderList", method = RequestMethod.GET)
     public ModelAndView get(ModelAndView modelAndView, @RequestParam(value = "sort", required = false) Integer sort,
@@ -75,7 +81,14 @@ public class TenderListController {
             esSorts = new ArrayList<>();
             esSorts.add(esSort);
         }
+        List<BreadCrumb> breadCrumbs = breadCrumbService.buildSearchBreadCrumb(categoryId, keyword);
+        modelAndView.addObject(Constants.BREAD_CRUMB, breadCrumbs);
         List<Map<String, Object>> tenderList = buildTenderList(keyword, esTenderListFilter, paginationBean, esSorts);
+        //if no result, need go to no result page.
+        if (CollectionUtils.isEmpty(tenderList)) {
+            modelAndView.setViewName("/tenderList/noResult");
+            return modelAndView;
+        }
         modelAndView.addObject(ESConstants.TENDER_LIST_RESULT, tenderList);
         LOGGER.debug("Complete to begin tenderList.");
 
@@ -139,14 +152,14 @@ public class TenderListController {
     private List<Map<String, Object>> buildTenderList(String keyword, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean,
                                                       List<ESSort> esSorts) {
         SearchResponse response = tenderSearchEngineService.findTenders(keyword, esTenderListFilter, paginationBean, esSorts);
-        List<Map<String, Object>> list = SearchConverToList.searchConvertToList(response);
+        List<Map<String, Object>> list = SearchConvertToList.searchConvertToList(response);
         paginationBean.setTotalAmount(response.getHits().getTotalHits());
         return list;
     }
 
     private List<Map<String, Object>> buildCategoryList() {
         SearchResponse searchResponse = categorySearchEngineService.findRootCategory(CategoryType.TENDER_ROOT);
-        List<Map<String, Object>> list = SearchConverToList.searchConvertToList(searchResponse);
+        List<Map<String, Object>> list = SearchConvertToList.searchConvertToList(searchResponse);
         return list;
 
     }

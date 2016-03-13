@@ -5,6 +5,7 @@ import com.pgt.cart.bean.BrowsedProductVO;
 import com.pgt.cart.constant.CookieConstant;
 import com.pgt.cart.constant.SessionConstant;
 import com.pgt.cart.service.ProductBrowseTrackService;
+import com.pgt.cart.service.ShoppingCartConfiguration;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.constant.UserConstant;
 import com.pgt.user.bean.User;
@@ -40,6 +41,9 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 	@Resource(name = "productBrowseTrackService")
 	private ProductBrowseTrackService mProductBrowseTrackService;
 
+	@Resource(name = "shoppingCartConfiguration")
+	private ShoppingCartConfiguration mShoppingCartConfiguration;
+
 	@Override
 	public boolean preHandle(HttpServletRequest pRequest, HttpServletResponse pResponse, Object pHandler)
 			throws Exception {
@@ -58,10 +62,11 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 			return true;
 		}
 
+		int maxBrowsedProductCount = getShoppingCartConfiguration().getBrowsedProductCount();
 		String idString = null;
 		// check session user existence
 		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
-		List<Integer> sessionBrowsedProductIds = new ArrayList<>(getProductBrowseTrackService().getBrowsedProductCount());
+		List<Integer> sessionBrowsedProductIds = new ArrayList<>(maxBrowsedProductCount);
 		// no order for user without login state
 		if (user == null || !RepositoryUtils.idIsValid(user.getId().intValue())) {
 			LOGGER.debug("No user found from session, record browse product to cookie only.");
@@ -73,7 +78,7 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 			// add it to first to mark as latest
 			browsedProductIds.addFirst(currProdIdStr);
 			// limit total count of records
-			if (browsedProductIds.size() > getProductBrowseTrackService().getBrowsedProductCount()) {
+			if (browsedProductIds.size() > maxBrowsedProductCount) {
 				browsedProductIds.removeLast();
 			}
 			LOGGER.debug("Get product ids: " + browsedProductIds + " after maintain.");
@@ -110,7 +115,7 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 						LOGGER.debug("Found browsed product: {} of user: {}, just reset the update date.", currentBrowse.getProduct(), userId);
 						// current product had been record as recently browsed product
 						result = getProductBrowseTrackService().recordBrowsedProduct(currentBrowse.getId());
-					} else if (browsedProducts.size() >= getProductBrowseTrackService().getBrowsedProductCount()) {
+					} else if (browsedProducts.size() >= maxBrowsedProductCount) {
 						LOGGER.debug("Browsed products had been reached count limit of user: {}", userId);
 						BrowsedProductVO oldestBrowsed = browsedProducts.removeLast();
 						oldestBrowsed.setProductId(curProdId);
@@ -122,7 +127,7 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 					} else {
 						LOGGER.debug("Record new browsed product: {} for user: {}", curProdId, userId);
 						// create a new record
-						BrowsedProductVO newBrowsedProduct = new BrowsedProductVO(userId, curProdId);
+						BrowsedProductVO newBrowsedProduct = new BrowsedProductVO(userId, curProdId, getShoppingCartConfiguration().getDefaultBrowsedType());
 						result = getProductBrowseTrackService().createBrowsedProduct(newBrowsedProduct);
 					}
 					if (!result) {
@@ -133,7 +138,7 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 					status.setRollbackOnly();
 				} finally {
 					getTransactionManager().commit(status);
-					List<String> browsedProductIds = new ArrayList<>(getProductBrowseTrackService().getBrowsedProductCount());
+					List<String> browsedProductIds = new ArrayList<>(maxBrowsedProductCount);
 					browsedProducts.forEach(bp -> {
 						browsedProductIds.add(String.valueOf(bp.getProductId()));
 						sessionBrowsedProductIds.add(bp.getProductId());
@@ -147,7 +152,7 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 		// set cookie
 		LOGGER.debug("Generate new browsed product id string: {}", idString);
 		Cookie cookie = new Cookie(CookieConstant.BROWSED_PRODUCTS, getProductBrowseTrackService().getEncodeCookie(idString));
-		cookie.setMaxAge(getProductBrowseTrackService().getCookieExpiredTime());
+		cookie.setMaxAge(getShoppingCartConfiguration().getBrowsedCookieExpired());
 		// global path could share the cookie
 		cookie.setPath("/");
 		// set http only to avoid xss attack
@@ -182,5 +187,13 @@ public class ProductBrowseTracker implements HandlerInterceptor {
 
 	public void setProductBrowseTrackService(final ProductBrowseTrackService pProductBrowseTrackService) {
 		mProductBrowseTrackService = pProductBrowseTrackService;
+	}
+
+	public ShoppingCartConfiguration getShoppingCartConfiguration() {
+		return mShoppingCartConfiguration;
+	}
+
+	public void setShoppingCartConfiguration(final ShoppingCartConfiguration pShoppingCartConfiguration) {
+		mShoppingCartConfiguration = pShoppingCartConfiguration;
 	}
 }

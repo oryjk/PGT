@@ -438,7 +438,7 @@ public class P2POrderService extends OrderService {
 
     }
 
-    private P2PInfo queryP2PInfoByOrderId(int id) {
+    public P2PInfo queryP2PInfoByOrderId(int id) {
 
         return getP2PMapper().queryInfoByOrderId(id);
     }

@@ -55,6 +55,9 @@
           <c:when test="${tenderItem.tender.tenderStatus==30}">
             已赎当
           </c:when>
+          <c:otherwise>
+            即将开始
+          </c:otherwise>
         </c:choose>
       </div>
       <a class="invest-join-favorite" href=""></a>

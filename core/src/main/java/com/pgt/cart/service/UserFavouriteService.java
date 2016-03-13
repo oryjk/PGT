@@ -25,12 +25,12 @@ public class UserFavouriteService {
 	@Resource(name = "userFavouriteDao")
 	private UserFavouriteDao mUserFavouriteDao;
 
-	public List<Favourite> queryFavouritePage(final int pUserId, final InternalPagination pPagination) {
-		long count = getUserFavouriteDao().queryFavouriteCount(pUserId, pPagination);
+	public List<Favourite> queryFavouritePage(final int pUserId, final int pFavouriteType, final InternalPagination pPagination) {
+		long count = getUserFavouriteDao().queryFavouriteCount(pUserId, pFavouriteType, pPagination);
 		pPagination.setCount(count);
 		LOGGER.debug("Get favourite item of count: {} with keyword: {} for user: {}", count, pPagination.getKeyword(), pUserId);
 		if (count > 0) {
-			List<Favourite> favourites = getUserFavouriteDao().queryFavouritePage(pUserId, pPagination);
+			List<Favourite> favourites = getUserFavouriteDao().queryFavouritePage(pUserId, pFavouriteType, pPagination);
 			pPagination.setResult(favourites);
 		} else {
 			pPagination.setResult(Collections.EMPTY_LIST);
@@ -38,8 +38,8 @@ public class UserFavouriteService {
 		return (List<Favourite>) pPagination.getResult();
 	}
 
-	public Favourite queryFavouriteByProduct(final int pUserId, final int pProductId) {
-		return getUserFavouriteDao().queryFavouriteByProduct(pUserId, pProductId);
+	public Favourite queryFavouriteByProduct(final int pUserId, final int pProductId, final int pFavouriteType) {
+		return getUserFavouriteDao().queryFavouriteByProduct(pUserId, pProductId, pFavouriteType);
 	}
 
 	public List<Favourite> queryFavourites(final int pUserId) {
@@ -58,8 +58,9 @@ public class UserFavouriteService {
 		return getUserFavouriteDao().deleteFavouriteItem(pFavouriteId) > 0;
 	}
 
-	public Favourite convertProductToFavourite(int pUserId, Product pProduct) {
-		FavouriteBuilder fb = new FavouriteBuilder().setUserId(pUserId);
+	public Favourite convertProductToFavourite(final int pUserId, final Product pProduct, final int pFavouriteType) {
+		FavouriteBuilder fb = new FavouriteBuilder();
+		fb.setUserId(pUserId).setType(pFavouriteType);
 		fb.setProductId(pProduct.getProductId()).setName(pProduct.getName()).setDescription(pProduct.getDescription());
 		// set final price
 		if (pProduct.getSalePrice() != null && pProduct.getSalePrice().doubleValue() > 0d) {

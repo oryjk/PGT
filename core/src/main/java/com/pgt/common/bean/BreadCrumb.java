@@ -8,6 +8,7 @@ public class BreadCrumb {
     private String breadName;
     private String breadUrl;
 
+
     public String getBreadName() {
         return breadName;
     }
