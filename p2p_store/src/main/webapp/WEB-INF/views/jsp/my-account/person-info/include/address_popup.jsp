@@ -25,7 +25,7 @@
 						</a>
 						<ul class="options" v-bind:style="{display:province_display}">
 							<c:forEach items="${provinceList}" var="province">
-								<li @click="queryCityByProvinceId(${province.id},$event)"><a class="option-view" data-value="${province.id}" href="#">${province.name}</a></li>
+								<li @click="queryCityByProvinceId(${province.id},'${province.name}',$event)"><a class="option-view" data-value="${province.id}" href="#">${province.name}</a></li>
 							</c:forEach>
 						</ul>
 						<input class="select-value" name="" type="hidden" value=""/>
@@ -38,7 +38,7 @@
 							<i class="foundicon-down-arrow"></i>
 						</a>
 						<ul class="options" v-bind:style="{display:city_display}">
-							<li v-for="city in cities" @click="getAreaByCityId(city.id,$event)">
+							<li v-for="city in cities" @click="getAreaByCityId(city.id,city.name,$event)">
 								<a class="option-view"  href="#">{{city.name}}</a>
 							</li>
 						</ul>
@@ -53,7 +53,7 @@
 						</a>
 						<ul class="options" v-bind:style="{display:district_display}">
 
-							<li v-for="district in districts" @click="saveDistrict(district.id,$event)">
+							<li v-for="district in districts" @click="saveDistrict(district.id,district.name,$event)">
 								<a class="option-view" data-value="0" href="#">{{district.name}}</a>
 							</li>
 						</ul>

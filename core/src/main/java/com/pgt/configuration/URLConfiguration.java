@@ -25,6 +25,7 @@ public class URLConfiguration {
     private String p2pStoreUrl = "";
     private String adminStoreUrl = "";
     private String mobileStoreUrl = "";
+    private String tenderListPage="/tender/tenderList";
 
     public String getCategoryPage() {
         return categoryPage;
@@ -192,5 +193,13 @@ public class URLConfiguration {
 
     public void setMobileStoreUrl(String mobileStoreUrl) {
         this.mobileStoreUrl = mobileStoreUrl;
+    }
+
+    public String getTenderListPage() {
+        return tenderListPage;
+    }
+
+    public void setTenderListPage(String tenderListPage) {
+        this.tenderListPage = tenderListPage;
     }
 }

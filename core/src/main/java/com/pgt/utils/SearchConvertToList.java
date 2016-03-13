@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by zhangxiaodong on 16-2-26.
  */
-public class SearchConverToList {
+public class SearchConvertToList {
 
     public static List<Map<String,Object>> searchConvertToList(SearchResponse searchResponse){
         SearchHit[] searchHits= searchResponse.getHits().getHits();

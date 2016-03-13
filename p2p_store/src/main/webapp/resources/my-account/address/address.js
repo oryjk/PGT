@@ -61,8 +61,8 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                     this.display = 'none';
                     this.currentAddress = '';
                 },
-                queryCityByProvinceId: function (provinceId, event) {
-                    this.currentAddress.province = event.target.text;
+                queryCityByProvinceId: function (provinceId, name, event) {
+                    this.currentAddress.province = name;
                     this.province_display = 'none';
 
                     $.ajax({
@@ -72,8 +72,8 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                         }
                     })
                 },
-                getAreaByCityId: function (cityId, event) {
-                    this.currentAddress.city = event.target.text;
+                getAreaByCityId: function (cityId, name, event) {
+                    this.currentAddress.city = name;
                     this.city_display = 'none';
                     $.ajax({
                         url: '/getAreaByCityId/' + cityId,
@@ -82,8 +82,8 @@ require(['jquery', 'component', 'ajax', 'vue', 'underscore'], function ($, Cpn, 
                         }
                     })
                 },
-                saveDistrict: function (districtId, event) {
-                    this.currentAddress.district = event.target.text;
+                saveDistrict: function (districtId, name, event) {
+                    this.currentAddress.district = name;
                     this.district_display = 'none';
                 },
                 validate: function () {
