@@ -229,6 +229,7 @@ public class P2PCheckoutController {
         } catch (Exception e) {
             String message = CartMessages.ERROR_INV_CHECK_FAILED;
             LOGGER.error("lock inventory failed", e);
+            // TODO goto my orders page
             mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
             return mav;
         } finally {
