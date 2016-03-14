@@ -519,6 +519,38 @@ body {
         .content .login .login-box .domain img {
           padding: 10px 0 0 5px; }
 
+.login-success .login-success-title {
+  padding: 30px 0 0 30px; }
+
+.login-success h2 {
+  padding: 70px 0 70px 150px;
+  font-size: 30px;
+  color: #ff6d6d;
+  background: url("../core/images/cart/end-img.png") no-repeat 60px 55px; }
+
+.login-success .login-success-timeout {
+  padding-left: 40px; }
+
+.login-success .go-to-home-box {
+  margin: 60px 0 0;
+  text-align: center; }
+
+.login-success .go-to-home {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 120px;
+  height: 40px;
+  font-size: 20px;
+  background: #ff6d6d;
+  border-radius: 3px;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  cursor: pointer; }
+  .login-success .go-to-home:hover {
+    background: #ff3a3a; }
+
 /*for js
 ********************************************************************/
 .content .content-box .login .input-error input {

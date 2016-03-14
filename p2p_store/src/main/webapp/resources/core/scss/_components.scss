@@ -60,6 +60,7 @@
     border: 1px solid $viewBorderColor;
     display: block;
     @include wh(100%, 100%);
+    overflow: hidden;
     background: $color;
     border-radius: $borderRidius;
     line-height: $height;

@@ -28,14 +28,6 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function (
             hideEffect: 'fadeout'
         });
 
-        $('#indicatorContainer').radialIndicator({
-            barColor: '#a4cc4d',
-            barWidth: 10,
-            initValue: 40,
-            roundCorner: true,
-            percentage: true
-        });
-
         //左右移动.item-nav下的ul位置:
         var itemNavBox = $('#itemNavBox');
         $('#itemNavRight').click(function () {

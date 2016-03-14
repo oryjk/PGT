@@ -52,6 +52,7 @@
 				<div class="cost-box">
 					<span class="cost">¥</span><span class="cost">${ESTender.tender.tenderTotal}</span>
 				</div>
+				<div class="invest-surplus-count">剩余产品数量 : <span>15</span>件</div>
 				<div class="invest-begin-time">开始: <span><date:date value="${ESTender.tender.publishDate}" style="yyyy-MM-dd HH:mm:ss"/></span></div>
 				<div class="invest-end-time">结束: <span><date:date value="${ESTender.tender.dueDate}" style="yyyy-MM-dd HH:mm:ss"/></span></div>
 

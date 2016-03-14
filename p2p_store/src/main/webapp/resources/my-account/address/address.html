@@ -55,7 +55,12 @@
             <span class="address-altogether-info">您已经创建了<span>5</span>个收获地址,最多可以创建<span>20</span>地址</span>
             <input class="address-add" type="button" value="新增收获地址"/>
         </div>
-        <ul class="address-list">
+        <div class="address-have-no">
+            <a class="address-have-no-add" href="javascript:void(0);">
+                您暂时还没有地址, 添加添加
+            </a>
+        </div>
+        <ul class="address-list" style="display: none">
             <li class="address-default">
                 <div class="receive-name">
                     <div class="receive-title">收货人:</div>
@@ -248,7 +253,7 @@
 <!--footer end-->
 
 <!--pop begin-->
-<div id="popUp" class="pop-up" style="display: block;">
+<div id="popUp" style="display: block;">
     <div class="wrap">
         <div class="inner">
             <h3>

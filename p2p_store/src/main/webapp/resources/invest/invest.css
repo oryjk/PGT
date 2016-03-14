@@ -500,6 +500,7 @@ a {
       display: block;
       width: 100%;
       height: 100%;
+      overflow: hidden;
       background: white;
       border-radius: 0;
       line-height: 30px; }
@@ -567,6 +568,7 @@ a {
       display: block;
       width: 100%;
       height: 100%;
+      overflow: hidden;
       background: white;
       border-radius: 0;
       line-height: 30px; }
@@ -635,6 +637,7 @@ a {
       display: block;
       width: 100%;
       height: 100%;
+      overflow: hidden;
       background: white;
       border-radius: 0;
       line-height: 30px; }

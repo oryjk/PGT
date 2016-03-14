@@ -672,9 +672,14 @@ body {
     width: 115px;
     height: 115px; }
   .invest .cost-box {
+    padding-left: 80px;
     font-size: 25px; }
+  .invest .cost {
+    color: #ff6d6d; }
+  .invest .invest-surplus-count {
+    padding-top: 15px; }
   .invest .invest-begin-time {
-    padding-top: 30px; }
+    padding-top: 15px; }
   .invest .invest-end-time {
     padding-top: 5px; }
   .invest .data-row-3 {

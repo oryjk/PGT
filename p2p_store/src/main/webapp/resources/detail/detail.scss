@@ -130,11 +130,20 @@ body {
   }
 
   .cost-box {
+    padding-left: 80px;
     font-size: 25px;
   }
 
+  .cost {
+    color: $main;
+  }
+
+  .invest-surplus-count {
+    padding-top: 15px;
+  }
+
   .invest-begin-time {
-    padding-top: 30px;
+    padding-top: 15px;
   }
 
   .invest-end-time {
