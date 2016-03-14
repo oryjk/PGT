@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="header" id="header">
-	<jsp:include page="../core/header-simple.jsp"/>
+	<jsp:include page="../core/header-main.jsp"/>
 </div>
 <input type="hidden" id="redirect" value="${redirect}"/>
 <div class="content-box">

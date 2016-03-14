@@ -1,8 +1,5 @@
 package com.pgt.integration.yeepay.notification.service;
 
-import java.io.IOException;
-import java.util.*;
-
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.OrderType;
@@ -27,8 +24,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
+import java.util.*;
+
 public class CompleteTransactionNotificationHandler extends Transactionable implements YeepayNotificationHandler {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(CompleteTransactionNotificationHandler.class);
+	
 	private DirectYeePay completeTransactionYeepay;
 	
 	private YeePayConfig config;
@@ -36,7 +38,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 	private PaymentService paymentService;
 	
 	private ShoppingCartDao shoppingCartDao;
-	
+
 	private UserOrderDao userOrderDao;
 
 	private InventoryService inventoryService;
@@ -47,8 +49,6 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 	@Autowired
 	private SmsService smsService;
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(CompleteTransactionNotificationHandler.class);
 
 	@Override
 	public void handleCallback(Map<String, String> inboundParams, TransactionLog transactionLog)

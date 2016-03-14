@@ -26,7 +26,7 @@ public class SearchTest {
     @Autowired
     private ProductServiceImp productServiceImp;
     @Autowired
-    private ProductHelper productHelper;
+    private ProductHelper     productHelper;
 
     @Test
     public void searchTest() {

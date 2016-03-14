@@ -75,6 +75,7 @@
 
   ul {
     position: absolute;
+    z-index: 1;
     display: none;
     overflow: scroll;
     max-height: 295px;

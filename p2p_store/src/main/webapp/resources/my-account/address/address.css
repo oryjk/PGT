@@ -54,7 +54,7 @@
 .address-list li {
   position: relative;
   margin: 10px 0;
-  height: 148px;
+  padding-bottom: 15px;
   border: 2px solid #cccccc; }
 
 .address-list .address-default {
@@ -222,6 +222,7 @@
     .pop-up .invest-city-select ul,
     .pop-up .invest-country-select ul {
       position: absolute;
+      z-index: 1;
       display: none;
       overflow: scroll;
       max-height: 295px;

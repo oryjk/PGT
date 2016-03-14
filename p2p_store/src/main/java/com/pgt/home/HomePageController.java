@@ -1,5 +1,8 @@
 package com.pgt.home;
 
+import com.pgt.common.bean.Banner;
+import com.pgt.common.bean.BannerWebSite;
+import com.pgt.common.service.BannerService;
 import com.pgt.constant.Constants;
 import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.tender.service.TenderService;
@@ -28,6 +31,8 @@ public class HomePageController {
     @Autowired
     private TenderSearchEngineService tenderSearchEngineService;
 
+    @Autowired
+    private BannerService bannerService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getHomePage(HttpServletRequest request, ModelAndView modelAndView) {
@@ -45,30 +50,37 @@ public class HomePageController {
     }
 
     private void buildBanner(ModelAndView modelAndView) {
-
+        Banner banner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME, BannerWebSite.P2P_STORE.toString());
+        if (!ObjectUtils.isEmpty(banner)) {
+            LOGGER.debug("The query banner id is {}", banner.getBannerId());
+            modelAndView.addObject("banner", banner);
+        }
     }
 
     private void buildCategoryTender(ModelAndView modelAndView) {
 
     }
 
-    private void buildSiteHotTender(ModelAndView modelAndView) {
+    private void  buildCategoryHotTender(ModelAndView modelAndView) {
         SearchResponse categoryHotResponse = tenderSearchEngineService.findCategoryHotTender();
 
-
         if (!ObjectUtils.isEmpty(categoryHotResponse)) {
-            buildTender(categoryHotResponse, modelAndView, Constants.SITE_HOT);
+            buildTender(categoryHotResponse, modelAndView, Constants.CATEGORY_HOT);
         }
         LOGGER.debug("The site hot tender is  empty.");
 
     }
 
-    private void buildCategoryHotTender(ModelAndView modelAndView) {
+    private void buildSiteHotTender(ModelAndView modelAndView) {
         SearchResponse siteHotResponse = tenderSearchEngineService.findSiteHotTender();
+        if(siteHotResponse.getHits().getHits().length<3){
+            siteHotResponse=tenderSearchEngineService.findTender(null,null,null,null,null,null,null);
+        }
         if (!ObjectUtils.isEmpty(siteHotResponse)) {
-            buildTender(siteHotResponse, modelAndView, Constants.CATEGORY_HOT);
+            buildTender(siteHotResponse, modelAndView, Constants.SITE_HOT);
         }
         LOGGER.debug("The category hot tender is  empty.");
+
     }
 
     private void buildTender(SearchResponse siteHotResponse, ModelAndView modelAndView, String attributeName) {

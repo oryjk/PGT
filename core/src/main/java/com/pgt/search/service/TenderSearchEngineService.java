@@ -29,6 +29,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +61,6 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
     @Override
     public void index() {
-
         tenderIndex();
         homeTenderIndex();
     }
@@ -105,8 +106,14 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                 Integer categoryId = category.getId();
                 Tender tender = new Tender();
                 tender.setCategoryId(categoryId);
+
                 tender.setCategoryHot(true);
                 List<Tender> tenders = tenderService.queryTenders(tender);
+                if(CollectionUtils.isEmpty(tenders)){
+                    tender.setCategoryHot(false);
+                    tenders=tenderService.queryTenders(tender);
+                }
+
                 homeTender.getTenderList().addAll(tenders);
             });
             try {
@@ -217,7 +224,12 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         esTerm.setPropertyName(Constants.SITE_HOT_PROPERTY);
         esTerm.setTermValue(String.valueOf(true));
 
-        return findTender(null, matches, null, null, null, null, Constants.TENDER_INDEX_TYPE);
+        ESSort esSort = new ESSort();
+        esSort.setSortOrder(SortOrder.ASC);
+        esSort.setPropertyName(esConfiguration.geteSSort());
+        List<ESSort> sortList= new ArrayList<>();
+
+        return findTender(null, matches, null,sortList, null, null, Constants.TENDER_INDEX_TYPE);
     }
 
     public void updateTender(Tender tender) {
@@ -289,6 +301,8 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         }
         return response;
     }
+
+
 
 
     @Override

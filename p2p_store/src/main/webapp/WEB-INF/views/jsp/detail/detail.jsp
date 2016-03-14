@@ -32,8 +32,19 @@
 				<a class="invest-add-favorite" href="javascript:void(0);">收藏</a>
 				<a class="invest-scan-count">已浏览<span>123</span>次</a>
 			</div>
+			<div class="invest-share-group">
+				<div class="bdsharebuttonbox">
+					<a href="#" class="bds_more" data-cmd="more"></a>
+					<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+					<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"> </a>
+					<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+					<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+					<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+				</div>
+			</div>
 		</div>
 		<div class="invest-data">
+			<div class="invest-status">在当中</div>
 			<div class="data-row-1">项目金额</div>
 			<div class="data-row-2">
 				<div id="indicatorContainer" class="progress-circle"></div>
@@ -70,11 +81,11 @@
 <div class="detail-content">
 	<ul class="tab">
 		<!-- super: 以下五个tab,添加类tab-choose时显示,不添加时隐藏,默认第一个显示-->
-		<li class="tab-choose"><a>产品简介</a></li>
-		<li><a>产品详情</a></li>
-		<li><a>产品咨询</a><span class="tab-item-count">250</span></li>
-		<li><a>产品讨论</a><span class="tab-item-count">250</span></li>
-		<li><a>参与者</a><span class="tab-item-count">250</span></li>
+		<li class="tab-choose"><a href="javascripyt:(0);">产品简介</a></li>
+		<li><a href="javascripyt:(0);">产品详情</a></li>
+		<li><a href="javascripyt:(0);">产品咨询</a><span class="tab-item-count">250</span></li>
+		<li><a href="javascripyt:(0);">产品讨论</a><span class="tab-item-count">250</span></li>
+		<li><a href="javascripyt:(0);">参与者</a><span class="tab-item-count">250</span></li>
 	</ul>
 	<div class="content-box">
 		<!-- super: 以下五个tab对应的content,添加类content-choose时显示,不添加时隐藏,默认第一个显示-->
@@ -456,5 +467,6 @@
 <!-- turn left and right end-->
 
 <script src="/resources/core/js/require.js" data-main="/resources/detail/detail"></script>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 </body>
 </html>

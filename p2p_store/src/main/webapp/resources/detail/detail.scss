@@ -74,6 +74,11 @@ body {
     border-bottom: 1px dotted $gray-light;
   }
 
+  .invest-share-group {
+    margin: 10px auto 0;
+    @include wh(287px, 80px);
+  }
+
   .invest-add-favorite {
     float: left;
     @include color-btn(131px, 43px, 3px, 16px, $main, $main-dark);
@@ -88,12 +93,25 @@ body {
   }
 
   .invest-data {
+    position: relative;
     float: right;
     margin-top: 25px;
     border: 1px solid $gray-light;
     padding: 35px 0 0 30px;
     @include wh(310px, 205px);
     background: white;
+  }
+
+  .invest-status {
+    position: absolute;
+    top: 21px;
+    right: -13px;
+    @include wh(81px, 40px);
+    background: url("../core/images/detail/detail_invest_status.png") no-repeat 0 0;
+    text-align: center;
+    line-height: 35px;
+    font-size: 14px;
+    color: white;
   }
 
   .data-row-1 {
@@ -225,8 +243,10 @@ body {
       &:hover {
         @extend %tab-hover-and-focus;
       }
-
-      &.tab-choose {
+      &:focus {
+        @extend %tab-hover-and-focus;
+      }
+      &.tab-choose{
         @extend %tab-hover-and-focus;
       }
     }

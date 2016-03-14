@@ -212,7 +212,8 @@
 				WHERE 1=1
 			</otherwise>
 		</choose>
-		AND CATEGORY_HOT=#{categoryHot} AND SITE_HOT=#{siteHot}
+
+		AND CATEGORY_HOT=#{categoryHot}
 
 	</select>
 	<insert id="createTender" parameterType="com.pgt.tender.bean.Tender" keyProperty="tenderId" useGeneratedKeys="true">

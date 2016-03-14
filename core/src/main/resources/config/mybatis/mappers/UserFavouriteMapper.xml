@@ -29,8 +29,16 @@
 		<result column="creation_date" property="creationDate" />
 		<association column="prod_id" property="discussCount"
 		             select="com.pgt.communication.dao.DiscussMapper.queryAllDiscussCount" />
-		<association column="snapshot_id" property="snapshotMedia"
-		             resultMap="com.pgt.product.dao.ProductMapper.productMedia" />
+		<association column="snapshot_id" property="snapshotMedia" resultMap="favouriteMedia" />
+	</resultMap>
+
+	<resultMap id="favouriteMedia" type="com.pgt.product.bean.ProductMedia">
+		<id column="media_id" property="id" />
+		<result column="reference_id" property="referenceId" />
+		<result column="title" property="title" />
+		<result column="path" property="path" />
+		<result column="mediaType" property="type" />
+		<result column="index" property="index" />
 	</resultMap>
 
 	<select id="queryFavouriteCount" resultType="long">

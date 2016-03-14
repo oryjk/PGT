@@ -38,7 +38,7 @@ public class ESConfiguration {
     //search key
     private String tenderRootCategoryIdTerm="rootCategory.id";
     private String tenderParentCategoryIdTerm="parentCategory.id";
-
+    private String eSSort="creationDate";
 
     private Map<String, Integer> priceAggrs = new HashMap<String, Integer>() {
         {
@@ -57,6 +57,14 @@ public class ESConfiguration {
             put("0-999", 999);
         }
     };
+
+    public String geteSSort() {
+        return eSSort;
+    }
+
+    public void seteSSort(String eSSort) {
+        this.eSSort = eSSort;
+    }
 
     public String getHost() {
         return host;

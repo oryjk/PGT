@@ -28,12 +28,11 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], funct
         });
 
         //初始化sort-tab下拉菜单
-        $('#sortMoney').mouseenter(function () {
+        $('#sortMoney,#sortTime').mouseenter(function () {
             $(this).children('ul').show();
         }).mouseleave(function () {
             $(this).children('ul').hide();
         });
-
 
         $('.sort-tab-item').click(function (event) {
             event.preventDefault();

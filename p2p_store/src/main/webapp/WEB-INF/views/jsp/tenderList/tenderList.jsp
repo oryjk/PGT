@@ -31,7 +31,13 @@
 
 			<div class="all-list">
 				<div class="filter">
-					<div class="breadcrumb">当前位置：文玩杂项<span>查询结果共1000个相关项目</span></div>
+					<div class="breadcrumb">
+						当前位置：
+						<c:forEach items="${breadCrumbs}" var="bread">
+							${bread.breadName} >
+						</c:forEach>
+						<span>查询结果共1000个相关项目</span>
+					</div>
 					<ul class="status-filter" v-on:click="tenderFilterAction">
 						<li><input type="radio" name="sex" value="n" data-value="1"/>全部</li>
 						<li><input type="radio" name="sex" value="v" data-value="2"/>即将开始</li>
@@ -52,9 +58,16 @@
 								<li class="sort-tab-item"><a href="#" data-value="2">金额最少</a></li>
 							</ul>
 						</li>
-						<li class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==4}">
-							<a class="sort-tab" href="#" data-value="4">周期最短</a>
+
+						<li id="sortTime" class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==4}">
+							<a class="sort-view" href="#">周期最长</a>
+
+							<ul>
+								<li class="sort-tab-item hide"><a href="#">周期最长</a></li>
+								<li class="sort-tab-item"><a href="#">周期最短</a></li>
+							</ul>
 						</li>
+
 						<li class="sort-tab" v-bind:class="{'current-tab':queryRequest.sort==5}">
 							<a class="sort-tab" href="#" data-value="5">即将结束</a>
 						</li>

@@ -1,13 +1,13 @@
 package com.pgt.communication.controller;
 
 import com.pgt.base.constans.MobileConstants;
+import com.pgt.base.controller.BaseMobileController;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.communication.bean.Consulting;
 import com.pgt.communication.bean.ConsultingCustom;
 import com.pgt.communication.service.ConsultingService;
 import com.pgt.configuration.Configuration;
 import com.pgt.constant.UserConstant;
-import com.pgt.base.controller.BaseMobileController;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductServiceImp;
 import com.pgt.user.bean.User;
@@ -31,6 +31,8 @@ import java.util.Map;
 @RequestMapping("/mConsulting")
 public class ConsultingMobileController extends BaseMobileController{
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultingMobileController.class);
+
 	@Autowired
 	private ConsultingService consultingService;
 
@@ -40,7 +42,6 @@ public class ConsultingMobileController extends BaseMobileController{
 	@Autowired
 	private ProductServiceImp productServiceImp;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultingMobileController.class);
 	/**
 	 * query consulting for a product
 	 * @param productId
