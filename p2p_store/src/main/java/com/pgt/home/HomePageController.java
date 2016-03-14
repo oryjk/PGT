@@ -61,25 +61,26 @@ public class HomePageController {
 
     }
 
-    private void buildSiteHotTender(ModelAndView modelAndView) {
+    private void  buildCategoryHotTender(ModelAndView modelAndView) {
         SearchResponse categoryHotResponse = tenderSearchEngineService.findCategoryHotTender();
 
         if (!ObjectUtils.isEmpty(categoryHotResponse)) {
-            buildTender(categoryHotResponse, modelAndView, Constants.SITE_HOT);
+            buildTender(categoryHotResponse, modelAndView, Constants.CATEGORY_HOT);
         }
         LOGGER.debug("The site hot tender is  empty.");
 
     }
 
-    private void buildCategoryHotTender(ModelAndView modelAndView) {
+    private void buildSiteHotTender(ModelAndView modelAndView) {
         SearchResponse siteHotResponse = tenderSearchEngineService.findSiteHotTender();
         if(siteHotResponse.getHits().getHits().length<3){
             siteHotResponse=tenderSearchEngineService.findTender(null,null,null,null,null,null,null);
         }
         if (!ObjectUtils.isEmpty(siteHotResponse)) {
-            buildTender(siteHotResponse, modelAndView, Constants.CATEGORY_HOT);
+            buildTender(siteHotResponse, modelAndView, Constants.SITE_HOT);
         }
         LOGGER.debug("The category hot tender is  empty.");
+
     }
 
     private void buildTender(SearchResponse siteHotResponse, ModelAndView modelAndView, String attributeName) {
