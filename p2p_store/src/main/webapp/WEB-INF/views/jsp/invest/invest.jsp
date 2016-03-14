@@ -19,7 +19,7 @@
 <!--banner begin-->
 <div class="banner">
     <div class="banner-content">
-        <form action="${pageContext.request.contextPath}/pawnPersonInfo/createPawnPersonInfo" method="post">
+        <form action="/pawnPersonInfo/createPawnPersonInfo" method="post">
             <h2>典当个人信息</h2>
 
 
@@ -124,7 +124,7 @@
                 </tr>
                 <tr>
                     <th>手机验证码</th>
-                    <input type="hidden" id="smsPath" data-value="<spring:url value="/sms/onlinePawn?phoneNumber="/>">
+                    <input type="hidden" id="smsPath" data-value="/sms/onlinePawn?phoneNumber=">
                     <td>
                         <input name="smsCode" class="auth-code-text" type="text"/>
                         <input class="auth-code-btn" type="button" value="获取"/>

@@ -140,26 +140,28 @@
                                 <div class="col-md-4">
                                     <p class="form-control-static">
 
-                                        <c:if test="${empty pawnPersonInfo.status}">
-                                            <c:if test="${empty pawnPersonInfo.contacts}">
-                                                 未处理
+                                            <c:if test="${pawnPersonInfo.status==10}">
+                                                 通过
                                             </c:if>
-                                            <c:if test="${!empty pawnPersonInfo.contacts}">
-                                                已联系
+                                            <c:if test="${pawnPersonInfo.status==20}">
+                                                未通过
                                             </c:if>
+                                            <c:if test="${pawnPersonInfo.status==30}">
+                                                未处理
+                                            </c:if>
+                                            <c:if test="${pawnPersonInfo.status==40}">
+                                               已查看
+                                           </c:if>
+                                        <c:if test="${pawnPersonInfo.status==40}">
+                                            已联系
                                         </c:if>
 
-                                        <c:if test="${!empty pawnPersonInfo.status}">
-                                            已处理------处理结果： ${pawnPersonInfo.status eq 1 ? "通过" :''}
-                                                              ${pawnPersonInfo.status eq 0 ? "不通过" :''}
-                                        </c:if>
 
                                     </p>
                                 </div>
                             </div>
 
 
-                        <c:if test="${empty pawnPersonInfo.status}">
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label">联系人名称</label>
@@ -174,8 +176,11 @@
                                     <div class="radio-list">
                                         <select class="form-control input-medium" name="status">
                                             <option value="">请选择审核结果</option>
-                                            <option value="1" ${pawnPersonInfo.status eq 1 ? "selected='selected'" :''}>通过</option>
-                                            <option value="0" ${pawnPersonInfo.status eq 0 ? "selected='selected'" :''}>不通过</option>
+                                            <option value="10" ${pawnPersonInfo.status eq 10 ? "selected='selected'" :''}>通过</option>
+                                            <option value="20" ${pawnPersonInfo.status eq 20 ? "selected='selected'" :''}>未通过</option>
+                                            <option value="30" ${pawnPersonInfo.status eq 30 ? "selected='selected'" :''}>未处理</option>
+                                            <option value="40" ${pawnPersonInfo.status eq 40 ? "selected='selected'" :''}>已查看</option>
+                                            <option value="50" ${pawnPersonInfo.status eq 50 ? "selected='selected'" :''}>已联系</option>
                                         </select>
                                     </div>
                                 </div>
@@ -192,35 +197,7 @@
                             </div>
                         </div>
 
-                    </c:if>
 
-                        <c:if test="${!empty pawnPersonInfo.status}">
-
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">联系人名称</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static">
-                                            ${pawnPersonInfo.contacts}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">审核结果</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static">
-
-                                            ${pawnPersonInfo.status eq 1 ? "通过" :''}
-
-                                            ${pawnPersonInfo.status eq 0 ? "不通过" :''}
-
-                                    </p>
-                                </div>
-                            </div>
-
-                            <button type="button" class="btn default"  onclick="window.location.href='/pawnPersonInfo/query'">返回首页</button>
-
-                        </c:if>
 
                     </form>
                 </div>
