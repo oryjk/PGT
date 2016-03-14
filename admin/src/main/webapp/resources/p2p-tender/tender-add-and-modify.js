@@ -2,6 +2,19 @@
  * Created by supersoup on 15/12/28.
  */
 
+$(document).ready(function () {
+//vue
+        new Vue({
+            el: '#main',
+            data: {
+                allProductDisplay: 'none'
+            },
+            methods: {}
+        })
+    }
+)
+
+
 initial()
 
 
@@ -158,22 +171,28 @@ function inspect() {
     });
 }
 
-function initial(){
+function initial() {
     var tenderId = getUrlParam('tenderId');
     $('#tenderId').val(tenderId);
     $('#tenderId').html(tenderId);
 }
 
-function getUrlParam(name){
+function getUrlParam(name) {
     //构造一个含有目标参数的正则表达式对象
-    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     //匹配目标参数
     var r = window.location.search.substr(1).match(reg);
     //返回参数值
-    if (r!=null) return unescape(r[2]);
+    if (r != null) return unescape(r[2]);
     return null;
 }
 
-$('.green-haze').on('click',function(){
+$('.green-haze').on('click', function () {
     window.location = $(this).attr('data-url');
 })
+
+
+
+
+
+
