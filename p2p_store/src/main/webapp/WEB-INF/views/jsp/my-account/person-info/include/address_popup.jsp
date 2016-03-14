@@ -66,7 +66,7 @@
 				<div class="pop-address-value"><input class="pop-address-address" type="text" v-model="currentAddress.address"/></div>
 
 				<div class="pop-address-title">手机号码:</div>
-				<div class="pop-address-value"><input class="pop-address-phone" type="text" v-model="currentAddress.phone"/></div>
+				<div class="pop-address-value"><input class="pop-address-phone" type="text" v-model="currentAddress.phone" maxlength="11"/></div>
 				<div class="pop-address-title">座机号码:</div>
 				<div class="pop-address-value"><input class="pop-address-phone" type="text" v-model="currentAddress.telephone"/></div>
 

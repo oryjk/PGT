@@ -96,7 +96,7 @@
 
 <!--menu begin-->
     <ul class="menu-1">
-        <c:forEach items="${siteHot}" var="searchHit">
+        <c:forEach items="${categoryHot}" var="searchHit">
             <c:set value="${searchHit.source}" var="categoryList"></c:set>
         <li class="menu-1-item">
             <a class="menu-1-title" href="javascript:void(0);">
@@ -115,14 +115,14 @@
                 </div>
                 <div class="menu-row-2">
                     <a href="#">
-                        西藏牦牛角杯一套(四只装)
+                            ${categoryList.tenderList[0].name}
                     </a>
                 </div>
                 <div class="menu-row-3">
                     <a class="menu-img-box" href="#">
-                        <img src="/resources/core/images/product/invest_ad_1_00.jpg" alt=""/>
+                        <img src=" ${categoryList.tenderList[0].p2pAdvertisement.path}" alt=""/>
                     </a>
-                    <div class="menu-complain">天然牦牛 优质珍品</div>
+                    <div class="menu-complain"> ${categoryList.tenderList[0].description}</div>
                     <div class="menu-people-hot">
                         <span class="menu-people-count">35</span>人购买
                     </div>
@@ -165,7 +165,7 @@
             </div>
             <div class="hot-main">
                 <ul class="invest-list">
-                    <c:forEach items="${categoryHot}" var="hit" varStatus="status">
+                    <c:forEach items="${siteHot}" var="hit" varStatus="status">
                         <c:set value="${hit.source.tender}" var="tender"></c:set>
                     <c:if test="${status.index<3}">
                         <li>
@@ -191,7 +191,7 @@
         <div class="category">
             <h2>在当预售</h2>
 
-            <c:forEach items="${siteHot}" var="searchHit" varStatus="status">
+            <c:forEach items="${categoryHot}" var="searchHit" varStatus="status">
                 <c:set value="${searchHit.source}" var="categoryList"></c:set>
                 <c:if test="${status.last!=true}">
             <div class="each-category each-category-${status.count}" style="border-top: 2px solid #fc6c6c;">
@@ -204,33 +204,20 @@
                     </ul>
                 </div>
                 <ul class="invest-list">
-                    <li>
+
+                    <c:forEach items="${categoryList.tenderList}" var="tender" varStatus="status">
+                    <c:if test="${status.index<3}">
+                        <li>
                         <div class="invest-inner">
-                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_0_00.jpg" alt="产品的名字"/></a>
-                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
-                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+                            <a class="img-box" href="#"><img src="${tender.p2pAdvertisement.path}" alt="产品的名字"/></a>
+                            <h4><a href="#">${tender.name}</a></h4>
+                            <div class="invest-row-1">特点:<span>${tender.description}</span></div>
                             <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
                             <div class="invest-row-3">剩余数量:<span>6</span>个</div>
                         </div>
                     </li>
-                    <li>
-                        <div class="invest-inner">
-                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_1_00.jpg" alt="产品的名字"/></a>
-                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
-                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
-                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
-                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="invest-inner">
-                            <a class="img-box" href="#"><img src="../core/images/product/invest_ad_2_00.jpg" alt="产品的名字"/></a>
-                            <h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
-                            <div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
-                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
-                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
-                        </div>
-                    </li>
+                        </c:if>
+                    </c:forEach>
                 </ul>
             </div>
 
@@ -238,7 +225,7 @@
                 <c:if test="${status.last==true}">
                     <div class="each-category each-category-end" style="border-top: 2px solid #b1dd7a;">
                         <div class="list-head" style="background-image: linear-gradient(180deg,#b1dd7a,#cbe890);">
-                            <h3>珠宝在当</h3>
+                            <h3>${categoryList.category.name}</h3>
                             <ul class="category-nav">
                                 <li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">新手专区</a></li>
                             </ul>

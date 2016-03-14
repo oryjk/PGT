@@ -219,6 +219,7 @@ a {
   .header .status-login-btn,
   .header .status-register-btn,
   .header .status-help-center {
+    float: left;
     vertical-align: middle; }
     .header .status-help-center:hover,
     .header .status-login-btn:hover,
@@ -226,6 +227,7 @@ a {
     .header .status-help-center:hover {
       color: #ff6d6d; }
   .header .status-my-account {
+    float: left;
     position: relative;
     display: inline-block;
     width: 40px;
@@ -233,21 +235,36 @@ a {
   .header .status-my-account-detail {
     position: absolute;
     display: none;
-    width: 100px;
-    top: 55px;
+    width: 300px;
+    height: 200px;
+    top: 80px;
     right: -60px;
     line-height: 25px;
-    background: white; }
-    .header .status-my-account-detail li {
-      text-align: center; }
+    background: white;
+    text-align: center; }
+    .header .status-my-account-detail .detail-top {
+      height: 100px;
+      background: #ff6d6d; }
+    .header .status-my-account-detail .user-img {
+      margin: 30px 0 0 40px;
+      width: 40px;
+      height: 40px;
+      float: left; }
+      .header .status-my-account-detail .user-img img {
+        width: 40px;
+        height: 40px; }
+    .header .status-my-account-detail .user-name {
+      margin: 35px 0 0 30px;
+      float: left; }
     .header .status-my-account-detail a {
-      background: #ff6d6d;
-      color: white;
-      display: block; }
+      margin: 40px 18px;
+      float: left;
+      color: #000; }
       .header .status-my-account-detail a:hover {
-        background: #ff6d6d; }
+        color: #ff6d6d; }
   .header .status-user-face-box {
     float: left;
+    margin-top: 15px;
     width: 100%;
     height: 100%; }
   .header .status-user-face {
@@ -501,6 +518,38 @@ body {
         overflow: hidden; }
         .content .login .login-box .domain img {
           padding: 10px 0 0 5px; }
+
+.login-success .login-success-title {
+  padding: 30px 0 0 30px; }
+
+.login-success h2 {
+  padding: 70px 0 70px 150px;
+  font-size: 30px;
+  color: #ff6d6d;
+  background: url("../core/images/cart/end-img.png") no-repeat 60px 55px; }
+
+.login-success .login-success-timeout {
+  padding-left: 40px; }
+
+.login-success .go-to-home-box {
+  margin: 60px 0 0;
+  text-align: center; }
+
+.login-success .go-to-home {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 120px;
+  height: 40px;
+  font-size: 20px;
+  background: #ff6d6d;
+  border-radius: 3px;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  cursor: pointer; }
+  .login-success .go-to-home:hover {
+    background: #ff3a3a; }
 
 /*for js
 ********************************************************************/
