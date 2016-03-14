@@ -175,7 +175,7 @@
 								<div class="col-md-4">
 									<button type="button" class="btn default" @click="allProductDisplay='block'">查看产品列表</button>
 									<button type="button" class="btn default" @click="display='block'">查看已出售产品列表</button>
-									<button type="button" class="btn default" style="float: right" onclick="window.location.href='/tender/tenderList'">返回上一级</button>
+									<button type="button" class="btn default" style="float: right" onclick="window.location.href='/tender/tenderList'">返回</button>
 								</div>
 							</div>
 
@@ -212,7 +212,7 @@
 										<tbody id="list">
 
 
-										<c:forEach items="${tender.products}" var="product" varStatuss">
+										<c:forEach items="${tender.products}" var="product" varStatus="status">
 											<tr class="gradeX odd" role="row">
 												<td>
 													<c:if test="${product.pawnageStatus==10}">在当期状态</c:if>
