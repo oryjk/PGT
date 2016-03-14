@@ -31,13 +31,15 @@
 					<div class="login-box" id="login-box">
 						<div class="username-box" v-on:keyup="volidate">
 							<label for="username"></label>
-							<form:input path="username" class="username" id="username" type="text" placeholder="登录账户名" v-model="username"/>
+							<form:input path="username" class="username" id="username" type="text" placeholder="登录账户名" v-model="user.username"/>
 						</div>
 						<!-- 下面div,使用.password-focus呈现蓝色,使用.password-wrong呈现红色.-->
 						<div class="password-box" v-on:keyup="volidate">
 							<label for="password"></label>
-							<form:input class="username" id="password" path="password" type="password" placeholder="密码" v-model="password"/>
+							<form:input class="username" id="password" path="password" type="password" placeholder="密码" v-model="user.password"/>
 						</div>
+						<span v-show="error.username != true">{{error.username}}</span>
+						<span v-show="error.password != true">{{error.password}}</span>
 						<form:errors path="loginError"/>
 						<div class="other-box">
 							<form:checkbox id="autoLogin" path="autoLogin"/>

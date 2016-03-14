@@ -40,8 +40,10 @@ require(['jquery', 'handlebar', 'ajax', 'underscore', 'component','regex', 'vue'
                     },
                     methods: {
                         login: function () {
-                            $('#login').submit();
-                            //this.submitVolidata(this.$data.user, user);
+                            var flag = this.submitVolidata(this.$data.user);
+                            if(flag == true){
+                                $('#login').submit();
+                            }
                         },
                         volidate: function (event) {
                             this.excuteVolidata(event);

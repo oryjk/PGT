@@ -11,9 +11,59 @@ define(['vue','underscore'], function(Vue,_) {
 
     //扩展验证
     Vue.prototype.excuteVolidata = function (event) {
-        console.log(event)
-        event.target.style.border = "1px solid red";
-        console.log(Vue.prototype.regexEntity)
-        console.log(Vue.prototype.volidateEntity)
+        console.log(event);
+        console.log(Vue.prototype.regexEntity);
+        console.log(Vue.prototype.volidateEntity);
+
+        var regexEntity = Vue.prototype.regexEntity;
+        var volidateEntity = Vue.prototype.volidateEntity;
+
+        var val = event.target.value;
+        var v_model = event.target.__v_model.expression;
+
+        for(var regex_key in regexEntity){
+            if(regex_key == v_model){
+                if (val.match(regexEntity[regex_key].regex) == null || val.length <= 0) {
+                    event.target.style.border = "1px solid red";
+                    for (var key in this.volidateEntity) {
+                        if (v_model.match(key)) {
+                            Vue.prototype.volidateEntity[key] = regexEntity[regex_key].error;
+                        }
+                    }
+                }
+                else{
+                    event.target.style.border = "1px solid green";
+                    for (var key in this.volidateEntity) {
+                        if (v_model.match(key)) {
+                            Vue.prototype.volidateEntity[key] = true;
+                        }
+                    }
+                }
+            }
+        }
     };
+
+    Vue.prototype.submitVolidata = function(funData){
+        var regexEntity = Vue.prototype.regexEntity;
+        var i = 0;
+        var length = 0;
+        for(var v_model in funData){
+            for(var regexEntityKey in regexEntity){
+                if(regexEntityKey.split(".")[1] == v_model){
+                    if(funData[v_model].match(regexEntity[regexEntityKey].regex)){
+                        //样式为绿色边框
+                        i++;
+                    }
+                    else{
+                        //样式为红色边框
+                    }
+                }
+            }
+            length ++;
+        }
+        if(i == length){
+            alert("提交表单");
+            return true;
+        }
+    }
 });
