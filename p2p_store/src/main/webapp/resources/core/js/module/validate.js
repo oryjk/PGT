@@ -2,7 +2,7 @@
  * Created by carlwang on 3/8/16.
  */
 
-define(['vue','underscore'], function(Vue,_) {
+define(['vue','underscore','jquery'], function(Vue,_,$) {
     //绑定错误对象并取别名
     Vue.prototype.regexEntity = new Object();
 
@@ -50,19 +50,26 @@ define(['vue','underscore'], function(Vue,_) {
         for(var v_model in funData){
             for(var regexEntityKey in regexEntity){
                 if(regexEntityKey.split(".")[1] == v_model){
-                    if(funData[v_model].match(regexEntity[regexEntityKey].regex)){
+                    if(funData[v_model].match(regexEntity[regexEntityKey].regex) && funData[v_model].length > 0){
                         //样式为绿色边框
+                        $("#" + v_model).css("border","1px solid green");
                         i++;
                     }
                     else{
                         //样式为红色边框
+                        $("#" + v_model).css("border","1px solid red");
+                        for (var key in this.volidateEntity) {
+                            if (v_model == key) {
+                                Vue.prototype.volidateEntity[key] = regexEntity[regexEntityKey].error;
+                            }
+                        }
                     }
                 }
             }
             length ++;
         }
         if(i == length){
-            alert("提交表单");
+            //alert("提交表单");
             return true;
         }
     }
