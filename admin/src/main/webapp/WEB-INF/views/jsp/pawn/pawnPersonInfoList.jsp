@@ -125,18 +125,20 @@
                                                 </td>
                                                 <td>
 
-                                                    <c:if test="${empty pawnPersonInfo.status}">
-                                                        <c:if test="${empty pawnPersonInfo.contacts}">
-                                                            未处理
-                                                        </c:if>
-                                                        <c:if test="${!empty pawnPersonInfo.contacts}">
-                                                            已联系
-                                                        </c:if>
+                                                    <c:if test="${pawnPersonInfo.status==10}">
+                                                        通过
                                                     </c:if>
-
-                                                    <c:if test="${!empty pawnPersonInfo.status}">
-                                                        已处理------处理结果： ${pawnPersonInfo.status eq 1 ? "通过" :''}
-                                                        ${pawnPersonInfo.status eq 0 ? "不通过" :''}
+                                                    <c:if test="${pawnPersonInfo.status==20}">
+                                                        未通过
+                                                    </c:if>
+                                                    <c:if test="${pawnPersonInfo.status==30}">
+                                                        未处理
+                                                    </c:if>
+                                                    <c:if test="${pawnPersonInfo.status==40}">
+                                                        已查看
+                                                    </c:if>
+                                                    <c:if test="${pawnPersonInfo.status==40}">
+                                                        已联系
                                                     </c:if>
 
 
