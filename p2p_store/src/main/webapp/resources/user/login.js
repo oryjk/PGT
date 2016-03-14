@@ -9,77 +9,45 @@ require.config({
         underscore: '../core/js/underscore',
         vue: '../core/js/vue',
         component: '../core/js/module/component',
+        regex: '../core/js/regex',
         validate: '../core/js/module/validate'
     }
 });
 
-require(['jquery', 'handlebar', 'ajax', 'underscore', 'component', 'vue', 'validate'], function ($, Handlebars, Ajax, yyyyyyyyyy, Con, Vue) {
+require(['jquery', 'handlebar', 'ajax', 'underscore', 'component','regex', 'vue', 'validate'], function ($, Handlebars, Ajax, yyyyyyyyyy,Con, regex ,Vue, volidate) {
         $(document).ready(function () {
-                var vm = new Vue({
+                var user = function(){
+                    this.username = "";
+                    this.password = "";
+                }
+                var app = new Vue({
                     el: '#login-box',
                     data: {
-                        username: '',
-                        password: '',
-                        authNum: '',
-                        needAuth: false,
-                        showUsernameError: '',
-                        showPasswordError: '',
-                        showAuthError: '',
-                        usernameFocus: '',
-                        passwordFocus: '',
-                        authFocus: '',
-                        error: ''
+                        error : '',
+                        user: user
+                    },
+                    ready:function(){
+                        var validation = new user();
+                        this.$data.error = validation;
+                        //绑定显示错误信息的对象
+                        Vue.prototype.volidateEntity = validation;
+                        //绑定正则
+                        var regex = {
+                            "user.username" : regex_empty,
+                            "user.password" : regex_empty,
+                        }
+                        Vue.prototype.regexEntity = regex;
                     },
                     methods: {
-                        login: function (event) {
-                            if (this.username == '') {
-                                console.log('The user name is empty.');
-                                //need focus on user name input.
-                                return;
-                            }
-                            if (this.password == '') {
-                                console.log('The password is empty.');
-                                //need focus on password input.
-                                return;
-                            }
-                            if (this.needAuth) {
-                                console.log('The auth number is empty.');
-                                //need focus on password input.
-                            }
+                        login: function () {
                             $('#login').submit();
+                            //this.submitVolidata(this.$data.user, user);
                         },
-                        userOnFocus: function (event) {
-                            this.usernameFocus = 'input-focus';
-                            this.showUsernameError = '';
-                            this.showPasswordError = '';
-                            this.showAuthError = '';
-                            this.passwordFocus = '';
-                            this.authFocus = '';
-                        },
-                        passwordOnFocus: function (event) {
-                            this.usernameFocus = '';
-                            this.showUsernameError = '';
-                            this.showPasswordError = 'input-focus';
-                            this.showAuthError = '';
-                            this.passwordFocus = '';
-                            this.authFocus = '';
-                        },
-                        authOnFocus: function (event) {
-                            this.usernameFocus = '';
-                            this.showUsernameError = '';
-                            this.showPasswordError = '';
-                            this.showAuthError = '';
-                            this.passwordFocus = '';
-                            this.authFocus = 'input-focus';
-                        },
-                        qqLogin: function () {
-                            QC.Login({'btnId': 'qqLoginBtn'});
+                        volidate: function (event) {
+                            this.excuteVolidata(event);
                         }
                     }
-
-                });
-
-
+                })
             }
         )
     }
