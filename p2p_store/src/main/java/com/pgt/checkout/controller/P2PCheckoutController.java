@@ -1,5 +1,7 @@
 package com.pgt.checkout.controller;
 
+import com.pgt.address.bean.AddressInfo;
+import com.pgt.address.service.AddressInfoService;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.OrderType;
@@ -17,6 +19,8 @@ import com.pgt.mail.service.MailService;
 import com.pgt.order.P2POrderService;
 import com.pgt.product.bean.Product;
 import com.pgt.session.SessionHelper;
+import com.pgt.shipping.bean.ShippingVO;
+import com.pgt.shipping.service.ShippingService;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import com.pgt.user.bean.User;
@@ -85,6 +89,12 @@ public class P2PCheckoutController {
     private MailService mailService;
     @Autowired
     private UserInformationService userInformationService;
+
+    @Autowired
+    private ShippingService shippingService;
+
+    @Autowired
+    private AddressInfoService addressInfoService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView createOrder(HttpServletRequest pRequest, HttpServletResponse pResponse) {
@@ -172,14 +182,61 @@ public class P2PCheckoutController {
              modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
         }
+        modelAndView = new ModelAndView();
+        if (order.getShippingVO() == null) {
+            ShippingVO shipping = getShippingService().findShippingByOrderId(String.valueOf(order.getId()));
+            order.setShippingVO(shipping);
+        }
+        List<AddressInfo> addressInfoList = getAddressInfoService().queryAddressByUserId(user.getId().intValue());
+        if (user.getDefaultAddressId() != null) {
+            addressInfoList = getAddressInfoService().sortAddress(user.getDefaultAddressId(), addressInfoList);
+            AddressInfo defaultAddress = getAddressInfoService().findAddress(user.getDefaultAddressId());
+            modelAndView.addObject("defaultAddress", defaultAddress);
+            if (order.getShippingVO() == null) {
+                getShippingService().addAddress(user.getDefaultAddressId(), order);
+            }
+        }
         P2PInfo info = getOrderService().queryP2PInfoByOrderId(order.getId());
         // TODO SHIPPING PAGE
-        modelAndView = new ModelAndView("");
+
         modelAndView.addObject(CartConstant.ORDER, order);
         modelAndView.addObject(CartConstant.P2P_INFO, info);
         modelAndView.setViewName("/checkout/shipping");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/review")
+    public ModelAndView orderReview(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+        String orderIdStr = pRequest.getParameter(CartConstant.ORDER_ID);
+        ModelAndView modelAndView = null;
+        User user = SessionHelper.getUser(pRequest, pResponse);
+        if (StringUtils.isBlank(orderIdStr) || !StringUtils.isNumeric(orderIdStr)) {
+            modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+        if (null == user) {
+            modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+
+        Order order = getOrderService().loadOrder(Integer.valueOf(orderIdStr));
+        if (null == order) {
+            modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+        if (order.getUserId() != user.getId().intValue()) {
+            modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            return modelAndView;
+        }
+        P2PInfo info = getOrderService().queryP2PInfoByOrderId(order.getId());
+        ShippingVO shipping = shippingService.findShippingByOrderId(String.valueOf(order.getId()));
+        order.setShippingVO(shipping);
+        modelAndView = new ModelAndView("/checkout/review");
+        modelAndView.addObject(CartConstant.ORDER, order);
+        modelAndView.addObject(CartConstant.P2P_INFO, info);
+        return modelAndView;
+    }
+
 
     @RequestMapping(value = "/redirectToPayment", method = RequestMethod.GET)
     public ModelAndView redirectToPayment(HttpServletRequest request, HttpSession session) {
@@ -238,11 +295,32 @@ public class P2PCheckoutController {
         }
         sendEmail(user, order);
         request.removeAttribute(CartConstant.CURRENT_ORDER);
-        mav.setViewName("redirect:/payment/gateway");
-        request.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
+        mav.setViewName("redirect:/checkout/payment");
         mav.addObject(CartConstant.ORDER_ID, order.getId());
         return mav;
     }
+
+
+    @RequestMapping(value = "/payment", method = RequestMethod.GET)
+    public ModelAndView paymentPage(HttpServletRequest request, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        if (null == user) {
+            mav.setViewName("redirect:" + urlConfiguration.getLoginPage());
+            return mav;
+        }
+        Order order = getOrderService().getSessionOrder(request);
+        if (null == order) {
+            mav.setViewName("redirect:" + urlConfiguration.getHomePage());
+            return mav;
+        }
+        ShippingVO shipping = getShippingService().findShippingByOrderId(String.valueOf(order.getId()));
+        order.setShippingVO(shipping);
+        mav.setViewName("/checkout/pay");
+        mav.addObject(CartConstant.ORDER, order);
+        return mav;
+    }
+
 
     public void sendEmail(User user, Order order) {
         try {
@@ -484,5 +562,21 @@ public class P2PCheckoutController {
 
     public void setMailService(MailService mailService) {
         this.mailService = mailService;
+    }
+
+    public ShippingService getShippingService() {
+        return shippingService;
+    }
+
+    public void setShippingService(ShippingService shippingService) {
+        this.shippingService = shippingService;
+    }
+
+    public AddressInfoService getAddressInfoService() {
+        return addressInfoService;
+    }
+
+    public void setAddressInfoService(AddressInfoService addressInfoService) {
+        this.addressInfoService = addressInfoService;
     }
 }

@@ -33,14 +33,14 @@
 
 		<div class="main-content">
 
-			<c:forEach items="${checkoutOrder.commerceItems}" var="item">
+			<c:forEach items="${order.commerceItems}" var="item">
 				<div class="info-row-1">
 					产品信息 : <a class="info-value" href="#">${item.name}</a>
 				</div>
 				<div class="info-row-2">
-					<div class="info-col-1">购买数量: <span class="info-value">${checkoutOrder.commerceItemCount}</span></div>
+					<div class="info-col-1">购买数量: <span class="info-value">${item.quantity}</span></div>
 					<div class="info-col-2">产品金额: <span class="buy-cost info-value">¥</span><span
-							class="buy-cost">${checkoutOrder.total}</span></div>
+							class="buy-cost">${item.amount}</span></div>
 					<div class="info-col-3">配送费用: <span class="info-value">免运费</span></div>
 				</div>
 			</c:forEach>

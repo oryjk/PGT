@@ -36,15 +36,16 @@
 		<div class="pay-content">
 			<div class="pay-title">请在<span>30</span>分钟内完成支付，否则订单将会被取消哦。</div>
 			<div class="pay-info">
-				<div class="amount-payable">应付金额：186000.00元</div>
+				<div class="amount-payable">应付金额：${order.total}元</div>
 				<div class="pay-add">
-					收货人：<span>周杰伦</span> &nbsp; <span>1890000000</span> <br><br>
-					收货地址：<span>四川省成都市武侯区中环武阳大道三段下一站都市A座302</span>
+					收货人：<span>${order.shippingVO.shippingAddress.name}</span> &nbsp; <span>${order.shippingVO.shippingAddress.phone}</span> <br><br>
+					收货地址：<span>${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.district}${order.shippingVO.shippingAddress.address}</span>
 				</div>
 			</div>
+			<!--
 			<div class="pay-yeepay">
 				<input type="radio">使用易宝余额支付（易宝余额为：<span>4.25元</span>）
-			</div>
+			</div> -->
 			<div class="payment">
 				<div class="pay-check">支付宝/易宝</div>
 				<div class="pay-Alipay"><input name="" type="radio"><img src="../core/images/cart/zhifubao.png"></div>
