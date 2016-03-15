@@ -69,6 +69,11 @@
                 <a id="addNewAddress" class="link-btn" href="javascript:void(0);">新增收获地址</a>
             </div>
             <div class="info-row-7">
+                <div class="address-have-no">
+                    <a class="address-have-no-add" href="javascript:void(0);">
+                        您暂时还没有地址, 添加添加
+                    </a>
+                </div>
                 <ul>
                     <li class="receive-item">
                         <div class="receive-info">
