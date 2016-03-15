@@ -19,14 +19,14 @@
 <!--banner begin-->
 <div class="banner">
     <div class="banner-content">
-        <form action="/pawnPersonInfo/createPawnPersonInfo" method="post">
+        <form id="form" action="/pawnPersonInfo/createPawnPersonInfo" method="post">
             <h2>典当个人信息</h2>
 
 
             <table>
                 <tr>
                     <th>姓名</th>
-                    <td><input class="invest-text" type="text" name="name" value="${pawnPersonInfo.name}"/> ${errors['name']}</td>
+                    <td><input class="invest-text" type="text" name="name" value="${pawnPersonInfo.name}"  v-model="user.username"  v-on:keyup="volidate"/> ${errors['name']}</td>
 
                 </tr>
                 <tr>
@@ -136,6 +136,7 @@
                     <td><input class="invest-submit" type="submit" value="立即申请"/></td>
                 </tr>
             </table>
+
         </form>
     </div>
 </div>

@@ -5,14 +5,48 @@ require.config({
     paths: {
         jquery: '../core/js/jquery.min',
         component: '../core/js/module/component',
-        ajax: '../core/js/module/ajax'
+        ajax: '../core/js/module/ajax',
+        vue: '../core/js/vue',
+        regex: '../core/js/regex',
+        validate: '../core/js/module/validate'
     }
 });
 
-require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
+require(['jquery', 'component', 'ajax','vue','regex','validate'], function($, Cpn, Ajax, Vue, Regex, Volidate) {
 
     $(document).ready(function() {
-
+        var user = function(){
+            this.username = "";
+        }
+        var app = new Vue({
+            el: '#login-box',
+            data: {
+                error : '',
+                user: user
+            },
+            ready:function(){
+                var validation = new user();
+                this.$data.error = validation;
+                //绑定显示错误信息的对象
+                Vue.prototype.volidateEntity = validation;
+                //绑定正则
+                var regex = {
+                    "user.username" : regex_empty
+                }
+                Vue.prototype.regexEntity = regex;
+            },
+            methods: {
+                login: function () {
+                    var flag = this.submitVolidata(this.$data.user);
+                    if(flag == true){
+                        $('.invest-submit').submit();
+                    }
+                },
+                volidate: function (event) {
+                    this.excuteVolidata(event);
+                }
+            }
+        })
 
         $(".auth-code-btn").click(function(){
           $.ajax({
