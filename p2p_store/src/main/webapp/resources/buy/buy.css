@@ -1,72 +1,24 @@
 @charset "UTF-8";
-.header .nav, .about-us, .approve, .order-info .info-row-1,
-.order-info .info-row-2,
-.order-info .info-row-3,
-.order-info .info-row-4,
-.order-info .info-row-5, .order-confirm .confirm-row-1,
-.order-confirm .confirm-row-2,
-.order-confirm .confirm-row-3,
-.order-confirm .confirm-row-4,
-.order-confirm .confirm-row-5 {
+.header .nav, .about-us, .approve, .order-info .info-row, .order-info .receive-item, .order-confirm .confirm-row, .pop-up .wrap, .pop-up .pop-content {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row-1:after,
-  .order-info .info-row-2:after,
-  .order-info .info-row-3:after,
-  .order-info .info-row-4:after,
-  .order-info .info-row-5:after, .order-confirm .confirm-row-1:after,
-  .order-confirm .confirm-row-2:after,
-  .order-confirm .confirm-row-3:after,
-  .order-confirm .confirm-row-4:after,
-  .order-confirm .confirm-row-5:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row-1:before,
-  .order-info .info-row-2:before,
-  .order-info .info-row-3:before,
-  .order-info .info-row-4:before,
-  .order-info .info-row-5:before, .order-confirm .confirm-row-1:before,
-  .order-confirm .confirm-row-2:before,
-  .order-confirm .confirm-row-3:before,
-  .order-confirm .confirm-row-4:before,
-  .order-confirm .confirm-row-5:before {
+  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row:after, .order-info .receive-item:after, .order-confirm .confirm-row:after, .pop-up .wrap:after, .pop-up .pop-content:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row:before, .order-info .receive-item:before, .order-confirm .confirm-row:before, .pop-up .wrap:before, .pop-up .pop-content:before {
     content: " ";
     display: table;
     clear: both; }
 
-.order-info .info-title, .order-info .info-value {
+.order-info .info-title, .order-info .info-value, .order-info .receive-name {
   display: inline-block;
   *display: inline;
   *zoom: 1; }
 
-.header .nav, .about-us, .approve, .order-info .info-row-1,
-.order-info .info-row-2,
-.order-info .info-row-3,
-.order-info .info-row-4,
-.order-info .info-row-5, .order-confirm .confirm-row-1,
-.order-confirm .confirm-row-2,
-.order-confirm .confirm-row-3,
-.order-confirm .confirm-row-4,
-.order-confirm .confirm-row-5 {
+.header .nav, .about-us, .approve, .order-info .info-row, .order-info .receive-item, .order-confirm .confirm-row, .pop-up .wrap, .pop-up .pop-content {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row-1:after,
-  .order-info .info-row-2:after,
-  .order-info .info-row-3:after,
-  .order-info .info-row-4:after,
-  .order-info .info-row-5:after, .order-confirm .confirm-row-1:after,
-  .order-confirm .confirm-row-2:after,
-  .order-confirm .confirm-row-3:after,
-  .order-confirm .confirm-row-4:after,
-  .order-confirm .confirm-row-5:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row-1:before,
-  .order-info .info-row-2:before,
-  .order-info .info-row-3:before,
-  .order-info .info-row-4:before,
-  .order-info .info-row-5:before, .order-confirm .confirm-row-1:before,
-  .order-confirm .confirm-row-2:before,
-  .order-confirm .confirm-row-3:before,
-  .order-confirm .confirm-row-4:before,
-  .order-confirm .confirm-row-5:before {
+  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row:after, .order-info .receive-item:after, .order-confirm .confirm-row:after, .pop-up .wrap:after, .pop-up .pop-content:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row:before, .order-info .receive-item:before, .order-confirm .confirm-row:before, .pop-up .wrap:before, .pop-up .pop-content:before {
     content: " ";
     display: table;
     clear: both; }
 
-.order-info .info-title, .order-info .info-value {
+.order-info .info-title, .order-info .info-value, .order-info .receive-name {
   display: inline-block;
   *display: inline;
   *zoom: 1; }
@@ -78,74 +30,26 @@
 /*page-box*/
 /*pop-up*/
 /*file*/
-.header .nav, .about-us, .approve, .order-info .info-row-1,
-.order-info .info-row-2,
-.order-info .info-row-3,
-.order-info .info-row-4,
-.order-info .info-row-5, .order-confirm .confirm-row-1,
-.order-confirm .confirm-row-2,
-.order-confirm .confirm-row-3,
-.order-confirm .confirm-row-4,
-.order-confirm .confirm-row-5 {
+.header .nav, .about-us, .approve, .order-info .info-row, .order-info .receive-item, .order-confirm .confirm-row, .pop-up .wrap, .pop-up .pop-content {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row-1:after,
-  .order-info .info-row-2:after,
-  .order-info .info-row-3:after,
-  .order-info .info-row-4:after,
-  .order-info .info-row-5:after, .order-confirm .confirm-row-1:after,
-  .order-confirm .confirm-row-2:after,
-  .order-confirm .confirm-row-3:after,
-  .order-confirm .confirm-row-4:after,
-  .order-confirm .confirm-row-5:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row-1:before,
-  .order-info .info-row-2:before,
-  .order-info .info-row-3:before,
-  .order-info .info-row-4:before,
-  .order-info .info-row-5:before, .order-confirm .confirm-row-1:before,
-  .order-confirm .confirm-row-2:before,
-  .order-confirm .confirm-row-3:before,
-  .order-confirm .confirm-row-4:before,
-  .order-confirm .confirm-row-5:before {
+  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row:after, .order-info .receive-item:after, .order-confirm .confirm-row:after, .pop-up .wrap:after, .pop-up .pop-content:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row:before, .order-info .receive-item:before, .order-confirm .confirm-row:before, .pop-up .wrap:before, .pop-up .pop-content:before {
     content: " ";
     display: table;
     clear: both; }
 
-.order-info .info-title, .order-info .info-value {
+.order-info .info-title, .order-info .info-value, .order-info .receive-name {
   display: inline-block;
   *display: inline;
   *zoom: 1; }
 
-.header .nav, .about-us, .approve, .order-info .info-row-1,
-.order-info .info-row-2,
-.order-info .info-row-3,
-.order-info .info-row-4,
-.order-info .info-row-5, .order-confirm .confirm-row-1,
-.order-confirm .confirm-row-2,
-.order-confirm .confirm-row-3,
-.order-confirm .confirm-row-4,
-.order-confirm .confirm-row-5 {
+.header .nav, .about-us, .approve, .order-info .info-row, .order-info .receive-item, .order-confirm .confirm-row, .pop-up .wrap, .pop-up .pop-content {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row-1:after,
-  .order-info .info-row-2:after,
-  .order-info .info-row-3:after,
-  .order-info .info-row-4:after,
-  .order-info .info-row-5:after, .order-confirm .confirm-row-1:after,
-  .order-confirm .confirm-row-2:after,
-  .order-confirm .confirm-row-3:after,
-  .order-confirm .confirm-row-4:after,
-  .order-confirm .confirm-row-5:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row-1:before,
-  .order-info .info-row-2:before,
-  .order-info .info-row-3:before,
-  .order-info .info-row-4:before,
-  .order-info .info-row-5:before, .order-confirm .confirm-row-1:before,
-  .order-confirm .confirm-row-2:before,
-  .order-confirm .confirm-row-3:before,
-  .order-confirm .confirm-row-4:before,
-  .order-confirm .confirm-row-5:before {
+  .header .nav:after, .about-us:after, .approve:after, .order-info .info-row:after, .order-info .receive-item:after, .order-confirm .confirm-row:after, .pop-up .wrap:after, .pop-up .pop-content:after, .header .nav:before, .about-us:before, .approve:before, .order-info .info-row:before, .order-info .receive-item:before, .order-confirm .confirm-row:before, .pop-up .wrap:before, .pop-up .pop-content:before {
     content: " ";
     display: table;
     clear: both; }
 
-.order-info .info-title, .order-info .info-value {
+.order-info .info-title, .order-info .info-value, .order-info .receive-name {
   display: inline-block;
   *display: inline;
   *zoom: 1; }
@@ -569,11 +473,7 @@ body {
     background: white;
     font-size: 14px; }
 
-.order-info .info-row-1,
-.order-info .info-row-2,
-.order-info .info-row-3,
-.order-info .info-row-4,
-.order-info .info-row-5 {
+.order-info .info-row {
   padding: 15px 30px; }
 
 .order-info .info-title {
@@ -585,60 +485,85 @@ body {
   padding-left: 15px;
   vertical-align: middle; }
 
-.order-info .info-row-1 .time-tips {
+.order-info .time-tips {
   padding-left: 205px; }
 
-.order-info .info-row-1 .info-value {
+.order-info .info-value {
   color: black; }
-  .order-info .info-row-1 .info-value:hover {
+  .order-info .info-value:hover {
     color: #ff6d6d; }
 
-.order-info .info-row-2 .info-col-1 {
+.order-info .info-col-1 {
   float: left;
   width: 300px; }
 
-.order-info .info-row-2 .info-col-2 {
+.order-info .info-col-2 {
   float: left;
   width: 350px; }
 
-.order-info .info-row-2 .buy-cost {
+.order-info .buy-cost {
   color: #ff6d6d; }
 
-.order-info .info-row-2 .info-col-3 {
+.order-info .info-col-3 {
   float: left; }
 
-.order-info .info-row-3 .time-tips {
+.order-info .time-tips {
   padding-left: 30px; }
 
-.order-info .info-row-4 input {
+.order-info .remark {
   margin-left: 15px;
   padding-left: 10px;
   width: 330px;
   height: 30px; }
 
-.order-info .info-row-5 .buy-explain-title {
+.order-info .buy-explain-title {
   float: left;
   width: 210px;
   text-align: right; }
 
-.order-info .info-row-5 .buy-explain {
+.order-info .buy-explain {
   padding-left: 20px;
   float: left; }
 
-.order-info .info-row-5 p {
+.order-info p {
   padding-bottom: 10px; }
 
-.order-info .info-row-6 {
+.order-info .address-box {
   padding: 80px 70px 0; }
+  .order-info .address-box .link-btn {
+    float: right;
+    margin: 5px 40px 0 0; }
 
-.order-info .info-row-7 {
-  padding: 23px 0 0 70px; }
+.order-info .address-have-no-add {
+  display: block;
+  margin: 20px 0 0 45px;
+  border: 2px dashed gray;
+  width: 1020px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: gray; }
+  .order-info .address-have-no-add:hover {
+    border-color: #ff6d6d;
+    color: #ff6d6d; }
 
 .order-info .receive-item {
-  padding-left: 70px;
+  margin: 5px 0 5px 70px;
   width: 1000px;
-  line-height: 35px; }
-  .order-info .receive-item .receive-choose {
+  line-height: 30px; }
+  .order-info .receive-item:hover {
+    background: #fff3f3; }
+    .order-info .receive-item:hover .receive-handle {
+      display: block; }
+
+.order-info .receive-name {
+  border: 1px solid #cccccc;
+  width: 140px;
+  height: 30px;
+  text-align: center;
+  background: white;
+  cursor: pointer; }
+  .order-info .receive-name.receive-choose {
     border: 1px solid #ff6d6d; }
 
 .order-info .receive-info {
@@ -647,12 +572,16 @@ body {
 
 .order-info .receive-handle {
   float: right;
+  display: none;
   width: 250px; }
   .order-info .receive-handle a {
     padding: 0 15px;
     border-left: 1px solid #cccccc; }
   .order-info .receive-handle .set-default {
     border-left: none; }
+
+.order-info .receive-add-new:hover {
+  background: white; }
 
 .order-info .add-and-modify {
   margin: 10px auto;
@@ -822,53 +751,51 @@ body {
   padding-left: 20px;
   width: 800px; }
 
-.order-confirm .confirm-row-1,
-.order-confirm .confirm-row-2,
-.order-confirm .confirm-row-3 {
+.order-confirm .confirm-row {
   padding: 12px 0; }
 
-.order-confirm .confirm-row-4 {
+.order-confirm .confirm-row-bottom-line {
   padding: 12px 0 55px;
   border-bottom: 1px dotted #cccccc; }
 
-.order-confirm .confirm-row-5 {
+.order-confirm .confirm-address-info {
   padding: 27px 0 17px;
   border-bottom: 1px dotted #cccccc; }
-  .order-confirm .confirm-row-5 p {
+  .order-confirm .confirm-address-info p {
     padding-bottom: 13px; }
 
-.order-confirm .confirm-row-6 {
+.order-confirm .confirm-product-list {
   padding-top: 40px; }
-  .order-confirm .confirm-row-6 table {
+  .order-confirm .confirm-product-list table {
     margin-left: 120px;
     width: 950px;
     table-layout: fixed;
     text-align: left; }
-  .order-confirm .confirm-row-6 tr {
+  .order-confirm .confirm-product-list tr {
     border: 1px solid #cccccc; }
-  .order-confirm .confirm-row-6 th {
+  .order-confirm .confirm-product-list th {
     height: 40px;
     padding-left: 10px;
     background: #cccccc;
     vertical-align: middle;
     font-weight: 400; }
-  .order-confirm .confirm-row-6 td {
+  .order-confirm .confirm-product-list td {
     padding-left: 10px;
     height: 80px;
     vertical-align: middle; }
-  .order-confirm .confirm-row-6 .confirm-name {
+  .order-confirm .confirm-product-list .confirm-name {
     width: 370px; }
-  .order-confirm .confirm-row-6 .confirm-post-cost {
+  .order-confirm .confirm-product-list .confirm-post-cost {
     width: 130px; }
-  .order-confirm .confirm-row-6 .confirm-item-cost {
+  .order-confirm .confirm-product-list .confirm-item-cost {
     width: 140px; }
-  .order-confirm .confirm-row-6 .confirm-item-count {
+  .order-confirm .confirm-product-list .confirm-item-count {
     width: 120px; }
-  .order-confirm .confirm-row-6 .item-link {
+  .order-confirm .confirm-product-list .item-link {
     color: black; }
-    .order-confirm .confirm-row-6 .item-link:hover {
+    .order-confirm .confirm-product-list .item-link:hover {
       color: #ff6d6d; }
-  .order-confirm .confirm-row-6 .cost {
+  .order-confirm .confirm-product-list .cost {
     color: #ff6d6d; }
 
 .order-confirm .confirm-row-7 {
@@ -1017,5 +944,172 @@ body {
       font-size: 13px;
       color: #555555;
       line-height: 20px; }
+
+.pop-up {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); }
+  .pop-up .wrap {
+    margin: 150px auto;
+    width: 600px;
+    border-radius: 8px;
+    box-shadow: black 0 0 20px;
+    background: white;
+    font-size: 14px; }
+  .pop-up .inner {
+    border-radius: 8px;
+    overflow: hidden; }
+  .pop-up h3 {
+    padding: 10px 20px;
+    background: #ff6d6d;
+    color: white; }
+    .pop-up h3 .pop-title {
+      color: white;
+      font-size: 18px; }
+    .pop-up h3 .close {
+      float: right;
+      color: white;
+      cursor: pointer;
+      font-weight: 100; }
+      .pop-up h3 .close:hover {
+        color: #555555; }
+  .pop-up .pop-content {
+    width: 480px;
+    margin: 20px auto 40px; }
+  .pop-up .pop-btn {
+    margin-top: 20px;
+    text-align: right; }
+  .pop-up .pop-confirm {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 60px;
+    height: 30px;
+    font-size: 16px;
+    background: #ff6d6d;
+    border-radius: 3px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .pop-up .pop-confirm:hover {
+      background: #ff3a3a; }
+  .pop-up .pop-cancel {
+    margin-left: 10px;
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 60px;
+    height: 30px;
+    font-size: 16px;
+    background: #cccccc;
+    border-radius: 3px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    color: black; }
+    .pop-up .pop-cancel:hover {
+      background: #bbb; }
+  .pop-up .pop-address-title {
+    padding-bottom: 10px; }
+  .pop-up .pop-address-value {
+    padding-bottom: 20px; }
+  .pop-up .invest-province-select,
+  .pop-up .invest-city-select,
+  .pop-up .invest-country-select {
+    position: relative;
+    display: inline-block;
+    width: 110px;
+    height: 30px;
+    margin-right: 4px; }
+    .pop-up .invest-province-select i,
+    .pop-up .invest-province-select a,
+    .pop-up .invest-city-select i,
+    .pop-up .invest-city-select a,
+    .pop-up .invest-country-select i,
+    .pop-up .invest-country-select a {
+      font-size: 14px; }
+    .pop-up .invest-province-select i,
+    .pop-up .invest-city-select i,
+    .pop-up .invest-country-select i {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      line-height: 25px;
+      text-align: center;
+      font-size: 12px;
+      color: white; }
+    .pop-up .invest-province-select a,
+    .pop-up .invest-city-select a,
+    .pop-up .invest-country-select a {
+      display: block;
+      text-decoration: none;
+      text-align: center; }
+    .pop-up .invest-province-select .select-view,
+    .pop-up .invest-city-select .select-view,
+    .pop-up .invest-country-select .select-view {
+      border: 1px solid #cccccc;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: white;
+      border-radius: 0;
+      line-height: 30px; }
+      .pop-up .invest-province-select .select-view:hover,
+      .pop-up .invest-city-select .select-view:hover,
+      .pop-up .invest-country-select .select-view:hover {
+        background: #cccccc; }
+      .pop-up .invest-province-select .select-view span,
+      .pop-up .invest-city-select .select-view span,
+      .pop-up .invest-country-select .select-view span {
+        color: black; }
+    .pop-up .invest-province-select ul,
+    .pop-up .invest-city-select ul,
+    .pop-up .invest-country-select ul {
+      position: absolute;
+      z-index: 1;
+      display: none;
+      overflow: scroll;
+      max-height: 295px;
+      top: 106%;
+      left: 0;
+      border: 1px solid black;
+      width: 110px;
+      background: white;
+      list-style: none; }
+    .pop-up .invest-province-select li,
+    .pop-up .invest-city-select li,
+    .pop-up .invest-country-select li {
+      padding: 3px 0; }
+      .pop-up .invest-province-select li a,
+      .pop-up .invest-city-select li a,
+      .pop-up .invest-country-select li a {
+        color: black; }
+      .pop-up .invest-province-select li:hover,
+      .pop-up .invest-city-select li:hover,
+      .pop-up .invest-country-select li:hover {
+        background: #cccccc; }
+        .pop-up .invest-province-select li:hover a,
+        .pop-up .invest-city-select li:hover a,
+        .pop-up .invest-country-select li:hover a {
+          color: white; }
+  .pop-up .pop-address-name,
+  .pop-up .pop-address-phone {
+    width: 240px;
+    height: 26px; }
+  .pop-up .pop-address-address {
+    width: 470px;
+    height: 26px; }
+  .pop-up .pop-error {
+    color: #ff6d6d; }
 
 /*# sourceMappingURL=../../maps/buy/buy.css.map */

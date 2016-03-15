@@ -65,14 +65,19 @@
                 </div>
             </div>
             <div class="info-row-6">
-                收获地址:
+                <span>收获地址:</span>
+                <a id="addNewAddress" class="link-btn" href="javascript:void(0);">新增收获地址</a>
             </div>
             <div class="info-row-7">
+                <div class="address-have-no">
+                    <a class="address-have-no-add" href="javascript:void(0);">
+                        您暂时还没有地址, 添加添加
+                    </a>
+                </div>
                 <ul>
                     <li class="receive-item">
                         <div class="receive-info">
-                            <input class="receive-radio" type="radio" name="address"/>
-                            <span class="receive-name">核弹</span>
+                            <span class="receive-name receive-choose">核弹</span>
                             <span class="receive-phone">15756306206</span>
                             <span class="receive-province">四川省</span>
                             <span class="receive-city">成都市</span>
@@ -84,80 +89,6 @@
                             <a href="javascript:void(0);" class="receive-modify link-btn">修改</a>
                             <a href="javascript:void(0);" class="receive-delete link-btn">删除</a>
                         </div>
-                    </li>
-                    <li class="receive-item">
-                        <input class="receive-radio" type="radio"/>
-                        <span class="receive-new">使用新地址</span>
-
-                        <form class="add-and-modify" action="/">
-                            <table>
-                                <tr>
-                                    <th>收货人:</th>
-                                    <td><input class="input-text" type="text"/></td>
-                                </tr>
-                                <tr>
-                                    <th>手机号:</th>
-                                    <td><input class="input-text" type="text"/></td>
-                                </tr>
-                                <tr>
-                                    <th>地址:</th>
-                                    <td>
-                                        <!-- 仿select组件begin-->
-                                        <div class="invest-province-select">
-                                            <a id="province" class="select-view" href="#">
-                                                <span class="selected">请选择</span>
-                                                <i class="foundicon-down-arrow"></i>
-                                            </a>
-                                            <ul class="options">
-                                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
-                                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
-                                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
-                                            </ul>
-                                            <input class="select-value" name="" type="hidden" value=""/>
-                                        </div>
-                                        <!-- 仿select组件end-->
-                                        <!-- 仿select组件begin-->
-                                        <div class="invest-city-select">
-                                            <a id="city" class="select-view" href="#">
-                                                <span class="selected">请选择</span>
-                                                <i class="foundicon-down-arrow"></i>
-                                            </a>
-                                            <ul class="options">
-                                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
-                                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
-                                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
-                                            </ul>
-                                            <input class="select-value" name="" type="hidden" value=""/>
-                                        </div>
-                                        <!-- 仿select组件begin-->
-                                        <!-- 仿select组件end-->
-                                        <div class="invest-country-select">
-                                            <a id="country" class="select-view" href="#">
-                                                <span class="selected">请选择</span>
-                                                <i class="foundicon-down-arrow"></i>
-                                            </a>
-                                            <ul class="options">
-                                                <li><a class="option-view" data-value="0" href="#">四川</a></li>
-                                                <li><a class="option-view" data-value="1" href="#">湖南</a></li>
-                                                <li><a class="option-view" data-value="2" href="#">江西</a></li>
-                                            </ul>
-                                            <input class="select-value" name="" type="hidden" value=""/>
-                                        </div>
-                                        <!-- 仿select组件end-->
-                                        <input class="input-text" type="text"/>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <td><input type="checkbox" name="" id=""/>设置为默认收获地址</td>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <td><input class="receive-button" type="button" value="添加并使用"/></td>
-                                </tr>
-                            </table>
-                        </form>
                     </li>
                 </ul>
             </div>
@@ -286,5 +217,81 @@
 <jsp:include page="../core/footer-main.jsp" />
 <jsp:include page="../core/baidu.jsp" />
 <!--footer end-->
+
+<!--pop begin-->
+<div id="popUp" class="pop-up" style="display: block;">
+    <div class="wrap">
+        <div class="inner">
+            <h3>
+                <span id="popTitle" class="pop-title">新增收获地址</span>
+                <span id="popClose" class="close">X</span>
+            </h3>
+            <form id="popForm" class="pop-content" action="">
+
+                <div class="pop-address-title">收货人: <span class="pop-error">错误提示</span></div>
+                <div class="pop-address-value"><input class="pop-address-name" type="text"/></div>
+
+                <div class="pop-address-title">所在地区: <span class="pop-error">错误提示</span></div>
+                <div class="pop-address-value">
+                    <!-- 仿select组件begin-->
+                    <div class="invest-province-select">
+                        <a id="province" class="select-view"  href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul class="options">
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    <!-- 仿select组件end-->
+                    <!-- 仿select组件begin-->
+                    <div class="invest-city-select">
+                        <a id="city" class="select-view"  href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul class="options">
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    <!-- 仿select组件begin-->
+                    <!-- 仿select组件end-->
+                    <div class="invest-country-select">
+                        <a id="country" class="select-view"  href="#">
+                            <span class="selected">请选择</span>
+                            <i class="foundicon-down-arrow"></i>
+                        </a>
+                        <ul class="options">
+                            <li><a class="option-view" data-value="0" href="#">四川</a></li>
+                            <li><a class="option-view" data-value="1" href="#">湖南</a></li>
+                            <li><a class="option-view" data-value="2" href="#">江西</a></li>
+                        </ul>
+                        <input class="select-value" name="" type="hidden" value=""/>
+                    </div>
+                    <!-- 仿select组件end-->
+                </div>
+
+                <div class="pop-address-title">详细地址: <span class="pop-error">错误提示</span></div>
+                <div class="pop-address-value"><input class="pop-address-address" type="text"/></div>
+
+                <div class="pop-address-title">手机号码: <span class="pop-error">错误提示</span></div>
+                <div class="pop-address-value"><input class="pop-address-phone" type="text"/></div>
+
+                <div class="pop-btn">
+                    <input id="popSubmit" class="pop-confirm" type="button" value="确认"/>
+                    <input id="popReset" class="pop-cancel" type="reset" value="取消"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--pop end-->
+
 </body>
 </html>
