@@ -28,7 +28,7 @@
                     <th>姓名</th>
                     <td><input class="invest-text" type="text" name="name" value="${pawnPersonInfo.name}"
                                id="username"
-                               v-model="user.username"
+                               v-model="invest.username"
                                v-on:keyup="volidate"/> ${errors['name']}</td>
                 </tr>
                 <tr>
@@ -51,8 +51,10 @@
                 </tr>
                 <tr>
                     <th>手机号</th>
-                    <td><input id="userPhone" class="invest-text" type="text" name="phoneNumber" value="${pawnPersonInfo.phoneNumber}"/>${errors['phoneNumber']}</td>
-
+                    <td><input id="userPhone" class="invest-text" type="text" name="phoneNumber" value="${pawnPersonInfo.phoneNumber}"
+                               id="userPhone"
+                               v-model="invest.userPhone"
+                               v-on:keyup="volidate"/>${errors['phoneNumber']}</td>
                 </tr>
                 <tr>
                     <th>地址</th>
@@ -97,8 +99,10 @@
                 </tr>
                 <tr>
                     <th>详细地址</th>
-                    <td><input class="invest-address-text" type="text" name="detailAddress" value="${pawnPersonInfo.detailAddress}"/>${errors['detailAddress']}</td>
-
+                    <td><input class="invest-address-text" type="text" name="detailAddress" value="${pawnPersonInfo.detailAddress}"
+                               id="detailAddress"
+                               v-model="invest.detailAddress"
+                               v-on:keyup="volidate"/>${errors['detailAddress']}</td>
                 </tr>
                 <tr>
                     <th>典当类型</th>
@@ -121,14 +125,19 @@
                 </tr>
                 <tr>
                     <th>典当金额</th>
-                    <td><input name="price" class="invest-text" type="text" value="${pawnPersonInfo.price}"/>${errors['price']}</td>
-
+                    <td><input name="price" class="invest-text" type="text" value="${pawnPersonInfo.price}"
+                               id="price"
+                               v-model="invest.price"
+                               v-on:keyup="volidate"/>${errors['price']}</td>
                 </tr>
                 <tr>
                     <th>手机验证码</th>
                     <input type="hidden" id="smsPath" data-value="/sms/onlinePawn?phoneNumber=">
                     <td>
-                        <input name="smsCode" class="auth-code-text" type="text"/>
+                        <input name="smsCode" class="auth-code-text" type="text"
+                               id="smsCode"
+                               v-model="invest.smsCode"
+                               v-on:keyup="volidate"/>
                         <input class="auth-code-btn" type="button" value="获取"/>
                         ${errors['smsCode']}
                     </td>

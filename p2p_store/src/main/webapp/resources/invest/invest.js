@@ -16,29 +16,37 @@ require.config({
 require(['jquery', 'component', 'ajax','vue','regex','validate'], function($, Cpn, Ajax, Vue, Regex, Volidate) {
 
     $(document).ready(function() {
-        var user = function(){
+        var invest = function(){
             this.username = "";
+            this.userPhone = "";
+            this.detailAddress = "";
+            this.price = "";
+            this.smsCode = "";
         }
         var app = new Vue({
             el: '#form',
             data: {
                 error : '',
-                user: user
+                invest: invest
             },
             ready:function(){
-                var validation = new user();
+                var validation = new invest();
                 this.$data.error = validation;
                 //绑定显示错误信息的对象
                 Vue.prototype.volidateEntity = validation;
                 //绑定正则
                 var regex = {
-                    "user.username" : regex_empty
+                    "invest.username" : regex_empty,
+                    "invest.userPhone" : regex_empty,
+                    "invest.detailAddress" : regex_empty,
+                    "invest.price" : regex_empty,
+                    "invest.smsCode" : regex_empty
                 }
                 Vue.prototype.regexEntity = regex;
             },
             methods: {
                 formSubmit: function () {
-                    var flag = this.submitVolidata(this.$data.user);
+                    var flag = this.submitVolidata(this.$data.invest);
                     if(flag == true){
                         $('.invest-submit').submit();
                     }
