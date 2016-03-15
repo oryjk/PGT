@@ -272,25 +272,28 @@ a {
   .header .status-help-center {
     float: right; }
   .header .status-my-account {
-    margin-top: 15px;
+    margin: 15px 15px 0 0;
     position: relative;
     display: inline-block;
     width: 80px;
     height: 80px; }
     .header .status-my-account:hover {
-      background: #ff6d6d; }
+      background: white;
+      top: -5px;
+      box-shadow: 0 10px 15px #555555; }
   .header .status-my-account-detail {
     position: absolute;
     display: none;
     width: 200px;
-    top: 70px;
+    top: 80px;
     right: -120px;
     line-height: 25px;
     background: white;
     text-align: center; }
     .header .status-my-account-detail .detail-top {
       height: 70px;
-      background: #ff6d6d; }
+      background: white;
+      box-shadow: 0 10px 15px #555555; }
       .header .status-my-account-detail .detail-top a {
         padding: 0;
         margin-top: 5px; }
@@ -304,6 +307,7 @@ a {
       float: left; }
     .header .status-my-account-detail .detail-bot {
       background: white;
+      box-shadow: 0 10px 15px #555555;
       height: 70px; }
       .header .status-my-account-detail .detail-bot .detail-person {
         background: url("../core/images/header/man.png") no-repeat 24px 10px; }

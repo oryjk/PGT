@@ -106,12 +106,14 @@
 
 
     .status-my-account {
-      margin-top: 15px;
+      margin: 15px 15px 0 0 ;
       position: relative;
       display: inline-block;
       @include wh(80px, 80px);
       &:hover{
-        background: $main;
+        background: white;
+        top: -5px;
+        box-shadow: 0 10px 15px $gray;
       }
     }
 
@@ -119,16 +121,16 @@
       position: absolute;
       display: none;
       @include wh(200px,auto);
-      top: 70px;
+      top: 80px;
       right: -120px;
-
       line-height: 25px;
       background: white;
       text-align: center;
 
       .detail-top{
         height: 70px;
-        background: $main;
+        background:white;
+        box-shadow: 0 10px 15px $gray;
         a{
           padding: 0;
           margin-top: 5px;
@@ -146,6 +148,7 @@
       }
       .detail-bot{
         background: white;
+        box-shadow: 0 10px 15px $gray;
         height: 70px;
         .detail-person{
           background:url("../core/images/header/man.png") no-repeat 24px 10px;
