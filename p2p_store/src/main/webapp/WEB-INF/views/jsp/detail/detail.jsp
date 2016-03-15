@@ -45,16 +45,14 @@
 		</div>
 		<div class="invest-data">
 			<div class="invest-status">在当中</div>
-			<div class="data-row-1">项目金额</div>
+			<div class="data-row-1">当票总金额</div>
 			<div class="data-row-2">
-				<div id="indicatorContainer" class="progress-circle"></div>
-
 				<div class="cost-box">
 					<span class="cost">¥</span><span class="cost">${ESTender.tender.tenderTotal}</span>
 				</div>
-				<div class="invest-surplus-count">剩余产品数量 : <span>15</span>件</div>
-				<div class="invest-begin-time">开始: <span><date:date value="${ESTender.tender.publishDate}" style="yyyy-MM-dd HH:mm:ss"/></span></div>
-				<div class="invest-end-time">结束: <span><date:date value="${ESTender.tender.dueDate}" style="yyyy-MM-dd HH:mm:ss"/></span></div>
+				<div class="invest-surplus-count">剩余数量 : <span>${ESTender.tender.productResidue}</span>件</div>
+				<div class="invest-begin-time">开始时间 : <span><date:date value="${ESTender.tender.publishDate}" style="yyyy年MM月dd"/></span></div>
+				<div class="invest-end-time">结束时间 : <span><date:date value="${ESTender.tender.dueDate}" style="yyyy年MM月dd HH点mm分ss"/></span></div>
 
 			</div>
 			<div class="data-row-3">

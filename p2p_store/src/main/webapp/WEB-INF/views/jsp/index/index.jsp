@@ -29,41 +29,7 @@
 <body>
 <img class="search-img" src="/resources/core/images/app-qrcode.png" alt="点金子绝当淘"/>
 <!--header begin-->
-<div class="header">
-    <div class="header-inner">
-        <h1 class="logo">
-            <a href="#"></a>
-        </h1>
-        <ul class="nav">
-            <li><a href="#">在当品大厅</a></li>
-            <li><a href="#">在线典当</a></li>
-            <li><a href="#">绝当品</a></li>
-        </ul>
-        <form class="search" action="">
-            <input type="text" placeholder="点击搜索"/>
-        </form>
-        <div class="status">
-            <div class="status-login" style="display: none">
-                <a class="status-login-btn" href="#">登录</a>
-                <a class="status-register-btn" href="#">注册</a>
-                <a class="status-help-center" href="#">帮助</a>
-            </div>
-            <div class="status-logout" style="display: block">
-                <div class="status-my-account"  id="statusMyAccount">
-                    <a class="status-user-face-box" href="#"><img class="status-user-face" src="" alt=""/></a>
-                    <ul class="status-my-account-detail" id="statusMyAccountDetail">
-                        <li><a href="#">我的订单</a></li>
-                        <li><a href="#">我的收藏</a></li>
-                        <li><a href="#">最近浏览</a></li>
-                        <li><a href="#">退出</a></li>
-                    </ul>
-                </div>
-                <a class="status-help-center" href="#">帮助</a>
-
-            </div>
-        </div>
-    </div>
-</div>
+<jsp:include page="../core/header-main.jsp"/>
 <!--header end-->
 
 <!--banner begin-->
