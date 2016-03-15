@@ -212,33 +212,44 @@ a {
     height: 100px;
     line-height: 100px;
     text-align: right; }
+    .header .status .status-logout {
+      height: 100px; }
+  .header .status-login-btn,
   .header .status-help-center,
   .header .status-register-btn {
-    margin-left: 20px; }
-  .header .status-help-center,
+    margin-right: 20px; }
   .header .status-login-btn,
+  .header .status-help-center,
   .header .status-register-btn,
   .header .status-help-center {
-    float: left;
+    height: 90px;
     vertical-align: middle; }
-    .header .status-help-center:hover,
     .header .status-login-btn:hover,
+    .header .status-help-center:hover,
     .header .status-register-btn:hover,
     .header .status-help-center:hover {
+      border-bottom: 4px solid #ff6d6d;
       color: #ff6d6d; }
+  .header .status-login-btn,
+  .header .status-help-center,
+  .header .status-register-btn,
+  .header .status-help-center {
+    float: right; }
   .header .status-my-account {
-    float: left;
+    margin-top: 15px;
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 40px; }
+    width: 80px;
+    height: 80px; }
+    .header .status-my-account:hover {
+      background: #ff6d6d; }
   .header .status-my-account-detail {
     position: absolute;
     display: none;
     width: 300px;
     height: 200px;
-    top: 80px;
-    right: -60px;
+    top: 70px;
+    right: -100px;
     line-height: 25px;
     background: white;
     text-align: center; }
@@ -251,6 +262,7 @@ a {
       height: 40px;
       float: left; }
       .header .status-my-account-detail .user-img img {
+        border-radius: 20px;
         width: 40px;
         height: 40px; }
     .header .status-my-account-detail .user-name {
@@ -263,11 +275,12 @@ a {
       .header .status-my-account-detail a:hover {
         color: #ff6d6d; }
   .header .status-user-face-box {
+    padding-left: 20px;
     float: left;
-    margin-top: 15px;
-    width: 100%;
-    height: 100%; }
+    width: 50%;
+    height: 50%; }
   .header .status-user-face {
+    border-radius: 20px;
     width: 100%;
     height: 100%; }
 

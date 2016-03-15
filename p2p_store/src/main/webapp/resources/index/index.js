@@ -26,10 +26,10 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
         });
 
         statusMyAccount.mouseenter(function () {
-            statusMyAccountDetail.slideDown();
+            statusMyAccountDetail.show();
         });
         statusMyAccount.mouseleave(function () {
-            statusMyAccountDetail.slideUp();
+            statusMyAccountDetail.hide();
         });
 
     });
