@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">当铺管理人员</label>
+                                <label class="control-label col-md-3">当铺所属人员</label>
                                 <div class="col-md-9">
                                     <div class="radio-list">
                                         <select name="ownerId" class="form-control input-medium">
