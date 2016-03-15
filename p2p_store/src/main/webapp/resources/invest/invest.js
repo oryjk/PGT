@@ -48,7 +48,7 @@ require(['jquery', 'component', 'ajax','vue','regex','validate'], function($, Cp
                 formSubmit: function () {
                     var flag = this.submitVolidata(this.$data.invest);
                     if(flag == true){
-                        $('.invest-submit').submit();
+                        $('#form').submit();
                     }
                 },
                 volidate: function (event) {
