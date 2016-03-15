@@ -48,11 +48,7 @@ body {
 }
 
 .order-info {
-  .info-row-1,
-  .info-row-2,
-  .info-row-3,
-  .info-row-4,
-  .info-row-5 {
+  .info-row {
     @extend %clear;
     padding: 15px 30px;
   }
@@ -70,86 +66,74 @@ body {
     vertical-align: middle;
   }
 
-  .info-row-1 {
-    .time-tips {
-      padding-left: 205px;
-    }
-
-    .info-value {
-      color: black;
-      &:hover {
-        color: $main;
-      }
-    }
+  .time-tips {
+    padding-left: 205px;
   }
 
-  .info-row-2 {
-    .info-col-1 {
-      float: left;
-      width: 300px;
-    }
-
-    .info-col-2 {
-      float: left;
-      width: 350px;
-    }
-
-    .buy-cost {
+  .info-value {
+    color: black;
+    &:hover {
       color: $main;
     }
-
-    .info-col-3 {
-      float: left;
-    }
   }
 
-  .info-row-3 {
-    .time-tips {
-      padding-left: 30px;
-    }
+  .info-col-1 {
+    float: left;
+    width: 300px;
   }
 
-  .info-row-4 {
-    input {
-      margin-left: 15px;
-      padding-left: 10px;
-      @include wh(330px, 30px);
-    }
+  .info-col-2 {
+    float: left;
+    width: 350px;
   }
 
-  .info-row-5 {
-    .buy-explain-title {
-      float: left;
-      width: 210px;
-      text-align: right;
-    }
-
-    .buy-explain {
-      padding-left: 20px;
-      float: left;
-    }
-
-    p {
-      padding-bottom: 10px;
-    }
+  .buy-cost {
+    color: $main;
   }
 
-  .info-row-6 {
+  .info-col-3 {
+    float: left;
+  }
+
+  .time-tips {
+    padding-left: 30px;
+  }
+
+  .remark {
+    margin-left: 15px;
+    padding-left: 10px;
+    @include wh(330px, 30px);
+  }
+
+  .buy-explain-title {
+    float: left;
+    width: 210px;
+    text-align: right;
+  }
+
+  .buy-explain {
+    padding-left: 20px;
+    float: left;
+  }
+
+  p {
+    padding-bottom: 10px;
+  }
+
+  .address-box {
     padding: 80px 70px 0;
 
     .link-btn {
       float: right;
       margin: 5px 40px 0 0;
     }
-  }
 
-  .info-row-7 {
-    padding: 23px 0 0 70px;
+
   }
 
   .address-have-no-add {
     display: block;
-    margin-top: 20px;
+    margin: 20px 0 0 45px;
     border: 2px dashed gray;
     @include wh(1020px, 50px);
     line-height: 50px;
@@ -296,26 +280,18 @@ body {
     width: 800px;
   }
 
-  .confirm-row-1,
-  .confirm-row-2,
-  .confirm-row-3,
-  .confirm-row-4,
-  .confirm-row-5 {
+  .confirm-row {
     @extend %clear;
-  }
-
-  .confirm-row-1,
-  .confirm-row-2,
-  .confirm-row-3 {
     padding: 12px 0;
   }
 
-  .confirm-row-4 {
+
+  .confirm-row-bottom-line {
     padding: 12px 0 55px;
     border-bottom: 1px dotted $gray-light;
   }
 
-  .confirm-row-5 {
+  .confirm-address-info {
     padding: 27px 0 17px;
     border-bottom: 1px dotted $gray-light;
 
@@ -324,7 +300,7 @@ body {
     }
   }
 
-  .confirm-row-6 {
+  .confirm-product-list {
     padding-top: 40px;
 
     table {
