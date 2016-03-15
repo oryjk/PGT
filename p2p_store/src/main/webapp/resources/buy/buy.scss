@@ -136,6 +136,11 @@ body {
 
   .info-row-6 {
     padding: 80px 70px 0;
+
+    .link-btn {
+      float: right;
+      margin: 5px 40px 0 0;
+    }
   }
 
   .info-row-7 {
@@ -143,11 +148,29 @@ body {
   }
 
   .receive-item {
-    padding-left: 70px;
+    @extend %clear;
+    margin: 5px 0 5px 70px;
     width: 1000px;
-    line-height: 35px;
+    line-height: 30px;
 
-    .receive-choose {
+    &:hover {
+      background: #fff3f3;
+
+      .receive-handle {
+        display: block;
+      }
+    }
+  }
+
+  .receive-name {
+    @extend %inline-block;
+    border: 1px solid $gray-light;
+    @include wh(140px, 30px);
+    text-align: center;
+    background: white;
+    cursor: pointer;
+
+    &.receive-choose {
       border: 1px solid $main;
     }
   }
@@ -159,6 +182,7 @@ body {
 
   .receive-handle {
     float: right;
+    display: none;
     width: 250px;
 
     a {
@@ -168,6 +192,12 @@ body {
 
     .set-default {
       border-left: none;
+    }
+  }
+
+  .receive-add-new {
+    &:hover {
+      background: white;
     }
   }
 
@@ -476,7 +506,37 @@ body {
       color: $gray;
       line-height:20px;
     }
+  }
+}
 
+.pop-up {
+  @include pop;
+
+  .pop-address-title {
+    padding-bottom: 10px;
   }
 
+  .pop-address-value {
+    padding-bottom: 20px;
+  }
+
+  .invest-province-select,
+  .invest-city-select,
+  .invest-country-select {
+    @include like-select(110px, 30px, 0, 14px, $gray-light);
+    margin-right: 4px;
+  }
+
+  .pop-address-name,
+  .pop-address-phone {
+    @include wh(240px, 26px);
+  }
+
+  .pop-address-address {
+    @include wh(470px, 26px);
+  }
+
+  .pop-error {
+    color: $main;
+  }
 }
