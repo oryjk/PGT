@@ -40,23 +40,25 @@
             <input type="text" placeholder="点击搜索"/>
         </form>
         <div class="status">
-            <div class="status-login" style="display: block">
+            <div class="status-login" style="display:none">
                 <a class="status-help-center" href="#">帮助</a>
                 <a class="status-register-btn" href="#">注册</a>
                 <a class="status-login-btn" href="#">登录</a>
 
             </div>
-            <div class="status-logout" style="display:none">
+            <div class="status-logout" style="display:block">
                 <div class="status-my-account" id="statusMyAccount">
                     <a class="status-user-face-box" href="#"><img class="status-user-face" src="../core/images/header/user-img.jpg" alt=""/></a>
-                    <div class="status-my-account-detail" id="statusMyAccountDetail" >
+                    <div class="status-my-account-detail" id="statusMyAccountDetail">
                         <div class="detail-top">
-                            <div class="user-img"><img src="../core/images/header/user-img.jpg"></div>
                             <div class="user-name">zhouzhouzhou</div>
+                            <a href="#"><img src="../core/images/header/setting.png"></a>
                         </div>
-                        <a href="#">用户中心</a>
-                        <a href="#">我的订单</a>
-                        <a href="#">退出登录</a>
+                        <div class="detail-bot">
+                            <a class="detail-person" href="#">用户中心</a>
+                            <a class="detail-order" href="#">我的订单</a>
+                            <a class="detail-exit" href="#">退出登录</a>
+                        </div>
                     </div>
                 </div>
                 <a class="status-help-center" href="#">帮助</a>
