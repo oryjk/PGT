@@ -15,7 +15,7 @@ require(['jquery', 'component', 'ajax'], function ($, Cpn, Ajax) {
         popUp: pop,
         close: $('#popReset, #popClose')
     });
-    $('#addNewAddress').click(function () {
+    $('#addNewAddress,.address-have-no-add').click(function () {
         pop.fadeIn(300);
     });
     $(document).on('click', '.receive-modify', function () {

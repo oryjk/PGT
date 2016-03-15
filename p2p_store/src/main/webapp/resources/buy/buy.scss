@@ -147,6 +147,21 @@ body {
     padding: 23px 0 0 70px;
   }
 
+  .address-have-no-add {
+    display: block;
+    margin-top: 20px;
+    border: 2px dashed gray;
+    @include wh(1020px, 50px);
+    line-height: 50px;
+    text-align: center;
+    color: gray;
+
+    &:hover {
+      border-color: $main;
+      color: $main;
+    }
+  }
+
   .receive-item {
     @extend %clear;
     margin: 5px 0 5px 70px;
