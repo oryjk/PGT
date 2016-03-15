@@ -148,13 +148,22 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 		detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, platformUserNo);
 		detail.put(YeePayConstants.PARAM_NAME_AMOUNT, resultAmount);
 		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
-		Map<String, String> invokResult = getDirectTransactionYeepay().invoke(params);
-		transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
-		if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
+		boolean success = false;
+		try {
+			Map<String, String> invokResult = getDirectTransactionYeepay().invoke(params);
+			transaction.setTrackingNo((String)params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
+			if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
+				success = true;
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		if (success) {
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
-			order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWNER);
 		} else {
 			transaction.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
+			order.setStatus(OrderStatus.TRANSFER_TO_OWNER_FAILD);
+			getShoppingCartDao().updateOrder(order);
 		}
 		getPaymentService().updateTransaction(transaction);
 	}

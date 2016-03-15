@@ -361,9 +361,7 @@ public class P2POrderService extends OrderService {
     private boolean completeOrder(Order order, boolean ocuppy, Date dueDate) {
         boolean result = true;
         if (ocuppy) {
-
-            // toDo status
-            order.setStatus(OrderStatus.NO_PENDING_ACTION);
+            order.setStatus(OrderStatus.PENDING_SHIPPING);
         } else {
             P2PInfo info = queryP2PInfoByOrderId(order.getId());
             double actualIncoming = calculateIncoming(info.getPayTime(), dueDate, info.getPrePeriod(), order.getTotal(), info.getInterestRate());
@@ -371,17 +369,14 @@ public class P2POrderService extends OrderService {
             info.setActualIncoming(actualIncoming);
             p2PMapper.updateInfo(info);
             result = giveIncomingToBuyer(order, info);
-            if (result) {
-                order.setStatus(OrderStatus.NO_PENDING_ACTION);
-            } else {
-                // TODO
-                //  order.setStatus();
-            }
+            order.setStatus(OrderStatus.PENDING_TRANSFER_TO_BUYER);
         }
         updateOrder(order);
         return result;
     }
 
+
+    // need a scheduler job to call this method
     public boolean giveIncomingToBuyer(Order order, P2PInfo info) {
         boolean result = false;
         try {
@@ -421,15 +416,24 @@ public class P2POrderService extends OrderService {
             detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, platformUserNo);
             detail.put(YeePayConstants.PARAM_NAME_AMOUNT, info.getActualIncoming());
             detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
-            Map<String, String> invokResult = getDirectTransactionYeepay().invoke(params);
-            transaction.setTrackingNo((String) params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
-            if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
+            try {
+                Map<String, String> invokResult = getDirectTransactionYeepay().invoke(params);
+                transaction.setTrackingNo((String) params.get(YeePayConstants.PARAM_NAME_REQUEST_NO));
+                if (YeePayConstants.CODE_SUCCESS.equals(invokResult.get(YeePayConstants.PARAM_NAME_CODE))) {
+
+                    result = true;
+                }
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+            if (result) {
                 transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
-                order.setStatus(OrderStatus.PAID_TRANSFER_TO_OWNER);
-                result = true;
+                order.setStatus(OrderStatus.NO_PENDING_ACTION);
             } else {
+                order.setStatus(OrderStatus.TRANSFER_TO_BUYER_FAILD);
                 transaction.setStatus(PaymentConstants.PAYMENT_STATUS_FAILED);
             }
+            getShoppingCartService().updateOrder(order);
             getPaymentService().updateTransaction(transaction);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
