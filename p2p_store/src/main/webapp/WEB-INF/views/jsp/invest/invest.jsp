@@ -26,8 +26,10 @@
             <table>
                 <tr>
                     <th>姓名</th>
-                    <td><input class="invest-text" type="text" name="name" value="${pawnPersonInfo.name}"  v-model="user.username"  v-on:keyup="volidate"/> ${errors['name']}</td>
-
+                    <td><input class="invest-text" type="text" name="name" value="${pawnPersonInfo.name}"
+                               id="username"
+                               v-model="user.username"
+                               v-on:keyup="volidate"/> ${errors['name']}</td>
                 </tr>
                 <tr>
                     <th>性别</th>
@@ -133,7 +135,7 @@
                 </tr>
                 <tr>
                     <th></th>
-                    <td><input class="invest-submit" type="submit" value="立即申请"/></td>
+                    <td><input @click.prevent="formSubmit" class="invest-submit" type="submit" value="立即申请"/></td>
                 </tr>
             </table>
 

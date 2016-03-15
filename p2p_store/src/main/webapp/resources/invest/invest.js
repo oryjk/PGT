@@ -8,7 +8,8 @@ require.config({
         ajax: '../core/js/module/ajax',
         vue: '../core/js/vue',
         regex: '../core/js/regex',
-        validate: '../core/js/module/validate'
+        validate: '../core/js/module/validate',
+        underscore: '../core/js/underscore'
     }
 });
 
@@ -19,7 +20,7 @@ require(['jquery', 'component', 'ajax','vue','regex','validate'], function($, Cp
             this.username = "";
         }
         var app = new Vue({
-            el: '#login-box',
+            el: '#form',
             data: {
                 error : '',
                 user: user
@@ -36,7 +37,7 @@ require(['jquery', 'component', 'ajax','vue','regex','validate'], function($, Cp
                 Vue.prototype.regexEntity = regex;
             },
             methods: {
-                login: function () {
+                formSubmit: function () {
                     var flag = this.submitVolidata(this.$data.user);
                     if(flag == true){
                         $('.invest-submit').submit();
@@ -46,7 +47,7 @@ require(['jquery', 'component', 'ajax','vue','regex','validate'], function($, Cp
                     this.excuteVolidata(event);
                 }
             }
-        })
+        });
 
         $(".auth-code-btn").click(function(){
           $.ajax({

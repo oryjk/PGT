@@ -45,6 +45,7 @@ define(['vue','underscore','jquery'], function(Vue,_,$) {
 
     Vue.prototype.submitVolidata = function(funData){
         var regexEntity = Vue.prototype.regexEntity;
+        console.log(funData);
         var i = 0;
         var length = 0;
         for(var v_model in funData){
