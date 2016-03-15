@@ -118,34 +118,51 @@
     .status-my-account-detail {
       position: absolute;
       display: none;
-      @include wh(300px,200px);
+      @include wh(200px,auto);
       top: 70px;
-      right: -100px;
+      right: -120px;
+
       line-height: 25px;
       background: white;
       text-align: center;
 
       .detail-top{
-        height: 100px;
+        height: 70px;
         background: $main;
-      }
-      .user-img{
-        margin: 30px 0 0 40px;
-        @include wh(40px,40px);
-        float: left;
+        a{
+          padding: 0;
+          margin-top: 5px;
+        }
         img{
-          border-radius: 20px;
-          width: 40px;
-          height: 40px;
+          @include wh(15px,15px);
+
         }
       }
       .user-name{
-        margin: 35px 0 0 30px ;
+        margin-top: 30px;
+        width: 160px;
+        text-align: center;
         float: left;
       }
+      .detail-bot{
+        background: white;
+        height: 70px;
+        .detail-person{
+          background:url("../core/images/header/man.png") no-repeat 24px 10px;
+        }
+        .detail-order{
+          background: url("../core/images/header/buy.png")no-repeat 21px 10px;
+        }
+        .detail-exit{
+          background: url("../core/images/header/exit.png")no-repeat 26px 10px;
+        }
+      }
       a {
-        margin: 40px 18px;
         float: left;
+        padding: 10px 0 0 8px;
+        height: 50px;
+        font-size: 14px;
+        line-height: 80px;
         color:#000;
         &:hover {
           color: $main;
