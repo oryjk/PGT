@@ -22,19 +22,17 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
 
         //nav的hover效果
         $('.nav-item').mouseenter(function () {
-            var $this =$(this);
-            var position = $this.position();
-            var w = $this.innerWidth();
-            var h = $this.innerHeight();
+            var $this =$(this),
+            position = $this.position(),
+            w = $this.innerWidth(),
+            h = $this.innerHeight();
             $('#navHover').css({
                 top: position.top + 'px',
                 left: position.left +  'px',
                 width: w + 'px',
                 height: h + 'px'
             });
-
         })
-
     });
 
 
