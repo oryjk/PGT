@@ -14,7 +14,6 @@
 				<div class="pop-address-value">
 					<input class="pop-address-name" type="text" v-model="currentAddress.name"/>
 				</div>
-
 				<div class="pop-address-title">所在地区:</div>
 				<div class="pop-address-value">
 					<!-- 仿select组件begin-->

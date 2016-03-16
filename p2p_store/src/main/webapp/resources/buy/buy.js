@@ -5,63 +5,66 @@ require.config({
     paths: {
         jquery: '../core/js/jquery.min',
         component: '../core/js/module/component',
-        ajax: '../core/js/module/ajax'
+        ajax: '../core/js/module/ajax',
+        addressPopup: '../core/js/module/addressPopup',
+        vue: '/resources/core/js/vue'
     }
 });
 
-require(['jquery', 'component', 'ajax'], function ($, Cpn, Ajax) {
+require(['jquery', 'component', 'ajax', 'addressPopup', 'vue'], function ($, Cpn, Ajax, addressPopup, Vue) {
     var pop = $('#popUp');
     Cpn.pop({
         popUp: pop,
         close: $('#popReset, #popClose')
     });
     $('#addNewAddress,.address-have-no-add').click(function () {
+        addressPopup.currentAddress = {
+            'name': '',
+            'province': '请选择',
+            'city': '请选择',
+            'district': '请选择',
+            'address': '',
+            'phone': '',
+            'telephone': '',
+            'email': '',
+            'id': ''
+        };
+        addressPopup.needRedirect = false;
         pop.fadeIn(300);
+
     });
     $(document).on('click', '.receive-modify', function () {
         pop.fadeIn(300);
     });
 
+    $(document).ready(function () {
+            Vue.config.debug = true;
+            new Vue({
+                el: '#order-info',
+                data: {
+                    'defaultAddressId': '',
+                    'ok':true
 
-    var areaObj = {
-        province: $('#province'),
-        city: $('#city'),
-        country: $('#country')
-    };
-    //省->市
-    Cpn.select2(areaObj.province, function(id) {
-        var url = Prd.baseUrl + '/getCityByProvinceId/' + id;
-        $.ajax({
-            url: url,
-            data: null,
-            success: function(param) {
-                var str = '';
-                $.each($.parseJSON(param), function() {
-                    str += '<li><a class="option-view" data-value="'+ this.id+'" href="#">'+ this.name+'</a></li>'
-                });
-                $('#city').children('.selected').html('请选择').end().siblings('.options').html(str).next('.select-value').val('');
-                $('#country').children('.selected').html('请选择').end().siblings('.options').html('').next('.select-value').val('');
-            }
-        })
-    });
+                },
+                methods: {
+                    setOrderAddress: function (shippingId, orderId, event) {
+                        var orderInfoObj=this;
+                        $.ajax({
+                            url: '/checkout/addAddressToOrder/',
+                            data: {
+                                "addressInfoId": shippingId,
+                                "orderId": orderId
+                            },
+                            type: 'POST',
+                            success: function (response) {
+                                orderInfoObj.receive_choose='';
+                                orderInfoObj.defaultAddressId=shippingId;
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    )
 
-    //市->区
-    Cpn.select2(areaObj.city, function(id) {
-        var url = Prd.baseUrl + '/getAreaByCityId/' + id;
-        $.ajax({
-            type: 'get',
-            url: url,
-            data: null,
-            success: function(param) {
-                var str = '';
-                $.each($.parseJSON(param), function() {
-                    str += '<li><a class="option-view" data-value="'+ this.id+'" href="#">'+ this.name+'</a></li>'
-                });
-                $('#country').children('.selected').html('请选择').end().siblings('.options').html(str).next('.select-value').val('');
-            }
-        })
-    });
-
-    //区
-    Cpn.select2(areaObj.country);
 });
