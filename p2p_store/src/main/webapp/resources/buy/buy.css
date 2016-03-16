@@ -453,7 +453,7 @@ a {
 /*style
 **************************************************************************************************************************************************/
 body {
-  background: #f3f3f3; }
+  background: white; }
 
 .step {
   margin: 115px auto 0;
@@ -466,6 +466,26 @@ body {
     width: 25%;
     height: 100%;
     line-height: 50px; }
+
+.step-1 {
+  background: url("../core/images/buy/buy-step-1.png") no-repeat 0 0; }
+  .step-1 .step-item-1 {
+    color: white; }
+
+.step-2 {
+  background: url("../core/images/buy/buy-step-2.png") no-repeat 0 0; }
+  .step-2 .step-item-2 {
+    color: white; }
+
+.step-3 {
+  background: url("../core/images/buy/buy-step-3.png") no-repeat 0 0; }
+  .step-3 .step-item-3 {
+    color: white; }
+
+.step-4 {
+  background: url("../core/images/buy/buy-step-4.png") no-repeat 0 0; }
+  .step-4 .step-item-4 {
+    color: white; }
 
 .main {
   margin: 30px auto 40px;
@@ -563,6 +583,7 @@ body {
       display: block; }
 
 .order-info .receive-name {
+  margin-right: 20px;
   border: 1px solid #cccccc;
   width: 140px;
   height: 30px;

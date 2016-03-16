@@ -9,15 +9,15 @@ define(function () {
      * navBox:导航的父元素 $('#bannerNav'),
      * time:切换的时间 600
      * */
-    var slider = function (sliderObj) {
+    var slider = function(sliderObj) {
         var sliderIng = setInterval(slider, 5000);
-        $('#bannerNav').mouseenter(function () {
+        $('#bannerBox').mouseenter(function() {
             clearInterval(sliderIng);
-        }).mouseleave(function () {
+        }).mouseleave(function() {
             sliderIng = setInterval(slider, 5000);
         });
 
-        sliderObj.navBox.mouseover(function (event) {
+        sliderObj.navBox.mouseover(function(event) {
             if (event.target.nodeName == 'LI' || event.target.nodeName == 'li') {
                 sliderObj.next = event.target.innerHTML;
                 slider();
@@ -26,9 +26,8 @@ define(function () {
 
         function slider() {
             sliderObj.imgBox.children().fadeOut(sliderObj.time).eq(sliderObj.next).fadeIn(slider.time);
-            $('#bannerFrontEnd').children().fadeOut(sliderObj.time).eq(sliderObj.next).fadeIn(slider.time);
             sliderObj.navBox.children().removeClass('banner-nav-current').eq(sliderObj.next).addClass('banner-nav-current');
-            sliderObj.next++;
+            sliderObj.next ++;
             if (sliderObj.next >= sliderObj.navBox.children().size()) {
                 sliderObj.next = 0;
             }
