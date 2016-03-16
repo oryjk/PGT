@@ -13,9 +13,12 @@ require.config({
 
 require(['jquery', 'component', 'ajax', 'addressPopup', 'vue'], function ($, Cpn, Ajax, addressPopup, Vue) {
     var pop = $('#popUp');
-    Cpn.pop({
-        popUp: pop,
-        close: $('#popReset, #popClose')
+
+    pop.click(function(event) {
+        var $this = $(this);
+        if (event.target == $this.get(0)) {
+            addressPopup.display = 'none';
+        }
     });
 
     $(document).ready(function () {
