@@ -6,7 +6,7 @@
  */
 
 
-define(['../core/js/vue'],function (Vue) {
+define(['../core/js/vue'], function (Vue) {
     var popUp = new Vue({
         el: '#popUp',
         data: {
@@ -42,7 +42,9 @@ define(['../core/js/vue'],function (Vue) {
             isUpdate: false,
             isValid: true,
             errorMsg: '',
-            needRedirect:true
+            needRedirect: true,
+            orderId: '',
+            redirectUrl: '/my-account/person-info/address'
         },
 
         methods: {
@@ -124,9 +126,7 @@ define(['../core/js/vue'],function (Vue) {
                         success: function (response) {
                             console.log('success:' + response.success);
                             popUp.display = 'none';
-                            if(popUp.needRedirect){
-                                window.location.href = '/my-account/person-info/address';
-                            }
+                            window.location.href = popUp.redirectUrl;
                         }
                     })
                 }

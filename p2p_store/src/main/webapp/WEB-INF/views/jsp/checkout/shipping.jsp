@@ -30,6 +30,7 @@
 <div class="main">
 
 	<div class="order-info" id="order-info">
+
 		<h2>订单信息</h2>
 
 		<div class="main-content">
@@ -78,9 +79,10 @@
 					<c:set value="${order.shippingVO.shippingAddress.addressInfoId}" var="defaultAddressId"/>
 					<input type="hidden" v-model="defaultAddressId" value="${defaultAddressId}"/>
 					<c:forEach items="${addressInfoList}" var="address">
-						<li class="receive-item" @click="setOrderAddress(${address.id},${order.id},$event)">
+						<li class="receive-item">
 							<div class="receive-info">
-								<span class="receive-name" v-bind:class="{'receive-choose':defaultAddressId==${address.id}}">${address.name}</span>
+								<span class="receive-name" v-bind:class="{'receive-choose':defaultAddressId==${address.id}}"
+									  @click="setOrderAddress(${address.id},${order.id},$event)">${address.name}</span>
 								<span class="" style="margin-left: 10px;">${address.name}</span>
 								<span class="receive-phone">${address.phone}</span>
 								<span class="receive-province">${address.province}</span>
@@ -91,8 +93,8 @@
 							<div class="receive-handle">
 								<a href="javascript:void(0);" class="set-default link-btn" @click="setOrderAddress(${address.id},${order.id},$event)"
 								   v-if="defaultAddressId!=${address.id}">设为默认</a>
-								<a href="javascript:void(0);" class="receive-modify link-btn">修改</a>
-								<a href="javascript:void(0);" class="receive-delete link-btn">删除</a>
+								<a href="javascript:void(0);" class="receive-modify link-btn" @click="edit(${address.id},$event)">修改</a>
+								<a href="javascript:void(0);" class="receive-delete link-btn" @click="deleteAddress(${address.id})" v-if="defaultAddressId!=${address.id}">删除</a>
 							</div>
 						</li>
 					</c:forEach>

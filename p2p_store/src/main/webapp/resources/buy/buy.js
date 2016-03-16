@@ -17,38 +17,18 @@ require(['jquery', 'component', 'ajax', 'addressPopup', 'vue'], function ($, Cpn
         popUp: pop,
         close: $('#popReset, #popClose')
     });
-    $('#addNewAddress,.address-have-no-add').click(function () {
-        addressPopup.currentAddress = {
-            'name': '',
-            'province': '请选择',
-            'city': '请选择',
-            'district': '请选择',
-            'address': '',
-            'phone': '',
-            'telephone': '',
-            'email': '',
-            'id': ''
-        };
-        addressPopup.needRedirect = false;
-        pop.fadeIn(300);
-
-    });
-    $(document).on('click', '.receive-modify', function () {
-        pop.fadeIn(300);
-    });
 
     $(document).ready(function () {
             Vue.config.debug = true;
+            addressPopup.redirectUrl = '/checkout/shipping?orderId=' + addressPopup.orderId;
             new Vue({
                 el: '#order-info',
                 data: {
-                    'defaultAddressId': '',
-                    'ok':true
-
+                    defaultAddressId: ''
                 },
                 methods: {
                     setOrderAddress: function (shippingId, orderId, event) {
-                        var orderInfoObj=this;
+                        var orderInfoObj = this;
                         $.ajax({
                             url: '/checkout/addAddressToOrder/',
                             data: {
@@ -57,13 +37,69 @@ require(['jquery', 'component', 'ajax', 'addressPopup', 'vue'], function ($, Cpn
                             },
                             type: 'POST',
                             success: function (response) {
-                                orderInfoObj.receive_choose='';
-                                orderInfoObj.defaultAddressId=shippingId;
+                                orderInfoObj.receive_choose = '';
+                                orderInfoObj.defaultAddressId = shippingId;
                             }
                         })
+                    },
+                    edit: function (addressId, event) {
+                        addressPopup.isUpdate = true;
+                        $.ajax({
+                            url: '/my-account/person-info/findAddress/' + addressId,
+                            type: 'GET',
+                            dataType: 'json'
+                        })
+                            .done(function (response) {
+                                addressPopup.currentAddress = JSON.parse(response.data);
+                                addressPopup.display = 'block';
+                            })
+                            .fail(function () {
+                                console.log("error");
+                            })
+                            .always(function () {
+                                console.log("complete");
+                            });
+                    },
+                    deleteAddress: function (addressId) {
+                        if (window.confirm('你确定要删除本地址吗？')) {
+                            $.ajax({
+                                url: '/my-account/person-info/deleteAddress/' + addressId,
+                                type: 'POST',
+                                dataType: 'json'
+                            })
+                                .done(function (response) {
+                                    window.location.href = '/checkout/shipping?orderId=' + addressPopup.orderId;
+                                })
+                                .fail(function () {
+                                    console.log("error");
+                                })
+                                .always(function () {
+                                    console.log("complete");
+                                });
+                            return true;
+                        } else {
+                            return false;
+                        }
+
+
                     }
                 }
-            })
+            });
+            $('#addNewAddress,.address-have-no-add').click(function () {
+                addressPopup.currentAddress = {
+                    'name': '',
+                    'province': '请选择',
+                    'city': '请选择',
+                    'district': '请选择',
+                    'address': '',
+                    'phone': '',
+                    'telephone': '',
+                    'email': '',
+                    'id': ''
+                };
+                addressPopup.needRedirect = false;
+                addressPopup.display = 'block';
+            });
         }
     )
 
