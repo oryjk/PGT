@@ -81,6 +81,7 @@
 						<li class="receive-item" @click="setOrderAddress(${address.id},${order.id},$event)">
 							<div class="receive-info">
 								<span class="receive-name" v-bind:class="{'receive-choose':defaultAddressId==${address.id}}">${address.name}</span>
+								<span class="" style="margin-left: 10px;">${address.name}</span>
 								<span class="receive-phone">${address.phone}</span>
 								<span class="receive-province">${address.province}</span>
 								<span class="receive-city">${address.city}</span>
