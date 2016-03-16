@@ -278,7 +278,7 @@ a {
     width: 80px;
     height: 80px; }
     .header .status-my-account:hover {
-      background: white;
+      background: #ff6d6d;
       top: -5px;
       box-shadow: 0 10px 15px #555555; }
   .header .status-my-account-detail {
@@ -292,7 +292,7 @@ a {
     text-align: center; }
     .header .status-my-account-detail .detail-top {
       height: 70px;
-      background: white;
+      background: #ff6d6d;
       box-shadow: 0 10px 15px #555555; }
       .header .status-my-account-detail .detail-top a {
         padding: 0;

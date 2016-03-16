@@ -111,7 +111,7 @@
       display: inline-block;
       @include wh(80px, 80px);
       &:hover{
-        background: white;
+        background: $main;
         top: -5px;
         box-shadow: 0 10px 15px $gray;
       }
@@ -129,7 +129,7 @@
 
       .detail-top{
         height: 70px;
-        background:white;
+        background: $main;
         box-shadow: 0 10px 15px $gray;
         a{
           padding: 0;
