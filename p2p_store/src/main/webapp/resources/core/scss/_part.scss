@@ -152,12 +152,21 @@
         height: 70px;
         .detail-person{
           background:url("../core/images/header/man.png") no-repeat 24px 10px;
+          &:hover{
+            background:url("../core/images/header/r-man.png") no-repeat 24px 10px;
+          }
         }
         .detail-order{
           background: url("../core/images/header/buy.png")no-repeat 21px 10px;
+          &:hover{
+            background:url("../core/images/header/r-buy.png") no-repeat 21px 10px;
+          }
         }
         .detail-exit{
           background: url("../core/images/header/exit.png")no-repeat 26px 10px;
+          &:hover{
+            background:url("../core/images/header/r-exit.png") no-repeat 26px 10px;
+          }
         }
       }
       a {

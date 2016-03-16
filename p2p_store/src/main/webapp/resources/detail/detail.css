@@ -359,10 +359,16 @@ a {
       height: 70px; }
       .header .status-my-account-detail .detail-bot .detail-person {
         background: url("../core/images/header/man.png") no-repeat 24px 10px; }
+        .header .status-my-account-detail .detail-bot .detail-person:hover {
+          background: url("../core/images/header/r-man.png") no-repeat 24px 10px; }
       .header .status-my-account-detail .detail-bot .detail-order {
         background: url("../core/images/header/buy.png") no-repeat 21px 10px; }
+        .header .status-my-account-detail .detail-bot .detail-order:hover {
+          background: url("../core/images/header/r-buy.png") no-repeat 21px 10px; }
       .header .status-my-account-detail .detail-bot .detail-exit {
         background: url("../core/images/header/exit.png") no-repeat 26px 10px; }
+        .header .status-my-account-detail .detail-bot .detail-exit:hover {
+          background: url("../core/images/header/r-exit.png") no-repeat 26px 10px; }
     .header .status-my-account-detail a {
       float: left;
       padding: 10px 0 0 8px;
