@@ -5,6 +5,7 @@ import com.pgt.cart.bean.FavouriteBuilder;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.dao.UserFavouriteDao;
 import com.pgt.product.bean.Product;
+import com.pgt.tender.bean.Tender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,18 @@ public class UserFavouriteService {
 		return fb.createFavourite();
 	}
 
+
+	public Favourite convertTenderToFavourite(final int pUserId, final Tender pTender, final int pFavouriteType) {
+		FavouriteBuilder fb = new FavouriteBuilder();
+		fb.setUserId(pUserId).setType(pFavouriteType);
+		fb.setProductId(pTender.getTenderId()).setName(pTender.getName()).setDescription(pTender.getDescription());
+
+		if (!ObjectUtils.isEmpty(pTender.getP2pFrontMedia())) {
+			fb.setSnapshotId(pTender.getP2pFrontMedia().getId());
+		}
+		return fb.createFavourite();
+	}
+
 	public UserFavouriteDao getUserFavouriteDao() {
 		return mUserFavouriteDao;
 	}
@@ -83,4 +96,5 @@ public class UserFavouriteService {
 	public void setUserFavouriteDao(final UserFavouriteDao pUserFavouriteDao) {
 		mUserFavouriteDao = pUserFavouriteDao;
 	}
+
 }

@@ -13,6 +13,8 @@ import com.pgt.cart.service.UserFavouriteService;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductServiceImp;
+import com.pgt.tender.bean.Tender;
+import com.pgt.tender.service.TenderService;
 import com.pgt.user.bean.User;
 import com.pgt.utils.URLMapping;
 import org.apache.commons.lang3.StringUtils;
@@ -50,8 +52,11 @@ public class UserFavouriteController extends TransactionBaseController implement
 	@Resource(name = "priceOrderService")
 	private PriceOrderService mPriceOrderService;
 
+	@Resource(name = "productServiceImp")
+	private ProductServiceImp mProductServiceImp;
+
 	@Autowired
-	private ProductServiceImp productServiceImp;
+	private TenderService mTenderService;
 
 	@Autowired
 	private URLMapping mURLMapping;
@@ -77,21 +82,34 @@ public class UserFavouriteController extends TransactionBaseController implement
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
-		Product product = getProductServiceImp().queryProduct(productId);
-		if (product == null || !RepositoryUtils.idIsValid(product.getProductId())) {
-			LOGGER.debug("Add item to favourite failed for cannot find product with id: {}", productId);
-			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
-			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+		Favourite favourite = null;
+		if (favouriteType == FavouriteType.B2C_PRODUCT || favouriteType == FavouriteType.P2P_PRODUCT) {
+			Product product = getProductServiceImp().queryProduct(productId);
+			if (product == null || !RepositoryUtils.idIsValid(product.getProductId())) {
+				LOGGER.debug("Add item to favourite failed for cannot find product with id: {}", productId);
+				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
+				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+			}
+			// create favourite
+			favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product, favouriteType);
+		} else if (favouriteType == FavouriteType.P2P_TENDER) {
+			Tender tender = getTenderService().queryTenderById(productId, Boolean.TRUE);
+			if (tender == null || !RepositoryUtils.idIsValid(tender.getTenderId())) {
+				LOGGER.debug("Add item to favourite failed for cannot find tender with id: {}", productId);
+				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_INVALID);
+				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+			}
+			// create favourite
+			favourite = getUserFavouriteService().convertTenderToFavourite(currentUser.getId().intValue(), tender, favouriteType);
 		}
 		// check user has already add this item as favourite
-		Favourite favourite = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId, favouriteType);
-		if (favourite != null && RepositoryUtils.idIsValid(favourite.getId())) {
-			LOGGER.debug("User had added product: {} as favourite: {}", productId, favourite.getId());
+		Favourite favouriteCopy = getUserFavouriteService().queryFavouriteByProduct(currentUser.getId().intValue(), productId, favouriteType);
+		if (favouriteCopy != null && RepositoryUtils.idIsValid(favouriteCopy.getId())) {
+			LOGGER.debug("User had added item: {} of type: {} as favourite: {}", productId, favouriteType, favouriteCopy.getId());
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, WARN_FAVOURITE_DUPLICATE);
 			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
-		// create favourite
-		favourite = getUserFavouriteService().convertProductToFavourite(currentUser.getId().intValue(), product, favouriteType);
+
 		// persist favourite
 		TransactionStatus status = ensureTransaction();
 		try {
@@ -100,7 +118,7 @@ public class UserFavouriteController extends TransactionBaseController implement
 				status.setRollbackOnly();
 			}
 		} catch (Exception e) {
-			LOGGER.error("Create favourite item of user: {} failed for product: {}", currentUser.getId(), productId);
+			LOGGER.error(String.format("Create favourite item of user: %d failed for item: %d of type: %d", currentUser.getId(), productId, favouriteType), e);
 			status.setRollbackOnly();
 		} finally {
 			if (status.isRollbackOnly()) {
@@ -559,11 +577,19 @@ public class UserFavouriteController extends TransactionBaseController implement
 	}
 
 	public ProductServiceImp getProductServiceImp() {
-		return productServiceImp;
+		return mProductServiceImp;
 	}
 
 	public void setProductServiceImp(final ProductServiceImp pProductServiceImp) {
-		productServiceImp = pProductServiceImp;
+		mProductServiceImp = pProductServiceImp;
+	}
+
+	public TenderService getTenderService() {
+		return mTenderService;
+	}
+
+	public void setTenderService(final TenderService pTenderService) {
+		mTenderService = pTenderService;
 	}
 
 	public ResponseBuilderFactory getResponseBuilderFactory() {
