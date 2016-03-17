@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8">
+    <title>点金子后台管理系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">-->
+    <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+    <link href="../assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css">
+    <link href="../assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
+    <!-- END PAGE LEVEL PLUGIN STYLES -->
+    <!-- BEGIN PAGE STYLES -->
+    <link href="../assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+    <link href="../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
+    <link href="../assets/global/css/plugins.css" rel="stylesheet" type="text/css">
+    <link href="../assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
+    <link href="../assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color">
+    <link href="../assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
+    <!-- END THEME STYLES -->
+    <!--<link rel="shortcut icon" href="favicon.ico">-->
+    <link rel="stylesheet" href="banner-add-and-modify.css"/>
+    <link rel="stylesheet" href="../assets/others/jquery-date-and-time/jquery-calendar.css"/>
+
+</head>
+<!-- END HEAD -->
+
+
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-menu-fixed" class to set the mega menu fixed  -->
+<!-- DOC: Apply "page-header-top-fixed" class to set the top menu fixed  -->
+<body>
+<!-- BEGIN HEADER -->
+<div id="header" class="page-header"></div>
+<!-- END HEADER -->
+
+
+<!-- BEGIN PAGE CONTAINER -->
+<div class="page-container" id="content">
+    <div class="page-content">
+        <div class="container-fluid pgt-container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <a href="#">首页</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <a href="#">分类列表</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li class="active">
+                            <a href="#">新增分类</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
+            <div class="row" style="display: block">
+                <div class="col-xs-12">
+                    <div class="Metronic-alerts alert alert-danger fade in">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                        <p>错误信息</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="portlet box blue-hoki">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i>基本信息
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <!-- BEGIN FORM-->
+                            <form action="javascript:;" class="form-horizontal">
+                                <div class="form-body">
+                                    <!-- 只有在修改时才出现id行-->
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">id</label>
+                                        <div class="col-md-4">
+                                            <p class="form-control-static">
+                                                012
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">创建时间:</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" placeholder="" maxlength="16" onfocus="$(this).calendar()">
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">banner类型</label>
+                                        <div class="col-md-9">
+                                            <div class="radio-list">
+                                                <select class="form-control input-medium" id="levelSelect">
+                                                    <option value="1">首页banner</option>
+                                                    <option value="2">顶部</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">url</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">备注</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">状态</label>
+                                        <div class="col-md-9">
+                                            <div class="radio-list">
+                                                <select class="form-control input-medium">
+                                                    <option value="1">启用</option>
+                                                    <option value="0">禁用</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- super:修改产品时才出现下面一个div.form-group-->
+
+                                <div class="form-actions top">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type="submit" class="btn blue-hoki">确认</button>
+                                            <button type="button" class="btn default">取消</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+            <div id="imgUpload" class="pgt-img-upload">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="pgt-each-img">
+                            <div class="pgt-handle-box">
+                                <a class="pgt-img-delete" href="#">删除</a>
+                            </div>
+                            <img class="pgt-category-img" src="" alt=""/>
+                            <p>200 * 200</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-12 control-label">分类主图</label>
+                    <div class="col-md-12">
+                        <form class="pgt-file-box" action="/test">
+                            <input class="pgt-file-btn" name="thumbnail" type="file"/>
+                            <button type="button" class="btn blue">选择图片</button>
+                        </form>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- END PAGE CONTAINER -->
+
+
+<!-- BEGIN JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../assets/global/plugins/respond.min.js"></script>
+<script src="../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+
+<!--BEGIN super: load 本段内容在套模版时不引入,直接在相应位置引入jsp即可-->
+<script>
+    $('#header').load('../core/html/header.html');
+</script>
+<!--END load-->
+
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+        type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../core/js/jquery.form.js"></script>
+
+<script src="../assets/others/jquery-date-and-time/jquery-calendar.js"></script>
+<!-- END CORE PLUGINS -->
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
