@@ -32,6 +32,17 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
                 width: w + 'px',
                 height: h + 'px'
             });
+        });
+        $('.nav-item').mouseout(function () {
+            var $this =$('.nav-item').eq(0),
+            w = $this.innerWidth(),
+            h = $this.innerHeight();
+            $('#navHover').css({
+                top:0,
+                left:0,
+                width: w + 'px',
+                height: h + 'px'
+            });
         })
     });
 

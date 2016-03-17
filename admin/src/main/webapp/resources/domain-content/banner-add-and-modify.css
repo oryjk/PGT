@@ -1,0 +1,58 @@
+.pgt-container {
+    position: relative;
+}
+.pgt-img-upload {
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    top: 28%;
+    right: 5%;
+}
+
+.pgt-file-box {
+    position: relative;
+}
+.pgt-file-btn {
+    position: absolute;
+    width: 84px;
+    height: 34px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.pgt-each-img {
+    float: left;
+    position: relative;
+    margin-right: 10px;
+}
+.pgt-handle-box {
+    position: absolute;
+    display: none;
+}
+.pgt-each-img:hover .pgt-handle-box {
+    display: block;
+}
+
+.pgt-each-img p {
+    max-width: 200px;
+}
+
+.pgt-category-img {
+    height: 200px;
+}
+
+.hidden {
+    display: none;
+}
+
+.pgt-color-box {
+    position: relative;
+}
+
+.pgt-color {
+    position: absolute;
+    top: 7px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+}

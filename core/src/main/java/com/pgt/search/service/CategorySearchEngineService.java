@@ -6,17 +6,24 @@ import com.google.common.collect.Lists;
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryHelper;
+import com.pgt.category.service.CategoryService;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.Constants;
+import com.pgt.home.bean.HotSale;
+import com.pgt.product.bean.Product;
 import com.pgt.search.bean.ESFilter;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
+import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.action.update.UpdateRequestBuilder;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -45,6 +52,8 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
     private CategoryHelper categoryHelper;
     @Autowired
     private ESConfiguration esConfiguration;
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public void index() {
@@ -201,4 +210,37 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
 
         return response;
     }
+
+    public void updateCategoryIndex(Category category, String indexName) {
+
+        LOGGER.debug("Begin to update category index with id is {}.", category.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] rootByte = mapper.writeValueAsBytes(category);
+            UpdateRequestBuilder updateRequestBuilder =
+                    getIndexClient().prepareUpdate(StringUtils.isEmpty(indexName) ? Constants.SITE_INDEX_NAME : indexName, Constants
+                            .CATEGORY_INDEX_TYPE, category.getId() + "")
+                            .setDoc(rootByte);
+            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
+            updateResponse.getHeaders().stream().forEach(s -> LOGGER.debug(s));
+            if (updateResponse.isCreated()) {
+                LOGGER.debug("Success update category index.");
+                return;
+            }
+
+            LOGGER.debug("Not success update category index.");
+
+        } catch (JsonProcessingException e) {
+            LOGGER.error("JsonProcessingException has occur when update category.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.error("IOException has occur when update category.");
+            e.printStackTrace();
+        }
+    }
+
+    public void createHotSaleIndex(Integer rootCategoryId) {
+
+    }
+
 }

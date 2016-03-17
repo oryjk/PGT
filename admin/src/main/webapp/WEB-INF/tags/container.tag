@@ -494,7 +494,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href=":;">
+                                    <a href="/log/main">
+                                        <i class="fa-angle-right"></i>
+                                        服务器日志管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/backup/main">
                                         <i class="fa-angle-right"></i>
                                         数据备份
                                     </a>
@@ -503,6 +509,36 @@
                                     <a href=":;">
                                         <i class="fa-angle-right"></i>
                                         帮助提示
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:if>
+
+                    <!-- !!!list 主域名内容-->
+                    <c:if test="${roleValue eq 9}">
+                        <li class="menu-dropdown classic-menu-dropdown ">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                               href="javascript:;">
+                                主域名内容<i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/domain/banner">
+                                        <i class="fa-angle-right"></i>
+                                        banner
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/domain/b2c">
+                                        <i class="fa-angle-right"></i>
+                                        在当淘推荐
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/domain/p2p">
+                                        <i class="fa-angle-right"></i>
+                                        绝当淘推荐
                                     </a>
                                 </li>
                             </ul>
