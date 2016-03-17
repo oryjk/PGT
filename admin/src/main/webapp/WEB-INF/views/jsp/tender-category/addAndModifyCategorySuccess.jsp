@@ -12,6 +12,13 @@
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <admin:container id="productList">
-  成功添加
+	<h1 style="text-align: center">成功添加</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<a href="/tenderCategory/query" style="float: right">
+				<button type="button" class="btn blue">返回列表页面</button>
+			</a>
+		</div>
+	</div>
 </admin:container>
 
