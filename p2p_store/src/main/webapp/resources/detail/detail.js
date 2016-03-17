@@ -116,7 +116,7 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function (
         $('.invest-add-favorite, .item-join-favorite').on('click', function (event) {
             var target = event.target;
             if (target) {
-                if ($(target).data('processed') != 'true') {
+                if ($(target).data('processed') == false) {
                     $.ajax({
                         type: 'POST',
                         url: '/myAccount/favourite',

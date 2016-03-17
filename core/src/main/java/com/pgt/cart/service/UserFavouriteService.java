@@ -43,8 +43,8 @@ public class UserFavouriteService {
 		return getUserFavouriteDao().queryFavouriteByProduct(pUserId, pProductId, pFavouriteType);
 	}
 
-	public List<Favourite> queryFavourites(final int pUserId) {
-		return getUserFavouriteDao().queryFavourites(pUserId);
+	public List<Favourite> queryFavourites(final int pUserId, final int pFavouriteType) {
+		return getUserFavouriteDao().queryFavourites(pUserId, pFavouriteType);
 	}
 
 	public Favourite queryFavourite(final int pFavouriteId) {
