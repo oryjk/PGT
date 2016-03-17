@@ -19,7 +19,9 @@ public interface CartConstant {
 
     String ORDER_TENDER = "historyOrderTender";
 
-    String FAVOURITES = "favourites";
+    String FAVOURITES        = "favourites";
+    String TENDER_FAVOURITES = "tenderFavourites";
+    String PROD_FAVOURITES   = "productFavourites";
 
     String RECOMMEND_PRODUCTS = "recommendProducts";
 

@@ -17,6 +17,7 @@ public class TenderQuery extends Tender implements Serializable{
 	private Boolean categoryHot = true;
 
 	private Boolean siteHot = true;
+	private Integer rootCategoryId;
 
 	private Boolean isNeedHot;
 
@@ -130,5 +131,13 @@ public class TenderQuery extends Tender implements Serializable{
 
 	public void setPaginationBean (PaginationBean paginationBean) {
 		this.paginationBean = paginationBean;
+	}
+
+	public Integer getRootCategoryId() {
+		return rootCategoryId;
+	}
+
+	public void setRootCategoryId(Integer rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 	}
 }

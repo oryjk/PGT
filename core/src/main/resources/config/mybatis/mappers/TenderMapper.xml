@@ -90,8 +90,8 @@
 					and name like "%"#{name}"%"
 				</if>
 			</if>
-				 <if test="isNeedHot!=false||isNeedHot!=null">
-			     <if test="categoryHot!=null">
+
+			<if test="isNeedHot!=false||isNeedHot!=null">
 				 <if test="categoryHot==true">
 					AND CATEGORY_HOT=1
 				</if>
@@ -99,6 +99,7 @@
 					AND CATEGORY_HOT=0
 				</if>
 			</if>
+
 			<if test="siteHot!=null">
 				<if test="siteHot==true">
 					AND CATEGORY_HOT=1
@@ -107,9 +108,16 @@
 					AND CATEGORY_HOT=0
 				</if>
 			</if>
+			<if test="categoryId!=null">
+				AND tc.CATEGORY_ID=#{categoryId}
 			</if>
 		</where>
 	</sql>
+
+	<sql id="joinCategory">
+		JOIN TENDER_CATEGORY tc ON t.ID=tc.TENDER_ID
+	</sql>
+
 
 	<!-- 排序条件 -->
 	<sql id="tenderListOrder">
@@ -173,7 +181,8 @@
 
 
 	<select id="queryTenderByQuery" parameterType="com.pgt.tender.bean.TenderQuery" resultMap="tenderResult">
-		SELECT * FROM TENDER
+		SELECT * FROM TENDER t
+		<include refid="joinCategory"/>
 		<include refid="tenderListWhere"/>
 		<include refid="pageBean"/>
 		<include refid="tenderListOrder"/>

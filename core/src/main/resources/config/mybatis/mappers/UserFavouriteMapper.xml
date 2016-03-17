@@ -45,6 +45,7 @@
 		SELECT COUNT(fav.id)
 		FROM FAVOURITE fav
 		WHERE fav.user_id = #{userId}
+		AND fav.type = #{type}
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
 			AND fav.name LIKE CONCAT('%', #{pagination.keyword}, '%')
 		</if>
@@ -59,6 +60,7 @@
 		LEFT JOIN PRODUCT prod ON fav.prod_id = prod.product_id
 		LEFT JOIN MEDIA m ON fav.snapshot_id = m.media_id
 		WHERE fav.user_id = #{userId}
+		AND fav.type = #{type}
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
 			AND fav.name LIKE CONCAT('%', #{pagination.keyword}, '%')
 		</if>
@@ -84,12 +86,15 @@
 		LEFT JOIN PRODUCT prod ON fav.prod_id = prod.product_id
 		LEFT JOIN MEDIA m ON fav.snapshot_id = m.media_id
 		WHERE fav.user_id = #{userId}
+		AND fav.type = #{type}
 	</select>
 
 	<select id="queryFavouriteByProduct" resultMap="favourite">
 		SELECT *
 		FROM FAVOURITE
-		WHERE user_id = #{userId} AND prod_id = #{productId}
+		WHERE user_id = #{userId}
+		AND prod_id = #{productId}
+		AND type = #{type}
 	</select>
 
 	<insert id="createFavouriteItem" parameterType="com.pgt.cart.bean.Favourite" keyProperty="id"
