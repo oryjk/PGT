@@ -18,6 +18,7 @@ public class TenderQuery extends Tender implements Serializable{
 
 	private Boolean siteHot = true;
 
+	private Boolean isNeedHot;
 
 	/**
 	 * 是否启用模糊查询
@@ -27,7 +28,7 @@ public class TenderQuery extends Tender implements Serializable{
 	/**
 	 * 封装排序条件
 	 */
-	private List<OrderField> orderFields = new ArrayList<OrderField>();
+	private List<OrderField> orderFields = new ArrayList<>();
 
 
 	public boolean isNameLike () {
@@ -115,7 +116,13 @@ public class TenderQuery extends Tender implements Serializable{
 		this.siteHot = siteHot;
 	}
 
+	public Boolean getNeedHot() {
+		return isNeedHot;
+	}
 
+	public void setNeedHot(Boolean needHot) {
+		isNeedHot = needHot;
+	}
 
 	public PaginationBean getPaginationBean () {
 		return paginationBean;

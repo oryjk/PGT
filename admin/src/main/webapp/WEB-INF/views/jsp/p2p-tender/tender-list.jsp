@@ -58,85 +58,6 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-xs-3">
-                                        <div class="dataTables_filter">
-                                            <label>金额:
-                                                <input
-                                                       class="form-control input-xsmall input-inline"
-                                                       placeholder="最低" aria-controls="sample_3"/>
-                                                -
-                                                <input
-                                                       class="form-control input-xsmall input-inline"
-                                                       placeholder="最高" aria-controls="sample_3"/>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="dataTables_filter">
-                                            <label>状态:
-                                                <select name="sample_3_length" aria-controls="sample_3"
-                                                        class="form-control input-small input-inline select2-offscreen"
-                                                        tabindex="-1" title="">
-                                                    <option value="-1">所有</option>
-                                                    <option value="5">启用</option>
-                                                    <option value="15">禁用</option>
-                                                </select>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="dataTables_filter">
-                                            <div class="row">
-                                                <div class="col-xs-1 pgt-time-tittle">
-                                                    <span>时间</span>
-                                                </div>
-                                                <div class="col-xs-4 pgt-time-tittle">
-                                                    <select
-                                                            class="form-control input-small input-inline select2-offscreen"
-                                                            tabindex="-1" title="">
-                                                        <option value="-1">发布时间</option>
-                                                        <option value="5">开始时间</option>
-                                                        <option value="15">结束时间</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-xs-3 pgt-begin-date" style="position: relative">
-                                                    <input
-                                                           class="jcDate jcDateIco form-control input-small input-inline" maxlength="16"
-                                                           onfocus="$(this).calendar()">
-                                                </div>
-                                                <div class="col-xs-1 pgt-date-divide">
-                                                    <span style="padding-left: 30px;">至</span>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <input
-                                                           class="jcDate jcDateIco form-control input-small input-inline" maxlength="16"
-                                                           onfocus="$(this).calendar()">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <div class="dataTables_filter">
-                                            <label>网站热门:
-                                                <input type="checkbox" name="" id=""/>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <div class="dataTables_filter">
-                                            <label>分类热门:
-                                                <input type="checkbox" name="" id=""/>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <div class="dataTables_filter">
-                                            <label>切换有/无子项投资:
-                                                <input type="checkbox" name="" id=""/>
-                                            </label>
-                                        </div>
-                                    </div>
-
                                     <div class="col-xs-1">
                                         <input type="submit" class="btn blue" value="搜索"/>
                                     </div>
@@ -316,7 +237,7 @@
                                     <div class="col-md-4 col-sm-4">
                                         <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
                                             <!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
-                                            <ul class="pagination" id="pagination">
+                                            <ul class="pagination" >
 
                                                 <li class="paginate_button"><a
                                                         href="/tender/tenderList?currentIndex=0">首页</a></li>
@@ -402,9 +323,9 @@
                                         <form class="dataTables_filter pgt-goto-page" action="/tender/tenderList" method="get">
                                             <label>
                                                 <input id="term_hidden" type="hidden" name="term">
-                                                <input type="search" value="${currentIndex+1}" name="currentIndex"
+                                                <input id="currentIndex" type="search" value="${currentIndex+1}" name="currentIndex"
                                                        class="form-control input-xsmall input-inline" placeholder="第几页">
-                                                <input id="submitBtn" type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
+                                                <input id="pageSubmit" type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
                                             </label>
                                         </form>
                                     </div>

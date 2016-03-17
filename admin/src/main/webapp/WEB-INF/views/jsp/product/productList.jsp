@@ -472,9 +472,6 @@
                                                 <input type="hidden" name="sortBeans[${status.index}].sort" value="${bean.sort}">
                                             </c:forEach>
                                         </c:if>
-
-
-
                                         <input  type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
                                     </label>
                                 </form>
