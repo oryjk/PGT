@@ -32,8 +32,7 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
                 width: w + 'px',
                 height: h + 'px'
             });
-        });
-        $('.nav-item').mouseout(function () {
+        }).mouseout(function () {
             var $this =$('.nav-item').eq(0),
             w = $this.innerWidth(),
             h = $this.innerHeight();
@@ -43,7 +42,34 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
                 width: w + 'px',
                 height: h + 'px'
             });
+        });
+
+        $('.category-nav-item').mouseenter(function () {
+            var $this = $(this);
+            var eachCategory = $this.parents('.each-category');
+            eachCategory.find('.category-nav-item').removeClass('category-nav-choose');
+            $this.addClass('category-nav-choose');
+            //输入具体的url
+            eachCategory.find('.invest-list').load('/');
+        });
+
+
+        var pawnPointList = $('.pawn-point-item');
+        var pawnNavList = $('.pawn-nav-item');
+        pawnNavList.mouseenter(function () {
+            var $this = $(this);
+            var i = $this.attr('data-value');
+            pawnNavList.removeClass('pawn-nav-current');
+            $this.addClass('pawn-nav-current');
+            pawnPointList.hide().eq(i).fadeIn(1000);
         })
+
+
+
+
+
+
+
     });
 
 

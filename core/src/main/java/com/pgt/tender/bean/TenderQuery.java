@@ -10,11 +10,17 @@ import java.util.List;
 /**
  * Created by xiaodong on 16-1-27.
  */
+
 public class TenderQuery extends Tender implements Serializable {
 
     private PaginationBean paginationBean;
+
+    private Boolean categoryHot = true;
+
+    private Boolean siteHot = true;
     private Integer rootCategoryId;
 
+    private Boolean isNeedHot;
 
     /**
      * 是否启用模糊查询
@@ -24,7 +30,7 @@ public class TenderQuery extends Tender implements Serializable {
     /**
      * 封装排序条件
      */
-    private List<OrderField> orderFields = new ArrayList<OrderField>();
+    private List<OrderField> orderFields = new ArrayList<>();
 
 
     public boolean isNameLike() {
@@ -92,6 +98,33 @@ public class TenderQuery extends Tender implements Serializable {
         return this;
     }
 
+    @Override
+    public Boolean getCategoryHot() {
+        return categoryHot;
+    }
+
+    @Override
+    public void setCategoryHot(Boolean categoryHot) {
+        this.categoryHot = categoryHot;
+    }
+
+    @Override
+    public Boolean getSiteHot() {
+        return siteHot;
+    }
+
+    @Override
+    public void setSiteHot(Boolean siteHot) {
+        this.siteHot = siteHot;
+    }
+
+    public Boolean getNeedHot() {
+        return isNeedHot;
+    }
+
+    public void setNeedHot(Boolean needHot) {
+        isNeedHot = needHot;
+    }
 
     public PaginationBean getPaginationBean() {
         return paginationBean;
@@ -108,4 +141,5 @@ public class TenderQuery extends Tender implements Serializable {
     public void setRootCategoryId(Integer rootCategoryId) {
         this.rootCategoryId = rootCategoryId;
     }
+
 }

@@ -8,6 +8,8 @@
 '../core/scss/reset',
 '../core/scss/generalStyle';
 
+@include footer;
+
 /*style
 **************************************************************************************************************************************************/
 .top-banner {
@@ -285,16 +287,169 @@
   }
 }
 
-.invest-list {
-  background: white;
+/*hottest
+  ************************************************/
+.hottest {
+  margin: 30px auto 0;
+  width: $main-width
+}
+
+.hottest-list {
   @extend %clear;
+}
+
+.hottest-item {
+  float: left;
+  @include wh(292.5px, 323px);
+  margin-right: 10px;
+}
+
+.hottest-item-end {
+  margin: 0;
+}
+
+.hottest-link,
+.hottest-img {
+  display: block;
+  @include wh(100%, 100%);
+}
+
+.hottest-link {
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    .hottest-text {
+      top: 283px;
+      transition: top .5s;
+    }
+  }
+}
+
+.hottest-text {
+  position: absolute;
+  top: 323px;
+  left: 0;
+  @include wh(100%, 40px);
+  background: url("../core/images/opacity/opacity_white_9.png") repeat;
+  line-height: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: #6c6c6c;
+  transition: top .5s;
+}
+
+/*pawn
+  ************************************************/
+.pawn {
+  margin: 0 auto;
+  @extend %clear;
+  width: $main-width;
+}
+
+
+.pawn-point-list {
+  float: left;
+  @include wh(760px, 341px);
+}
+
+.pawn-point-item {
+  position: relative;
+  display: none;
+  @include wh(100%, 100%);
+}
+
+.pawn-point-link {
+  display: block;
+  @include wh(100%, 100%);
+  color: #6c6c6c;
+}
+
+.pawn-point-text {
+  position: absolute;
+  top: 85px;
+  right: 40px;
+  @include wh(310px, 150px);
+  background: url("../core/images/opacity/opacity_white_5.png") repeat;
+}
+
+.pawn-point-head {
+  padding: 30px 0 0 30px;
+  font-size: 14px;
+}
+
+.pawn-point-content {
+  padding: 10px 30px 0 30px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.pawn-point-item-current {
+  display: block;
+}
+
+.pawn-nav-list {
+  float: left;
+  @include wh(440px, 341px);
+}
+
+.pawn-nav-item {
+  position: relative;
+  float: left;
+  border: 1px solid $gray-light;
+  margin: 0 0 10px 10px;
+  @include wh(208px, 105px);
+  cursor: pointer;
+
+  &:hover {
+    .pawn-nav-link {
+      @include opacity(0.8);
+      transition: opacity .5s;
+    }
+  }
+}
+
+.pawn-nav-end {
+  margin-bottom: 0;
+}
+
+.pawn-nav-current {
+  border: 1px solid $main;
+}
+
+.pawn-nav-link {
+  @include opacity(0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include wh(100%, 100%);
+  text-align: center;
+  line-height: 105px;
+  font-size: 22px;
+  color: white;
+  background: black;
+}
+
+.pawn-nav-img {
+  display: block;
+  @include wh(100%, 100%);
+}
+
+
+/*category
+  ************************************************/
+.invest-list {
+  @extend %clear;
+  padding-top: 5px;
+  float: left;
+  background: white;
 
   li {
     position: relative;
     top: 0;
     float: left;
-    margin-right: 10px;
-    @include wh(300px, 430px);
+    margin-right: 2px;
+    @include wh(308px, 430px);
     background: #f8f8f8;
     transition: all .4s;
 
@@ -328,7 +483,7 @@
     img {
       display: block;
       margin: 0 auto;
-      width: 90%;
+      @include wh(277.18px, 277.18px);
     }
   }
 
@@ -364,18 +519,30 @@
     transition: opacity 0.4s;
   }
 }
+
 //category
+.headline {
+  margin: 40px 0 15px;
+  font-size: 40px;
+  height: 40px;
+  color: $main;
+  background: url("../core/images/index/red-line-right.png") no-repeat right 5px;
+  text-align: center;
+  @extend %clear;
+
+  div {
+    @include wh(100%, 100%);
+    background: url("../core/images/index/red-line-left.png") no-repeat left 5px;
+  }
+}
+
 .category {
-  margin: 30px auto 0 ;
+  margin: 0 auto 30px;
   @include wh($main-width, auto);
   text-align: center;
-  background: url("../core/images/index/red-line-left.png") no-repeat left 5px;
 
-  h2 {
-    font-size: 40px;
-    color: $main;
-    background: url("../core/images/index/red-line-right.png") no-repeat right 5px;
-  }
+
+
 
   .each-category {
     margin-top: 30px;
@@ -385,6 +552,10 @@
   .list-head {
     float: left;
     @include wh(270px, 435px);
+  }
+
+  .list-head-content {
+    height: 100%;
   }
 
   .category-nav {
@@ -418,15 +589,6 @@
     text-align: center;
     font-size: 30px;
     color: white;
-  }
-
-  .invest-list {
-    padding-top: 5px;
-    float: left;
-
-    li {
-      margin: 0 0 0 10px;
-    }
   }
 
   .help {
@@ -502,5 +664,4 @@
     color: $main;
   }
 }
-
 

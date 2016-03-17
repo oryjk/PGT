@@ -90,14 +90,16 @@
 					and name like "%"#{name}"%"
 				</if>
 			</if>
-			<if test="categoryHot!=null">
-				<if test="categoryHot==true">
+
+			<if test="isNeedHot!=false||isNeedHot!=null">
+				 <if test="categoryHot==true">
 					AND CATEGORY_HOT=1
 				</if>
 				<if test="categoryHot==false">
 					AND CATEGORY_HOT=0
 				</if>
 			</if>
+
 			<if test="siteHot!=null">
 				<if test="siteHot==true">
 					AND CATEGORY_HOT=1
