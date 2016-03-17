@@ -322,6 +322,7 @@
 
 										<li class="paginate_button"><a
 												href="/tender/tenderList?currentIndex=0">首页</a></li>
+										paginationBean:${paginationBean.maxIndex}
 										<c:choose>
 											<c:when test="${paginationBean.maxIndex>5}">
 												<c:if test="${paginationBean.currentIndex>2 and paginationBean.currentIndex<paginationBean.maxIndex-3}">

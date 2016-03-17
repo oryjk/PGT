@@ -19,14 +19,17 @@ public class AllIndexService {
     private List<AbstractSearchEngineService> searchEngineServiceList = new ArrayList<>();
 
     public void createIndex() {
+
         if (CollectionUtils.isEmpty(searchEngineServiceList)) {
             LOGGER.debug("The searchEngineServiceList is empty.");
             return;
         }
 
         searchEngineServiceList.stream().forEach(abstractSearchEngineService -> {
-            abstractSearchEngineService.initialIndex();
-            abstractSearchEngineService.index();
+            ((Runnable) () -> {
+                abstractSearchEngineService.initialIndex();
+                abstractSearchEngineService.index();
+            }).run();
         });
     }
 
