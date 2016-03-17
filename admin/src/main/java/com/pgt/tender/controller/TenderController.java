@@ -92,8 +92,6 @@ public class TenderController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/tenderList", method = RequestMethod.GET)
     public ModelAndView get(@RequestParam(value = "term", required = false) String term,
-                            @RequestParam(value = "sortProperty", required = false) String sortProperty,
-                            @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue,
                             @RequestParam(value = "currentIndex", required = false) Long currentIndex, ModelAndView modelAndView,
                             HttpServletRequest pRequest, TenderQuery tenderQuery) {
 
@@ -108,17 +106,12 @@ public class TenderController extends InternalTransactionBaseController {
             currentIndex = 0L;
         }
         paginationBean.setCurrentIndex(currentIndex);
-        paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
-
+        paginationBean.setCapacity(3);
+        tenderQuery.setNeedHot(false);
         if (!StringUtils.isEmpty(term)) {
             LOGGER.debug("The query term is {}", term);
             tenderQuery.setNameLike(true);
             tenderQuery.setName(term);
-        }
-
-        if (!StringUtils.isEmpty(sortProperty)) {
-            LOGGER.debug("The sortProerty is {} and sortValve is {}", sortProperty, sortValue);
-            tenderQuery.orderbyCondition(sortValue.endsWith("ASC") ? true : false, sortProperty);
         }
 
         List<Tender> tenderAll = tenderService.queryTenderByQuery(tenderQuery);

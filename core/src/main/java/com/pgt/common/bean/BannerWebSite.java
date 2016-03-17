@@ -5,6 +5,6 @@ package com.pgt.common.bean;
  */
 public enum BannerWebSite {
 
-    B2C_STORE,P2P_STORE
+    B2C_STORE,P2P_STORE,DOMAIN
 
 }

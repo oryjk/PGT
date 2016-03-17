@@ -523,7 +523,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="/domain/banner">
+                                    <a href="/banner/bannerList">
                                         <i class="fa-angle-right"></i>
                                         banner
                                     </a>

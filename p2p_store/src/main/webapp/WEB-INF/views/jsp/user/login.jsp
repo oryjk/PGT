@@ -4,6 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:wb="http://open.weibo.com/wb">
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=YOUR APPKEY" type="text/javascript" charset="utf-8"></script>
 <head>
 	<meta charset="UTF-8">
 	<title></title>
@@ -63,7 +65,7 @@
 						<div class="domain">
 							快捷登录方式：
 							<a href="/qqLogin/login"><img src="../core/images/user/QQ.png"></a>
-							<a href="#"><img src="../core/images/user/wet.jpg"/></a>
+							<a href="/microBlogLogin/login"><img src="../core/images/user/wet.jpg"/></a>
 							<a href="#"><img src="../core/images/user/sina.jpg"/></a>
 						</div>
 					</div>
@@ -73,6 +75,20 @@
 	</div>
 </div>
 <!--content end-->
+
+<script type="application/javascript">
+	WB2.anyWhere(function(W){
+		W.parseCMD("/users/show.json", function(sResult, bStatus){
+			try{
+				//to do something...
+			}catch(e){}
+		},{
+			uid: '123456789'
+		}{
+			method: 'get'
+		});
+	});
+</script>
 
 
 <!--footer begin-->
