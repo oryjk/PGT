@@ -106,9 +106,16 @@
 					AND CATEGORY_HOT=0
 				</if>
 			</if>
-
+			<if test="categoryId!=null">
+				AND tc.CATEGORY_ID=#{categoryId}
+			</if>
 		</where>
 	</sql>
+
+	<sql id="joinCategory">
+		JOIN TENDER_CATEGORY tc ON t.ID=tc.TENDER_ID
+	</sql>
+
 
 	<!-- 排序条件 -->
 	<sql id="tenderListOrder">
@@ -172,7 +179,8 @@
 
 
 	<select id="queryTenderByQuery" parameterType="com.pgt.tender.bean.TenderQuery" resultMap="tenderResult">
-		SELECT * FROM TENDER
+		SELECT * FROM TENDER t
+		<include refid="joinCategory"/>
 		<include refid="tenderListWhere"/>
 		<include refid="pageBean"/>
 		<include refid="tenderListOrder"/>

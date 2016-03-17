@@ -16,7 +16,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<a href="/tenderCategory/query" style="float: right">
-				<button type="button" class="btn blue">返回列表页面</button>
+				<button type="button" class="btn blue">返回分类列表页面</button>
 			</a>
 		</div>
 	</div>
