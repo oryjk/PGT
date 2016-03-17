@@ -8,6 +8,8 @@ import com.pgt.cart.bean.OrderType;
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.controller.CartMessages;
 import com.pgt.cart.exception.OrderPersistentException;
+import com.pgt.city.bean.Province;
+import com.pgt.city.service.CityService;
 import com.pgt.com.pgt.order.bean.P2PInfo;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
@@ -31,9 +33,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -95,6 +95,8 @@ public class P2PCheckoutController {
 
     @Autowired
     private AddressInfoService addressInfoService;
+    @Autowired
+    private CityService cityService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView createOrder(HttpServletRequest pRequest, HttpServletResponse pResponse) {
@@ -161,25 +163,25 @@ public class P2PCheckoutController {
     }
 
     @RequestMapping(value = "/shipping")
-    public ModelAndView shippingPage(ModelAndView modelAndView,HttpServletRequest pRequest, HttpServletResponse pResponse)  {
+    public ModelAndView shippingPage(ModelAndView modelAndView, HttpServletRequest pRequest, HttpServletResponse pResponse) {
         String orderIdStr = pRequest.getParameter(CartConstant.ORDER_ID);
         User user = SessionHelper.getUser(pRequest, pResponse);
         if (StringUtils.isBlank(orderIdStr) || !StringUtils.isNumeric(orderIdStr)) {
-             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
         }
         if (null == user) {
-             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
         }
 
         Order order = getOrderService().loadOrder(Integer.valueOf(orderIdStr));
         if (null == order) {
-             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
         }
         if (order.getUserId() != user.getId().intValue()) {
-             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
+            modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
         }
         modelAndView = new ModelAndView();
@@ -198,12 +200,39 @@ public class P2PCheckoutController {
         }
         P2PInfo info = getOrderService().queryP2PInfoByOrderId(order.getId());
         // TODO SHIPPING PAGE
-
+        List<Province> provinces = cityService.getAllProvince();
+        modelAndView.addObject(CartConstant.ADDRESS_INFO_LIST, addressInfoList);
+        modelAndView.addObject(CartConstant.PROVINCES_LIST, provinces);
         modelAndView.addObject(CartConstant.ORDER, order);
         modelAndView.addObject(CartConstant.P2P_INFO, info);
         modelAndView.setViewName("/checkout/shipping");
         return modelAndView;
     }
+
+
+    @RequestMapping(value = "/addAddressToOrder", method = {RequestMethod.POST})
+    @ResponseBody
+    public Map<String, Object> addAddressToOrder(@RequestParam("addressInfoId") String addressInfoId,
+                                                 HttpServletRequest request, HttpSession session) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
+        Order order = getOrderService().getSessionOrder(request);
+        if (getOrderService().isInvalidOrder(user, order)) {
+            LOGGER.error("Falied to add address to order-{}.", request.getParameter(CartConstant.ORDER_ID));
+            map.put("redirectUrl", urlConfiguration.getShoppingCartPage());
+            map.put("success", "false");
+            return map;
+        }
+        if (StringUtils.isBlank(addressInfoId)) {
+            LOGGER.error("Need parameter 'addressInfoId' when adding address to order-{}.", order.getId());
+            map.put("success", "false");
+            return map;
+        }
+        getShippingService().addAddress(Integer.parseInt(addressInfoId), order);
+        map.put("success", "true");
+        return map;
+    }
+
 
     @RequestMapping(value = "/review")
     public ModelAndView orderReview(HttpServletRequest pRequest, HttpServletResponse pResponse) {

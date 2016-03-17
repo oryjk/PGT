@@ -35,4 +35,6 @@ public interface CartConstant {
     String ORDER = "order";
 
     String P2P_INFO = "p2pInfo";
+    String ADDRESS_INFO_LIST = "addressInfoList";
+    String PROVINCES_LIST = "provinceList";
 }

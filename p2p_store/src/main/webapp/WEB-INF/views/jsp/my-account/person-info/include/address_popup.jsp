@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <div id="popUp" class="pop-up" v-bind:style="{display:display}">
+	<input type="hidden" v-model="orderId" value="${order.id}"/>
 	<div class="wrap">
 		<div class="inner">
 			<h3>
@@ -14,7 +16,6 @@
 				<div class="pop-address-value">
 					<input class="pop-address-name" type="text" v-model="currentAddress.name"/>
 				</div>
-
 				<div class="pop-address-title">所在地区:</div>
 				<div class="pop-address-value">
 					<!-- 仿select组件begin-->
