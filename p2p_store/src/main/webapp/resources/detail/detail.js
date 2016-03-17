@@ -107,11 +107,44 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function (
             setQuantity(this, num);
 
         });
+
         $('.item-buy-now').on('click', function (event) {
             event.preventDefault();
             $(this).parent('.col-content').find('.addToCart').submit();
-        })
+        });
 
-
+        $('.invest-add-favorite, .item-join-favorite').on('click', function (event) {
+            var target = event.target;
+            if (target) {
+                if ($(target).data('processed') != 'true') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/myAccount/favourite',
+                        data: {
+                            'productId': $(target).data('pid'),
+                            'type': $(target).data('type')
+                        },
+                        success: function (data) {
+                            if (data && data.success === 1) {
+                                $(target).data('id', data.data.id).data('processed', 'true').text('已收藏');
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/myAccount/dislike',
+                        data: {
+                            'favouriteId': $(target).data('id')
+                        },
+                        success: function (data) {
+                            if (data && data.success === 1) {
+                                $(target).data('id', '').data('processed', 'false').text('添加收藏');
+                            }
+                        }
+                    });
+                }
+            }
+        });
     });
-})
+});

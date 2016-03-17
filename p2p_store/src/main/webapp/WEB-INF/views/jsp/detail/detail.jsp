@@ -29,7 +29,8 @@
 		<div class="invest-img"><img src="${ESTender.tender.p2pHeroMedias[0].path}" alt="${ESTender.tender.imageDesc}"/></div>
 		<div class="invest-handle">
 			<div class="invest-handle-group">
-				<a class="invest-add-favorite" href="javascript:void(0);">收藏</a>
+                <a class="invest-add-favorite" href="javascript:void(0);" data-id=""
+                   data-pid="${ESTender.tender.tenderId}" data-type="6" data-processed="">添加收藏</a>
 				<a class="invest-scan-count">已浏览<span>123</span>次</a>
 			</div>
 			<div class="invest-share-group">
@@ -181,7 +182,8 @@
 							<div class="col-title">&nbsp; </div>
 							<div class="col-content">
 								<a class="item-buy-now" id="item-buy-now" href="#">立即抢订</a>
-								<a class="item-join-favorite" href="#">添加收藏</a>
+                                <a class="item-join-favorite" href="javascript:void(0);" data-id=""
+                                   data-pid="${product.productId}" data-type="5" data-processed="">添加收藏</a>
 
 								<form method="post" class="addToCart" action="/checkout/create">
 									<input type="hidden" name="tenderId" value="${ESTender.tender.tenderId}"/>
