@@ -483,7 +483,7 @@
     img {
       display: block;
       margin: 0 auto;
-      width: 90%;
+      @include wh(277.18px, 277.18px);
     }
   }
 

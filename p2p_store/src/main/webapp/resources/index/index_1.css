@@ -676,7 +676,8 @@ a {
     .invest-list .img-box img {
       display: block;
       margin: 0 auto;
-      width: 90%; }
+      width: 277.18px;
+      height: 277.18px; }
   .invest-list h4 {
     margin: 30px auto 0;
     width: 180px;
