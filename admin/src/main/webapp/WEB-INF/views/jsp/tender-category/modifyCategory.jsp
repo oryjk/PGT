@@ -130,7 +130,7 @@
               <div class="row">
                 <div class="col-md-offset-3 col-md-9">
                   <button type="submit" class="btn blue-hoki">确认</button>
-                  <button type="button" class="btn default">取消</button>
+                  <a href="/tenderCategory/query"><button type="button" class="btn default">返回</button></a>
                 </div>
               </div>
             </div>

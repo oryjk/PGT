@@ -6,6 +6,7 @@ import com.pgt.common.bean.Media;
 import com.pgt.common.bean.ViewMapperConfiguration;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.Constants;
 import com.pgt.internal.bean.Role;
 import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.media.MediaService;
@@ -132,6 +133,7 @@ public class TenderController extends InternalTransactionBaseController {
             modelAndView.addObject("tenderList", tenderList);
             modelAndView.addObject("paginationBean", paginationBean);
         }
+        modelAndView.addObject(Constants.ROOT_CATEGORY_ID, tenderQuery.getRootCategoryId());
         return modelAndView;
     }
 

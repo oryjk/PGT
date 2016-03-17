@@ -58,6 +58,20 @@ public class TenderCategoryController extends InternalTransactionBaseController 
     }
 
 
+    @RequestMapping(value = "/querySub", method = RequestMethod.GET)
+    public ModelAndView querySub(@RequestParam(value = "rootCategoryId") Integer rootCategoryId, ModelAndView modelAndView) {
+        if (ObjectUtils.isEmpty(rootCategoryId)) {
+            LOGGER.debug("The root category id is empty.");
+            return modelAndView;
+        }
+        List<Category> categoryList = categoryService.querySubCategories(rootCategoryId);
+        modelAndView.addObject("categoryList", categoryList);
+        modelAndView.addObject("categoryType", CategoryType.TENDER_HIERARCHY);
+        modelAndView.setViewName("/tender-category/categoryList");
+        return modelAndView;
+    }
+
+
     @RequestMapping(value = "/categoryList", method = RequestMethod.GET)
     public ModelAndView get(HttpServletRequest pRequest, ModelAndView modelAndView,
                             @RequestParam(value = "type", required = false) CategoryType categoryType,
@@ -109,7 +123,7 @@ public class TenderCategoryController extends InternalTransactionBaseController 
         modelAndView.setViewName("/tender-category/categoryList");
         List<Category> rootCategory = categoryService.queryTenderRootCategories();
         modelAndView.addObject("rootCategory", rootCategory);
-        modelAndView.addObject("categoryType", categoryQuery.getType());
+        modelAndView.addObject("categoryType", CategoryType.TENDER_ROOT);
         modelAndView.addObject("staticServer", configuration.getStaticServer());
         LOGGER.debug("The method query Category");
         PaginationBean paginationBean = new PaginationBean();

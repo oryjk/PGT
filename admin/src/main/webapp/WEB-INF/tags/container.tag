@@ -335,16 +335,15 @@
                                     </li>
                                 </c:if>
                                 <li>
-                                    <a href="/tender/tenderList">
-                                        <i class="fa-angle-right"></i>
-                                        投资产品列表
-                                    </a>
-                                </li>
-
-                                <li>
                                     <a href="/tenderCategory/query">
                                         <i class="fa-angle-right"></i>
                                         投资分类管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/tender/tenderList">
+                                        <i class="fa-angle-right"></i>
+                                        投资产品列表
                                     </a>
                                 </li>
 
