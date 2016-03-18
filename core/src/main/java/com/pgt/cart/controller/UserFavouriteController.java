@@ -19,6 +19,7 @@ import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import com.pgt.user.bean.User;
 import com.pgt.utils.URLMapping;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Yove on 11/12/2015.
@@ -193,6 +195,14 @@ public class UserFavouriteController extends TransactionBaseController implement
 		InternalPaginationBuilder ipb = new InternalPaginationBuilder().setCurrentIndex(ciLong).setCapacity(caLong).setKeyword(keyword);
 		InternalPagination pagination = ipb.setSortFieldName("fav.creation_date").setAsc(ascBoolean).createInternalPagination();
 		getUserFavouriteService().queryFavouritePage(currentUser.getId().intValue(), favouriteType, pagination);
+		if (favouriteType == FavouriteType.P2P_TENDER && CollectionUtils.isNotEmpty(pagination.getResult())) {
+			List<Favourite> tenderFavourites = (List<Favourite>) pagination.getResult();
+			tenderFavourites.forEach(pFavourite -> {
+				Tender tender = getTenderService().queryTenderById(pFavourite.getProductId(), Boolean.FALSE);
+				pFavourite.setTender(tender);
+			});
+		}
+
 		ModelAndView mav = new ModelAndView("/my-account/favourites");
 		mav.addObject(CartConstant.FAVOURITES, pagination);
 
