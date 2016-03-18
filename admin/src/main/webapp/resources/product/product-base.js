@@ -1,6 +1,64 @@
 /**
  * Created by supersoup on 16/1/5.
  */
+var tender = function(){
+    //当铺编号
+    this.name = "";
+    this.merchant = "";
+    this.title = "";
+    this.serialNumber = "";
+    this.keyWord = "";
+    this.shortDescription = "";
+    this.isNew = "";
+    this.stock = "";
+    this.imageDesc =　"";
+    this.listPrice = "";
+    this.salePrice = "";
+}
+
+
+//modelandview
+var app = new Vue({
+    el: '#app',
+    data: {
+        error : '',
+        tender: tender
+    },
+    ready:function(){
+        //定义错误实体
+        var validation = new tender();
+        this.$data.error = validation;
+        //绑定显示错误信息的对象
+        this.volidateEntity = validation;
+        //绑定正则
+        var regex = {
+            "tender.name" : regex_empty,
+            "tender.merchant" : regex_empty,
+            "tender.title" : regex_empty,
+            "tender.serialNumber" : regex_empty,
+            "tender.keyWord" : regex_empty,
+            "tender.shortDescription" : regex_empty,
+            "tender.isNew" : regex_empty,
+            "tender.stock" : regex_empty,
+            "tender.imageDesc" : regex_empty,
+            "tender.listPrice" : regex_empty,
+            "tender.salePrice" : regex_empty
+        };
+        this.regexEntity = regex;
+    },
+    methods: {
+        ajaxSubmit: function () {
+            //第一个参数是对象（值），第二个参数是方法
+            app.submitVolidata(this.$data.tender, tender);
+        },
+        volidate: function (event) {
+            app.excuteVolidata(event);
+        }
+    }
+});
+
+
+
 $('#newStep').click(function(event) {
     event.preventDefault();
 
