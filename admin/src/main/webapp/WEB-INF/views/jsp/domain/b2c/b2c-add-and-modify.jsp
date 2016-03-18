@@ -1,15 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fei
-  Date: 2016/3/17
-  Time: 23:20
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="admin" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
+<script type="text/javascript" src="/resources/core/js/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/core/js/jquery.form.js"></script>
 <body>
 <form action="create" method="post">
     <input type="text" name="name" placeholder="名称"/>
@@ -24,6 +21,36 @@
     <input type="text" name="media.id"/>
     <input type="submit" value="提交"/>
 </form>
-<input type="file" value="上传图片"/>
+
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="file"/>
+    <input id="image_submit" value="上传" type="button"/>
+    <div id="show"></div>
+</form>
+<script>
+    $(function(){
+        //这里可以用js获取项目根网址 www.pgt_admin.com/
+        var base = "http://www.pgt_admin.com/upload/image/";
+        alert(base);
+        var path = "";
+        var options={
+            url: base,
+            type:"post",
+            success:function(url){
+                $("#show").empty();
+                $("#show").append("<img src=" + url + "/>");
+                path = url;
+                $("#imgs").val(path);
+            }
+        };
+        $("#uploadForm").submit(function() {
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+        $("#image_submit").click(function(){
+            $("#uploadForm").submit();
+        });
+    });
+</script>
 </body>
 </html>
