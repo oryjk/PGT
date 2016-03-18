@@ -18,10 +18,18 @@
 <div class="content">
     <jsp:include page="vertical-my-account-directory.jsp"/>
     <div class="main">
-        <h2 class="main-head">我的交易订单</h2>
+        <h2 class="main-head">我的收藏</h2>
         <ul class="filter-favorite-status">
-            <li class="filter-favorite-choose"><a href="javascript:void(0);">收藏的项目</a></li>
-            <li class="filter-favorite-end"><a href="javascript:void(0);">收藏的产品</a></li>
+            <c:choose>
+                <c:when test="${param.type eq 6}">
+                    <li class="filter-favorite-choose"><a href="javascript:void(0);">收藏项目</a></li>
+                    <li class="filter-favorite-end"><a href="/myAccount/favourites?type=5">收藏产品</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li class="filter-favorite-end"><a href="/myAccount/favourites?type=6">收藏项目</a></li>
+                    <li class="filter-favorite-choose"><a href="javascript:void(0);">收藏产品</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
 
         <div class="area-product">
@@ -57,12 +65,12 @@
                                         <p><a href="#">${fav.tender.name}</a></p>
                                     </td>
                                     <td>${fav.tender.productResidue}</td>
-                                    <td><span>¥</span><span>${fav.tender.tenderTotal}</span></td>
+                                    <td><span>¥</span><span><fmt:formatNumber value="${fav.tender.tenderTotal}"
+                                                                              pattern="0.00" type="number"/></span></td>
                                     <td class="favorite-handle">
-                                        <c:if test="${fav.tender.productResidue gt 0}">
-                                            <p><a class="link-btn" href="#">立即抢购</a></p>
-                                        </c:if>
-                                        <p><a class="link-btn" href="#">取消收藏</a></p>
+                                        <p><a class="link-btn" href="#">立即抢购</a></p>
+                                        <p><a class="link-btn link-dislike" href="javascript:void(0)"
+                                              data-id="${fav.id}">取消收藏</a></p>
                                     </td>
                                 </tr>
                             </c:when>
@@ -72,13 +80,15 @@
                                         <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
                                     </td>
                                     <td class="favorite-base-info">
-                                        <p><a href="#">名字自己自 i 自 ii 仔仔 i 自 i 字段发达省份 是短发短发教科书的番外篇</a></p>
+                                        <p><a href="#">${fav.name}</a></p>
                                     </td>
-                                    <td>12</td>
-                                    <td><span>¥</span><span>134,000.00</span></td>
+                                    <td>${fav.productStock}</td>
+                                    <td><span>¥</span><span><fmt:formatNumber value="${fav.finalPrice}" pattern="0.00"
+                                                                              type="number"/></span></td>
                                     <td class="favorite-handle">
                                         <p><a class="link-btn" href="#">立即抢购</a></p>
-                                        <p><a class="link-btn" href="#">取消收藏</a></p>
+                                        <p><a class="link-btn link-dislike" href="javascript:void(0)"
+                                              data-id="${fav.id}">取消收藏</a></p>
                                     </td>
                                 </tr>
                             </c:otherwise>
@@ -89,13 +99,25 @@
             </div>
             <div class="page-box">
                 <ol>
-                    <li><a href="javascript:void(0);">1</a></li>
-                    <li>...</li>
-                    <li><a href="javascript:void(0);">3</a></li>
-                    <li><a href="javascript:void(0);">4</a></li>
-                    <li><a href="javascript:void(0);">5</a></li>
-                    <li>...</li>
-                    <li><a href="javascript:void(0);">7</a></li>
+                    <li class="page-list">
+                        <c:if test="${favourites.maxIndex gt 0}">
+                            <ol id="pages">
+                                <c:forEach var="pageNum" items="${favourites.pageNumbers}">
+                                    <c:choose>
+                                        <c:when test="${pageNum gt 0}">
+                                            <li>
+                                                <a href="/myAccount/favourites?type=${param.type}&currentIndex=${pageNum}">${pageNum + 1}</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li><a href="/myAccount/favourites?type=${param.type}">${pageNum + 1}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </ol>
+                        </c:if>
+                    </li>
                 </ol>
             </div>
         </div>
@@ -107,6 +129,6 @@
 <jsp:include page="../core/footer-main.jsp"/>
 <!--footer end-->
 
-<script src="/resources/core/js/require.js" data-main="/resources/my-account/address/address"></script>
+<script src="/resources/core/js/require.js" data-main="/resources/my-account/my-favorite/my-favorite"></script>
 </body>
 </html>
