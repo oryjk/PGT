@@ -1,5 +1,6 @@
 package com.pgt.cart.controller;
 
+import com.pgt.base.bean.MyAccountNavigationEnum;
 import com.pgt.cart.bean.*;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
@@ -11,6 +12,7 @@ import com.pgt.cart.service.ResponseBuilderFactory;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.cart.service.UserFavouriteService;
 import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.constant.Constants;
 import com.pgt.product.bean.Product;
 import com.pgt.product.service.ProductServiceImp;
 import com.pgt.tender.bean.Tender;
@@ -193,6 +195,9 @@ public class UserFavouriteController extends TransactionBaseController implement
 		getUserFavouriteService().queryFavouritePage(currentUser.getId().intValue(), favouriteType, pagination);
 		ModelAndView mav = new ModelAndView("/my-account/favourites");
 		mav.addObject(CartConstant.FAVOURITES, pagination);
+
+		// left navigation for p2p
+		mav.addObject(Constants.CURRENT_ACCOUNT_ITEM, MyAccountNavigationEnum.MY_FAVORITE);
 		return mav;
 	}
 
