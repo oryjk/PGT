@@ -22,8 +22,14 @@
     </sql>
 
     <insert id="create" parameterType="com.pgt.domain.bean.Domain" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO DOMAIN_HOT(NAME,TYPE,PRICE,URL)
-        VALUES (#{name},#{type},#{price},#{url})
+        <if test="media!=null">
+            INSERT INTO DOMAIN_HOT(NAME,TYPE,PRICE,URL,MEDIA_ID)
+            VALUES (#{name},#{type},#{price},#{url},#{media.id})
+        </if>
+        <if test="media==null">
+            INSERT INTO DOMAIN_HOT(NAME,TYPE,PRICE,URL)
+            VALUES (#{name},#{type},#{price},#{url})
+        </if>
     </insert>
 
     <resultMap id="productMedia" type="com.pgt.product.bean.ProductMedia">

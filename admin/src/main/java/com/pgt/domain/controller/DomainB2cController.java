@@ -1,6 +1,7 @@
 package com.pgt.domain.controller;
 
 import com.pgt.domain.bean.Domain;
+import com.pgt.domain.constant.DomainConstant;
 import com.pgt.domain.service.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
@@ -22,7 +23,7 @@ public class DomainB2cController {
     public ModelAndView select(ModelAndView modelAndView){
         modelAndView.setViewName("domain/b2c/b2c-list");
         Domain domain = new Domain();
-        domain.setType("1");
+        domain.setType(DomainConstant.JUEDANGTAO);
         modelAndView.addObject("domainList", domainService.selectDomain(domain));
         return modelAndView;
     }
