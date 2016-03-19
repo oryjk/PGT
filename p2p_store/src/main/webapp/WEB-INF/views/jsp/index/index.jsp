@@ -22,7 +22,7 @@
 	<div id="banner" class="banner">
 		<c:forEach items="${banner.images}" var="image" varStatus="status">
 			<a href="${image.url}" data-banner="${status.index}"
-			   style="background: url('/${image.path}') center center no-repeat;display: block"></a>
+			   style="background: url('${image.path}') center center no-repeat;display: ${status.index==0?'block':'none'}"></a>
 		</c:forEach>
 	</div>
 	<ol id="bannerNav" class="banner-nav">
