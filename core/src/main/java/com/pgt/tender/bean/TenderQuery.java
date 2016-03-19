@@ -1,6 +1,7 @@
 package com.pgt.tender.bean;
 
 import com.pgt.base.bean.OrderField;
+import com.pgt.search.bean.SortBean;
 import com.pgt.utils.PaginationBean;
 
 import java.io.Serializable;
@@ -15,12 +16,11 @@ public class TenderQuery extends Tender implements Serializable {
 
     private PaginationBean paginationBean;
 
-    private Boolean categoryHot = true;
 
-    private Boolean siteHot = true;
     private Integer rootCategoryId;
 
-    private Boolean isNeedHot;
+    private Boolean isNeedHot = false;
+    private SortBean sortBean;
 
     /**
      * 是否启用模糊查询
@@ -98,25 +98,6 @@ public class TenderQuery extends Tender implements Serializable {
         return this;
     }
 
-    @Override
-    public Boolean getCategoryHot() {
-        return categoryHot;
-    }
-
-    @Override
-    public void setCategoryHot(Boolean categoryHot) {
-        this.categoryHot = categoryHot;
-    }
-
-    @Override
-    public Boolean getSiteHot() {
-        return siteHot;
-    }
-
-    @Override
-    public void setSiteHot(Boolean siteHot) {
-        this.siteHot = siteHot;
-    }
 
     public Boolean getNeedHot() {
         return isNeedHot;
@@ -142,4 +123,11 @@ public class TenderQuery extends Tender implements Serializable {
         this.rootCategoryId = rootCategoryId;
     }
 
+    public SortBean getSortBean() {
+        return sortBean;
+    }
+
+    public void setSortBean(SortBean sortBean) {
+        this.sortBean = sortBean;
+    }
 }

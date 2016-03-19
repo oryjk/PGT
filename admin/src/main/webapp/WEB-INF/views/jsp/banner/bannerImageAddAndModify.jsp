@@ -45,6 +45,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
+                    image.imageId:${image.imageId}
                     <!-- BEGIN FORM-->
                     <form action="/bannerImage/${image.imageId eq null ? 'createIamge' : 'updateImage'}/ " class="form-horizontal" method="post">
                         <input type="hidden" name="bannerId" value="${banner.bannerId}">

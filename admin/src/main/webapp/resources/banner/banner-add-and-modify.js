@@ -15,7 +15,7 @@ $('[data-pgt-btn="single"]').change(function () {
         success: function (responseBody) {
 
             $("#pgt-banner-img").val(responseBody.imagePath);
-            $('#pgt-category-img').attr('src', +responseBody.imagePath);
+            $('#pgt-category-img').attr('src', responseBody.imagePath);
             //提交图片的关联性
             $.ajax({
                 type: 'POST',
@@ -34,7 +34,7 @@ $('[data-pgt-btn="single"]').change(function () {
                     test.load(function () {
                         size = test.width() + '*' + test.height();
 
-                        $('.pgt-category-img').attr('src', +responseBody.imagePath)
+                        $('.pgt-category-img').attr('src', responseBody.imagePath)
                             .siblings('p').html(size);
                         $('.pgt-img-delete').attr('data-url', '/media/delete/' + mediaId);
 
@@ -45,7 +45,7 @@ $('[data-pgt-btn="single"]').change(function () {
 
                     //需要把图片加入dom后才能获取得到它的height和width
                     $('#testbox').append(test);
-                    test.attr('src', +responseBody.imagePath);
+                    test.attr('src',responseBody.imagePath);
                     $('#frontMedia').val(param.mediaId);
                 }
             });

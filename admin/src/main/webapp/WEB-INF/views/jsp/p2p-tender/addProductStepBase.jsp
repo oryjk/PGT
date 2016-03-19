@@ -53,9 +53,10 @@
 						<i class="fa fa-gift"></i>基本信息
 					</div>
 				</div>
-				<div class="portlet-body form">
+				<div id="app" class="portlet-body form">
 					<!-- BEGIN FORM-->
-					<form:form modelAttribute="product" id="productBase" method="post" action="/tender/${product.productId eq null ? 'addProductStepBase' : 'updateTenderProduct'} " class="form-horizontal">
+					<div id="error" v-model="error">
+						<form:form modelAttribute="product" id="productBase" method="post" action="/tender/${product.productId eq null ? 'addProductStepBase' : 'updateTenderProduct'} " class="form-horizontal">
 						<div class="form-body">
 							<!-- 只有在修改时才显示id行-->
 							<c:if test="${!empty product.productId}">
@@ -74,8 +75,10 @@
 							<div class="form-group">
 								<label class="col-xs-3 control-label">产品名称:</label>
 
-								<div class="col-xs-4">
-									<form:input path="name" placeholder="不超过30字" class="form-control  pgt-requisite-name"/>
+								<div class="col-xs-4" v-on:keyup="volidate">
+									<form:input path="name" placeholder="不超过30字" class="form-control  pgt-requisite-name"
+												v-model="tender.name"
+												/>
 								</div>
 								<div class="col-xs-4">
 									<p class="form-control-static pgt-error">
@@ -112,64 +115,66 @@
 							<div class="form-group">
 								<label class="col-xs-3 control-label">所属商家id</label>
 
-								<div class="col-xs-4">
-									<form:input path="merchant" type="text" class="form-control" placeholder="商家id"/>
+								<div class="col-xs-4"  v-on:keyup="volidate">
+									<form:input path="merchant" type="text" class="form-control" placeholder="商家id" v-model="tender.merchant"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">标题</label>
 
-								<div class="col-xs-4">
-									<form:input path="title" class="form-control" placeholder="不超过20字"/>
+								<div class="col-xs-4"  v-on:keyup="volidate">
+									<form:input path="title" class="form-control" placeholder="不超过20字" v-model="tender.title"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">产品编码</label>
 
-								<div class="col-xs-4">
-									<form:input path="serialNumber" class="form-control" placeholder=""/>
+								<div class="col-xs-4" v-on:keyup="volidate">
+									<form:input path="serialNumber" class="form-control" placeholder="" v-model="tender.serialNumber"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">关键字</label>
 
-								<div class="col-xs-4">
-									<form:input path="keyWord" class="form-control" placeholder="不超过20字"/>
+								<div class="col-xs-4" v-on:keyup="volidate">
+									<form:input path="keyWord" class="form-control" placeholder="不超过20字" v-model="tender.keyWord"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">款式</label>
 
-								<div class="col-xs-4">
-									<form:input path="shortDescription" class="form-control" placeholder="不超过20字"/>
+								<div class="col-xs-4" v-on:keyup="volidate">
+									<form:input path="shortDescription" class="form-control" placeholder="不超过20字" v-model="tender.shortDescription"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">成色</label>
 
-								<div class="col-xs-4">
-									<form:input path="isNew" class="form-control" placeholder="不超过10字"/>
+								<div class="col-xs-4" v-on:keyup="volidate">
+									<form:input path="isNew" class="form-control" placeholder="不超过10字" v-model="tender.isNew"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">库存</label>
 
-								<div class="col-xs-4">
-									<form:input path="stock" class="form-control" placeholder="不超过20字" value=""/>
+								<div class="col-xs-4" v-on:keyup="volidate">
+									<form:input path="stock" class="form-control" placeholder="不超过20字" value="" v-model="tender.stock"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">图片描述</label>
-								<div class="col-md-4">
-									<form:input path="imageDesc" class="form-control" placeholder="不超过20字" value=""/>
+								<div class="col-md-4" v-on:keyup="volidate">
+									<form:input path="imageDesc" class="form-control" placeholder="不超过20字" value="" v-model="tender.imageDesc"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-xs-3 control-label">市场价</label>
 
-								<div class="col-xs-4">
-
-									<input name="listPrice" class="form-control pgt-requisite-price1" placeholder="格式为xxxx.xx" value="<fmt:formatNumber value="${product.listPrice}" type="currency" pattern="#0.00"/>"/>
+								<div class="col-xs-4" v-on:keyup="volidate">
+									<input name="listPrice"
+										   class="form-control pgt-requisite-price1"
+										   placeholder="格式为xxxx.xx" value="<fmt:formatNumber value="${product.listPrice}" type="currency" pattern="#0.00"/>"
+										   v-model="tender.listPrice"/>
 								</div>
 								<div class="col-xs-4">
 									<p class="form-control-static pgt-error">
@@ -179,8 +184,11 @@
 							<div class="form-group">
 								<label class="col-xs-3 control-label">绝当价</label>
 
-								<div class="col-xs-4">
-									<input name="salePrice" class="form-control pgt-requisite-price2" placeholder="格式为xxxx.xx" value="<fmt:formatNumber value="${product.salePrice}" type="currency" pattern="#0.00"/>"/>
+								<div class="col-xs-4" v-on:keyup="volidate">
+									<input name="salePrice"
+										   class="form-control pgt-requisite-price2"
+										   placeholder="格式为xxxx.xx" value="<fmt:formatNumber value="${product.salePrice}" type="currency" pattern="#0.00"/>"
+										   v-model="tender.salePrice"/>
 								</div>
 								<div class="col-xs-4">
 									<p class="form-control-static pgt-error">
@@ -212,6 +220,7 @@
 						</div>
 						<input type="hidden" name="tenderId" value="${tenderId}"/>
 					</form:form>
+					</div>
 				</div>
 				<!-- END FORM-->
 			</div>

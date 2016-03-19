@@ -91,16 +91,13 @@
 				</if>
 			</if>
 
-			<if test="isNeedHot!=false||isNeedHot!=null">
-				 <if test="categoryHot==true">
+			<if test="isNeedHot">
+				<if test="categoryHot==true">
 					AND CATEGORY_HOT=1
 				</if>
 				<if test="categoryHot==false">
 					AND CATEGORY_HOT=0
 				</if>
-			</if>
-
-			<if test="siteHot!=null">
 				<if test="siteHot==true">
 					AND CATEGORY_HOT=1
 				</if>
@@ -108,6 +105,8 @@
 					AND CATEGORY_HOT=0
 				</if>
 			</if>
+
+
 			<if test="categoryId!=null">
 				AND tc.CATEGORY_ID=#{categoryId}
 			</if>
@@ -258,9 +257,9 @@
 	</select>
 
 	<resultMap id="buyerMap" type="java.util.Map">
-		<result property="alias" column="HOLDER_ALIAS" />
-		<result property="productName" column="NAME" />
-		<result property="path" column="PATH" />
+		<result property="alias" column="HOLDER_ALIAS"/>
+		<result property="productName" column="NAME"/>
+		<result property="path" column="PATH"/>
 	</resultMap>
 
 	<select id="getBuyers" parameterType="int" resultMap="buyerMap">

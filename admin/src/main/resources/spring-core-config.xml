@@ -89,6 +89,7 @@
              <entry key="others" value="其他"></entry>
             </map>
        </property>
+        <property name="currentSite" value="ADMIN"></property>
 
     </bean>
     <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
