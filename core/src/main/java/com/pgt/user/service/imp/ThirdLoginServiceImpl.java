@@ -37,11 +37,11 @@ public class ThirdLoginServiceImpl implements ThirdLoginService {
 
     @Override
     public ThirdLogin queryThirdLoginByToken(String token) {
-        return queryThirdLoginByToken(token);
+        return thirdLoginMapper.queryThirdLoginByToken(token);
     }
 
     @Override
     public ThirdLogin queryThirdLoginByOpenId(String openId) {
-        return queryThirdLoginByOpenId(openId);
+        return thirdLoginMapper.queryThirdLoginByOpenId(openId);
     }
 }
