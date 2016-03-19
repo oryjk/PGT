@@ -7,229 +7,433 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="/resources/index/index.css"/>
-    <style>
-        /*super:请在此处写上各个分类的字体颜色,在html里面,注意类名要递增*/
-        .each-category-1 .list-head .category-nav-choose {
-            color: #fe6c6c;
-        }
-        .each-category-2 .list-head .category-nav-choose {
-            color: #7ecafe;
-        }
-        .each-category-3 .list-head .category-nav-choose {
-            color: #fec64f;
-        }
-        .each-category-end .list-head .category-nav-choose {
-            color: #b1dd7a;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="/resources/index/index.css"/>
+	<style>
+		.main,
+		.hover-main:hover {
+			color: #c90304;
+		}
+
+		.em,
+		.hover-em:hover {
+			color: #86b4ed;
+		}
+
+		.bg-main,
+		.hover-bg-main:hover {
+			background: #c90304;
+		}
+
+		.bg-em,
+		.hover-bg-em:hover {
+			background: #86b4ed;
+		}
+
+		.category .each-category-1 .category-nav-choose {
+			color: #441209;
+		}
+
+		.category .each-category-2 .category-nav-choose {
+			color: #bf2204;
+		}
+
+		.category .each-category-3 .category-nav-choose {
+			color: #79a364;
+		}
+
+		.category .each-category-end .category-nav-choose {
+			color: #333;
+		}
+	</style>
 </head>
 <body>
-<img class="search-img" src="/resources/core/images/app-qrcode.png" alt="点金子绝当淘"/>
 <!--header begin-->
 <jsp:include page="../core/header-main.jsp"/>
 <!--header end-->
 
 <!--banner begin-->
 <!--super:时差滚动轮播图,把图片放在#bannerBackEnd里面,把文字和链接放在#bannerFrontEnd里面-->
-<ul id="bannerBackEnd" class="banner-bg">
-    <c:forEach items="${banner.images}" var="image" varStatus="status">
-    <li class="banner-bg-current" style="background:url('${image.path}') no-repeat center center"></li>
-    </c:forEach>
-</ul>
-<div id="bannerBox" class="banner">
-    <ul id="bannerFrontEnd">
-        <c:forEach items="${banner.images}" var="image" varStatus="status">
-        <li class="banner-current"><a class="banner-link" href="${image.url}">${image.title}</a></li>
-        </c:forEach>
-    </ul>
-
-    <ol id="bannerNav">
-        <c:forEach items="${banner.images}" var="image" varStatus="status">
-            <c:if test="${status.index=='0'}">
-                <li class="banner-nav-now">${status.index}</li>
-            </c:if>
-            <c:if test="${status.index!='0'}">
-                <li>${status.index}</li>
-            </c:if>
-        </c:forEach>
-    </ol>
+<div id="bannerBox" class="banner-box">
+	<div id="banner" class="banner">
+		<a href="#" data-banner="0"
+		   style="background: url('../core/images/data/banner-3.jpg') center center no-repeat;display: block"></a>
+		<a href="#" data-banner="1"
+		   style="background: url('../core/images/data/banner-2.jpg') center center no-repeat"></a>
+		<a href="#" data-banner="2"
+		   style="background: url('../core/images/data/banner-1.jpg') center center no-repeat"></a>
+		<a href="#" data-banner="3"
+		   style="background: url('../core/images/data/banner-4.jpg') center center no-repeat"></a>
+	</div>
+	<ol id="bannerNav" class="banner-nav">
+		<li class="banner-nav-current">0</li>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	</ol>
 </div>
-
 <!--banner end-->
 
-<!--menu begin-->
-    <ul class="menu-1">
-        <c:forEach items="${categoryHot}" var="searchHit">
-            <c:set value="${searchHit.source}" var="categoryList"></c:set>
-        <li class="menu-1-item">
-            <a class="menu-1-title" href="javascript:void(0);">
-                <h3>${categoryList.category.name}</h3>
-                <p>${categoryList.category.description}</p>
-            </a>
-            <div class="menu-detail">
-                <h4>${categoryList.category.name} <small>精品简陋手要快</small></h4>
-                <ul class="menu-2">
-                    <c:forEach items="${categoryList.category.children}" var="childrenCategory">
-                    <li class="menu-2-item"><a href="#">${childrenCategory.name}</a></li>
-                    </c:forEach>
-                </ul>
-                <div class="menu-row-1">
-                    新品抢购中!
-                </div>
-                <div class="menu-row-2">
-                    <a href="#">
-                            ${categoryList.tenderList[0].name}
-                    </a>
-                </div>
-                <div class="menu-row-3">
-                    <a class="menu-img-box" href="#">
-                        <img src=" ${categoryList.tenderList[0].p2pAdvertisement.path}" alt=""/>
-                    </a>
-                    <div class="menu-complain"> ${categoryList.tenderList[0].description}</div>
-                    <div class="menu-people-hot">
-                        <span class="menu-people-count">35</span>人购买
-                    </div>
-                    <div class="menu-btn-box">
-                        <a href="#">立即抢购</a>
-                    </div>
-                </div>
-            </div>
-        </li>
-        </c:forEach>
-    </ul>
-
-
-<!--menu end-->
-
-<!--content begin-->
-<div class="content">
-    <div class="advantage">
-        <div class="advantage-inner">
-            <h2>预售特点</h2>
-            <ul>
-                <li class="advantage-li-1"><a style="background-image: url('../core/images/index/advantage-1.png')" href="javascript:void(0);"></a></li>
-                <li class="advantage-li-2"><a style="background-image: url('../core/images/index/advantage-2.png')" href="javascript:void(0);"></a></li>
-                <li class="advantage-li-3"><a style="background-image: url('../core/images/index/advantage-3.png')" href="javascript:void(0);"></a></li>
-                <li class="advantage-li-4"><a style="background-image: url('../core/images/index/advantage-4.png')" href="javascript:void(0);"></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="advert" style="background: white;" >
-        <a class="advert-inner" href="#"></a>
-    </div>
-    <div class="content-part">
-        <div class="hot">
-            <div class="hot-head">
-                <div class="hot-tab">
-                    <a class="hot-tab-choose" href="javascript:void(0);">热门推荐</a>
-                    <a class="" href="javascript:void(0);">在线典当</a>
-                </div>
-                <a class="hot-more" href="javascript:void(0);">更多>></a>
-            </div>
-            <div class="hot-main">
-                <ul class="invest-list">
-                    <c:forEach items="${siteHot}" var="hit" varStatus="status">
-                        <c:set value="${hit.source.tender}" var="tender"></c:set>
-                    <c:if test="${status.index<3}">
-                        <li>
-                        <div class="invest-inner">
-                            <a class="img-box" href="#"><img src="${tender.p2pAdvertisement.path}" alt="产品的名字"/></a>
-                            <h4><a href="#">${tender.name}</a></h4>
-                            <div class="invest-row-1">特点:<span>${tender.description}</span></div>
-                            <div class="invest-row-2">截止日期:<span><date:date value="${tender.dueDate}" style="yyyy-MM-dd HH:mm:ss"/></span></div>
-                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
-                        </div>
-                    </li>
-                    </c:if>
-                    </c:forEach>
-                </ul>
-                <div class="need-invest">
-                    <div class="need-invest-opacity">
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="category">
-            <h2>在当预售</h2>
-
-            <c:forEach items="${categoryHot}" var="searchHit" varStatus="status">
-                <c:set value="${searchHit.source}" var="categoryList"></c:set>
-                <c:if test="${status.last!=true}">
-            <div class="each-category each-category-${status.count}" style="border-top: 2px solid #fc6c6c;">
-                <div class="list-head" style="background-image: linear-gradient(180deg,#fc6c6c,#ffafb0);">
-                    <h3>${categoryList.category.name}</h3>
-                    <ul class="category-nav">
-                        <c:forEach items="${categoryList.category.children}" var="childrenCategory">
-                        <li><a class="category-nav-item" href="javascript:void(0);">${childrenCategory.name}</a></li>
-                        </c:forEach>
-                    </ul>
-                </div>
-                <ul class="invest-list">
-
-                    <c:forEach items="${categoryList.tenderList}" var="tender" varStatus="status">
-                    <c:if test="${status.index<3}">
-                        <li>
-                        <div class="invest-inner">
-                            <a class="img-box" href="#"><img src="${tender.p2pAdvertisement.path}" alt="产品的名字"/></a>
-                            <h4><a href="#">${tender.name}</a></h4>
-                            <div class="invest-row-1">特点:<span>${tender.description}</span></div>
-                            <div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
-                            <div class="invest-row-3">剩余数量:<span>6</span>个</div>
-                        </div>
-                    </li>
-                        </c:if>
-                    </c:forEach>
-                </ul>
-            </div>
-
-                </c:if>
-                <c:if test="${status.last==true}">
-                    <div class="each-category each-category-end" style="border-top: 2px solid #b1dd7a;">
-                        <div class="list-head" style="background-image: linear-gradient(180deg,#b1dd7a,#cbe890);">
-                            <h3>${categoryList.category.name}</h3>
-                            <ul class="category-nav">
-                                <li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">新手专区</a></li>
-                            </ul>
-                        </div>
-                        <div class="help">
-                            <div class="help-hot">
-                                <a href="#" class="help-img-box"><img src="../core/images/product/help_img_1.png" alt="#"/></a>
-                                <a href="#" class="help-img-box"><img src="../core/images/product/help_img_2.png" alt="#"/></a>
-                            </div>
-                            <ul class="help-list">
-                                <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
-                                <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
-                                <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
-                                <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
-                                <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
-                                <li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
-                            </ul>
-                        </div>
-                        <div class="app-code">
-                            <div class="app-row-1">点金子淘在当APP</div>
-                            <div class="app-row-2">玩转购物新方式</div>
-                            <div class="app-row-3"><img src="../core/images/product/app-qrcode.png" alt=""/></div>
-                            <div class="app-row-4">扫我 轻松得实惠</div>
-                        </div>
-                    </div>
-                </c:if>
-            </c:forEach>
-
-        </div>
-        <div class="notice"></div>
-    </div>
+<!--good begin-->
+<div class="goods-box">
+	<div class="our-goods">
+		<div class="our-good">
+			<div class="icon-box  bg-main">
+				<i class="foundicon-people"></i>
+			</div>
+			<div class="good-text">
+				<h4>经过严苛鉴定</h4>
+				<p>典当行为安全抵押必须严格鉴定商品</p>
+			</div>
+		</div>
+		<div class="our-good">
+			<div class="icon-box bg-main">
+				<i class="foundicon-heart "></i>
+			</div>
+			<div class="good-text">
+				<h4>低于成本的超值</h4>
+				<p>典当时会根据真实价值折价抵押</p>
+			</div>
+		</div>
+		<div class="our-good">
+			<div class="icon-box  bg-main">
+				<i class="foundicon-star"></i>
+			</div>
+			<div class="good-text">
+				<h4>难觅之时机</h4>
+				<p>在当品抵押时是您入手的天赐良机</p>
+			</div>
+		</div>
+		<div class="our-good">
+			<div class="icon-box bg-main">
+				<i class="foundicon-clock"></i>
+			</div>
+			<div class="good-text">
+				<h4>正反都是赚</h4>
+				<p>即使赎当您仍然可获得超高赔付</p>
+			</div>
+		</div>
+		<div class="our-good">
+			<div class="icon-box bg-main">
+				<i class="foundicon-smiley"></i>
+			</div>
+			<div class="good-text">
+				<h4>入手绝当</h4>
+				<p>绝当即可获得市面无法买到的珍宝</p>
+			</div>
+		</div>
+	</div>
 </div>
+<!--good end-->
+
+<!--hottest begin-->
+<div class="hottest">
+	<h2 class="headline"><div>热门在当品</div></h2>
+	<ul class="hottest-list">
+		<li class="hottest-item">
+			<a class="hottest-link" href="#">
+				<img class="hottest-img" src="../core/images/data/hottest-0.jpg" alt=""/>
+				<div class="hottest-text">精美品质 艺术瑰宝</div>
+			</a>
+		</li>
+		<li class="hottest-item">
+			<a class="hottest-link" href="#">
+				<img class="hottest-img" src="../core/images/data/hottest-1.jpg" alt=""/>
+				<div class="hottest-text">精美品质 艺术瑰宝</div>
+			</a>
+		</li>
+		<li class="hottest-item">
+			<a class="hottest-link" href="#">
+				<img class="hottest-img" src="../core/images/data/hottest-2.jpg" alt=""/>
+				<div class="hottest-text">精美品质 艺术瑰宝</div>
+			</a>
+		</li>
+		<li class="hottest-item hottest-item-end">
+			<a class="hottest-link" href="#">
+				<img class="hottest-img" src="../core/images/data/hottest-3.jpg" alt=""/>
+				<div class="hottest-text">精美品质 艺术瑰宝</div>
+			</a>
+		</li>
+	</ul>
+</div>
+<!--hottest end-->
+
+<!--pawn begin-->
+<div class="pawn">
+	<h2 class="headline"><div>在线典当</div></h2>
+	<ul class="pawn-point-list">
+		<li class="pawn-point-item pawn-point-item-current" style="background:url('../core/images/data/pawn-1.jpg') no-repeat 77% center">
+			<a class="pawn-point-link" href="#">
+				<div class="pawn-point-text">
+					<div class="pawn-point-head">房产典当</div>
+					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
+				</div>
+			</a>
+		</li>
+		<li class="pawn-point-item"  style="background:url('../core/images/data/pawn-2.jpg') no-repeat 77% center">
+			<a class="pawn-point-link" href="#">
+				<div class="pawn-point-text">
+					<div class="pawn-point-head">贵金属典当</div>
+					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
+				</div>
+			</a>
+		</li>
+		<li class="pawn-point-item"  style="background:url('../core/images/data/pawn-3.jpg') no-repeat 77% center">
+			<a class="pawn-point-link" href="#">
+				<div class="pawn-point-text">
+					<div class="pawn-point-head">珠宝典当</div>
+					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
+				</div>
+			</a>
+		</li>
+		<li class="pawn-point-item"  style="background:url('../core/images/data/pawn-4.jpg') no-repeat 77% center">
+			<a class="pawn-point-link" href="#">
+				<div class="pawn-point-text">
+					<div class="pawn-point-head">车辆典当</div>
+					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
+				</div>
+			</a>
+		</li>
+		<li class="pawn-point-item"  style="background:url('../core/images/data/pawn-5.jpg') no-repeat 77% center">
+			<a class="pawn-point-link" href="#">
+				<div class="pawn-point-text">
+					<div class="pawn-point-head">名表典当</div>
+					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
+				</div>
+			</a>
+		</li>
+		<li class="pawn-point-item"  style="background:url('../core/images/data/pawn-6.jpg') no-repeat 77% center">
+			<a class="pawn-point-link" href="#">
+				<div class="pawn-point-text">
+					<div class="pawn-point-head">民用品典当</div>
+					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
+				</div>
+			</a>
+		</li>
+	</ul>
+	<ul class="pawn-nav-list">
+		<li class="pawn-nav-item pawn-nav-current" data-value="0">
+			<a class="pawn-nav-link" href="#">立即了解</a>
+			<img class="pawn-nav-img" src="../core/images/data/pawn-1.jpg" alt=""/>
+		</li>
+		<li class="pawn-nav-item" data-value="1">
+			<a class="pawn-nav-link" href="#">立即了解</a>
+			<img class="pawn-nav-img" src="../core/images/data/pawn-2.jpg" alt=""/>
+		</li>
+		<li class="pawn-nav-item" data-value="2">
+			<a class="pawn-nav-link" href="#">立即了解</a>
+			<img class="pawn-nav-img" src="../core/images/data/pawn-3.jpg" alt=""/>
+		</li>
+		<li class="pawn-nav-item" data-value="3">
+			<a class="pawn-nav-link" href="#">立即了解</a>
+			<img class="pawn-nav-img" src="../core/images/data/pawn-4.jpg" alt=""/>
+		</li>
+		<li class="pawn-nav-item" data-value="4">
+			<a class="pawn-nav-link" href="#">立即了解</a>
+			<img class="pawn-nav-img pawn-nav-end" src="../core/images/data/pawn-5.jpg" alt=""/>
+		</li>
+		<li class="pawn-nav-item" data-value="5">
+			<a class="pawn-nav-link" href="#">立即了解</a>
+			<img class="pawn-nav-img pawn-nav-end" src="../core/images/data/pawn-6.jpg" alt=""/>
+		</li>
+
+	</ul>
+
+</div>
+<!--pawn end-->
+
+<!--category begin-->
+<div class="category">
+	<h2 class="headline"><div>在当品预售</div></h2>
+
+	<div class="each-category each-category-1" style="border-top: 2px solid #441209;">
+		<div class="list-head" style="background-image: linear-gradient(180deg,#441209,#793591);">
+			<div class="list-head-content" style="background: url('') no-repeat left bottom">
+				<h3>珠宝在当</h3>
+				<ul class="category-nav">
+					<li><a class="category-nav-item" href="javascript:void(0);">翡翠</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">寿山石</a></li>
+					<li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">和田碧玉</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">和田白玉</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">独山玉</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul class="invest-list">
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-1.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-2.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-3.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="each-category each-category-2" style="border-top: 2px solid #bf2204;">
+		<div class="list-head" style="background-image: linear-gradient(180deg,#bf2204,#793591);">
+			<div class="list-head-content" style="background: url('') no-repeat left bottom">
+				<h3>珠宝在当</h3>
+				<ul class="category-nav">
+					<li><a class="category-nav-item" href="javascript:void(0);">翡翠</a></li>
+					<li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">寿山石</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">和田碧玉</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">和田白玉</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">独山玉</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul class="invest-list">
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-4.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-5.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-1.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="each-category each-category-3" style="border-top: 2px solid #441209;">
+		<div class="list-head" style="background-image: linear-gradient(180deg,#441209,#79a364);">
+			<div class="list-head-content" style="background: url('') no-repeat left bottom">
+				<h3>珠宝在当</h3>
+				<ul class="category-nav">
+					<li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">翡翠</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">寿山石</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">和田碧玉</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">和田白玉</a></li>
+					<li><a class="category-nav-item" href="javascript:void(0);">独山玉</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul class="invest-list">
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-2.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-3.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+			<li>
+				<div class="invest-inner">
+					<a class="img-box" href="#"><img src="../core/images/data/product-4.jpg"
+													 alt="产品的名字"/></a>
+					<h4><a href="#">鑫鑫百年典当行生肖戒指一套(12个)</a></h4>
+
+					<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
+					<div class="invest-row-2">截止日期:<span>2016年3月6日</span></div>
+					<div class="invest-row-3">剩余数量:<span>6</span>个</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="each-category each-category-end" style="border-top: 2px solid #333;">
+		<div class="list-head" style="background-image: linear-gradient(180deg,#333,#d56a0d);">
+			<div class="list-head-content" style="background: url('') no-repeat left bottom">
+				<h3>珠宝在当</h3>
+				<ul class="category-nav">
+					<li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">新手专区</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="help">
+			<div class="help-hot">
+				<a href="#" class="help-img-box"><img src="../core/images/product/help_img_1.png" alt="#"/></a>
+				<a href="#" class="help-img-box"><img src="../core/images/product/help_img_2.png" alt="#"/></a>
+			</div>
+			<ul class="help-list">
+				<li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+				<li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+				<li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+				<li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+				<li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+				<li><a href="#">干货get: 实现财务自由必须经历的四个原则.</a></li>
+			</ul>
+		</div>
+		<div class="app-code">
+			<div class="app-row-1">点金子淘在当APP</div>
+			<div class="app-row-2">玩转购物新方式</div>
+			<div class="app-row-3"><img src="../core/images/product/app-qrcode.png" alt=""/></div>
+			<div class="app-row-4">扫我 轻松得实惠</div>
+		</div>
+	</div>
+</div>
+
 <!--content end-->
 
 <!--footer begin-->
 <jsp:include page="../core/footer-main.jsp"/>
 <!--footer end-->
 
-<script src="/resources/core/js/require.js" data-main="index"></script>
+<script src="/resources/core/js/require.js" data-main="/resources/index/index"></script>
 </body>
 </html>

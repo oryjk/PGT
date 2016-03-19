@@ -1,11 +1,14 @@
 package com.pgt.home;
 
+import com.pgt.category.bean.CategoryType;
 import com.pgt.common.bean.Banner;
-import com.pgt.common.bean.BannerWebSite;
 import com.pgt.common.service.BannerService;
 import com.pgt.constant.Constants;
+import com.pgt.home.controller.BaseHomeController;
+import com.pgt.search.service.CategorySearchEngineService;
 import com.pgt.search.service.TenderSearchEngineService;
-import com.pgt.tender.service.TenderService;
+import com.pgt.utils.SearchConvertToList;
+import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -19,49 +22,60 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by carlwang on 1/26/16.
  */
 
 @RestController
-public class HomePageController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HomePageController.class);
+public class HomeController extends BaseHomeController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
     private TenderSearchEngineService tenderSearchEngineService;
 
     @Autowired
-    private BannerService bannerService;
+    private CategorySearchEngineService categorySearchEngineService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getHomePage(HttpServletRequest request, ModelAndView modelAndView) {
         modelAndView.setViewName("/index/index");
         buildBanner(modelAndView);
-        buildHotSearch(modelAndView);
+        buildHotProduct(modelAndView);
+        buildCategoryTender(modelAndView);
         buildCategoryHotTender(modelAndView);
         buildSiteHotTender(modelAndView);
-        buildCategoryTender(modelAndView);
         return modelAndView;
     }
 
-    private void buildHotSearch(ModelAndView modelAndView) {
-
+    private void buildHotProduct(ModelAndView modelAndView) {
+        SearchResponse response = tenderSearchEngineService.findSiteHotTender();
+        List<Map<String, Object>> hotProducts = SearchConvertToList.searchConvertToList(response);
+        modelAndView.addObject("hotProducts", hotProducts);
     }
 
     private void buildBanner(ModelAndView modelAndView) {
-        Banner banner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME, BannerWebSite.P2P_STORE.toString());
-        if (!ObjectUtils.isEmpty(banner)) {
-            LOGGER.debug("The query banner id is {}", banner.getBannerId());
-            modelAndView.addObject("banner", banner);
-        }
+        Banner banner = queryBanner(Constants.BANNER_TYPE_HOME);
+        modelAndView.addObject("banner", banner);
     }
 
     private void buildCategoryTender(ModelAndView modelAndView) {
-
+        SearchResponse response = categorySearchEngineService.findRootCategory(CategoryType.TENDER_ROOT);
+        List<Map<String, Object>> rootCategories = SearchConvertToList.searchConvertToList(response);
+        modelAndView.addObject(Constants.ROOT_CATEGORIES, rootCategories);
     }
 
-    private void  buildCategoryHotTender(ModelAndView modelAndView) {
+    private void buildCategoryHotTender(ModelAndView modelAndView) {
+        //TODO
+        List<Map<String, Object>> rootCategories = (List<Map<String, Object>>) modelAndView.getModel().get(Constants.ROOT_CATEGORIES);
+        if (ObjectUtils.isEmpty(rootCategories)) {
+            LOGGER.debug("Can not query hot category tender,because the root category is empty.");
+            return;
+        }
+        rootCategories.stream().filter(stringObjectMap -> CollectionUtils.isEmpty((List) stringObjectMap.get(Constants.CHILDREN)));
+
         SearchResponse categoryHotResponse = tenderSearchEngineService.findCategoryHotTender();
 
         if (!ObjectUtils.isEmpty(categoryHotResponse)) {
@@ -73,8 +87,8 @@ public class HomePageController {
 
     private void buildSiteHotTender(ModelAndView modelAndView) {
         SearchResponse siteHotResponse = tenderSearchEngineService.findSiteHotTender();
-        if(siteHotResponse.getHits().getHits().length<3){
-            siteHotResponse=tenderSearchEngineService.findTender(null,null,null,null,null,null,null);
+        if (siteHotResponse.getHits().getHits().length < 3) {
+            siteHotResponse = tenderSearchEngineService.findTender(null, null, null, null, null, null, null);
         }
         if (!ObjectUtils.isEmpty(siteHotResponse)) {
             buildTender(siteHotResponse, modelAndView, Constants.SITE_HOT);

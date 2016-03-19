@@ -4,10 +4,8 @@ import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryHelper;
 import com.pgt.common.bean.Banner;
-import com.pgt.common.bean.BannerWebSite;
 import com.pgt.common.bean.CommPaginationBean;
 import com.pgt.common.bean.Media;
-import com.pgt.common.service.BannerService;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.configuration.URLConfiguration;
@@ -15,7 +13,9 @@ import com.pgt.constant.Constants;
 import com.pgt.hot.bean.HotSearch;
 import com.pgt.media.MediaService;
 import com.pgt.product.service.ProductServiceImp;
-import com.pgt.search.bean.*;
+import com.pgt.search.bean.ESSort;
+import com.pgt.search.bean.ESTerm;
+import com.pgt.search.bean.HotProducts;
 import com.pgt.search.controller.ESSearchConstants;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.style.bean.PageBackground;
@@ -46,8 +46,8 @@ import java.util.List;
  * Created by carlwang on 10/20/15.
  */
 @RestController
-public class HomeController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+public class HomeController extends BaseHomeController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseHomeController.class);
     @Autowired
     private CategoryHelper categoryHelper;
     @Autowired
@@ -60,8 +60,6 @@ public class HomeController {
     @Autowired
     private ESSearchService esSearchService;
 
-    @Autowired
-    private BannerService bannerService;
 
     @Autowired
     private ESConfiguration esConfiguration;
@@ -83,8 +81,8 @@ public class HomeController {
         }
         if (configuration.getUseES() == true) {
 
-            List<HotProducts>  hotProducts=findHotSale();
-            if(!CollectionUtils.isEmpty(hotProducts)) {
+            List<HotProducts> hotProducts = findHotSale();
+            if (!CollectionUtils.isEmpty(hotProducts)) {
                 modelAndView.addObject("hotProducts", hotProducts);
             }
 
@@ -105,8 +103,7 @@ public class HomeController {
             List<HotSearch> hotSearchList = productServiceImp.queryAllHotsearch();
             LOGGER.debug("add hotSearchList to modelAndView");
             modelAndView.addObject("hotSearchList", hotSearchList);
-
-            Banner banner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME, BannerWebSite.B2C_STORE.toString());
+            Banner banner = queryBanner(Constants.BANNER_TYPE_HOME);
             if (!ObjectUtils.isEmpty(banner)) {
                 LOGGER.debug("The query banner id is {}", banner.getBannerId());
                 modelAndView.addObject("banner", banner);
@@ -116,7 +113,7 @@ public class HomeController {
                 modelAndView.addObject("newProducts", newProducts);
                 LOGGER.debug("add newProducts to modelAndView");
             }*/
-            Banner TopBanner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_TOP, BannerWebSite.B2C_STORE.toString());
+            Banner TopBanner = queryBanner(Constants.BANNER_TYPE_TOP);
             if (!ObjectUtils.isEmpty(TopBanner)) {
                 LOGGER.debug("The query TopBanner id is {}", TopBanner.getBannerId());
                 modelAndView.addObject("TopBanner", TopBanner);
@@ -127,7 +124,7 @@ public class HomeController {
             // get hot search
             List<HotSearch> hotSearchList = productServiceImp.queryAllHotsearch();
             modelAndView.addObject("hotSearchList", hotSearchList);
-            Banner banner = bannerService.queryBannerByTypeAndWebSite(Constants.BANNER_TYPE_HOME, BannerWebSite.B2C_STORE.toString());
+            Banner banner = queryBanner(Constants.BANNER_TYPE_HOME);
             modelAndView.addObject("banner", banner);
             modelAndView.setViewName("/index/index");
 
@@ -190,64 +187,66 @@ public class HomeController {
     }
 
 
-    public  List<HotProducts> findHotSale(){
+    public List<HotProducts> findHotSale() {
 
-        List<HotProducts> products= new ArrayList<>();
+        List<HotProducts> products = new ArrayList<>();
         LOGGER.debug("The method find hotSaleProduct");
-        SearchResponse searchResponse=esSearchService.findRootCategory();
-        SearchHits categoryHits=searchResponse.getHits();
-        SearchHit[] categoryHist=categoryHits.getHits();
-        if(ArrayUtils.isEmpty(categoryHist)){
+        SearchResponse searchResponse = esSearchService.findRootCategory();
+        SearchHits categoryHits = searchResponse.getHits();
+        SearchHit[] categoryHist = categoryHits.getHits();
+        if (ArrayUtils.isEmpty(categoryHist)) {
             LOGGER.debug("The findHotSaleProduct is empty");
             return null;
         }
         List<ESTerm> listTerm = new ArrayList<>();
         ESTerm esMatch = new ESTerm();
         esMatch.setPropertyName(ESSearchConstants.HOT_PROPERTY);
-        LOGGER.debug("The HOT_PROPERTY is {}",ESSearchConstants.HOT_PROPERTY);
+        LOGGER.debug("The HOT_PROPERTY is {}", ESSearchConstants.HOT_PROPERTY);
         esMatch.setTermValue(ESSearchConstants.HOT_VALUE);
-        LOGGER.debug("The HOT_VALUE is {}",ESSearchConstants.HOT_VALUE);
+        LOGGER.debug("The HOT_VALUE is {}", ESSearchConstants.HOT_VALUE);
         listTerm.add(esMatch);
 
         CommPaginationBean paginationBean = new CommPaginationBean();
         paginationBean.setCurrentIndex(0);
         paginationBean.setCapacity(ESSearchConstants.HOT_SIEZ);
-        LOGGER.debug("The HOT_SIZE is {}",ESSearchConstants.HOT_SIEZ);
+        LOGGER.debug("The HOT_SIZE is {}", ESSearchConstants.HOT_SIEZ);
 
         ESSort esSort = new ESSort();
         esSort.setPropertyName(ESSearchConstants.SORT_PROPERTY);
         esSort.setSortOrder(SortOrder.ASC);
-        List<ESSort> sortList= new ArrayList<>();
+        List<ESSort> sortList = new ArrayList<>();
         sortList.add(esSort);
 
-        for (SearchHit category:categoryHist) {
-                HotProducts  hot = new HotProducts();
-                Integer categoryId = (Integer) category.getSource().get("id");
-                LOGGER.debug("The category Id is {}",categoryId);
+        for (SearchHit category : categoryHist) {
+            HotProducts hot = new HotProducts();
+            Integer categoryId = (Integer) category.getSource().get("id");
+            LOGGER.debug("The category Id is {}", categoryId);
 
-               //  SearchResponse categoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),listTerm ,null,paginationBean,null,sortList);
+            //  SearchResponse categoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),listTerm ,null,paginationBean,null,
+            // sortList);
             ESTerm esterm = new ESTerm();
             esterm.setPropertyName("rootCategoryId");
             esterm.setTermValue(categoryId.toString());
             listTerm.add(esterm);
-            SearchResponse categoryProduct =esSearchService.findProducts(null,listTerm,null,sortList,paginationBean,null,true);
+            SearchResponse categoryProduct = esSearchService.findProducts(null, listTerm, null, sortList, paginationBean, null, true);
 
-                if(!ObjectUtils.isEmpty(categoryProduct)){
-                    SearchHits categoryProducts=categoryProduct.getHits();
-                    SearchHit[] hotProducts =categoryProducts.getHits();
-                    if(hotProducts.length<6){
-                        LOGGER.debug("The hotProducts is less than 6,so find to all products");
-                       // SearchResponse otherCategoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),null ,null,paginationBean,null,sortList);
-                        listTerm.clear();
-                        listTerm.add(esterm);
-                        SearchResponse otherCategoryProduct =esSearchService.findProducts(null,listTerm,null,sortList,paginationBean,null,true);
-                        SearchHits otherCategoryProducts=otherCategoryProduct.getHits();
-                        hotProducts =otherCategoryProducts.getHits();
-                    }
-                    hot.setCategory(category);
-                    hot.setHotProducts(hotProducts);
-                    products.add(hot);
+            if (!ObjectUtils.isEmpty(categoryProduct)) {
+                SearchHits categoryProducts = categoryProduct.getHits();
+                SearchHit[] hotProducts = categoryProducts.getHits();
+                if (hotProducts.length < 6) {
+                    LOGGER.debug("The hotProducts is less than 6,so find to all products");
+                    // SearchResponse otherCategoryProduct=esSearchService.findProductsByCategoryId(categoryId.toString(),null ,null,
+                    // paginationBean,null,sortList);
+                    listTerm.clear();
+                    listTerm.add(esterm);
+                    SearchResponse otherCategoryProduct = esSearchService.findProducts(null, listTerm, null, sortList, paginationBean, null, true);
+                    SearchHits otherCategoryProducts = otherCategoryProduct.getHits();
+                    hotProducts = otherCategoryProducts.getHits();
                 }
+                hot.setCategory(category);
+                hot.setHotProducts(hotProducts);
+                products.add(hot);
+            }
         }
         return products;
     }
