@@ -113,4 +113,5 @@ public class Constants {
     public static final String BREAD_CRUMB = "breadCrumbs";
     public static final String ROOT_CATEGORY_ID = "rootCategoryId";
 
+    public static final String BANNER = "banner";
 }

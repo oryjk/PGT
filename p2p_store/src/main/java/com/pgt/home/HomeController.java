@@ -2,7 +2,6 @@ package com.pgt.home;
 
 import com.pgt.category.bean.CategoryType;
 import com.pgt.common.bean.Banner;
-import com.pgt.common.service.BannerService;
 import com.pgt.constant.Constants;
 import com.pgt.home.controller.BaseHomeController;
 import com.pgt.search.service.CategorySearchEngineService;
@@ -10,8 +9,6 @@ import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.utils.SearchConvertToList;
 import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,31 +40,24 @@ public class HomeController extends BaseHomeController {
     public ModelAndView getHomePage(HttpServletRequest request, ModelAndView modelAndView) {
         modelAndView.setViewName("/index/index");
         buildBanner(modelAndView);
-        buildHotProduct(modelAndView);
-        buildCategoryTender(modelAndView);
-        buildCategoryHotTender(modelAndView);
-        buildSiteHotTender(modelAndView);
+        buildSiteOnSaleTender(modelAndView);
+        buildRootCategory(modelAndView);
+        buildCategoryOnSaleTender(modelAndView);
         return modelAndView;
-    }
-
-    private void buildHotProduct(ModelAndView modelAndView) {
-        SearchResponse response = tenderSearchEngineService.findSiteHotTender();
-        List<Map<String, Object>> hotProducts = SearchConvertToList.searchConvertToList(response);
-        modelAndView.addObject("hotProducts", hotProducts);
     }
 
     private void buildBanner(ModelAndView modelAndView) {
         Banner banner = queryBanner(Constants.BANNER_TYPE_HOME);
-        modelAndView.addObject("banner", banner);
+        modelAndView.addObject(Constants.BANNER, banner);
     }
 
-    private void buildCategoryTender(ModelAndView modelAndView) {
+    private void buildRootCategory(ModelAndView modelAndView) {
         SearchResponse response = categorySearchEngineService.findRootCategory(CategoryType.TENDER_ROOT);
         List<Map<String, Object>> rootCategories = SearchConvertToList.searchConvertToList(response);
         modelAndView.addObject(Constants.ROOT_CATEGORIES, rootCategories);
     }
 
-    private void buildCategoryHotTender(ModelAndView modelAndView) {
+    private void buildCategoryOnSaleTender(ModelAndView modelAndView) {
         //TODO
         List<Map<String, Object>> rootCategories = (List<Map<String, Object>>) modelAndView.getModel().get(Constants.ROOT_CATEGORIES);
         if (ObjectUtils.isEmpty(rootCategories)) {
@@ -79,36 +69,29 @@ public class HomeController extends BaseHomeController {
         SearchResponse categoryHotResponse = tenderSearchEngineService.findCategoryHotTender();
 
         if (!ObjectUtils.isEmpty(categoryHotResponse)) {
-            buildTender(categoryHotResponse, modelAndView, Constants.CATEGORY_HOT);
+            List<Map<String, Object>> categoryOnSale = SearchConvertToList.searchConvertToList(categoryHotResponse);
+            modelAndView.addObject(Constants.CATEGORY_HOT, categoryOnSale);
+            return;
         }
         LOGGER.debug("The site hot tender is  empty.");
 
     }
 
-    private void buildSiteHotTender(ModelAndView modelAndView) {
+    private void buildSiteOnSaleTender(ModelAndView modelAndView) {
         SearchResponse siteHotResponse = tenderSearchEngineService.findSiteHotTender();
         if (siteHotResponse.getHits().getHits().length < 3) {
             siteHotResponse = tenderSearchEngineService.findTender(null, null, null, null, null, null, null);
         }
         if (!ObjectUtils.isEmpty(siteHotResponse)) {
-            buildTender(siteHotResponse, modelAndView, Constants.SITE_HOT);
+            List<Map<String, Object>> siteOnSale = SearchConvertToList.searchConvertToList(siteHotResponse);
+            if (siteOnSale.size() > 3) {
+                siteOnSale.subList(0, 2);
+            }
+            modelAndView.addObject(Constants.SITE_HOT, siteOnSale);
+            return;
         }
         LOGGER.debug("The category hot tender is  empty.");
 
-    }
-
-    private void buildTender(SearchResponse siteHotResponse, ModelAndView modelAndView, String attributeName) {
-        SearchHits searchHits = siteHotResponse.getHits();
-        if (ObjectUtils.isEmpty(searchHits)) {
-            LOGGER.debug("The {} is empty.", attributeName);
-            return;
-        }
-        SearchHit searchHit[] = searchHits.getHits();
-        if (searchHit.length > 0) {
-            modelAndView.addObject(attributeName, searchHit);
-            return;
-        }
-        LOGGER.debug("The {} is empty.", attributeName);
     }
 
 
