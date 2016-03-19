@@ -85,7 +85,7 @@ public class HomeController extends BaseHomeController {
         if (!ObjectUtils.isEmpty(siteHotResponse)) {
             List<Map<String, Object>> siteOnSale = SearchConvertToList.searchConvertToList(siteHotResponse);
             if (siteOnSale.size() > 3) {
-                siteOnSale.subList(0, 2);
+                siteOnSale = siteOnSale.subList(0, 2);
             }
             modelAndView.addObject(Constants.SITE_HOT, siteOnSale);
             return;
