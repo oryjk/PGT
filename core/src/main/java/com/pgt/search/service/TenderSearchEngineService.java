@@ -196,7 +196,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                                      ESAggregation categoryIdAggregation, String indexType) {
         SearchResponse response = null;
         try {
-            SearchRequestBuilder searchRequestBuilder = null;
+            SearchRequestBuilder searchRequestBuilder ;
             if (ObjectUtils.isEmpty(indexType)) {
                 searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
             } else {
@@ -400,6 +400,15 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         return true;
     }
 
+    /**
+     * Used in search page
+     *
+     * @param keyword
+     * @param esTenderListFilter
+     * @param paginationBean
+     * @param esSorts
+     * @return
+     */
     public SearchResponse findTenders(String keyword, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean, List<ESSort> esSorts) {
 
         SearchResponse response = null;

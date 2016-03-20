@@ -4,6 +4,7 @@ import com.pgt.category.bean.CategoryType;
 import com.pgt.common.bean.Banner;
 import com.pgt.constant.Constants;
 import com.pgt.home.controller.BaseHomeController;
+import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.CategorySearchEngineService;
 import com.pgt.search.service.TenderSearchEngineService;
 import com.pgt.utils.SearchConvertToList;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,12 +39,24 @@ public class HomeController extends BaseHomeController {
     private CategorySearchEngineService categorySearchEngineService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView getHomePage(HttpServletRequest request, ModelAndView modelAndView) {
+    public ModelAndView getHomePage(ModelAndView modelAndView) {
         modelAndView.setViewName("/index/index");
         buildBanner(modelAndView);
         buildSiteOnSaleTender(modelAndView);
         buildRootCategory(modelAndView);
         buildCategoryOnSaleTender(modelAndView);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
+    public ModelAndView getCategoryOnSaleTender(@PathVariable("categoryId") String categoryId, ModelAndView modelAndView) {
+        ESTerm esTerm = new ESTerm();
+        esTerm.setPropertyName("parentCategory.id");
+        esTerm.setTermValue(categoryId);
+        SearchResponse response = tenderSearchEngineService.findTender(esTerm, null, null, null, null, null, null);
+        List<Map<String, Object>> tenders = SearchConvertToList.searchConvertToList(response);
+        modelAndView.addObject("categoryOnSaleTender", tenders);
+        modelAndView.setViewName("/index/categoryOnSaleTender");
         return modelAndView;
     }
 

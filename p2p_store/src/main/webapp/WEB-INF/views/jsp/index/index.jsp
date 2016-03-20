@@ -208,7 +208,7 @@
 					<h3>${rootCategory.name}</h3>
 					<ul class="category-nav">
 						<c:forEach items="${rootCategory.esChildren}" var="subCategory">
-							<li><a class="category-nav-item" href="/tender/tenderList?ctype=TENDER_HIERARCHY&cid=${subCategory.id}">${subCategory.name}</a></li>
+							<li><a class="category-nav-item" href="/tender/tenderList?ctype=TENDER_HIERARCHY&cid=${subCategory.id}" data-value="${subCategory.id}">${subCategory.name}</a></li>
 						</c:forEach>
 						<!---<li><a class="category-nav-item category-nav-choose" href="javascript:void(0);">和田碧玉</a></li>-->
 					</ul>
@@ -216,7 +216,7 @@
 			</div>
 			<ul class="invest-list">
 				<c:forEach items="${rootCategory.esChildren[0].hotTenders}" var="onSaleTender">
-					<li>
+					<li>${tenderId}
 						<div class="invest-inner">
 							<a class="img-box" href="#">
 								<img src="${onSaleTender.p2pAdvertisement.path}" alt="产品的名字"/>
@@ -229,7 +229,6 @@
 						</div>
 					</li>
 				</c:forEach>
-
 			</ul>
 		</div>
 	</c:forEach>

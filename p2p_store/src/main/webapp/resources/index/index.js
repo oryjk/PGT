@@ -50,7 +50,7 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
             eachCategory.find('.category-nav-item').removeClass('category-nav-choose');
             $this.addClass('category-nav-choose');
             //输入具体的url
-            eachCategory.find('.invest-list').load('/');
+            eachCategory.find('.invest-list').load('/'+$(this).attr('data-value'));
         });
 
 
@@ -63,13 +63,6 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
             $this.addClass('pawn-nav-current');
             pawnPointList.hide().eq(i).fadeIn(1000);
         })
-
-
-
-
-
-
-
     });
 
 
