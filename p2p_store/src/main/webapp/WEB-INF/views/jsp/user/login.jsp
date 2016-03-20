@@ -8,7 +8,6 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<link rel="stylesheet" href="/resources/user/login.css"/>
-
 </head>
 <body>
 <!--header begin-->
@@ -21,19 +20,15 @@
 <div id="loading">
 	<img src="/resources/core/images/loading.gif" width="33" alt="">
 </div>
-
 <!--content begin-->
 <div class="content">
 	<div class="content-box">
 		<div class="content-img"></div>
-
 		<div class="login">
-
 			<div class="login-title">
 				<h2>登录点金子网</h2>
 				<span>还没账号？<a href="/user/register"> 立即注册</a></span>
 			</div>
-
 			<form:form modelAttribute="user" method="post" action="login" id="login">
 				<div class="login-box" id="login-box">
 					<div class="username-box {{usernameFocus}} {{showUsernameError}}" v-on:click="userOnFocus">
@@ -69,9 +64,8 @@
 					<div class="domain">
 						快捷登录方式：
 						<a href="/qqLogin/login"><img src="../core/images/user/QQ.png"></a>
-						<a href="#"><img src="../core/images/user/pay.jpg"/></a>
-						<a href="#"><img src="../core/images/user/wet.jpg"/></a>
-						<a href="#"><img src="../core/images/user/sina.jpg"/></a>
+						<a href="/weChatLogin/login"><img src="../core/images/user/wet.jpg"/></a>
+						<a href="/microBlogLogin/login"><img src="../core/images/user/sina.jpg"/></a>
 					</div>
 				</div>
 			</form:form>
@@ -79,12 +73,9 @@
 	</div>
 </div>
 <!--content end-->
-
-
 <!--footer begin-->
 <jsp:include page="../core/footer-main.jsp"/>
 <!--footer end-->
-
 <script src="/resources/core/js/require.js" data-main="/resources/user/login"></script>
 <jsp:include page="../core/baidu.jsp"/>
 </body>
