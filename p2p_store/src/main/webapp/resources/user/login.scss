@@ -196,7 +196,7 @@ body {
   }
 
   .go-to-home {
-    @include color-btn(120px, 40px, 3px, 20px, $main, $main-dark);
+    @include color-btn(150px, 40px, 3px, 20px, $main, $main-dark);
   }
 }
 
