@@ -429,7 +429,8 @@ a {
 
 .nav-list {
   position: relative;
-  float: left; }
+  float: left;
+  margin-left: 70px; }
 
 .nav-item-hover {
   position: absolute;
@@ -460,12 +461,21 @@ a {
 
 .content-nav {
   float: left;
+  margin-top: 15px;
   width: 230px;
-  color: white;
-  background: #414141; }
-  .content-nav .content-nav-title:hover {
-    background: #414141; }
+  background: white; }
+  .content-nav .content-nav-title {
+    color: #414141; }
+    .content-nav .content-nav-title h2 {
+      border-bottom: 1px solid #666; }
+    .content-nav .content-nav-title:hover {
+      background: white; }
+  .content-nav .content-nav-active {
+    background: #c90304; }
+    .content-nav .content-nav-active a {
+      color: white; }
   .content-nav li {
+    margin-top: 5px;
     padding-top: 20px;
     text-align: center;
     line-height: 30px;
@@ -474,14 +484,16 @@ a {
     .content-nav li:hover {
       background: #c90304;
       transition: 0.8s; }
-    .content-nav li a {
+    .content-nav li:hover > a {
       color: white; }
+    .content-nav li a {
+      color: #414141; }
 
 .content-main {
   float: left;
-  margin-left: 20px;
+  margin-left: 50px;
   width: 900px;
-  height: 700px; }
+  min-height: 660px; }
   .content-main h2 {
     padding: 40px 0 10px 70px;
     border-bottom: 1px solid #666;

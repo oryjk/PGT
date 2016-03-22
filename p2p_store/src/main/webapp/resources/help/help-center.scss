@@ -188,6 +188,7 @@
 .nav-list {
   position: relative;
   float: left;
+  margin-left: 70px;
 }
 
 .nav-item-hover {
@@ -222,17 +223,27 @@
 
 .content-nav{
   float: left;
+  margin-top: 15px;
   @include wh(230px);
-  color: white;
-  background:#414141;
-
+  background:white;
   .content-nav-title{
+    color: #414141;
+    h2{
+      border-bottom: 1px solid #666;
+    }
     &:hover{
-      background: #414141;
+      background: white;
+    }
+  }
+  .content-nav-active{
+    background: #c90304;
+    a{
+      color: white;
     }
   }
 
   li{
+    margin-top: 5px;
     padding-top: 20px;
     text-align: center;
     line-height: 30px;
@@ -241,15 +252,20 @@
       background: #c90304;
       transition: 0.8s;
     }
-    a{
+    &:hover > a{
       color: white;
+    }
+
+    a{
+      color: #414141;
     }
   }
 }
 .content-main{
   float: left;
-  margin-left: 20px;
-  @include wh(900px,700px);
+  margin-left: 50px;
+  @include wh(900px);
+  min-height: 660px;
 
   h2{
     padding:40px 0 10px 70px;
