@@ -6,7 +6,7 @@ Vue.prototype.volidateEntity = new Object();
 
 //扩展验证
 Vue.prototype.excuteVolidata = function (event) {
-    var key = event.srcElement.__v_model.expression;
+    var key = event.target.__v_model.expression;
     var val = event.target.value;
     var regex_entity = this.regexEntity;
     for (var o in regex_entity) {

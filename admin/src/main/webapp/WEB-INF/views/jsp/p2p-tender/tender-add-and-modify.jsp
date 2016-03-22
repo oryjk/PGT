@@ -70,7 +70,7 @@
                                         <input type="text"
                                                name="pawnShopId" value="${tender.pawnShopId}" class="form-control" placeholder="不超过30字"
                                                v-model="tender.pawnShopId"
-                                               v-on:keyup="volidate">
+                                               v-on:keydown="down" v-on:keyup="volidate">
                                     </div>
                                     <div class="col-xs-4">
                                         <p class="form-control-static pgt-error">
@@ -85,7 +85,7 @@
                                         <input type="text"
                                                name="pawnShopOwnerId" value="${tender.pawnShopOwnerId}" class="form-control" placeholder="不超过30字"
                                                v-model="tender.pawnShopOwnerId"
-                                               v-on:keyup="volidate">
+                                               v-on:keydown="down" v-on:keyup="volidate">
                                     </div>
                                     <div class="col-xs-4">
                                         <p class="form-control-static pgt-error">
@@ -118,7 +118,7 @@
                                         <input type="text"
                                                class="form-control" name="pawnTicketId" value="${tender.pawnTicketId}" placeholder="当铺编号:"
                                                v-model="tender.pawnTicketId"
-                                               v-on:keyup="volidate">
+                                               v-on:keydown="down" v-on:keyup="volidate">
                                     </div>
                                     <div class="col-xs-4">
                                         <p class="form-control-static pgt-error">
@@ -133,7 +133,7 @@
                                         <input ms-duplex="name" name="name" value="${tender.name}"  class="form-control"
                                                placeholder="不超过20字"
                                                v-model="tender.name"
-                                               v-on:keyup="volidate"/>
+                                               v-on:keydown="down" v-on:keyup="volidate"/>
                                     </div>
                                     <div class="col-xs-4">
                                         <p class="form-control-static pgt-error">
@@ -182,7 +182,7 @@
                                         <input type="text"
                                                class="form-control" name="interestRate" value="${tender.interestRate*100}" placeholder="违约赔付利率"
                                                v-model="tender.interestRate"
-                                               v-on:keyup="volidate">
+                                               v-on:keydown="down" v-on:keyup="volidate">
                                     </div>
                                     <div class="col-md-1">
                                         <label>%</label>
@@ -200,7 +200,7 @@
                                         <input type="text"
                                                class="form-control" name="prePeriod" value="${tender.prePeriod}" placeholder="投资多少天开始算收益"
                                                v-model="tender.prePeriod"
-                                               v-on:keyup="volidate">
+                                               v-on:keydown="down" v-on:keyup="volidate">
                                     </div>
                                     <div class="col-xs-4">
                                         <p class="form-control-static pgt-error">
@@ -215,7 +215,7 @@
                                         <input ms-duplex="postPeriod" name="postPeriod" value="${tender.postPeriod}"
                                                class="form-control" placeholder="不超过10字"
                                                v-model="tender.postPeriod"
-                                               v-on:keyup="volidate"/>
+                                               v-on:keydown="down" v-on:keyup="volidate"/>
                                     </div>
                                     <div class="col-xs-4">
                                         <p class="form-control-static pgt-error">
@@ -230,7 +230,7 @@
                                         <input type="text"
                                                class="form-control" name="handlingFeeRate" value="${tender.handlingFeeRate*100}" placeholder="手续费费率"
                                                v-model="tender.handlingFeeRate"
-                                               v-on:keyup="volidate">
+                                               v-on:keydown="down" v-on:keyup="volidate">
                                     </div>
                                     <div class="col-md-1">
                                         <label>%</label>
@@ -253,7 +253,7 @@
                                         <input ms-duplex="description" name="description" value="${tender.description}"
                                                class="form-control" placeholder="不超过20字"
                                                v-model="tender.description"
-                                               v-on:keyup="volidate"/>
+                                               v-on:keydown="down" v-on:keyup="volidate"/>
                                     </div>
                                     <div class="col-xs-4">
                                         <p class="form-control-static pgt-error">

@@ -30,10 +30,7 @@
                 <!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
                 <div class="row" style="display: block">
                     <div class="col-xs-12">
-                        <div class="Metronic-alerts alert alert-danger fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                            <p>错误信息</p>
-                        </div>
+                        <a class="btn btn-primary" href="create">新增</a>
                     </div>
                 </div>
                 <div class="row">
@@ -112,9 +109,6 @@
                                                id="list" role="grid" aria-describedby="sample_3_info">
                                             <thead>
                                             <tr role="row">
-                                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="">
-                                                    <input id="checkAll" type="checkbox">
-                                                </th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1"
                                                     colspan="1" aria-sort="ascending" aria-label="Username : activate to sort column ascending">
                                                     绝当品名称
@@ -131,73 +125,28 @@
                                                     aria-label=" Email : activate to sort column ascending">
                                                     图片
                                                 </th>
-                                                <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
-                                                    aria-label="Status : activate to sort column ascending">
-                                                    描述
-                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <input type="checkbox">
-                                                </td>
+
+                                            <c:forEach items="${domainList}" var="domain">
+                                                <tr class="gradeX odd" role="row">
                                                 <td class="sorting_1">
-                                                    0000000000001
+                                                    ${domain.name}
                                                 </td>
                                                 <td>
-                                                    2015年12月12日
+                                                    ${domain.price}
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="btn btn-xs btn-circle">查看</a>
+                                                    ${domain.url}
                                                 </td>
                                                 <td class="productlist-face-box">
-                                                    <img src="../core/images/logo.jpg" alt=""/>
-                                                </td>
-                                                <td>
-                                                    123
-                                                </td>
-                                            </tr>
-                                            <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="sorting_1">
-                                                    0000000000001
-                                                </td>
-                                                <td>
-                                                    2015年12月12日
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-xs btn-circle">查看</a>
-                                                </td>
-                                                <td class="productlist-face-box">
-                                                    <img src="" alt=""/>
-                                                </td>
-                                                <td>
-                                                    123
+                                                   <c:if test="${not empty domain.media}">
+                                                       ${domain.media.path}
+                                                   </c:if>
                                                 </td>
                                             </tr>
-                                            <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="sorting_1">
-                                                    0000000000001
-                                                </td>
-                                                <td>
-                                                    2015年12月12日
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-xs btn-circle">查看</a>
-                                                </td>
-                                                <td>
-                                                    3210.00
-                                                </td>
-                                                <td>
-                                                    123
-                                                </td>
-                                            </tr>
+                                            </c:forEach>
 
                                             </tbody>
                                         </table>

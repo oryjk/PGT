@@ -7,7 +7,9 @@ require.config({
         component: '../core/js/module/component',
         ajax: '../core/js/module/ajax',
         jqzoom: '../core/js/jquery.jqzoom-core',
-        radialindicator: '../core/js/radialindicator'
+        radialindicator: '../core/js/radialindicator',
+        normalInit: '../core/js/module/normalInit'
+
     },
     shim: {
         jqzoom: ['jquery'],
@@ -15,7 +17,7 @@ require.config({
     }
 });
 
-require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function ($, Cpn, Ajax) {
+require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit'], function ($, Cpn, Ajax) {
     $(document).ready(function () {
 
         $('.jqzoom').jqzoom({

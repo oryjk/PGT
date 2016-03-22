@@ -9,47 +9,77 @@ require.config({
         underscore: '../core/js/underscore',
         vue: '../core/js/vue',
         component: '../core/js/module/component',
-        regex: '../core/js/regex',
-        validate: '../core/js/module/validate'
+        normalInit: '../core/js/module/normalInit'
     }
 });
 
-require(['jquery', 'handlebar', 'ajax', 'underscore', 'component','regex', 'vue', 'validate'], function ($, Handlebars, Ajax, yyyyyyyyyy,Con, regex ,Vue, volidate) {
+require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component', 'normalInit'], function ($, Handlebars, Ajax, _, Vue, Con) {
         $(document).ready(function () {
-                var user = function(){
-                    this.username = "";
-                    this.password = "";
-                }
-                var app = new Vue({
+                var vm = new Vue({
                     el: '#login-box',
                     data: {
-                        error : '',
-                        user: user
-                    },
-                    ready:function(){
-                        var validation = new user();
-                        this.$data.error = validation;
-                        //绑定显示错误信息的对象
-                        Vue.prototype.volidateEntity = validation;
-                        //绑定正则
-                        var regex = {
-                            "user.username" : regex_empty,
-                            "user.password" : regex_empty,
-                        }
-                        Vue.prototype.regexEntity = regex;
+                        username: '',
+                        password: '',
+                        authNum: '',
+                        needAuth: false,
+                        showUsernameError: '',
+                        showPasswordError: '',
+                        showAuthError: '',
+                        usernameFocus: '',
+                        passwordFocus: '',
+                        authFocus: '',
+                        errorMsg: '',
+                        errorDisplay:'none'
                     },
                     methods: {
-                        login: function () {
-                            var flag = this.submitVolidata(this.$data.user);
-                            if(flag == true){
-                                $('#login').submit();
+                        login: function (event) {
+                            if (this.username == '') {
+                                this.errorMsg='请输入用户名';
+                                this.errorDisplay='block';
+                                return;
                             }
+                            if (this.password == '') {
+                                this.errorMsg='请输入密码';
+                                this.errorDisplay='block';
+                                return;
+                            }
+                            if (this.needAuth) {
+                                //need focus on password input.
+                                this.errorDisplay='block';
+                            }
+                            $('#login').submit();
                         },
-                        volidate: function (event) {
-                            this.excuteVolidata(event);
+                        userOnFocus: function (event) {
+                            this.usernameFocus = 'input-focus';
+                            this.showUsernameError = '';
+                            this.showPasswordError = '';
+                            this.showAuthError = '';
+                            this.passwordFocus = '';
+                            this.authFocus = '';
+                        },
+                        passwordOnFocus: function (event) {
+                            this.usernameFocus = '';
+                            this.showUsernameError = '';
+                            this.showPasswordError = 'input-focus';
+                            this.showAuthError = '';
+                            this.passwordFocus = '';
+                            this.authFocus = '';
+                        },
+                        authOnFocus: function (event) {
+                            this.usernameFocus = '';
+                            this.showUsernameError = '';
+                            this.showPasswordError = '';
+                            this.showAuthError = '';
+                            this.passwordFocus = '';
+                            this.authFocus = 'input-focus';
                         }
+
                     }
-                })
+
+                });
+                $('#loading').hide();
+
+
             }
         )
     }

@@ -9,11 +9,12 @@ require.config({
         vue: '../core/js/vue',
         regex: '../core/js/regex',
         validate: '../core/js/module/validate',
-        underscore: '../core/js/underscore'
+        underscore: '../core/js/underscore',
+        normalInit: '../core/js/module/normalInit'
     }
 });
 
-require(['jquery', 'component', 'ajax','vue','regex','validate'], function($, Cpn, Ajax, Vue, Regex, Volidate) {
+require(['jquery', 'component', 'ajax','vue','regex','validate', 'normalInit'], function($, Cpn, Ajax, Vue, Regex, Volidate) {
 
     $(document).ready(function() {
         var invest = function(){

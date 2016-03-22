@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @Controller
 public class HomeController{
-    private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseHomeController.class);
     @Autowired
     private ProductServiceImp productServiceImp;
     @Autowired

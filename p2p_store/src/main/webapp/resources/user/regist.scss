@@ -10,7 +10,7 @@
 
 /*part
 **************************************************************************************************************************************************/
-@include header;
+@include header(true);
 @include footer;
 
 /*style
@@ -27,7 +27,7 @@ body {
 }
 
 .content {
-  margin: 100px auto 50px;
+  margin: 20px auto 50px;
   padding: 50px 0;
   border: 1px solid $gray-light;
   height: 600px;

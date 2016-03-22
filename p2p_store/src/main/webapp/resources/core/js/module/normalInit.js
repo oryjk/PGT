@@ -14,7 +14,7 @@ define(['jquery'], function ($) {
             width: w + 'px',
             height: h + 'px'
         });
-    }).mouseout(function () {
+    }).mouseleave(function () {
         var $this =$('.nav-item').eq(0),
             w = $this.innerWidth(),
             h = $this.innerHeight();
@@ -25,4 +25,11 @@ define(['jquery'], function ($) {
             height: h + 'px'
         });
     });
+
+    var menuList = $('.header .menu-list');
+    $('.header .menu').mouseenter(function () {
+        menuList.slideDown(300);
+    }).mouseleave(function () {
+        menuList.slideUp(300);
+    })
 });

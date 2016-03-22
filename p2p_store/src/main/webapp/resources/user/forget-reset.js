@@ -2,15 +2,13 @@
  * Created by zhangxiaodong on 16-3-1.
  */
 
-$(document).ready(function(){
+require.config({
+    paths: {
+        jquery: '../core/js/jquery.min',
+        normalInit: '../core/js/module/normalInit'
+    }
+});
 
-    $("#getSmsPath").click(function(){
-
-
-
-    });
-
-
-
+require(['jquery', 'normalInit'], function ($) {
 
 });

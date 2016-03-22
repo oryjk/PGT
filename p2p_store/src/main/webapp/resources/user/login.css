@@ -1,16 +1,16 @@
 @charset "UTF-8";
 /*import
 **************************************************************************************************************************************************/
-.header .nav, .about-us, .approve, .content .content-img, .content .login .login-title h2 {
+.header .top-content, .about-us, .approve, .content .content-img, .content .login .login-title h2 {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .content .content-img:after, .content .login .login-title h2:after, .header .nav:before, .about-us:before, .approve:before, .content .content-img:before, .content .login .login-title h2:before {
+  .header .top-content:after, .about-us:after, .approve:after, .content .content-img:after, .content .login .login-title h2:after, .header .top-content:before, .about-us:before, .approve:before, .content .content-img:before, .content .login .login-title h2:before {
     content: " ";
     display: table;
     clear: both; }
 
-.header .nav, .about-us, .approve, .content .content-img, .content .login .login-title h2 {
+.header .top-content, .about-us, .approve, .content .content-img, .content .login .login-title h2 {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .content .content-img:after, .content .login .login-title h2:after, .header .nav:before, .about-us:before, .approve:before, .content .content-img:before, .content .login .login-title h2:before {
+  .header .top-content:after, .about-us:after, .approve:after, .content .content-img:after, .content .login .login-title h2:after, .header .top-content:before, .about-us:before, .approve:before, .content .content-img:before, .content .login .login-title h2:before {
     content: " ";
     display: table;
     clear: both; }
@@ -22,16 +22,16 @@
 /*page-box*/
 /*pop-up*/
 /*file*/
-.header .nav, .about-us, .approve, .content .content-img, .content .login .login-title h2 {
+.header .top-content, .about-us, .approve, .content .content-img, .content .login .login-title h2 {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .content .content-img:after, .content .login .login-title h2:after, .header .nav:before, .about-us:before, .approve:before, .content .content-img:before, .content .login .login-title h2:before {
+  .header .top-content:after, .about-us:after, .approve:after, .content .content-img:after, .content .login .login-title h2:after, .header .top-content:before, .about-us:before, .approve:before, .content .content-img:before, .content .login .login-title h2:before {
     content: " ";
     display: table;
     clear: both; }
 
-.header .nav, .about-us, .approve, .content .content-img, .content .login .login-title h2 {
+.header .top-content, .about-us, .approve, .content .content-img, .content .login .login-title h2 {
   *zoom: 1; }
-  .header .nav:after, .about-us:after, .approve:after, .content .content-img:after, .content .login .login-title h2:after, .header .nav:before, .about-us:before, .approve:before, .content .content-img:before, .content .login .login-title h2:before {
+  .header .top-content:after, .about-us:after, .approve:after, .content .content-img:after, .content .login .login-title h2:after, .header .top-content:before, .about-us:before, .approve:before, .content .content-img:before, .content .login .login-title h2:before {
     content: " ";
     display: table;
     clear: both; }
@@ -158,151 +158,147 @@ a {
 /*part
 **************************************************************************************************************************************************/
 .header {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  box-shadow: 0 2px #eeeeee;
-  border-bottom: 1px solid #cccccc \9;
-  width: 100%;
-  height: 100px;
   background: white; }
-  .header .header-inner {
-    margin: 0 auto;
-    width: 1200px;
-    height: 100%; }
-  .header .logo,
-  .header .nav,
-  .header .search {
-    float: left; }
-  .header .logo {
-    width: 242px;
-    height: 100%;
-    background: url("../core/images/header/logo-red.jpg") no-repeat left center; }
-    .header .logo a {
-      display: block;
-      width: 100%;
-      height: 100%; }
-  .header .nav li {
-    float: left;
-    padding: 0 23px; }
-  .header .nav a {
-    font-size: 22px;
-    line-height: 100px;
-    color: black; }
-    .header .nav a:hover {
-      color: #ff6d6d; }
-  .header .search {
-    padding-top: 30px; }
-    .header .search input {
-      border: 1px solid #cccccc;
-      padding: 10px;
-      width: 260px;
-      line-height: 20px;
-      font-size: 14px;
-      background: #fefefe;
-      transition: width .2s linear; }
-      .header .search input:focus {
-        width: 300px;
-        background: white;
-        transition: width .2s linear; }
-  .header .status {
-    float: right;
-    width: 234px;
-    height: 100px;
-    line-height: 100px;
-    text-align: right; }
-    .header .status .status-logout {
-      height: 100px; }
-  .header .status-login-btn,
-  .header .status-help-center,
-  .header .status-register-btn {
-    margin-right: 20px; }
-  .header .status-login-btn,
-  .header .status-help-center,
-  .header .status-register-btn,
-  .header .status-help-center {
-    height: 90px;
-    vertical-align: middle; }
-    .header .status-login-btn:hover,
-    .header .status-help-center:hover,
-    .header .status-register-btn:hover,
-    .header .status-help-center:hover {
-      border-bottom: 4px solid #ff6d6d;
-      color: #ff6d6d; }
-  .header .status-login-btn,
-  .header .status-help-center,
-  .header .status-register-btn,
-  .header .status-help-center {
-    float: right; }
-  .header .status-my-account {
-    margin: 15px 15px 0 0;
-    position: relative;
-    display: inline-block;
-    width: 80px;
+  .header .top-banner {
+    display: block;
     height: 80px; }
-    .header .status-my-account:hover {
-      background: #ff6d6d;
-      top: -5px;
-      box-shadow: 0 10px 15px #555555; }
-  .header .status-my-account-detail {
-    position: absolute;
-    display: none;
-    width: 200px;
-    top: 80px;
-    right: -120px;
-    line-height: 25px;
-    background: white;
-    text-align: center; }
-    .header .status-my-account-detail .detail-top {
-      height: 70px;
-      background: #ff6d6d;
-      box-shadow: 0 10px 15px #555555; }
-      .header .status-my-account-detail .detail-top a {
-        padding: 0;
-        margin-top: 5px; }
-      .header .status-my-account-detail .detail-top img {
-        width: 15px;
-        height: 15px; }
-    .header .status-my-account-detail .user-name {
-      margin-top: 30px;
-      width: 160px;
-      text-align: center;
-      float: left; }
-    .header .status-my-account-detail .detail-bot {
-      background: white;
-      box-shadow: 0 10px 15px #555555;
-      height: 70px; }
-      .header .status-my-account-detail .detail-bot .detail-person {
-        background: url("../core/images/header/man.png") no-repeat 24px 10px; }
-        .header .status-my-account-detail .detail-bot .detail-person:hover {
-          background: url("../core/images/header/r-man.png") no-repeat 24px 10px; }
-      .header .status-my-account-detail .detail-bot .detail-order {
-        background: url("../core/images/header/buy.png") no-repeat 21px 10px; }
-        .header .status-my-account-detail .detail-bot .detail-order:hover {
-          background: url("../core/images/header/r-buy.png") no-repeat 21px 10px; }
-      .header .status-my-account-detail .detail-bot .detail-exit {
-        background: url("../core/images/header/exit.png") no-repeat 26px 10px; }
-        .header .status-my-account-detail .detail-bot .detail-exit:hover {
-          background: url("../core/images/header/r-exit.png") no-repeat 26px 10px; }
-    .header .status-my-account-detail a {
-      float: left;
-      padding: 10px 0 0 8px;
-      height: 50px;
-      font-size: 14px;
-      line-height: 80px;
-      color: #000; }
-      .header .status-my-account-detail a:hover {
-        color: #ff6d6d; }
-  .header .status-user-face-box {
-    padding-left: 20px;
+  .header .top {
+    height: 37px;
+    line-height: 37px;
+    background: #f5f5f5;
+    font-size: 12px;
+    color: #6c6c6c; }
+    .header .top * {
+      vertical-align: middle; }
+  .header .top-content {
+    margin: 0 auto;
+    width: 1200px; }
+  .header .top-welcome {
     float: left;
     width: 50%;
-    height: 50%; }
-  .header .status-user-face {
-    border-radius: 20px;
-    width: 100%;
+    text-align: left; }
+  .header .top-welcome-phone-title {
+    padding-left: 20px; }
+  .header .top-welcome-phone-value {
+    padding-left: 5px; }
+  .header .top-user {
+    float: right;
+    width: 50%;
+    text-align: right; }
+    .header .top-user a {
+      color: #6c6c6c; }
+  .header .top-user-register {
+    padding-left: 10px; }
+  .header .head {
+    margin: 0 auto;
+    width: 1200px;
+    height: 110px; }
+  .header .logo,
+  .header .hot-left,
+  .header .search,
+  .header .hot-right {
+    float: left;
+    height: 110px; }
+  .header .logo {
+    width: 230px;
+    background: url("../core/images/header/logo-red.jpg") no-repeat left center; }
+  .header .logo-link {
+    display: block;
     height: 100%; }
+  .header .hot-left {
+    width: 150px; }
+  .header .search {
+    width: 560px; }
+  .header .search-content {
+    float: right;
+    margin-top: 36px;
+    border: 1px solid #a9b7b7;
+    border-radius: 3px;
+    overflow: hidden; }
+  .header .search-input-text {
+    float: right;
+    border: none;
+    border-right: 1px solid #a9b7b7;
+    padding: 0 10px;
+    width: 400px;
+    height: 37px;
+    font-size: 14px;
+    font-weight: 400; }
+  .header .search-input-submit {
+    float: right;
+    border: none;
+    width: 37px;
+    height: 37px;
+    background: url("../core/images/header/icon-search.png") no-repeat center center; }
+    .header .search-input-submit:hover {
+      background: #a9b7b7 url("../core/images/header/icon-search-hover.png") no-repeat center center; }
+  .header .hot-right {
+    margin-left: 100px;
+    width: 160px; }
+  .header .nav {
+    background: #272727; }
+  .header .nav-content {
+    margin: 0 auto;
+    width: 1200px;
+    height: 54px; }
+  .header .menu {
+    position: relative;
+    z-index: 1;
+    float: left;
+    width: 230px;
+    height: 54px; }
+  .header .menu-title {
+    line-height: 54px;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    color: white;
+    cursor: pointer; }
+  .header .menu-list {
+    position: absolute;
+    display: none;
+    width: 230px;
+    top: 54px;
+    left: 0;
+    background: url("../core/images/opacity/opacity_white_9.png") repeat; }
+  .header .menu-item {
+    margin: 0 15px;
+    padding: 15px 0 15px 40px;
+    border-bottom: 1px dashed #cccccc; }
+  .header .menu-item-title {
+    color: #6c6c6c; }
+  .header .menu-item-sub-box {
+    padding-top: 5px;
+    line-height: 1.2; }
+  .header .menu-item-sub {
+    font-size: 14px;
+    color: #6c6c6c; }
+  .header .nav-list {
+    position: relative;
+    float: left; }
+  .header .nav-item-hover {
+    position: absolute;
+    z-index: 1;
+    background: #414141;
+    transition: all .3s; }
+  .header .nav-item {
+    position: relative;
+    z-index: 2;
+    float: left; }
+  .header .nav-item-link {
+    display: block;
+    padding: 0 30px;
+    height: 54px;
+    line-height: 54px;
+    font-size: 18px;
+    font-weight: 400;
+    color: white; }
+
+.top-banner {
+  display: none !important; }
+
+.nav {
+  display: none; }
 
 .footer {
   background: #3f3f3f; }
@@ -438,7 +434,7 @@ body {
   background: #f3f3f3; }
 
 .content {
-  margin: 100px auto 50px;
+  margin: 20px auto 50px;
   padding: 50px 0;
   border: 1px solid #cccccc;
   height: 390px;
@@ -572,7 +568,7 @@ body {
   display: inline-block;
   padding: 0;
   border: none;
-  width: 120px;
+  width: 150px;
   height: 40px;
   font-size: 20px;
   background: #ff6d6d;

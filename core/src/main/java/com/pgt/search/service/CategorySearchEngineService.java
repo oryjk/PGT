@@ -5,20 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
-import com.pgt.category.service.CategoryHelper;
-import com.pgt.category.service.CategoryService;
 import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.Constants;
-import com.pgt.home.bean.HotSale;
-import com.pgt.product.bean.Product;
 import com.pgt.search.bean.ESFilter;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
+import com.pgt.search.procedure.IndexProcedure;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
-import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -49,11 +47,10 @@ import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 public class CategorySearchEngineService extends AbstractSearchEngineService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategorySearchEngineService.class);
     @Autowired
-    private CategoryHelper categoryHelper;
-    @Autowired
     private ESConfiguration esConfiguration;
+
     @Autowired
-    private CategoryService categoryService;
+    private IndexProcedure indexProcedure;
 
     @Override
     public void index() {
@@ -63,38 +60,17 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
 
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Category> rootCategories = categoryHelper.findRootCategories(esConfiguration.getCategoryType());
-            if (!ObjectUtils.isEmpty(rootCategories)) {
-                rootCategories.stream().forEach(rootCategory -> {
-                    LOGGER.debug("The root category id {}.", rootCategory.getId());
-                    List<Category> subCategories = rootCategory.getChildren();
-                    ObjectMapper mapper = new ObjectMapper();
-                    try {
-                        byte[] rootByte = mapper.writeValueAsBytes(rootCategory);
-                        IndexRequestBuilder indexRequestBuilder =
-                                client.prepareIndex(esConfiguration.getIndexName(), esConfiguration.getCategoryTypeName(), rootCategory.getId() + "")
-                                        .setSource(rootByte);
-                        bulkRequest.add(indexRequestBuilder);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    if (!ObjectUtils.isEmpty(subCategories)) {
-                        subCategories.stream().forEach(category -> {
-                            LOGGER.debug("The category id {}.", category.getId());
-                            try {
-                                byte[] bytes = mapper.writeValueAsBytes(category);
-                                IndexRequestBuilder indexRequestBuilder =
-                                        client.prepareIndex(esConfiguration.getIndexName(), esConfiguration.getCategoryTypeName(), category.getId()
-                                                + "")
-                                                .setSource(bytes);
-                                bulkRequest.add(indexRequestBuilder);
-                            } catch (JsonProcessingException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
-                });
+            List<Pair<String, String>> categoryList = indexProcedure.buildSourceList();
+            if (CollectionUtils.isEmpty(categoryList)) {
+                LOGGER.debug("The category is empty.");
+                return;
             }
+            categoryList.stream().forEach(stringStringPair -> {
+                IndexRequestBuilder indexRequestBuilder =
+                        client.prepareIndex(esConfiguration.getIndexName(), esConfiguration.getCategoryTypeName(), stringStringPair.getLeft())
+                                .setSource(stringStringPair.getRight());
+                bulkRequest.add(indexRequestBuilder);
+            });
             if (bulkRequest.numberOfActions() == 0) {
                 LOGGER.debug("Not need create index, cause request number is 0.");
                 return;
@@ -138,19 +114,6 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
 
     }
 
-    public SearchResponse findRootCategory() {
-
-        ESTerm typeTerm = new ESTerm();
-
-        typeTerm.setPropertyName(Constants.TYPE);
-        typeTerm.setTermValue(Constants.ROOT);
-        ESSort esSort = new ESSort();
-        esSort.setPropertyName(Constants.SORT);
-        esSort.setSortOrder(SortOrder.ASC);
-
-
-        return findCategories(Lists.newArrayList(typeTerm), esSort);
-    }
 
     public SearchResponse findRootCategory(CategoryType categoryType) {
         ESTerm typeTerm = new ESTerm();

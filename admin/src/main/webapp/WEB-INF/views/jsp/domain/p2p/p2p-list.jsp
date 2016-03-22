@@ -30,10 +30,7 @@
                 <!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
                 <div class="row" style="display: block">
                     <div class="col-xs-12">
-                        <div class="Metronic-alerts alert alert-danger fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                            <p>错误信息</p>
-                        </div>
+                        <a class="btn btn-primary" href="create">新增</a>
                     </div>
                 </div>
                 <div class="row">

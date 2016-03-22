@@ -6,11 +6,12 @@ require.config({
         jquery: '../core/js/jquery.min',
         component: '../core/js/module/component',
         ajax: '../core/js/module/ajax',
-        vue: '../core/js/vue'
+        vue: '../core/js/vue',
+        normalInit: '../core/js/module/normalInit'
     }
 });
 
-require(['jquery', 'component', 'ajax', 'vue'], function ($, Cpn, Ajax, Vue) {
+require(['jquery', 'component', 'ajax', 'vue', 'normalInit'], function ($, Cpn, Ajax, Vue) {
     $(document).ready(function () {
         var shipping = new Vue({
             data: {},

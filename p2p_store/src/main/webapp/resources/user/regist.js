@@ -3,11 +3,13 @@
  */
 require.config({
     paths: {
-        jquery: '../core/js/jquery.min'
+        jquery: '../core/js/jquery.min',
+        normalInit: '../core/js/module/normalInit'
+
     }
 });
 
-require(['jquery'], function($) {
+require(['jquery', 'normalInit'], function($) {
 
     $('#registSub').addClass('disable');
 

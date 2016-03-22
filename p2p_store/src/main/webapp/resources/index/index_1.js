@@ -30,7 +30,6 @@ require(['jquery', 'component', 'ajax', 'normalInit', 'index'], function($, Cpn,
             eachCategory.find('.invest-list').load('/');
         });
 
-
         var pawnPointList = $('.pawn-point-item');
         var pawnNavList = $('.pawn-nav-item');
         pawnNavList.mouseenter(function () {

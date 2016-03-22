@@ -49,8 +49,15 @@ var app = new Vue({
             //第一个参数是对象（值），第二个参数是方法
             app.submitVolidata(this.$data.tender, tender);
         },
+        down: function (event) {
+           if(event.target.value.length == 0 && event.keyCode == 9){
+               app.excuteVolidata(event);
+           }
+        },
         volidate: function (event) {
-            app.excuteVolidata(event);
+            if(event.target.value.length > 0) {
+                app.excuteVolidata(event);
+            }
         },
         setDate: function(event){
             var data = this.$data.tender;
