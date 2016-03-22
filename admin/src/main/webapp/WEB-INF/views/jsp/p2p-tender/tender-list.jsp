@@ -194,6 +194,11 @@
 													同步到索引库
 												</button>
 											</p>
+											<p>
+												<button onclick="window.location.href='/tender/description/${tender.tenderId}'" class="tenderIndex">
+													描述
+												</button>
+											</p>
 										</td>
 									</tr>
 								</c:forEach>

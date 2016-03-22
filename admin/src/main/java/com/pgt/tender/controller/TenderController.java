@@ -675,5 +675,11 @@ public class TenderController extends InternalTransactionBaseController {
         }
     }
 
+    @RequestMapping(value = "/description/{tenderId}", method = RequestMethod.GET)
+    public ModelAndView tenderDescription(ModelAndView modelAndView, @PathVariable("tenderId") String tenderId){
+        modelAndView.addObject("tenderId", tenderId);
+        modelAndView.setViewName("/p2p-tender/tender-description-Article");
+        return modelAndView;
+    }
 
 }
