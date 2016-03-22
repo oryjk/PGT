@@ -12,11 +12,6 @@
 
 /*style
 **************************************************************************************************************************************************/
-.top-banner {
-  display: block;
-  height: 80px;
-}
-
 .top {
   height: 37px;
   line-height: 37px;
@@ -86,9 +81,6 @@
   height: 100%;
 }
 
-.hot-left {
-  width: 150px;
-}
 
 .search {
   width: 560px;
@@ -123,11 +115,6 @@
   }
 }
 
-.hot-right {
-  margin-left: 100px;
-  width: 160px;
-}
-
 .nav {
   background: #272727;
 }
@@ -154,7 +141,6 @@
   text-align: center;
   color: white;
   cursor: pointer;
-
 }
 
 .menu-list {
@@ -188,14 +174,13 @@
 .nav-list {
   position: relative;
   float: left;
-  margin-left: 70px;
 }
 
 .nav-item-hover {
   position: absolute;
   z-index: 1;
   background: #414141;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .nav-item {
@@ -214,66 +199,6 @@
   color: white;
 }
 
+
 /* content
-***************************************************/
-.content{
-  margin: 0 auto;
-  @include wh($main-width,700px);
-}
-
-.content-nav{
-  float: left;
-  margin-top: 15px;
-  @include wh(230px);
-  background:white;
-  .content-nav-title{
-    color: #414141;
-    h2{
-      border-bottom: 1px solid #666;
-    }
-    &:hover{
-      background: white;
-    }
-  }
-  .content-nav-active{
-    background: #c90304;
-    a{
-      color: white;
-    }
-  }
-
-  li{
-    margin-top: 5px;
-    padding-top: 10px;
-    text-align: center;
-    line-height: 40px;
-    @include wh(230px,50px);
-    &:hover{
-      background: #c90304;
-      transition: 0.8s;
-    }
-    &:hover > a{
-      color: white;
-    }
-
-    a{
-      color: #414141;
-    }
-  }
-}
-.content-main{
-  float: left;
-  margin-left: 50px;
-  @include wh(900px);
-  min-height: 660px;
-
-  h2{
-    padding:40px 0 10px 70px;
-    border-bottom: 1px solid #666;
-    font-size: 20px;
-  }
-}
-
-.content-main-mid{
-  margin-top: 30px;
-}
+*************************************************************************/

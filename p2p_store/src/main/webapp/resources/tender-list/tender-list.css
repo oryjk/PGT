@@ -285,10 +285,6 @@ a {
 
 /*style
 **************************************************************************************************************************************************/
-.top-banner {
-  display: block;
-  height: 80px; }
-
 .top {
   height: 37px;
   line-height: 37px;
@@ -343,9 +339,6 @@ a {
   display: block;
   height: 100%; }
 
-.hot-left {
-  width: 150px; }
-
 .search {
   width: 560px; }
 
@@ -374,10 +367,6 @@ a {
   background: url("../core/images/header/icon-search.png") no-repeat center center; }
   .search-input-submit:hover {
     background: #a9b7b7 url("../core/images/header/icon-search-hover.png") no-repeat center center; }
-
-.hot-right {
-  margin-left: 100px;
-  width: 160px; }
 
 .nav {
   background: #272727; }
@@ -429,8 +418,7 @@ a {
 
 .nav-list {
   position: relative;
-  float: left;
-  margin-left: 70px; }
+  float: left; }
 
 .nav-item-hover {
   position: absolute;
@@ -452,54 +440,4 @@ a {
   font-weight: 400;
   color: white; }
 
-/* content
-***************************************************/
-.content {
-  margin: 0 auto;
-  width: 1200px;
-  height: 700px; }
-
-.content-nav {
-  float: left;
-  margin-top: 15px;
-  width: 230px;
-  background: white; }
-  .content-nav .content-nav-title {
-    color: #414141; }
-    .content-nav .content-nav-title h2 {
-      border-bottom: 1px solid #666; }
-    .content-nav .content-nav-title:hover {
-      background: white; }
-  .content-nav .content-nav-active {
-    background: #c90304; }
-    .content-nav .content-nav-active a {
-      color: white; }
-  .content-nav li {
-    margin-top: 5px;
-    padding-top: 10px;
-    text-align: center;
-    line-height: 40px;
-    width: 230px;
-    height: 50px; }
-    .content-nav li:hover {
-      background: #c90304;
-      transition: 0.8s; }
-    .content-nav li:hover > a {
-      color: white; }
-    .content-nav li a {
-      color: #414141; }
-
-.content-main {
-  float: left;
-  margin-left: 50px;
-  width: 900px;
-  min-height: 660px; }
-  .content-main h2 {
-    padding: 40px 0 10px 70px;
-    border-bottom: 1px solid #666;
-    font-size: 20px; }
-
-.content-main-mid {
-  margin-top: 30px; }
-
-/*# sourceMappingURL=../../maps/help/help-center.css.map */
+/*# sourceMappingURL=../../maps/tender-list/tender-list.css.map */
