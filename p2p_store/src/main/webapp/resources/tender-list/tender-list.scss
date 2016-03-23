@@ -202,3 +202,123 @@
 
 /* content
 *************************************************************************/
+
+.content{
+  margin: 0 auto;
+  @include wh(1200px,1500px);
+}
+
+.content-title{
+  padding-top: 20px;
+  h2{
+    margin:0 5px 0 20px;
+    float: left;
+  }
+
+  span{
+    margin:0 5px;
+    color:#999;
+  }
+}
+
+.content-screen{
+  margin-top: 20px;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  height: 38px;
+  background: rgb(242,243,244);
+
+  h3{
+    float: left;
+    padding: 10px 0 0 20px;
+  }
+
+  span{
+    float: left;
+    padding:11px 0 0 20px;
+    font-size: 13px;
+    color:#999;
+
+  }
+}
+
+.content-category{
+  height: 50px;
+  border-bottom: 1px solid  #999;
+  .content-category-main{
+    float: left;
+    margin: 15px 30px 0 0;
+    border-right: 1px solid #999;
+    @include wh(100px,20px);
+    text-align: center;
+
+  }
+  .content-category-hover{
+    position: relative;
+    float: left;
+    margin:15px 0 0 20px;
+    padding-right: 20px;
+    border-right: 1px solid #cccdce;
+    @include wh(80px,20px);
+    background: url("../core/images/tender/icon1.png") no-repeat 80px 3px;
+    color: #999;
+    text-align: center;
+    line-height: 20px;
+    &:hover{
+      color: white;
+      background:#c90304;
+      border: none;
+    }
+    &:hover > ul{
+      display: block;
+
+    }
+    ul{
+        display: none;
+        position: absolute;
+        top:20px;
+        left:0;
+        padding-top: 30px;
+        width: 500px;
+        height: 40px;
+        background:#c90304;
+        transition: 0.3s;
+
+      li{
+        margin: 0 10px;
+        float: left;
+      }
+    }
+  }
+
+}
+
+.content-money{
+  height: 50px;
+  border-bottom: 1px solid #999;
+}
+
+.content-list{
+  margin-top: 20px;
+  height: 1000px;
+}
+
+.content-list-left{
+  float: left;
+  border: 1px solid #999;
+  width: 220px;
+  height: 1000px;
+  background: url("../core/images/tender/like.png") no-repeat ;
+  .content-list-left-title{
+    padding-top: 20px;
+    text-align: center;
+  }
+}
+
+.content-list-right{
+  float: left;
+  margin-left: 15px;
+  border: 1px solid #999;
+  width: 960px;
+  height: 1000px;
+}
