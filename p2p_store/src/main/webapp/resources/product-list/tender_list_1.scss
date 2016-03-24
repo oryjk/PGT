@@ -77,10 +77,13 @@ $border-gray: #cccccc;
 
 .filter-content {
   position: relative;
-  @extend %bfc;
   padding: 10px 20px;
   line-height: 35px;
   font-size: 14px;
+}
+
+.filter-content-row {
+  @extend %bfc;
 }
 
 .filter-content-headline {
@@ -149,8 +152,7 @@ $border-gray: #cccccc;
 }
 
 .filter-cost-list {
-  @extend %clear;
-  margin-left: 115px;
+  float: left;
 }
 
 .filter-cost-link {
@@ -324,6 +326,7 @@ $border-gray: #cccccc;
 }
 
 .tender-img-box {
+  display: block;
   overflow: hidden;
   position: relative;
   height: 306px;
@@ -464,7 +467,7 @@ $border-gray: #cccccc;
 
 .pager {
   float: right;
-  margin: 20px 20px 40px;
+  margin: 20px 0 40px;
   font-size: 14px;
   color: $font-gray-dark;
 

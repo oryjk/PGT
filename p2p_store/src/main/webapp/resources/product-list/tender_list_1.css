@@ -1,14 +1,14 @@
 @charset "UTF-8";
 /*import
 **************************************************************************************************************************************************/
-.header .top-content, .about-us, .approve, .filter-cost-list, .sort-list, .tender-list {
+.header .top-content, .about-us, .approve, .sort-list, .tender-list {
   *zoom: 1; }
-  .header .top-content:after, .about-us:after, .approve:after, .filter-cost-list:after, .sort-list:after, .tender-list:after, .header .top-content:before, .about-us:before, .approve:before, .filter-cost-list:before, .sort-list:before, .tender-list:before {
+  .header .top-content:after, .about-us:after, .approve:after, .sort-list:after, .tender-list:after, .header .top-content:before, .about-us:before, .approve:before, .sort-list:before, .tender-list:before {
     content: " ";
     display: table;
     clear: both; }
 
-.filter-content, .tender-name {
+.filter-content-row, .tender-name {
   overflow: hidden; }
 
 .tender-add-favorite-link {
@@ -16,14 +16,14 @@
   *display: inline;
   *zoom: 1; }
 
-.header .top-content, .about-us, .approve, .filter-cost-list, .sort-list, .tender-list {
+.header .top-content, .about-us, .approve, .sort-list, .tender-list {
   *zoom: 1; }
-  .header .top-content:after, .about-us:after, .approve:after, .filter-cost-list:after, .sort-list:after, .tender-list:after, .header .top-content:before, .about-us:before, .approve:before, .filter-cost-list:before, .sort-list:before, .tender-list:before {
+  .header .top-content:after, .about-us:after, .approve:after, .sort-list:after, .tender-list:after, .header .top-content:before, .about-us:before, .approve:before, .sort-list:before, .tender-list:before {
     content: " ";
     display: table;
     clear: both; }
 
-.filter-content, .tender-name {
+.filter-content-row, .tender-name {
   overflow: hidden; }
 
 .tender-add-favorite-link {
@@ -38,14 +38,14 @@
 /*page-box*/
 /*pop-up*/
 /*file*/
-.header .top-content, .about-us, .approve, .filter-cost-list, .sort-list, .tender-list {
+.header .top-content, .about-us, .approve, .sort-list, .tender-list {
   *zoom: 1; }
-  .header .top-content:after, .about-us:after, .approve:after, .filter-cost-list:after, .sort-list:after, .tender-list:after, .header .top-content:before, .about-us:before, .approve:before, .filter-cost-list:before, .sort-list:before, .tender-list:before {
+  .header .top-content:after, .about-us:after, .approve:after, .sort-list:after, .tender-list:after, .header .top-content:before, .about-us:before, .approve:before, .sort-list:before, .tender-list:before {
     content: " ";
     display: table;
     clear: both; }
 
-.filter-content, .tender-name {
+.filter-content-row, .tender-name {
   overflow: hidden; }
 
 .tender-add-favorite-link {
@@ -53,14 +53,14 @@
   *display: inline;
   *zoom: 1; }
 
-.header .top-content, .about-us, .approve, .filter-cost-list, .sort-list, .tender-list {
+.header .top-content, .about-us, .approve, .sort-list, .tender-list {
   *zoom: 1; }
-  .header .top-content:after, .about-us:after, .approve:after, .filter-cost-list:after, .sort-list:after, .tender-list:after, .header .top-content:before, .about-us:before, .approve:before, .filter-cost-list:before, .sort-list:before, .tender-list:before {
+  .header .top-content:after, .about-us:after, .approve:after, .sort-list:after, .tender-list:after, .header .top-content:before, .about-us:before, .approve:before, .sort-list:before, .tender-list:before {
     content: " ";
     display: table;
     clear: both; }
 
-.filter-content, .tender-name {
+.filter-content-row, .tender-name {
   overflow: hidden; }
 
 .tender-add-favorite-link {
@@ -558,7 +558,7 @@ a {
     color: #ff6d6d; }
 
 .filter-cost-list {
-  margin-left: 115px; }
+  float: left; }
 
 .filter-cost-link {
   color: #989898; }
@@ -717,6 +717,7 @@ a {
     transition: bottom .3s; }
 
 .tender-img-box {
+  display: block;
   overflow: hidden;
   position: relative;
   height: 306px; }
@@ -830,7 +831,7 @@ a {
 
 .pager {
   float: right;
-  margin: 20px 20px 40px;
+  margin: 20px 0 40px;
   font-size: 14px;
   color: #535353; }
   .pager .page-list,
