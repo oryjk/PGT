@@ -1,0 +1,529 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+/*part
+**************************************************************************************************************************************************/
+@include header;
+@include footer;
+
+$font-gray: #898989;
+$font-gray-dark: #535353;
+$bg-gray: #f3f3f3;
+$border-gray: #cccccc;
+
+/*style
+**************************************************************************************************************************************************/
+.bread-crumbs {
+  margin: 0 auto;
+  @include wh($main-width, 56px);
+  line-height: 56px;
+  color: #636363;
+  font-size: 16px;
+
+  .bread-crumbs-first {
+    margin: 0 5px 0 20px;
+    font-size: 20px;
+    color: black;
+  }
+
+  .bread-crumbs-item {
+    margin-left: 5px;
+    color: $font-gray;
+
+    &:hover {
+      color: $main;
+    }
+  }
+}
+
+.content {
+  margin: 0 auto;
+  width: $main-width;
+}
+
+.filter {
+  border: 1px solid #cccccc;
+}
+
+.filter-title {
+  border-bottom: 1px solid $border-gray;
+  height: 50px;
+  line-height: 50px;
+  background: $bg-gray;
+}
+
+.filter-name {
+  padding: 0 20px;
+  color: $main;
+  font-size: 18px;
+}
+
+.filter-title-headline {
+  font-size: 18px;
+}
+
+.filter-count {
+  padding-left: 50px;
+  color: #989898;
+  font-size: 14px;
+}
+
+.filter-content {
+  position: relative;
+  @extend %bfc;
+  padding: 10px 20px;
+  line-height: 35px;
+  font-size: 14px;
+}
+
+.filter-content-headline {
+  float: left;
+  width: 115px;
+}
+
+.filter-count {
+  font-size: 12px;
+}
+
+.filter-list {
+  float: left;
+}
+
+.filter-item {
+  float: left;
+  padding: 0 15px;
+  height: 35px;
+  text-align: center;
+}
+
+.filter-link {
+  display: block;
+  border: 5px solid white;
+  padding: 0 15px 0 10px;
+  color: $font-gray;
+  background: url("../core/images/tender_list/down.png") no-repeat right center;
+}
+
+.filter-item-hover {
+  .filter-link {
+    color: $main;
+    border-color: $bg-gray;
+    background: $bg-gray url("../core/images/tender_list/up.png") no-repeat right center;
+  }
+
+  .filter-sub-list {
+    display: block;
+  }
+}
+
+.filter-sub-list {
+  position: absolute;
+  top: 45px;
+  left: 20px;
+  display: none;
+  @include wh($main-width - 40px, 35px);
+  background: $bg-gray;
+}
+
+.filter-sub-item {
+  float: left;
+  padding: 0 25px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.filter-sub-link {
+  color: #989898;
+
+  &:hover {
+    color: $main;
+  }
+}
+
+.filter-cost-list {
+  @extend %clear;
+  margin-left: 115px;
+}
+
+.filter-cost-link {
+  color: #989898;
+
+  &:hover {
+    color: $main;
+  }
+}
+
+.filter-cost-item {
+  float: left;
+  padding: 0 25px;
+}
+
+.filter-cost-search {
+  float: left;
+  padding-left: 13px;
+}
+
+.filter-cost-input-text {
+  @include wh(40px, 18px);
+}
+
+.filter-cost-btn {
+  margin-left: 5px;
+  @include color-btn(50px, 24px, 0, 12px, $main, $main-dark);
+}
+
+
+
+.content-body {
+  margin: 20px 0;
+}
+
+.vertical-recommend {
+  float: left;
+  border: 1px solid $border-gray;
+  width: 218px;
+  background: url("../core/images/tender_list/recommend.png") no-repeat;
+}
+
+.vertical-recommend-headline {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  color: $font-gray-dark;
+}
+
+.vertical-recommend-list {
+  padding: 0 10px;
+}
+
+.recommend-item {
+  padding: 15px 0;
+}
+
+.recommend-img-box {
+  position: relative;
+  display: block;
+  height: 198px;
+}
+
+.recommend-img {
+  display: block;
+  @include wh(100%, 100%);
+}
+
+.recommend-hot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include wh(51px, 26px);
+  background: url("../core/images/tender_list/hot.png");
+}
+
+.recommend-name {
+  font-size: 14px;
+  padding-top: 5px;
+  height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+}
+
+.recommend-name-link {
+  color: $font-gray-dark;
+
+  &:hover {
+    color: $main;
+  }
+}
+
+.recommend-handle {
+  padding-top: 10px;
+}
+
+.recommend-buy {
+  @include color-btn(70px, 26px, 3px, 12px, $main, $main-dark);
+}
+
+.recommend-count {
+  float: right;
+  padding-top: 8px;
+  font-size: 12px;
+  color: $font-gray;
+}
+
+.content-main {
+  float: right;
+  width: 960px;
+}
+
+.sort {
+  border: 1px solid $border-gray;
+  padding: 13px 15px;
+  background: $bg-gray;
+  font-size: 14px;
+}
+
+.sort-list {
+
+  @extend %clear;
+}
+.sort-item {
+  float: left;
+  margin-right: 32px;
+}
+
+.sort-link {
+  color: $font-gray-dark;
+}
+
+.sort-link-current {
+  color: $main;
+}
+
+.sort-filter {
+  padding-top: 15px;
+  color: $font-gray;
+  * {
+    vertical-align: middle;
+  }
+}
+
+.sort-filter-current {
+  margin-right: 20px;
+}
+
+.tender-list {
+  margin-left: -18px;
+  padding-top: 20px;
+  width: 978px;
+  @extend %clear;
+}
+
+.tender-item {
+  float: left;
+  margin: 0 0 18px 18px;
+  border: 1px solid $border-gray;
+  padding-bottom: 25px;
+  width: 306px;
+
+  &:hover {
+    .tender-about {
+      bottom: 0;
+      transition: bottom .3s;
+    }
+  }
+}
+
+.tender-img-box {
+  overflow: hidden;
+  position: relative;
+  height: 306px;
+}
+
+.tender-img {
+  display: block;
+  @include wh(100%, 100%);
+}
+
+.tender-status {
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include wh(100%, 100%);
+}
+
+.tender-about {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  padding-top: 10px;
+  @include wh(100%, 40px);
+  text-align: center;
+  line-height: 16px;
+  color: white;
+  opacity: .9;
+  transition: bottom .3s;
+}
+
+.tender-about-item {
+  float: left;
+  width: 33.3%;
+}
+
+.tender-about-value {
+  font-size: 14px;
+}
+
+.tender-about-title {
+  font-size: 12px;
+}
+
+.tender-name {
+  padding: 15px 12px 0;
+  @extend %bfc;
+  line-height: 20px;
+  height: 40px;
+}
+
+.tender-name-link {
+  font-size: 14px;
+  color: $font-gray-dark;
+
+  &:hover {
+    color: $main;
+  }
+}
+
+.tender-time {
+  padding: 15px 0 0 34px;
+  background: url("../core/images/tender_list/icon-time.png") no-repeat 12px 16px;
+}
+
+.tender-time-title {
+  font-size: 14px;
+  color: $font-gray;
+}
+
+.tender-time-value {
+  color: $main;
+  font-size: 18px;
+}
+
+.tender-add-favorite {
+  padding-top :8px;
+}
+
+
+.tender-add-favorite-link {
+  @extend %inline-block;
+  padding-left: 34px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  color: $font-gray;
+  background: url("../core/images/tender_list/icon-favorite.png") no-repeat 12px 0;
+}
+
+.tender-have-favorite {
+  background-image: url("../core/images/tender_list/icon-have-favorite.png");
+}
+
+@mixin tender-item-color($c) {
+  &:hover {
+    border-color: $c;
+  }
+
+  .tender-about {
+    background: $c;
+  }
+}
+
+.tender-being {
+  @include tender-item-color(#f85d5c);
+
+  .tender-status {
+    background: url("../core/images/tender_list/tender-being.png") no-repeat 30px 30px;
+  }
+}
+
+.tender-finish {
+  @include tender-item-color(#aaaaaa);
+
+  .tender-status {
+    background: url("../core/images/tender_list/tender-finish.png") no-repeat 30px 30px;
+  }
+}
+
+.tender-threshold {
+  @include tender-item-color(#009a99);
+  
+  .tender-status {
+    background: url("../core/images/tender_list/tender-threshold.png") no-repeat 30px 30px;
+  }
+}
+
+.no-tender {
+  margin: 40px 0 20px;
+}
+
+.no-tender-text {
+  text-align: center;
+  font-size: 16px;
+  color: $font-gray;
+}
+
+
+.pager {
+  float: right;
+  margin: 20px 20px 40px;
+  font-size: 14px;
+  color: $font-gray-dark;
+
+
+  .page-list,
+  .page-info,
+  .page-goto {
+    float: left;
+  }
+
+  .page-item {
+    float: left;
+    padding-left: 10px;
+    line-height: 20px;
+  }
+
+  .page-link {
+    display: block;
+    border: 1px solid $font-gray;
+    padding: 0 7px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: $font-gray-dark;
+  }
+
+  .page-omit {
+    line-height: 22px;
+    @include wh(22px, 22px);
+  }
+
+  .page-info {
+    margin-left: 30px;
+    line-height: 22px;
+  }
+
+  .page-goto {
+    margin: -2px 0 0 30px;
+    line-height: 22px;
+  }
+
+  .page-which {
+    @include wh(40px, 20px);
+  }
+
+  .page-goto-btn {
+    margin-left: 5px;
+    @include color-btn(50px, 24px, 0, 14px, $main, $main-dark);
+  }
+
+  .page-current {
+    border-color: $main;
+    color: $main;
+  }
+
+  .pre-page,
+  .next-page {
+    color: $font-gray-dark;
+  }
+}
+
+

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="tender_list_1.css"/>
+    <style>
+        .main,
+        .hover-main:hover {
+            color: #c90304;
+        }
+        .em,
+        .hover-em:hover {
+            color: #86b4ed;
+        }
+        .bg-main,
+        .hover-bg-main:hover {
+            background: #c90304;
+        }
+        .bg-em,
+        .hover-bg-em:hover {
+            background: #86b4ed;
+        }
+    </style>
+</head>
+<body>
+<!--header begin-->
+<div class="header">
+    <a class="top-banner" href="#" style="background: #9e150e url('../core/images/data/top-banner.jpg') no-repeat center center"></a>
+    <div class="top">
+        <div class="top-content">
+            <div class="top-welcome">
+                <span class="top-welcome-text">欢迎光临点金子绝当淘!</span>
+                <span class="top-welcome-phone-title">客服电话:</span>
+                <span class="top-welcome-phone-value main">028-88888888</span>
+            </div>
+            <div class="top-user">
+                <div class="top-before-login" style="display: block">
+                    <a class="top-user-login hover-main" href="#">登录</a>
+                    <a class="top-user-register hover-main" href="#">注册</a>
+                </div>
+                <div class="top-after-login" style="display: none">
+                    <span>欢迎您:</span>
+                    <a href="#">小陈</a>
+                    <a class="top-user-logout hover-main" href="javascript:void(0);">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="head">
+        <div class="head-content">
+            <h1 class="logo">
+                <a class="logo-link" href="#"></a>
+            </h1>
+            <a href="#" class="hot-left"  style="background: url('../core/images/data/hot-left.gif') no-repeat center center"></a>
+            <form class="search">
+                <div class="search-content">
+                    <a class="search-input-submit" href="javascript:void(0);"></a>
+                    <input class="search-input-text" type="text" placeholder="请输入要搜索的关键字"/>
+                </div>
+            </form>
+            <a href="#" class="hot-right" style="background: url('../core/images/data/hot-right.gif') no-repeat center center"></a>
+        </div>
+    </div>
+    <div class="nav">
+        <div class="nav-content">
+            <div class="menu">
+                <h2 class="menu-title bg-main">开启购物新体验</h2>
+                <ul class="menu-list">
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ul class="nav-list">
+                <li id="navHover" class="nav-item-hover" style="width: 96px; height: 54px; top: 0; left:0;"></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">首页</a></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">在当大厅</a></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">在线典当</a></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">帮助中心</a></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">绝当品商城</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--header end-->
+
+<div class="bread-crumbs">
+    <a class="bread-crumbs-first" href="#">首页</a>
+    <span> > </span>
+    <a class="bread-crumbs-item" href="#">文玩杂项</a>
+</div>
+
+<div class="content">
+    <div class="filter">
+        <div class="filter-title">
+            <span class="filter-name">翡翠玉石</span>
+            <span class="filter-title-headline">商品筛选</span>
+            <span class="filter-count">共计<span>100</span>个项目</span>
+        </div>
+        <div class="filter-content">
+            <div>
+                <div class="filter-content-headline">分类:</div>
+                <ul class="filter-list">
+                    <li class="filter-item">
+                        <a class="filter-link" href="#">文玩杂项</a>
+                        <ul class="filter-sub-list">
+                            <li class="filter-sub-item">
+                                <a class="filter-sub-link" href="#">橄榄核桃系列</a>
+                            </li>
+                            <li class="filter-sub-item">
+                                <a class="filter-sub-link" href="#">牦牛角系列</a>
+                            </li>
+                            <li class="filter-sub-item">
+                                <a class="filter-sub-link" href="#">骆驼骨系列</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="filter-item">
+                        <a class="filter-link" href="#">文玩杂项</a>
+                        <ul class="filter-sub-list">
+                            <li class="filter-sub-item">
+                                <a class="filter-sub-link" href="#">橄榄核桃系列</a>
+                            </li>
+                            <li class="filter-sub-item">
+                                <a class="filter-sub-link" href="#">牦牛角系列</a>
+                            </li>
+                            <li class="filter-sub-item">
+                                <a class="filter-sub-link" href="#">骆驼骨系列</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul class="filter-cost-list">
+                    <li class="filter-cost-item">
+                        <a class="filter-cost-link" href="#">1000~3000</a>
+                    </li>
+                    <li class="filter-cost-item">
+                        <a class="filter-cost-link" href="#">1000~3000</a>
+                    </li>
+                    <li class="filter-cost-item">
+                        <a class="filter-cost-link" href="#">1000~3000</a>
+                    </li>
+                    <li class="filter-cost-search">
+                        <input class="filter-cost-input-text" type="text"/>
+                        <span>-</span>
+                        <input class="filter-cost-input-text" type="text"/>
+                        <input class="filter-cost-btn" type="button" value="搜索"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="vertical-recommend">
+            <h3 class="vertical-recommend-headline">猜你喜欢</h3>
+            <ul class="vertical-recommend-list">
+                <li class="recommend-item">
+                    <a class="recommend-img-box" href="#">
+                        <img class="recommend-img" src="../core/images/data/product-2.jpg" alt=""/>
+                        <div class="recommend-hot"></div>
+                    </a>
+                    <p class="recommend-name">
+                        <a  class="recommend-name-link" href="#">新信息拜奶奶典当行生肖戒指一套新信息拜奶奶典当行生肖戒指一套</a>
+                    </p>
+                    <div class="recommend-handle">
+                        <input class="recommend-buy" type="button" value="立即抢购"/>
+                        <span class="recommend-count">
+                            已有<span>21</span>人购买
+                        </span>
+                    </div>
+                </li>
+                <li class="recommend-item">
+                    <a class="recommend-img-box" href="#">
+                        <img class="recommend-img" src="../core/images/data/product-3.jpg" alt=""/>
+                        <div class="recommend-hot"></div>
+                    </a>
+                    <p class="recommend-name">
+                        <a  class="recommend-name-link" href="#">新信息拜奶奶典当行生肖戒指一套新信息拜奶奶典当行生肖戒指一套</a>
+                    </p>
+                    <div class="recommend-handle">
+                        <input class="recommend-buy" type="button" value="立即抢购"/>
+                        <span class="recommend-count">
+                            已有<span>21</span>人购买
+                        </span>
+                    </div>
+                </li>
+                <li class="recommend-item">
+                    <a class="recommend-img-box" href="#">
+                        <img class="recommend-img" src="../core/images/data/product-4.jpg" alt=""/>
+                        <div class="recommend-hot"></div>
+                    </a>
+                    <p class="recommend-name">
+                        <a  class="recommend-name-link" href="#">新信息拜奶奶典当行生肖戒指一套新信息拜奶奶典当行生肖戒指一套</a>
+                    </p>
+                    <div class="recommend-handle">
+                        <input class="recommend-buy" type="button" value="立即抢购"/>
+                        <span class="recommend-count">
+                            已有<span>21</span>人购买
+                        </span>
+                    </div>
+                </li>
+
+                <li class="recommend-item">
+                    <a class="recommend-img-box" href="#">
+                        <img class="recommend-img" src="../core/images/data/product-5.jpg" alt=""/>
+                        <div class="recommend-hot"></div>
+                    </a>
+                    <p class="recommend-name">
+                        <a  class="recommend-name-link" href="#">新信息拜奶奶典当行生肖戒指一套新信息拜奶奶典当行生肖戒指一套</a>
+                    </p>
+                    <div class="recommend-handle">
+                        <input class="recommend-buy" type="button" value="立即抢购"/>
+                        <span class="recommend-count">
+                            已有<span>21</span>人购买
+                        </span>
+                    </div>
+                </li>
+
+                <li class="recommend-item">
+                    <a class="recommend-img-box" href="#">
+                        <img class="recommend-img" src="../core/images/data/product-1.jpg" alt=""/>
+                        <div class="recommend-hot"></div>
+                    </a>
+                    <p class="recommend-name">
+                        <a  class="recommend-name-link" href="#">新信息拜奶奶典当行生肖戒指一套新信息拜奶奶典当行生肖戒指一套</a>
+                    </p>
+                    <div class="recommend-handle">
+                        <input class="recommend-buy" type="button" value="立即抢购"/>
+                        <span class="recommend-count">
+                            已有<span>21</span>人购买
+                        </span>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+        <div class="content-main">
+            <div class="sort">
+                <ul class="sort-list">
+                    <li class="sort-item">
+                        <a class="sort-link sort-link-current" href="javascript:void(0);">综合推荐</a>
+                    </li>
+                    <li class="sort-item">
+                        <a class="sort-link" href="javascript:void(0);">最新上线</a>
+                    </li>
+                    <li class="sort-item">
+                        <a class="sort-link" href="javascript:void(0);">金额最高</a>
+                    </li>
+                    <li class="sort-item">
+                        <a class="sort-link" href="javascript:void(0);">即将结束</a>
+                    </li>
+                </ul>
+                <div class="sort-filter">
+                    <label class="sort-filter-current"><input class="sort-radio" type="radio"/>全部</label>
+                    <label class="sort-filter-current"><input class="sort-radio" type="radio"/>即将开始</label>
+                    <label class="sort-filter-current"><input class="sort-radio" type="radio"/>在当中</label>
+                    <label class="sort-filter-current"><input class="sort-radio" type="radio"/>已结束</label>
+                </div>
+            </div>
+
+
+            <!-- super:项目下没有时显示no-tender-->
+            <div class="no-tender" style="display: block">
+                <p class="no-tender-text">对不起,该项目下暂时没有内容,以下是为您推荐的项目:</p>
+            </div>
+
+            <ul class="tender-list">
+
+                <li class="tender-item tender-being">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-4.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <!-- 已加入收藏,则添加类tender-have-favorite-->
+                        <a class="tender-add-favorite-link tender-have-favorite" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-threshold">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-5.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-finish">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-1.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-being">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-1.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-threshold">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-2.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-finish">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-3.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-being">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-4.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-threshold">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-5.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-finish">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-1.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-being">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-1.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-threshold">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-2.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+
+                <li class="tender-item tender-finish">
+                    <div class="tender-img-box">
+                        <img class="tender-img"  src="../core/images/data/product-3.jpg" alt=""/>
+                        <div class="tender-status"></div>
+                        <div class="tender-about">
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>7</span>件</div>
+                                <div class="tender-about-title">剩余产品</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value">¥<span>18600</span></div>
+                                <div class="tender-about-title">产品认购总额</div>
+                            </div>
+                            <div class="tender-about-item">
+                                <div class="tender-about-value"><span>68</span>人</div>
+                                <div class="tender-about-title">已购人数</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tender-name"><a class="tender-name-link" href="#">骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列骆驼骨系列</a></p>
+                    <div class="tender-time">
+                        <span class="tender-time-title">倒计时:</span>
+                        <span class="tender-time-value"><span>23</span>天</span>
+                    </div>
+                    <div class="tender-add-favorite">
+                        <a class="tender-add-favorite-link" href="javascript:void(0);">收藏商品</a>
+                    </div>
+                </li>
+            </ul>
+
+
+
+            <div class="pager">
+                <ol class="page-list">
+                    <li class="page-item"><a href="javascript:void(0);" class="pre-page">上一页</a></li>
+                    <li class="page-item"><a href="javascript:void(0);" class="page-link page-current">1</a></li>
+                    <li class="page-item"><a href="javascript:void(0);" class="page-link">2</a></li>
+                    <li class="page-item"><a href="javascript:void(0);" class="page-link">3</a></li>
+                    <li class="page-item"><span class="page-omit">...</span></li>
+                    <li class="page-item"><a href="javascript:void(0);" class="page-link">7</a></li>
+                    <li class="page-item"><a href="javascript:void(0);" class="page-link">8</a></li>
+                    <li class="page-item"><a href="javascript:void(0);" class="page-link">9</a></li>
+                    <li class="page-item"><a href="javascript:void(0);" class="next-page">下一页</a></li>
+                </ol>
+                <div class="page-info">
+                    <span>2</span>
+                    <span>/</span>
+                    <span>10</span>
+                </div>
+                <div class="page-goto">
+                    <span>跳转至</span>
+                    <input class="page-which" type="text"/>
+                    <span>页</span>
+                    <input class="page-goto-btn" type="button" value="跳转"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="../core/js/require.js" data-main="tender_list_1"></script>
+</body>
+</html>
