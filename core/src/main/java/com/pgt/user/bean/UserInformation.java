@@ -24,8 +24,6 @@ public class UserInformation implements Serializable {
 
 	private User user;
 
-	@NotEmpty(message = "{NotNull.user.nickname}", groups = { AddUserInformationGroup.class })
-	@Size(min=3,max=12,message="{Error.userInformation.nickname.invalid}",groups = { AddUserInformationGroup.class })
 	private String nickname;
 
 

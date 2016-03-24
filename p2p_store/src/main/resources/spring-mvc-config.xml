@@ -89,6 +89,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/my-account/**"/>
 			<mvc:mapping path="/myAccount/**" />
+			<mvc:mapping path="/userinformation/**" />
 			<bean class="com.pgt.interceptor.MyAccountInterceptor"></bean>
 		</mvc:interceptor>
 

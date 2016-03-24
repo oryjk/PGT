@@ -100,7 +100,15 @@
                                         <div class="radio-list">
                                             <select class="form-control input-medium" name="categoryId">
                                                 <c:forEach items="${categories}" var="category">
-                                                    <option value="${category.id}">${category.name}</option>
+                                                    <c:choose>
+                                                        <c:when test="${tender.category.id eq category.id}">
+                                                            <option value="${category.id}" selected>${category.name}</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="${category.id}">${category.name}</option>
+                                                        </c:otherwise>
+                                                    </c:choose>
+
                                                 </c:forEach>
                                             </select>
                                         </div>

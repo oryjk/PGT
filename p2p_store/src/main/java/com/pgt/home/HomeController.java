@@ -48,7 +48,7 @@ public class HomeController extends BaseHomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/categoryId/{categoryId}", method = RequestMethod.GET)
     public ModelAndView getCategoryOnSaleTender(@PathVariable("categoryId") String categoryId, ModelAndView modelAndView) {
         ESTerm esTerm = new ESTerm();
         esTerm.setPropertyName("parentCategory.id");

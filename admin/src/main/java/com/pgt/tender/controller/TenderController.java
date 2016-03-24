@@ -106,7 +106,7 @@ public class TenderController extends InternalTransactionBaseController {
             currentIndex = 0L;
         }
         paginationBean.setCurrentIndex(currentIndex);
-        paginationBean.setCapacity(3);
+        paginationBean.setCapacity(10);
         tenderQuery.setNeedHot(false);
         if (!StringUtils.isEmpty(term)) {
             LOGGER.debug("The query term is {}", term);
