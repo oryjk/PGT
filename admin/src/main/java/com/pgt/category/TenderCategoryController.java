@@ -269,7 +269,9 @@ public class TenderCategoryController extends InternalTransactionBaseController 
         if (category.getType().equals(CategoryType.TENDER_ROOT)) {
             List<Media> medias = mediaService.findMediaByRefId(category.getId(), MediaType.category);
             if (!CollectionUtils.isEmpty(medias)) {
-                mediaService.deleteMedia(medias.get(0).getId());
+                if(!medias.get(0).getId().equals(category.getFrontMedia().getId())){
+                    mediaService.deleteMedia(medias.get(0).getId());
+                }
             }
 
             List<Media> icons = mediaService.findMediaByRefId(category.getId(), MediaType.icon);

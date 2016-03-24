@@ -171,29 +171,7 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-8">
-      <div class="pgt-each-img">
-        <div class="pgt-handle-box">
-          <a id="pgt-middle-delete" class="pgt-icon-delete" data-url="">删除</a>
-        </div>
-        <img id="pgt-middle-img" class="pgt-icon-img" src="" alt=""/>
-        <p>200 * 200</p>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <label class="col-md-12 control-label">图标图</label>
-    <div class="col-md-12">
-      <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-        <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
-        <input name="mediaType" type="hidden" value="icon"/>
-        <button type="button" class="btn blue">选择图片</button>
-      </form>
-      <p></p>
-    </div>
 
-  <div id="testbox"></div>
 
 </admin:container>
 
