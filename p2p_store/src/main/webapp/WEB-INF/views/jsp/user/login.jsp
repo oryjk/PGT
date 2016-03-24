@@ -8,18 +8,20 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<link rel="stylesheet" href="/resources/user/login.css"/>
+	<link rel="stylesheet" href="/resources/core/header/header-con.css"/>
 </head>
 <body>
+<div id="loading">
+	<img src="/resources/core/images/loading.gif" width="33" alt="">
+</div>
 <!--header begin-->
-<jsp:include page="../core/header-myaccount.jsp"/>
+<jsp:include page="../core/header-login.jsp"/>
 <!--header end-->
 <style type="text/css">
 	#loading{position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:15000;}
 	#loading img{position:absolute;top:50%;left:50%;width:33px;height:33px;margin-top:-15px;margin-left:-15px;}
 </style>
-<div id="loading">
-	<img src="/resources/core/images/loading.gif" width="33" alt="">
-</div>
+
 <!--content begin-->
 <div class="content">
 	<div class="content-box">
