@@ -29,10 +29,9 @@
 			<a class="person-info-tab person-info-tab-choose" href="#">基本信息</a>
 			<a class="person-info-tab" href="/user/resetPassword">修改登录密码</a>
 		</div>
-		<!-- super: person-info-box和modify-password-box根据不同的情况显示-->
 		<!-- person-info-box begin-->
 		<div class="person-info-box" style="display: block;">
-			<form action="/userinformation/update" method="post">
+			<form action="">
 				<table>
 					<tr>
 						<th>用户名:</th>
@@ -40,73 +39,110 @@
 					</tr>
 					<tr>
 						<th>昵称:</th>
-						<c:set value="${userInformation.nickname}" var="nickname"/>
-						<c:if test="${empty userInformation.nickname}">
-							<c:set value="${currentUser.username}" var="nickname"/>
-						</c:if>
-						<td><input class="input-text" type="text" name="nickname" value="${nickname}"/></td>
+						<td>
+							<c:choose>
+								<c:when test="${!empty userInformation.nickname}">
+									${userInformation.nickname}
+								</c:when>
+								<c:otherwise>
+									未设置
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 					<tr>
 						<th>手机号码:</th>
-						<c:set value="${userInformation.phoneNumber}" var="phoneNumber"/>
-						<c:if test="${empty userInformation.phoneNumber}">
-							<c:set value="${currentUser.phoneNumber}" var="phoneNumber"/>
-						</c:if>
-						<td><input class="input-text" type="text" name="phoneNumber" value="${phoneNumber}" maxlength="11"/></td>
+						<td>
+							<span>${currentUser.phoneNumber}</span>
+						</td>
 					</tr>
 					<tr>
 						<th>性别:</th>
 						<td>
-							<label><input type="radio" name="gender"
-										  <c:if test="${userInformation.gender eq '男'}">checked</c:if> value="男"/>男</label>
-							<label><input type="radio" name="gender"
-										  <c:if test="${userInformation.gender eq '女'}">checked</c:if> value="女"/>女</label>
-							<label><input type="radio" name="gender"
-										  <c:if test="${empty userInformation.gender}">checked</c:if> value=""/>保密</label>
+							<label>
+								<c:choose>
+								<c:when test="${!empty userInformation.gender}">
+									${userInformation.gender}
+								</c:when>
+								<c:otherwise>
+								未设置
+								</c:otherwise>
+								</c:choose>
 						</td>
 					</tr>
 					<tr>
 						<th>邮箱:</th>
 						<td>
-							<input class="input-text" type="text" name="personEmail" value="${userInformation.personEmail}"/>
+							<span>
+								<c:choose>
+									<c:when test="${!empty userInformation.personEmail}">
+										${userInformation.personEmail}
+									</c:when>
+									<c:otherwise>
+										未设置
+									</c:otherwise>
+								</c:choose>
+							</span>
 						</td>
 					</tr>
 					<tr>
 						<th>身份证号码:</th>
-						<td><input class="input-text" type="text" name="idCard" value="${userInformation.idCard}" maxlength="18"/></td>
+						<td>
+							<c:choose>
+								<c:when test="${!empty userInformation.idCard}">
+									${userInformation.idCard}
+								</c:when>
+								<c:otherwise>
+									未设置
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 					<tr>
 						<th>婚姻状况:</th>
 						<td>
-							<label><input type="radio" name="marrage"
-										  <c:if test="${userInformation.marrage eq '已婚'}">checked</c:if> value="已婚"/>已婚</label>
-							<label><input type="radio" name="marrage"
-										  <c:if test="${userInformation.marrage eq '未婚'}">checked</c:if> value="未婚"/>未婚</label>
-							<label><input type="radio" name="marrage"
-										  <c:if test="${empty userInformation.marrage}">checked</c:if> value=""/>保密</label>
+							<label>
+								<c:choose>
+									<c:when test="${!empty userInformation.marrage}">
+										${userInformation.marrage}
+									</c:when>
+									<c:otherwise>
+										未设置
+									</c:otherwise>
+								</c:choose>
+							</label>
 						</td>
 					</tr>
 					<tr>
 						<th>所在行业:</th>
-						<td><input class="input-text" name="industry" type="text" value="${userInformation.industry}"/></td>
-					</tr>
-					<tr>
-						<th>年收入:</th>
-						<td><input class="input-text" name="income" type="text" value="${userInformation.income}"/></td>
-					</tr>
-					<tr>
-						<th></th>
 						<td>
-							<c:forEach items="${error}" var="err">
-								<span class="error">${err.defaultMessage}</span>
-							</c:forEach>
+							<c:choose>
+								<c:when test="${!empty userInformation.industry}">
+									${userInformation.industry}
+								</c:when>
+								<c:otherwise>
+									未设置
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+					<tr>
+						<th>月收入:</th>
+						<td>
+							<c:choose>
+								<c:when test="${!empty userInformation.income}">
+									${userInformation.income}
+								</c:when>
+								<c:otherwise>
+									未设置
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 					<tr>
 						<th></th>
 						<td>
-							<input class="person-info-submit" type="submit" value="确认修改"/>
-							<input class="person-info-cancel" type="button" value="放弃修改"/>
+							<a href="/userinformation/update"><input class="person-info-submit" type="button" value="编辑"/></a>
 						</td>
 					</tr>
 				</table>
@@ -121,7 +157,7 @@
 				<!-- file end-->
 			</form>
 		</div>
-
+		<!-- person-info-box end-->
 	</div>
 </div>
 
