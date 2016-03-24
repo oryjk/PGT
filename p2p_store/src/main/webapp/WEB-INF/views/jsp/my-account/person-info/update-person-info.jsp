@@ -6,169 +6,260 @@
 <html lang="en">
 <head>
 
-    <meta charset="UTF-8">
-    <title>点金子典当行绝当品销售平台</title
-    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
-    <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/person-info/update-person-info.css"/>"/>
-    <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>"/>
-
-
+	<meta charset="UTF-8">
+	<title>点金子典当行绝当品销售平台</title
+	<link rel="Shortcut Icon" href="/resources/common/logo.png">
+	<link rel="stylesheet" href="/resources/my-account/my_account_base.css"/>
+	<link rel="stylesheet" href="/resources/my-account/person-info/person-info.css"/>
 
 
 </head>
 <body>
 
-    <!--主头部-->
-    <div class="header" id="header">
-        <jsp:include page="../../core/header-main.jsp" />
-    </div>
+<!--主头部-->
+<jsp:include page="../../core/header-login.jsp"/>
 
+<!--正文-->
+<div class="content">
+	<div class="menu">
+		<div class="user-face">
+			<div class="img-box"><img src="" alt=""/></div>
+			<p class="face-title">用户名</p>
+		</div>
+		<ul class="menu-list">
+			<li><a href="#">我的交易单</a></li>
+			<li><a class="menu-choose" href="#">我的资产</a></li>
+			<li><a href="#">我的收藏</a></li>
+			<li><a href="#">最近浏览</a></li>
+			<li><a href="#">个人信息</a></li>
+			<li><a href="#">地址管理</a></li>
+			<li><a href="#">修改密码</a></li>
+		</ul>
+		<div class="menu-two-dimension">
+			<img src="" alt=""/>
 
+			<p>扫一扫,淘在当手机版</p>
+		</div>
+	</div>
+	<div class="main-area">
+		<h2 class="main-head">个人信息</h2>
+		<!-- super: will-binding和already-binding,根据不同的情况显示和隐藏-->
+		<div class="person-info-tab-box">
+			<a class="person-info-tab person-info-tab-choose" href="#">基本信息</a>
+			<a class="person-info-tab" href="#">修改登录密码</a>
+		</div>
+		<!-- super: person-info-box和modify-password-box根据不同的情况显示-->
+		<!-- person-info-box begin-->
+		<div class="person-info-box" style="display: block;">
+			<form action="">
+				<table>
+					<tr>
+						<th>用户名:</th>
+						<td>tangchao111</td>
+					</tr>
+					<tr>
+						<th>真实姓名:</th>
+						<td><input class="input-text" type="text"/></td>
+					</tr>
+					<tr>
+						<th>手机号码:</th>
+						<td>
+							<span>13198585611</span>
+							<a class="link-btn" href="#">更换</a>
+						</td>
+					</tr>
+					<tr>
+						<th>性别:</th>
+						<td>
+							<label><input type="radio" name="gender"/>男</label>
+							<label><input type="radio" name="gender"/>女</label>
+							<label><input type="radio" name="gender"/>保密</label>
+						</td>
+					</tr>
+					<tr>
+						<th>邮箱:</th>
+						<td>
+							<span>819127251@qq.com</span>
+							<a class="link-btn" href="#">更换</a>
+						</td>
+					</tr>
+					<tr>
+						<th>身份证号码:</th>
+						<td><input class="input-text" type="text"/></td>
+					</tr>
+					<tr>
+						<th>婚姻状况:</th>
+						<td>
+							<label><input type="radio" name="marriage"/>已婚</label>
+							<label><input type="radio" name="marriage"/>未婚</label>
+							<label><input type="radio" name="marriage"/>保密</label>
+						</td>
+					</tr>
+					<tr>
+						<th>所在行业:</th>
+						<td><input class="input-text" type="text"/></td>
+					</tr>
+					<tr>
+						<th>年收入:</th>
+						<td><input class="input-text" type="text"/></td>
+					</tr>
+					<tr>
+						<th></th>
+						<td><span class="error">错误提示</span></td>
+					</tr>
+					<tr>
+						<th></th>
+						<td>
+							<input class="person-info-submit" type="button" value="确认修改"/>
+							<input class="person-info-cancel" type="button" value="放弃修改"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<form class="person-face" action="#">
+				<img src="../../core/images/my_account/" alt=""/>
+				<!--file begin-->
+				<div class="like-file">
+					点击上传头像
+					<input class="original-input-file" type="file" value="上传">
+				</div>
+				<!-- file end-->
+			</form>
+		</div>
+		<!-- person-info-box end-->
 
-    <!--正文-->
-    <div class="content-box">
+		<!-- modify-password-box begin-->
+		<div class="modify-password-box" style="display: block;">
+			<form action="">
+				<table>
+					<tr>
+						<th>旧密码:</th>
+						<td><input class="input-text" type="password"/></td>
+					</tr>
+					<tr>
+						<th>新密码:</th>
+						<td><input class="input-text" type="password"/></td>
+					</tr>
+					<tr>
+						<th>确认密码:</th>
+						<td><input class="input-text" type="password"/></td>
+					</tr>
+					<tr>
+						<th></th>
+						<td><span class="error">错误提示</span></td>
+					</tr>
+					<tr>
+						<th></th>
+						<td>
+							<input class="person-info-submit" type="button" value="确认修改"/>
+							<input class="person-info-cancel" type="button" value="放弃修改"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<!-- modify-password-box end-->
 
-    <div class="content">
-
-        <!-- 侧边栏-->
-        <jsp:include page="../vertical-my-account-directory.jsp">
-            <jsp:param name="step" value="userinformation" />
-        </jsp:include>
-
-
-        <!-- 详细内容列表-->
-        <div id="main" class="main-box">
-
-            <!--面包屑-->
-            <div class="bread-nav">
-                <p>
-                    <a >个人中心</a>
-                    >
-                    <a href="<spring:url value="/userinformation/query" />">个人信息</a>
-                </p>
-            </div>
-
-            <div class="main-right">
-                <div class="personal-content">
-                    <div class="personal-left">
-
-
-                        <form id="jvForm" action="/add" method="post" enctype="multipart/form-data">
-
-                        <div class="personal-img">
-                            <img id="allImgUrl"  <c:if test="${!empty userInformation.path}">src="${pageContext.request.contextPath}/resources/${userInformation.path}"</c:if>  <c:if test="${empty userInformation.path}"> src=${pageContext.request.contextPath}/resources/juedangpin/core/images/myaccount/no-head.jpg</c:if>/>
-                        </div>
-                        <!--仿file-->
-                        <div class="new-input-file">
-                            点击上传头像
-                            <input id="upload"  name="uploadPic"  class="oriinal-input-file" type="file" value="上传" >
-                        </div>
-                            </form>
-
-
-                    </div>
-                   <form action="${pageContext.request.contextPath}/userinformation/create" method="post">
-
-                       <c:forEach items="${error}" var="message">
-                            ${message.defaultMessage}
-                           </c:forEach>
-
-                       <input type="hidden" name="path" id="path" value="${userInformation.path}"/>
-                    <div class="personal-right">
-                        <div class="text1">
-                            <span style="color: red"> *</span>昵称
-                            <input type="text" class="input-text1" name="nickname" value="${userInformation.nickname}">
-                        </div>
-                        <div class="text2">
-                            <span style="color: red"> *</span>手机
-                            <span type="hidden" class="input-text1" >${currentUser.phoneNumber}</span>
-                        </div>
-                        <div class="text2">
-                            <div class="input-text5">
-                                性别
-                            </div>
-                            <div class="input-text4">
-                                <label><input name="gender" type="radio" value="男" <c:if test="${userInformation.gender eq '男'}">checked=""</c:if>>男</label>
-                                <label><input name="gender"  type="radio" value="女" <c:if test="${userInformation.gender eq '女'}">checked=""</c:if>>女</label>
-                            </div>
-                        </div>
-                        <div class="text3">
-                            邮箱
-                            <input type="text" class="input-text1" name="personEmail" value="${userInformation.personEmail}">
-                        </div>
-                        <div class="text3">
-                            <span style="color: red"> *</span>身份证号
-                            <input type="text" class="input-text6" name="idCard" value="${userInformation.idCard}" >
-                        </div>
-                        <div class="text3">
-                            <div class="input-text5">
-                                婚姻状况
-                            </div>
-                            <div class="input-text4">
-                                <input type="radio" class="" name="marrage" value="已婚"  <c:if test="${userInformation.marrage eq '已婚'}">checked=""</c:if>>已婚
-                                <input type="radio" name="marrage" value="未婚"  <c:if test="${userInformation.marrage eq '未婚'}">checked=""</c:if>>未婚
-                                <input type="radio" name="marrage" value="保密"  <c:if test="${userInformation.marrage eq '保密'}">checked=""</c:if>>保密
-                            </div>
-                        </div>
-                        <div class="text3">
-                            所在行业
-                            <input type="text" class="input-text2" name="industry" value="${userInformation.industry}">
-                        </div>
-                        <div class="text3">
-                            月收入
-                            <input type="text" class="input-text3" name="income" value="${userInformation.income}">
-                        </div>
-                        <div class="text3">
-                            <div class="text3-font1" >支付绑定</div>
-                            <div class="text3-font2"> <a class="link-btn" href="<spring:url value="/user/yeepayAccountInfo"/>">点击绑定</a></div>
-                        </div>
-                        <div class="input-btn">
-                            <input class="d-btn" type="submit" value="保存">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-        </form>
-
-
-        <jsp:include page="../../shopping-cart/horizontal-recommend-bar.jsp">
-            <jsp:param name="excludeFavourites" value="true" />
-        </jsp:include>
-
-    </div>
+		<!-- person-info-box begin-->
+		<div class="person-info-box" style="display: block;">
+			<form action="">
+				<table>
+					<tr>
+						<th>用户名:</th>
+						<td>tangchao111</td>
+					</tr>
+					<tr>
+						<th>真实姓名:</th>
+						<td>周杰伦</td>
+					</tr>
+					<tr>
+						<th>手机号码:</th>
+						<td>
+							<span>13198585611</span>
+							<a class="link-btn" href="#">更换</a>
+						</td>
+					</tr>
+					<tr>
+						<th>性别:</th>
+						<td>
+							<label>男</label>
+						</td>
+					</tr>
+					<tr>
+						<th>邮箱:</th>
+						<td>
+							<span>819127251@qq.com</span>
+							<a class="link-btn" href="#">更换</a>
+						</td>
+					</tr>
+					<tr>
+						<th>身份证号码:</th>
+						<td>1233211234567</td>
+					</tr>
+					<tr>
+						<th>婚姻状况:</th>
+						<td>
+							<label>已婚</label>
+						</td>
+					</tr>
+					<tr>
+						<th>所在行业:</th>
+						<td>IT业</td>
+					</tr>
+					<tr>
+						<th>年收入:</th>
+						<td>10元</td>
+					</tr>
+					<tr>
+						<th></th>
+						<td>
+							<input class="person-info-submit" type="button" value="编辑"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<form class="person-face" action="#">
+				<img src="../../core/images/my_account/" alt=""/>
+				<!--file begin-->
+				<div class="like-file">
+					点击上传头像
+					<input class="original-input-file" type="file" value="上传">
+				</div>
+				<!-- file end-->
+			</form>
+		</div>
+		<!-- person-info-box end-->
+	</div>
 </div>
 
-<!--主脚部-->
-    <jsp:include page="../../core/footer-main.jsp"></jsp:include>
-    <jsp:include page="../../core/baidu.jsp"></jsp:include>
-</body>
-<script src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.min.js"/>"></script>
-<script src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.form.js"/>"></script>
 
+<!--主脚部-->
+<jsp:include page="../../core/footer-main.jsp"></jsp:include>
+<jsp:include page="../../core/baidu.jsp"></jsp:include>
+</body>
+<script src="/resources/core/js/jquery.min.js"></script>
+<script src="/resources/core/js/jquery.form.js"></script>
 
 <script type="text/javascript">
-    $("#upload").change(function(){
-        //定义参数
-        var options = {
-            url : "${pageContext.request.contextPath}/upload/uploadPic",
-            dataType : "json",
-            type :  "post",
-            success : function(data){
-                //回调 二个路径
-                //url
-                //path
-                $("#allImgUrl").attr("src","${pageContext.request.contextPath}/resources/"+data.url);
-                $("#path").val(data.url);
-            }
-        };
+	$("#upload").change(function () {
+		//定义参数
+		var options = {
+			url: "${pageContext.request.contextPath}/upload/uploadPic",
+			dataType: "json",
+			type: "post",
+			success: function (data) {
+				//回调 二个路径
+				//url
+				//path
+				$("#allImgUrl").attr("src", "${pageContext.request.contextPath}/resources/" + data.url);
+				$("#path").val(data.url);
+			}
+		};
 
-        //jquery.form使用方式
-        $("#jvForm").ajaxSubmit(options);
+		//jquery.form使用方式
+		$("#jvForm").ajaxSubmit(options);
 
-    });
+	});
 
 </script>
 

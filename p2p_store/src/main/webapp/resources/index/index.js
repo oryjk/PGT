@@ -50,7 +50,7 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
             eachCategory.find('.category-nav-item').removeClass('category-nav-choose');
             $this.addClass('category-nav-choose');
             //输入具体的url
-            eachCategory.find('.invest-list').load('/'+$(this).attr('data-value'));
+            eachCategory.find('.invest-list').load('/categoryId/'+$(this).attr('data-value'));
         });
 
 
