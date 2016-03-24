@@ -22,8 +22,11 @@ public abstract class ItemLoadInterceptor implements HandlerInterceptor {
 
 	public static final String SUFFIX_CSS = ".css";
 	public static final String SUFFIX_JPG = ".jpg";
-	public static final String SUFFIX_JS = ".js";
+	public static final String SUFFIX_JS  = ".js";
 	public static final String SUFFIX_PNG = ".png";
+
+	public static final String SUFFIX_ICO = ".ico";
+
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(ItemLoadInterceptor.class);
 

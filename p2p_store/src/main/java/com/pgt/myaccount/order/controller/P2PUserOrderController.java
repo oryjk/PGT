@@ -1,11 +1,13 @@
 package com.pgt.myaccount.order.controller;
 
+import com.pgt.base.bean.MyAccountNavigationEnum;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.controller.TransactionBaseController;
 import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.constant.Constants;
 import com.pgt.myaccount.order.service.P2POrderSearchStatus;
 import com.pgt.myaccount.order.service.P2PUserOrderService;
 import com.pgt.tender.bean.Tender;
@@ -84,6 +86,20 @@ public class P2PUserOrderController extends TransactionBaseController implements
 		ModelAndView mav = new ModelAndView("/my-account/order-history-detail");
 		mav.addObject(CartConstant.ORDER_HISTORY_DETAIL, order);
 		mav.addObject(CartConstant.ORDER_TENDER, tender);
+		return mav;
+	}
+
+	@RequestMapping(value = "/browsedProducts")//, method = RequestMethod.GET)
+	public ModelAndView recentlyBrowsedProducts(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		// check user login state
+		User currentUser = getCurrentUser(pRequest);
+		if (currentUser == null) {
+			LOGGER.debug("Current session user has not sign, skip load recent browsed products.");
+			return new ModelAndView("redirect:/user/login");
+		}
+		ModelAndView mav = new ModelAndView("/my-account/browsed-products");
+		// left navigation for p2p
+		mav.addObject(Constants.CURRENT_ACCOUNT_ITEM, MyAccountNavigationEnum.MY_RECENT_VIEW);
 		return mav;
 	}
 

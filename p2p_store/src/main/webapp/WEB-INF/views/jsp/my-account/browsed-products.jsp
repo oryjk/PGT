@@ -1,91 +1,67 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Yove
-  Date: 11/17/2015
-  Time: 12:20 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>点金子典当行绝当品销售平台</title>
-    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.css"/>" />
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>" />
-</head>
+<jsp:include page="../core/head.jspf">
+    <jsp:param name="css_path" value="/resources/my-account/my_account_base.css"/>
+    <jsp:param name="custom_css_path" value="/resources/my-account/my-favorite/my-favorite.css"/>
+</jsp:include>
 <body>
-    <!--主头部-->
-    <div class="header" id="header">
-        <jsp:include page="../core/header-main.jsp" />
-    </div>
+<!--header begin-->
+<jsp:include page="../core/header-main.jsp"/>
+<!--header end-->
 
-    <!--正文-->
-    <div class="content-box">
+<div class="content">
+    <jsp:include page="vertical-my-account-directory.jsp"/>
+    <div class="main-area">
+        <h2 class="main-head">最近浏览</h2>
 
-        <div class="content">
-            <!-- 侧边栏-->
-            <jsp:include page="vertical-my-account-directory.jsp">
-                <jsp:param name="step" value="browsed" />
-            </jsp:include>
 
-            <!-- 详细内容列表-->
-            <div id="main" class="main-box">
-                <div class="content-search">
-                    <%--
-                    <input class="content-search" type="text" placeholder="商品搜索"/>
-                    <a href=""><i class="foundicon-search"></i></a>
-                    --%>
-                </div>
-                <!--面包屑-->
-                <div class="bread-nav">
-                    <p>
-                        <a href="#">个人中心</a>
-                        >
-                        <a href="<spring:url value="/myAccount/browsedProducts"/>">最近浏览</a>
-                    </p>
-                </div>
+        <div class="area-product">
+            <div class="favorite-list">
+                <table>
+                    <!-- thead begin-->
+                    <tr class="favorite-list-head">
+                        <th class="col-1">项目信息</th>
+                        <th class="col-2"></th>
+                        <th class="col-3">库存</th>
+                        <th class="col-4">产品金额(元)</th>
+                        <th class="col-5">操作</th>
+                    </tr>
+                    <!-- thead end-->
 
-                <div class="product-list">
-                    <c:forEach var="product" items="${browsedProducts}">
-                        <div class="list-product">
-                            <div class="inner">
-                                <a class="list-img-box" href="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>">
-                                    <img src="${pageContext.request.contextPath}/resources${product.source.frontMedia.path}"
-                                         alt="${empty product.source.frontMedia.title ? product.source.name : product.source.frontMedia.title}"/></a>
-                                <div class="list-price-box"><span>¥</span><span><fmt:formatNumber value="${product.source.salePrice}" pattern="0.00" type="number" /></span></div>
-                                <p class="product-link"><a href="<spring:url value="${urlConfiguration.pdpPage}/${product.source.productId}"/>">${product.source.name}+${product.source['stock']}</a></p>
-                                <p><span></span></p>
-                                <div class="product-handle">
-                                </div>
-                                <c:if test="${product.source['stock'] ne -1 and product.source['stock'] lt 1}">
-                                    <div class="out-of-stock"></div>
-                                </c:if>
-                                <div class="product-message">添加成功</div>
-                            </div>
-                        </div>
+                    <!-- tbody begin-->
+                    <c:forEach var="tender" items="${browsedProducts}">
+                        <tr class="favorite-list-item">
+                            <td class="favorite-img">
+                                <a href="#"><img src="../../core/images/product/hero_2_01.jpg"
+                                                 alt="${tender.name}"/></a>
+                            </td>
+                            <td class="favorite-base-info">
+                                <p><a href="#">${tender.name}</a></p>
+                            </td>
+                            <td>${tender.productResidue}</td>
+                            <td><span>¥</span><span><fmt:formatNumber value="${tender.tenderTotal}"
+                                                                      pattern="0.00" type="number"/></span></td>
+                            <td class="favorite-handle">
+                                <p><a class="link-btn" href="#">立即抢购</a></p>
+                            </td>
+                        </tr>
                     </c:forEach>
-                </div>
+                    <!-- tbody end-->
+                </table>
             </div>
-
-            <jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp">
-                <jsp:param name="excludeBrowsed" value="true" />
-            </jsp:include>
         </div>
-    </div>
 
-    <jsp:include page="../core/footer-main.jsp" />
-    <jsp:include page="../core/baidu.jsp"></jsp:include>
+    </div>
+</div>
+
+<!--footer begin-->
+<jsp:include page="../core/footer-main.jsp"/>
+<!--footer end-->
 </body>
-    <script src="<spring:url value="${juedangpinStaticPath}/core/js/module/url.js"/>"></script>
-<script
-        src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.js"/>"></script>
 </html>

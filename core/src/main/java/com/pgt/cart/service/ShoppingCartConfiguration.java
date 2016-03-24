@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Yove on 1/27/2016.
  */
-@Service(value = "shoppingCartConfiguration")
+@Service("shoppingCartConfiguration")
 public class ShoppingCartConfiguration {
 
 	private int mMaxItemCount4Cart = 3;
@@ -21,7 +21,6 @@ public class ShoppingCartConfiguration {
 	private int mBrowsedCookieExpired = 604800; //60s * 60m * 24h * 7d
 
 	public ShoppingCartConfiguration() {
-
 	}
 
 	public int getMaxItemCount4Cart() {
