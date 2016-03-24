@@ -207,7 +207,7 @@ a {
   float: left;
   height: 110px;
   width: 230px;
-  background: url("../images/header/logo-red.jpg") no-repeat left center; }
+  background: url("../core/images/header/logo-red.jpg") no-repeat left center; }
 
 .logo-link {
   display: block;
@@ -343,9 +343,6 @@ a {
 
 /*style
 **************************************************************************************************************************************************/
-body {
-  background: #f3f3f3; }
-
 .content {
   margin: 20px auto 50px;
   padding: 50px 0;
