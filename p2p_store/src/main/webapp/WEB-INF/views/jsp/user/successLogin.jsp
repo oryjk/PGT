@@ -26,8 +26,8 @@
 					正在为您跳转,等待 <span id="time" class="link-btn">5</span> 秒
 				</div>
 				<div class="go-to-home-box">
-					<a class="go-to-home" href="#">前往主页</a>
-					<a class="go-to-home" href="#">前往个人中心</a>
+					<a class="go-to-home" href="/">前往主页</a>
+					<a class="go-to-home" href="/userinformation/query">前往个人中心</a>
 				</div>
 			</div>
 		</div>

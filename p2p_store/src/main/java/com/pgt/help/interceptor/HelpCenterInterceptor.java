@@ -1,5 +1,6 @@
 package com.pgt.help.interceptor;
 
+import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
 import com.pgt.help.bean.HelpCategoryVo;
 import com.pgt.help.bean.HelpCenter;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +30,8 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(HelpCenterInterceptor.class);
     @Autowired
     private HelpCenterService helpCenterService;
+    @Autowired
+    private Configuration configuration;
 
     @Autowired
     private StaticResourceSearchEngineService staticResourceSearchEngineService;
@@ -50,7 +54,8 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
         ESTerm esTerm = new ESTerm();
         esTerm.setTermValue(HelpCenterSites.P2P_STORE.toString());
         esTerm.setPropertyName(Constants.P2P_HELPCENTER);
-        SearchResponse helpCenterResponse=staticResourceSearchEngineService.findHelpCenter(null,null,null,null,null,null);
+        List<ESTerm> esTermsList = Arrays.asList(esTerm);
+        SearchResponse helpCenterResponse=staticResourceSearchEngineService.findHelpCenter(null,esTermsList,null,null,null,null);
         SearchHit[] helpCategoryVoList=helpCenterResponse.getHits().getHits();
         request.setAttribute("helpCategoryVoList",helpCategoryVoList);
         return true;
@@ -58,7 +63,8 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+        configuration.getCurrentSite();
+        SearchHit[] hits = (SearchHit[])request.getAttribute("helpCategoryVoList");
     }
 
     @Override

@@ -6,100 +6,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>点金子典当行绝当品销售平台</title>
-    <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/help/helpcenter.css"/>"/>
+    <title></title>
+    <link rel="stylesheet" href="/resources/help/help-center.css"/>
+    <style>
+        .main,
+        .hover-main:hover {
+            color: #c90304;
+        }
+
+        .em,
+        .hover-em:hover {
+            color: #86b4ed;
+        }
+
+        .bg-main,
+        .hover-bg-main:hover {
+            background: #c90304;
+        }
+
+        .bg-em,
+        .hover-bg-em:hover {
+            background: #86b4ed;
+        }
+
+        .content{
+            height:1200px;
+        }
+    </style>
 </head>
 <body>
+<!--header begin-->
+<jsp:include page="../core/header-main.jsp"/>
+<!--header end-->
 
-<div class="header" id="header">
-    <jsp:include page="../core/header-main.jsp"/>
-</div>
-
-
-<!--正文-->
-<div class="content-box">
-
-    <div class="content">
-
-        <!-- 侧边栏-->
-        <div class="aside">
-            <div class="aside1"><h2>帮助中心</h2></div>
-        <ul>
-            <c:forEach items="${helpCategorVoList}" var="categoryVo">
-                <li><a class="menu-level-1" >${categoryVo.category.name}</a>
-                    <ul>
-                        <c:forEach items="${categoryVo.helpCenterList}" var="helpVo">
-
-                            <c:if test="${helpVo.id == helpCenter.id}">
-                                <li><a    class="menu-level-end current-page" href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</></li>
-
-                            </c:if>
-
-                            <c:if test="${helpVo.id != helpCenter.id}">
-                                <li><a  class="menu-level-end"   href="${pageContext.request.contextPath}/helpcenter/${helpVo.id}">${helpVo.title}</></li>
-                            </c:if>
-
-                        </c:forEach>
-                    </ul>
-                </li>
+<!-- content begin -->
+<div class="content">
+    <ul class="content-nav">
+        <li class="content-nav-title"><h2>帮助中心</h2></li>
+        <c:forEach items="${helpCategorVoList}" var="categoryVo">
+            <c:forEach items="${categoryVo.helpCenterList}" var="helpVo">
+                <c:if test="${helpVo.id == helpCenter.id}">
+                    <li><a class="menu-level-end current-page" href="/helpcenter/${helpVo.id}">${helpVo.title}</></li>
+                </c:if>
+                <c:if test="${helpVo.id != helpCenter.id}">
+                    <li><a class="menu-level-end"   href="/helpcenter/${helpVo.id}">${helpVo.title}</></li>
+                </c:if>
             </c:forEach>
-
-
-         </ul>
-        </div>
-
-        <div id="main-box" class="main-box">
-
-            <div class="main-right">
-                <!--面包屑-->
-                <div class="bread-nav">
-                    <p>
-                        <a href="#">帮助中心</a>
-                        >
-                        <a href="#">${helpCenter.category.name}</a>
-                        >
-                        <a href="#">${helpCenter.title}</a>
-                    </p>
-                </div>
+        </c:forEach>
+    </ul>
+    <div class="content-main">
+        <div class="content-main-title"><h2>帮助中心</h2></div>
+        <div class="content-main-mid">
+            <p>
                 <c:if test="${not empty helpCenter.content}">
-                	${helpCenter.content}
+                    ${helpCenter.content}
                 </c:if>
-                 <c:if test="${empty helpCenter.content}">
-                	<img src="${pageContext.request.contextPath}/resources/${helpCenter.frontMedia.path}" alt="${helpCenter.title}">
-                </c:if>
-            </div>
-
-        </div>
-
-    <div class="clear-float"></div>
-
-    <!-- 类似商品-->
-    <div class="similar-box">
-
-
-
-
-        <div class="move-left-box">
-            <a href="#"  id="moveLeft"><</a>
-        </div>
-        <div class="move-right-box">
-            <a href="#"  id="moveRight">></a>
+            </p>
         </div>
     </div>
+</div>
+<!-- content end -->
 
-    <div class="clear-float"></div>
-
-      </div>
-    </div>
-
-      <jsp:include page="../core/footer-main.jsp" />
-<jsp:include page="../core/baidu.jsp" />
+<!--footer begin-->
+<jsp:include page="../core/footer-main.jsp"/>
+<!--footer end-->
 </body>
-
-<script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/help/helpcenter.js"/>" defer async="true"></script>
-<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.config.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.all.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.parse.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/lang/zh-cn/zh-cn.js"/>"></script>
-
-</html>

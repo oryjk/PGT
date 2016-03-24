@@ -154,12 +154,13 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
         return response;
     }
 
-    public SearchResponse findCategoryById(String categoryId) {
+    public SearchResponse findCategoryById(String indexName, String categoryId) {
         SearchResponse response = null;
 
         try {
             SearchRequestBuilder searchRequestBuilder =
-                    getSearchClient().prepareSearch(esConfiguration.getIndexName()).setTypes(esConfiguration.getCategoryTypeName())
+                    getSearchClient().prepareSearch(StringUtils.isEmpty(indexName) ? esConfiguration.getIndexName() : indexName).setTypes
+                            (esConfiguration.getCategoryTypeName())
                             .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
             BoolQueryBuilder qb = boolQuery();
             qb.must(QueryBuilders.idsQuery().ids(categoryId));
@@ -179,6 +180,11 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
         LOGGER.debug("Begin to update category index with id is {}.", category.getId());
         ObjectMapper mapper = new ObjectMapper();
         try {
+            SearchResponse response = findCategoryById(indexName, String.valueOf(category.getId()));
+            if (response.getHits().getTotalHits() < 1) {
+                createCategoryIndex(category);
+                return;
+            }
             byte[] rootByte = mapper.writeValueAsBytes(category);
             UpdateRequestBuilder updateRequestBuilder =
                     getIndexClient().prepareUpdate(StringUtils.isEmpty(indexName) ? Constants.SITE_INDEX_NAME : indexName, Constants
@@ -199,6 +205,28 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
         } catch (IOException e) {
             LOGGER.error("IOException has occur when update category.");
             e.printStackTrace();
+        }
+    }
+
+    public void createCategoryIndex(Category category) {
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] rootByte = mapper.writeValueAsBytes(category);
+            IndexRequestBuilder indexRequestBuilder =
+                    getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE, category.getId() + "")
+                            .setSource(rootByte);
+            indexRequestBuilder.execute().actionGet(10000);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (category.getType().equals(CategoryType.HIERARCHY)) {
+            Category parentCategory = category.getParent();
+            createCategoryIndex(parentCategory);
         }
     }
 

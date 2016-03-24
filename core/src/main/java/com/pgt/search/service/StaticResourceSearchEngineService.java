@@ -20,10 +20,12 @@ import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -112,8 +114,7 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
             );
     }
 
-
-    public SearchResponse findHelpCenter(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
+    public SearchResponse findHelpCenter(ESTerm esTerm,  List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
                                      PaginationBean paginationBean,
                                      ESAggregation categoryIdAggregation) {
         SearchResponse response = null;
@@ -122,9 +123,14 @@ public class StaticResourceSearchEngineService extends AbstractSearchEngineServi
                     .HELP_CENTER_INDEX_TYPE);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
-            buildQueryBuilder(esTerm, esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
-            response = searchRequestBuilder.execute()
-                    .actionGet();
+            String queryString = null;
+            if(!ObjectUtils.isEmpty(esMatches)){
+                queryString = buildQueryAndString(esMatches);
+            }
+            if (!ObjectUtils.isEmpty(queryString)) {
+                qb.must(QueryBuilders.queryStringQuery(queryString));//     {   "query" : {     "bool" : {       "must" : {         "query_string" : {           "query" : "helpCenterList.site:P2P_STORE"         }       }     }   } }
+            }
+            response = searchRequestBuilder.execute().actionGet();
             return response;
         } catch (IOException e) {
             e.printStackTrace();

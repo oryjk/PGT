@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -37,8 +36,8 @@ import java.util.List;
 /**
  * Created by Yove on 11/26/2015.
  */
-@Service(value = "productBrowseTrackService")
-public class ProductBrowseTrackService {
+
+public abstract class ProductBrowseTrackService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductBrowseTrackService.class);
 
@@ -54,28 +53,117 @@ public class ProductBrowseTrackService {
 	@Resource(name = "userOrderDao")
 	private UserOrderDao mUserOrderDao;
 
-	private boolean mInitialized;
-
-	private String mTrackingURL;
-
 	private boolean mEnableCookieEncode = true;
 
-	public boolean track(HttpServletRequest pRequest) {
-		if (!mInitialized) {
-			mTrackingURL = pRequest.getContextPath() + mURLConfiguration.getPdpPage();
-			mInitialized = true;
-			LOGGER.info("Track browsed product with URL that start with: {}", mTrackingURL);
-		}
-		return pRequest.getRequestURI().startsWith(mTrackingURL);
-	}
+	/**
+	 * Method to initialize tracking configurations and return url trackable result.
+	 *
+	 * @param pRequest
+	 * @return
+	 */
+	public abstract boolean track(HttpServletRequest pRequest);
 
-	public String getRequestedProductId(HttpServletRequest pRequest) {
-		int index = pRequest.getRequestURI().indexOf(mURLConfiguration.getPdpPage());
-		if (index > -1) {
-			String productId = pRequest.getRequestURI().substring(index + mURLConfiguration.getPdpPage().length() + 1);
-			return productId;
+	/**
+	 * Method to return tracked item id from url.
+	 *
+	 * @param pRequest
+	 * @return
+	 */
+	public abstract String getRequestedProductId(HttpServletRequest pRequest);
+
+
+	/**
+	 * Method to merge browsed item record from cookies and database.
+	 *
+	 * @param pRequest
+	 * @param pResponse
+	 */
+	public void mergeBrowsedProductsForLoginUser(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
+		int userId = user.getId().intValue();
+		LinkedList<String> cookieProductIds = getBrowsedProductIdsFromCookies(pRequest);
+		if (CollectionUtils.isEmpty(cookieProductIds)) {
+			LOGGER.debug("No browsed products need to be merged from cookies for user: {}", userId);
+			return;
 		}
-		return null;
+		// merge logic
+		List<BrowsedProductVO> browsedProducts;
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+		TransactionStatus status = getTransactionManager().getTransaction(def);
+		synchronized (user) {
+			browsedProducts = queryBrowsedProducts(userId);
+			LOGGER.debug("Found browsed products: {} of user: {}", browsedProducts, userId);
+			// pending update or create browsed products list, collect items to persist
+			BrowsedProductVO persistBrowsedProduct;
+			List<BrowsedProductVO> pendingCreateBrowsedProducts = new ArrayList<>(cookieProductIds.size());
+			List<Integer> pendingRecordBrowsedProducts = new ArrayList<>(cookieProductIds.size());
+			for (int i = cookieProductIds.size() - 1; i >= 0; i--) {
+				persistBrowsedProduct = null;
+				int cookieProductId = RepositoryUtils.safeParseId(cookieProductIds.get(i));
+				Iterator<BrowsedProductVO> it = browsedProducts.iterator();
+				while (it.hasNext()) {
+					BrowsedProductVO bp = it.next();
+					if (cookieProductId == bp.getProductId()) {
+						persistBrowsedProduct = bp;
+						// remove it firstly, then update it again
+						it.remove();
+						break;
+					}
+				}
+				if (persistBrowsedProduct == null) {
+					pendingCreateBrowsedProducts.add(new BrowsedProductVO(userId, cookieProductId, getShoppingCartConfiguration().getDefaultBrowsedType()));
+				} else {
+					pendingRecordBrowsedProducts.add(persistBrowsedProduct.getId());
+				}
+			}
+			try {
+				// reset update date to current time
+				if (pendingRecordBrowsedProducts.size() > 0) {
+					recordBrowsedProductBatch(pendingRecordBrowsedProducts);
+				}
+				// continue if reset operation success
+				int balance = getShoppingCartConfiguration().getBrowsedProductCount() - (pendingRecordBrowsedProducts.size() + browsedProducts.size());
+				// it should not be happened, in case
+				if (balance < 0) {
+					balance = 0;
+				}
+				for (int i = 0, j = 0; i < pendingCreateBrowsedProducts.size(); i++) {
+					if (i < balance) {
+						createBrowsedProduct(pendingCreateBrowsedProducts.get(i));
+					} else {
+						// browsedProducts orders by update date desc, so get the index backward
+						int k = browsedProducts.size() - 1 - j++;
+						// it should not be happened, in case
+						if (k < 0 || k > browsedProducts.size()) {
+							continue;
+						}
+						BrowsedProductVO oldBrowsedProduct = browsedProducts.get(k);
+						replaceBrowsedProduct(oldBrowsedProduct.getId(), pendingCreateBrowsedProducts.get(i).getProductId());
+					}
+				}
+				browsedProducts = queryBrowsedProducts(userId);
+			} catch (Exception e) {
+				LOGGER.error("Merge browsed products from cookie to database during login for user: {}", userId);
+				status.setRollbackOnly();
+			} finally {
+				getTransactionManager().commit(status);
+			}
+		}
+		// reset cookies
+		List<String> browsedProductIds = new ArrayList<>(getShoppingCartConfiguration().getBrowsedProductCount());
+		browsedProducts.forEach(bp -> browsedProductIds.add(String.valueOf(bp.getProductId())));
+		LOGGER.debug("Get product ids: " + browsedProductIds + " after maintain.");
+		// generate new ids string in json structure
+		String idString = new Gson().toJson(browsedProductIds);
+		LOGGER.debug("Generate new browsed product id string: {}", idString);
+		Cookie cookie = new Cookie(CookieConstant.BROWSED_PRODUCTS, getEncodeCookie(idString));
+		cookie.setMaxAge(getShoppingCartConfiguration().getBrowsedCookieExpired());
+		// global path could share the cookie
+		cookie.setPath(pRequest.getContextPath());
+		// TODO set http only to avoid xss attack
+		// TODO cookie.setHttpOnly(true);
+		pResponse.addCookie(cookie);
 	}
 
 	public LinkedList<String> getBrowsedProductIdsFromCookies(HttpServletRequest pRequest) {
@@ -151,96 +239,6 @@ public class ProductBrowseTrackService {
 
 	public List<BrowsedProductVO> queryBrowsedProducts(final int pUserId) {
 		return getUserOrderDao().queryBrowsedProducts(pUserId, getShoppingCartConfiguration().getDefaultBrowsedType());
-	}
-
-	public void mergeBrowsedProductsForLoginUser(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
-		int userId = user.getId().intValue();
-		LinkedList<String> cookieProductIds = getBrowsedProductIdsFromCookies(pRequest);
-		if (CollectionUtils.isEmpty(cookieProductIds)) {
-			LOGGER.debug("No browsed products need to be merged from cookies for user: {}", userId);
-			return;
-		}
-		// merge logic
-		List<BrowsedProductVO> browsedProducts;
-		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-		TransactionStatus status = getTransactionManager().getTransaction(def);
-		synchronized (user) {
-			browsedProducts = queryBrowsedProducts(userId);
-			LOGGER.debug("Found browsed products: {} of user: {}", browsedProducts, userId);
-			// pending update or create browsed products list, collect items to persist
-			BrowsedProductVO persistBrowsedProduct;
-			List<BrowsedProductVO> pendingCreateBrowsedProducts = new ArrayList<>(cookieProductIds.size());
-			List<Integer> pendingRecordBrowsedProducts = new ArrayList<>(cookieProductIds.size());
-			for (int i = cookieProductIds.size() - 1; i >= 0; i--) {
-				persistBrowsedProduct = null;
-				int cookieProductId = RepositoryUtils.safeParseId(cookieProductIds.get(i));
-				Iterator<BrowsedProductVO> it = browsedProducts.iterator();
-				while (it.hasNext()) {
-					BrowsedProductVO bp = it.next();
-					if (cookieProductId == bp.getProductId()) {
-						persistBrowsedProduct = bp;
-						// remove it firstly, then update it again
-						it.remove();
-						break;
-					}
-				}
-				if (persistBrowsedProduct == null) {
-					pendingCreateBrowsedProducts.add(new BrowsedProductVO(userId, cookieProductId, getShoppingCartConfiguration().getDefaultBrowsedType()));
-				} else {
-					pendingRecordBrowsedProducts.add(persistBrowsedProduct.getId());
-				}
-			}
-			try {
-				// reset update date to current time
-				if (pendingRecordBrowsedProducts.size() > 0) {
-					recordBrowsedProductBatch(pendingRecordBrowsedProducts);
-				}
-				// continue if reset operation success
-				int balance = getShoppingCartConfiguration().getBrowsedProductCount() - (pendingRecordBrowsedProducts.size() + browsedProducts.size());
-				// it should not be happened, in case
-				if (balance < 0) {
-					balance = 0;
-				}
-				for (int i = 0, j = 0; i < pendingCreateBrowsedProducts.size(); i++) {
-					if (i < balance) {
-						createBrowsedProduct(pendingCreateBrowsedProducts.get(i));
-					} else {
-						// browsedProducts orders by update date desc, so get the index backward
-						int k = browsedProducts.size() - 1 - j++;
-						// it should not be happened, in case
-						if (k < 0 || k > browsedProducts.size()) {
-							continue;
-						}
-						BrowsedProductVO oldBrowsedProduct = browsedProducts.get(k);
-						replaceBrowsedProduct(oldBrowsedProduct.getId(), pendingCreateBrowsedProducts.get(i).getProductId());
-					}
-				}
-				browsedProducts = queryBrowsedProducts(userId);
-			} catch (Exception e) {
-				LOGGER.error("Merge browsed products from cookie to database during login for user: {}", userId);
-				status.setRollbackOnly();
-			} finally {
-				getTransactionManager().commit(status);
-			}
-		}
-		// reset cookies
-		List<String> browsedProductIds = new ArrayList<>(getShoppingCartConfiguration().getBrowsedProductCount());
-		browsedProducts.forEach(bp -> {
-			browsedProductIds.add(String.valueOf(bp.getProductId()));
-		});
-		LOGGER.debug("Get product ids: " + browsedProductIds + " after maintain.");
-		// generate new ids string in json structure
-		String idString = new Gson().toJson(browsedProductIds);
-		LOGGER.debug("Generate new browsed product id string: {}", idString);
-		Cookie cookie = new Cookie(CookieConstant.BROWSED_PRODUCTS, getEncodeCookie(idString));
-		cookie.setMaxAge(getShoppingCartConfiguration().getBrowsedCookieExpired());
-		// global path could share the cookie
-		cookie.setPath(pRequest.getContextPath());
-		// set http only to avoid xss attack
-		// cookie.setHttpOnly(true);
-		pResponse.addCookie(cookie);
 	}
 
 	public boolean recordBrowsedProductBatch(final List<Integer> pBrowsedProductIds) {

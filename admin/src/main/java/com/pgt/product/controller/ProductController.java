@@ -298,6 +298,7 @@ public class ProductController extends InternalTransactionBaseController {
 
         } catch (Exception e) {
             status.setRollbackOnly();
+            LOGGER.debug(e.getMessage());
         } finally {
             getTransactionManager().commit(status);
         }

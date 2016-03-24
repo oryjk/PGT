@@ -8,10 +8,11 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="/resources/user/regist.css"/>
+    <link rel="stylesheet" href="/resources/core/header/header-con.css"/>
 </head>
 <body>
 <!--header begin-->
-<jsp:include page="../core/header-main.jsp"/>
+<jsp:include page="../core/header-login.jsp"/>
 <!--header end-->
 <!--content begin-->
 <div class="content">

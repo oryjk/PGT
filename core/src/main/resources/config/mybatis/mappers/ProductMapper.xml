@@ -300,7 +300,7 @@
 		UPDATE PRODUCT SET
 		NAME=#{name},SERIAL_NUMBER=#{serialNumber},LIST_PRICE=#{listPrice},SALE_PRICE=#{salePrice},STATUS=#{status},
 		DESCRIPTION=#{description},SHIPPING_FEE=#{shippingFee},RELATED_CATEGORY_ID=#{relatedCategoryId},STOCK=#{stock},IS_NEW=#{isNew},SHORT_DESCRIPYION=#{shortDescription},TITLE=#{title},
-		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},TENDER_ID=#{tenderId},IMAGE_DESC=#{imageDesc}
+		UPDATE_DATE=#{updateDate},KEY_WORD=#{keyWord},MERCHANT=#{merchant},IS_HOT=#{isHot},IMAGE_DESC=#{imageDesc}
 		WHERE PRODUCT_ID=#{productId}
 	</update>
     <delete id="deleteProduct" parameterType="int">

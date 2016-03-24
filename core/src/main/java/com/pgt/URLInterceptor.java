@@ -29,7 +29,6 @@ public class URLInterceptor implements HandlerInterceptor {
             //may ajax request.
             return;
         }
-        modelAndView.addObject(Constants.B2C_STORE_HOST, urlConfiguration.getB2cStoreUrl());
     }
 
     @Override
