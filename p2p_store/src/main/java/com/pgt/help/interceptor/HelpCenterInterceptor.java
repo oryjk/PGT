@@ -1,5 +1,6 @@
 package com.pgt.help.interceptor;
 
+import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
 import com.pgt.help.bean.HelpCategoryVo;
 import com.pgt.help.bean.HelpCenter;
@@ -29,6 +30,8 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(HelpCenterInterceptor.class);
     @Autowired
     private HelpCenterService helpCenterService;
+    @Autowired
+    private Configuration configuration;
 
     @Autowired
     private StaticResourceSearchEngineService staticResourceSearchEngineService;
@@ -60,7 +63,8 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+        configuration.getCurrentSite();
+        SearchHit[] hits = (SearchHit[])request.getAttribute("helpCategoryVoList");
     }
 
     @Override
