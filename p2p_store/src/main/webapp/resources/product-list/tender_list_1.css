@@ -678,13 +678,25 @@ a {
 
 .sort {
   border: 1px solid #cccccc;
-  padding: 13px 15px;
-  background: #f3f3f3;
+  padding: 5px 15px 25px 15px;
+  height: 40px;
   font-size: 14px; }
+
+.sort-list {
+  position: relative; }
 
 .sort-item {
   float: left;
-  margin-right: 32px; }
+  margin-right: 32px;
+  padding: 15px 20px 10px 15px;
+  background: url("../core/images/tender_list/down.png") no-repeat 75px 18px; }
+  .sort-item:hover {
+    background-color: #f3f3f3;
+    background-image: url("../core/images/tender_list/up.png"); }
+  .sort-item:hover > .sort-filter {
+    display: block; }
+  .sort-item a:hover {
+    color: #ff6d6d; }
 
 .sort-link {
   color: #535353; }
@@ -693,8 +705,15 @@ a {
   color: #ff6d6d; }
 
 .sort-filter {
-  padding-top: 15px;
-  color: #898989; }
+  position: absolute;
+  top: 30px;
+  left: 0;
+  display: none;
+  width: 400px;
+  height: 20px;
+  padding: 10px 520px 5px 15px;
+  color: #898989;
+  background: #f3f3f3; }
   .sort-filter * {
     vertical-align: middle; }
 

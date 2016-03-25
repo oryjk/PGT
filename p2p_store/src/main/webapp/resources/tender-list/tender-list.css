@@ -497,7 +497,8 @@ a {
     .content-category .content-category-hover:hover {
       color: #c90304;
       background-color: #f2f3f4;
-      background-image: url("../core/images/tender/like.png");
+      background-image: url("../core/images/tender_list/up.png");
+      background-position: 72px 3px;
       border: none; }
     .content-category .content-category-hover:hover > ul {
       display: block; }

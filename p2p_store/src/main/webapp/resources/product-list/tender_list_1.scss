@@ -269,18 +269,32 @@ $border-gray: #cccccc;
 
 .sort {
   border: 1px solid $border-gray;
-  padding: 13px 15px;
-  background: $bg-gray;
+  padding: 5px 15px 25px 15px;
+  height: 40px;
   font-size: 14px;
 }
 
 .sort-list {
-
+  position: relative;
   @extend %clear;
 }
 .sort-item {
   float: left;
   margin-right: 32px;
+  padding:15px 20px 10px 15px;
+  background: url("../core/images/tender_list/down.png") no-repeat 75px 18px ;
+  &:hover{
+    background-color: rgb(243,243,243);
+    background-image:url("../core/images/tender_list/up.png") ;
+  }
+
+  &:hover > .sort-filter{
+    display: block;
+  }
+
+  a:hover{
+    color: $main;
+  }
 }
 
 .sort-link {
@@ -292,8 +306,15 @@ $border-gray: #cccccc;
 }
 
 .sort-filter {
-  padding-top: 15px;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  display: none;
+  width: 400px;
+  height: 20px;
+  padding: 10px 520px 5px 15px;
   color: $font-gray;
+  background:rgb(243,243,243);
   * {
     vertical-align: middle;
   }
