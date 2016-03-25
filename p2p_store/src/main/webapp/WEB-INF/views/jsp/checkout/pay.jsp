@@ -30,7 +30,7 @@
 <!--content begin-->
 <div class="main">
 
-	<form class="order-pay">
+	<form class="order-pay" action="/checkout/redirectToPayment" method="get">
 		<h2>最后一步，请尽快付款！</h2>
 
 		<div class="pay-content">
@@ -48,10 +48,11 @@
 			</div> -->
 			<div class="payment">
 				<div class="pay-check">支付宝/易宝</div>
-				<div class="pay-Alipay"><input name="" type="radio"><img src="../core/images/cart/zhifubao.png"></div>
-				<div class="pay-Alipay"><input name="" type="radio"><img src="../core/images/cart/yibao.png"></div>
+				<div class="pay-Alipay"><input name="method" type="radio" value="alipay"><img src="../core/images/cart/zhifubao.png"></div>
+				<div class="pay-Alipay"><input name="method" type="radio" value="yeepay"><img src="../core/images/cart/yibao.png"></div>
 			</div>
 			<div class="pay-submit">
+				<input class="pay-submit-btn" type="hidden" name="orderId" value="${order.id}">
 				<input class="pay-submit-btn" type="submit" value="立即支付">
 			</div>
 		</div>
