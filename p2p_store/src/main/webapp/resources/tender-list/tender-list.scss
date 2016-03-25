@@ -200,6 +200,7 @@
 }
 
 
+
 /* content
 *************************************************************************/
 
@@ -221,10 +222,13 @@
   }
 }
 
-.content-screen{
+.content-box{
   margin-top: 20px;
-  border-top: 1px solid #999;
-  border-bottom: 1px solid #999;
+  border: 1px solid #ccc;
+}
+
+.content-screen{
+  border-bottom: 1px solid #e7e7e7;
   height: 38px;
   background: rgb(242,243,244);
 
@@ -232,7 +236,9 @@
     float: left;
     padding: 10px 0 0 20px;
   }
-
+  .screen-color{
+    color: #c90304;
+  }
   span{
     float: left;
     padding:11px 0 0 20px;
@@ -244,11 +250,9 @@
 
 .content-category{
   height: 50px;
-  border-bottom: 1px solid  #999;
   .content-category-main{
     float: left;
     margin: 15px 30px 0 0;
-    border-right: 1px solid #999;
     @include wh(100px,20px);
     text-align: center;
 
@@ -257,16 +261,16 @@
     position: relative;
     float: left;
     margin:15px 0 0 20px;
-    padding-right: 20px;
-    border-right: 1px solid #cccdce;
+    padding-right: 10px;
     @include wh(80px,20px);
-    background: url("../core/images/tender/icon1.png") no-repeat 80px 3px;
-    color: #999;
+    background: url("../core/images/tender/icon1.png") no-repeat 72px 3px;
+    color:rgb(102,102,102);
     text-align: center;
     line-height: 20px;
     &:hover{
-      color: white;
-      background:#c90304;
+      color: #c90304;
+      background-color: #f2f3f4;
+      background-image: url("../core/images/tender/like.png");
       border: none;
     }
     &:hover > ul{
@@ -277,16 +281,24 @@
         display: none;
         position: absolute;
         top:20px;
-        left:0;
-        padding-top: 30px;
+        left: -150px;
+        padding-top: 10px;
         width: 500px;
-        height: 40px;
-        background:#c90304;
+        height: 30px;
+        background:#f2f3f4;
         transition: 0.3s;
 
       li{
         margin: 0 10px;
         float: left;
+
+        a{
+          color: rgb(151,152,153);
+
+          &:hover{
+              color:#c90304 ;
+          }
+        }
       }
     }
   }
@@ -295,7 +307,6 @@
 
 .content-money{
   height: 50px;
-  border-bottom: 1px solid #999;
 }
 
 .content-list{

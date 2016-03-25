@@ -456,15 +456,19 @@ a {
     margin: 0 5px;
     color: #999; }
 
-.content-screen {
+.content-box {
   margin-top: 20px;
-  border-top: 1px solid #999;
-  border-bottom: 1px solid #999;
+  border: 1px solid #ccc; }
+
+.content-screen {
+  border-bottom: 1px solid #e7e7e7;
   height: 38px;
   background: #f2f3f4; }
   .content-screen h3 {
     float: left;
     padding: 10px 0 0 20px; }
+  .content-screen .screen-color {
+    color: #c90304; }
   .content-screen span {
     float: left;
     padding: 11px 0 0 20px;
@@ -472,12 +476,10 @@ a {
     color: #999; }
 
 .content-category {
-  height: 50px;
-  border-bottom: 1px solid  #999; }
+  height: 50px; }
   .content-category .content-category-main {
     float: left;
     margin: 15px 30px 0 0;
-    border-right: 1px solid #999;
     width: 100px;
     height: 20px;
     text-align: center; }
@@ -485,17 +487,17 @@ a {
     position: relative;
     float: left;
     margin: 15px 0 0 20px;
-    padding-right: 20px;
-    border-right: 1px solid #cccdce;
+    padding-right: 10px;
     width: 80px;
     height: 20px;
-    background: url("../core/images/tender/icon1.png") no-repeat 80px 3px;
-    color: #999;
+    background: url("../core/images/tender/icon1.png") no-repeat 72px 3px;
+    color: #666666;
     text-align: center;
     line-height: 20px; }
     .content-category .content-category-hover:hover {
-      color: white;
-      background: #c90304;
+      color: #c90304;
+      background-color: #f2f3f4;
+      background-image: url("../core/images/tender/like.png");
       border: none; }
     .content-category .content-category-hover:hover > ul {
       display: block; }
@@ -503,19 +505,22 @@ a {
       display: none;
       position: absolute;
       top: 20px;
-      left: 0;
-      padding-top: 30px;
+      left: -150px;
+      padding-top: 10px;
       width: 500px;
-      height: 40px;
-      background: #c90304;
+      height: 30px;
+      background: #f2f3f4;
       transition: 0.3s; }
       .content-category .content-category-hover ul li {
         margin: 0 10px;
         float: left; }
+        .content-category .content-category-hover ul li a {
+          color: #979899; }
+          .content-category .content-category-hover ul li a:hover {
+            color: #c90304; }
 
 .content-money {
-  height: 50px;
-  border-bottom: 1px solid #999; }
+  height: 50px; }
 
 .content-list {
   margin-top: 20px;
