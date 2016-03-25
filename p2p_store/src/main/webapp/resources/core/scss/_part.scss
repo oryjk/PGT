@@ -657,6 +657,113 @@
   }
 }
 
+@mixin footer-con(){
+  /*  footer begin
+******************************************************************************/
+
+  .footer{
+    @include wh(100%);
+    background: #3b3b3b;
+  }
+
+  .footer-main{
+    margin: 0 auto;
+    @include wh($main-width,245px);
+  }
+
+  .footer-main-left{
+    float: left;
+    @include wh(500px,80px);
+
+    .footer-title{
+      padding: 30px 0 0 40px;
+      font-size: 16px;
+      color: #e6e6e6;
+    }
+
+    .footer-help{
+      padding-top: 20px;
+      height: 160px;
+      font-size: 14px;
+      color: #909090;
+      ul{
+        float: left;
+        padding-left: 40px;
+      }
+
+      li{
+        padding-top: 10px;
+        display: block;
+        text-align: center;
+        a{
+          color: #909090;
+          &:hover{
+            color: #e6e6e6;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-main-right{
+    float: right;
+    margin-top: 70px;
+    @include wh(340px,130px);
+    background: #3e3e3e;
+    border: 1px solid #5c5c5c;
+
+    p{
+      margin: 10px 0;
+      padding-left: 45px;
+      color: #909090;
+      font-size: 14px;
+    }
+
+    .footer-main-right-title{
+      padding: 10px 25px;
+      color: #e6e6e6;
+      font-size: 16px;
+    }
+
+    .footer-main-right-p1{
+      background: url("../core/images/footer/phone.png") no-repeat 25px 0 ;
+    }
+
+    .footer-main-right-p2{
+      background: url("../core/images/footer/e-mail.png") no-repeat 25px 0 ;
+    }
+
+    .footer-main-right-p3{
+      background: url("../core/images/footer/add.png") no-repeat 25px 0 ;
+    }
+  }
+
+  .footer-bottom{
+    @include wh(100%);
+    background: #333;
+
+    .footer-bottom-mid{
+      margin: 0 auto;
+      @include wh(1200px,35px);
+      color:#909090;
+      font-size: 12px;
+      line-height: 35px;
+      text-align: center;
+    }
+    .footer-bottom-img{
+      padding:10px 0 0  450px;
+      height: 50px;
+      img{
+        float: left;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  /*    footer end
+  *********************************************************************/
+}
+
 @mixin recommend-box() {
   .recommend-box {
     margin-top: 20px;

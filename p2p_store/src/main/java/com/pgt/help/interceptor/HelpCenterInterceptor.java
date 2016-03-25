@@ -8,6 +8,7 @@ import com.pgt.help.bean.HelpCenterSites;
 import com.pgt.help.service.HelpCenterService;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.StaticResourceSearchEngineService;
+import com.pgt.utils.SearchConvertToList;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
@@ -21,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by xiaodong on 15-12-21.
@@ -63,8 +66,10 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        configuration.getCurrentSite();
-        SearchHit[] hits = (SearchHit[])request.getAttribute("helpCategoryVoList");
+        List<Map<Object,Object>> helpList = SearchConvertToList.requestAttributeConvertToList(request,"helpCategoryVoList");
+        helpList = helpList.stream().filter(entry -> entry.get(Constants.P2P_HELPCENTER) != HelpCenterSites.P2P_STORE).collect(Collectors.toList());
+        //helpList.stream().forEach(help -> LOGGER.debug((String) help.get("id")));
+        request.setAttribute("helpCategorVoList", helpList);
     }
 
     @Override
