@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by carlwang on 3/20/16.
  */
-@Service()
+@Service
 public class P2PCategoryProcedure implements IndexProcedure {
     private static final Logger LOGGER = LoggerFactory.getLogger(P2PCategoryProcedure.class);
     @Autowired
@@ -79,8 +79,6 @@ public class P2PCategoryProcedure implements IndexProcedure {
                 categoryList.add(categoryPair);
 
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
