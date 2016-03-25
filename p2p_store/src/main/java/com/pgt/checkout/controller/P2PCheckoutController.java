@@ -19,6 +19,7 @@ import com.pgt.inventory.service.TenderInventoryService;
 import com.pgt.mail.MailConstants;
 import com.pgt.mail.service.MailService;
 import com.pgt.order.P2POrderService;
+import com.pgt.payment.PaymentConstants;
 import com.pgt.product.bean.Product;
 import com.pgt.session.SessionHelper;
 import com.pgt.shipping.bean.ShippingVO;
@@ -269,30 +270,31 @@ public class P2PCheckoutController {
 
     @RequestMapping(value = "/redirectToPayment", method = RequestMethod.GET)
     public ModelAndView redirectToPayment(HttpServletRequest request, HttpSession session) {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
+        String method = request.getParameter("method");
         User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
         if (null == user) {
-            mav.setViewName("redirect:" + urlConfiguration.getLoginPage());
-            return mav;
+            modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
+            return modelAndView;
         }
         Order order = getOrderService().getSessionOrder(request);
         if (null == order) {
-            mav.setViewName("redirect:" + urlConfiguration.getHomePage());
-            return mav;
+            modelAndView.setViewName("redirect:" + urlConfiguration.getHomePage());
+            return modelAndView;
         }
 
         if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER)) {
             // TODO REDIRECT TO MY ORDERS
-            mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
-            mav.addObject(CartConstant.ORDER_ID, order.getId());
-            mav.addObject("error", "HAS.UNSUBMIT.ORDER");
-            return mav;
+            modelAndView.setViewName("redirect:" + urlConfiguration.getShippingPage());
+            modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
+            modelAndView.addObject("error", "HAS.UNSUBMIT.ORDER");
+            return modelAndView;
         }
 
         if (getOrderService().isInvalidOrder(user, order)) {
             LOGGER.error("Current order is invalid and will redirect to shopping cart.");
-            mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage());
-            return mav;
+            modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage());
+            return modelAndView;
         }
 
         // TODO CHECK SHIPPING
@@ -310,23 +312,34 @@ public class P2PCheckoutController {
             String oosProdId = StringUtils.join(e.getOosProductIds(), "_");
 
             // TODO goto my orders page
-            mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
+            modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?oosProdId=" + oosProdId);
 
-            return mav;
+            return modelAndView;
         } catch (Exception e) {
             String message = CartMessages.ERROR_INV_CHECK_FAILED;
             LOGGER.error("lock inventory failed", e);
             // TODO goto my orders page
-            mav.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
-            return mav;
+            modelAndView.setViewName("redirect:" + urlConfiguration.getShoppingCartPage() + "?error=" + message);
+            return modelAndView;
         } finally {
             getInventoryService().commit();
         }
         sendEmail(user, order);
         request.removeAttribute(CartConstant.CURRENT_ORDER);
-        mav.setViewName("redirect:/checkout/payment");
-        mav.addObject(CartConstant.ORDER_ID, order.getId());
-        return mav;
+
+        //choose the method and go to associate page to pay.
+        if (PaymentConstants.METHOD_YEEPAY.equals(method)) {
+            modelAndView.setViewName("redirect:/yeepay/yeepayB2cPay?orderId=" + order.getId());
+            return modelAndView;
+        } else if (PaymentConstants.METHOD_ALIPAY.equals(method)) {
+            modelAndView.setViewName("redirect:/alipay/request?orderId=" + order.getId());
+            return modelAndView;
+        }
+
+
+        modelAndView.setViewName("redirect:/checkout/payment");
+        modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
+        return modelAndView;
     }
 
 

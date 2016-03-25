@@ -101,7 +101,7 @@
 				</ul>
 			</div>
 			<div class="info-row-8">
-				<input class="receive-ifo-submit" type="button" value="确认订单并提交"/>
+				<a href="/checkout/review?orderId=${order.id}"><input class="receive-ifo-submit" type="button" value="确认订单并提交"/></a>
 			</div>
 		</div>
 	</div>

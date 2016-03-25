@@ -77,7 +77,6 @@ public class AlipayController extends TransactionBaseController {
         try {
             getPaymentService().ensureTransaction();
             PaymentGroup paymentGroup = getPaymentService().maintainPaymentGroup(order, PaymentConstants.METHOD_ALIPAY);
-
             Transaction transaction = new Transaction();
             transaction.setAmount(order.getTotal());
             transaction.setCreationDate(new Date());
