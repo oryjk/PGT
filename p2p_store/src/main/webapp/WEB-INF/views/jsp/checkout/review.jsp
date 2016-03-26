@@ -46,7 +46,7 @@
 			</div>
 			<div class="confirm-row confirm-row-bottom-line">
 				<div class="confirm-title">备注信息:</div>
-				<div class="confirm-value">请填写任何你想要的信息</div>
+				<div class="confirm-value">${order.userComments}</div>
 			</div>
 			<div class="confirm-row confirm-address-info">
 				<div class="confirm-title">收货人信息:</div>

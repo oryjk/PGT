@@ -173,7 +173,7 @@ public class PaymentController implements CartMessages {
 		if (StringUtils.isBlank(orderIdStr)) {
 			throw new IllegalArgumentException("orderId is blank");
 		}
-		int orderId = 0;
+		int orderId;
 		try {
 			orderId = Integer.valueOf(orderIdStr);
 		} catch (Exception e) {

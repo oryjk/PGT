@@ -236,9 +236,9 @@ public class P2PCheckoutController {
 
 
     @RequestMapping(value = "/review")
-    public ModelAndView orderReview(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+    public ModelAndView orderReview(String comments, HttpServletRequest pRequest, HttpServletResponse pResponse) {
         String orderIdStr = pRequest.getParameter(CartConstant.ORDER_ID);
-        ModelAndView modelAndView = null;
+        ModelAndView modelAndView ;
         User user = SessionHelper.getUser(pRequest, pResponse);
         if (StringUtils.isBlank(orderIdStr) || !StringUtils.isNumeric(orderIdStr)) {
             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
@@ -248,8 +248,9 @@ public class P2PCheckoutController {
             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
         }
-
         Order order = getOrderService().loadOrder(Integer.valueOf(orderIdStr));
+        order.setUserComments(comments);
+        getOrderService().updateOrder(order);
         if (null == order) {
             modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getHomePage());
             return modelAndView;
