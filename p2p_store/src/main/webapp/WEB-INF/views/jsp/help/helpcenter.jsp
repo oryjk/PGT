@@ -45,12 +45,7 @@
         <li class="content-nav-title"><h2>帮助中心</h2></li>
         <c:forEach items="${helpCategorVoList}" var="categoryVo">
             <c:forEach items="${categoryVo.helpCenterList}" var="helpVo">
-                <c:if test="${helpVo.id == helpCenter.id}">
-                    <li><a class="menu-level-end current-page" href="/helpcenter/${helpVo.id}">${helpVo.title}</></li>
-                </c:if>
-                <c:if test="${helpVo.id != helpCenter.id}">
-                    <li><a class="menu-level-end"   href="/helpcenter/${helpVo.id}">${helpVo.title}</></li>
-                </c:if>
+                <li><a class="menu-level-end"   href="/helpcenter/${helpVo.id}">${helpVo.title}</></li>
             </c:forEach>
         </c:forEach>
     </ul>
