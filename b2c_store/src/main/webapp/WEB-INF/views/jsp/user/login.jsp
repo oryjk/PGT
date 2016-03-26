@@ -60,8 +60,8 @@
             <div class="domain">
                 快捷登录方式：
                 <a href="/qqLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/QQ.png"/>"></a>
-                <a href="#"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/wet.jpg"/>"></a>
-                <a href="#"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/sina.jpg"/>"></a>
+                <a href="/weChatLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/wet.jpg"/>"></a>
+                <a href="/microBlogLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/sina.jpg"/>"></a>
             </div>
         </form:form>
 
