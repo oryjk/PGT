@@ -24,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,7 +51,7 @@ public class AlipayController extends TransactionBaseController {
     private AlipayService alipayService;
     @Autowired
     private ShoppingCartService shoppingCartService;
-    @Resource(name="orderService")
+    @Resource(name = "orderService")
     private OrderService orderService;
     @Autowired
     private URLConfiguration urlConfiguration;
@@ -91,6 +92,9 @@ public class AlipayController extends TransactionBaseController {
             ObjectMapper mapper = new ObjectMapper();
             transactionLog.setOutbound(mapper.writeValueAsString(paramsMap));
             getAlipayService().updateAlipayTransactionLog(transactionLog);
+            String tradeNo = paramsMap.get(AlipayConstants.OUT_TRADE_NO);
+            transaction.setTrackingNo(tradeNo);
+            getPaymentService().updateTransaction(transaction);
             LOGGER.debug("Collected all required parameters and submit form to alipay payment gateway.");
             model = new ModelAndView("checkout/alipayForm");
             model.addObject("alipayParams", paramsMap);
@@ -123,7 +127,7 @@ public class AlipayController extends TransactionBaseController {
             LOGGER.error("Method handleAlipayReturn(): Failed to pay the order-{} by alipay.", orderId);
         }
         mav = new ModelAndView("redirect:/payment/gateway");
-        mav.addObject("order", order);
+//        mav.addObject("order", order);
         mav.addObject(CartConstant.ORDER_ID, order.getId());
         return mav;
     }
@@ -176,6 +180,10 @@ public class AlipayController extends TransactionBaseController {
             LOGGER.debug("The notify is {}.", isNotify);
 //            if (isNotify) {
             Transaction transaction = getPaymentService().findTransactionByTrackingNumber(request.getParameter(AlipayConstants.OUT_TRADE_NO));
+            if (ObjectUtils.isEmpty(transaction)) {
+                LOGGER.error("Can not find the transaction with trade_no is {}.", request.getParameter(AlipayConstants.OUT_TRADE_NO));
+                return;
+            }
             transaction.setStatus(PaymentConstants.PAYMENT_STATUS_SUCCESS);
 //            }
             if (paymentGroup == null) {
@@ -203,7 +211,7 @@ public class AlipayController extends TransactionBaseController {
             LOGGER.debug("Can not find the order with id is {}.", order.getId());
         } catch (Exception e) {
             LOGGER.error("The error message is {}.", e.getMessage());
-            getTransactionManager().rollback(status);
+            status.setRollbackOnly();
         } finally {
             getTransactionManager().commit(status);
         }

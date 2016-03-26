@@ -74,7 +74,7 @@
 							<td><span>¥</span><span>0.00</span></td>
 							<td><span class="cost">¥</span><span class="cost">${item.amount}</span></td>
 							<td>${item.quantity}</td>
-							<td>${info.interestRate}%</td>
+							<td><fmt:formatNumber pattern="#0.00" value="${p2pInfo.interestRate}"/>%</td>
 						</tr>
 					</c:forEach>
 					</tbody>
