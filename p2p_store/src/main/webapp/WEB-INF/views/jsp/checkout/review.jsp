@@ -18,7 +18,7 @@
 
 <!--step begin-->
 <!--super: 下面四步依次加上step-1到step-4-->
-<ul class="step step-1">
+<ul class="step step-2">
 	<li>订单详情</li>
 	<li>订单确认</li>
 	<li>支付</li>

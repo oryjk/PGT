@@ -19,7 +19,7 @@
 
 <!--step begin-->
 <!--super: 下面四步依次加上step-1到step-4-->
-<ul class="step step-1">
+<ul class="step step-3">
 	<li>订单详情</li>
 	<li>订单确认</li>
 	<li>支付</li>
@@ -38,8 +38,9 @@
 			<div class="pay-info">
 				<div class="amount-payable">应付金额：${order.total}元</div>
 				<div class="pay-add">
-					收货人：<span>${order.shippingVO.shippingAddress.name}</span> &nbsp; <span>${order.shippingVO.shippingAddress.phone}</span> <br><br>
-					收货地址：<span>${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.district}${order.shippingVO.shippingAddress.address}</span>
+					收货人：<span>${order.shippingVO.shippingAddress.name}</span><br>
+					手机：<span>${order.shippingVO.shippingAddress.phone}</span><br>
+					收货地址：<span>${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.district}${order.shippingVO.shippingAddress.address}</span><br>
 				</div>
 			</div>
 			<!--
