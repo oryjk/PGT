@@ -368,7 +368,6 @@ public class P2POrderService extends OrderService {
             info.setActualDueDate(dueDate);
             info.setActualIncoming(actualIncoming);
             p2PMapper.updateInfo(info);
-            result = giveIncomingToBuyer(order, info);
             order.setStatus(OrderStatus.PENDING_TRANSFER_TO_BUYER);
         }
         updateOrder(order);
