@@ -137,11 +137,31 @@
 
 
 							<div class="form-group">
+								<label class="col-md-3 control-label">手续费率</label>
+
+								<div class="col-md-4">
+									<p class="form-control-static">
+											<fmt:formatNumber pattern="#0.00" value="${tender.handlingFeeRate}"/>
+									</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">违约赔付率</label>
+
+								<div class="col-md-4">
+									<p class="form-control-static">
+										<fmt:formatNumber pattern="#0.00" value="${tender.interestRate}"/>
+
+									</p>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-md-3 control-label">总金额</label>
 
 								<div class="col-md-4">
 									<p class="form-control-static">
-											${tender.tenderTotal}
+										<fmt:formatNumber pattern="#0.00" value="${tender.tenderTotal}"/>
+
 									</p>
 								</div>
 							</div>

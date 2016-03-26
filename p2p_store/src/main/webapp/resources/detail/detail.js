@@ -7,7 +7,9 @@ require.config({
         component: '../core/js/module/component',
         ajax: '../core/js/module/ajax',
         jqzoom: '../core/js/jquery.jqzoom-core',
-        radialindicator: '../core/js/radialindicator'
+        radialindicator: '../core/js/radialindicator',
+        normalInit: '../core/js/module/normalInit'
+
     },
     shim: {
         jqzoom: ['jquery'],
@@ -15,7 +17,7 @@ require.config({
     }
 });
 
-require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function ($, Cpn, Ajax) {
+require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit'], function ($, Cpn, Ajax) {
     $(document).ready(function () {
 
         $('.jqzoom').jqzoom({
@@ -107,11 +109,44 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator'], function (
             setQuantity(this, num);
 
         });
+
         $('.item-buy-now').on('click', function (event) {
             event.preventDefault();
             $(this).parent('.col-content').find('.addToCart').submit();
-        })
+        });
 
-
+        $('.invest-add-favorite, .item-join-favorite').on('click', function (event) {
+            var target = event.target;
+            if (target) {
+                if ($(target).data('processed') == false) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/myAccount/favourite',
+                        data: {
+                            'productId': $(target).data('pid'),
+                            'type': $(target).data('type')
+                        },
+                        success: function (data) {
+                            if (data && data.success === 1) {
+                                $(target).data('id', data.data.id).data('processed', 'true').text('已收藏');
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/myAccount/dislike',
+                        data: {
+                            'favouriteId': $(target).data('id')
+                        },
+                        success: function (data) {
+                            if (data && data.success === 1) {
+                                $(target).data('id', '').data('processed', 'false').text('添加收藏');
+                            }
+                        }
+                    });
+                }
+            }
+        });
     });
-})
+});

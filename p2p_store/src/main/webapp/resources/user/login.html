@@ -4,25 +4,57 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="login.css"/>
+    <style>
+        .main,
+        .hover-main:hover {
+            color: #c90304;
+        }
+
+        .em,
+        .hover-em:hover {
+            color: #86b4ed;
+        }
+
+        .bg-main,
+        .hover-bg-main:hover {
+            background: #c90304;
+        }
+
+        .bg-em,
+        .hover-bg-em:hover {
+            background: #86b4ed;
+        }
+    </style>
 </head>
 <body>
+
 <!--header begin-->
 <div class="header">
-    <div class="header-inner">
-        <h1 class="logo">
-            <a href="#"></a>
-        </h1>
-        <ul class="nav">
-            <li><a href="#">在当品大厅</a></li>
-            <li><a href="#">在线典当</a></li>
-            <li><a href="#">绝当品</a></li>
-        </ul>
-        <form class="search" action="">
-            <input type="text" placeholder="点击搜索"/>
-        </form>
-        <div class="status">
-            <div class="status-login"></div>
-            <div class="status-logout"></div>
+    <div class="top">
+        <div class="top-content">
+            <div class="top-welcome">
+                <span class="top-welcome-text">欢迎光临点金子绝当淘!</span>
+                <span class="top-welcome-phone-title">客服电话:</span>
+                <span class="top-welcome-phone-value main">028-88888888</span>
+            </div>
+            <div class="top-user">
+                <div class="top-before-login" style="display: block">
+                    <a class="top-user-login hover-main" href="#">帮助中心</a>
+                </div>
+                <div class="top-after-login" style="display: none">
+                    <span>欢迎您:</span>
+                    <a href="#">小陈</a>
+                    <a class="top-user-logout hover-main" href="javascript:void(0);">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="head">
+        <div class="head-content">
+            <h1 class="logo">
+                <a class="logo-link" href="#"></a>
+            </h1>
+            <h2>欢迎登录</h2>
         </div>
     </div>
 </div>
@@ -44,7 +76,7 @@
                 <div class="password-box input-error">
                     <input class="username" id="password" name="password" type="password" placeholder="密码"/>
                 </div>
-                <div class="font-box">输入错误，请重新输入</div>
+                <div class="font-box" v-style="{'display':errorDisplay}">输入错误，请重新输入</div>
                 <div class="other-box">
                     <input id="autoLogin" name="autoLogin" type="checkbox"/>
                     <label for="autoLogin">自动登录</label>
@@ -223,5 +255,7 @@
     </div>
 </div>
 <!--footer end-->
+
+<script src="../core/js/require.js" data-main="login"></script>
 </body>
 </html>

@@ -1,0 +1,361 @@
+/*import
+**************************************************************************************************************************************************/
+.top-content {
+  *zoom: 1; }
+  .top-content:after, .top-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.top-content {
+  *zoom: 1; }
+  .top-content:after, .top-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
+/*pop-up*/
+/*file*/
+.top-content {
+  *zoom: 1; }
+  .top-content:after, .top-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.top-content {
+  *zoom: 1; }
+  .top-content:after, .top-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
+/*pop-up*/
+/*file*/
+/*
+html5doctor.com Reset Stylesheet
+v1.4.1
+2010-03-01
+Author: Richard Clark - http://richclarkdesign.com
+*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+body {
+  line-height: 1; }
+
+:focus {
+  outline: 1px; }
+
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+nav ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none; }
+
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold; }
+
+del {
+  text-decoration: line-through; }
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted #000;
+  cursor: help; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0; }
+
+input, select {
+  vertical-align: middle; }
+
+body {
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
+
+ul,
+ol {
+  list-style: none; }
+
+a {
+  text-decoration: none; }
+
+.link-btn {
+  color: #5a98e6; }
+  .link-btn:hover {
+    text-decoration: underline; }
+
+.hide {
+  display: none !important; }
+
+.show {
+  display: block; }
+
+.show-inline {
+  display: inline; }
+
+.header {
+  background: white; }
+
+.top {
+  height: 37px;
+  line-height: 37px;
+  background: #f5f5f5;
+  font-size: 12px;
+  color: #6c6c6c; }
+  .top * {
+    vertical-align: middle; }
+
+.top-content {
+  margin: 0 auto;
+  width: 1200px; }
+
+.top-welcome {
+  float: left;
+  width: 50%;
+  text-align: left; }
+
+.top-welcome-phone-title {
+  padding-left: 20px; }
+
+.top-welcome-phone-value {
+  padding-left: 5px; }
+
+.top-user {
+  float: right;
+  width: 50%;
+  text-align: right; }
+  .top-user a {
+    color: #6c6c6c; }
+
+.top-user-register {
+  padding-left: 10px; }
+
+.head {
+  margin: 0 auto;
+  width: 1200px;
+  height: 110px; }
+  .head h2 {
+    float: left;
+    margin: 50px 0 0 100px;
+    font-size: 25px; }
+
+.logo {
+  float: left;
+  height: 110px;
+  width: 230px;
+  background: url("../core/images/header/logo-red.jpg") no-repeat left center; }
+
+.logo-link {
+  display: block;
+  height: 100%; }
+
+/*  footer begin
+******************************************************************************/
+.footer {
+  width: 100%;
+  background: #3b3b3b; }
+
+.footer-main {
+  margin: 0 auto;
+  width: 1200px;
+  height: 245px; }
+
+.footer-main-left {
+  float: left;
+  width: 500px;
+  height: 80px; }
+  .footer-main-left .footer-title {
+    padding: 30px 0 0 40px;
+    font-size: 16px;
+    color: #e6e6e6; }
+  .footer-main-left .footer-help {
+    padding-top: 20px;
+    height: 160px;
+    font-size: 14px;
+    color: #909090; }
+    .footer-main-left .footer-help ul {
+      float: left;
+      padding-left: 40px; }
+    .footer-main-left .footer-help li {
+      padding-top: 10px;
+      display: block;
+      text-align: center; }
+      .footer-main-left .footer-help li a {
+        color: #909090; }
+        .footer-main-left .footer-help li a:hover {
+          color: #e6e6e6; }
+
+.footer-main-right {
+  float: right;
+  margin-top: 70px;
+  width: 340px;
+  height: 130px;
+  background: #3e3e3e;
+  border: 1px solid #5c5c5c; }
+  .footer-main-right p {
+    margin: 10px 0;
+    padding-left: 45px;
+    color: #909090;
+    font-size: 14px; }
+  .footer-main-right .footer-main-right-title {
+    padding: 10px 25px;
+    color: #e6e6e6;
+    font-size: 16px; }
+  .footer-main-right .footer-main-right-p1 {
+    background: url("../core/images/footer/phone.png") no-repeat 25px 0; }
+  .footer-main-right .footer-main-right-p2 {
+    background: url("../core/images/footer/e-mail.png") no-repeat 25px 0; }
+  .footer-main-right .footer-main-right-p3 {
+    background: url("../core/images/footer/add.png") no-repeat 25px 0; }
+
+.footer-bottom {
+  width: 100%;
+  background: #333; }
+  .footer-bottom .footer-bottom-mid {
+    margin: 0 auto;
+    width: 1200px;
+    height: 35px;
+    color: #909090;
+    font-size: 12px;
+    line-height: 35px;
+    text-align: center; }
+  .footer-bottom .footer-bottom-img {
+    padding: 10px 0 0  450px;
+    height: 50px; }
+    .footer-bottom .footer-bottom-img img {
+      float: left;
+      margin-left: 10px; }
+
+/*    footer end
+  *********************************************************************/
+/*style
+**************************************************************************************************************************************************/
+/* content
+***************************************************/
+.content {
+  margin: 0 auto;
+  border-top: 2px solid #ffc9c9;
+  width: 1200px;
+  height: 700px; }
+
+.content-nav {
+  float: left;
+  width: 300px;
+  background: white; }
+  .content-nav .content-nav-title {
+    width: 260px;
+    padding: 10px 0 0 40px;
+    height: 40px;
+    line-height: 30px;
+    color: #414141;
+    background-color: #e9e9e9;
+    background-image: url("../core/images/help/help-icon3.png");
+    background-repeat: no-repeat;
+    background-position: 270px 20px; }
+    .content-nav .content-nav-title:hover {
+      background: #e9e9e9;
+      background-image: url("../core/images/help/help-icon3.png");
+      background-repeat: no-repeat;
+      background-position: 270px 20px; }
+  .content-nav .content-nav-active {
+    background: #ec5555;
+    background-image: url("../core/images/help/help-icon2.png");
+    background-position: 50px 15px;
+    background-repeat: no-repeat; }
+    .content-nav .content-nav-active a {
+      color: white; }
+  .content-nav li {
+    padding: 10px 0 0 70px;
+    line-height: 20px;
+    width: 230px;
+    height: 30px;
+    background: url("../core/images/help/help-icon1.png") no-repeat 50px 15px; }
+    .content-nav li:hover {
+      background-color: #ec5555;
+      background-image: url("../core/images/help/help-icon2.png");
+      background-position: 50px 15px;
+      background-repeat: no-repeat;
+      transition: 0.6s; }
+    .content-nav li:hover > a {
+      color: white; }
+    .content-nav li a {
+      color: #414141; }
+
+.content-main {
+  float: left;
+  padding-top: 30px;
+  margin-left: 30px;
+  width: 850px;
+  min-height: 660px; }
+  .content-main span {
+    color: #ec5555; }
+  .content-main h2 {
+    padding: 40px 0 10px 70px;
+    border-bottom: 1px solid #666;
+    font-size: 20px; }
+
+.content-main-mid {
+  margin-top: 30px; }
+
+/*# sourceMappingURL=../../maps/help/help-center.css.map */

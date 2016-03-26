@@ -14,7 +14,7 @@
 /*style
 **************************************************************************************************************************************************/
 body {
-  background: #f3f3f3;
+  background: white;
 }
 
 .step {
@@ -27,6 +27,32 @@ body {
     float: left;
     @include wh(25%, 100%);
     line-height: 50px;
+  }
+}
+
+
+.step-1 {
+  background: url("../core/images/buy/buy-step-1.png") no-repeat 0 0;
+  .step-item-1 {
+    color: white;
+  }
+}
+.step-2 {
+  background: url("../core/images/buy/buy-step-2.png") no-repeat 0 0;
+  .step-item-2 {
+    color: white;
+  }
+}
+.step-3 {
+  background: url("../core/images/buy/buy-step-3.png") no-repeat 0 0;
+  .step-item-3 {
+    color: white;
+  }
+}
+.step-4 {
+  background: url("../core/images/buy/buy-step-4.png") no-repeat 0 0;
+  .step-item-4 {
+    color: white;
   }
 }
 
@@ -163,6 +189,7 @@ body {
 
   .receive-name {
     @extend %inline-block;
+    margin-right: 20px;
     border: 1px solid $gray-light;
     @include wh(140px, 30px);
     text-align: center;

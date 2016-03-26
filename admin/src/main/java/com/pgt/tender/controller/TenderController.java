@@ -6,6 +6,7 @@ import com.pgt.common.bean.Media;
 import com.pgt.common.bean.ViewMapperConfiguration;
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.URLConfiguration;
+import com.pgt.constant.Constants;
 import com.pgt.internal.bean.Role;
 import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.media.MediaService;
@@ -91,8 +92,6 @@ public class TenderController extends InternalTransactionBaseController {
 
     @RequestMapping(value = "/tenderList", method = RequestMethod.GET)
     public ModelAndView get(@RequestParam(value = "term", required = false) String term,
-                            @RequestParam(value = "sortProperty", required = false) String sortProperty,
-                            @RequestParam(value = "sortValue", required = false, defaultValue = "ASC") String sortValue,
                             @RequestParam(value = "currentIndex", required = false) Long currentIndex, ModelAndView modelAndView,
                             HttpServletRequest pRequest, TenderQuery tenderQuery) {
 
@@ -107,17 +106,12 @@ public class TenderController extends InternalTransactionBaseController {
             currentIndex = 0L;
         }
         paginationBean.setCurrentIndex(currentIndex);
-        paginationBean.setCapacity(configuration.getAdminCategoryCapacity());
-
+        paginationBean.setCapacity(10);
+        tenderQuery.setNeedHot(false);
         if (!StringUtils.isEmpty(term)) {
             LOGGER.debug("The query term is {}", term);
             tenderQuery.setNameLike(true);
             tenderQuery.setName(term);
-        }
-
-        if (!StringUtils.isEmpty(sortProperty)) {
-            LOGGER.debug("The sortProerty is {} and sortValve is {}", sortProperty, sortValue);
-            tenderQuery.orderbyCondition(sortValue.endsWith("ASC") ? true : false, sortProperty);
         }
 
         List<Tender> tenderAll = tenderService.queryTenderByQuery(tenderQuery);
@@ -132,6 +126,7 @@ public class TenderController extends InternalTransactionBaseController {
             modelAndView.addObject("tenderList", tenderList);
             modelAndView.addObject("paginationBean", paginationBean);
         }
+        modelAndView.addObject(Constants.ROOT_CATEGORY_ID, tenderQuery.getRootCategoryId());
         return modelAndView;
     }
 
@@ -680,5 +675,11 @@ public class TenderController extends InternalTransactionBaseController {
         }
     }
 
+    @RequestMapping(value = "/description/{tenderId}", method = RequestMethod.GET)
+    public ModelAndView tenderDescription(ModelAndView modelAndView, @PathVariable("tenderId") String tenderId){
+        modelAndView.addObject("tenderId", tenderId);
+        modelAndView.setViewName("/p2p-tender/tender-description-Article");
+        return modelAndView;
+    }
 
 }

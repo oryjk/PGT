@@ -172,3 +172,4 @@ resources/image/upload
 core/src/main/resources/global.properties
 p2p_store/qqconnect.log
 p2p_store/qqconnect.log.1
+p2p_store/src/main/webapp/maps/**/*.css.map

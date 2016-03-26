@@ -19,7 +19,7 @@
 
 <!--step begin-->
 <!--super: 下面四步依次加上step-1到step-4-->
-<ul class="step step-1">
+<ul class="step step-3">
 	<li>订单详情</li>
 	<li>订单确认</li>
 	<li>支付</li>
@@ -30,7 +30,7 @@
 <!--content begin-->
 <div class="main">
 
-	<form class="order-pay">
+	<form class="order-pay" action="/checkout/redirectToPayment" method="get">
 		<h2>最后一步，请尽快付款！</h2>
 
 		<div class="pay-content">
@@ -38,8 +38,9 @@
 			<div class="pay-info">
 				<div class="amount-payable">应付金额：${order.total}元</div>
 				<div class="pay-add">
-					收货人：<span>${order.shippingVO.shippingAddress.name}</span> &nbsp; <span>${order.shippingVO.shippingAddress.phone}</span> <br><br>
-					收货地址：<span>${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.district}${order.shippingVO.shippingAddress.address}</span>
+					收货人：<span>${order.shippingVO.shippingAddress.name}</span><br>
+					手机：<span>${order.shippingVO.shippingAddress.phone}</span><br>
+					收货地址：<span>${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.district}${order.shippingVO.shippingAddress.address}</span><br>
 				</div>
 			</div>
 			<!--
@@ -48,10 +49,11 @@
 			</div> -->
 			<div class="payment">
 				<div class="pay-check">支付宝/易宝</div>
-				<div class="pay-Alipay"><input name="" type="radio"><img src="../core/images/cart/zhifubao.png"></div>
-				<div class="pay-Alipay"><input name="" type="radio"><img src="../core/images/cart/yibao.png"></div>
+				<div class="pay-Alipay"><input name="method" type="radio" value="alipay"><img src="../core/images/cart/zhifubao.png"></div>
+				<div class="pay-Alipay"><input name="method" type="radio" value="yeepay"><img src="../core/images/cart/yibao.png"></div>
 			</div>
 			<div class="pay-submit">
+				<input class="pay-submit-btn" type="hidden" name="orderId" value="${order.id}">
 				<input class="pay-submit-btn" type="submit" value="立即支付">
 			</div>
 		</div>

@@ -1,18 +1,15 @@
 package com.pgt.category.bean;
 
-import java.util.List;
-
-import com.pgt.common.bean.Banner;
-import com.pgt.tender.bean.Tender;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pgt.base.bean.BaseBean;
 import com.pgt.category.validation.CreateGroup;
+import com.pgt.common.bean.Banner;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import java.util.List;
 
 public class Category extends BaseBean {
 

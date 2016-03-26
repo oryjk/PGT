@@ -1,6 +1,7 @@
 package com.pgt.cart.bean;
 
 import com.pgt.common.bean.Media;
+import com.pgt.tender.bean.Tender;
 
 import java.util.Date;
 
@@ -32,6 +33,8 @@ public class Favourite implements FavouriteType {
 	private int mDiscussCount;
 
 	private int mType;
+
+	private Tender mTender;
 
 	public Favourite() {
 	}
@@ -147,5 +150,13 @@ public class Favourite implements FavouriteType {
 
 	public void setProductStock(final int pProductStock) {
 		mProductStock = pProductStock;
+	}
+
+	public Tender getTender() {
+		return mTender;
+	}
+
+	public void setTender(final Tender pTender) {
+		mTender = pTender;
 	}
 }

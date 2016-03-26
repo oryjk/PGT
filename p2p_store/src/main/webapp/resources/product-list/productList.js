@@ -11,11 +11,12 @@ require.config({
         ajax: '../core/js/module/ajax',
         underscore: '../core/js/underscore',
         vue: '../core/js/vue',
-        component: '../core/js/module/component'
+        component: '../core/js/module/component',
+        normalInit: '../core/js/module/normalInit'
     }
 });
 
-require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component'], function ($, Handlebars, Ajax, _, Vue, Con) {
+require(['jquery', 'handlebar', 'ajax', 'underscore', 'vue', 'component', 'normalInit'], function ($, Handlebars, Ajax, _, Vue, Con) {
     $(document).ready(function () {
 
         //初始化下拉菜单

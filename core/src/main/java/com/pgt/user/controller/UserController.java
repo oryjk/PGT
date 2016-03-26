@@ -99,6 +99,7 @@ public class UserController {
         }
         LOGGER.debug("Go to login page with get method");
         modelAndView.addObject(Constants.USER, new User());
+        modelAndView.addObject(Constants.HEAD_TITLE, "欢迎登陆");
         return modelAndView;
     }
 
@@ -277,6 +278,7 @@ public class UserController {
         }
         LOGGER.debug("Go to register page with get method");
         modelAndView.addObject("user", new User());
+        modelAndView.addObject(Constants.HEAD_TITLE, "欢迎注册");
         modelAndView.setViewName(urlConfiguration.getRegisterPage());
         return modelAndView;
 

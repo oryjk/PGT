@@ -1,6 +1,296 @@
 @import "variable","commonMixin","commomExtend", 'components';
 
-@mixin header() {
+@mixin header($simple: false) {
+  //传入true参数,则为简单header,隐藏掉.top-banner和.nav
+
+  .header {
+    background: white;
+
+    .top-banner {
+      display: block;
+      height: 80px;
+    }
+
+    .top {
+      height: 37px;
+      line-height: 37px;
+      background: #f5f5f5;
+      font-size: 12px;
+      color: #6c6c6c;
+
+      * {
+        vertical-align: middle;
+      }
+    }
+
+    .top-content {
+      @extend %clear;
+      margin: 0 auto;
+      width: $main-width;
+    }
+
+    .top-welcome {
+      float: left;
+      width: 50%;
+      text-align: left;
+    }
+
+    .top-welcome-phone-title {
+      padding-left: 20px;
+    }
+
+    .top-welcome-phone-value {
+      padding-left: 5px;
+    }
+
+    .top-user {
+      float: right;
+      width: 50%;
+      text-align: right;
+
+      a {
+        color: #6c6c6c;
+      }
+    }
+
+    .top-user-register {
+      padding-left: 10px;
+    }
+
+    .head {
+      margin: 0 auto;
+      @include wh($main-width, 110px);
+    }
+
+    .logo,
+    .hot-left,
+    .search,
+    .hot-right {
+      float: left;
+      height: 110px;
+    }
+
+    .logo {
+      width: 230px;
+      background: url("../core/images/header/logo-red.jpg") no-repeat left center;
+    }
+
+    .logo-link {
+      display: block;
+      height: 100%;
+    }
+
+    .hot-left {
+      width: 150px;
+    }
+
+    .search {
+      width: 560px;
+    }
+
+    .search-content {
+      float: right;
+      margin-top: 36px;
+      border: 1px solid #a9b7b7;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .search-input-text{
+      float: right;
+      border: none;
+      border-right: 1px solid #a9b7b7;
+      padding: 0 10px;
+      @include wh(400px, 37px);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .search-input-submit{
+      float: right;
+      border: none;
+      @include wh(37px, 37px);
+      background: url("../core/images/header/icon-search.png") no-repeat center center;
+
+      &:hover {
+        background: #a9b7b7 url("../core/images/header/icon-search-hover.png") no-repeat center center;
+      }
+    }
+
+    .hot-right {
+      margin-left: 100px;
+      width: 160px;
+    }
+
+    .nav {
+      background: #272727;
+    }
+
+    .nav-content {
+      margin: 0 auto;
+      @include wh($main-width, 54px);
+    }
+
+    .menu {
+      position: relative;
+      z-index: 1;
+      float: left;
+      @include wh(230px, 54px);
+    }
+
+    .menu-title {
+      line-height: 54px;
+      font-size: 18px;
+      font-weight: 400;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+    }
+
+    .menu-list {
+      position: absolute;
+      display: none;
+      width: 230px;
+      top: 54px;
+      left: 0;
+      background: url("../core/images/opacity/opacity_white_9.png") repeat;
+    }
+
+
+    .menu-item {
+      margin: 0 15px;
+      padding: 15px 0 15px 40px;
+      border-bottom: 1px dashed $gray-light;
+    }
+
+    .menu-item-title {
+      color: #6c6c6c;
+    }
+
+    .menu-item-sub-box {
+      padding-top: 5px;
+      line-height: 1.2;
+    }
+
+    .menu-item-sub {
+      font-size: 14px;
+      color: #6c6c6c;
+    }
+
+    .nav-list {
+      position: relative;
+      float: left;
+    }
+
+    .nav-item-hover {
+      position: absolute;
+      z-index: 1;
+      background: #414141;
+      transition: all .3s;
+    }
+
+    .nav-item {
+      position: relative;
+      z-index: 2;
+      float: left;
+    }
+
+    .nav-item-link {
+      display: block;
+      padding: 0 30px;
+      height: 54px;
+      line-height: 54px;
+      font-size: 18px;
+      font-weight: 400;
+      color: white;
+    }
+  }
+
+  @if $simple == true {
+    .top-banner {
+      display: none !important;
+    }
+    .nav {
+      display: none;
+    }
+  }
+}
+
+@mixin header-con(){
+  .header{
+    background: white;
+  }
+  .top {
+    height: 37px;
+    line-height: 37px;
+    background: #f5f5f5;
+    font-size: 12px;
+    color: #6c6c6c;
+
+    * {
+      vertical-align: middle;
+    }
+  }
+
+  .top-content {
+    @extend %clear;
+    margin: 0 auto;
+    width: $main-width;
+  }
+
+  .top-welcome {
+    float: left;
+    width: 50%;
+    text-align: left;
+  }
+
+  .top-welcome-phone-title {
+    padding-left: 20px;
+  }
+
+  .top-welcome-phone-value {
+    padding-left: 5px;
+  }
+
+  .top-user {
+    float: right;
+    width: 50%;
+    text-align: right;
+
+    a {
+      color: #6c6c6c;
+    }
+  }
+
+  .top-user-register {
+    padding-left: 10px;
+  }
+
+  .head {
+    margin: 0 auto;
+    @include wh($main-width, 110px);
+    h2{
+      float: left;
+      margin: 50px 0 0 100px;
+      font-size: 25px;
+    }
+  }
+
+  .logo {
+    float: left;
+    height: 110px;
+    width: 230px;
+    background: url("../core/images/header/logo-red.jpg") no-repeat left center;
+  }
+
+  .logo-link {
+    display: block;
+    height: 100%;
+  }
+}
+
+@mixin old-header() {
+
   .header {
     position: fixed;
     z-index: 10;
@@ -365,6 +655,113 @@
       @include wh(100%, 100%);
     }
   }
+}
+
+@mixin footer-con(){
+  /*  footer begin
+******************************************************************************/
+
+  .footer{
+    @include wh(100%);
+    background: #3b3b3b;
+  }
+
+  .footer-main{
+    margin: 0 auto;
+    @include wh($main-width,245px);
+  }
+
+  .footer-main-left{
+    float: left;
+    @include wh(500px,80px);
+
+    .footer-title{
+      padding: 30px 0 0 40px;
+      font-size: 16px;
+      color: #e6e6e6;
+    }
+
+    .footer-help{
+      padding-top: 20px;
+      height: 160px;
+      font-size: 14px;
+      color: #909090;
+      ul{
+        float: left;
+        padding-left: 40px;
+      }
+
+      li{
+        padding-top: 10px;
+        display: block;
+        text-align: center;
+        a{
+          color: #909090;
+          &:hover{
+            color: #e6e6e6;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-main-right{
+    float: right;
+    margin-top: 70px;
+    @include wh(340px,130px);
+    background: #3e3e3e;
+    border: 1px solid #5c5c5c;
+
+    p{
+      margin: 10px 0;
+      padding-left: 45px;
+      color: #909090;
+      font-size: 14px;
+    }
+
+    .footer-main-right-title{
+      padding: 10px 25px;
+      color: #e6e6e6;
+      font-size: 16px;
+    }
+
+    .footer-main-right-p1{
+      background: url("../core/images/footer/phone.png") no-repeat 25px 0 ;
+    }
+
+    .footer-main-right-p2{
+      background: url("../core/images/footer/e-mail.png") no-repeat 25px 0 ;
+    }
+
+    .footer-main-right-p3{
+      background: url("../core/images/footer/add.png") no-repeat 25px 0 ;
+    }
+  }
+
+  .footer-bottom{
+    @include wh(100%);
+    background: #333;
+
+    .footer-bottom-mid{
+      margin: 0 auto;
+      @include wh(1200px,35px);
+      color:#909090;
+      font-size: 12px;
+      line-height: 35px;
+      text-align: center;
+    }
+    .footer-bottom-img{
+      padding:10px 0 0  450px;
+      height: 50px;
+      img{
+        float: left;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  /*    footer end
+  *********************************************************************/
 }
 
 @mixin recommend-box() {

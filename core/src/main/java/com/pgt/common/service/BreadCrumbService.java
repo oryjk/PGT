@@ -1,7 +1,6 @@
 package com.pgt.common.service;
 
 import com.pgt.common.bean.BreadCrumb;
-import com.pgt.configuration.ESConfiguration;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.search.service.CategorySearchEngineService;
 import com.pgt.utils.SearchConvertToList;
@@ -33,7 +32,7 @@ public class BreadCrumbService {
     public List<BreadCrumb> buildSearchBreadCrumb(String categoryId, String keyword) {
         List<BreadCrumb> breadCrumbs = new ArrayList<>();
         if (!StringUtils.isBlank(categoryId)) {
-            SearchResponse response = categorySearchEngineService.findCategoryById(categoryId);
+            SearchResponse response = categorySearchEngineService.findCategoryById(null, categoryId);
             List<Map<String, Object>> list = SearchConvertToList.searchConvertToList(response);
             if (!CollectionUtils.isEmpty(list)) {
                 BreadCrumb breadCrumb = new BreadCrumb();

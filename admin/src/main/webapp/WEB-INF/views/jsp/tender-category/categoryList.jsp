@@ -52,38 +52,24 @@
 				</div>
 				<div class="portlet-body">
 					<div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
-						<div class="row">
-							<div class="col-xs-2">
-								<div class="dataTables_length">
-									<label>主分类
-										<select id="categorySelect" name="sample_3_length" aria-controls="sample_3"
-												class="form-control input-small input-inline select2-offscreen" path="rootCategoryId"
-												tabindex="-1" title="">
-											<option value="all" selected="true">全部</option>
-											<c:forEach items="${rootCategory}" var="category">
-												<option ${category.id eq categoryId ? "selected='selected'" :''} value="${category.id}">${category.name}</option>
-											</c:forEach>
-										</select></label>
+						<c:if test="${categoryType eq 'TENDER_ROOT'}">
+							<div class="row">
+								<div class="col-md-2 col-sm-2">
+									<div class="dataTables_filter">
+										<label>名称:<input id="name" type="search" value="${term}" class="form-control input-small input-inline"
+														 placeholder="" aria-controls="sample_3">
+										</label>
+									</div>
 								</div>
-							</div>
-
-							<div class="col-md-2 col-sm-2">
-								<div class="dataTables_filter">
-									<label>名称:<input id="name" type="search" value="${term}" class="form-control input-small input-inline"
-													 placeholder="" aria-controls="sample_3">
-									</label>
+								<div class="col-md-2 col-sm-2">
+									<button id="tenderSearchBtn" class="btn blue">
+										搜索
+									</button>
 								</div>
+
 							</div>
+						</c:if>
 
-
-
-							<div class="col-md-2 col-sm-2">
-								<button id="tenderSearchBtn" class="btn blue">
-									搜索
-								</button>
-							</div>
-
-						</div>
 						<c:choose>
 							<c:when test="${categoryType eq 'TENDER_ROOT'}">
 								<div class="table-scrollable productlist-box">
@@ -145,24 +131,24 @@
 														${fn:length(rootCategory.children)}
 												</td>
 												<td>
-													<div class="btn-group">
-														<a class="btn btn-xs default btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-															<c:choose>
-																<c:when test="${rootCategory.status==1}">
-																	启用
-																</c:when>
-																<c:otherwise>
-																	禁用
-																</c:otherwise>
-															</c:choose>
-															<i class="fa fa-angle-down"></i>
-														</a>
-
-													</div>
+													<c:choose>
+														<c:when test="${rootCategory.status==1}">
+															启用
+														</c:when>
+														<c:otherwise>
+															禁用
+														</c:otherwise>
+													</c:choose>
 												</td>
 												<td>
-													<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/tenderCategory/update/${rootCategory.id}">修改</button>
-													<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/tenderCategory/delete/${rootCategory.id}" data-pgt-type="TENDER_ROOT">删除</button>
+													<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/tenderCategory/update/${rootCategory.id}">修改
+													</button>
+													<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/tenderCategory/delete/${rootCategory.id}"
+															data-pgt-type="TENDER_ROOT">删除
+													</button>
+													<button class="btn btn-xs green btn-circle" data-pgt-btn="modify"
+															data-url="/tenderCategory/querySub/?rootCategoryId=${rootCategory.id}" data-pgt-type="TENDER_ROOT">查看子分类
+													</button>
 												</td>
 											</tr>
 										</c:forEach>
@@ -185,22 +171,8 @@
 											<th>
 												分类id
 											</th>
-											<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
-												<div class="btn-group">
-													<a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="">
-														状态 <i class="fa fa-angle-down"></i>
-													</a>
-													<ul class="dropdown-menu pull-right">
-														<li>
-															<a href="javascript:;" data-pgt-value="1" data-pgt-dropdown="status-option">
-																启用 </a>
-														</li>
-														<li>
-															<a href="javascript:;" data-pgt-value="0" data-pgt-dropdown="status-option">
-																禁用 </a>
-														</li>
-													</ul>
-												</div>
+											<th>
+												状态
 											</th>
 											<th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1"
 												aria-label="Status : activate to sort column ascending">
@@ -208,44 +180,48 @@
 											</th>
 										</tr>
 										</thead>
-										<c:forEach items="${categories}" var="rootCategory">
-										<tr class="gradeX odd" role="row">
-											<td>
-													${rootCategory.sort}
-											</td>
-											<td>
-													${rootCategory.name}
-											</td>
-											<td>
-													${rootCategory.id}
-											</td>
-											<td>
-												<div class="btn-group">
-													<a class="btn btn-xs blue btn-circle" href="javascript:;" data-toggle="dropdown" data-pgt-value="1">
-														<c:choose>
-															<c:when test="${rootCategory.status==1}">
-																启用
-															</c:when>
-															<c:otherwise>
-																禁用
-															</c:otherwise>
-														</c:choose>
-														<i class="fa fa-angle-down"></i>
-													</a>
-
-												</div>
-											</td>
-											<td>
-												<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/tenderCategory/update/${rootCategory.id}">修改</button>
-												<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/tenderCategory/delete/${rootCategory.id}" data-pgt-type="TENDER_HIERARCHY">删除</button>
-											</td>
-										</tr>
+										<c:forEach items="${categoryList}" var="subCategory">
+											<tr class="gradeX odd" role="row">
+												<td>
+														${subCategory.sort}
+												</td>
+												<td>
+														${subCategory.name}
+												</td>
+												<td>
+														${subCategory.id}
+												</td>
+												<td>
+													<c:choose>
+														<c:when test="${subCategory.status==1}">
+															启用
+														</c:when>
+														<c:otherwise>
+															禁用
+														</c:otherwise>
+													</c:choose>
+												</td>
+												<td>
+													<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/tenderCategory/update/${subCategory.id}">修改
+													</button>
+													<button class="btn btn-xs red btn-circle" data-pgt-btn="delete" data-url="/tenderCategory/delete/${subCategory.id}"
+															data-pgt-type="TENDER_HIERARCHY">删除
+													</button>
+													<button class="btn btn-xs green btn-circle" data-pgt-btn="modify" data-url="/tender/tenderList?categoryId=${subCategory.id}&rootCategoryId=${subCategory.parent.id}">查看本分类下所有产品
+													</button>
+												</td>
+											</tr>
 										</c:forEach>
 										</tbody>
 									</table>
 								</div>
 							</c:otherwise>
 						</c:choose>
+						<div class="row">
+							<a href="/tenderCategory/query" style="float: right">
+								<button type="button" class="btn default">返回到主分类列表</button>
+							</a>
+						</div>
 						<div class="row">
 							<link rel="stylesheet" href="/resources/core/css/page.css"/>
 							<div class="col-xs-2">
@@ -363,7 +339,7 @@
 										<input id="term" type="hidden" name="term" value="${term}">
 										<input type="search" value="${currentIndex+1}" name="currentIndex"
 											   class="form-control input-xsmall input-inline" placeholder="第几页">
-										<input type="hidden" id="type" name="type"  value="${categoryType}">
+										<input type="hidden" id="type" name="type" value="${categoryType}">
 										<input type="hidden" id="category" name="categoryId" value="${categoryId}">
 										<input type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
 									</label>

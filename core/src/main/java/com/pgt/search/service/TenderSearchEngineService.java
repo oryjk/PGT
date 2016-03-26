@@ -14,6 +14,7 @@ import com.pgt.tender.bean.ESTender;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import com.pgt.utils.PaginationBean;
+import com.pgt.utils.SearchConvertToList;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 
@@ -109,9 +111,9 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
 
                 tender.setCategoryHot(true);
                 List<Tender> tenders = tenderService.queryTenders(tender);
-                if(CollectionUtils.isEmpty(tenders)){
+                if (CollectionUtils.isEmpty(tenders)) {
                     tender.setCategoryHot(false);
-                    tenders=tenderService.queryTenders(tender);
+                    tenders = tenderService.queryTenders(tender);
                 }
 
                 homeTender.getTenderList().addAll(tenders);
@@ -194,7 +196,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                                      ESAggregation categoryIdAggregation, String indexType) {
         SearchResponse response = null;
         try {
-            SearchRequestBuilder searchRequestBuilder = null;
+            SearchRequestBuilder searchRequestBuilder ;
             if (ObjectUtils.isEmpty(indexType)) {
                 searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
             } else {
@@ -227,9 +229,17 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         ESSort esSort = new ESSort();
         esSort.setSortOrder(SortOrder.ASC);
         esSort.setPropertyName(esConfiguration.geteSSort());
-        List<ESSort> sortList= new ArrayList<>();
-
-        return findTender(null, matches, null,sortList, null, null, Constants.TENDER_INDEX_TYPE);
+        List<ESSort> sortList = new ArrayList<>();
+        //default sort is price,will react in future by configuration.
+        ESSort priceSort = new ESSort();
+        priceSort.setPropertyName("tender.unitPrice");
+        priceSort.setSortOrder(SortOrder.ASC);
+        SearchResponse response = findTender(null, matches, null, sortList, null, null, Constants.TENDER_INDEX_TYPE);
+        List<Map<String, Object>> list = SearchConvertToList.searchConvertToList(response);
+        if (list.size() < 4) {
+            response = findTender(null, null, null, sortList, null, null, Constants.TENDER_INDEX_TYPE);
+        }
+        return response;
     }
 
     public void updateTender(Tender tender) {
@@ -301,8 +311,6 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         }
         return response;
     }
-
-
 
 
     @Override
@@ -392,6 +400,15 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         return true;
     }
 
+    /**
+     * Used in search page
+     *
+     * @param keyword
+     * @param esTenderListFilter
+     * @param paginationBean
+     * @param esSorts
+     * @return
+     */
     public SearchResponse findTenders(String keyword, ESTenderListFilter esTenderListFilter, PaginationBean paginationBean, List<ESSort> esSorts) {
 
         SearchResponse response = null;

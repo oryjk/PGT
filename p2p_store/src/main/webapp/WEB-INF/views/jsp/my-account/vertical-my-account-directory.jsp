@@ -11,7 +11,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <div class="menu">
 	<div class="user-face">
 		<div class="img-box"><img src="" alt=""/></div>

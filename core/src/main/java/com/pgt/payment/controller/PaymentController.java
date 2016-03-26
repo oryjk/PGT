@@ -64,7 +64,7 @@ public class PaymentController implements CartMessages {
 	private UserInformationService	userInformationService;
 
 	@RequestMapping(value = "/gateway", method = RequestMethod.GET)
-	public ModelAndView gatewayPage(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ModelAndView gatewayPage(HttpServletRequest pRequest) {
 		// This code is for test ---- start ----
 		// Order mockOrder = new Order();
 		// mockOrder.setTotal(0.01);
@@ -173,7 +173,7 @@ public class PaymentController implements CartMessages {
 		if (StringUtils.isBlank(orderIdStr)) {
 			throw new IllegalArgumentException("orderId is blank");
 		}
-		int orderId = 0;
+		int orderId;
 		try {
 			orderId = Integer.valueOf(orderIdStr);
 		} catch (Exception e) {

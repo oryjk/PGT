@@ -77,40 +77,83 @@
                 <div class="col-md-9">
                   <div class="radio-list">
                     <form:select class="form-control input-medium" id="levelSelect" path="type">
-                      <form:option value="TENDER_ROOT">主分类</form:option>
-                      <form:option value="TENDER_HIERARCHY">子分类</form:option>
+                      <c:choose>
+                        <c:when test="${category.type eq 'TENDER_ROOT'}">
+                          <option value="TENDER_ROOT" selected >主分类</option>
+                          <option value="TENDER_HIERARCHY">子分类</option>
+                        </c:when>
+                        <c:otherwise>
+                          <option value="TENDER_ROOT"  >主分类</option>
+                          <option value="TENDER_HIERARCHY" selected>子分类</option>
+                        </c:otherwise>
+                      </c:choose>
+
+
                     </form:select>
                   </div>
                 </div>
               </div>
-
-              <div id="categoryMain">
-                <div class="form-group">
-                  <label class="col-md-3 control-label">副标题</label>
-                  <div class="col-md-4">
-                    <form:input type="text" class="form-control" placeholder="不超过10字" path="description"/>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-md-3 control-label">分类色调</label>
-                  <div class="col-md-4 pgt-color-box">
-                    <form:input type="text" class="form-control" id="pgtColorInput" placeholder="#xxxxxx形式" path="color"/>
-                    <div class="pgt-color" id="pgtColor"></div>
-                  </div>
-                </div>
-              </div>
-              <div id="categorySon" style="display: none">
-                <div class="form-group">
-                  <label class="control-label col-md-3">所属大类</label>
-                  <div class="col-md-9">
-                    <div class="radio-list">
-                      <form:select class="form-control input-medium" path="parent.id" items="${categories}" itemLabel="name" itemValue="id">
-                        <option value="">请选择</option>
-                      </form:select>
+              <c:choose>
+                <c:when test="${category.type eq 'TENDER_ROOT'}">
+                  <div id="categoryMain" style="display: block">
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">副标题</label>
+                      <div class="col-md-4">
+                        <form:input type="text" class="form-control" placeholder="不超过10字" path="description"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">分类色调</label>
+                      <div class="col-md-4 pgt-color-box">
+                        <form:input type="text" class="form-control" id="pgtColorInput" placeholder="#xxxxxx形式" path="color"/>
+                        <div class="pgt-color" id="pgtColor"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                  <div id="categorySon" style="display: none">
+                    <div class="form-group">
+                      <label class="control-label col-md-3">所属大类</label>
+                      <div class="col-md-9">
+                        <div class="radio-list">
+                          <form:select class="form-control input-medium" path="parent.id" items="${categories}" itemLabel="name" itemValue="id">
+                            <option value="">请选择</option>
+                          </form:select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </c:when>
+                <c:otherwise>
+                  <div id="categoryMain" style="display: none">
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">副标题</label>
+                      <div class="col-md-4">
+                        <form:input type="text" class="form-control" placeholder="不超过10字" path="description"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">分类色调</label>
+                      <div class="col-md-4 pgt-color-box">
+                        <form:input type="text" class="form-control" id="pgtColorInput" placeholder="#xxxxxx形式" path="color"/>
+                        <div class="pgt-color" id="pgtColor"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="categorySon" style="display: block">
+                    <div class="form-group">
+                      <label class="control-label col-md-3">所属大类</label>
+                      <div class="col-md-9">
+                        <div class="radio-list">
+                          <form:select class="form-control input-medium" path="parent.id" items="${categories}" itemLabel="name" itemValue="id">
+                            <option value="">请选择</option>
+                          </form:select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </c:otherwise>
+              </c:choose>
+
 
               <div class="form-group">
                 <label class="control-label col-md-3">状态</label>
@@ -130,7 +173,7 @@
               <div class="row">
                 <div class="col-md-offset-3 col-md-9">
                   <button type="submit" class="btn blue-hoki">确认</button>
-                  <button type="button" class="btn default">取消</button>
+                  <a href="/tenderCategory/query"><button type="button" class="btn default">返回</button></a>
                 </div>
               </div>
             </div>
@@ -142,53 +185,60 @@
       </div>
     </div>
   </div>
-  <div id="imgUpload" class="pgt-img-upload">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="pgt-each-img">
-          <div class="pgt-handle-box">
-            <a class="pgt-img-delete" href="#" data-url="/media/delete/${category.frontMedia.id}">删除</a>
+  <c:choose>
+    <c:when test="${category.type eq 'TENDER_ROOT'}">
+      <div id="imgUpload" class="pgt-img-upload" >
+        <div class="row">
+          <div class="col-md-8">
+            <div class="pgt-each-img">
+              <div class="pgt-handle-box">
+                <a class="pgt-img-delete" href="#" data-url="/media/delete/${category.frontMedia.id}">删除</a>
+              </div>
+              <img class="pgt-category-img" src="${category.frontMedia.path}" alt=""/>
+              <p>200 * 200</p>
+            </div>
           </div>
-          <img class="pgt-category-img" src="${category.frontMedia.path}" alt=""/>
-          <p>200 * 200</p>
+        </div>
+        <div class="row">
+          <label class="col-md-12 control-label">分类主图</label>
+          <div class="col-md-12">
+            <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+              <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
+              <input name="mediaType" type="hidden" value="category"/>
+              <button type="button" class="btn blue">选择图片</button>
+            </form>
+            <p></p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <label class="col-md-12 control-label">分类主图</label>
-      <div class="col-md-12">
-        <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-          <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
-          <input name="mediaType" type="hidden" value="category"/>
-          <button type="button" class="btn blue">选择图片</button>
-        </form>
-        <p></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-8">
-      <div class="pgt-each-img">
-        <div class="pgt-handle-box">
-          <a id="pgt-middle-delete" class="pgt-icon-delete" data-url="/media/delete/${category.iconMedia.id}">删除</a>
+    </c:when>
+    <c:otherwise>
+      <div id="imgUpload" class="pgt-img-upload" style="display: none" >
+        <div class="row">
+          <div class="col-md-8">
+            <div class="pgt-each-img">
+              <div class="pgt-handle-box">
+                <a class="pgt-img-delete" href="#" data-url="/media/delete/${category.frontMedia.id}">删除</a>
+              </div>
+              <img class="pgt-category-img" src="${category.frontMedia.path}" alt=""/>
+              <p>200 * 200</p>
+            </div>
+          </div>
         </div>
-        <img id="pgt-middle-img" class="pgt-icon-img" src="${category.iconMedia.path}" alt=""/>
-        <p>200 * 200</p>
+        <div class="row">
+          <label class="col-md-12 control-label">分类主图</label>
+          <div class="col-md-12">
+            <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
+              <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
+              <input name="mediaType" type="hidden" value="category"/>
+              <button type="button" class="btn blue">选择图片</button>
+            </form>
+            <p></p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-  <label class="col-md-12 control-label">图标图</label>
-  <div class="col-md-12">
-    <form class="pgt-file-box" action="/upload/image" enctype="multipart/form-data">
-      <input class="pgt-file-btn" name="uploadPicture" data-pgt-btn="single" type="file"/>
-      <input name="mediaType" type="hidden" value="icon"/>
-      <button type="button" class="btn blue">选择图片</button>
-    </form>
-    <p></p>
-  </div>
+    </c:otherwise>
+  </c:choose>
 
-  <div id="testbox"></div>
 </admin:container>
 

@@ -5,6 +5,6 @@ package com.pgt.banner;
  */
 public enum  BannerType {
 
-    HOME,TOP
+    HOME,TOP,DOMAIN
 
 }

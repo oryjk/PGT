@@ -28,12 +28,12 @@
         FROM USERS WHERE user_id = #{USER_ID}
     </select>
 
-    <select id="queryThirdLoginByToken" parameterType="Integer" resultMap="thirdLoginResult">
+    <select id="queryThirdLoginByToken" parameterType="String" resultMap="thirdLoginResult">
      SELECT * FROM THIRD_LOGIN WHERE TOKEN =#{openId}
     </select>
 
 
-    <select id="queryThirdLoginByOpenId" parameterType="Integer" resultMap="thirdLoginResult">
+    <select id="queryThirdLoginByOpenId" parameterType="String" resultMap="thirdLoginResult">
         SELECT * FROM THIRD_LOGIN WHERE OPEN_ID =#{token}
     </select>
 

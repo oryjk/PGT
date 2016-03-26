@@ -10,17 +10,15 @@
 
 /*part
 **************************************************************************************************************************************************/
-@include header;
+@include header-con;
 @include footer;
+
 
 /*style
 **************************************************************************************************************************************************/
-body {
-  background: #f3f3f3;
-}
 
 .content {
-  margin: 100px auto 50px;
+  margin: 20px auto 50px;
   padding: 50px 0;
   border: 1px solid $gray-light;
   height: 390px;
@@ -196,7 +194,7 @@ body {
   }
 
   .go-to-home {
-    @include color-btn(120px, 40px, 3px, 20px, $main, $main-dark);
+    @include color-btn(150px, 40px, 3px, 20px, $main, $main-dark);
   }
 }
 

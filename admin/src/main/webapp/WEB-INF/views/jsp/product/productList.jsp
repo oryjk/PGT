@@ -292,7 +292,7 @@
                                             <fmt:formatNumber value="${product.salePrice}" type="currency" pattern="#0.00"/>
                                         </td>
                                         <td class="face-box" >
-                                            <img style="height: 50px" src="${staticServer}${product.thumbnailMedia.path}" alt=""/>
+                                            <img style="width:100px;height: 100px" src="${staticServer}${product.thumbnailMedia.path}" alt=""/>
                                         </td>
                                         <td>
                                                 ${product.stock}
@@ -472,9 +472,6 @@
                                                 <input type="hidden" name="sortBeans[${status.index}].sort" value="${bean.sort}">
                                             </c:forEach>
                                         </c:if>
-
-
-
                                         <input  type="submit" class="btn blue pgt-goto-page-btn" value="跳转">
                                     </label>
                                 </form>
