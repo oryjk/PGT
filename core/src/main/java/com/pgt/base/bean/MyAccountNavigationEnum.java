@@ -5,7 +5,7 @@ package com.pgt.base.bean;
  */
 
 public enum MyAccountNavigationEnum {
-    MY_ORDER("我的订单", ""), MY_ASSET("我的资产", ""), MY_FAVORITE("我的收藏", "/myAccount/favourites?type=6"), MY_RECENT_VIEW("我的浏览", "/myAccount/browsedProducts"), MY_INFO("我的信息", ""),
+    MY_ORDER("我的订单", "/myAccount/orderHistory?status=0"), MY_ASSET("我的资产", ""), MY_FAVORITE("我的收藏", "/myAccount/favourites?type=6"), MY_RECENT_VIEW("我的浏览", "/myAccount/browsedProducts"), MY_INFO("我的信息", ""),
     MY_ADDRESS("我的地址", "/my-account/person-info/address"),
     CHANGE_PASSWORD("修改密码", "/user/resetPassword");
 

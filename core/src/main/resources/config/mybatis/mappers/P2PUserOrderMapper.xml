@@ -29,8 +29,11 @@
 		<result column="submit_Date" property="submitDate" />
 		<result column="easy_buy" property="easyBuy" />
 		<result column="p2p_info_id" property="p2pInfoId" />
-		<result column="HOLDER_ALIAS" property="holderAlias" />
+		<result column="holder_alias" property="holderAlias" />
 		<association column="p2p_info_id" property="p2pInfo" select="loadP2PInfo" />
+		<association column="p2p_info_id" property="tender" select="loadTenderByP2PInfo" />
+		<association column="order_id" property="shippingVO"
+		             select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
 		<collection column="order_id" property="commerceItems"
 		            select="com.pgt.cart.dao.UserOrderDao.loadCommerceItemsFromOrder" />
 	</resultMap>
@@ -50,8 +53,39 @@
 		<result column="p2p_info_id" property="p2pInfoId" />
 		<result column="HOLDER_ALIAS" property="holderAlias" />
 		<association column="p2p_info_id" property="p2pInfo" select="loadP2PInfo" />
+		<association column="order_id" property="shippingVO"
+		             select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
+		<association column="order_id" property="payment"
+		             select="com.pgt.payment.dao.PaymentMapper.findPaymentGroupByOrderId" />
 		<collection column="order_id" property="commerceItems"
 		            select="com.pgt.cart.dao.UserOrderDao.loadCommerceItemsFromOrder" />
+	</resultMap>
+
+	<resultMap id="tender" type="com.pgt.tender.bean.Tender">
+		<id column="ID" property="tenderId" />
+		<result column="PAWN_SHOP_ID" property="pawnShopId" />
+		<result column="PAWN_TICKET_ID" property="pawnTicketId" />
+		<result column="TENDER_TOTAL" property="tenderTotal" />
+		<result column="TENDER_QUANTITY" property="tenderQuantity" />
+		<result column="PUBLISH_DATE" property="publishDate" />
+		<result column="DUE_DATE" property="dueDate" />
+		<result column="INTEREST_RATE" property="interestRate" />
+		<result column="NAME" property="name" />
+		<result column="SHORT_DESCRIPTION" property="description" />
+		<result column="PRE_PERIOD" property="prePeriod" />
+		<result column="POST_PERIOD" property="postPeriod" />
+		<result column="CREATION_DATE" property="creationDate" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="CATEGORY_HOT" property="categoryHot" />
+		<result column="SITE_HOT" property="siteHot" />
+		<result column="STATUS" property="state" />
+		<result column="IMAGE_DESC" property="imageDesc" />
+		<result column="AUDIT_STATE" property="auditState" />
+		<result column="HANDLING_FEE_RATE" property="handlingFeeRate" />
+		<result column="PAWN_OWNER_ID" property="pawnShopOwnerId" />
+		<association property="pawnshop" column="PAWN_SHOP_ID" select="com.pgt.pawn.dao.PawnDao.loadPawnShop" />
+		<association property="pawnTicket" column="PAWN_TICKET_ID" select="com.pgt.pawn.dao.PawnDao.loadPawnTicket" />
+		<collection property="products" column="ID" select="com.pgt.product.dao.ProductMapper.queryProductByTenderId" />
 	</resultMap>
 
 	<select id="loadP2PInfo" parameterType="int" resultMap="com.pgt.cart.dao.P2PMapper.info">
@@ -60,13 +94,20 @@
 		WHERE ID = #{id}
 	</select>
 
+	<select id="loadTenderByP2PInfo" parameterType="int" resultMap="tender">
+		SELECT t.*
+		FROM `TENDER` t, `P2P_INFO` p
+		WHERE t.`ID` = p.`TENDER_ID`
+		      AND p.`ID` = #{id}
+	</select>
+
 	<!-- Query all p2p orders -->
 	<select id="queryOrderCount" resultType="long">
 		SELECT COUNT(o.ORDER_ID)
 		FROM `ORDER` o
 		WHERE o.USER_ID = #{userId}
 		      AND o.`TYPE` = 2
-		      AND o.STATUS &gt; 10
+		AND (o.STATUS &gt; 10 OR o.STATUS = -10)
 	</select>
 
 	<select id="queryOrderPage" resultMap="pageOrder">
@@ -74,7 +115,7 @@
 		FROM `ORDER` o
 		WHERE o.USER_ID = #{userId}
 		AND o.`TYPE` = 2
-		AND o.STATUS &gt; 10
+		AND (o.STATUS &gt; 10 OR o.STATUS = -10)
 		<include refid="limit-split-page" />
 	</select>
 
@@ -135,14 +176,13 @@
 				AND o.ORDER_ID IN (
 				SELECT tmp.ORDER_ID FROM (
 				SELECT o.ORDER_ID, COUNT(ci.COMMERCE_ITEM_ID)
+				FROM `ORDER` o
 				LEFT JOIN `COMMERCE_ITEM` ci ON ci.ORDER_ID = o.ORDER_ID
 				LEFT JOIN `COMMERCE_ITEM_DELIVERY` cid ON cid.COMMERCE_ITEM_ID = ci.COMMERCE_ITEM_ID
-				FROM `ORDER` o
 				WHERE o.USER_ID = #{userId}
 				AND o.`TYPE` = 2
-				AND cid.delivered = 1
+				AND cid.delivered IS NULL
 				GROUP BY o.ORDER_ID
-				HAVING COUNT(ci.COMMERCE_ITEM_ID) = 0
 				) tmp
 				)
 			</when>
@@ -151,9 +191,9 @@
 				AND o.ORDER_ID IN (
 				SELECT tmp.ORDER_ID FROM (
 				SELECT o.ORDER_ID, COUNT(ci.COMMERCE_ITEM_ID)
+				FROM `ORDER` o
 				LEFT JOIN `COMMERCE_ITEM` ci ON ci.ORDER_ID = o.ORDER_ID
 				LEFT JOIN `COMMERCE_ITEM_DELIVERY` cid ON cid.COMMERCE_ITEM_ID = ci.COMMERCE_ITEM_ID
-				FROM `ORDER` o
 				WHERE o.USER_ID = #{userId}
 				AND o.`TYPE` = 2
 				AND cid.delivered = 1
@@ -184,14 +224,13 @@
 				AND o.ORDER_ID IN (
 				SELECT tmp.ORDER_ID FROM (
 				SELECT o.ORDER_ID, COUNT(ci.COMMERCE_ITEM_ID)
+				FROM `ORDER` o
 				LEFT JOIN `COMMERCE_ITEM` ci ON ci.ORDER_ID = o.ORDER_ID
 				LEFT JOIN `COMMERCE_ITEM_DELIVERY` cid ON cid.COMMERCE_ITEM_ID = ci.COMMERCE_ITEM_ID
-				FROM `ORDER` o
 				WHERE o.USER_ID = #{userId}
 				AND o.`TYPE` = 2
-				AND cid.delivered = 1
+				AND cid.delivered IS NULL
 				GROUP BY o.ORDER_ID
-				HAVING COUNT(ci.COMMERCE_ITEM_ID) = 0
 				) tmp
 				)
 			</when>
@@ -200,9 +239,9 @@
 				AND o.ORDER_ID IN (
 				SELECT tmp.ORDER_ID FROM (
 				SELECT o.ORDER_ID, COUNT(ci.COMMERCE_ITEM_ID)
+				FROM `ORDER` o
 				LEFT JOIN `COMMERCE_ITEM` ci ON ci.ORDER_ID = o.ORDER_ID
 				LEFT JOIN `COMMERCE_ITEM_DELIVERY` cid ON cid.COMMERCE_ITEM_ID = ci.COMMERCE_ITEM_ID
-				FROM `ORDER` o
 				WHERE o.USER_ID = #{userId}
 				AND o.`TYPE` = 2
 				AND cid.delivered = 1
