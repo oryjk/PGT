@@ -33,11 +33,11 @@ body {
 }
 
 .invest {
-  margin: 100px auto 0;
+  margin: 20px auto 0;
   width: $main-width-s;
 
   .invest-head {
-    padding-top: 45px;
+    padding-top: 20px;
     font-size: 30px;
     font-family: '黑体', serif;
   }
@@ -405,7 +405,7 @@ body {
     position: absolute;
     @include wh(50px, 31px);
     top: 22px;
-    left: 260px;
+    left: 300px;
 
     a {
       float: left;

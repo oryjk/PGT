@@ -28,7 +28,7 @@
 <!--step end-->
 
 <!--content begin-->
-<div class="main">
+<div class="main-all">
 
     <div class="pay-end">
         <h2>支付成功</h2>

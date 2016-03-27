@@ -27,7 +27,7 @@
 <!--step end-->
 
 <!--content begin-->
-<div class="main">
+<div class="main-all">
 
 	<div class="order-info" id="order-info">
 

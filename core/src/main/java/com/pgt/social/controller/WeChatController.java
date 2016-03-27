@@ -52,7 +52,6 @@ public class WeChatController {
 
             LOGGER.debug("The return is:{}",m);
             response.sendRedirect(m);
-            //response.sendRedirect(requestCode+"&state="+ DigestUtils.md5Hex(sessionId)+"&redirect_uri="+redirect_uri);
         } catch (IOException e) {
             e.printStackTrace();
         }

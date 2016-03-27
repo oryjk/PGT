@@ -599,10 +599,10 @@ body {
   top: -100px; }
 
 .invest {
-  margin: 100px auto 0;
+  margin: 20px auto 0;
   width: 1040px; }
   .invest .invest-head {
-    padding-top: 45px;
+    padding-top: 20px;
     font-size: 30px;
     font-family: '黑体', serif; }
   .invest .invest-sub-head {
@@ -905,7 +905,7 @@ body {
   width: 50px;
   height: 31px;
   top: 22px;
-  left: 260px; }
+  left: 300px; }
   .content-item-list .plus-and-minus a {
     float: left;
     display: block;

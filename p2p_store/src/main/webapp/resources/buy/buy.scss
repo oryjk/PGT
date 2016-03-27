@@ -18,7 +18,7 @@ body {
 }
 
 .step {
-  margin: 115px auto 0;
+  margin: 20px auto 0;
   @include wh($main-width, 50px);
   text-align: center;
   background: white;
@@ -56,9 +56,10 @@ body {
   }
 }
 
-.main {
-  margin: 30px auto 40px;
+.main-all {
+  margin: 20px auto 40px;
   width: $main-width;
+
 
   h2 {
     padding-bottom: 10px;
@@ -72,6 +73,7 @@ body {
     font-size: 14px;
   }
 }
+
 
 .order-info {
   .info-row {

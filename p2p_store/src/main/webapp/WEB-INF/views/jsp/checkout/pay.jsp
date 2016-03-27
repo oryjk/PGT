@@ -28,7 +28,7 @@
 <!--step end-->
 
 <!--content begin-->
-<div class="main">
+<div class="main-all">
 
 	<form class="order-pay" action="/checkout/redirectToPayment" method="get">
 		<h2>最后一步，请尽快付款！</h2>

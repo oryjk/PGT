@@ -28,7 +28,7 @@
 <!--step end-->
 
 <!--content begin-->
-<div class="main">
+<div class="main-all">
     <div class="order-info">
         <h2>订单信息</h2>
 

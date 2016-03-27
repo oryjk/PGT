@@ -1,229 +1,190 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Yove
-  Date: 11/8/2015
-  Time: 12:56 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>点金子典当行绝当品销售平台</title>
-    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.css"/>" />
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>" />
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/my-orders.css"/>" />
-</head>
+<jsp:include page="../core/head.jspf">
+    <jsp:param name="css_path" value="/resources/my-account/my_account_base.css"/>
+    <jsp:param name="custom_css_path" value="/resources/my-account/my-orders/my-order.css"/>
+</jsp:include>
 <body>
-<!--主头部-->
-<div class="header" id="header">
-    <jsp:include page="../core/header-main.jsp" />
-</div>
-<!--正文-->
-<div class="content-box">
-    <div class="content">
-        <!-- 侧边栏-->
-        <jsp:include page="vertical-my-account-directory.jsp">
-            <jsp:param name="step" value="orderHistory" />
-        </jsp:include>
+<!--header begin-->
+<jsp:include page="../core/header-main.jsp"/>
+<!--header end-->
 
-        <!-- 详细内容列表-->
-        <div id="main" class="main-box">
-            <%--
-            <a class="order-trash" href="#">
-                <i class="foundicon-trash"></i>
-                订单回收站
-            </a>
-            --%>
-            <!--面包屑-->
-            <div class="bread-nav">
-                <p>
-                    <a href="#">个人中心</a>
-                    >
-                    <a href="<spring:url value="/myAccount/orderHistory"/>">我的订单</a>
-                </p>
-            </div>
-            <!-- 筛选-->
-            <div class="filter-box">
-                <form action="<spring:url value="/myAccount/orderHistory"/>" class="content-search">
-                    <input class="content-search" type="text" name="keyword" placeholder="商品搜索"/>
-                    <a href="#" class="search-link-btn" data-url="<spring:url value="/myAccount/orderHistory?keyword="/>" ><i class="foundicon-search"></i></a>
-                    <a class="clear-search link-btn" href="<spring:url value="/myAccount/orderHistory"/>" >清除</a>
-                </form>
-                <ul id="tab" class="tab">
-                    <li class="${empty param.status ? 'choose' : ''}"><h2 data-tab="0"><a href="<spring:url value="/myAccount/orderHistory"/>">全部订单</a></h2></li>
-                    <li class="${param.status eq 20 ? 'choose' : ''}"><h2 data-tab="20"><a href="<spring:url value="/myAccount/orderHistory?status=20"/>">待付款</a></h2></li>
-                    <li class="${param.status eq 30 ? 'choose' : ''}"><h2 data-tab="30"><a href="<spring:url value="/myAccount/orderHistory?status=30"/>">待收货</a></h2></li>
-                    <li class="${param.status eq 100 ? 'choose' : ''}"><h2 data-tab="100"><a href="<spring:url value="/myAccount/orderHistory?status=100"/>">已完成</a></h2></li>
-                </ul>
-                <div></div>
-            </div>
-            <c:if test="${fn:length(historyOrders.result) gt 0}">
-                <!-- 订单列表-->
-                <div class="order-list">
-                    <table class="order-list-head">
-                        <tr>
-                            <th class="col1">
-                                商品订单
-                            </th>
-                            <th class="col5">收货人</th>
-                            <th class="col6">总计</th>
-                            <th class="col7">订单状态</th>
-                        </tr>
-                    </table>
+<div class="content">
+    <jsp:include page="vertical-my-account-directory.jsp"/>
+    <div class="main-area">
+        <h2 class="main-head">我的订单</h2>
+        <ul class="filter-invest-status">
+            <li class="${empty param.status or param.status eq 0 ? 'filter-invest-choose' : ''}">
+                <a href="/myAccount/orderHistory?status=0">全部订单</a></li>
+            <li class="${param.status ge 10 and param.status lt 20 ? 'filter-invest-choose' : ''}">
+                <a href="/myAccount/orderHistory?status=10">在当</a></li>
+            <li class="${param.status ge 20 and param.status lt 30 ? 'filter-invest-choose' : ''}">
+                <a href="/myAccount/orderHistory?status=20">绝当</a></li>
+            <li class="filter-invest-end ${param.status ge 30 and param.status lt 40 ? 'filter-invest-choose' : ''}">
+                <a href="/myAccount/orderHistory?status=30">赎当</a></li>
+        </ul>
+        <ul class="filter-order-status">
+            <c:choose>
+                <c:when test="${param.status ge 10 and param.status lt 20}">
+                    <%-- 在当 --%>
+                    <li><a ${param.status eq 10 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=10">全部</a></li>
+                    <li><a ${param.status eq 11 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=11">待支付</a></li>
+                    <li class="filter-order-end"><a ${param.status eq 12 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=12">已支付</a></li>
+                </c:when>
+                <c:when test="${param.status ge 20 and param.status lt 30}">
+                    <%-- 绝当 --%>
+                    <li><a ${param.status eq 20 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=20">全部</a></li>
+                    <li><a ${param.status eq 21 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=21">待发货</a></li>
+                    <li><a ${param.status eq 22 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=22">已发货</a></li>
+                    <li class="filter-order-end"><a ${param.status eq 29 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=29">已完成</a></li>
+                </c:when>
+                <c:when test="${param.status ge 30 and param.status lt 40}">
+                    <%-- 赎当 --%>
+                    <li><a ${param.status eq 30 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=30">全部</a></li>
+                    <li><a ${param.status eq 31 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=31">已赔付</a></li>
+                    <li class="filter-order-end"><a ${param.status eq 32 ? 'class="filter-order-choose"' : ''}
+                            href="/myAccount/orderHistory?status=32">待赔付</a></li>
+                </c:when>
+            </c:choose>
+        </ul>
+        <div class="order-list">
+            <table>
+                <!-- thead begin-->
+                <tr class="order-list-head">
+                    <th class="col-1">项目信息</th>
+                    <th class="col-2"></th>
+                    <th class="col-3">收货人</th>
+                    <th class="col-4">产品金额(元)</th>
+                    <th class="col-5">订单状态</th>
+                    <th class="col-6">操作</th>
+                </tr>
+                <!-- thead end-->
 
-                        <%--有订单时显示为.have-order 为display为block,否则为none--%>
-                    <div class="have-order" id="orderList" style="display: block">
-                        <c:forEach var="order" items="${historyOrders.result}">
-                            <div class="each-order">
-                            <c:if test="${order.status gt 10 or order.status lt 0}">
-                                <div class="order-info">
-                                <div class="operate">
-                                <%--
-                                <c:if test="${order.status lt 30}">
-                                    <!-- 取消订单链接只有在未付款状态才显示-->
-                                    <a class="link-btn" href="#">取消订单</a>
-                                </c:if>
-                                --%>
-                                </div>
-                                    下单时间: <span class="order-time"><fmt:formatDate value="${order.submitDate}"
-                                                                                   pattern="yyyy-MM-dd HH:mm:ss"/></span>
-                                订单号: <span class="order-number">${order.id}</span>
-                                <%--
-                                物流:
-                                    <c:choose>
-                                        <c:when test="${order.status == 100}">
-                                            <span>已送达</span>
-                                            <a class="link-btn" href="#"></a>
-                                        </c:when>
-                                        <c:when test="${order.status==40}">
-                                            <span>运输途中</span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span>尚未出库</span>
-                                        </c:otherwise>
-                                    </c:choose>
-                                --%>
-                                </div>
+                <!-- tbody begin-->
+                <c:forEach var="order" items="${historyOrders.result}">
+                    <tr class="order-list-item">
+                        <td class="order-img">
+                            <a href="#"><img src="../../core/images/product/hero_2_01.jpg" alt="商品名"/></a>
+                        </td>
+                        <td class="order-base-info">
+                            <c:if test="${not empty order.submitDate}">
+                                <p>订单生成时间: <span>
+                                    <fmt:formatDate value="${order.submitDate}"
+                                                    pattern="yyyy-MM-dd HH:mm:ss"/></span></p>
                             </c:if>
-                            <table>
-                            <c:forEach var="commerceItem" items="${order.commerceItems}" varStatus="ci_index">
-                                <tr>
-                                    <td class="col1">
-                                        <a href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">
-                                            <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
-                                                 alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}"/>
-                                        </a>
-                                    </td>
-                                <td class="col2">
-                                <a class="product-name" href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">${commerceItem.name}</a>
-                                </td>
-                                    <c:if test="${order.status >= 20}">
-                                        <td class="col3"><a href="${pageContext.request.contextPath}/myAccount/orderHistoryDetails?orderId=${order.id}"
-                                                            class="product-name">订单详情</a></td>
-                                        </td>
-                                    </c:if>
-                                    <td class="col3">
-                                        <span>${commerceItem.quality}</span>
-                                    </td>
-                                <td class="col4">
-                                <%--
-                                <a class="link-btn" href="#">申请退换货</a>
-                                --%>
-                                </td>
-                                <c:if test="${ci_index.index eq 0}">
-                                    <td class="col5" rowspan="100">${order.shippingVO.shippingAddress.name}</td>
-                                    <td class="col6" rowspan="100">
-                                    <span>¥</span><span><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span>
-                                    </td>
-                                    <td class="col7" rowspan="100">
+                            <p><a href="#">${order.commerceItems[0].name}</a></p>
+                            <p>订单编号: <span>${order.id}</span></p>
+                        </td>
+                        <td>${order.shippingVO.shippingAddress.name}</td>
+                        <td><span>¥</span><span>&nbsp;
+                            <fmt:formatNumber value="${order.total}" pattern="0.00" type="number"/></span></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${order.status eq -10}">
+                                    <span>已取消</span>
+                                </c:when>
+                                <c:when test="${order.status lt 30}">
+                                    <span class="will-pay">待付款</span>
+                                </c:when>
+                                <c:otherwise>
                                     <c:choose>
-                                        <c:when test="${order.status eq 20||order.status eq 25}">
-                                            <span>待付款</span>
-                                            <a class="link-btn" href="<spring:url value="/payment/gateway?orderId=${order.id}"/>">付款</a>
+                                        <c:when test="${order.tender.state eq 10}">
+                                            <c:if test="${order.status eq 30}">
+                                                <span>已付款</span>
+                                            </c:if>
                                         </c:when>
-                                        <c:when test="${order.status eq 30}">
-                                            <span>已付款</span>
+                                        <c:when test="${order.tender.state eq 20}">
+                                            <c:choose>
+                                                <c:when test="${order.status eq 30 and order.shippedCommerceItemCount eq 0}">
+                                                    <span class="will-pay">待发货</span>
+                                                </c:when>
+                                                <c:when test="${order.status eq 40}">
+                                                    <span class="will-pay">已发货</span>
+                                                </c:when>
+                                                <c:when test="${order.status eq 100}">
+                                                    <span class="will-pay">已完成</span>
+                                                </c:when>
+                                            </c:choose>
                                         </c:when>
-                                        <c:when test="${order.status eq 40}">
-                                            <span>待收货</span>
-                                        </c:when>
-                                        <c:when test="${order.status eq 100}">
-                                            <span>已完成</span>
-                                        </c:when>
-                                        <c:when test="${order.status eq -10}">
-                                            <span>已取消</span>
+                                        <c:when test="${order.tender.state eq 30}">
+                                            <c:choose>
+                                                <c:when test="${order.status eq 30}">
+                                                    <span class="will-pay">待赔付</span>
+                                                </c:when>
+                                                <c:when test="${order.status eq 40 or order.status eq 100}">
+                                                    <span class="will-pay">已赔付</span>
+                                                </c:when>
+                                            </c:choose>
                                         </c:when>
                                     </c:choose>
-                                    </td>
-                                </c:if>
-                                </tr>
-                            </c:forEach>
-                            </table>
-                            </div>
-                        </c:forEach>
-                    </div>
-
-                    <div class="no-order" style="display: none">
-                        <p class="no-order-text">没有订单 <a class="link-btn" href="#">去购物车结算</a> <a class="link-btn" href="#">回到首页</a></p>
-                    </div>
-                </div>
-                <!-- 分页-->
-                <div class="page-box">
-                    <ul>
-                        <c:if test="${historyOrders.currentIndex gt 0}">
-                            <li><a id="previousPage"
-                                   href="<spring:url value="/myAccount/orderHistory?keyword=${param.keyword}&currentIndex=${historyOrders.currentIndex - 1}"/>">上页</a>
-                            </li>
-                        </c:if>
-                        <li class="page-list">
-                            <ol id="pages">
-                                <c:forEach var="pageNum" items="${historyOrders.pageNumbers}">
-                                    <c:choose>
-                                        <c:when test="${pageNum eq historyOrders.currentIndex}">
-                                            <li><a class="page-focus" href="#">${pageNum + 1}</a></li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li>
-                                                <a href="<spring:url value="/myAccount/orderHistory?keyword=${param.keyword}&currentIndex=${pageNum}"/>">${pageNum + 1}</a>
-                                            </li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                            </ol>
-                        </li>
-                        <c:if test="${historyOrders.currentIndex lt historyOrders.maxIndex}">
-                            <li><a id="nextPage"
-                                   href="<spring:url value="/myAccount/orderHistory?keyword=${param.keyword}&currentIndex=${historyOrders.currentIndex + 1}"/>">下页</a>
-                            </li>
-                        </c:if>
-                        <li class="page-count">共<span id="pageCount">${historyOrders.maxIndex + 1}</span>页</li>
-                        <form action="<spring:url value="/myAccount/orderHistory"/>" method="get">
-                            <input type="hidden" name="keyword" value="${param.keyword}"/>
-                            <li class="page-which">跳转到第<input name="currentIndex" type="text"/>页</li>
-                            <li><input class="d-btn" id="pageSub" type="submit" value="确认"/></li>
-                        </form>
-                    </ul>
-                </div>
-            </c:if>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td class="order-handle">
+                            <c:choose>
+                                <c:when test="${order.status eq -10}">
+                                    <p>订单已取消</p>
+                                </c:when>
+                                <c:when test="${order.status lt 30}">
+                                    <p><a class="pay-now" href="#">立即支付</a></p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p><a class="link-btn" href="#">订单详情</a></p>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:forEach>
+                <!-- tbody end-->
+            </table>
         </div>
-
-        <jsp:include page="../shopping-cart/horizontal-recommend-bar.jsp" />
+        <div class="page-box">
+            <ol>
+                <li class="page-list">
+                    <c:if test="${favourites.maxIndex gt 0}">
+                        <ol id="pages">
+                            <c:forEach var="pageNum" items="${favourites.pageNumbers}">
+                                <c:choose>
+                                    <c:when test="${pageNum gt 0}">
+                                        <li>
+                                            <a href="/myAccount/orderHistory?status=${param.status}&currentIndex=${pageNum}">${pageNum + 1}</a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a href="/myAccount/orderHistory?status=${param.status}">${pageNum + 1}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </ol>
+                    </c:if>
+                </li>
+            </ol>
+        </div>
     </div>
+
 </div>
-<jsp:include page="../core/footer-main.jsp" />
-<jsp:include page="../core/baidu.jsp"></jsp:include>
+</div>
+
+<!--footer begin-->
+<jsp:include page="../core/footer-main.jsp"/>
+<!--footer end-->
+
+<script src="/resources/core/js/require.js" data-main="/resources/my-account/my-orders/my-order"></script>
 </body>
-<script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/my-account/my-orders/my-orders"/>"></script>
 </html>

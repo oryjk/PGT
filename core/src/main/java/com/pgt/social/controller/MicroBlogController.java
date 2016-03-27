@@ -2,6 +2,7 @@ package com.pgt.social.controller;
 
 
 import com.pgt.constant.UserConstant;
+import com.pgt.sso.service.SSOService;
 import com.pgt.user.bean.ThirdLogin;
 import com.pgt.user.bean.User;
 import com.pgt.user.bean.UserInformation;
@@ -49,6 +50,9 @@ public class MicroBlogController {
 
     @Autowired
     private UserInformationService userInformationService;
+
+    @Autowired
+    private SSOService ssoService;
 
     private String client_id="3367852669";
 
@@ -131,6 +135,7 @@ public class MicroBlogController {
                 User user = thirdLogin.getUser();
                 if (!ObjectUtils.isEmpty(user)) {
                     request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                    ssoService.cacheUser(user, null, null);
                     LOGGER.debug("set  User to session and id is {}", user.getId());
                 } else {
                     LOGGER.debug("not find User");
