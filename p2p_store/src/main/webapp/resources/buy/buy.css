@@ -446,7 +446,7 @@ body {
   background: white; }
 
 .step {
-  margin: 115px auto 0;
+  margin: 20px auto 0;
   width: 1200px;
   height: 50px;
   text-align: center;
@@ -477,13 +477,13 @@ body {
   .step-4 .step-item-4 {
     color: white; }
 
-.main {
-  margin: 30px auto 40px;
+.main-all {
+  margin: 20px auto 40px;
   width: 1200px; }
-  .main h2 {
+  .main-all h2 {
     padding-bottom: 10px;
     border-bottom: 1px solid black; }
-  .main .main-content {
+  .main-all .main-content {
     border: 1px solid #cccccc;
     padding: 20px 0 30px;
     background: white;
