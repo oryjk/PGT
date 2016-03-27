@@ -168,14 +168,9 @@ public class YeePayController {
         ModelAndView mav = new ModelAndView(jspPath);
         User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
         if (null != user) {
-            String platformNumber = user.getYeepayUserNo();
-            if (StringUtils.isBlank(platformNumber)) {
-                platformNumber = YeePayHelper.generateOutboundUserNo(getConfig(), user.getId());
-            }
-
             mav.addObject(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
             mav.addObject(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
-                    platformNumber);
+                    YeePayHelper.generateOutboundUserNo(getConfig(), user));
             mav.addObject(YeePayConstants.PARAM_NAME_YEEPAY_CONFIG, getConfig());
         }
         mav.addObject(YeePayConstants.PARAM_SERVICE_NAME, serviceName);
@@ -294,13 +289,17 @@ public class YeePayController {
 
     @RequestMapping(value = "/yeepayB2cPay", method = RequestMethod.GET)
     public ModelAndView b2cPay(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+        LOGGER.debug("================== start YeePayController#b2cPay ==================");
         User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
         if (null == user) {
             ModelAndView modelAndView = new ModelAndView("redirect:" + getUrlConfiguration().getLoginPage());
+            LOGGER.debug("no user redirect to login");
+            LOGGER.debug("================== end YeePayController#b2cPay ==================");
             return modelAndView;
         }
         String orderIdStr = pRequest.getParameter("orderId");
         // TODO: LOG
+        LOGGER.debug("order Id: " + orderIdStr);
         if (StringUtils.isBlank(orderIdStr)) {
             throw new IllegalArgumentException("orderId is blank");
         }
@@ -310,16 +309,19 @@ public class YeePayController {
         } catch (Exception e) {
             throw new IllegalArgumentException("orderId is not integer.");
         }
-        // TODO: LOG
         Order order = getUserOrderService().loadOrderHistory(orderId);
         if (null == order) {
-            // TODO: LOG
+            // TODO:
             ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+            LOGGER.debug("no order, redirect to cart");
+            LOGGER.debug("================== end YeePayController#b2cPay ==================");
             return modelAndView;
         }
         if (order.getUserId() != user.getId().intValue()) {
-            // TODO: LOG
+            // TODO:
             ModelAndView modelAndView = new ModelAndView("redirect:/shoppingCart/cart");
+            LOGGER.debug("user on order not match, redirect to cart");
+            LOGGER.debug("================== end YeePayController#b2cPay ==================");
             return modelAndView;
         }
 
@@ -370,6 +372,7 @@ public class YeePayController {
             outBoundBuilder.append("\n");
             outBoundBuilder.append("sign: \n");
             outBoundBuilder.append(sign);
+            LOGGER.info(outBoundBuilder.toString());
             transactionLog.setOutbound(outBoundBuilder.toString());
             transactionLog.setOutboundTime(new Date());
             getTransactionLogService().updateTransactionLog(transactionLog);
@@ -386,6 +389,7 @@ public class YeePayController {
 
 
         } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
             jspPath = getConfig().getServiceJspPath().get(YeePayConstants.SERVICE_NAME_TOCPTRANSACTION)
                     .get(YeePayConstants.PARAM_NAME_ERROR_JSP);
             mav = new ModelAndView(jspPath);
@@ -481,7 +485,7 @@ public class YeePayController {
 
         Long userId = Long.valueOf(order.getUserId());
 //		String platformUserNo = YeePayHelper.generateOutboundUserNo(getConfig(), userId);
-        String platformUserNo = user.getYeepayUserNo();
+        String platformUserNo = YeePayHelper.generateOutboundUserNo(getConfig(), user);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put(YeePayConstants.PARAM_NAME_REQUEST_NO,
                 YeePayHelper.generateOutboundRequestNo(getConfig(), transactionLog.getId()));
