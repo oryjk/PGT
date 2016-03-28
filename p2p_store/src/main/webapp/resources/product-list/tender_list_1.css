@@ -352,7 +352,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -471,7 +471,7 @@ a {
     margin-left: 5px;
     color: #898989; }
     .bread-crumbs .bread-crumbs-item:hover {
-      color: #ff6d6d; }
+      color: #c90304; }
 
 .content {
   margin: 0 auto;
@@ -488,7 +488,7 @@ a {
 
 .filter-name {
   padding: 0 20px;
-  color: #ff6d6d;
+  color: #c90304;
   font-size: 18px; }
 
 .filter-title-headline {
@@ -529,7 +529,7 @@ a {
   background: url("../core/images/tender_list/down.png") no-repeat right center; }
 
 .filter-item-hover .filter-link {
-  color: #ff6d6d;
+  color: #c90304;
   border-color: #f3f3f3;
   background: #f3f3f3 url("../core/images/tender_list/up.png") no-repeat right center; }
 
@@ -555,7 +555,7 @@ a {
 .filter-sub-link {
   color: #989898; }
   .filter-sub-link:hover {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 .filter-cost-list {
   float: left; }
@@ -563,7 +563,7 @@ a {
 .filter-cost-link {
   color: #989898; }
   .filter-cost-link:hover {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 .filter-cost-item {
   float: left;
@@ -585,14 +585,14 @@ a {
   width: 50px;
   height: 24px;
   font-size: 12px;
-  background: #ff6d6d;
+  background: #c90304;
   border-radius: 0;
   line-height: 24px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .filter-cost-btn:hover {
-    background: #ff3a3a; }
+    background: #970203; }
 
 .content-body {
   margin: 20px 0; }
@@ -645,7 +645,7 @@ a {
 .recommend-name-link {
   color: #535353; }
   .recommend-name-link:hover {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 .recommend-handle {
   padding-top: 10px; }
@@ -657,14 +657,14 @@ a {
   width: 70px;
   height: 26px;
   font-size: 12px;
-  background: #ff6d6d;
+  background: #c90304;
   border-radius: 3px;
   line-height: 26px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .recommend-buy:hover {
-    background: #ff3a3a; }
+    background: #970203; }
 
 .recommend-count {
   float: right;
@@ -696,13 +696,13 @@ a {
   .sort-item:hover > .sort-filter {
     display: block; }
   .sort-item a:hover {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 .sort-link {
   color: #535353; }
 
 .sort-link-current {
-  color: #ff6d6d; }
+  color: #c90304; }
 
 .sort-filter {
   position: absolute;
@@ -785,7 +785,7 @@ a {
   font-size: 14px;
   color: #535353; }
   .tender-name-link:hover {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 .tender-time {
   padding: 15px 0 0 34px;
@@ -796,7 +796,7 @@ a {
   color: #898989; }
 
 .tender-time-value {
-  color: #ff6d6d;
+  color: #c90304;
   font-size: 18px; }
 
 .tender-add-favorite {
@@ -890,17 +890,17 @@ a {
     width: 50px;
     height: 24px;
     font-size: 14px;
-    background: #ff6d6d;
+    background: #c90304;
     border-radius: 0;
     line-height: 24px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .pager .page-goto-btn:hover {
-      background: #ff3a3a; }
+      background: #970203; }
   .pager .page-current {
-    border-color: #ff6d6d;
-    color: #ff6d6d; }
+    border-color: #c90304;
+    color: #c90304; }
   .pager .pre-page,
   .pager .next-page {
     color: #535353; }

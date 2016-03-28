@@ -64,7 +64,9 @@ body {
   h2 {
     padding-bottom: 10px;
     border-bottom: 1px solid black;
+    font-size: 22px;
   }
+
 
   .main-content {
     border: 1px solid $gray-light;
@@ -76,6 +78,8 @@ body {
 
 
 .order-info {
+
+
   .info-row {
     @extend %clear;
     padding: 15px 30px;
@@ -423,8 +427,11 @@ body {
 
 .order-pay {
   background: white;
-  border: 1px solid $gray-light;
   font-size: 14px;
+
+  .main-content-box {
+    border: 1px solid $gray-light;
+  }
 
   .pay-content {
     margin: 0 auto 40px auto;
@@ -492,9 +499,13 @@ body {
   }
 }
 
-.pay-end{
+.pay-end {
   background: white;
-  border: 1px solid $gray-light;
+
+  .main-content-box {
+    border: 1px solid $gray-light;
+  }
+
   .pay-end-content{
     @include wh(630px,500px);
     margin: 0 auto;

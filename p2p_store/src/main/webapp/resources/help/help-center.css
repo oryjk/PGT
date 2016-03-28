@@ -294,10 +294,11 @@ a {
 /* content
 ***************************************************/
 .content {
-  margin: 0 auto;
+  overflow: hidden;
+  margin: 0 auto 30px auto;
   border-top: 2px solid #ffc9c9;
   width: 1200px;
-  height: 700px; }
+  min-height: 800px; }
 
 .content-nav {
   float: left;

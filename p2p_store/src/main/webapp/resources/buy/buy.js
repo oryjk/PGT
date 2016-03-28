@@ -7,11 +7,12 @@ require.config({
         component: '../core/js/module/component',
         ajax: '../core/js/module/ajax',
         addressPopup: '../core/js/module/addressPopup',
-        vue: '/resources/core/js/vue'
+        vue: '/resources/core/js/vue',
+        normalInit: '../core/js/module/normalInit'
     }
 });
 
-require(['jquery', 'component', 'ajax', 'addressPopup', 'vue'], function ($, Cpn, Ajax, addressPopup, Vue) {
+require(['jquery', 'component', 'ajax', 'addressPopup', 'vue', 'normalInit'], function ($, Cpn, Ajax, addressPopup, Vue) {
     var pop = $('#popUp');
 
     pop.click(function(event) {

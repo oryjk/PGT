@@ -181,7 +181,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -620,7 +620,7 @@ a {
   margin-bottom: 0; }
 
 .pawn-nav-current {
-  border: 1px solid #ff6d6d; }
+  border: 1px solid #c90304; }
 
 .pawn-nav-link {
   opacity: 0;
@@ -687,7 +687,7 @@ a {
     .invest-list h4 a {
       color: black; }
       .invest-list h4 a:hover {
-        color: #ff6d6d; }
+        color: #c90304; }
   .invest-list .invest-row-1,
   .invest-list .invest-row-2,
   .invest-list .invest-row-3 {
@@ -695,7 +695,7 @@ a {
     width: 180px;
     line-height: 1.7; }
   .invest-list .invest-row-1 {
-    color: #ff6d6d; }
+    color: #c90304; }
   .invest-list .invest-row-2,
   .invest-list .invest-row-3 {
     opacity: 0;
@@ -705,7 +705,7 @@ a {
   margin: 40px 0 15px;
   font-size: 40px;
   height: 40px;
-  color: #ff6d6d;
+  color: #c90304;
   background: url("../core/images/index/red-line-right.png") no-repeat right 5px;
   text-align: center; }
   .headline div {
@@ -776,7 +776,7 @@ a {
     .category .help-list a {
       color: black; }
       .category .help-list a:hover {
-        color: #ff6d6d; }
+        color: #c90304; }
   .category .app-code {
     float: right;
     width: 320px;
@@ -797,6 +797,6 @@ a {
       height: 153px; }
   .category .app-row-4 {
     padding-top: 15px;
-    color: #ff6d6d; }
+    color: #c90304; }
 
 /*# sourceMappingURL=../../maps/index/index_1.css.map */

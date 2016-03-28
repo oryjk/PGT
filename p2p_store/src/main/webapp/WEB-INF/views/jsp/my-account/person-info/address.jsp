@@ -17,7 +17,7 @@
 
 <div class="content">
 	<jsp:include page="../vertical-my-account-directory.jsp"/>
-	<div class="main" id="main">
+	<div class="main-area" id="main">
 		<h2 class="main-head">我的地址信息</h2>
 
 		<div class="address-altogether">

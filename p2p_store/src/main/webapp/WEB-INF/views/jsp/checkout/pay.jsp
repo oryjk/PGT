@@ -33,28 +33,30 @@
 	<form class="order-pay" action="/checkout/redirectToPayment" method="get">
 		<h2>最后一步，请尽快付款！</h2>
 
-		<div class="pay-content">
-			<div class="pay-title">请在<span>30</span>分钟内完成支付，否则订单将会被取消哦。</div>
-			<div class="pay-info">
-				<div class="amount-payable">应付金额：${order.total}元</div>
-				<div class="pay-add">
-					收货人：<span>${order.shippingVO.shippingAddress.name}</span><br>
-					手机：<span>${order.shippingVO.shippingAddress.phone}</span><br>
-					收货地址：<span>${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.district}${order.shippingVO.shippingAddress.address}</span><br>
+		<div class="main-content-box">
+			<div class="pay-content">
+				<div class="pay-title">请在<span>30</span>分钟内完成支付，否则订单将会被取消哦。</div>
+				<div class="pay-info">
+					<div class="amount-payable">应付金额：${order.total}元</div>
+					<div class="pay-add">
+						收货人：<span>${order.shippingVO.shippingAddress.name}</span><br>
+						手机：<span>${order.shippingVO.shippingAddress.phone}</span><br>
+						收货地址：<span>${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.province}${order.shippingVO.shippingAddress.district}${order.shippingVO.shippingAddress.address}</span><br>
+					</div>
 				</div>
-			</div>
-			<!--
-			<div class="pay-yeepay">
-				<input type="radio">使用易宝余额支付（易宝余额为：<span>4.25元</span>）
-			</div> -->
-			<div class="payment">
-				<div class="pay-check">支付宝/易宝</div>
-				<div class="pay-Alipay"><input name="method" type="radio" value="alipay"><img src="../core/images/cart/zhifubao.png"></div>
-				<div class="pay-Alipay"><input name="method" type="radio" value="yeepay"><img src="../core/images/cart/yibao.png"></div>
-			</div>
-			<div class="pay-submit">
-				<input class="pay-submit-btn" type="hidden" name="orderId" value="${order.id}">
-				<input class="pay-submit-btn" type="submit" value="立即支付">
+				<!--
+                <div class="pay-yeepay">
+                    <input type="radio">使用易宝余额支付（易宝余额为：<span>4.25元</span>）
+                </div> -->
+				<div class="payment">
+					<div class="pay-check">支付宝/易宝</div>
+					<div class="pay-Alipay"><input name="method" type="radio" value="alipay"><img src="../core/images/cart/zhifubao.png"></div>
+					<div class="pay-Alipay"><input name="method" type="radio" value="yeepay"><img src="../core/images/cart/yibao.png"></div>
+				</div>
+				<div class="pay-submit">
+					<input class="pay-submit-btn" type="hidden" name="orderId" value="${order.id}">
+					<input class="pay-submit-btn" type="submit" value="立即支付">
+				</div>
 			</div>
 		</div>
 	</form>

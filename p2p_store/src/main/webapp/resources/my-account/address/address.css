@@ -42,14 +42,14 @@
     width: 120px;
     height: 35px;
     font-size: 16px;
-    background: #ff6d6d;
+    background: #c90304;
     border-radius: 3px;
     line-height: 35px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .address-altogether .address-add:hover {
-      background: #ff3a3a; }
+      background: #970203; }
 
 .address-have-no-add {
   display: block;
@@ -60,8 +60,8 @@
   text-align: center;
   color: gray; }
   .address-have-no-add:hover {
-    border-color: #ff6d6d;
-    color: #ff6d6d; }
+    border-color: #c90304;
+    color: #c90304; }
 
 .address-list li {
   position: relative;
@@ -70,7 +70,7 @@
   border: 2px solid #cccccc; }
 
 .address-list .address-default {
-  border: 2px solid #ff6d6d;
+  border: 2px solid #c90304;
   background: url("../../core/images/my_account/address-default.jpg") no-repeat left top; }
 
 .address-list .receive-name {
@@ -125,7 +125,7 @@
     overflow: hidden; }
   .pop-up h3 {
     padding: 10px 20px;
-    background: #ff6d6d;
+    background: #c90304;
     color: white; }
     .pop-up h3 .pop-title {
       color: white;
@@ -150,14 +150,14 @@
     width: 60px;
     height: 30px;
     font-size: 16px;
-    background: #ff6d6d;
+    background: #c90304;
     border-radius: 3px;
     line-height: 30px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .pop-up .pop-confirm:hover {
-      background: #ff3a3a; }
+      background: #970203; }
   .pop-up .pop-cancel {
     margin-left: 10px;
     display: inline-block;
@@ -269,6 +269,6 @@
     width: 470px;
     height: 26px; }
   .pop-up .pop-error {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 /*# sourceMappingURL=../../../maps/my-account/address/address.css.map */
