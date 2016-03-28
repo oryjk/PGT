@@ -338,7 +338,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -482,7 +482,8 @@ body {
   width: 1200px; }
   .main-all h2 {
     padding-bottom: 10px;
-    border-bottom: 1px solid black; }
+    border-bottom: 1px solid black;
+    font-size: 22px; }
   .main-all .main-content {
     border: 1px solid #cccccc;
     padding: 20px 0 30px;
@@ -507,7 +508,7 @@ body {
 .order-info .info-value {
   color: black; }
   .order-info .info-value:hover {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 .order-info .info-col-1 {
   float: left;
@@ -518,7 +519,7 @@ body {
   width: 350px; }
 
 .order-info .buy-cost {
-  color: #ff6d6d; }
+  color: #c90304; }
 
 .order-info .info-col-3 {
   float: left; }
@@ -560,8 +561,8 @@ body {
   text-align: center;
   color: gray; }
   .order-info .address-have-no-add:hover {
-    border-color: #ff6d6d;
-    color: #ff6d6d; }
+    border-color: #c90304;
+    color: #c90304; }
 
 .order-info .receive-item {
   margin: 5px 0 5px 70px;
@@ -581,7 +582,7 @@ body {
   background: white;
   cursor: pointer; }
   .order-info .receive-name.receive-choose {
-    border: 1px solid #ff6d6d; }
+    border: 1px solid #c90304; }
 
 .order-info .receive-info {
   float: left;
@@ -749,14 +750,14 @@ body {
   width: 200px;
   height: 40px;
   font-size: 18px;
-  background: #ff6d6d;
+  background: #c90304;
   border-radius: 3px;
   line-height: 40px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .order-info .receive-ifo-submit:hover {
-    background: #ff3a3a; }
+    background: #970203; }
 
 .order-confirm .confirm-title {
   float: left;
@@ -811,13 +812,13 @@ body {
   .order-confirm .confirm-product-list .item-link {
     color: black; }
     .order-confirm .confirm-product-list .item-link:hover {
-      color: #ff6d6d; }
+      color: #c90304; }
   .order-confirm .confirm-product-list .cost {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 .order-confirm .confirm-row-7 {
   padding: 10px 0 0 135px;
-  color: #ff6d6d; }
+  color: #c90304; }
 
 .order-confirm .confirm-row-8 {
   padding: 10px 130px 0 0;
@@ -826,7 +827,7 @@ body {
     padding-right: 10px; }
   .order-confirm .confirm-row-8 .cost {
     font-size: 22px;
-    color: #ff6d6d; }
+    color: #c90304; }
 
 .order-confirm .confirm-row-9 {
   padding-top: 45px;
@@ -839,7 +840,7 @@ body {
   width: 100px;
   height: 40px;
   font-size: 18px;
-  background: #ff6d6d;
+  background: #c90304;
   border-radius: 3px;
   line-height: 40px;
   color: white;
@@ -847,7 +848,7 @@ body {
   cursor: pointer;
   margin-right: 20px; }
   .order-confirm .confirm-submit:hover {
-    background: #ff3a3a; }
+    background: #970203; }
 
 .order-confirm .confirm-reset {
   display: inline-block;
@@ -868,15 +869,16 @@ body {
 
 .order-pay {
   background: white;
-  border: 1px solid #cccccc;
   font-size: 14px; }
+  .order-pay .main-content-box {
+    border: 1px solid #cccccc; }
   .order-pay .pay-content {
     margin: 0 auto 40px auto;
     width: 1000px; }
   .order-pay .pay-title {
     padding: 30px 0 0 0; }
     .order-pay .pay-title span {
-      color: #ff6d6d; }
+      color: #c90304; }
   .order-pay .pay-info {
     margin: 50px 0 20px 0;
     border: 1px solid #cccccc;
@@ -899,9 +901,9 @@ body {
     .order-pay .pay-yeepay input {
       line-height: 30px; }
     .order-pay .pay-yeepay span {
-      color: #ff6d6d; }
+      color: #c90304; }
   .order-pay .payment {
-    border: 2px solid #ff6d6d;
+    border: 2px solid #c90304;
     height: 250px; }
     .order-pay .payment .pay-check {
       padding: 50px 0 0 50px; }
@@ -921,7 +923,7 @@ body {
       width: 300px;
       height: 40px;
       font-size: 18px;
-      background: #ff6d6d;
+      background: #c90304;
       border-radius: 3px;
       line-height: 40px;
       color: white;
@@ -930,11 +932,12 @@ body {
       display: block;
       margin: 0 auto; }
       .order-pay .pay-submit .pay-submit-btn:hover {
-        background: #ff3a3a; }
+        background: #970203; }
 
 .pay-end {
-  background: white;
-  border: 1px solid #cccccc; }
+  background: white; }
+  .pay-end .main-content-box {
+    border: 1px solid #cccccc; }
   .pay-end .pay-end-content {
     width: 630px;
     height: 500px;
@@ -953,7 +956,7 @@ body {
       .pay-end .pay-end-font .pay-end-font-num a {
         float: right; }
       .pay-end .pay-end-font .pay-end-font-num span {
-        color: #ff6d6d; }
+        color: #c90304; }
       .pay-end .pay-end-font .pay-end-font-num div {
         float: right; }
     .pay-end .pay-end-font .pay-end-font-help {
@@ -983,7 +986,7 @@ body {
     overflow: hidden; }
   .pop-up h3 {
     padding: 10px 20px;
-    background: #ff6d6d;
+    background: #c90304;
     color: white; }
     .pop-up h3 .pop-title {
       color: white;
@@ -1008,14 +1011,14 @@ body {
     width: 60px;
     height: 30px;
     font-size: 16px;
-    background: #ff6d6d;
+    background: #c90304;
     border-radius: 3px;
     line-height: 30px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .pop-up .pop-confirm:hover {
-      background: #ff3a3a; }
+      background: #970203; }
   .pop-up .pop-cancel {
     margin-left: 10px;
     display: inline-block;
@@ -1127,6 +1130,6 @@ body {
     width: 470px;
     height: 26px; }
   .pop-up .pop-error {
-    color: #ff6d6d; }
+    color: #c90304; }
 
 /*# sourceMappingURL=../../maps/buy/buy.css.map */

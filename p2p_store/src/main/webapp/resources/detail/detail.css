@@ -404,7 +404,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -526,7 +526,7 @@ a {
     line-height: 1;
     color: #555555; }
     .recommend-box .recommend-change:hover {
-      color: #ff6d6d; }
+      color: #c90304; }
   .recommend-box li {
     position: relative;
     top: 0;
@@ -556,7 +556,7 @@ a {
     .recommend-box h4 a {
       color: black; }
       .recommend-box h4 a:hover {
-        color: #ff6d6d; }
+        color: #c90304; }
   .recommend-box .recommend-progress-bar {
     position: relative;
     display: inline-block;
@@ -587,9 +587,9 @@ a {
 /*style
 **************************************************************************************************************************************************/
 .detail-content .tab a:hover, .detail-content .tab a:focus, .detail-content .tab a.tab-choose {
-  color: #ff6d6d;
+  color: #c90304;
   padding-bottom: 4px;
-  border-bottom: 2px solid #ff6d6d; }
+  border-bottom: 2px solid #c90304; }
 
 body {
   background: #f2f2f2; }
@@ -607,7 +607,7 @@ body {
     font-family: '黑体', serif; }
   .invest .invest-sub-head {
     padding-top: 10px;
-    color: #ff6d6d; }
+    color: #c90304; }
   .invest .invest-info {
     padding-top: 24px; }
   .invest .invest-img {
@@ -639,7 +639,7 @@ body {
     width: 131px;
     height: 43px;
     font-size: 16px;
-    background: #ff6d6d;
+    background: #c90304;
     border-radius: 3px;
     line-height: 43px;
     color: white;
@@ -647,7 +647,7 @@ body {
     cursor: pointer;
     margin-top: 16px; }
     .invest .invest-add-favorite:hover {
-      background: #ff3a3a; }
+      background: #970203; }
   .invest .invest-scan-count {
     float: right;
     display: inline-block;
@@ -698,7 +698,7 @@ body {
     padding-left: 80px;
     font-size: 25px; }
   .invest .cost {
-    color: #ff6d6d; }
+    color: #c90304; }
   .invest .invest-surplus-count {
     padding-top: 15px; }
   .invest .invest-begin-time {
@@ -822,7 +822,7 @@ body {
     float: left;
     margin-right: 13.33333px; }
     .content-item-list .small-img-box li:hover {
-      outline: 2px solid #ffa0a0; }
+      outline: 2px solid #fb0405; }
   .content-item-list .small-img-box .item-samll-end {
     margin-right: 0; }
   .content-item-list .small-img-box a {
@@ -861,7 +861,7 @@ body {
   line-height: 1.5; }
 
 .content-item-list .item-cost {
-  color: #ff3a3a;
+  color: #970203;
   font-size: 22px;
   font-weight: 900; }
 
@@ -872,14 +872,14 @@ body {
   width: 160px;
   height: 40px;
   font-size: 20px;
-  background: #ff6d6d;
+  background: #c90304;
   border-radius: 0;
   line-height: 40px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .content-item-list .item-buy-now:hover {
-    background: #ff3a3a; }
+    background: #970203; }
 
 .content-item-list .item-join-favorite {
   display: inline-block;
@@ -911,12 +911,12 @@ body {
     display: block;
     width: 50px;
     height: 15px;
-    background: #ff6d6d;
+    background: #c90304;
     text-align: center;
     line-height: 15px;
     color: white; }
     .content-item-list .plus-and-minus a:hover {
-      background: #ff3a3a; }
+      background: #970203; }
 
 .content-item-list .item-buy-minus {
   margin-top: 1px; }
@@ -961,14 +961,14 @@ body {
     width: 80px;
     height: 25px;
     font-size: 16px;
-    background: #ff6d6d;
+    background: #c90304;
     border-radius: 3px;
     line-height: 25px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .content-question .ask-submit:hover, .content-discuss .ask-submit:hover {
-      background: #ff3a3a; }
+      background: #970203; }
   .content-question .question-list, .content-discuss .question-list {
     padding-top: 20px;
     margin: 0 auto;
@@ -996,7 +996,7 @@ body {
   .content-question .question-row-2, .content-discuss .question-row-2 {
     color: #86b4ed; }
   .content-question .question-row-4, .content-discuss .question-row-4 {
-    color: #ff6d6d; }
+    color: #c90304; }
   .content-question .question-time, .content-discuss .question-time {
     float: right;
     padding-top: 12px;

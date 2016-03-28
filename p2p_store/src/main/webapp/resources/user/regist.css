@@ -326,7 +326,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -458,7 +458,7 @@ body {
     margin-left: 82px;
     float: left;
     border: 1px solid #cccccc;
-    border-top: 3px solid #ff6d6d;
+    border-top: 3px solid #c90304;
     width: 400px;
     height: 600px;
     box-shadow: 0 10px 15px #555555; }
@@ -477,11 +477,11 @@ body {
         text-align: center;
         line-height: 50px; }
         .content .login .login-title span a {
-          color: #ff6d6d; }
+          color: #c90304; }
           .content .login .login-title span a:hover {
             text-decoration: underline; }
     .content .login .login-content span {
-      color: #ff6d6d;
+      color: #c90304;
       margin-left: 40px;
       font-size: 12px; }
     .content .login .login-content input {
@@ -510,10 +510,10 @@ body {
       background: url("../core/images/user/message_09.png") no-repeat 11px 16px; }
     .content .login .login-content .phone-security input[type="button"] {
       margin: 0 0 0 3px;
-      border: 1px solid #ff6d6d;
+      border: 1px solid #c90304;
       padding: 0;
       width: 100px;
-      color: #ff6d6d;
+      color: #c90304;
       background: white; }
       .content .login .login-content .phone-security input[type="button"]:hover {
         border: none;
@@ -529,7 +529,7 @@ body {
       width: 343px;
       color: white;
       letter-spacing: 10px;
-      background: #ff6d6d; }
+      background: #c90304; }
       .content .login .login-content .submit:hover {
         background: #ff6d6d; }
     .content .login .login-content .agreement {
@@ -544,6 +544,6 @@ body {
   border-color: #86b4ed !important; }
 
 .content .login .input-error .input-text {
-  border-color: #ff6d6d; }
+  border-color: #c90304; }
 
 /*# sourceMappingURL=../../maps/user/regist.css.map */
