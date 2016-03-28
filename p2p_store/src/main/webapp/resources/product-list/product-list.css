@@ -320,7 +320,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -442,7 +442,7 @@ a {
     line-height: 1;
     color: #555555; }
     .recommend-box .recommend-change:hover {
-      color: #ff6d6d; }
+      color: #c90304; }
   .recommend-box li {
     position: relative;
     top: 0;
@@ -472,7 +472,7 @@ a {
     .recommend-box h4 a {
       color: black; }
       .recommend-box h4 a:hover {
-        color: #ff6d6d; }
+        color: #c90304; }
   .recommend-box .recommend-progress-bar {
     position: relative;
     display: inline-block;
@@ -509,7 +509,7 @@ a {
 .title {
   width: 1200px;
   height: 50px;
-  background: #ff7777; }
+  background: #d30304; }
   .title .title-left {
     float: left; }
     .title .title-left img {
@@ -543,13 +543,13 @@ a {
     margin: 2px 0;
     border: 1px solid #f2f2f2; }
     .menu .menu-level-1:hover {
-      border-color: #ff7777; }
+      border-color: #d30304; }
       .menu .menu-level-1:hover .list {
-        background: #ff7777; }
+        background: #d30304; }
       .menu .menu-level-1:hover h4 {
         color: white; }
       .menu .menu-level-1:hover .menu-level-2 {
-        border-top: 1px solid #ff7777; }
+        border-top: 1px solid #d30304; }
   .menu .list-end,
   .menu .list {
     display: block;
@@ -581,7 +581,7 @@ a {
       background: white;
       color: black; }
       .menu .menu-level-2 a:hover {
-        color: #ff7777; }
+        color: #d30304; }
 
 .all-list {
   width: 100%; }
@@ -609,7 +609,7 @@ a {
   width: 900px;
   height: 35px;
   background: #f2f2f2;
-  border-top: 3px solid #ff7777; }
+  border-top: 3px solid #d30304; }
   .sort .sort-tab {
     position: relative;
     float: left;
@@ -668,7 +668,7 @@ a {
     font-size: 14px;
     color: black; }
     .products .item-name:hover {
-      color: #ff7777; }
+      color: #d30304; }
   .products .item-img {
     width: 280px;
     height: 280px; }
@@ -744,14 +744,14 @@ a {
     height: 30px;
     color: #555555; }
     .page-box a:hover {
-      border-color: #ff6d6d;
+      border-color: #c90304;
       color: white;
-      background: #ff6d6d; }
+      background: #c90304; }
   .page-box .current-page,
   .page-box .current-page:hover {
     border-color: white;
     background: white;
-    color: #ff6d6d;
+    color: #c90304;
     font-size: 18px;
     font-weight: 900;
     cursor: default; }

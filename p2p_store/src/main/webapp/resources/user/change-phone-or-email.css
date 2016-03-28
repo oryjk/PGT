@@ -320,7 +320,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -477,14 +477,14 @@ td {
   width: 100px;
   height: 30px;
   font-size: 16px;
-  background: #ff6d6d;
+  background: #c90304;
   border-radius: 3px;
   line-height: 30px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .input-next:hover {
-    background: #ff3a3a; }
+    background: #970203; }
 
 .input-cancel {
   display: inline-block;
@@ -505,7 +505,7 @@ td {
 
 .error {
   font-size: 14px;
-  color: #ff6d6d; }
+  color: #c90304; }
 
 .get-phone-confirm-code,
 .get-email-confirm-code {
@@ -516,7 +516,7 @@ td {
   width: 120px;
   height: 30px;
   font-size: 14px;
-  background: #ff6d6d;
+  background: #c90304;
   border-radius: 3px;
   line-height: 30px;
   color: white;
@@ -524,7 +524,7 @@ td {
   cursor: pointer; }
   .get-phone-confirm-code:hover,
   .get-email-confirm-code:hover {
-    background: #ff3a3a; }
+    background: #970203; }
 
 .input-new .error {
   padding-left: 20px; }
@@ -533,7 +533,7 @@ td {
   padding-left: 528px; }
   .binding-success .success-row-1 {
     font-size: 25px;
-    color: #ff6d6d; }
+    color: #c90304; }
   .binding-success .success-row-2,
   .binding-success .success-row-3 {
     padding-top: 20px; }

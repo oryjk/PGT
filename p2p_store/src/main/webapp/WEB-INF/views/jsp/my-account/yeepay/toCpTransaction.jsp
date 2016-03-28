@@ -16,8 +16,8 @@ var jsRoot = "<c:url value="/"/>";
 	<input id="sign" name="sign" type="hidden" value="<c:out value="${sign }"/>">
 	</input> <input type="submit" value="提交"></input>
 </form>	
-	<script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/yeepay/gateway.js"/>"></script>
+	<script src="/resources/core/js/require.js"
+        data-main="/resources/yeepay/gateway.js"></script>
 <jsp:include page="../../core/baidu.jsp"></jsp:include>
 </body>
 </html>

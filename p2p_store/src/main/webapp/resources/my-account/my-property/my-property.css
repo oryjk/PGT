@@ -141,14 +141,14 @@
     width: 57px;
     height: 28px;
     font-size: 14px;
-    background: #ff6d6d;
+    background: #c90304;
     border-radius: 3px;
     line-height: 28px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .already-binding .yeepay-shift-into:hover {
-      background: #ff3a3a; }
+      background: #970203; }
   .already-binding .yeepay-shift-out {
     margin-left: 23px;
     font-size: 14px; }

@@ -38,9 +38,9 @@
       color: black;
       font-size: 18px; }
   .filter-favorite-status .filter-favorite-choose {
-    border-bottom: 2px solid #ff6d6d; }
+    border-bottom: 2px solid #c90304; }
     .filter-favorite-status .filter-favorite-choose a {
-      color: #ff6d6d; }
+      color: #c90304; }
   .filter-favorite-status .filter-favorite-end a {
     border-right: none; }
 
@@ -113,9 +113,9 @@
     .favorite-list .favorite-base-info a {
       color: black; }
       .favorite-list .favorite-base-info a:hover {
-        color: #ff6d6d; }
+        color: #c90304; }
   .favorite-list .will-pay {
-    color: #ff6d6d; }
+    color: #c90304; }
   .favorite-list .favorite-handle .pay-now {
     display: inline-block;
     padding: 0;
@@ -123,14 +123,14 @@
     width: 90px;
     height: 25px;
     font-size: 14px;
-    background: #ff6d6d;
+    background: #c90304;
     border-radius: 3px;
     line-height: 25px;
     color: white;
     text-align: center;
     cursor: pointer; }
     .favorite-list .favorite-handle .pay-now:hover {
-      background: #ff3a3a; }
+      background: #970203; }
 
 td p {
   line-height: 30px; }
@@ -154,14 +154,14 @@ td p {
     height: 30px;
     color: #555555; }
     .page-box a:hover {
-      border-color: #ff6d6d;
+      border-color: #c90304;
       color: white;
-      background: #ff6d6d; }
+      background: #c90304; }
   .page-box .current-page,
   .page-box .current-page:hover {
     border-color: white;
     background: white;
-    color: #ff6d6d;
+    color: #c90304;
     font-size: 18px;
     font-weight: 900;
     cursor: default; }

@@ -320,7 +320,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -481,12 +481,12 @@ a {
   .banner .invest-submit,
   .banner .auth-code-btn {
     border: none;
-    background: #ff6d6d;
+    background: #c90304;
     color: white;
     cursor: pointer; }
     .banner .invest-submit:hover,
     .banner .auth-code-btn:hover {
-      background: #ff3a3a; }
+      background: #970203; }
   .banner .auth-code-btn {
     float: left;
     width: 115px;
@@ -701,7 +701,7 @@ a {
     font-family: "黑体";
     font-weight: 900;
     color: white;
-    background: #ff6d6d; }
+    background: #c90304; }
   .condition .inner, .process .inner {
     margin: 0 auto;
     border: 24px solid #ff7978;

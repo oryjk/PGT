@@ -1,9 +1,9 @@
 require.config({
 	baseUrl: "../../resources",
     paths: {
-        jquery: './juedangpin/core/js/jquery.min',
-        jqueryForm: './juedangpin/core/js/jquery.form',
-        component: './juedangpin/core/js/module/component'
+        jquery: './core/js/jquery.min',
+        jqueryForm: './core/js/jquery.form',
+        component: './core/js/module/component'
     },
     shim: {
         'jqueryForm': ['jquery']

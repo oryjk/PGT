@@ -239,7 +239,7 @@ a {
     width: 70px;
     height: 100%;
     border-radius: 50px;
-    background: #ff6d6d;
+    background: #c90304;
     line-height: 70px;
     text-align: center; }
   .our-good i {
@@ -362,7 +362,7 @@ a {
     margin-left: 82px;
     float: left;
     border: 1px solid #cccccc;
-    border-top: 3px solid #ff6d6d;
+    border-top: 3px solid #c90304;
     width: 400px;
     height: 380px;
     box-shadow: 0 10px 15px #555555; }
@@ -381,7 +381,7 @@ a {
         text-align: center;
         line-height: 50px; }
         .content .login .login-title span a {
-          color: #ff6d6d; }
+          color: #c90304; }
           .content .login .login-title span a:hover {
             text-decoration: underline; }
     .content .login .login-box {
@@ -411,19 +411,19 @@ a {
       .content .login .login-box .password-box input {
         background: url("../core/images/user/password_07.png") 10px 12px no-repeat; }
       .content .login .login-box .font-box {
-        color: #ff6d6d;
+        color: #c90304;
         padding: 5px 0 0 35px;
         font-size: 14px; }
       .content .login .login-box .other-box a {
         margin-left: 170px;
         text-decoration: none;
-        color: #ff6d6d; }
+        color: #c90304; }
         .content .login .login-box .other-box a:hover {
-          color: #ff6d6d;
+          color: #c90304;
           text-decoration: underline; }
       .content .login .login-box .other-box span {
         display: block;
-        color: #ff6d6d; }
+        color: #c90304; }
       .content .login .login-box .auth-box input {
         width: 100px;
         height: 34px;
@@ -437,7 +437,7 @@ a {
         text-decoration: none;
         color: #cccccc; }
         .content .login .login-box .auth-box a:hover {
-          color: #ff6d6d;
+          color: #c90304;
           text-decoration: underline; }
       .content .login .login-box .sub-box input {
         margin: 10px 0 0 35px;
@@ -447,7 +447,7 @@ a {
         height: 40px;
         font-size: 20px;
         color: white;
-        background: #ff6d6d; }
+        background: #c90304; }
         .content .login .login-box .sub-box input:hover {
           color: white;
           background: #ff6d6d; }
@@ -464,7 +464,7 @@ a {
 .login-success h2 {
   padding: 70px 0 70px 150px;
   font-size: 30px;
-  color: #ff6d6d;
+  color: #c90304;
   background: url("../core/images/cart/end-img.png") no-repeat 60px 55px; }
 
 .login-success .login-success-timeout {
@@ -481,18 +481,18 @@ a {
   width: 150px;
   height: 40px;
   font-size: 20px;
-  background: #ff6d6d;
+  background: #c90304;
   border-radius: 3px;
   line-height: 40px;
   color: white;
   text-align: center;
   cursor: pointer; }
   .login-success .go-to-home:hover {
-    background: #ff3a3a; }
+    background: #970203; }
 
 /*for js
 ********************************************************************/
 .content .content-box .login .input-error input {
-  border-color: #ff6d6d; }
+  border-color: #c90304; }
 
 /*# sourceMappingURL=../../maps/user/login.css.map */
