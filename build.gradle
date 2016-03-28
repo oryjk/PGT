@@ -15,6 +15,7 @@ subprojects {
     apply plugin: 'jetty'
     apply plugin: 'idea'
     apply plugin: 'org.flywaydb.flyway'
+//    apply plugin: 'scala'
 //    version = '1.0'
     // JVM 版本号要求
     sourceCompatibility = 1.8
