@@ -1,5 +1,6 @@
 package com.pgt.integration.yeepay;
 
+import com.pgt.user.bean.User;
 import com.yeepay.g3.utils.security.cfca.SignUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -154,8 +155,11 @@ public class YeePayHelper {
 
 	}
 	
-	public static String generateOutboundUserNo(YeePayConfig config, Long userId) {
-		return config.getPlatformUserNoPrefix() + userId;
+	public static String generateOutboundUserNo(YeePayConfig config, User user) {
+		if (StringUtils.isBlank(user.getYeepayUserNo())) {
+			return config.getPlatformUserNoPrefix() + user.getId();
+		}
+		return user.getYeepayUserNo();
 	}
 	
 	public static int parseUserId(YeePayConfig config, String platformUserNo) {

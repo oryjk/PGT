@@ -19,7 +19,7 @@
 		<property name="callbackUrl" value="${p2p_store_host}/yeepay/yeepayCallback" />
 		<property name="notifyUrl" value="${p2p_store_host}/yeepay/yeepayNotify"/>
 		<property name="completeTransactionNotifyUrl" value="${p2p_store_host}/yeepay/completeTransactionNotify"/>
-		<property name="targetPlatformUserNo" value="pgt14"/>
+		<property name="targetPlatformUserNo" value="10012485748"/>
 		<property name="transactionExpiredMin" value="30"/>
 		<!-- need change when go live -->
 		<property name="withdrawType" value="NORMAL"/>

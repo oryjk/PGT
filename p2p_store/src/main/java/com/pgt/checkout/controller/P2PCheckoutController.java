@@ -99,7 +99,8 @@ public class P2PCheckoutController {
     @Autowired
     private CityService cityService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+//    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create")
     public ModelAndView createOrder(HttpServletRequest pRequest, HttpServletResponse pResponse) {
         User user = SessionHelper.getUser(pRequest, pResponse);
         LOGGER.debug("============= P2PCheckoutController#createOrder start =============");

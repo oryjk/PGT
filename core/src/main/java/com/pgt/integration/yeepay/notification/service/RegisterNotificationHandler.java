@@ -34,7 +34,7 @@ public class RegisterNotificationHandler extends Transactionable implements Yeep
             String code = inboundParams.get(YeePayConstants.PARAM_NAME_CODE);
             if (YeePayConstants.CODE_SUCCESS.equals(code)) {
                 user.setYeepayStatus(YeePayConstants.REGISTOR_STATUS_SUCCESS);
-                user.setYeepayUserNo(YeePayHelper.generateOutboundUserNo(getConfig(), user.getId()));
+                user.setYeepayUserNo(YeePayHelper.generateOutboundUserNo(getConfig(), user));
             } else {
                 user.setYeepayStatus(YeePayConstants.REGISTOR_STATUS_FAILD);
             }
