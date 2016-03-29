@@ -25,8 +25,8 @@
 			<input class="address-add" type="button" value="新增收货地址" @click="createAddress"/>
 		</div>
 		<div class="address-have-no">
-			<a class="address-have-no-add" href="javascript:void(0);">
-				您暂时还没有地址, 添加添加
+			<a class="address-have-no-add" href="javascript:void(0);" @click="createAddress">
+				您暂时还没有地址, 点击进行添加
 			</a>
 		</div>
 

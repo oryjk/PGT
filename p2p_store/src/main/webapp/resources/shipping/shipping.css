@@ -1,0 +1,444 @@
+@charset "UTF-8";
+/*import
+**************************************************************************************************************************************************/
+.top-content {
+  *zoom: 1; }
+  .top-content:after, .top-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.top-content {
+  *zoom: 1; }
+  .top-content:after, .top-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
+/*pop-up*/
+/*file*/
+.top-content {
+  *zoom: 1; }
+  .top-content:after, .top-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.top-content {
+  *zoom: 1; }
+  .top-content:after, .top-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
+/*pop-up*/
+/*file*/
+/*
+html5doctor.com Reset Stylesheet
+v1.4.1
+2010-03-01
+Author: Richard Clark - http://richclarkdesign.com
+*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+body {
+  line-height: 1; }
+
+:focus {
+  outline: 1px; }
+
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+nav ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none; }
+
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold; }
+
+del {
+  text-decoration: line-through; }
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted #000;
+  cursor: help; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0; }
+
+input, select {
+  vertical-align: middle; }
+
+body {
+  font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53', serif; }
+
+ul,
+ol {
+  list-style: none; }
+
+a {
+  text-decoration: none; }
+
+.link-btn {
+  color: #5a98e6; }
+  .link-btn:hover {
+    text-decoration: underline; }
+
+.hide {
+  display: none !important; }
+
+.show {
+  display: block; }
+
+.show-inline {
+  display: inline; }
+
+/*part
+**************************************************************************************************************************************************/
+.header {
+  background: white; }
+
+.top {
+  height: 37px;
+  line-height: 37px;
+  background: #f5f5f5;
+  font-size: 12px;
+  color: #6c6c6c; }
+  .top * {
+    vertical-align: middle; }
+
+.top-content {
+  margin: 0 auto;
+  width: 1200px; }
+
+.top-welcome {
+  float: left;
+  width: 50%;
+  text-align: left; }
+
+.top-welcome-phone-title {
+  padding-left: 20px; }
+
+.top-welcome-phone-value {
+  padding-left: 5px; }
+
+.top-user {
+  float: right;
+  width: 50%;
+  text-align: right; }
+  .top-user a {
+    color: #6c6c6c; }
+
+.top-user-register {
+  padding-left: 10px; }
+
+.head {
+  margin: 0 auto;
+  width: 1200px;
+  height: 110px; }
+  .head h2 {
+    float: left;
+    margin: 50px 0 0 100px;
+    font-size: 25px; }
+
+.logo {
+  float: left;
+  height: 110px;
+  width: 230px;
+  background: url("../core/images/header/logo-red.jpg") no-repeat left center; }
+
+.logo-link {
+  display: block;
+  height: 100%; }
+
+/*  footer begin
+******************************************************************************/
+.footer {
+  width: 100%;
+  background: #3b3b3b; }
+
+.footer-main {
+  margin: 0 auto;
+  width: 1200px;
+  height: 245px; }
+
+.footer-main-left {
+  float: left;
+  width: 500px;
+  height: 80px; }
+  .footer-main-left .footer-title {
+    padding: 30px 0 0 40px;
+    font-size: 16px;
+    color: #e6e6e6; }
+  .footer-main-left .footer-help {
+    padding-top: 20px;
+    height: 160px;
+    font-size: 14px;
+    color: #909090; }
+    .footer-main-left .footer-help ul {
+      float: left;
+      padding-left: 40px; }
+    .footer-main-left .footer-help li {
+      padding-top: 10px;
+      display: block;
+      text-align: center; }
+      .footer-main-left .footer-help li a {
+        color: #909090; }
+        .footer-main-left .footer-help li a:hover {
+          color: #e6e6e6; }
+
+.footer-main-right {
+  float: right;
+  margin-top: 70px;
+  width: 340px;
+  height: 130px;
+  background: #3e3e3e;
+  border: 1px solid #5c5c5c; }
+  .footer-main-right p {
+    margin: 10px 0;
+    padding-left: 45px;
+    color: #909090;
+    font-size: 14px; }
+  .footer-main-right .footer-main-right-title {
+    padding: 10px 25px;
+    color: #e6e6e6;
+    font-size: 16px; }
+  .footer-main-right .footer-main-right-p1 {
+    background: url("../core/images/footer/phone.png") no-repeat 25px 0; }
+  .footer-main-right .footer-main-right-p2 {
+    background: url("../core/images/footer/e-mail.png") no-repeat 25px 0; }
+  .footer-main-right .footer-main-right-p3 {
+    background: url("../core/images/footer/add.png") no-repeat 25px 0; }
+
+.footer-bottom {
+  width: 100%;
+  background: #333; }
+  .footer-bottom .footer-bottom-mid {
+    margin: 0 auto;
+    width: 1200px;
+    height: 35px;
+    color: #909090;
+    font-size: 12px;
+    line-height: 35px;
+    text-align: center; }
+  .footer-bottom .footer-bottom-img {
+    padding: 10px 0 0  450px;
+    height: 50px; }
+    .footer-bottom .footer-bottom-img img {
+      float: left;
+      margin-left: 10px; }
+
+/*    footer end
+  *********************************************************************/
+/* style
+***************************************************************************************************/
+a {
+  color: #4556a1; }
+
+.content {
+  margin: 20px auto;
+  border: 2px solid #ddd;
+  width: 1200px;
+  height: 1000px;
+  background: url("../core/images/shipping/b1.png") no-repeat 155px 80px; }
+
+.content-img {
+  margin: 135px 0 0 50px;
+  width: 1000px;
+  height: 20px; }
+  .content-img span {
+    float: left;
+    width: 64px;
+    padding-left: 166px;
+    text-align: center; }
+  .content-img .content-img-font {
+    padding-left: 175px; }
+
+.content-shipping-head {
+  margin: 40px 0 0 155px; }
+
+.content-shipping-title {
+  margin: 30px 0 0 164px;
+  font-size: 15px;
+  color: #999; }
+  .content-shipping-title a {
+    float: right;
+    margin-right: 180px; }
+
+.content-shipping-content {
+  margin: 5px 0 0 155px;
+  padding: 20px 0;
+  border-top: 3px solid #ffbbbb;
+  width: 890px;
+  font-size: 14px;
+  background: #f3fbfe;
+  /* 需要添加选中时 属性加入 .content-shipping-add-left 下
+  *****************************/
+  /* 需要添加选中时 属性加入 .content-shipping-add-right 下
+  *****************************/
+  /* end
+  *****************************/ }
+  .content-shipping-content .content-shipping-name {
+    display: block;
+    margin-top: 70px;
+    padding: 0 0 0 100px;
+    background: url("../core/images/shipping/add.png") no-repeat 70px -1px; }
+  .content-shipping-content .content-shipping-add {
+    overflow: hidden;
+    margin: 10px 0 0 20px; }
+  .content-shipping-content .content-shipping-add-left {
+    float: left;
+    padding: 10px;
+    color: #000;
+    border: 1px solid #ddd; }
+    .content-shipping-content .content-shipping-add-left span {
+      color: #666; }
+  .content-shipping-content .shipping-block-btn {
+    border: 1px solid #ff6d6d;
+    background: url("../core/images/shipping/chosoe.png") no-repeat right bottom; }
+  .content-shipping-content .shipping-block-bg {
+    background: #fef3f3; }
+  .content-shipping-content .content-shipping-add-right {
+    float: left;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    color: #999; }
+    .content-shipping-content .content-shipping-add-right span {
+      margin-left: 30px; }
+  .content-shipping-content .content-shipping-reset {
+    float: right;
+    margin: 10px 50px 0 0; }
+
+.content-product-title {
+  overflow: hidden;
+  margin: 60px 0 0 164px;
+  font-size: 15px;
+  color: #999; }
+  .content-product-title li {
+    padding-left: 75px;
+    float: left; }
+  .content-product-title .content-product-title-left {
+    padding-left: 0; }
+  .content-product-title .content-product-title-right {
+    margin-left: 165px; }
+
+.content-product-list {
+  margin: 5px 0 0 155px;
+  padding: 20px 0;
+  border-top: 3px solid #ffbbbb;
+  width: 890px;
+  background: #f3fbfe; }
+  .content-product-list .content-product-name {
+    overflow: hidden;
+    margin: 20px 0 0 20px;
+    font-size: 15px;
+    color: #999; }
+    .content-product-list .content-product-name li {
+      float: left;
+      padding-left: 30px;
+      text-align: center;
+      width: 130px; }
+      .content-product-list .content-product-name li span {
+        color: #ec5555; }
+    .content-product-list .content-product-name .content-product-title-left {
+      width: 200px;
+      padding-left: 0; }
+    .content-product-list .content-product-name .content-product-title-right {
+      margin-left: 25px; }
+
+.content-product-list-main {
+  margin: 0 0 0 155px;
+  padding: 10px 10px 30px 10px;
+  border-top: 1px dashed #b0b6b8;
+  width: 870px;
+  background: #f3fbfe;
+  font-size: 13px;
+  color: #999; }
+  .content-product-list-main div {
+    margin-top: 20px; }
+  .content-product-list-main input {
+    background: #d4efd6;
+    border: 1px solid #d0d5d7; }
+
+.shipping-btn {
+  margin: 100px 0 0 850px;
+  color: white;
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 155px;
+  height: 40px;
+  font-size: 14px;
+  background: #ff6d6d;
+  border-radius: 0;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  cursor: pointer; }
+  .shipping-btn:hover {
+    background: #ec5555; }
+
+/*# sourceMappingURL=../../maps/shipping/shipping.css.map */

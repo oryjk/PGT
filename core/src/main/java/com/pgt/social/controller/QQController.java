@@ -83,18 +83,19 @@ public class QQController {
                 LOGGER.debug("The method find assessToken,");
                 accessToken = accessTokenObj.getAccessToken();
                 tokenExpireIn = accessTokenObj.getExpireIn();
-                LOGGER.debug("The accessToken is {},",accessToken);
+                LOGGER.debug("The accessToken is {},", accessToken);
 
                 OpenID openIDObj = new OpenID(accessToken);
                 openID = openIDObj.getUserOpenID();
-                LOGGER.debug("The openId is {},",openID);
+                LOGGER.debug("The openId is {},", openID);
                 ThirdLogin thirdLogin = thirdLoginService.queryThirdLoginByOpenId(openID);
                 Date expireIn = TenderDateUtils.convert(String.valueOf(tokenExpireIn));
-                LOGGER.debug("The expireIn time is {}",expireIn);
+                LOGGER.debug("The expireIn time is {}", expireIn);
+                User user = null;
                 if (ObjectUtils.isEmpty(thirdLogin)) {
                     //first login
                     //create user bean
-                    User user = new User();
+                    user = new User();
                     UserInformation userInformation = new UserInformation();
                     UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
                     UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
@@ -102,21 +103,21 @@ public class QQController {
                     if (userInfoBean.getRet() == 0) {
                         LOGGER.debug("create user");
                         user.setUsername(userInfoBean.getNickname());
-                        LOGGER.debug("The nickname is {}",userInfoBean.getNickname());
+                        LOGGER.debug("The nickname is {}", userInfoBean.getNickname());
                         user.setUpdateDate(new Date());
                         user.setCreateDate(new Date());
-                        user.setPhoneNumber("000000");
+                        user.setPhoneNumber("");
                         userService.saveUser(user);
 
-                        if(!ObjectUtils.isEmpty(user.getId())) {
-                            LOGGER.debug("create userInformation and user id is {}",user.getId());
+                        if (!ObjectUtils.isEmpty(user.getId())) {
+                            LOGGER.debug("create userInformation and user id is {}", user.getId());
                             userInformation.setNickname(userInfoBean.getNickname());
                             userInformation.setGender(userInfoBean.getGender());
                             userInformation.setPath(userInfoBean.getAvatar().getAvatarURL100());
                             userInformation.setUser(user);
                             userInformationService.createInformation(userInformation);
                             LOGGER.debug("create userInformation");
-                        }else{
+                        } else {
                             LOGGER.debug("The userId is empty ,create user fail");
                             return modelAndView;
                         }
@@ -132,22 +133,22 @@ public class QQController {
                     thirdLogin.setExpire(expireIn);
                     thirdLogin.setUser(user);
                     thirdLoginService.createThirdLogin(thirdLogin);
-                    request.getSession().setAttribute(UserConstant.CURRENT_USER,user);
-                    LOGGER.debug("set User to session and id is {}",user.getId());
+                    request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                    LOGGER.debug("set User to session and id is {}", user.getId());
                 } else {
                     //update expireIn
                     thirdLogin.setExpire(expireIn);
                     thirdLoginService.updateThirdLogin(thirdLogin);
-                    User user =thirdLogin.getUser();
-                    if(!ObjectUtils.isEmpty(user)){
-                        request.getSession().setAttribute(UserConstant.CURRENT_USER,user);
-                        ssoService.cacheUser(user, null, null);
-                        LOGGER.debug("set User to session and id is {}",user.getId());
-                    }else {
+                    user = thirdLogin.getUser();
+                    if (!ObjectUtils.isEmpty(user)) {
+                        request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                        LOGGER.debug("set User to session and id is {}", user.getId());
+                    } else {
                         LOGGER.debug("not find User");
                         return modelAndView;
                     }
                 }
+                ssoService.cacheUser(user, null, null);
             }
         } catch (QQConnectException e) {
         }

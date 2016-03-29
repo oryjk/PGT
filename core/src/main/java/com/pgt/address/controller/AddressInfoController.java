@@ -193,6 +193,7 @@ public class AddressInfoController {
         List<Province> provinceList = cityService.getAllProvince();
         mav.addObject("provinceList", provinceList);
         List<AddressInfo> addressList = getAddressInfoService().queryAddressByUserId(currentUser.getId().intValue());
+        mav.addObject(Constants.CURRENT_ACCOUNT_ITEM, MyAccountNavigationEnum.MY_ADDRESS);
         if (CollectionUtils.isEmpty(addressList) || addressList.size() == 1) {
             mav.addObject("addressList", addressList);
             return mav;
@@ -210,7 +211,6 @@ public class AddressInfoController {
                 sortedAddressList.add(address);
             }
         }
-        mav.addObject(Constants.CURRENT_ACCOUNT_ITEM, MyAccountNavigationEnum.MY_ADDRESS);
         mav.addObject("addressList", sortedAddressList);
         return mav;
     }
