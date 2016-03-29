@@ -148,12 +148,9 @@
 				</table>
 			</form>
 			<form class="person-face" action="#">
-				<img src="../../core/images/my_account/" alt=""/>
+				<img src="${userInfo.path}" alt=""/>
 				<!--file begin-->
-				<div class="like-file">
-					点击上传头像
-					<input class="original-input-file" type="file" value="上传">
-				</div>
+
 				<!-- file end-->
 			</form>
 		</div>

@@ -13,8 +13,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="menu">
 	<div class="user-face">
-		<div class="img-box"><img src="" alt=""/></div>
-		<p class="face-title">用户名</p>
+		<div class="img-box"><img src="${userInfo.path}" alt=""/></div>
+		<p class="face-title">${currentUser.username}</p>
 	</div>
 	<ul class="menu-list">
 		<c:forEach items="${navigationList}" var="currentItem">

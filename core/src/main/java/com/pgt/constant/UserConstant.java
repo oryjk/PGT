@@ -13,4 +13,5 @@ public class UserConstant {
     public static final String ERROR_PWD = "errorPwd";
     public static final String NOT_AVAILAVLE = "notAvailable";
     public static final String EXIST = "exist";
+    public static final String USER_INFO = "userInfo";
 }

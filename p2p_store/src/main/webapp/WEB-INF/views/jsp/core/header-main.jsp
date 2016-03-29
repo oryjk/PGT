@@ -68,7 +68,7 @@
 					<c:otherwise>
 						<div class="top-after-login">
 							<span>欢迎您:</span>
-							<a href="#">小陈</a>
+							<a href="/myAccount/orderHistory?status=0">${currentUser.username}</a>
 							<a class="top-user-logout hover-main" href="/user/logout">退出</a>
 						</div>
 					</c:otherwise>

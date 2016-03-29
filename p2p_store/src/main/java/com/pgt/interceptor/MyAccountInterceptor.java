@@ -2,6 +2,11 @@ package com.pgt.interceptor;
 
 import com.pgt.base.bean.MyAccountNavigationEnum;
 import com.pgt.constant.Constants;
+import com.pgt.constant.UserConstant;
+import com.pgt.user.bean.User;
+import com.pgt.user.bean.UserInformation;
+import com.pgt.user.service.UserInformationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +22,9 @@ import java.util.List;
  * Created by carlwang on 3/13/16.
  */
 public class MyAccountInterceptor implements HandlerInterceptor {
+    @Autowired
+    private UserInformationService userInformationService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
@@ -36,6 +44,11 @@ public class MyAccountInterceptor implements HandlerInterceptor {
         navigationList.add(MyAccountNavigationEnum.MY_ADDRESS);
         navigationList.add(MyAccountNavigationEnum.CHANGE_PASSWORD);
         modelAndView.addObject(Constants.NAVIGATION_LIST, navigationList);
+        User user = (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
+        if (!ObjectUtils.isEmpty(user)) {
+            UserInformation userInformation = userInformationService.queryUserInformation(user);
+            modelAndView.addObject(UserConstant.USER_INFO, userInformation);
+        }
     }
 
     @Override
