@@ -1,24 +1,42 @@
 /*import
 **************************************************************************************************************************************************/
-@import '../core/scss/variable',
-'../core/scss/commomExtend',
-'../core/scss/commonMixin',
-'../core/scss/components';
+@import '../../core/scss/variable',
+'../../core/scss/commomExtend',
+'../../core/scss/commonMixin',
+'../../core/scss/components';
 
 .order-detail-pop {
+  display: none;
   position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+}
+
+.order-detail-wrap {
+  overflow: scroll;
+  margin: 20px auto 0;
+  @include wh($main-width, 90%);
+}
+
+
+.order-detail-pop-shim {
+  display: none;
+  overflow: scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 19;
   width: 100%;
   height: 100%;
 }
 
-.order-detail-wrap {
-  margin-top: 20px;
-  height: 90%;
-}
-
 .order-detail-pop-content {
   position: relative;
-  margin: 130px auto 40px;
+  margin: 0 auto 0;
   padding-bottom: 73px;
   width: $main-width;
   border: 1px solid $gray-light;
@@ -193,7 +211,7 @@
 }
 
 .close-box {
-  padding-top: 45px;
+  padding: 45px 0;
   text-align: center;
 
   .close {
