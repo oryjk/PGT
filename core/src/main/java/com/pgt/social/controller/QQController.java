@@ -106,7 +106,7 @@ public class QQController {
                         LOGGER.debug("The nickname is {}", userInfoBean.getNickname());
                         user.setUpdateDate(new Date());
                         user.setCreateDate(new Date());
-                        user.setPhoneNumber("000000");
+                        user.setPhoneNumber("");
                         userService.saveUser(user);
 
                         if (!ObjectUtils.isEmpty(user.getId())) {
