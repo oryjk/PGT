@@ -72,8 +72,8 @@
             <li>翡翠</li>
             <li>玛瑙</li>
             <li>木制品</li>
-            <li>民品</li>
-            <li>把件</li>
+            <li>玉石</li>
+            <li>琥珀</li>
         </ul>
         <div class="hot-words">
 
