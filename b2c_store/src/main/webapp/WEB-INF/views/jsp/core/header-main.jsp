@@ -108,13 +108,6 @@
                 <input name="term" class="search-text" type="text" value="<c:out value="${term}"/>"/><!--
              --><input class="search-sub" type="submit" value="搜索"/>
             </form>
-            <ul class="search-tips" id="fixedSearchTips">
-                <li>小万</li>
-                <li>王霸</li>
-                <li>厉害</li>
-                <li>搜索</li>
-                <li>提示</li>
-            </ul>
         </div>
         <div class="cart-box">
             <a href="<spring:url value="/shoppingCart/cart" />" class="cart">

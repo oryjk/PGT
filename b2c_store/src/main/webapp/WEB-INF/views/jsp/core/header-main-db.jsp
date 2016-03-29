@@ -99,13 +99,6 @@
         </div>
         <div class="search-box">
             <form action="${pageContext.request.contextPath}/essearch"><input class="search-text" type="text" name="term" value="${term}" /><input class="search-sub" type="submit" value="搜索" /></form>
-            <ul class="search-tips" id="fixedSearchTips">
-                <li>小万</li>
-                <li>王霸</li>
-                <li>厉害</li>
-                <li>搜索</li>
-                <li>提示</li>
-            </ul>
         </div>
         <div class="cart-box">
             <a class="cart" href="<spring:url value="/shoppingCart/cart" />">
