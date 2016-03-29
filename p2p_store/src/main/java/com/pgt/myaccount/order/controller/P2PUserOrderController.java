@@ -64,6 +64,7 @@ public class P2PUserOrderController extends TransactionBaseController implements
 		getUserOrderService().queryP2POrderPage(currentUser.getId().intValue(), status, pagination);
 		ModelAndView mav = new ModelAndView("/my-account/order-history");
 		mav.addObject(CartConstant.ORDER_HISTORY, pagination);
+		mav.addObject(Constants.CURRENT_ACCOUNT_ITEM, MyAccountNavigationEnum.MY_ORDER);
 		return mav;
 	}
 
