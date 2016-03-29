@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.home.mapper.RecommendedProductMapper">
+	<resultMap id="recommendedProduct" type="com.pgt.home.bean.RecommendedProduct">
+		<id column="RECOMMENDED_PRODUCT_ID" property="recommendedProductId"/>
+		<result column="NAME" property="name"/>
+		<result column="NAME" property="name"/>
+		<result column="PRODUCT_TYPE" property="productType"/>
+		<result column="SORT" property="sort"/>
+		<result column="URL" property="url"/>
+		<association property="media" column="MEDIA_ID"
+					 select="com.pgt.common.dao.MediaMapper.queryMedia"/>
+	</resultMap>
+	<parameterMap id="paramRecommendedProduct" type="com.pgt.home.bean.RecommendedProduct">
+	</parameterMap>
+
+	<insert id="createRecommendedProduct" parameterMap="paramRecommendedProduct" useGeneratedKeys="true"
+			keyProperty="id">
+		INSERT INTO
+		RECOMMENDED_PRODUCT(NAME,PRODUCT_TYPE,SORT,URL,MEDIA_ID)
+		VALUES
+		(#{name},#{productType},#{sort},#{url},#{mediaId})
+	</insert>
+
+	<select id="queryAllRecommendedProduct" parameterMap="paramRecommendedProduct" resultMap="recommendedProduct">
+		SELECT * FROM RECOMMENDED_PRODUCT WHERE PRODUCT_TYPE = #{productType}
+	</select>
+	<update id="updateRecommendedProduct" parameterMap="paramRecommendedProduct">
+		UPDATE RECOMMENDED_PRODUCT SET NAME = #{name},PRODUCT_TYPE = #{productType},SORT = #{sort},URL =
+		#{url},MEDIA_ID = #{mediaId} WHERE RECOMMENDED_PRODUCT_ID = #{recommendedProductId}
+	</update>
+
+	<delete id="deleteRecommendedProduct" parameterType="int">
+		DELETE FROM RECOMMENDED_PRODUCT WHERE RECOMMENDED_PRODUCT_ID = #{recommendedProductId}
+	</delete>
+</mapper>
