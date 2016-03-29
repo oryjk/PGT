@@ -59,8 +59,8 @@ public class WeChatController {
 
     @RequestMapping(value = "/afterLogin", method = RequestMethod.GET)
     public ModelAndView afterComplete(ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         LOGGER.debug("The method query afterLogin");
+        modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
 
