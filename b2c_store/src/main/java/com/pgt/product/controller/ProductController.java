@@ -109,6 +109,7 @@ public class ProductController {
         SearchHit[] products = productHits.getHits();
         if (ObjectUtils.isEmpty(products)) {
             LOGGER.debug("Can not find the products.");
+            modelAndView.setViewName("/error/404");
             return modelAndView;
         }
         Map product = products[0].getSource();

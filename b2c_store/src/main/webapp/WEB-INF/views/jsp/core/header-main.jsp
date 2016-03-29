@@ -72,8 +72,8 @@
             <li>翡翠</li>
             <li>玛瑙</li>
             <li>木制品</li>
-            <li>民品</li>
-            <li>把件</li>
+            <li>玉石</li>
+            <li>琥珀</li>
         </ul>
         <div class="hot-words">
 
@@ -108,13 +108,7 @@
                 <input name="term" class="search-text" type="text" value="<c:out value="${term}"/>"/><!--
              --><input class="search-sub" type="submit" value="搜索"/>
             </form>
-            <ul class="search-tips" id="fixedSearchTips">
-                <li>小万</li>
-                <li>王霸</li>
-                <li>厉害</li>
-                <li>搜索</li>
-                <li>提示</li>
-            </ul>
+
         </div>
         <div class="cart-box">
             <a href="<spring:url value="/shoppingCart/cart" />" class="cart">
