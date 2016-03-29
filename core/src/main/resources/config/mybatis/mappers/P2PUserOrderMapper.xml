@@ -306,7 +306,9 @@
 	</select>
 
 	<select id="loadOrderInformation" parameterType="int" resultMap="detailOrder">
-
+		SELECT o.*
+		FROM `ORDER` o
+		WHERE o.ORDER_ID = #{orderId}
 	</select>
 
 </mapper>

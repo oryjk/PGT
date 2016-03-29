@@ -47,7 +47,6 @@ public class Order implements OrderType, OrderStatus {
 
 	private Date estimatedShipDate;
 
-	// TODO PERSISTANCE
 	private Integer p2pInfoId;
 
 	private P2PInfo p2pInfo;

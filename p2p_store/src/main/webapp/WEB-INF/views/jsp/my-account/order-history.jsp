@@ -144,7 +144,8 @@
                                     <p><a class="pay-now" href="#">立即支付</a></p>
                                 </c:when>
                                 <c:otherwise>
-                                    <p><a class="link-btn" href="#">订单详情</a></p>
+                                    <p><a class="link-btn watch-detail" href="javascript:void(0);"
+                                          data-order-id="${order.id}">订单详情</a></p>
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -177,8 +178,12 @@
             </ol>
         </div>
     </div>
-
 </div>
+
+<div class="order-detail-pop">
+    <div class="order-detail-wrap">
+        <div class="order-detail-pop-content"></div>
+    </div>
 </div>
 
 <!--footer begin-->
