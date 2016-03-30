@@ -21,8 +21,9 @@ a {
 
 .content {
   margin: 20px auto;
+  padding: 20px 0;
   border: 2px solid #ddd;
-  @include wh(1200px, 1000px);
+  @include wh(1200px);
   background: url("../core/images/shipping/b1.png") no-repeat 155px 80px;
 }
 

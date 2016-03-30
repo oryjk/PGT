@@ -1,0 +1,120 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+/*part
+**************************************************************************************************************************************************/
+@include header-con;
+@include footer-con;
+
+/* style
+***************************************************************************************************/
+a {
+  color: #4556a1;
+}
+
+.content {
+  margin: 20px auto;
+  padding: 20px 0;
+  border: 2px solid #ddd;
+  @include wh(1200px);
+  background: url("../core/images/shipping/b4.png") no-repeat 155px 80px;
+
+}
+
+.content-img {
+  margin: 135px 0 0 50px;
+  @include wh(1000px, 20px);
+
+  span {
+    float: left;
+    width: 64px;
+    padding-left: 166px;
+    text-align: center;
+  }
+
+  .content-img-font {
+    padding-left: 175px;
+  }
+}
+
+.content-shipping-head {
+  margin: 40px 0 0 155px;
+}
+
+.content-product-list {
+  overflow: hidden;
+  margin: 5px 0 0 155px;
+  padding: 20px 0;
+  border-top: 3px solid #ffbbbb;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  @include wh(890px);
+  background: #f5f6f7;
+
+  .content-end-left{
+    float: left;
+    @include wh(200px,345px);
+  }
+
+  .content-end-right{
+    float: right;
+    padding-right: 50px;
+    width: 630px;
+
+    h2{
+      margin-top: 30px ;
+      font-size: 20px;
+    }
+
+    .content-end-num{
+      margin-top: 20px;
+
+      span{
+        float: right;
+        padding-right: 16px;
+        color: #999;
+      }
+    }
+
+    .content-end-money{
+      margin-top: 20px;
+      color: #999;
+      text-align: right;
+
+      span{
+        color: #ec5555;
+      }
+
+    }
+
+    .content-end-content{
+      margin-top: 20px;
+      border-top: 1px dashed #ccc;
+      height: 250px;
+
+      div{
+        margin-top: 40px;
+        font-size: 17px;
+      }
+
+      p{
+        font-size: 14px;
+        margin-top: 20px;
+        color: #999;
+      }
+
+      a{
+        display: block;
+        margin-top: 40px;
+      }
+    }
+  }
+}
