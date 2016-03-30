@@ -8,7 +8,7 @@
 .content-item-list .item-row-5,
 .content-item-list .item-row-6,
 .content-item-list .item-row-7,
-.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner {
+.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner, .pop-up .wrap, .pop-up .pop-content {
   *zoom: 1; }
   .header .top-content:after, .about-us:after, .approve:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .invest .invest-info:after, .invest .data-row-2:after, .invest .data-row-3:after, .detail-content:after, .detail-content .tab:after, .content-item-list .item-row-1:after,
   .content-item-list .item-row-2:after,
@@ -17,14 +17,14 @@
   .content-item-list .item-row-5:after,
   .content-item-list .item-row-6:after,
   .content-item-list .item-row-7:after,
-  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .header .top-content:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
+  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .pop-up .wrap:after, .pop-up .pop-content:after, .header .top-content:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
   .content-item-list .item-row-2:before,
   .content-item-list .item-row-3:before,
   .content-item-list .item-row-4:before,
   .content-item-list .item-row-5:before,
   .content-item-list .item-row-6:before,
   .content-item-list .item-row-7:before,
-  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before {
+  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before, .pop-up .wrap:before, .pop-up .pop-content:before {
     content: " ";
     display: table;
     clear: both; }
@@ -36,7 +36,7 @@
 .content-item-list .item-row-5,
 .content-item-list .item-row-6,
 .content-item-list .item-row-7,
-.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner {
+.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner, .pop-up .wrap, .pop-up .pop-content {
   *zoom: 1; }
   .header .top-content:after, .about-us:after, .approve:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .invest .invest-info:after, .invest .data-row-2:after, .invest .data-row-3:after, .detail-content:after, .detail-content .tab:after, .content-item-list .item-row-1:after,
   .content-item-list .item-row-2:after,
@@ -45,14 +45,14 @@
   .content-item-list .item-row-5:after,
   .content-item-list .item-row-6:after,
   .content-item-list .item-row-7:after,
-  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .header .top-content:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
+  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .pop-up .wrap:after, .pop-up .pop-content:after, .header .top-content:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
   .content-item-list .item-row-2:before,
   .content-item-list .item-row-3:before,
   .content-item-list .item-row-4:before,
   .content-item-list .item-row-5:before,
   .content-item-list .item-row-6:before,
   .content-item-list .item-row-7:before,
-  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before {
+  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before, .pop-up .wrap:before, .pop-up .pop-content:before {
     content: " ";
     display: table;
     clear: both; }
@@ -71,7 +71,7 @@
 .content-item-list .item-row-5,
 .content-item-list .item-row-6,
 .content-item-list .item-row-7,
-.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner {
+.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner, .pop-up .wrap, .pop-up .pop-content {
   *zoom: 1; }
   .header .top-content:after, .about-us:after, .approve:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .invest .invest-info:after, .invest .data-row-2:after, .invest .data-row-3:after, .detail-content:after, .detail-content .tab:after, .content-item-list .item-row-1:after,
   .content-item-list .item-row-2:after,
@@ -80,14 +80,14 @@
   .content-item-list .item-row-5:after,
   .content-item-list .item-row-6:after,
   .content-item-list .item-row-7:after,
-  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .header .top-content:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
+  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .pop-up .wrap:after, .pop-up .pop-content:after, .header .top-content:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
   .content-item-list .item-row-2:before,
   .content-item-list .item-row-3:before,
   .content-item-list .item-row-4:before,
   .content-item-list .item-row-5:before,
   .content-item-list .item-row-6:before,
   .content-item-list .item-row-7:before,
-  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before {
+  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before, .pop-up .wrap:before, .pop-up .pop-content:before {
     content: " ";
     display: table;
     clear: both; }
@@ -99,7 +99,7 @@
 .content-item-list .item-row-5,
 .content-item-list .item-row-6,
 .content-item-list .item-row-7,
-.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner {
+.content-item-list .item-row-8, .content-question .ask-head, .content-discuss .ask-head, .content-question .each-question, .content-discuss .each-question, .content-joiner, .pop-up .wrap, .pop-up .pop-content {
   *zoom: 1; }
   .header .top-content:after, .about-us:after, .approve:after, .recommend-box ul:after, .recommend-box .recommend-progress:after, .recommend-box .recommend-join:after, .invest .invest-info:after, .invest .data-row-2:after, .invest .data-row-3:after, .detail-content:after, .detail-content .tab:after, .content-item-list .item-row-1:after,
   .content-item-list .item-row-2:after,
@@ -108,14 +108,14 @@
   .content-item-list .item-row-5:after,
   .content-item-list .item-row-6:after,
   .content-item-list .item-row-7:after,
-  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .header .top-content:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
+  .content-item-list .item-row-8:after, .content-question .ask-head:after, .content-discuss .ask-head:after, .content-question .each-question:after, .content-discuss .each-question:after, .content-joiner:after, .pop-up .wrap:after, .pop-up .pop-content:after, .header .top-content:before, .about-us:before, .approve:before, .recommend-box ul:before, .recommend-box .recommend-progress:before, .recommend-box .recommend-join:before, .invest .invest-info:before, .invest .data-row-2:before, .invest .data-row-3:before, .detail-content:before, .detail-content .tab:before, .content-item-list .item-row-1:before,
   .content-item-list .item-row-2:before,
   .content-item-list .item-row-3:before,
   .content-item-list .item-row-4:before,
   .content-item-list .item-row-5:before,
   .content-item-list .item-row-6:before,
   .content-item-list .item-row-7:before,
-  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before {
+  .content-item-list .item-row-8:before, .content-question .ask-head:before, .content-discuss .ask-head:before, .content-question .each-question:before, .content-discuss .each-question:before, .content-joiner:before, .pop-up .wrap:before, .pop-up .pop-content:before {
     content: " ";
     display: table;
     clear: both; }
@@ -1065,5 +1065,99 @@ body {
   width: 50px;
   height: 75px;
   background: url("../core/images/detail/turn-left.png"); }
+
+.pop-up {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); }
+  .pop-up .wrap {
+    margin: 150px auto;
+    width: 410px;
+    border-radius: 8px;
+    box-shadow: black 0 0 20px;
+    background: white;
+    font-size: 14px; }
+  .pop-up .inner {
+    border-radius: 8px;
+    overflow: hidden; }
+  .pop-up h3 {
+    padding: 10px 20px;
+    background: #ff6d6d;
+    color: white; }
+    .pop-up h3 .pop-title {
+      color: white;
+      font-size: 18px; }
+    .pop-up h3 .close {
+      float: right;
+      color: white;
+      cursor: pointer;
+      font-weight: 100; }
+      .pop-up h3 .close:hover {
+        color: #555555; }
+  .pop-up .pop-content {
+    width: 290px;
+    margin: 20px auto 40px; }
+  .pop-up .pop-btn {
+    margin-top: 20px;
+    text-align: right; }
+  .pop-up .pop-confirm {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 60px;
+    height: 30px;
+    font-size: 16px;
+    background: #ff6d6d;
+    border-radius: 3px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .pop-up .pop-confirm:hover {
+      background: #970203; }
+  .pop-up .pop-cancel {
+    margin-left: 10px;
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 60px;
+    height: 30px;
+    font-size: 16px;
+    background: #cccccc;
+    border-radius: 3px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    color: black; }
+    .pop-up .pop-cancel:hover {
+      background: #bbb; }
+  .pop-up .pop-address-title {
+    padding-top: 20px; }
+  .pop-up .pop-address-value {
+    padding-top: 10px;
+    line-height: 20px; }
+  .pop-up .pop-phone {
+    border: 1px solid #cccccc;
+    padding-left: 10px;
+    width: 250px;
+    height: 25px; }
+  .pop-up .pop-text-box {
+    border: 1px solid #cccccc;
+    padding: 10px; }
+  .pop-up .pop-text {
+    display: block;
+    border: none;
+    width: 98%;
+    height: 100px;
+    font-size: 16px; }
+  .pop-up .pop-error {
+    color: #ff6d6d;
+    font-size: 12px; }
 
 /*# sourceMappingURL=../../maps/detail/detail.css.map */

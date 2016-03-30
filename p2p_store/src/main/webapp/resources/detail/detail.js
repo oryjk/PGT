@@ -47,6 +47,55 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
             }
         });
 
+        var pop = $('#popUp');
+        var close = $('#popClose, #popReset');
+        var popSubmit = $('#popSubmit');
+        var sayPhone = $('#sayPhone');
+        var sayText = $('#sayText');
+        var sayError = $('#sayError');
+        var popFormDom = document.getElementById('popForm');
+        var popTips = $('#popTips');
+
+        $(document).on('click', '.touch-him', function (event) {
+            event.preventDefault();
+            popFormDom.reset();
+            sayError.html('');
+            pop.fadeIn(300);
+        });
+        close.click(function () {
+            pop.fadeOut(300);
+        });
+        pop.click(function (event) {
+            if (event.target == this) {
+                pop.fadeOut();
+            }
+        });
+        popSubmit.click(function () {
+            if (/1[0-9]{10}/g.test(sayPhone.val())) {
+                $.ajax({
+                    data: {
+                        phone: sayPhone.val(),
+                        text: sayText.val()
+                    }
+                }).done(function (res) {
+                    if (res.flag == 1) {
+                        popTips.html('提交成功');
+                        setTimeout(function () {
+                            pop.fadeOut();
+                        },1000);
+                    } else {
+                        popTips.html('提交失败');
+
+                    }
+                })
+            }
+        });
+
+
+
+
+
+
         $(".detail-content>ul>li").click(function (event) {
             event.preventDefault();
 
@@ -72,6 +121,8 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
         var setQuantity = function (obj, num) {
             $(obj).parent('.each-item').find('.quantity').val(num);
         };
+
+
         //add product quantity
         $(".item-buy-plus").click(function () {
 
@@ -90,11 +141,7 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
             $(this).parent().prev().text(num);
             setQuantity(this, num);
         });
-
-
         //reduce product quantity
-
-
         $(".item-buy-minus").click(function () {
 
             var num = $(this).parent().prev().text();

@@ -214,7 +214,7 @@
             <li><a href="#">产品讨论</a><span class="tab-item-count">250</span></li>
             <li><a href="#">参与者</a><span class="tab-item-count">250</span></li>
         </ul>
-        <div class="content-box"    >
+        <div class="content-box">
             <!-- super: 以下五个tab对应的content,添加类content-choose时显示,不添加时隐藏,默认第一个显示-->
             <!-- content-item-list begin -->
             <div class="content-item-list content-choose">
@@ -940,6 +940,39 @@
     <a class="turn-right" href="#"></a>
     <a class="turn-left" href="#"></a>
     <!-- turn left and right end-->
+
+    <!--pop begin-->
+    <div id="popUp" class="pop-up">
+        <div class="wrap">
+            <div class="inner">
+                <h3>
+                    <span id="popTitle" class="pop-title">与他联系</span>
+                    <span id="popClose" class="close">X</span>
+                </h3>
+                <form id="popForm" class="pop-content" action="">
+
+                    <div class="pop-address-title">您的手机号: <span class="pop-error" id="sayError"></span></div>
+                    <div class="pop-address-value"><input name="phone" id="sayPhone" class="pop-phone" type="text"/></div>
+
+                    <div class="pop-address-title">想对他说的话: </div>
+                    <div class="pop-address-value">
+                        <div class="pop-text-box">
+                            <textarea name="text" id="sayText" class="pop-text"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="pop-address-value">备注: 请输入对他的留言, 我们将尽快向他转答.</div>
+
+                    <div class="pop-btn">
+                        <span id="popTips"></span>
+                        <input id="popSubmit" class="pop-confirm" type="button" value="确认"/>
+                        <input id="popReset" class="pop-cancel" type="reset" value="取消"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--pop end-->
     <script src="../core/js/require.js" data-main="detail"></script>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 </body>
