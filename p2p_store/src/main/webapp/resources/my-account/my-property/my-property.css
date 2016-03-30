@@ -28,6 +28,9 @@
     display: table;
     clear: both; }
 
+.info-import .row1 {
+  overflow: hidden; }
+
 .already-binding .already-row-1,
 .already-binding .already-row-2,
 .already-binding .already-row-3,
@@ -55,6 +58,9 @@
     content: " ";
     display: table;
     clear: both; }
+
+.info-import .row1 {
+  overflow: hidden; }
 
 /*select*/
 /*color-btn*/
@@ -167,5 +173,48 @@
   .already-binding .already-row-7,
   .already-binding .already-row-8 {
     padding-top: 23px; }
+
+.info-import {
+  padding-top: 40px;
+  color: #555555; }
+  .info-import .row1 {
+    height: 40px;
+    line-height: 35px; }
+  .info-import .row-title {
+    float: left;
+    width: 280px;
+    text-align: right; }
+  .info-import .row-text {
+    float: left;
+    padding-left: 45px; }
+  .info-import .input-text {
+    border: 1px solid #cccccc;
+    width: 200px;
+    height: 25px; }
+    .info-import .input-text:focus {
+      border-color: #207c40; }
+  .info-import label {
+    padding-right: 20px; }
+  .info-import .row-tips {
+    padding-left: 25px;
+    font-size: 14px;
+    color: #c90304; }
+  .info-import .row2 {
+    padding: 25px 0 0 325px; }
+  .info-import .yeepay-btn {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 100px;
+    height: 32px;
+    font-size: 16px;
+    background: #2ba455;
+    border-radius: 3px;
+    line-height: 32px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .info-import .yeepay-btn:hover {
+      background: #207c40; }
 
 /*# sourceMappingURL=../../../maps/my-account/my-property/my-property.css.map */
