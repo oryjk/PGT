@@ -331,7 +331,8 @@ a {
   .content-product-list .content-end-left {
     float: left;
     width: 200px;
-    height: 345px; }
+    height: 345px;
+    background: url("../core/images/shipping/success.png") no-repeat 100px 30px; }
   .content-product-list .content-end-right {
     float: right;
     padding-right: 50px;

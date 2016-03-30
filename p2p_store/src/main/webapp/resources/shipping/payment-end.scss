@@ -62,6 +62,8 @@ a {
   .content-end-left{
     float: left;
     @include wh(200px,345px);
+    background: url("../core/images/shipping/success.png") no-repeat 100px 30px;
+
   }
 
   .content-end-right{
