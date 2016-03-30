@@ -151,7 +151,8 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                     if (!ObjectUtils.isEmpty(category)) {
                         rootCategory = category.getParent();
                     }
-                    ESTender esTender = new ESTender(tender, category, rootCategory);
+                    List<Map<String, String>> buyerMap = tenderService.queryBuyersByTenderId(tender.getTenderId());
+                    ESTender esTender = new ESTender(tender, category, rootCategory, buyerMap);
                     ObjectMapper mapper = new ObjectMapper();
                     String data = null;
                     try {
@@ -196,7 +197,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                                      ESAggregation categoryIdAggregation, String indexType) {
         SearchResponse response = null;
         try {
-            SearchRequestBuilder searchRequestBuilder ;
+            SearchRequestBuilder searchRequestBuilder;
             if (ObjectUtils.isEmpty(indexType)) {
                 searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
             } else {
@@ -252,7 +253,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, category, rootCategory);
+            ESTender esTender = new ESTender(tender, category, rootCategory, null);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -287,7 +288,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, category, rootCategory);
+            ESTender esTender = new ESTender(tender, category, rootCategory, null);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);

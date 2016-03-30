@@ -626,3 +626,44 @@ body {
   @include wh(50px, 75px);
   background: url('../core/images/detail/turn-left.png');
 }
+
+.pop-up {
+  @include pop(410px);
+
+  .pop-address-title {
+    padding-top: 20px;
+  }
+
+  .pop-address-value {
+    padding-top: 10px;
+    line-height: 20px;
+  }
+
+  .pop-phone {
+    border: 1px solid $gray-light;
+    padding-left: 10px;
+    @include wh(250px, 25px);
+  }
+
+  .pop-text-box {
+    border: 1px solid $gray-light;
+    padding: 10px;
+  }
+
+  .pop-text {
+    display: block;
+    border: none;
+    @include wh(98%, 100px);
+    font-size: 16px;
+  }
+
+  .pop-error {
+    color: $main;
+    font-size: 12px;
+  }
+
+  .pop-tips {
+    padding-right: 20px;
+  }
+
+}

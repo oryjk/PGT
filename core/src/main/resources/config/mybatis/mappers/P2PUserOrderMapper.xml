@@ -53,6 +53,7 @@
 		<result column="p2p_info_id" property="p2pInfoId" />
 		<result column="HOLDER_ALIAS" property="holderAlias" />
 		<association column="p2p_info_id" property="p2pInfo" select="loadP2PInfo" />
+		<association column="p2p_info_id" property="tender" select="loadTenderByP2PInfo" />
 		<association column="order_id" property="shippingVO"
 		             select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
 		<association column="order_id" property="payment"

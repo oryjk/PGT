@@ -260,6 +260,7 @@
 		<result property="alias" column="HOLDER_ALIAS"/>
 		<result property="productName" column="NAME"/>
 		<result property="path" column="PATH"/>
+		<result property="userId" column="USER_ID"/>
 	</resultMap>
 
 	<select id="getBuyers" parameterType="int" resultMap="buyerMap">

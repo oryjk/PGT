@@ -2,19 +2,20 @@ package com.pgt.sms.controller;
 
 import com.pgt.constant.Constants;
 import com.pgt.sms.service.SmsService;
+import com.pgt.tender.bean.TenderBuyer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleCacheManager;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -53,7 +54,7 @@ public class SMSController {
 
     @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
     public void sendResetPasswordSms(@RequestParam(value = "phoneNumber", required = true) String phoneNumber,
-                                @RequestParam(value = "phoneId", required = false) String phoneId, HttpServletRequest request) {
+                                     @RequestParam(value = "phoneId", required = false) String phoneId, HttpServletRequest request) {
         LOGGER.debug("The phone number is {},phone id is {},", phoneNumber, phoneId);
         String phoneCode = generate();
         LOGGER.debug("The phone code is {}", phoneCode);
@@ -62,13 +63,42 @@ public class SMSController {
     }
 
     @RequestMapping(value = "/onlinePawn", method = RequestMethod.GET)
-    public void sendOnlinePawnSms (@RequestParam(value = "phoneNumber", required = true) String phoneNumber,
-                                   @RequestParam(value = "phoneId", required = false) String phoneId, HttpServletRequest request) {
+    public void sendOnlinePawnSms(@RequestParam(value = "phoneNumber", required = true) String phoneNumber,
+                                  @RequestParam(value = "phoneId", required = false) String phoneId, HttpServletRequest request) {
         LOGGER.debug("The phone number is {},phone id is {},", phoneNumber, phoneId);
         String phoneCode = generate();
         LOGGER.debug("The phone code is {}", phoneCode);
         savePhoneCode(request, phoneCode, Constants.ONLINEPAWN_SESSION_PHONE_CODE, phoneId);
         smsService.sendOnlinePawnSms(phoneNumber, phoneCode);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/sendToBuyer", method = RequestMethod.POST)
+    public Map<String, String> sendToBuyer(TenderBuyer tenderBuyer) {
+        Map<String, String> map = new HashMap<>();
+        if (ObjectUtils.isEmpty(tenderBuyer)) {
+            map.put("success", "false");
+            LOGGER.debug("The tender buyer is empty.");
+            return map;
+        }
+        if (ObjectUtils.isEmpty(tenderBuyer.getSellerId())) {
+            map.put("success", "false");
+            LOGGER.debug("The seller is empty.");
+            return map;
+        }
+        if (ObjectUtils.isEmpty(tenderBuyer.getBuyerNumber())) {
+            map.put("success", "false");
+            LOGGER.debug("The buyer phone number is empty.");
+            return map;
+        }
+        if (ObjectUtils.isEmpty(tenderBuyer.getMessage())) {
+            map.put("success", "false");
+            LOGGER.debug("The buyer message is empty.");
+            return map;
+        }
+        smsService.sendToBuyer(tenderBuyer);
+        map.put("success", "true");
+        return map;
     }
 
 
