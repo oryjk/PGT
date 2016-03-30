@@ -21,7 +21,7 @@ public interface UserMapper extends SqlMapper {
 
     List<User> selectAll();
 
-    User authorize(String username);
+    List<User> authorize(String authorizeValue);
 
     void updateLastLogin(Long id);
 }

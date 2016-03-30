@@ -71,7 +71,7 @@ public class BaseCategoryController {
 			paginationBean.setCapacity(configuration.getPlpCapacity());
 			paginationBean.setCurrentIndex(Long.parseLong(currentIndex));
 			SearchResponse searchResponse = esSearchService.findProductsByCategoryId(categoryId, null, null,
-					paginationBean, null);
+					paginationBean, null, null);
 
 			SearchHits searchHits = searchResponse.getHits();
 			Long total = searchHits.getTotalHits();

@@ -33,7 +33,7 @@ public class PriceOrderService {
 		pOrder.resetOrderPrice();
 		priceCommerceItemsOfOrder(pOrder);
 		priceShipping(pOrder);
-		double orderTotal = roundPrice(pOrder.getSubtotal() + pOrder.getShippingFee());
+		double orderTotal = roundPrice(pOrder.getSubtotal());
 		pOrder.setTotal(orderTotal);
 		LOGGER.debug("Priced order and get order total: {}", pOrder.getTotal());
 	}

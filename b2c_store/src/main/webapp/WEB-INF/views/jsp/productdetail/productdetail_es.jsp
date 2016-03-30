@@ -14,9 +14,9 @@
                 <div class="middle-pic">
                     <img id="middlePic"
                         src="${pageContext.request.contextPath}/resources${product['heroMedias'][0]['path']}"   
-                        alt="1" />
+                        alt="${product.imageDesc}" />
                     <c:if test="${product.stock<1}">
-                    <div class="out-of-stock"></div>
+                    <div id="outOfStock" class="out-of-stock"></div>
                     </c:if>
                     <div id="glass" class="glass"></div>   
                 </div>
@@ -24,7 +24,7 @@
                     <c:forEach items="${product.heroMedias}" var="productMedia">
                         <li><img
                             src="${pageContext.request.contextPath}/resources${productMedia['path']}"
-                            alt="" /></li>
+                            alt="${product.imageDesc}" /></li>
                     </c:forEach>
                 </ul>
             </div>

@@ -19,15 +19,18 @@
 	<resultMap id="orderWithCommerceItem" type="com.pgt.cart.bean.Order">
 		<id column="order_id" property="id" />
 		<result column="user_id" property="userId" />
+		<result column="order_type" property="type" />
 		<result column="status" property="status" />
-		<result column="shipping_fee" property="shippingFee" />
 		<result column="subtotal" property="subtotal" />
 		<result column="total" property="total" />
 		<result column="user_comments" property="userComments" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 		<result column="submit_Date" property="submitDate" />
+		<result column="P2P_INFO_ID" property="p2pInfoId" />
+		<result column="HOLDER_ALIAS" property="holderAlias" />
 		<association column="order_id" property="shippingVO" select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
+		<association column="order_id" property="payment" select="com.pgt.payment.dao.PaymentMapper.findPaymentGroupByOrderId" />
 		<collection column="order_id" property="commerceItems" select="loadCommerceItemsFromOrder" />
 	</resultMap>
 
@@ -35,58 +38,83 @@
 		<id column="id" property="id" />
 		<result column="user_id" property="userId" />
 		<result column="prod_id" property="productId" />
+		<result column="type" property="type" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 	</resultMap>
 
 	<select id="querySubmittedOrderCount" resultType="long">
-		SELECT COUNT(o.order_id)
+		SELECT COUNT(o.ORDER_ID)
 		FROM `ORDER` o
-		WHERE o.user_id = #{userId}
+		WHERE o.USER_ID = #{userId}
 		<choose>
 			<when test="orderStatus &gt; 0">
-				AND o.status = #{orderStatus}
+				AND o.STATUS = #{orderStatus}
 			</when>
 			<otherwise>
-				AND o.status != 10
+				AND o.STATUS != 10
 			</otherwise>
 		</choose>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
-			AND (o.order_id = #{pagination.keyword}
-			OR o.order_id IN (
-			SELECT DISTINCT order_id
+			AND (o.ORDER_ID = #{pagination.keyword}
+			OR o.ORDER_ID IN (
+			SELECT DISTINCT ORDER_ID
 			FROM COMMERCE_ITEM ci
-			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%')))
+			WHERE ci.NAME LIKE CONCAT('%', #{pagination.keyword}, '%')))
 		</if>
 	</select>
 
 	<select id="querySubmittedOrderPage" resultMap="orderWithCommerceItem">
 		SELECT o.*
 		FROM `ORDER` o
-		WHERE o.user_id = #{userId}
+		WHERE o.USER_ID = #{userId}
 		<choose>
 			<when test="orderStatus &gt; 0">
-				AND o.status = #{orderStatus}
+				AND o.STATUS = #{orderStatus}
 			</when>
 			<otherwise>
-				AND o.status != 10
+				AND o.STATUS != 10
 			</otherwise>
 		</choose>
 		<if test="@Ognl@isNotBlankString(pagination.keyword)">
-			AND (o.order_id = #{pagination.keyword}
-			OR o.order_id IN (
-			SELECT DISTINCT order_id
+			AND (o.ORDER_ID = #{pagination.keyword}
+			OR o.ORDER_ID IN (
+			SELECT DISTINCT ORDER_ID
 			FROM COMMERCE_ITEM ci
-			WHERE ci.name LIKE CONCAT('%', #{pagination.keyword}, '%')))
+			WHERE ci.NAME LIKE CONCAT('%', #{pagination.keyword}, '%')))
 		</if>
 		<include refid="limit-split-page" />
 	</select>
 
-	<select id="loadCommerceItemsFromOrder" parameterType="int" resultMap="com.pgt.cart.dao.ShoppingCartDao.commerceItem">
-		SELECT commerce_item_id, order_id, ci.reference_id, name, quality, list_price, sale_price, quantity, amount, snapshot_id, ci.`index`,
-		creation_date, update_date, m.media_id, m.title, m.path
+	<select id="loadCommerceItemsFromOrder" parameterType="int"
+	        resultMap="com.pgt.cart.dao.ShoppingCartDao.commerceItem">
+		SELECT
+			ci.commerce_item_id,
+			order_id,
+			ci.reference_id,
+			`name`,
+			quality,
+			list_price,
+			sale_price,
+			quantity,
+			amount,
+			snapshot_id,
+			ci.`index`,
+			merchant,
+			creation_date,
+			update_date,
+			consignor,
+			delivered,
+			received,
+			logistics,
+			delivery_time,
+			tracking_no,
+			m.media_id,
+			m.title,
+			m.path
 		FROM COMMERCE_ITEM ci
-		LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
+			LEFT JOIN COMMERCE_ITEM_DELIVERY cid ON ci.commerce_item_id = cid.commerce_item_id
+			LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
 		WHERE order_id = #{orderId}
 		ORDER BY `index`
 	</select>
@@ -94,14 +122,15 @@
 	<select id="loadOrderHistory" parameterType="int" resultMap="orderWithCommerceItem">
 		SELECT *
 		FROM `ORDER` o
-		WHERE o.order_id = #{orderId}
+		WHERE o.ORDER_ID = #{orderId}
 	</select>
 
 	<select id="queryBrowsedProducts" parameterType="int" resultMap="browsedProduct">
 		SELECT *
 		FROM RECENT_BROWSE
-		WHERE user_id = #{userId}
-		ORDER BY update_date DESC
+		WHERE USER_ID = #{userId}
+		AND `TYPE` = #{type}
+		ORDER BY UPDATE_DATE DESC
 	</select>
 
 	<update id="resetBrowsedProductUpdateDate" parameterType="int">
@@ -112,21 +141,33 @@
 
 	<update id="replaceBrowsedProductRecord">
 		UPDATE RECENT_BROWSE
-		SET prod_id = #{productId}, creation_date = now(), update_date = now()
+		SET PROD_ID = #{productId}, CREATION_DATE = now(), UPDATE_DATE = now()
 		WHERE id = #{browsedProductId}
 	</update>
 
-	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO RECENT_BROWSE (user_id, prod_id, creation_date, update_date)
-		VALUES (#{userId}, #{productId}, now(), now())
+	<insert id="createBrowsedProductRecord" parameterType="com.pgt.cart.bean.BrowsedProductVO" useGeneratedKeys="true"
+	        keyProperty="id">
+		INSERT INTO RECENT_BROWSE (USER_ID, PROD_ID, TYPE, CREATION_DATE, UPDATE_DATE)
+		VALUES ( #{userId}, #{productId}, #{type}, now(), now() )
 	</insert>
 
 	<update id="resetBrowsedProductsBatchUpdateDate">
 		<foreach collection="list" item="item" open="" close="" separator=";">
 			UPDATE RECENT_BROWSE
-			SET update_date = now()
-			WHERE id = #{item}
+			SET UPDATE_DATE = now()
+			WHERE ID = #{item}
 		</foreach>
 	</update>
 
+	<select id="findRelatedOrder" parameterType="int" resultMap="orderWithCommerceItem">
+		SELECT O.* FROM `ORDER` AS O
+		INNER JOIN COMMERCE_ITEM AS C ON C.ORDER_ID = O.ORDER_ID
+		WHERE C.REFERENCE_ID = #{id}
+	</select>
+
+	<update id="updateCommerceItemStatus" >
+		UPDATE COMMERCE_ITEM
+		SET OCCUPY = #{ocuppy}
+		WHERE REFERENCE_ID = #{productId}
+	</update>
 </mapper>

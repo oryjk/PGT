@@ -7,6 +7,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/user/login.css"/>"/>
 </head>
 <body>
@@ -16,7 +17,7 @@
 
 <div class="content-box">
     <div class="content" style="background: url('<spring:url value="${juedangpinStaticPath}/core/images/user/login-bg.jpg"/>') center 0 no-repeat;">
-        <form:form commandName="user" method="post" action="login" id="login">
+        <form:form modelAttribute="user" method="post" action="login" id="login">
             <div class="login-head">
                 <c:set var="registerUrl" value="register"/>
                 <c:if test="${param.redirect!=null}">
@@ -56,13 +57,21 @@
             </div>
             <form:input id="loginCount" type="hidden" path="count" value=""/>
             <input type="hidden" name="redirect" value="${param.redirect }"/>
+            <div class="domain">
+                快捷登录方式：
+                <a href="/qqLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/QQ.png"/>"></a>
+                <a href="/weChatLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/wet.jpg"/>"></a>
+                <a href="/microBlogLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/sina.jpg"/>"></a>
+            </div>
         </form:form>
+
     </div>
 </div>
 
 <div class="footer" id="footer">
     <jsp:include page="../core/footer-simple.jsp"/>
 </div>
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
         data-main="<spring:url value="${juedangpinStaticPath}/user/login.js"/>"></script>

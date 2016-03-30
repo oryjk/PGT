@@ -6,14 +6,20 @@
 	<resultMap id="order" type="com.pgt.cart.bean.Order">
 		<id column="order_id" property="id" />
 		<result column="user_id" property="userId" />
+		<result column="order_type" property="type" />
 		<result column="status" property="status" />
-		<result column="shipping_fee" property="shippingFee" />
 		<result column="subtotal" property="subtotal" />
 		<result column="total" property="total" />
 		<result column="user_comments" property="userComments" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
 		<result column="easy_buy" property="easyBuy" />
+		<result column="P2P_INFO_ID" property="p2pInfoId" />
+		<result column="HOLDER_ALIAS" property="holderAlias" />
+		<association column="order_id" property="shippingVO"
+		             select="com.pgt.shipping.dao.ShippingVOMapper.findShippingByOrderId" />
+		<association column="order_id" property="payment"
+		             select="com.pgt.payment.dao.PaymentMapper.findPaymentGroupByOrderId" />
 	</resultMap>
 
 	<resultMap id="commerceItem" type="com.pgt.cart.bean.CommerceItem">
@@ -28,9 +34,22 @@
 		<result column="amount" property="amount" />
 		<result column="snapshot_id" property="snapshotId" />
 		<result column="index" property="index" />
+		<result column="merchant" property="merchant" />
 		<result column="creation_date" property="creationDate" />
 		<result column="update_date" property="updateDate" />
-		<association column="snapshot_id" property="snapshotMedia" resultMap="com.pgt.product.dao.ProductMapper.productMedia" />
+		<association column="commerce_item_id" property="delivery" resultMap="delivery" />
+		<association column="snapshot_id" property="snapshotMedia"
+		             resultMap="com.pgt.product.dao.ProductMapper.productMedia" />
+	</resultMap>
+
+	<resultMap id="delivery" type="com.pgt.cart.bean.Delivery">
+		<id column="commerce_item_id" property="commerceItemId" />
+		<result column="consignor" property="consignor" />
+		<result column="delivered" property="delivered" />
+		<result column="received" property="received" />
+		<result column="logistics" property="logistics" />
+		<result column="delivery_time" property="deliveryTime" />
+		<result column="tracking_no" property="trackingNo" />
 	</resultMap>
 
 	<resultMap id="productPrice" type="com.pgt.cart.bean.ProductPriceVector">
@@ -39,50 +58,84 @@
 		<result column="sale_price" property="salePrice" />
 	</resultMap>
 
+	<resultMap id="productInventory" type="com.pgt.cart.bean.ProductInventoryVector">
+		<id column="product_id" property="productId" />
+		<result column="stock" property="stock" />
+	</resultMap>
+
 	<select id="loadInitialOrderByUserId" parameterType="int" resultMap="order">
 		SELECT *
 		FROM `ORDER` o
-		WHERE o.user_id = #{userId}
-		AND o.status = 1
+		WHERE o.USER_ID = #{userId}
+		AND EASY_BUY = 0
+		AND o.STATUS = 10
+	</select>
+
+	<select id="loadInitialOrdersByUserId" parameterType="int" resultMap="order">
+		SELECT *
+		FROM `ORDER` o
+		WHERE o.USER_ID = #{userId}
+		AND EASY_BUY = 0
+		AND o.STATUS = 10
 	</select>
 
 	<insert id="createOrder" parameterType="com.pgt.cart.bean.Order" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO `ORDER` (user_id, status, shipping_fee, subtotal, total, creation_date, update_date, easy_buy, user_comments)
-		VALUES (#{userId}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments})
+		INSERT INTO `ORDER` (USER_ID, ORDER_TYPE, `STATUS`, SHIPPING_FEE, SUBTOTAL, TOTAL, CREATION_DATE, UPDATE_DATE, EASY_BUY, USER_COMMENTS, `TYPE`, P2P_INFO_ID, HOLDER_ALIAS)
+		VALUES ( #{userId}, #{type}, #{status}, #{shippingFee}, #{subtotal}, #{total}, now(), now(), #{easyBuy}, #{userComments}, #{type}, #{p2pInfoId},  #{holderAlias})
 	</insert>
 
 	<update id="updateOrder" parameterType="com.pgt.cart.bean.Order">
 		UPDATE `ORDER`
 		<set>
-			status = #{status}, shipping_fee = #{shippingFee}, subtotal = #{subtotal}, total = #{total}, user_comments = #{userComments},
-			submit_date = #{submitDate}, update_date = now()
+			`STATUS` = #{status}, SHIPPING_FEE = #{shippingFee}, SUBTOTAL = #{subtotal}, TOTAL = #{total}, USER_COMMENTS
+			= #{userComments}, `TYPE` = #{type}, P2P_INFO_ID = #{p2pInfoId},HOLDER_ALIAS = #{holderAlias},
+			SUBMIT_DATE = #{submitDate}, UPDATE_DATE = now()
 		</set>
-		WHERE order_id = #{id}
+		WHERE ORDER_ID = #{id}
 	</update>
 
-	<insert id="createCommerceItem" parameterType="com.pgt.cart.bean.CommerceItem" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO COMMERCE_ITEM (order_id, reference_id, name, quality, list_price, sale_price, quantity, amount, snapshot_id, `index`, creation_date, update_date)
-		VALUES (#{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, now(), now())
+	<insert id="createCommerceItem" parameterType="com.pgt.cart.bean.CommerceItem" useGeneratedKeys="true"
+	        keyProperty="id">
+		INSERT INTO COMMERCE_ITEM (ORDER_ID, REFERENCE_ID, `NAME`, QUALITY, LIST_PRICE, SALE_PRICE, QUANTITY, AMOUNT, SNAPSHOT_ID, `INDEX`, MERCHANT, CREATION_DATE, UPDATE_DATE, `TYPE`)
+		VALUES ( #{orderId}, #{referenceId}, #{name}, #{quality}, #{listPrice}, #{salePrice}, #{quantity}, #{amount}, #{snapshotId}, #{index}, #{merchant}, now(), now(), #{type} )
 	</insert>
 
 	<update id="updateCommerceItems" parameterType="list">
 		<foreach collection="list" item="item" open="" close="" separator=";">
 			UPDATE COMMERCE_ITEM
 			<set>
-				order_id = #{item.orderId}, reference_id = #{item.referenceId}, name = #{item.name}, quality = #{item.quality}, list_price = #{item.listPrice},
-				sale_price = #{item.salePrice}, quantity = #{item.quantity}, amount = #{item.amount}, snapshot_id = #{item.snapshotId},
-				`index` = #{item.index}, update_date = now()
+				ORDER_ID = #{item.orderId}, REFERENCE_ID = #{item.referenceId}, `NAME` = #{item.name}, QUALITY =
+				#{item.quality}, LIST_PRICE = #{item.listPrice},
+				SALE_PRICE = #{item.salePrice}, QUANTITY = #{item.quantity}, AMOUNT = #{item.amount}, SNAPSHOT_ID =
+				#{item.snapshotId}, MERCHANT = #{item.merchant},
+				`INDEX` = #{item.index}, UPDATE_DATE = now(), `TYPE` = #{item.type}
 			</set>
-			WHERE commerce_item_id = #{item.id}
+			WHERE COMMERCE_ITEM_ID = #{item.id}
 		</foreach>
 	</update>
 
 	<select id="loadCommerceItemsFromOrderWithRealTimePrice" parameterType="int" resultMap="commerceItem">
-		SELECT ci.commerce_item_id, ci.order_id, ci.reference_id, ci.name, ci.quality, prod.list_price, prod.sale_price, ci.quantity, ci.amount,
-			ci.snapshot_id, ci.`index`, ci.creation_date, ci.update_date, m.media_id, m.title, m.path
+		SELECT
+			ci.commerce_item_id,
+			ci.order_id,
+			ci.reference_id,
+			ci.name,
+			ci.quality,
+			prod.list_price,
+			prod.sale_price,
+			ci.quantity,
+			ci.amount,
+			ci.snapshot_id,
+			ci.`index`,
+			ci.merchant,
+			ci.creation_date,
+			ci.update_date,
+			m.media_id,
+			m.title,
+			m.path
 		FROM COMMERCE_ITEM ci
-		LEFT JOIN PRODUCT prod ON ci.reference_id = prod.product_id
-		LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
+			LEFT JOIN PRODUCT prod ON ci.reference_id = prod.product_id
+			LEFT JOIN MEDIA m ON ci.snapshot_id = m.media_id
 		WHERE ci.order_id = #{orderId}
 		ORDER BY ci.index
 	</select>
@@ -101,12 +154,6 @@
 		WHERE commerce_item_id = #{commerceItemId}
 	</delete>
 
-	<select id="queryThumbnailMedia" parameterType="int" resultMap="com.pgt.product.dao.ProductMapper.productMedia">
-		SELECT *
-		FROM MEDIA
-		WHERE media_id = #{mediaId} AND type = 'thumbnail'
-	</select>
-
 	<delete id="deleteAllCommerceItems" parameterType="int">
 		DELETE FROM COMMERCE_ITEM
 		WHERE order_id = #{orderId}
@@ -115,6 +162,23 @@
 	<delete id="deleteCommerceItems">
 		DELETE FROM COMMERCE_ITEM
 		WHERE commerce_item_id IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="loadProductInventory" resultMap="productInventory">
+		SELECT product_id, stock
+		FROM PRODUCT prod
+		WHERE prod.product_id IN
+		<foreach collection="array" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+	<delete id="deleteOrders">
+		DELETE FROM `ORDER`
+		WHERE ORDER_ID IN
 		<foreach collection="list" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>

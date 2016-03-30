@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import com.pgt.category.service.CategoryService;
 import com.pgt.constant.Constants;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.search.SearchResponse;
@@ -33,14 +34,16 @@ public class ESSearchServiceTest {
     @Autowired
     private ESSearchService esSearchService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     // 建立商品的索引
     @Test
     public void productIndex() {
 
         esSearchService.initialIndex(true);
-        esSearchService.categoryIndex();
-        BulkResponse responses = esSearchService.productIndex();
-        esSearchService.hotProductIndex();
+        BulkResponse responses = esSearchService.productsIndex();
+        esSearchService.hotSaleIndex();
         Assert.assertFalse(responses.hasFailures());
 
     }
@@ -51,9 +54,25 @@ public class ESSearchServiceTest {
         ESSort esSort = new ESSort();
         esSort.setPropertyName(Constants.SORT);
         esSort.setSortOrder(SortOrder.ASC);
+
+
+
+
+
         SearchResponse response = esSearchService.findHotSales(esSort);
         Assert.assertNotNull(response);
     }
+
+    @Test
+    public void hotSaleIndex() {
+        esSearchService.hotSaleIndex();
+    }
+
+    @Test
+    public void createHotSaleProduct() {
+        esSearchService.createHotSaleIndex(43);
+    }
+
 
     // 取出数据
     @Test

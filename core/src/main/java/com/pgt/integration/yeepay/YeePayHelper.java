@@ -1,5 +1,6 @@
 package com.pgt.integration.yeepay;
 
+import com.pgt.user.bean.User;
 import com.yeepay.g3.utils.security.cfca.SignUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -151,28 +152,14 @@ public class YeePayHelper {
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		HttpPost httpPost = new HttpPost("http://127.0.0.1:8088/sign");
-		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair(YeePayConstants.PARAM_NAME_REQ, "hello"));
-		httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
-		CloseableHttpResponse response = httpclient.execute(httpPost);
-
-		try {
-			System.out.println(response.getStatusLine());
-			HttpEntity entity2 = response.getEntity();
-			// do something useful with the response body
-			// and ensure it is fully consumed
-
-			System.out.println(EntityUtils.toString(entity2));
-			EntityUtils.consume(entity2);
-		} finally {
-			response.close();
-		}
 
 	}
 	
-	public static String generateOutboundUserNo(YeePayConfig config, Long userId) {
-		return config.getPlatformUserNoPrefix() + userId;
+	public static String generateOutboundUserNo(YeePayConfig config, User user) {
+		if (StringUtils.isBlank(user.getYeepayUserNo())) {
+			return config.getPlatformUserNoPrefix() + user.getId();
+		}
+		return user.getYeepayUserNo();
 	}
 	
 	public static int parseUserId(YeePayConfig config, String platformUserNo) {

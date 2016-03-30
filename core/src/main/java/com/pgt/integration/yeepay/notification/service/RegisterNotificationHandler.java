@@ -3,7 +3,9 @@ package com.pgt.integration.yeepay.notification.service;
 import java.util.Date;
 import java.util.Map;
 
+import com.pgt.integration.yeepay.YeePayConfig;
 import com.pgt.integration.yeepay.YeePayException;
+import com.pgt.integration.yeepay.YeePayHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pgt.integration.yeepay.YeePayConstants;
@@ -14,48 +16,58 @@ import com.pgt.utils.Transactionable;
 
 public class RegisterNotificationHandler extends Transactionable implements YeepayNotificationHandler {
 
-	private UserMapper userMapper;
-	
-	@Override
-	public void handleCallback(Map<String, String> inboundParams, TransactionLog transactionLog) throws YeePayException {
-		Long userId = transactionLog.getUserId();
-		// check user is registored or not
+    private UserMapper userMapper;
+    @Autowired
+    private YeePayConfig config;
 
-		ensureTransaction();
-		try {
-			User user = getUserMapper().selectUser(userId.intValue());
-			if (user.getYeepayStatus() == YeePayConstants.REGISTOR_STATUS_SUCCESS) {
-				return;
-			}
-			String code = inboundParams.get(YeePayConstants.PARAM_NAME_CODE);
-			if (YeePayConstants.CODE_SUCCESS.equals(code)) {
-				user.setYeepayStatus(YeePayConstants.REGISTOR_STATUS_SUCCESS);
-			} else {
-				user.setYeepayStatus(YeePayConstants.REGISTOR_STATUS_FAILD);
-			}
-			user.setYeepayRegistoredDate(new Date());
-			getUserMapper().update(user);
-		} catch (Exception e) {
-			setAsRollback();
-			throw new YeePayException(e);
-		} finally {
-			commit();
-		}
-	}
-	
-	
+    @Override
+    public void handleCallback(Map<String, String> inboundParams, TransactionLog transactionLog) throws YeePayException {
+        Long userId = transactionLog.getUserId();
+        // check user is registored or not
 
-	@Override
-	public void handleNotify(Map<String, String> inboundParams, TransactionLog transactionLog) throws YeePayException {
-		handleCallback(inboundParams, transactionLog);
-	}
+        ensureTransaction();
+        try {
+            User user = getUserMapper().selectUser(userId.intValue());
+            if (user.getYeepayStatus() == YeePayConstants.REGISTOR_STATUS_SUCCESS) {
+                return;
+            }
+            String code = inboundParams.get(YeePayConstants.PARAM_NAME_CODE);
+            if (YeePayConstants.CODE_SUCCESS.equals(code)) {
+                user.setYeepayStatus(YeePayConstants.REGISTOR_STATUS_SUCCESS);
+                user.setYeepayUserNo(YeePayHelper.generateOutboundUserNo(getConfig(), user));
+            } else {
+                user.setYeepayStatus(YeePayConstants.REGISTOR_STATUS_FAILD);
+            }
+            user.setYeepayRegistoredDate(new Date());
+            getUserMapper().update(user);
+        } catch (Exception e) {
+            setAsRollback();
+            throw new YeePayException(e);
+        } finally {
+            commit();
+        }
+    }
 
-	public UserMapper getUserMapper() {
-		return userMapper;
-	}
 
-	public void setUserMapper(UserMapper userMapper) {
-		this.userMapper = userMapper;
-	}
+    @Override
+    public void handleNotify(Map<String, String> inboundParams, TransactionLog transactionLog) throws YeePayException {
+        handleCallback(inboundParams, transactionLog);
+    }
 
+    public UserMapper getUserMapper() {
+        return userMapper;
+    }
+
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+
+    public YeePayConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(YeePayConfig config) {
+        this.config = config;
+    }
 }

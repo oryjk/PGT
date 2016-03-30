@@ -1,7 +1,5 @@
 package com.pgt.product.bean;
 
-import org.springframework.util.ObjectUtils;
-
 import com.pgt.shipping.bean.ShippingAddress;
 
 import java.io.Serializable;
@@ -13,8 +11,9 @@ import java.util.List;
  */
 public class Product implements Serializable {
 
+    private static long serialVersionUID = 1L;
+
     public static final int INVALID = 0;
-    public static final int AVAILABLE = 1;
 
     private Integer productId;
     private String name;
@@ -25,13 +24,12 @@ public class Product implements Serializable {
     private String description;
     private Double shippingFee;
     private String relatedCategoryId;
-    private Integer stock;
+    private Integer stock=0;
     private Date creationDate;
     private Date updateDate;
-    private List<ProductMedia> medias;
     private List<ProductMedia> mainMedias;
     private List<ProductMedia> heroMedias;
-    private List<ProductMedia> thumbnailMedias;
+    private ProductMedia thumbnailMedia;
     private ProductMedia advertisementMedia;
     private ProductMedia frontMedia;
     private ProductMedia expertMedia;
@@ -41,6 +39,19 @@ public class Product implements Serializable {
     private ShippingAddress shippingAddress;
     private boolean isHot;
     private String keyWord;
+    private String merchant;
+    private ProductMedia mobileDetailMedia;
+    private String imageDesc;
+
+
+    public String getImageDesc() {
+        return imageDesc;
+    }
+
+    public void setImageDesc(String imageDesc) {
+        this.imageDesc = imageDesc;
+    }
+
 
     public List<ProductMedia> getMainMedias() {
         return mainMedias;
@@ -57,7 +68,6 @@ public class Product implements Serializable {
     public void setHeroMedias(List<ProductMedia> heroMedias) {
         this.heroMedias = heroMedias;
     }
-
 
 
     public ProductMedia getAdvertisementMedia() {
@@ -197,21 +207,8 @@ public class Product implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public List<ProductMedia> getMedias() {
-        return medias;
-    }
-
-    public void setMedias(List<ProductMedia> medias) {
-        this.medias = medias;
-    }
 
     public ProductMedia getFrontMedia() {
-        if (frontMedia != null) {
-            return frontMedia;
-        }
-        if (!ObjectUtils.isEmpty(medias)) {
-            medias.get(0);
-        }
         return frontMedia;
     }
 
@@ -219,24 +216,13 @@ public class Product implements Serializable {
         this.frontMedia = frontMedia;
     }
 
-    public List<ProductMedia> getThumbnailMedias() {
-        return thumbnailMedias;
-    }
-
-    public void setThumbnailMedias(List<ProductMedia> thumbnailMedias) {
-        this.thumbnailMedias = thumbnailMedias;
-    }
-
-    public ProductMedia getExpertMedia() {
-        return expertMedia;
-    }
-
-    public void setExpertMedia(ProductMedia expertMedia) {
-        this.expertMedia = expertMedia;
-    }
 
     public boolean isHot() {
         return isHot;
+    }
+
+    public boolean getIsHot() {
+        return isHot();
     }
 
     public void setIsHot(boolean isHot) {
@@ -250,4 +236,59 @@ public class Product implements Serializable {
     public void setKeyWord(String keyWord) {
         this.keyWord = keyWord;
     }
+
+    public String getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(String merchant) {
+        this.merchant = merchant;
+    }
+
+
+    public ProductMedia getThumbnailMedia() {
+        return thumbnailMedia;
+    }
+
+    public void setThumbnailMedia(ProductMedia thumbnailMedia) {
+        this.thumbnailMedia = thumbnailMedia;
+    }
+
+
+    public ProductMedia getExpertMedia() {
+        return expertMedia;
+    }
+
+    public void setExpertMedia(ProductMedia exprtMedia) {
+        this.expertMedia = exprtMedia;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (!productId.equals(product.productId)) return false;
+        return name.equals(product.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = productId.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
+    public ProductMedia getMobileDetailMedia() {
+        return mobileDetailMedia;
+    }
+
+    public void setMobileDetailMedia(ProductMedia mobileDetailMedia) {
+        this.mobileDetailMedia = mobileDetailMedia;
+    }
+
+
 }

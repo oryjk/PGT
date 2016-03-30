@@ -3,6 +3,7 @@ package com.pgt.product.dao;
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.hot.bean.HotSearch;
+import com.pgt.product.bean.P2PProduct;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductCategoryRelation;
 import com.pgt.product.bean.ProductMedia;
@@ -20,15 +21,21 @@ public interface ProductMapper extends SqlMapper {
 
     Product queryProduct(@Param("productId") int productId);
 
+    P2PProduct queryTenderProduct(@Param("productId") int productId);
+
     List<Product> queryProducts(SearchPaginationBean searchPaginationBean);
 
     List<Product> queryAllProducts(Integer stock);
 
     Integer createProduct(Product product);
 
-    void updateProduct(Product product);
+    Integer updateProduct(Product product);
 
-    void deleteProduct(@Param("productId") String productId);
+    Integer createTenderProduct(P2PProduct p2PProduct);
+
+    Integer updateTenderProduct(P2PProduct p2PProduct);
+
+    void deleteProduct(@Param("productId") Integer productId);
 
     void deleteProducts(List<String> productIds);
 
@@ -38,7 +45,9 @@ public interface ProductMapper extends SqlMapper {
 
     List<ProductMedia> queryProductMainMedias(@Param("productId") int pProductId);
 
-    List<ProductMedia> queryProductThumbnailMedias(@Param("productId") int pProductId);
+    ProductMedia queryProductThumbnailMedia(@Param("productId") int pProductId);
+
+    ProductMedia queryProductMobileDetailMedias(@Param("productId") int pProductId);
 
     ProductMedia queryProductExpertMedia(@Param("productId") int pProductId);
 
@@ -66,4 +75,8 @@ public interface ProductMapper extends SqlMapper {
     List<HotSearch> queryAllHotsearch();
 
     List<Product> queryProductByIds(List<Integer> pSupposeProductIds);
+
+    Integer queryProductTotal(SearchPaginationBean searchPaginationBean);
+
+    List<Product> queryProductByTenderId(@Param("tenderId") Integer tenderId);
 }

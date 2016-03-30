@@ -23,8 +23,6 @@
     <div class="logo-box">
         <h1 class="logo">
             <a href="<spring:url value="${urlConfiguration.loginPage}"/>">点金子绝当品——欢迎登录
-                <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
-                <div class="golds"></div>
                 <div class="light"></div>
             </a>
         </h1>
@@ -47,7 +45,7 @@
                     <td><label>手机号码</label></td>
                     <td colspan="2"><form:input id="userPhone" path="phoneNumber" type="text"
                                                 placeholder="用于密码保护"/></td>
-                    <td class="prompt" id="userPhonePrompt"><form:errors path="phoneNumber"/></td>
+                    <td class="prompt" id="userPhonePrompt"><form:errors path="phoneNumber"/><form:errors path="phoneExist"/></td>
                 </tr>
                 <tr>
                     <td><label>登录密码</label></td>
@@ -100,6 +98,7 @@
     <span>点金子绝当品</span>
     <span>京ICP备100000000号</span>
 </div>
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
         data-main="<spring:url value="${juedangpinStaticPath}/user/regist.js"/>"></script>

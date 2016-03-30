@@ -1,12 +1,21 @@
 package com.pgt.cart.bean;
 
-public class FavouriteBuilder {
+public class FavouriteBuilder implements FavouriteType {
+
 	private int mId;
+
 	private int mUserId;
+
 	private int mProductId;
+
+	private int mType;
+
 	private String mName;
+
 	private String mDescription;
+
 	private double mFinalPrice;
+
 	private int mSnapshotId;
 
 	public FavouriteBuilder setId(final int pId) {
@@ -44,7 +53,12 @@ public class FavouriteBuilder {
 		return this;
 	}
 
+	public FavouriteBuilder setType(final int pType) {
+		mType = pType;
+		return this;
+	}
+
 	public Favourite createFavourite() {
-		return new Favourite(mId, mUserId, mProductId, mName, mDescription, mFinalPrice, mSnapshotId);
+		return new Favourite(mId, mUserId, mProductId, mType, mName, mDescription, mFinalPrice, mSnapshotId);
 	}
 }

@@ -11,8 +11,12 @@ public class InternalPagination {
 
 	private static final int PAGE_NUMBER_OFFSET = 3;
 
+	private long[] mPaginationCapacities = new long[] { 5, 10, 20 };
+	private long mPaginationCapacityAll = -1l;
+
 	private long mCapacity;
-	private long mCurrentIndex;// start from 0;
+	private long mCurrentIndex;// start from 0
+	private long mCurrentPage;// start from 1
 	private long mCount;
 	private String mKeyword;
 	private String mSortFieldName;
@@ -59,9 +63,33 @@ public class InternalPagination {
 		return mCurrentIndex - 1;
 	}
 
+	public long getFirstRecordIndex() {
+		if (0 >= mCapacity) {
+			throw new InvalidParameterException("mCapacity must greater than zero.");
+		}
+		long first = mCurrentIndex * mCapacity + 1;
+		if (first > mCount) {
+			return mCount;
+		}
+		return first;
+	}
+
+	public long getLastRecordIndex() {
+		if (0 >= mCapacity) {
+			throw new InvalidParameterException("mCapacity must greater than zero.");
+		}
+		long last = (mCurrentIndex + 1) * mCapacity;
+		if (last > getCount()) {
+			return getCount();
+		}
+		return last;
+	}
+
 	@Override
 	public String toString() {
-		return new StringBuilder().append("InternalPagination{").append("mCapacity=").append(mCapacity).append(", mCurrentIndex=").append(mCurrentIndex).append(", mCount=").append(mCount).append(", mKeyword='").append(mKeyword).append('\'').append(", mSortFieldName='").append(mSortFieldName).append('\'').append(", mAsc=").append(mAsc).append(", mInvalidPagination=").append(mInvalidPagination).append(", mResult=").append(mResult).append('}').toString();
+		return new StringBuilder().append("InternalPagination{").append("mCapacity=").append(mCapacity).append(", mCurrentIndex=").append(mCurrentIndex).append(", mCount=").append(mCount)
+				.append(", mKeyword='").append(mKeyword).append('\'').append(", mSortFieldName='").append(mSortFieldName).append('\'').append(", mAsc=").append(mAsc).append(", mInvalidPagination=")
+				.append(mInvalidPagination).append('}').toString();
 	}
 
 	public List<Long> getPageNumbers() {
@@ -106,6 +134,17 @@ public class InternalPagination {
 
 	public void setCurrentIndex(final long pCurrentIndex) {
 		mCurrentIndex = pCurrentIndex;
+	}
+
+	public long getCurrentPage() {
+		return mCurrentPage;
+	}
+
+	public void setCurrentPage(final long pCurrentPage) {
+		mCurrentPage = pCurrentPage;
+		if (mCurrentPage > 0) {
+			mCapacity = mCurrentPage - 1;
+		}
 	}
 
 	public long getCount() {
@@ -154,5 +193,21 @@ public class InternalPagination {
 
 	public void setResult(final List<?> pResult) {
 		mResult = pResult;
+	}
+
+	public long[] getPaginationCapacities() {
+		return mPaginationCapacities;
+	}
+
+	public void setPaginationCapacities(final long[] pPaginationCapacities) {
+		mPaginationCapacities = pPaginationCapacities;
+	}
+
+	public long getPaginationCapacityAll() {
+		return mPaginationCapacityAll;
+	}
+
+	public void setPaginationCapacityAll(final long pPaginationCapacityAll) {
+		mPaginationCapacityAll = pPaginationCapacityAll;
 	}
 }

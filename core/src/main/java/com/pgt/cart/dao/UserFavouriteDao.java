@@ -14,9 +14,9 @@ import java.util.List;
 @Repository(value = "userFavouriteDao")
 public interface UserFavouriteDao extends SqlMapper {
 
-	List<Favourite> queryFavouritePage(@Param("userId") int pUserId, @Param("pagination") InternalPagination pPagination);
+	List<Favourite> queryFavouritePage(@Param("userId") int pUserId, @Param("type") int pType, @Param("pagination") InternalPagination pPagination);
 
-	Favourite queryFavouriteByProduct(@Param("userId") int pUserId, @Param("productId") int pProductId);
+	Favourite queryFavouriteByProduct(@Param("userId") int pUserId, @Param("productId") int pProductId, @Param("type") int pType);
 
 	int createFavouriteItem(Favourite pFavourite);
 
@@ -24,7 +24,7 @@ public interface UserFavouriteDao extends SqlMapper {
 
 	Favourite queryFavourite(@Param("favouriteId") int pFavouriteId);
 
-	List<Favourite> queryFavourites(@Param("userId") int pUserId);
+	List<Favourite> queryFavourites(@Param("userId") int pUserId, @Param("type") int pType);
 
-	long queryFavouriteCount(@Param("userId") int pUserId, @Param("pagination") InternalPagination pPagination);
+	long queryFavouriteCount(@Param("userId") int pUserId, @Param("type") int pType, @Param("pagination") InternalPagination pPagination);
 }

@@ -1,0 +1,47 @@
+{{#each tenderListResult}}
+<a href="/tender/{{this.tender.tenderId}}" class="item">
+    <div class="item-img">
+        <img src="{{this.tender.p2pFrontMedia.path}}" alt=""/>
+    </div>
+    <div class="item-name">
+        {{this.tender.name}}
+    </div>
+    <div class="progress-bar">
+        <div class="inner" style="width: 120px;"
+             data-value="{{this.tender.completeRate}}"></div>
+    </div>
+    <div class="info-box">
+        <div class="surplus-count">
+            <p class="info-value">{{this.tender.productResidue}}</p>
+
+            <p class="info-title">剩余产品</p>
+        </div>
+        <div class="cost-sum">
+            <p class="info-value"><span>¥</span>
+                <span>{{this.tender.tenderTotal}}</span>
+            </p>
+
+            <p class="info-title">产品认购总额</p>
+        </div>
+        <div class="surplus-time">
+            <p class="info-value"><span>10</span>天
+            </p>
+
+            <p class="info-title">截止时间</p>
+        </div>
+    </div>
+    <div class="invest-status">
+        {{#if (isTrue this.tender.tenderStatus 10)}}
+        在当中
+        {{/if}}
+        {{#if (isTrue this.tender.tenderStatus 20)}}
+        已绝当
+        {{/if}}
+        {{#if (isTrue this.tender.tenderStatus 30)}}
+        已赎当
+        {{/if}}
+    </div>
+    <a class="invest-join-favorite" href=""></a>
+</a>
+{{/each}}
+

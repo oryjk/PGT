@@ -1,49 +1,50 @@
-
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 
 	<bean id="yeePayConfig" class="com.pgt.integration.yeepay.YeePayConfig">
-		<property name="platformNo" value="10012485748" />
+		<property name="platformNo" value="10012485748"/>
 		<property name="pfxPath"
-			value="/www/yeepay/tamade.pfx" />
-		<property name="password" value="tmd123456" />
-		<property name="connectionTimeout" value="5000" />
-		<property name="socketTimeout" value="15000" />
+				  value="/www/yeepay/tamade.pfx"/>
+		<property name="password" value="tmd123456"/>
+		<property name="connectionTimeout" value="5000"/>
+		<property name="socketTimeout" value="15000"/>
 		<!-- need change when go live -->
-		<property name="platformUserNoPrefix" value="pgt"></property>
-		<property name="requestNoPrefix" value="pgttestt"/>
-		<property name="directRequestUrl" value="https://member.yeepay.com/member/bhaexter/bhaController" />
-		<property name="callbackUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayCallback" />
+		<property name="platformUserNoPrefix" value="pgtuatttt"></property>
+		<property name="requestNoPrefix" value="pgtuatttt"/>
+		<property name="directRequestUrl" value="https://member.yeepay.com/member/bhaexter/bhaController"/>
+		<property name="callbackUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayCallback"/>
 		<property name="notifyUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayNotify"/>
-		<property name="completeTransactionNotifyUrl" value="http://localhost:8080/b2c_store/yeepay/completeTransactionNotify"/>
+		<property name="completeTransactionNotifyUrl"
+				  value="http://localhost:8080/b2c_store/yeepay/completeTransactionNotify"/>
 		<property name="targetPlatformUserNo" value="pgt14"/>
+		<property name="transactionExpiredMin" value="30"/>
 		<!-- need change when go live -->
 		<property name="withdrawType" value="NORMAL"/>
 		<property name="feeMode">
 			<map>
 				<entry key="toRecharge" value="PLATFORM"/>
 				<entry key="toWithdraw" value="PLATFORM"/>
-				
+
 			</map>
 		</property>
 		<property name="requestParamConfig">
 			<map>
 				<entry key="toRegister">
 					<map>
-						<entry key="platformNo" value="Y" />
-						<entry key="platformUserNo" value="Y" />
-						<entry key="requestNo" value="Y" />
-						<entry key="nickName" value="N" />
-						<entry key="realName" value="Y" />
-						<entry key="idCardType" value="Y" />
-						<entry key="idCardNo" value="Y" />
-						<entry key="mobile" value="Y" />
-						<entry key="email" value="N" />
-						<entry key="callbackUrl" value="Y" />
-						<entry key="notifyUrl" value="Y" />
+						<entry key="platformNo" value="Y"/>
+						<entry key="platformUserNo" value="Y"/>
+						<entry key="requestNo" value="Y"/>
+						<entry key="nickName" value="N"/>
+						<entry key="realName" value="Y"/>
+						<entry key="idCardType" value="Y"/>
+						<entry key="idCardNo" value="Y"/>
+						<entry key="mobile" value="Y"/>
+						<entry key="email" value="N"/>
+						<entry key="callbackUrl" value="Y"/>
+						<entry key="notifyUrl" value="Y"/>
 					</map>
 				</entry>
 				<entry key="toRecharge">
@@ -52,8 +53,8 @@
 						<entry key="platformUserNo" value="Y"/>
 						<entry key="requestNo" value="Y"/>
 						<entry key="feeMode" value="Y"/>
-						<entry key="callbackUrl" value="Y" />
-						<entry key="notifyUrl" value="Y" />
+						<entry key="callbackUrl" value="Y"/>
+						<entry key="notifyUrl" value="Y"/>
 						<entry key="amount" value="N"/>
 					</map>
 				</entry>
@@ -88,7 +89,7 @@
 						<entry key="notifyUrl" value="Y"/>
 					</map>
 				</entry>
-				
+
 				<!-- 
 				<entry key="toCpTransaction" value=""/>
 				 -->
@@ -105,35 +106,35 @@
 				</entry>
 				<entry key="toRecharge">
 					<map>
-					 	<entry key="formJsp" value="/my-account/yeepay/toRecharge"/>
+						<entry key="formJsp" value="/my-account/yeepay/toRecharge"/>
 						<entry key="successJsp" value="redirect:/user/yeepayAccountInfo"/>
 						<entry key="errorJsp" value="/my-account/yeepay/toRechargeError"/>
 					</map>
 				</entry>
 				<entry key="toWithdraw">
 					<map>
-					 	<entry key="formJsp" value="/my-account/yeepay/toWithdraw"/>
+						<entry key="formJsp" value="/my-account/yeepay/toWithdraw"/>
 						<entry key="successJsp" value="redirect:/user/yeepayAccountInfo"/>
 						<entry key="errorJsp" value="/my-account/yeepay/toWithdrawError"/>
 					</map>
 				</entry>
 				<entry key="toCpTransaction">
 					<map>
-					 	<entry key="formJsp" value="/my-account/yeepay/toCpTransaction"/>
+						<entry key="formJsp" value="/my-account/yeepay/toCpTransaction"/>
 						<entry key="successJsp" value="redirect:/payment/complete"/>
 						<entry key="errorJsp" value="/my-account/yeepay/toCpTransactionError"/>
 					</map>
 				</entry>
 				<entry key="toBindBankCard">
 					<map>
-					 	<entry key="formJsp" value="/my-account/yeepay/toBindBankCard"/>
+						<entry key="formJsp" value="/my-account/yeepay/toBindBankCard"/>
 						<entry key="successJsp" value="redirect:/user/yeepayAccountInfo"/>
 						<entry key="errorJsp" value="/my-account/yeepay/toBindBankCardError"/>
 					</map>
 				</entry>
 				<entry key="toUnbindBankCard">
 					<map>
-					 	<entry key="formJsp" value="/my-account/yeepay/toUnbindBankCard"/>
+						<entry key="formJsp" value="/my-account/yeepay/toUnbindBankCard"/>
 						<entry key="successJsp" value="redirect:/user/yeepayAccountInfo"/>
 						<entry key="errorJsp" value="/my-account/yeepay/toUnbindBankCardError"/>
 					</map>
@@ -160,37 +161,41 @@
 				<entry key="toUnbindBankCard" value-ref="codeCheckOnlyNotificationHandler"/>
 			</map>
 		</property>
-		
+
 	</bean>
 
 
 	<!-- yeepay notification config -->
 
-	<bean id="registerNotificationHandler" class="com.pgt.integration.yeepay.notification.service.RegisterNotificationHandler">
+	<bean id="registerNotificationHandler"
+		  class="com.pgt.integration.yeepay.notification.service.RegisterNotificationHandler">
 		<property name="userMapper" ref="userMapper"></property>
 	</bean>
-	
-	
-	<bean id="codeCheckOnlyNotificationHandler" class="com.pgt.integration.yeepay.notification.service.CodeCheckOnlyNotificationHandler">
+
+
+	<bean id="codeCheckOnlyNotificationHandler"
+		  class="com.pgt.integration.yeepay.notification.service.CodeCheckOnlyNotificationHandler">
 	</bean>
 
 
-	<bean id="completeTransactionNotificationHandler" class="com.pgt.integration.yeepay.notification.service.CompleteTransactionNotificationHandler">
+	<bean id="completeTransactionNotificationHandler"
+		  class="com.pgt.integration.yeepay.notification.service.CompleteTransactionNotificationHandler">
 		<property name="completeTransactionYeepay" ref="completeTransactionYeepay"/>
 		<property name="config" ref="yeePayConfig"/>
 		<property name="paymentService" ref="paymentService"/>
 		<property name="shoppingCartDao" ref="shoppingCartDao"/>
 		<property name="userOrderDao" ref="userOrderDao"/>
+		<property name="inventoryService" ref="inventoryService"/>
 	</bean>
 
 	<!-- yeepay direct config -->
 
-	<bean id="emptyParamValidator" class="com.pgt.integration.yeepay.EmptyParamValidator" />
+	<bean id="emptyParamValidator" class="com.pgt.integration.yeepay.EmptyParamValidator"/>
 
 	<bean id="baseYeepay" class="com.pgt.integration.yeepay.direct.service.DirectYeePay"
-		abstract="true">
-		<property name="config" ref="yeePayConfig" />
-		<property name="transactionLogService" ref="transactionLogService" />
+		  abstract="true">
+		<property name="config" ref="yeePayConfig"/>
+		<property name="transactionLogService" ref="transactionLogService"/>
 	</bean>
 
 
@@ -216,23 +221,23 @@
 
 
 	<bean id="mockYeepay" parent="baseYeepay">
-		<property name="serviceName" value="mock" />
-		<property name="paramValidateor" ref="emptyParamValidator" />
-		<property name="requireRequestNo" value="true" />
+		<property name="serviceName" value="mock"/>
+		<property name="paramValidateor" ref="emptyParamValidator"/>
+		<property name="requireRequestNo" value="true"/>
 	</bean>
 
 
 	<bean id="accountInfoYeepay" parent="baseYeepay">
-		<property name="serviceName" value="ACCOUNT_INFO" />
-		<property name="paramValidateor" ref="accountInfoValidator" />
-		<property name="requireRequestNo" value="false" />
+		<property name="serviceName" value="ACCOUNT_INFO"/>
+		<property name="paramValidateor" ref="accountInfoValidator"/>
+		<property name="requireRequestNo" value="false"/>
 	</bean>
 
 
 	<bean id="completeTransactionYeepay" parent="baseYeepay">
-		<property name="serviceName" value="COMPLETE_TRANSACTION" />
-		<property name="paramValidateor" ref="completeTransactionValidator" />
-		<property name="requireRequestNo" value="true" />
+		<property name="serviceName" value="COMPLETE_TRANSACTION"/>
+		<property name="paramValidateor" ref="completeTransactionValidator"/>
+		<property name="requireRequestNo" value="true"/>
 	</bean>
 
 

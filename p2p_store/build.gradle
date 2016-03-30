@@ -1,6 +1,7 @@
 group 'pgt'
-version '1.0-SNAPSHOT'
 archivesBaseName = 'p2p_store'
 dependencies {
     compile project(":core")
 }
+
+

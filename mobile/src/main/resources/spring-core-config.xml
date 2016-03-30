@@ -2,14 +2,16 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
-        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
     <import resource="yeepay-config.xml"/>
     <import resource="alipay-config.xml"/>
+    <import resource="scheduling-job.xml"/>
     <context:component-scan base-package="com.*"/>
+
 
 
     <import resource="persistence3-db.xml"/>
@@ -17,7 +19,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:config/mybatis/mappers/*Mapper.xml"/>
-        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/> -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
     <bean id="transactionManager"
@@ -50,7 +52,7 @@
     </bean>
     <bean id="emailRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
         <property name="regexPattern"
-                  value="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;"/>
+                  value="^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,3})$"/>
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -58,7 +60,7 @@
         <property name="defaultEncoding" value="utf-8"></property>
         <property name="cacheSeconds" value="120"></property>
     </bean>
-    <bean id="configuration" class="com.pgt.configuration.Configuration">
+    <bean id="configuration" class="com.pgt.configuration.Configuration" scope="singleton">
         <property name="homeHotProductCount" value="5"/>
         <property name="onlyShowInStock" value="false"/>
         <property name="productListPageCapacity" value="20"/>
@@ -67,7 +69,8 @@
         <property name="useES" value="true"></property>
         <property name="resourcePath" value="/resources"></property>
         <property name="initialDataPath" value="/json"></property>
-
+        <property name="imagePath" value="${imagePath}"></property>
+        <property name="imageFolder" value="${imageFolder}"></property>
 
     </bean>
     <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
@@ -133,10 +136,50 @@
         </property>
     </bean>
 
-    <bean class="com.pgt.data.MigrateData">
-        <property name="dataSource" ref="dataSource"/>
+    <bean class="com.pgt.data.MigrateDataListener">
         <property name="esConfiguration" ref="esConfiguration"/>
         <property name="esSearchService" ref="esSearchService"/>
     </bean>
+
     <bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.mxhichina.com"/>
+        <property name="username" value="service@dianjinzi.com"/>
+        <property name="password" value="Zxhl123456"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/" />
+        <property name="velocityProperties">
+            <props>
+                <prop key="default.contentType">text/html; charset=utf-8</prop>
+                <prop key="output.encoding">utf-8</prop>
+                <prop key="input.encoding">utf-8</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:global.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean class="com.pgt.data.index.service.AllIndexService">
+        <property name="searchEngineServiceList">
+            <list value-type="com.pgt.search.service.AbstractSearchEngineService">
+                <ref bean="categorySearchEngineService"/>
+                <ref bean="esSearchService"/>
+                <ref bean="staticResourceSearchEngineService"/>
+            </list>
+        </property>
+    </bean>
+
 </beans>

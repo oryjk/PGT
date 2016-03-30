@@ -1,5 +1,9 @@
 package com.pgt.configuration;
 
+import com.pgt.category.bean.CategoryType;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +12,8 @@ import java.util.Map;
 /**
  * Created by carlwang on 11/30/15.
  */
+@Component
+@Scope("singleton")
 public class ESConfiguration {
     private String host = "localhost";
     private Integer indexPort = 9300;
@@ -16,9 +22,23 @@ public class ESConfiguration {
     private List<String> productAnalyzerFields = new ArrayList<>();
     private List<String> categoryAnalyzerFields = new ArrayList<>();
     private List<String> hotSaleAnalyzerFields = new ArrayList<>();
-    private boolean clearIndex=true;
-    private boolean needIndex=true;
-    private List<String> useToSearch=new ArrayList<>();
+    private List<String> tenderAnalyzerFields = new ArrayList<>();
+    private boolean clearIndex = true;
+    private boolean needIndex = true;
+    private List<String> useToSearch = new ArrayList<>();
+    private List<String> tenderSearchProperties = new ArrayList<>();
+    private int tenderListCapacity = 12;
+
+    //index,type
+    private String indexName = "mp";
+    private String categoryTypeName = "category";
+    private String productTypeName = "product";
+    private CategoryType categoryType = CategoryType.ROOT;
+    private String hotProductTypeName="hotProduct";
+    //search key
+    private String tenderRootCategoryIdTerm="rootCategory.id";
+    private String tenderParentCategoryIdTerm="parentCategory.id";
+    private String eSSort="creationDate";
 
     private Map<String, Integer> priceAggrs = new HashMap<String, Integer>() {
         {
@@ -37,6 +57,14 @@ public class ESConfiguration {
             put("0-999", 999);
         }
     };
+
+    public String geteSSort() {
+        return eSSort;
+    }
+
+    public void seteSSort(String eSSort) {
+        this.eSSort = eSSort;
+    }
 
     public String getHost() {
         return host;
@@ -118,5 +146,87 @@ public class ESConfiguration {
 
     public void setUseToSearch(List<String> useToSearch) {
         this.useToSearch = useToSearch;
+    }
+
+    public List<String> getTenderAnalyzerFields() {
+        return tenderAnalyzerFields;
+    }
+
+    public void setTenderAnalyzerFields(List<String> tenderAnalyzerFields) {
+        this.tenderAnalyzerFields = tenderAnalyzerFields;
+    }
+
+
+    public int getTenderListCapacity() {
+        return tenderListCapacity;
+    }
+
+    public void setTenderListCapacity(int tenderListCapacity) {
+        this.tenderListCapacity = tenderListCapacity;
+    }
+
+    public List<String> getTenderSearchProperties() {
+        return tenderSearchProperties;
+    }
+
+    public void setTenderSearchProperties(List<String> tenderSearchProperties) {
+        this.tenderSearchProperties = tenderSearchProperties;
+    }
+
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
+    }
+
+    public String getCategoryTypeName() {
+        return categoryTypeName;
+    }
+
+    public void setCategoryTypeName(String categoryTypeName) {
+        this.categoryTypeName = categoryTypeName;
+    }
+
+    public String getIndexName() {
+        return indexName;
+    }
+
+    public void setIndexName(String indexName) {
+        this.indexName = indexName;
+    }
+
+    public CategoryType getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(CategoryType categoryType) {
+        this.categoryType = categoryType;
+    }
+
+    public String getHotProductTypeName() {
+        return hotProductTypeName;
+    }
+
+    public void setHotProductTypeName(String hotProductTypeName) {
+        this.hotProductTypeName = hotProductTypeName;
+    }
+
+    public String getTenderRootCategoryIdTerm() {
+        return tenderRootCategoryIdTerm;
+    }
+
+    public void setTenderRootCategoryIdTerm(String tenderRootCategoryIdTerm) {
+        this.tenderRootCategoryIdTerm = tenderRootCategoryIdTerm;
+    }
+
+    public String getTenderParentCategoryIdTerm() {
+        return tenderParentCategoryIdTerm;
+    }
+
+    public void setTenderParentCategoryIdTerm(String tenderParentCategoryIdTerm) {
+        this.tenderParentCategoryIdTerm = tenderParentCategoryIdTerm;
     }
 }

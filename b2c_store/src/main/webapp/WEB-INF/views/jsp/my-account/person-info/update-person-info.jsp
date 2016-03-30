@@ -7,7 +7,8 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>绝当品</title>
+    <title>点金子典当行绝当品销售平台</title
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/person-info/update-person-info.css"/>"/>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>"/>
 
@@ -23,6 +24,7 @@
     </div>
 
 
+
     <!--正文-->
     <div class="content-box">
 
@@ -30,7 +32,7 @@
 
         <!-- 侧边栏-->
         <jsp:include page="../vertical-my-account-directory.jsp">
-            <jsp:param name="step" value="address" />
+            <jsp:param name="step" value="userinformation" />
         </jsp:include>
 
 
@@ -66,7 +68,11 @@
 
                     </div>
                    <form action="${pageContext.request.contextPath}/userinformation/create" method="post">
-                      ${error}
+
+                       <c:forEach items="${error}" var="message">
+                            ${message.defaultMessage}
+                           </c:forEach>
+
                        <input type="hidden" name="path" id="path" value="${userInformation.path}"/>
                     <div class="personal-right">
                         <div class="text1">
@@ -91,8 +97,8 @@
                             <input type="text" class="input-text1" name="personEmail" value="${userInformation.personEmail}">
                         </div>
                         <div class="text3">
-                            身份证号
-                            <input type="text" class="input-text2" name="idCard" value="${userInformation.idCard}" >
+                            <span style="color: red"> *</span>身份证号
+                            <input type="text" class="input-text6" name="idCard" value="${userInformation.idCard}" >
                         </div>
                         <div class="text3">
                             <div class="input-text5">
@@ -137,6 +143,7 @@
 
 <!--主脚部-->
     <jsp:include page="../../core/footer-main.jsp"></jsp:include>
+    <jsp:include page="../../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.min.js"/>"></script>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/jquery.form.js"/>"></script>

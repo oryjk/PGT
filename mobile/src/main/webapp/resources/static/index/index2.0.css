@@ -1,0 +1,18 @@
+a{
+    color: #000;
+    text-decoration:none;
+}
+.header{
+    margin-top: 1em;
+    padding-bottom: 1em;
+}
+.img1{
+    width: 100%;
+}
+.input1{
+    margin:5% auto 0 auto;
+}
+body .in1 .in{
+    padding: 8px;
+    font-size: 1.2em;
+}

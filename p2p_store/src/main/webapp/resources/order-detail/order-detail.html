@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="order-detail.css"/>
+    <style>
+        .main,
+        .hover-main:hover {
+            color: #c90304;
+        }
+
+        .em,
+        .hover-em:hover {
+            color: #86b4ed;
+        }
+
+        .bg-main,
+        .hover-bg-main:hover {
+            background: #c90304;
+        }
+
+        .bg-em,
+        .hover-bg-em:hover {
+            background: #86b4ed;
+        }
+    </style>
+</head>
+<body>
+<!--header begin-->
+<div class="header">
+    <a class="top-banner" href="#" style="background: #9e150e url('../core/images/data/top-banner.jpg') no-repeat center center"></a>
+    <div class="top">
+        <div class="top-content">
+            <div class="top-welcome">
+                <span class="top-welcome-text">欢迎光临点金子绝当淘!</span>
+                <span class="top-welcome-phone-title">客服电话:</span>
+                <span class="top-welcome-phone-value main">028-88888888</span>
+            </div>
+            <div class="top-user">
+                <div class="top-before-login" style="display: block">
+                    <a class="top-user-login hover-main" href="#">登录</a>
+                    <a class="top-user-register hover-main" href="#">注册</a>
+                </div>
+                <div class="top-after-login" style="display: none">
+                    <span>欢迎您:</span>
+                    <a href="#">小陈</a>
+                    <a class="top-user-logout hover-main" href="javascript:void(0);">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="head">
+        <div class="head-content">
+            <h1 class="logo">
+                <a class="logo-link" href="#"></a>
+            </h1>
+            <a href="#" class="hot-left"  style="background: url('../core/images/data/hot-left.gif') no-repeat center center"></a>
+            <form class="search">
+                <div class="search-content">
+                    <a class="search-input-submit" href="javascript:void(0);"></a>
+                    <input class="search-input-text" type="text" placeholder="请输入要搜索的关键字"/>
+                </div>
+            </form>
+            <a href="#" class="hot-right" style="background: url('../core/images/data/hot-right.gif') no-repeat center center"></a>
+        </div>
+    </div>
+    <div class="nav">
+        <div class="nav-content">
+            <div class="menu">
+                <h2 class="menu-title bg-main">开启购物新体验</h2>
+                <ul class="menu-list">
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                        </div>
+                    </li>
+                    <li class="menu-item" style="background:url('') no-repeat center center">
+                        <h3 class="menu-item-title">文玩杂项</h3>
+                        <div class="menu-item-sub-box">
+                            <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                            <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                            <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ul class="nav-list">
+                <li id="navHover" class="nav-item-hover" style="width: 96px; height: 54px; top: 0; left:0;"></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">首页</a></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">在当大厅</a></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">在线典当</a></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">帮助中心</a></li>
+                <li class="nav-item"><a class="nav-item-link" href="#">绝当品商城</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--header end-->
+
+<!--content begin-->
+<div class="content">
+    <h2>订单详情</h2>
+    <div class="base-info">
+        <div class="base-row-1">
+            <div class="base-title">收货人信息:</div>
+            <div class="base-value">
+                <span class="name">核弹</span>
+                <span class="phone">15889879989</span>
+                <span class="address">四川省成都市武侯区佳灵路下一站都市A302</span>
+                <a class="link-btn" href="javacript:void(0);">修改</a>
+            </div>
+        </div>
+        <div class="base-row-2">
+            <div class="base-title">订单信息:</div>
+            <div class="base-value">
+                <p>
+                    <span class="order-number">订单号:</span><span>567894567890</span>
+                </p>
+                <p>
+                    <span class="order-time">下单时间:</span><span>2015年12月29日</span>
+                </p>
+            </div>
+        </div>
+        <div class="base-row-3">
+            <div class="base-title">备注信息:</div>
+            <div class="base-value">请在要发单之前联系我确认收获地址是否需要变更!</div>
+        </div>
+    </div>
+    <div class="send-info">
+        <!-- super:绝当未发货时,以及在当时显示-->
+        <div class="send-will" style="display: block;">
+            <div class="send-row-1">
+                <div class="send-title">预计发货时间:</div>
+                <div class="send-value">2015年12月12日</div>
+            </div>
+        </div>
+        <!-- super:绝当已发货时显示-->
+        <div class="send-already" style="display: block;">
+            <div class="send-row-2">
+                <div class="send-title">发货时间:</div>
+                <div class="send-value">2015年12月12日</div>
+            </div>
+            <div class="send-row-3">
+                <div class="send-title">快递单号:</div>
+                <div class="send-value">34567890987654</div>
+            </div>
+        </div>
+    </div>
+    <div class="compensate">
+        <!-- super:赎当未赔付时显示-->
+        <div class="compensate-will">
+            <div class="tip">温馨提示:您所预定的商品已经赎当,我们将会对您进行一定的赔付,请您耐心等待.</div>
+            <div class="compensate-info">
+                <div class="compensate-time"><span>预计收益发放时间:</span><span>2016年3月22日</span></div>
+                <div class="compensate-money"><span>预计赔付金额:</span><span class="cost">¥</span><span  class="cost">213.00</span></div>
+            </div>
+        </div>
+        <!-- super:赎当已赔付时显示-->
+        <div class="compensate-already">
+            <div class="tip">温馨提示:您所预定的商品已经赎当,我们已对您进行了赔付,请核对查收,谢谢您的支持!.</div>
+            <div class="compensate-info">
+                <div class="compensate-time"><span>收益发放时间:</span><span>2016年3月22日</span></div>
+                <div class="compensate-money"><span>赔付金额:</span><span class="cost">¥</span><span  class="cost">213.00</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-table">
+        <table>
+            <tr>
+                <th class="confirm-name">产品名称</th>
+                <th class="confirm-post-cost">配送费用</th>
+                <th class="confirm-item-cost">产品单价</th>
+                <th class="confirm-item-count">产品数量</th>
+                <th class="confirm-percent">赔付利率(年利率)</th>
+            </tr>
+            <tr>
+                <td><a class="item-link" href="#">什么系列什么产品噢噢噢噢噢噢噢</a></td>
+                <td><span>¥</span><span>0.00</span></td>
+                <td><span class="cost">¥</span><span  class="cost">123,000.00</span></td>
+                <td>1</td>
+                <td>10.00%</td>
+            </tr>
+        </table>
+    </div>
+    <div class="money-box">
+        <!--super: 赎当后显示-->
+        <div style="display: block">
+            <span>将获得本金加赔付共计:</span>
+            <span class="cost">¥</span>
+            <span class="cost">12389,00</span>
+        </div>
+        <!--super: 在当何绝当时显示-->
+        <div style="display: block">
+            <span>订单总额:</span>
+            <span class="cost">¥</span>
+            <span class="cost">12389,00</span>
+        </div>
+    </div>
+    <div class="close-box">
+        <a class="close" href="javascript: void(0);">关闭</a>
+    </div>
+    <div class="invest-status"></div>
+</div>
+<!--content end-->
+
+<!--footer begin-->
+<div class="footer" id="footer">
+    <div class="goods-box">
+        <div class="our-goods">
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-people"></i>
+                </div>
+                <div class="good-text">
+                    <h4>专家鉴定</h4>
+
+                    <p>专业鉴定团队</p>
+
+                    <p>安全可靠</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-heart"></i>
+                </div>
+                <div class="good-text">
+                    <h4>用心推荐</h4>
+
+                    <p>我们的专心和用心</p>
+
+                    <p>您的放心</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-star"></i>
+                </div>
+                <div class="good-text">
+                    <h4>五星级服务</h4>
+
+                    <p>线上线下服务同步</p>
+
+                    <p>广受好评</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-clock"></i>
+                </div>
+                <div class="good-text">
+                    <h4>发货及时</h4>
+
+                    <p>每天四次发货</p>
+
+                    <p>便捷高效</p>
+                </div>
+            </div>
+            <div class="our-good">
+                <div class="icon-box">
+                    <i class="foundicon-smiley"></i>
+                </div>
+                <div class="good-text">
+                    <h4>快乐购物</h4>
+
+                    <p>体会快乐的购物</p>
+
+                    <p>期待您的笑脸</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-us">
+        <ul>
+            <li><h3>购物与支付</h3></li>
+            <li><a href="">购物流程</a></li>
+            <li><a href="">订单查询</a></li>
+            <li><a href="">支付方式</a></li>
+            <li><a href="">发票领取</a></li>
+        </ul>
+        <ul>
+            <li><h3>配送说明</h3></li>
+            <li><a href="">配送方式和时间</a></li>
+            <li><a href="">配送费用和签收</a></li>
+            <li><a href=""></a></li>
+        </ul>
+        <ul>
+            <li><h3>关于我们</h3></li>
+            <li><a href="">点金子</a></li>
+            <li><a href="">点金子绝当品</a></li>
+            <li><a href="">联系我们</a></li>
+            <li><a href="">招贤纳士</a></li>
+            <li><a href="">业务范围</a></li>
+            <li><a href="">隐私声明</a></li>
+        </ul>
+        <ul>
+            <li><h3>售后服务</h3></li>
+            <li><a href="">退换货政策</a></li>
+            <li><a href="">退款说明</a></li>
+        </ul>
+        <div class="us">
+            <div class="our-app">
+                <a class="apple-dimension" href="#">
+                    <img class="app-icon" src="../core/images/footer/apple.png" alt="苹果客户端下载"/>
+
+                    <h3>苹果客户端</h3>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="android-dimension" href="#">
+                    <img class="app-icon" src="../core/images/footer/android.png" alt="安卓客户端下载"/>
+
+                    <h3>安卓客户端</h3>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="online-server" href="#">
+                    <img class="app-icon" src="../core/images/footer/weixin.png" alt="微信客户端下载"/>
+
+                    <h3>微信公众号</h3>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+                <a class="online-server" href="#">
+                    <img class="app-icon" src="../core/images/footer/weibo.png" alt="点金子在线投资"/>
+
+                    <h3>点金子投资</h3>
+                    <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                </a>
+            </div>
+            <div class="our-info">
+                <h3>点金子总部地址</h3>
+
+                <p>成都市武侯区某某某某某某某某</p>
+
+                <p>咨询热线：028-85033350</p>
+
+                <p>企业邮箱：zxhl998@163.com</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="approve-box">
+        <div class="approve">
+            <a href="#">
+                <img src="../core/images/footer/approve-0.png" alt=""/>
+            </a>
+            <a href="#">
+                <img src="../core/images/footer/approve-1.jpg" alt=""/>
+            </a>
+        </div>
+        <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
+    </div>
+</div>
+<!--footer end-->
+</body>
+</html>

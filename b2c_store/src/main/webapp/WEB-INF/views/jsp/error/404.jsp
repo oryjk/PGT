@@ -12,8 +12,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>绝当品</title>
+    <title>点金子典当行绝当品销售平台</title>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/searchPage/searchPage.css"/>"/>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
 </head>
 <body>
 <div class="header" id="header">
@@ -37,6 +38,7 @@
     </div>
 </div>
 <jsp:include page="../core/footer-main.jsp"/>
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" defer async="true"
         data-main="<spring:url value="${juedangpinStaticPath}/status404/status404"/>"></script>

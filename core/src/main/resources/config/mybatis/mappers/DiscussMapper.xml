@@ -48,13 +48,13 @@
 		<result column="CONTENT" property="content" />
 		<result column="IP" property="ip" />
 		<result column="IS_SHOW" property="isShow" />
-
        <association property="user" column="USER_ID"
 			select="selectUser"/>
-
+		<association property="shareOrder" column="SHARE_ORDER_ID"
+					 select="com.pgt.share.dao.ShareOrderMapper.queryShareOrderById"/>
 		<association property="product" javaType="com.pgt.product.bean.Product">
 			<id column="PRODUCT_ID" property="productId" />
-			<result column="NAME" property="name" />
+			<result column="NAME" property="name"/>
 		</association>
 		
 	</resultMap>
@@ -69,9 +69,55 @@
 	<!-- insert a Discuss bean -->
 	<insert id="createDiscuss" parameterType="com.pgt.communication.bean.Discuss"
 		keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO
-		DISCUSS(CREATE_DATE,CONTENT,IP,IS_SHOW,USER_ID,PRODUCT_ID)
-		VALUES(#{createDate},#{content},#{ip},#{isShow},#{user.id},#{product.productId})
+        INSERT INTO
+		DISCUSS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="ip != null">
+				IP,
+			</if>
+			<if test="isShow != null">
+				IS_SHOW,
+			</if>
+			<if test="user != null">
+				USER_ID,
+			</if>
+			<if test="product != null">
+				PRODUCT_ID,
+			</if>
+			<if test="shareOrder != null">
+				SHARE_ORDER_ID,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+			<if test="content != null">
+				#{content},
+			</if>
+			<if test="ip != null">
+				#{ip},
+			</if>
+			<if test="isShow != null">
+				#{isShow},
+			</if>
+			<if test="user != null">
+				#{user.id},
+			</if>
+			<if test="product != null">
+				#{product.productId},
+			</if>
+			<if test="shareOrder != null">
+				#{shareOrder.shareOrderId}
+			</if>
+		</trim>
 	</insert>
 
 	<!-- updateIsShow -->
@@ -118,6 +164,14 @@
 		</where>
 		<include refid="pageBean" />
 	</select>
+
+
+	<select id="queryShareDiscuss" parameterType="com.pgt.communication.bean.DiscussCustom"
+			resultMap="DiscussResult">
+		<include refid="query_start" />
+	    WHERE SHARE_ORDER_ID =#{shareOrderId} ORDER BY CREATE_DATE ASC
+	</select>
+
 
 	<!--queryAllDiscuss总记录数查询 -->
 	<select id="queryAllDiscussCount" resultType="Integer">

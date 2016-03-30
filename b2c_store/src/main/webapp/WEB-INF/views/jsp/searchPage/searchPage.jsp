@@ -6,14 +6,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>绝当品</title>
-<link rel="stylesheet"
-	href="<spring:url value="${juedangpinStaticPath}/searchPage/searchPage.css"/>" />
-<script
-	src="<spring:url value="${juedangpinStaticPath}/core/js/pageView.js"/>"></script>
-</head>
+
+<jsp:include page="../core/head.jspf">
+	<jsp:param name="cssPath" value="/searchPage/searchPage.css" />
+	<jsp:param name="jsPath" value="/core/js/pageView.js" />
+	<jsp:param name="keywords" value="点金子,淘在当,绝当淘,文玩销售,珠宝典当,黄金典当,铂金典当,玉石典当,钟表典当,奢侈品典当,钻石典当,翡翠典当,琥珀典当,绝当品销售" />
+	<jsp:param name="description" value="点金子，典当行业互联网风控专家，专业销售绝当品、在当品预售，平台销售种当品类繁多，珠宝销售、黄金销售、铂金销售玉石销售、钻石销售、文玩销售、琥珀销售、蜜蜡销售。" />
+</jsp:include>
 <body>
 	<!--主头部-->
 	<div class="header" id="header">
@@ -40,12 +39,13 @@
 							<c:forEach items="${parentCategoryList}" var="category">
 							<li>
 
-                                 <c:if test="${breadCrumb[0] eq category.source.name}">
+
+                                 <c:if test="${breadCrumb[0].breadName eq category.source.name}">
 
 									 <a class="filter-selection-focus" href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.source.id}">${category.source.name}</a>
 									</c:if>
 
-									<c:if test="${breadCrumb[0] != category.source.name}">
+									<c:if test="${breadCrumb[0].breadName != category.source.name}">
 									<a  href="${pageContext.request.contextPath}/essearch?parentCategoryId=${category.source.id}">${category.source.name}</a>
 									</c:if>
 
@@ -124,35 +124,72 @@
 							<li><span>排序方式</span></li>
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
 
-<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=creationDate<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">上架时间</a>
+<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=creationDate&key=true<c:if test='${empty sortOrder}'>&sortOrder=desc</c:if><c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">上架时间</a>
 
 								<c:if test="${sortKey eq 'creationDate'}">
-								<c:if test="${not empty sortOrder}">
-									<c:if test="${sortOrder eq 'asc'}">
-									<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+
+									<c:if test="${not empty sortOrder}">
+
+										<c:if test="${! empty page}">
+
+											<c:if test="${sortOrder eq 'desc'}">
+												<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+											</c:if>
+
+											<c:if test="${sortOrder eq 'asc'}">
+												<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
+											</c:if>
+
+										</c:if>
+
+										<c:if test="${ empty page}">
+
+											<c:if test="${sortOrder eq 'asc'}">
+												<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+											</c:if>
+
+											<c:if test="${sortOrder eq 'desc'}">
+												<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
+											</c:if>
+
+										</c:if>
 									</c:if>
 
-									<c:if test="${sortOrder eq 'desc'}">
-								<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
-								    </c:if>
-								</c:if>
 								</c:if>
 
 
 							</li>
 
 							<li><a href="${pageContext.request.contextPath}/essearch?term=${term}<c:if test='${not empty rootCategory}'>&rootCategoryId=${rootCategory.id}</c:if><c:if test='${not empty parentCategory}'>&parentCategoryId=${parentCategory.id}</c:if>
-<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=salePrice<c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">价格</a>
+<c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=salePrice&key=true<c:if test='${ empty sortOrder}'>&sortOrder=desc</c:if><c:if test='${not empty sortOrder}'>&sortOrder=${sortOrder}</c:if>">价格</a>
 
-								<c:if test="${sortKey eq 'listPrice'}">
-								<c:if test="${not empty sortOrder}">
-									<c:if test="${sortOrder eq 'asc'}">
+								<c:if test="${sortKey eq 'salePrice'}">
+
+									<c:if test="${not empty sortOrder}">
+
+										<c:if test="${! empty page}">
+
+										<c:if test="${sortOrder eq 'desc'}">
 										<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
 									</c:if>
 
-									<c:if test="${sortOrder eq 'desc'}">
+									<c:if test="${sortOrder eq 'asc'}">
 										<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
 									</c:if>
+
+											</c:if>
+
+										<c:if test="${ empty page}">
+
+											<c:if test="${sortOrder eq 'asc'}">
+												<a class="orderby-choose"> <i class="foundicon-up-arrow"></i></a>
+											</c:if>
+
+											<c:if test="${sortOrder eq 'desc'}">
+												<a class="orderby-choose"><i class="foundicon-down-arrow"></i></a>
+											</c:if>
+
+											</c:if>
 								</c:if>
 								</c:if>
 
@@ -163,13 +200,7 @@
 <c:if test='${not empty priceStart}'>&priceStart=${priceStart}</c:if><c:if test='${not empty priceEnd}'>&priceEnd=${priceEnd}</c:if>&sortKey=productId">综合排序</a>
 
 							</li>
-							<li>
-								<a href="#">只显示有货</a>
-								<!--仿checkbox-->
-								<span class="checkbox only-availble" data-value="0">
-									<i class="foundicon-checkmark"></i>
-									<input name="" type="hidden" value="0"/>
-								</span></li>
+
 						</ul>
 					</div>
 
@@ -183,7 +214,7 @@
 									<a class="list-img-box"
 										href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}"><img
 										src="${pageContext.request.contextPath}/resources/${searchHit.source['frontMedia']['path']}"
-										alt="${searchHit.source['name']}" /></a>
+										alt="${searchHit.source['imageDesc']}" /></a>
 
 									<c:if test="${searchHit.source['stock']<1}">
 
@@ -199,7 +230,7 @@
 									</div>
 
 									<p>
-										<a href="#">${searchHit.source['name']}</a>
+										<a href="${pageContext.request.contextPath}/product/${searchHit.source['productId']}">${searchHit.source['name']}</a>
 									</p>
 
 									<p>
@@ -255,11 +286,42 @@
 							<input type="hidden" name="priceEnd"
 								value="${priceEnd}">
 						</c:if>
-						
+
+
+
 						<c:if test="${! empty sortKey}">
 						<input type="hidden" name="sortKey"
 								value="${sortKey}">
 						</c:if>
+
+						<c:if test="${empty page}">
+
+							<c:if test="${! empty sortOrder}">
+								<input type="hidden" name="sortOrder"
+									   value="${sortOrder}">
+							</c:if>
+
+						</c:if>
+
+						<c:if test="${! empty page}">
+
+							<c:if test="${! empty sortOrder}">
+
+								<c:if test="${sortOrder eq 'desc'}">
+								<input type="hidden" name="sortOrder"
+									   value="asc">
+							    </c:if>
+
+								<c:if test="${sortOrder eq 'asc'}">
+									<input type="hidden" name="sortOrder"
+										   value="desc">
+								</c:if>
+
+								</c:if>
+
+						</c:if>
+
+
 						<jsp:include page="../core/pageView.jsp" />
 					</form>
 
@@ -269,7 +331,7 @@
 			<!-- 搜索无结果-->
 			<div class="no-result" style="display:${result[1]}">
 			<p class="row">
-			抱歉,没有找到 "<span>${message}</span>" 的搜索结果
+			抱歉,没有找到 "<span><c:out value="${message}"/></span>" 的搜索结果
 			</p>
 			</div>
 
@@ -278,9 +340,13 @@
 			</jsp:include>
 		</div>
 	</div>
+	<%--
 			<jsp:include page="../core/helpSide.jsp"/>
-			<jsp:include page="../core/footer-main.jsp" />
-
+		--%>
+				<jsp:include page="../core/footer-main.jsp" >
+					<jsp:param name="useside" value="true" />
+				</jsp:include>
+	<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 
 <script

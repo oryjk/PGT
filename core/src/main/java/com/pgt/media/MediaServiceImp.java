@@ -1,12 +1,22 @@
 package com.pgt.media;
 
+import com.pgt.base.service.TransactionService;
 import com.pgt.common.bean.Media;
+import com.pgt.common.dao.HotSearchMapper;
 import com.pgt.common.dao.MediaMapper;
 import com.pgt.media.bean.MediaType;
 import com.pgt.product.bean.ProductMedia;
 import com.pgt.product.dao.ProductMapper;
+import com.pgt.style.dao.PageBackgroundMapper;
+import com.pgt.tender.bean.TenderMedia;
+import com.pgt.tender.mapper.TenderMapper;
+import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -14,11 +24,19 @@ import java.util.List;
  * Created by carlwang on 12/7/15.
  */
 @Service
-public class MediaServiceImp implements MediaService {
+public class MediaServiceImp extends TransactionService implements MediaService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MediaServiceImp.class);
     @Autowired
     private ProductMapper productMapper;
     @Autowired
     private MediaMapper mediaMapper;
+    @Autowired
+    private PageBackgroundMapper pageBackgroundMapper;
+    @Autowired
+    private HotSearchMapper hotSearchMapper;
+
+    @Autowired
+    private TenderMapper tenderMapper;
 
     @Override
     public ProductMedia findFrontMediaByProductId(String productId) {
@@ -57,14 +75,129 @@ public class MediaServiceImp implements MediaService {
     }
 
     @Override
-    public List<ProductMedia> findThumbnailMediasByProductId(String productId) {
-        return productMapper.queryProductThumbnailMedias(Integer.valueOf(productId));
+    public ProductMedia findThumbnailMediasByProductId(String productId) {
+        return productMapper.queryProductThumbnailMedia(Integer.valueOf(productId));
+    }
+
+    @Override
+    public ProductMedia findMobileDetailMediaByProductId(String productId) {
+        return productMapper.queryProductMobileDetailMedias(Integer.valueOf(productId));
+    }
+
+    @Override
+    public Integer create(ProductMedia productMedia) {
+        return createMedia(productMedia);
+    }
+
+    @Override
+    public Integer createMedia(Media media) {
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            mediaMapper.createMedia(media);
+        } catch (Exception e) {
+            LOGGER.error("Can not create media");
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
+        return media.getId();
     }
 
     @Override
     public Media findCopyWriterMedia(Integer copyWriterId) {
-        return mediaMapper.queryMedia(MediaType.copy_write,copyWriterId);
+        List<Media> medias = mediaMapper.queryMediaByRefId(MediaType.copy_write, copyWriterId);
+        if (!ObjectUtils.isEmpty(medias)) {
+            return medias.get(0);
+        }
+        return null;
+    }
 
+    @Override
+    public void deleteMedia(Integer mediaId) {
+
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            mediaMapper.deleteMedia(mediaId);
+        } catch (Exception e) {
+            LOGGER.error("Can not delete product media with id is {}.", mediaId);
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
+    }
+
+    @Override
+    public Media findMedia(Integer mediaId, MediaType mediaType) {
+
+        return mediaMapper.queryMedia(mediaId);
+    }
+
+    @Override
+    public List<Media> findMediaByRefId(Integer referenceId, MediaType mediaType) {
+        return mediaMapper.queryMediaByRefId(mediaType, referenceId);
+
+    }
+
+
+    @Override
+    public Media queryPageBackgroundFooterMedia(Integer pageBackgroundId) {
+        return pageBackgroundMapper.queryPageBackgroundFooterMedia(pageBackgroundId);
+    }
+
+    @Override
+    public Media queryPageBackgroundMiddleMedia(Integer pageBackgroundId) {
+        return pageBackgroundMapper.queryPageBackgroundMiddleMedia(pageBackgroundId);
+    }
+
+    @Override
+    public Media queryPageBackgroundHeaderMedia(Integer pageBackgroundId) {
+        return pageBackgroundMapper.queryPageBackgroundHeaderMedia(pageBackgroundId);
+    }
+
+    @Override
+    public Media queryHotProductFrontMedia(Integer hotSearchId) {
+        return hotSearchMapper.queryHotProductFrontMedia(hotSearchId);
+    }
+
+
+    @Override
+    protected TransactionStatus ensureTransaction() {
+        return super.ensureTransaction();
+    }
+
+    @Override
+    public TenderMedia queryTenderMobileDetailMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderMobileDetailMedia(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PFrontMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PFrontMedia(tenderId);
+    }
+
+    @Override
+    public List<TenderMedia> queryTenderP2PMainMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PMainMedia(tenderId);
+    }
+
+    @Override
+    public List<TenderMedia> queryTenderP2PHeroMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PHeroMedia(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PAdvertisement(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PAdvertisement(tenderId);
+    }
+
+    @Override
+    public TenderMedia queryTenderP2PExpertMedia(@Param("tenderId") Integer tenderId) {
+        return tenderMapper.queryTenderP2PExpertMedia(tenderId);
+    }
+
+    @Override
+    public void updateMedia(Media media) {
+        mediaMapper.updateMedia(media);
     }
 
     public ProductMapper getProductMapper() {

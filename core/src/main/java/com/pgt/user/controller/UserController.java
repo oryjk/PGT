@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pgt.cart.constant.SessionConstant;
+import com.pgt.sso.service.SSOService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -42,7 +44,6 @@ import com.pgt.constant.UserConstant;
 import com.pgt.integration.yeepay.YeePayConstants;
 import com.pgt.integration.yeepay.YeePayHelper;
 import com.pgt.integration.yeepay.direct.service.DirectYeePay;
-import com.pgt.mail.MailConstants;
 import com.pgt.mail.service.MailService;
 import com.pgt.user.bean.ResetPasswordStep;
 import com.pgt.user.bean.User;
@@ -73,20 +74,23 @@ public class UserController {
 
     @Autowired
     private SimpleCacheManager cacheManager;
-    
+
     @Autowired
-	private MailService			mailService;
-    
+    private MailService mailService;
+
     @Autowired
     private Configuration configuration;
+
+    @Autowired
+    private SSOService ssoService;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(ModelAndView modelAndView, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
         String code = (String) request.getSession().getAttribute(Constants.LOGIN_SESSION_SECURITY_CODE);
-        if(!StringUtils.isBlank(code)){
-            modelAndView.addObject("code",code);
+        if (!StringUtils.isBlank(code)) {
+            modelAndView.addObject("code", code);
         }
         if (user != null) {
             LOGGER.debug("Redirect home page.");
@@ -95,6 +99,7 @@ public class UserController {
         }
         LOGGER.debug("Go to login page with get method");
         modelAndView.addObject(Constants.USER, new User());
+        modelAndView.addObject(Constants.HEAD_TITLE, "欢迎登陆");
         return modelAndView;
     }
 
@@ -194,7 +199,7 @@ public class UserController {
                 bindingResult.addError(
                         new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.authCode", null, null)));
                 modelAndView.addObject("user", user);
-                modelAndView.addObject("code",code);
+                modelAndView.addObject("code", code);
                 return modelAndView;
             }
         }
@@ -240,14 +245,24 @@ public class UserController {
         cookie.setMaxAge(UserConstant.OVERDUE);
         response.addCookie(cookie);
         user.setCount(0);
+
+
+        //SSO
+        cacheUser(userResult);
+
         modelAndView.setViewName("/user/successLogin");
-        modelAndView.addObject("redirect","/");
+        modelAndView.addObject("redirect", "/");
         if (!StringUtils.isEmpty(redirect)) {
             LOGGER.debug("Need redirect to {}.", redirect);
-            modelAndView.addObject("redirect",redirect);
+            modelAndView.addObject("redirect", redirect);
+            modelAndView.setViewName("redirect:" + redirect);
         }
 
         return modelAndView;
+    }
+
+    private void cacheUser(User user) {
+        ssoService.cacheUser(user, null, null);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -263,6 +278,7 @@ public class UserController {
         }
         LOGGER.debug("Go to register page with get method");
         modelAndView.addObject("user", new User());
+        modelAndView.addObject(Constants.HEAD_TITLE, "欢迎注册");
         modelAndView.setViewName(urlConfiguration.getRegisterPage());
         return modelAndView;
 
@@ -277,7 +293,7 @@ public class UserController {
             modelAndView.getModel().put("error", UserConstant.UNKNOWN_ERROR);
             return modelAndView;
         }
-        
+
         String code = (String) request.getSession().getAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         if (!StringUtils.isBlank(code)) {
             String authCode = user.getAuthCode();
@@ -306,18 +322,22 @@ public class UserController {
             modelAndView.getModel().put("error", UserConstant.PASSWORD_NOT_SAME);
             return modelAndView;
         }
-        boolean isExist = userServiceImp.checkExist(user.getUsername());
-        if (isExist) {
+        boolean userExist = userServiceImp.checkExist(user.getUsername());
+        if (userExist) {
             modelAndView.setViewName(urlConfiguration.getRegisterPage());
             bindingResult
                     .addError(new FieldError("user", "userExist", ErrorMsgUtil.getMsg("Error.userExist", null, null)));
             return modelAndView;
         }
+        boolean phoneExist = userServiceImp.checkExist(user.getPhoneNumber());
+
+        if (phoneExist) {
+            modelAndView.setViewName(urlConfiguration.getRegisterPage());
+            bindingResult
+                    .addError(new FieldError("user", "phoneExist", ErrorMsgUtil.getMsg("Error.phoneExist", null, null)));
+            return modelAndView;
+        }
         userServiceImp.saveUser(user);
-        Map<String,Object> params = new HashMap<String,Object>(); 
-        params.put("user", params);
-//		getMailService().sendEmail(MailConstants.SUBJECT_REGISTRATION, params, MailConstants.TEMPLATE_REGISTRATION,
-//				user.getEmail());
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         request.getSession().removeAttribute(Constants.REGISTER_SESSION_PHONE_CODE);
         modelAndView.setViewName("/user/successRegister");
@@ -334,7 +354,6 @@ public class UserController {
         }
         LOGGER.debug("This is reset password step {}.", resetPasswordStep.toString());
         modelAndView.setViewName(Constants.RESET_PASSWORD);
-        modelAndView.addObject(Constants.STEP, resetPasswordStep.toString());
         modelAndView.addObject(Constants.USER, new User());
         return modelAndView;
     }
@@ -364,10 +383,10 @@ public class UserController {
             modelAndView.addObject("user", user);
         }
         if (user.getPassword().equals(user.getPassword2())) {
-            User userResult=(User) request.getSession().getAttribute("userResult");
+            User userResult = (User) request.getSession().getAttribute("userResult");
             userResult.setPassword(user.getPassword());
             userResult.setPassword2(user.getPassword2());
-        	userServiceImp.updateUserPassword(userResult);
+            userServiceImp.updateUserPassword(userResult);
             request.getSession().setAttribute(Constants.STEP, ResetPasswordStep.COMPLETE);
 
         }
@@ -377,7 +396,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/updatePassword", method = RequestMethod.GET)
-    public ModelAndView updatePassword(ModelAndView modelAndView,HttpSession session){
+    public ModelAndView updatePassword(ModelAndView modelAndView, HttpSession session) {
 
         User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
         if (user == null) {
@@ -389,43 +408,80 @@ public class UserController {
     }
 
     @RequestMapping(value = "/updatePasswordSubmit", method = RequestMethod.POST)
-    public ModelAndView updatePasswordSubmit(User newUserPassword,BindingResult bindingResult,ModelAndView modelAndView,HttpSession session,String oldpassword){
+    public ModelAndView updatePasswordSubmit(User newUserPassword, BindingResult bindingResult, ModelAndView modelAndView, HttpSession session,
+                                             String oldPassword) {
 
         User user = (User) session.getAttribute(UserConstant.CURRENT_USER);
         if (user == null) {
+            LOGGER.debug("The User is null,User should login firstly when accessing add address.");
             modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
             return modelAndView;
         }
+        LOGGER.debug("the user is: {},name is:{}", user, user.getUsername());
 
-        //旧密码为空
-        if(ObjectUtils.isEmpty(oldpassword)){
+        if (ObjectUtils.isEmpty(oldPassword)) {
             bindingResult.addError(
-                    new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
-             return modelAndView;
-        }
-
-        String oldMd5Password = DigestUtils.md5Hex(oldpassword+ user.getSalt());
-        //旧密码输入不正确
-        if(!oldMd5Password.endsWith(user.getPassword())){
-            bindingResult.addError(
-                    new FieldError("updtePassword", "updatePasswordError", ErrorMsgUtil.getMsg("Error.internalUser.password.notMatch", null, null)));
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
+            modelAndView.setViewName("my-account/person-info/update-password");
             return modelAndView;
         }
-        //修改密码
-        if (newUserPassword.getPassword().equals(newUserPassword.getPassword2())) {
-                user.setPassword(newUserPassword.getPassword());
-                user.setPassword2(newUserPassword.getPassword2());
-                userServiceImp.updateUserPassword(user);
+
+        String oldMd5Password = DigestUtils.md5Hex(oldPassword + user.getSalt());
+
+        if (!oldMd5Password.endsWith(user.getPassword())) {
+            LOGGER.debug("the oldPassword is error");
+            bindingResult.addError(
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.internalUser.password.notMatch", null, null)));
+            modelAndView.setViewName("my-account/person-info/update-password");
+            return modelAndView;
         }
 
-        modelAndView.setViewName("redirect:/user/logout");
+        if (StringUtils.isBlank(newUserPassword.getPassword())) {
+            LOGGER.debug("the new password is null");
+            bindingResult.addError(
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("NotEmpty.user.password", null, null)));
+            modelAndView.setViewName("my-account/person-info/update-password");
+            return modelAndView;
+        }
+
+        if (newUserPassword.getPassword().length() < 6) {
+            LOGGER.debug("the password need 6 ~ 20 digit");
+            bindingResult.addError(
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Size.user.password", null, null)));
+            modelAndView.setViewName("my-account/person-info/update-password");
+            return modelAndView;
+        }
+
+
+        if (newUserPassword.getPassword().equals(newUserPassword.getPassword2())) {
+            user.setPassword(newUserPassword.getPassword());
+            user.setPassword2(newUserPassword.getPassword2());
+            userServiceImp.updateUserPassword(user);
+            LOGGER.debug("updatePassword success!");
+            modelAndView.setViewName("redirect:/user/logout");
+            return modelAndView;
+        } else {
+            LOGGER.debug("the password is not equals password2");
+            bindingResult.addError(
+                    new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.user.passwordConfirm.invalid", null, null)));
+        }
+
+
+        modelAndView.setViewName("my-account/person-info/update-password");
         return modelAndView;
     }
 
 
-
-
     private ModelAndView checkResetPasswordPhoneCode(User user, BindingResult bindingResult, ModelAndView modelAndView, HttpServletRequest request) {
+
+        if (ObjectUtils.isEmpty(user.getSmsCode())) {
+            modelAndView.setViewName(Constants.RESET_PASSWORD);
+            return modelAndView;
+        }
+        if (ObjectUtils.isEmpty(request.getSession().getAttribute(Constants.RESET_PASSWOR_SESSION_PHONE_CODE))) {
+            modelAndView.setViewName(Constants.RESET_PASSWORD);
+            return modelAndView;
+        }
         if (user.getSmsCode().equalsIgnoreCase((String) request.getSession().getAttribute(Constants.RESET_PASSWOR_SESSION_PHONE_CODE))) {
             request.getSession().setAttribute(Constants.STEP, ResetPasswordStep.SET_NEW_PASSWORD);
             modelAndView.setViewName(Constants.RESET_PASSWORD);
@@ -459,13 +515,13 @@ public class UserController {
             request.getSession().setAttribute(Constants.STEP, ResetPasswordStep.CHECK_PHONE_CODE);
             modelAndView.setViewName(Constants.RESET_PASSWORD);
             modelAndView.addObject(Constants.USER, user);
-            request.getSession().setAttribute("userResult",userResult);
+            request.getSession().setAttribute("userResult", userResult);
             return modelAndView;
         }
         LOGGER.debug("The user is not exist.");
         modelAndView.setViewName(Constants.RESET_PASSWORD);
         bindingResult.addError(
-                new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.authCode", null, null)));
+                new FieldError("user", "loginError", ErrorMsgUtil.getMsg("Error.user.notExist", null, null)));
         return modelAndView;
     }
 
@@ -477,12 +533,38 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public ModelAndView logout(HttpSession session, ModelAndView modelAndView) {
+    public ModelAndView logout(HttpSession session, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) {
+        User currentUser = (User) session.getAttribute(UserConstant.CURRENT_USER);
         session.removeAttribute(UserConstant.CURRENT_USER);
         session.removeAttribute(Constants.REGISTER_SESSION_SECURITY_CODE);
         session.removeAttribute(Constants.LOGIN_SESSION_SECURITY_CODE);
         session.removeAttribute(CartConstant.CURRENT_ORDER);
+        session.removeAttribute(SessionConstant.RECENT_PRODUCT_IDS);
         modelAndView.setViewName("redirect:" + urlConfiguration.getLoginPage());
+
+        Cookie[] cookies = request.getCookies();
+        String token = null;
+        if (ObjectUtils.isEmpty(cookies)) {
+            LOGGER.debug("The cookie is empty");
+        }
+        for (Cookie cookie : cookies) {
+            LOGGER.debug("cookie name is {}.,values is {}.", cookie.getName(), cookie.getValue());
+            if (cookie.getName().endsWith(configuration.getUserCacheTokenKey())) {
+                token = cookie.getValue();
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+                break;
+            }
+        }
+
+        if (StringUtils.isEmpty(token)) {
+            LOGGER.debug("Token is empty");
+        }
+        String tokenId = ssoService.findSSOTokenId(token);
+        if (!StringUtils.isEmpty(tokenId)) {
+            ssoService.deleteCacheUser(tokenId);
+            LOGGER.debug("The delete token is success");
+        }
         return modelAndView;
     }
 
@@ -491,20 +573,21 @@ public class UserController {
 
         User user = (User) request.getSession().getAttribute(UserConstant.CURRENT_USER);
         if (null == user) {
-            ModelAndView mav = new ModelAndView("redirect:" + urlConfiguration.getLoginPage());
+            ModelAndView mav = new ModelAndView("redirect:" + urlConfiguration.getLoginPage() + "?redirect=/user/yeepayAccountInfo");
             return mav;
         }
         // reload user
         user = userServiceImp.authorize(user.getUsername());
         if (YeePayConstants.REGISTOR_STATUS_SUCCESS == user.getYeepayStatus()) {
-        	Map<String, Object> params = new HashMap();
+            Map<String, Object> params = new HashMap();
             params.put(YeePayConstants.PARAM_NAME_USER_ID, user.getId());
             params.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO,
-                    YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId()));
+                    YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user));
             try {
-                Map<String, String> result = getAccountInfoYeepay().invok(params);
+                Map<String, String> result = getAccountInfoYeepay().invoke(params);
                 ModelAndView mav = new ModelAndView("/my-account/yeepay/accountInfo");
-                String accountNo = YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId());
+//                String accountNo = YeePayHelper.generateOutboundUserNo(getAccountInfoYeepay().getConfig(), user.getId());
+                String accountNo = user.getYeepayUserNo();
                 mav.addObject("accountNo", accountNo);
                 mav.addObject("idNo", user.getYeepayUserId());
                 mav.addObject("name", user.getYeepayUserName());
@@ -515,10 +598,10 @@ public class UserController {
                 return mav;
             }
         } else {
-        	 ModelAndView mav = new ModelAndView("/my-account/yeepay/accountInfoUnregistor");
-             return mav;
+            ModelAndView mav = new ModelAndView("/my-account/yeepay/accountInfoUnregistor");
+            return mav;
         }
-        
+
     }
 
     @Autowired
@@ -584,13 +667,13 @@ public class UserController {
     }
 
 
-	public MailService getMailService() {
-		return mailService;
-	}
+    public MailService getMailService() {
+        return mailService;
+    }
 
 
-	public void setMailService(MailService mailService) {
-		this.mailService = mailService;
-	}
-    
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
+
 }

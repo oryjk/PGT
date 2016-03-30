@@ -9,7 +9,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <div class="top-box">
     <div class="top-status">
         <div class="status-box">
@@ -66,11 +65,11 @@
             <input class="search-text" type="text" name="term" value="${term}" /><input class="search-sub" type="submit" value="搜索" />
         </form>
         <ul class="search-tips" id="searchTips">
-            <li>小万</li>
-            <li>王霸</li>
-            <li>厉害</li>
-            <li>搜索</li>
-            <li>提示</li>
+            <li>钻石饰品</li>
+            <li>文玩杂项</li>
+            <li>玉石类</li>
+            <li>琥珀蜜蜡</li>
+            <li>木制品</li>
         </ul>
         <div class="hot-words">
 
@@ -100,13 +99,6 @@
         </div>
         <div class="search-box">
             <form action="${pageContext.request.contextPath}/essearch"><input class="search-text" type="text" name="term" value="${term}" /><input class="search-sub" type="submit" value="搜索" /></form>
-            <ul class="search-tips" id="fixedSearchTips">
-                <li>小万</li>
-                <li>王霸</li>
-                <li>厉害</li>
-                <li>搜索</li>
-                <li>提示</li>
-            </ul>
         </div>
         <div class="cart-box">
             <a class="cart" href="<spring:url value="/shoppingCart/cart" />">

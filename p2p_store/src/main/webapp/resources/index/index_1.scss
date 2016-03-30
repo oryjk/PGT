@@ -1,0 +1,669 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+@include footer;
+
+/*style
+**************************************************************************************************************************************************/
+.top-banner {
+  display: block;
+  height: 80px;
+}
+
+.top {
+  height: 37px;
+  line-height: 37px;
+  background: #f5f5f5;
+  font-size: 12px;
+  color: #6c6c6c;
+
+  * {
+    vertical-align: middle;
+  }
+}
+
+.top-content {
+  @extend %clear;
+  margin: 0 auto;
+  width: $main-width;
+}
+
+.top-welcome {
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+
+.top-welcome-phone-title {
+  padding-left: 20px;
+}
+
+.top-welcome-phone-value {
+  padding-left: 5px;
+}
+
+.top-user {
+  float: right;
+  width: 50%;
+  text-align: right;
+
+  a {
+    color: #6c6c6c;
+  }
+}
+
+.top-user-register {
+  padding-left: 10px;
+}
+
+.head {
+  margin: 0 auto;
+  @include wh($main-width, 110px);
+}
+
+.logo,
+.hot-left,
+.search,
+.hot-right {
+  float: left;
+  height: 110px;
+}
+
+.logo {
+  width: 230px;
+  background: url("../core/images/header/logo-red.jpg") no-repeat left center;
+}
+
+.logo-link {
+  display: block;
+  height: 100%;
+}
+
+.hot-left {
+  width: 150px;
+}
+
+.search {
+  width: 560px;
+}
+
+.search-content {
+  float: right;
+  margin-top: 36px;
+  border: 1px solid #a9b7b7;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.search-input-text{
+  float: right;
+  border: none;
+  border-right: 1px solid #a9b7b7;
+  padding: 0 10px;
+  @include wh(400px, 37px);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.search-input-submit{
+  float: right;
+  border: none;
+  @include wh(37px, 37px);
+  background: url("../core/images/header/icon-search.png") no-repeat center center;
+
+  &:hover {
+    background: #a9b7b7 url("../core/images/header/icon-search-hover.png") no-repeat center center;
+  }
+}
+
+.hot-right {
+  margin-left: 100px;
+  width: 160px;
+}
+
+.nav {
+  background: #272727;
+}
+
+.nav-content {
+  margin: 0 auto;
+  @include wh($main-width, 54px);
+}
+
+.menu {
+  position: relative;
+  z-index: 1;
+  float: left;
+  @include wh(230px, 54px);
+}
+
+.menu-title {
+  line-height: 54px;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+.menu-list {
+  position: absolute;
+  width: 230px;
+  top: 54px;
+  left: 0;
+  background: url("../core/images/opacity/opacity_white_9.png") repeat;
+}
+
+
+.menu-item {
+  margin: 0 15px;
+  padding: 15px 0 15px 40px;
+  border-bottom: 1px dashed $gray-light;
+}
+
+.menu-item-title {
+  color: #6c6c6c;
+}
+
+.menu-item-sub-box {
+  padding-top: 5px;
+  line-height: 1.2;
+}
+
+.menu-item-sub {
+  font-size: 14px;
+  color: #6c6c6c;
+}
+
+.nav-list {
+  position: relative;
+  float: left;
+}
+
+.nav-item-hover {
+  position: absolute;
+  z-index: 1;
+  background: #414141;
+  transition: all .3s;
+}
+
+.nav-item {
+  position: relative;
+  z-index: 2;
+  float: left;
+}
+
+.nav-item-link {
+  display: block;
+  padding: 0 30px;
+  height: 54px;
+  line-height: 54px;
+  font-size: 18px;
+  font-weight: 400;
+  color: white;
+}
+
+/*banner
+*******************************************************/
+.banner-box {
+  position: relative;
+  height: 561px;
+}
+
+.banner {
+  @include wh(100%, 100%);
+
+  a {
+    display: none;
+    position: absolute;
+    @include wh(100%, 100%);
+  }
+}
+
+.banner-nav {
+  position: absolute;
+  right: 15%;
+  bottom: 3%;
+
+  li {
+    float: left;
+    margin-right: 5px;
+    @include wh(30px, 8px);
+    border-radius: 3px;
+    background: #6c6c6c;
+    text-indent: -5000px;
+    cursor: pointer;
+  }
+
+  .banner-nav-current {
+    background: white;
+  }
+}
+
+/*our-goods
+  ************************************************/
+.goods-box {
+  background: #f5f5f5;
+}
+
+.our-goods {
+  margin: 0 auto;
+  padding: 20px 0;
+  @include wh($main-width-s, 70px);
+}
+
+.our-good {
+  float: left;
+  @include wh(20%, 70px);
+
+
+  .icon-box {
+    float: left;
+    margin-right: 5px;
+    @include wh(70px, 100%);
+    border-radius: 50px;
+    line-height: 70px;
+    text-align: center;
+  }
+
+  i {
+    color: white;
+    font-size: 35px;
+  }
+
+  h4 {
+    padding-top: 10px;
+    font-size: 16px;
+  }
+  p {
+    padding-top: 5px;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
+
+/*hottest
+  ************************************************/
+.hottest {
+  margin: 30px auto 0;
+  width: $main-width
+}
+
+.hottest-list {
+  @extend %clear;
+}
+
+.hottest-item {
+  float: left;
+  @include wh(292.5px, 323px);
+  margin-right: 10px;
+}
+
+.hottest-item-end {
+  margin: 0;
+}
+
+.hottest-link,
+.hottest-img {
+  display: block;
+  @include wh(100%, 100%);
+}
+
+.hottest-link {
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    .hottest-text {
+      top: 283px;
+      transition: top .5s;
+    }
+  }
+}
+
+.hottest-text {
+  position: absolute;
+  top: 323px;
+  left: 0;
+  @include wh(100%, 40px);
+  background: url("../core/images/opacity/opacity_white_9.png") repeat;
+  line-height: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: #6c6c6c;
+  transition: top .5s;
+}
+
+/*pawn
+  ************************************************/
+.pawn {
+  margin: 0 auto;
+  @extend %clear;
+  width: $main-width;
+}
+
+
+.pawn-point-list {
+  float: left;
+  @include wh(760px, 341px);
+}
+
+.pawn-point-item {
+  position: relative;
+  display: none;
+  @include wh(100%, 100%);
+}
+
+.pawn-point-link {
+  display: block;
+  @include wh(100%, 100%);
+  color: #6c6c6c;
+}
+
+.pawn-point-text {
+  position: absolute;
+  top: 85px;
+  right: 40px;
+  @include wh(310px, 150px);
+  background: url("../core/images/opacity/opacity_white_5.png") repeat;
+}
+
+.pawn-point-head {
+  padding: 30px 0 0 30px;
+  font-size: 14px;
+}
+
+.pawn-point-content {
+  padding: 10px 30px 0 30px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.pawn-point-item-current {
+  display: block;
+}
+
+.pawn-nav-list {
+  float: left;
+  @include wh(440px, 341px);
+}
+
+.pawn-nav-item {
+  position: relative;
+  float: left;
+  border: 1px solid $gray-light;
+  margin: 0 0 10px 10px;
+  @include wh(208px, 105px);
+  cursor: pointer;
+
+  &:hover {
+    .pawn-nav-link {
+      @include opacity(0.8);
+      transition: opacity .5s;
+    }
+  }
+}
+
+.pawn-nav-end {
+  margin-bottom: 0;
+}
+
+.pawn-nav-current {
+  border: 1px solid $main;
+}
+
+.pawn-nav-link {
+  @include opacity(0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include wh(100%, 100%);
+  text-align: center;
+  line-height: 105px;
+  font-size: 22px;
+  color: white;
+  background: black;
+}
+
+.pawn-nav-img {
+  display: block;
+  @include wh(100%, 100%);
+}
+
+
+/*category
+  ************************************************/
+.invest-list {
+  @extend %clear;
+  padding-top: 5px;
+  float: left;
+  background: white;
+
+  li {
+    position: relative;
+    top: 0;
+    float: left;
+    margin-right: 2px;
+    @include wh(308px, 430px);
+    background: #f8f8f8;
+    transition: all .4s;
+
+    &:hover {
+      top: -5px;
+      transition: all 1s;
+      box-shadow: 0 10px 15px $gray;
+
+      h4 {
+        margin-top: 5px;
+        transition: margin-top 1s;
+      }
+
+      .invest-row-2,
+      .invest-row-3 {
+        opacity: 1;
+        transition: opacity 1s;
+      }
+    }
+  }
+
+  .invest-inner {
+    @include wh(100%, 100%);
+    overflow: hidden;
+  }
+
+  .img-box {
+    margin-top: 15px;
+    display: block;
+
+    img {
+      display: block;
+      margin: 0 auto;
+      @include wh(277.18px, 277.18px);
+    }
+  }
+
+  h4 {
+    margin: 30px auto 0;
+    width: 180px;
+    line-height: 1.7;
+    transition: margin-top 0.4s;
+
+    a {
+      color: black;
+
+      &:hover {
+        color: $main;
+      }
+    }
+  }
+
+  .invest-row-1,
+  .invest-row-2,
+  .invest-row-3 {
+    @include block-center(180px);
+    line-height: 1.7;
+  }
+
+  .invest-row-1 {
+    color: $main;
+  }
+
+  .invest-row-2,
+  .invest-row-3 {
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+}
+
+//category
+.headline {
+  margin: 40px 0 15px;
+  font-size: 40px;
+  height: 40px;
+  color: $main;
+  background: url("../core/images/index/red-line-right.png") no-repeat right 5px;
+  text-align: center;
+  @extend %clear;
+
+  div {
+    @include wh(100%, 100%);
+    background: url("../core/images/index/red-line-left.png") no-repeat left 5px;
+  }
+}
+
+.category {
+  margin: 0 auto 30px;
+  @include wh($main-width, auto);
+  text-align: center;
+
+
+
+
+  .each-category {
+    margin-top: 30px;
+    @extend %clear;
+  }
+
+  .list-head {
+    float: left;
+    @include wh(270px, 435px);
+  }
+
+  .list-head-content {
+    height: 100%;
+  }
+
+  .category-nav {
+    float: right;
+    padding-top: 63px;
+
+    li {
+      margin-bottom: 8px;
+      border: 1px solid white;
+      border-right: none;
+      @include wh(110px, 40px);
+    }
+
+    a {
+      display: block;
+      @include wh(100%, 100%);
+      background: rgba(255,255,255,.2);
+      color: white;
+      line-height: 40px;
+      text-align: left;
+      text-indent: 20px;
+
+      &.category-nav-choose {
+        background: white;
+      }
+    }
+  }
+
+  h3 {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+  }
+
+  .help {
+    float: left;
+    @include wh(590px, 434px);
+    border-right: 1px solid $gray-light;
+    border-bottom: 1px solid $gray-light;
+  }
+
+
+  .help-hot {
+    padding-top: 20px;
+    @extend %clear;
+  }
+
+
+  .help-img-box {
+    float: left;
+    margin-left: 20px;
+    @include wh(265px, 172px);
+
+    img {
+      display: block;
+      @include wh(100%, 100%);
+    }
+  }
+
+  .help-list {
+    padding: 25px 0 0 25px;
+    text-align: left;
+    line-height: 2;
+
+    li {
+      padding-left: 30px;
+    }
+
+    a {
+      color: black;
+
+      &:hover {
+        color: $main;
+      }
+    }
+  }
+
+  .app-code {
+    float: right;
+    @include wh(320px, 434px);
+    border: 1px solid $gray-light;
+    border-top: none;
+    text-align: center;
+  }
+
+  .app-row-1 {
+    padding-top: 55px;
+    font-size: 34px;
+  }
+
+  .app-row-2 {
+    padding-top: 15px;
+    font-size: 16px;
+  }
+
+  .app-row-3 {
+    padding-top: 40px;
+    img {
+      @include wh(153px, 153px);
+    }
+  }
+
+  .app-row-4 {
+    padding-top: 15px;
+    color: $main;
+  }
+}
+

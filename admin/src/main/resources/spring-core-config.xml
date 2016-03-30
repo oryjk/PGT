@@ -6,7 +6,13 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd ">
-
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:global.properties</value>
+            </list>
+        </property>
+    </bean>
     <import resource="yeepay-config.xml"/>
     <import resource="alipay-config.xml"/>
     <context:component-scan base-package="com.*"/>
@@ -16,8 +22,8 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:config/mybatis/mappers/*Mapper.xml"/>
-        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/> -->
+        <property name="mapperLocations" value="classpath*:config/mybatis/mappers/*Mapper.xml"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
     <bean id="transactionManager"
@@ -50,15 +56,15 @@
     </bean>
     <bean id="emailRegexValidator" class="com.pgt.cart.util.FieldsRegexValidator">
         <property name="regexPattern"
-                  value="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;"/>
+                  value="^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,3})$"/>
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:customValidationMessages"></property>
+        <property name="basename" value="classpath*:customValidationMessages"></property>
         <property name="defaultEncoding" value="utf-8"></property>
         <property name="cacheSeconds" value="120"></property>
     </bean>
-    <bean id="configuration" class="com.pgt.configuration.Configuration">
+    <bean id="configuration" class="com.pgt.configuration.Configuration" scope="singleton">
         <property name="homeHotProductCount" value="5"/>
         <property name="onlyShowInStock" value="false"/>
         <property name="productListPageCapacity" value="20"/>
@@ -67,7 +73,23 @@
         <property name="useES" value="true"></property>
         <property name="resourcePath" value="/resources"></property>
         <property name="initialDataPath" value="/json"></property>
-
+        <property name="adminPlpCapacity" value="5"></property>
+        <property name="adminCategoryCapacity" value="20"></property>
+        <property name="imagePath" value="${imagePath}"></property>
+        <property name="imageFolder" value="${imageFolder}"></property>
+        <property name="useProxy" value="${useProxy}"></property>
+        <property name="staticServer" value="${staticServer}"></property>
+        <property name="pawnType">
+            <map>
+             <entry key="jewellery" value="珠宝"></entry>
+             <entry key="car" value="汽车"></entry>
+             <entry key="extravagant" value="奢侈品典当"></entry>
+             <entry key="house" value="房产典当"></entry>
+             <entry key="watch" value="手表典当"></entry>
+             <entry key="others" value="其他"></entry>
+            </map>
+       </property>
+        <property name="currentSite" value="ADMIN"></property>
 
     </bean>
     <bean id="urlConfiguration" class="com.pgt.configuration.URLConfiguration" scope="singleton">
@@ -84,6 +106,7 @@
         <property name="plpPage" value="/category"/>
         <property name="helpCenterPage" value="/helpcenter/query"/>
     </bean>
+
     <bean id="esConfiguration" class="com.pgt.configuration.ESConfiguration" scope="singleton">
         <property name="host" value="localhost"/>
         <property name="indexPort" value="9300"/>
@@ -119,8 +142,6 @@
                 <value>sort</value>
             </list>
         </property>
-        <property name="needIndex" value="true"/>
-        <property name="clearIndex" value="true"/>
     </bean>
 
     <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
@@ -133,11 +154,6 @@
         </property>
     </bean>
 
-    <bean class="com.pgt.data.MigrateData">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="esConfiguration" ref="esConfiguration"/>
-        <property name="esSearchService" ref="esSearchService"/>
-    </bean>
 
     <bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -153,7 +169,7 @@
     </bean>
 
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/" />
+        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/"/>
         <property name="velocityProperties">
             <props>
                 <prop key="default.contentType">text/html; charset=utf-8</prop>
@@ -162,4 +178,38 @@
             </props>
         </property>
     </bean>
+
+
+    <bean id="B2COrderService" class="com.pgt.order.service.B2COrderService">
+        <property name="orderStatusMapping">
+            <map>
+                <entry key="10" value="待提交"/>
+                <entry key="20" value="待付款"/>
+                <entry key="25" value="待完成支付"/>
+                <entry key="30" value="待收货"/>
+                <entry key="100" value="已完成"/>
+                <entry key="-10" value="已取消"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean class="com.pgt.executor.processor.InstantiationTracingBeanPostProcessor">
+        <property name="initializationHandlers">
+            <array>
+                <ref bean="adminSessionPathInitHandler"/>
+            </array>
+        </property>
+    </bean>
+    <bean class="com.pgt.data.index.service.AllIndexService">
+        <property name="searchEngineServiceList">
+            <list value-type="com.pgt.search.service.AbstractSearchEngineService">
+                <ref bean="categorySearchEngineService"/>
+                <ref bean="esSearchService"/>
+                <ref bean="staticResourceSearchEngineService"/>
+                <ref bean="tenderSearchEngineService"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="adminSessionPathInitHandler" class="com.pgt.executor.handler.AdminSessionPathInitHandler"/>
 </beans>

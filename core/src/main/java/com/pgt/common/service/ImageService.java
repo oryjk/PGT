@@ -67,4 +67,8 @@ public interface ImageService {
 	 */
 	List<Image> queryAllImageByLocation(ImageCustom imageCustom);
 
+	List<Image> queryImageByBanner(ImageCustom imageCustom);
+
+	Integer queryImageByBannerCount(Integer bannerId);
+
 }

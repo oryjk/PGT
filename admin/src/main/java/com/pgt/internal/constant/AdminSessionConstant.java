@@ -5,5 +5,5 @@ package com.pgt.internal.constant;
  */
 public interface AdminSessionConstant {
 
-	String INTERNAL_USER = "internal_user";
+	String INTERNAL_USER = "internalUser";
 }

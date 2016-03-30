@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.token.dao.TokenMapper">
+
+    <!--查询条件 -->
+    <sql id="tokenWhere">
+        <where>
+            <if test="username!=null">
+                AND USERNAME =#{username}
+            </if>
+            <if test="phoneId!=null">
+                AND PHONE_ID =#{phoneId}
+            </if>
+            <if test="nowDate!=null">
+                AND #{nowDate} &lt; OUT_DATE
+            </if>
+        </where>
+    </sql>
+
+    <!--Token result map -->
+    <resultMap id="tokenResult" type="com.pgt.token.bean.Token">
+        <id column="ID" property="id"/>
+        <result column="TOKEN_NUMBER" property="tokenNumber"/>
+        <result column="USERNAME" property="username"/>
+        <result column="PHONE_ID" property="phoneId"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="OUT_DATE" property="outDate"/>
+    </resultMap>
+
+    <!-- insert a Token bean -->
+    <insert id="createToken" parameterType="com.pgt.token.bean.Token"
+            keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO
+        TOKEN(TOKEN_NUMBER,USERNAME,PHONE_ID,CREATE_DATE,OUT_DATE)VALUES(#{tokenNumber},#{username},#{phoneId},#{createDate},#{outDate})
+    </insert>
+
+    <!-- update a Token bean -->
+    <update id="updateToken" parameterType="com.pgt.token.bean.Token"
+            keyProperty="id" useGeneratedKeys="true">
+        UPDATE TOKEN SET
+        TOKEN_NUMBER=#{tokenNumber},USERNAME=#{username},PHONE_ID=#{phoneId},CREATE_DATE=#{createDate},OUT_DATE=#{outDate}
+        WHERE ID=#{id}
+    </update>
+
+    <!-- delete a Token bean -->
+   <delete id="deleteTokenById">
+        DELETE FROM
+        TOKEN WHERE ID=#{id}
+    </delete>
+
+    <select id="queryToken" parameterType="com.pgt.token.bean.Token"
+            resultMap="tokenResult">
+        SELECT * FROM TOKEN
+        <include refid="tokenWhere"/>
+    </select>
+
+
+</mapper>

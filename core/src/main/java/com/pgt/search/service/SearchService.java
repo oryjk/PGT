@@ -2,44 +2,45 @@ package com.pgt.search.service;
 
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.SearchPaginationBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by carlwang on 11/15/15.
  */
+@Service
 public class SearchService {
 
-	@Autowired
-	private ProductService productService;
+    @Autowired
+    private ProductServiceImp productServiceImp;
 
-	@Autowired
-	private ProductHelper productHelper;
+    @Autowired
+    private ProductHelper productHelper;
 
-	List<Product> queryProduct(SearchPaginationBean searchPaginationBean) {
+    public List<Product> queryProduct(SearchPaginationBean searchPaginationBean) {
 
-		return productHelper.findProducts(searchPaginationBean);
+        return productHelper.findProducts(searchPaginationBean);
 
-	}
+    }
 
-	public ProductService getProductService() {
-		return productService;
-	}
+    public ProductServiceImp getProductServiceImp() {
+        return productServiceImp;
+    }
 
-	public void setProductService(ProductService productService) {
-		this.productService = productService;
-	}
+    public void setProductServiceImp(ProductServiceImp ProductServiceImp) {
+        this.productServiceImp = ProductServiceImp;
+    }
 
-	public ProductHelper getProductHelper() {
-		return productHelper;
-	}
+    public ProductHelper getProductHelper() {
+        return productHelper;
+    }
 
-	public void setProductHelper(ProductHelper productHelper) {
-		this.productHelper = productHelper;
-	}
+    public void setProductHelper(ProductHelper productHelper) {
+        this.productHelper = productHelper;
+    }
 
 }

@@ -1,19 +1,27 @@
 package com.pgt.payment.dao;
 
+import com.pgt.payment.bean.TransactionLogQueryBean;
 import org.springframework.stereotype.Component;
 
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.payment.bean.TransactionLog;
 
+import java.util.List;
+
 @Component
 public interface TransactionLogMapper extends SqlMapper {
 	
-	public int createTransactionLog(final TransactionLog transactionlog);
+	int createTransactionLog(final TransactionLog transactionlog);
 	
-	public int updateTransactionLog(final TransactionLog transactionlog);
+	int updateTransactionLog(final TransactionLog transactionlog);
 	
-	public TransactionLog findById(final int id);
+	TransactionLog findById(final int id);
 
-	public TransactionLog findByTrackingNo(String trackingNo);
+	TransactionLog findByTrackingNo(String trackingNo);
 
+	List<TransactionLog> queryTransactionLog(TransactionLogQueryBean bean);
+
+	int queryTransactionLogTotalAmount(TransactionLogQueryBean bean);
+
+	TransactionLog findLastLogByOrderId(long orderId);
 }

@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绝当品</title>
+    <title>点金子典当行绝当品销售平台</title>
     <link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}/help/helpcenter.css"/>"/>
 </head>
 <body>
@@ -26,8 +26,7 @@
             <div class="aside1"><h2>帮助中心</h2></div>
         <ul>
             <c:forEach items="${helpCategorVoList}" var="categoryVo">
-                <li><a class="menu-level-1" >${categoryVo.category.name}</a></li>
-                <li>
+                <li><a class="menu-level-1" >${categoryVo.category.name}</a>
                     <ul>
                         <c:forEach items="${categoryVo.helpCenterList}" var="helpVo">
 
@@ -62,7 +61,12 @@
                         <a href="#">${helpCenter.title}</a>
                     </p>
                 </div>
-                <img src="${pageContext.request.contextPath}/resources/${helpCenter.frontMedia.path}" alt="${helpCenter.title}">
+                <c:if test="${not empty helpCenter.content}">
+                	${helpCenter.content}
+                </c:if>
+                 <c:if test="${empty helpCenter.content}">
+                	<img src="${pageContext.request.contextPath}/resources/${helpCenter.frontMedia.path}" alt="${helpCenter.title}">
+                </c:if>
             </div>
 
         </div>
@@ -89,9 +93,13 @@
     </div>
 
       <jsp:include page="../core/footer-main.jsp" />
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/help/helpcenter.js"/>" defer async="true"></script>
-
+<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.config.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.all.min.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/ueditor.parse.min.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="${juedangpinStaticPath}/admin/lang/zh-cn/zh-cn.js"/>"></script>
 
 </html>

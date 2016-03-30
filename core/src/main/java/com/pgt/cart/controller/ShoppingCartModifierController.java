@@ -15,7 +15,7 @@ import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.configuration.URLConfiguration;
 import com.pgt.constant.UserConstant;
 import com.pgt.product.bean.Product;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.user.bean.User;
 import com.pgt.utils.URLMapping;
 import org.apache.commons.collections.CollectionUtils;
@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,9 +41,11 @@ import java.util.*;
  */
 @RequestMapping("/shoppingCart")
 @RestController
-public class ShoppingCartModifierController extends TransactionBaseController implements CartMessages {
+public class ShoppingCartModifierController extends TransactionBaseController implements CartMessages, CartProperties {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingCartModifierController.class);
+	public static final String CART = "/shoppingCart/cart";
+
+	public static final Logger LOGGER = LoggerFactory.getLogger(ShoppingCartModifierController.class);
 
 	@Resource(name = "shoppingCartService")
 	private ShoppingCartService mShoppingCartService;
@@ -51,12 +54,13 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	private PriceOrderService mPriceOrderService;
 
 	@Autowired
-	private ProductService mProductService;
-	
+	private ProductServiceImp productServiceImp;
+
+	@Resource(name="orderService")
+	private OrderService mOrderService;
+
 	@Autowired
-	private OrderService orderService;
-	@Autowired
-	private URLConfiguration urlConfiguration;
+	private URLConfiguration mURLConfiguration;
 
 	@Resource(name = "responseBuilderFactory")
 	private ResponseBuilderFactory mResponseBuilderFactory;
@@ -64,33 +68,89 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	@Autowired
 	private URLMapping mURLMapping;
 
-	public static final String CART = "/shoppingCart/cart";
-
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public ModelAndView redirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		ModelAndView modelAndView = new ModelAndView("shopping-cart/cart");
-		return modelAndView;
+	public ModelAndView redirect2Cart (HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		ModelAndView mav = new ModelAndView("shopping-cart/cart");
+		mav.addObject(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart());
+		Order order = getCurrentOrder(pRequest, true);
+		if (!ObjectUtils.isEmpty(order)) {
+			synchronized (order) {
+				getShoppingCartService().checkInventory(order);
+				if (!getShoppingCartService().checkCartItemCount(order)) {
+					LOGGER.debug("redirect to cart page because cart item count had been reached limit");
+					mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
+					return mav;
+				}
+			}
+			if (StringUtils.equals(pRequest.getParameter("error"), ERROR_INV_CHECK_FAILED)) {
+				String error = getMessageValue(ERROR_INV_CHECK_FAILED, StringUtils.EMPTY);
+				mav.addObject(CartConstant.ERROR_MSG, error);
+				return mav;
+			}
+			String oosProductIds = pRequest.getParameter("oosProdId");
+			if (StringUtils.isBlank(oosProductIds)) {
+				return mav;
+			}
+			String oosProductNames = getShoppingCartService().convertProductIdsToProductNames(oosProductIds, "_");
+			if (StringUtils.isNotBlank(oosProductNames)) {
+				String error = oosProductNames.concat(getMessageValue(WARN_REMOVE_ITEM_NOTIFY, StringUtils.EMPTY));
+				mav.addObject(CartConstant.ERROR_MSG, error);
+			}
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/ajaxCart", method = RequestMethod.GET)
+	public ResponseEntity ajaxCart (HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(true);
+		Map<String, Object> data = new HashMap<>();
+		data.put(CartConstant.ORDER_ITEM_LIMIT, getShoppingCartService().getShoppingCartConfiguration().getMaxItemCount4Cart());
+		Order order = getCurrentOrder(pRequest, true);
+		data.put(CartConstant.CURRENT_ORDER, order);
+		if (!ObjectUtils.isEmpty(order)) {
+			synchronized (order) {
+				getShoppingCartService().checkInventory(order);
+				if (!getShoppingCartService().checkCartItemCount(order)) {
+					LOGGER.debug("Cart item count had been reached limit");
+					rb.addErrorMessage(ITEM_COUNT_LIMIE, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
+				}
+			}
+			if (StringUtils.equals(pRequest.getParameter("error"), ERROR_INV_CHECK_FAILED)) {
+				String error = getMessageValue(ERROR_INV_CHECK_FAILED, StringUtils.EMPTY);
+				rb.addErrorMessage(ITEM_INV_CHECK, error);
+			}
+			String oosProductIds = pRequest.getParameter("oosProdId");
+			if (StringUtils.isNotBlank(oosProductIds)) {
+				String oosProductNames = getShoppingCartService().convertProductIdsToProductNames(oosProductIds, "_");
+				if (StringUtils.isNotBlank(oosProductNames)) {
+					String error = oosProductNames.concat(getMessageValue(WARN_REMOVE_ITEM_NOTIFY, StringUtils.EMPTY));
+					rb.addErrorMessage(ITEM_INV_CHECK, error);
+				}
+			}
+		}
+		rb.setData(data);
+		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
 
 	@RequestMapping(value = "/addItemToOrder")//, method = RequestMethod.POST)
-	public ModelAndView addItemToOrderRedirect2Cart(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productId", required = true) int productId,
-			@RequestParam(value = "easyBuy", required = false, defaultValue = "0") int easyBuy) {
+	public ModelAndView addItemToOrderRedirect2Cart (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                                 @RequestParam(value = "productId", required = true) int productId,
+	                                                 @RequestParam(value = "easyBuy", required = false, defaultValue = "0") int easyBuy) {
 		ModelAndView mav = new ModelAndView(getRedirectView(getURLMapping().getPDPUrl(String.valueOf(productId))));
 		// check product
-		Product product = getProductService().queryProduct(productId);
+		Product product = getProductServiceImp().queryProduct(productId);
 		if (!mShoppingCartService.checkProductValidity(product)) {
 			LOGGER.debug("Stop add item to cart for product: {} not available", productId);
 			mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_NOT_AVAILABLE, StringUtils.EMPTY));
 			return mav;
 		}
-		Order order = null;
+		Order order;
 		if (easyBuy > 0) {
 			User user = (User) pRequest.getSession().getAttribute(UserConstant.CURRENT_USER);
 			if (user == null) {
-				String redirectUrl = getUrlConfiguration().getLoginPage() + "?redirect="
-						+ getUrlConfiguration().getPdpPage() + "/" + productId;
+				String redirectUrl = getURLConfiguration().getLoginPage() + "?redirect="
+						+ getURLConfiguration().getPdpPage() + "/" + productId;
 				mav.setViewName("redirect:" + redirectUrl);
 				return mav;
 			}
@@ -99,14 +159,36 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 			// check and generate order
 			order = getCurrentOrder(pRequest, true);
 		}
+		if (order == null) {
+			return mav;
+		}
 		synchronized (order) {
+			if (!getShoppingCartService().ensureCartItemCapacity(order)) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item count had been reached limit", productId);
+				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
+				return mav;
+			}
+			CommerceItem purchaseCommerceItem = order.getCommerceItemByProduct(productId);
+			if (purchaseCommerceItem != null) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item had been added to cart", productId);
+				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_ADDED_TO_CART, StringUtils.EMPTY));
+				return mav;
+			}
 			if (!getShoppingCartService().purchaseProduct(order, product)) {
 				LOGGER.debug("Stop add item to cart for product: {} out of stock", productId);
 				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_PROD_OUT_STOCK, StringUtils.EMPTY));
 				return mav;
 			}
+			getShoppingCartService().checkInventory(order);
+			if (!getShoppingCartService().checkCartItemCount(order)) {
+				LOGGER.debug("redirect to cart page because cart item count had been reached limit");
+				mav.addObject(CartConstant.ERROR_MSG, getMessageValue(ERROR_ITEM_REACHED_LIMIT, StringUtils.EMPTY));
+				return mav;
+			}
+
 			// persist changes to database
 			TransactionStatus status = ensureTransaction();
+			LOGGER.debug("order userId:" + order.getUserId());
 			try {
 				LOGGER.debug("Synchronized order to price and update order");
 				getPriceOrderService().priceOrder(order);
@@ -141,7 +223,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 					if (easyBuy > 0) {
 						pRequest.getSession().setAttribute(CartConstant.ORDER_KEY_PREFIX + order.getId(), order);
 						mav.setViewName(getRedirectView("/checkout/shipping"));
-						mav.addObject(CartConstant.ORDER_ID,order.getId());
+						mav.addObject(CartConstant.ORDER_ID, order.getId());
 					}
 				}
 				getTransactionManager().commit(status);
@@ -152,23 +234,34 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@RequestMapping(value = "/ajaxAddItemToOrder")//, method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity ajaxAddItemToOrder(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productId", required = true) int productId) {
+	public ResponseEntity ajaxAddItemToOrder (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                          @RequestParam(value = "productId", required = true) int productId) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean().setSuccess(false);
 		// check product
-		Product product = getProductService().queryProduct(productId);
+		Product product = getProductServiceImp().queryProduct(productId);
 		if (!mShoppingCartService.checkProductValidity(product)) {
 			LOGGER.debug("Stop add item to cart for product: {} not available", productId);
 			rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_NOT_AVAILABLE);
-			return new ResponseEntity(rb, HttpStatus.OK);
+			return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 		}
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
 		synchronized (order) {
+			if (!getShoppingCartService().ensureCartItemCapacity(order)) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item count had been reached limit", productId);
+				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_ITEM_REACHED_LIMIT);
+				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+			}
+			CommerceItem purchaseCommerceItem = order.getCommerceItemByProduct(productId);
+			if (purchaseCommerceItem != null) {
+				LOGGER.debug("Stop add item to cart for product: {} because cart item had been added to cart", productId);
+				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_ADDED_TO_CART);
+				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
+			}
 			if (!getShoppingCartService().purchaseProduct(order, product)) {
 				LOGGER.debug("Stop add item to cart for product: {} out of stock", productId);
 				rb.addErrorMessage(ResponseBean.DEFAULT_PROPERTY, ERROR_PROD_OUT_STOCK);
-				return new ResponseEntity(rb, HttpStatus.OK);
+				return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 			}
 			// persist changes to database
 			TransactionStatus status = ensureTransaction();
@@ -205,12 +298,12 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 				getTransactionManager().commit(status);
 			}
 		}
-		return new ResponseEntity(rb, HttpStatus.OK);
+		return new ResponseEntity(rb.createResponse(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/removeItemFromOrder")//, method = RequestMethod.POST)
-	public ModelAndView removeItemFromOrder(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productId", required = true) int productId) {
+	public ModelAndView removeItemFromOrder (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                         @RequestParam(value = "productId", required = true) int productId) {
 		ModelAndView mav = new ModelAndView(getRedirectView(CART));
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
@@ -268,8 +361,8 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@RequestMapping(value = "/ajaxRemoveItemFromOrder")//, method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity ajaxRemoveItemFromOrder(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productId", required = true) int productId) {
+	public ResponseEntity ajaxRemoveItemFromOrder (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                               @RequestParam(value = "productId", required = true) int productId) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean();
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
@@ -327,8 +420,8 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@RequestMapping(value = "/ajaxRemoveItemsFromOrder")//, method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity ajaxRemoveItemsFromOrder(HttpServletRequest pRequest, HttpServletResponse pResponse,
-			@RequestParam(value = "productIds", required = true) int[] productIds) {
+	public ResponseEntity ajaxRemoveItemsFromOrder (HttpServletRequest pRequest, HttpServletResponse pResponse,
+	                                                @RequestParam(value = "productIds", required = true) int[] productIds) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean();
 		if (ArrayUtils.isEmpty(productIds)) {
 			LOGGER.debug("Empty product ids to remove from order.");
@@ -395,7 +488,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@RequestMapping(value = "/getOrderItemCount", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity getOrderItemCount(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ResponseEntity getOrderItemCount (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean();
 		int itemCount = 0;
 		// check and generate order
@@ -410,7 +503,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 	}
 
 	@RequestMapping(value = "/emptyCart", method = RequestMethod.GET)
-	public ModelAndView emptyCart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ModelAndView emptyCart (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ModelAndView mav = new ModelAndView(getRedirectView(CART));
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
@@ -455,7 +548,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 
 	@RequestMapping(value = "/ajaxEmptyCart", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity ajaxEmptyCart(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+	public ResponseEntity ajaxEmptyCart (HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		ResponseBuilder rb = getResponseBuilderFactory().buildResponseBean();
 		// check and generate order
 		Order order = getCurrentOrder(pRequest, true);
@@ -499,7 +592,7 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		return new ResponseEntity(rb.setData(order).createResponse(), HttpStatus.OK);
 	}
 
-	protected Order getEasyBuyOrder(HttpServletRequest pRequest) {
+	protected Order getEasyBuyOrder (HttpServletRequest pRequest) {
 		User currentUser = getCurrentUser(pRequest);
 		if (currentUser == null) {
 			LOGGER.error("Cannot get current user, please login firstly.");
@@ -507,68 +600,67 @@ public class ShoppingCartModifierController extends TransactionBaseController im
 		}
 		Order order = getOrderService().loadEasyBuyOrderWithoutItem(String.valueOf(currentUser.getId()));
 		if (order == null) {
-			LOGGER.debug("Get empty esay buy order by user id.");
-			order = new Order();
+			LOGGER.debug("Get empty easy buy order by user id.");
+			order = new Order(currentUser.getId().intValue(), getDefaultOrderType());
 			order.setEasyBuy(true);
-			order.setUserId(currentUser.getId().intValue());
 		}
 		return order;
 	}
-	
-	public ShoppingCartService getShoppingCartService() {
+
+	public ShoppingCartService getShoppingCartService () {
 		return mShoppingCartService;
 	}
 
-	public void setShoppingCartService(final ShoppingCartService pShoppingCartService) {
+	public void setShoppingCartService (final ShoppingCartService pShoppingCartService) {
 		mShoppingCartService = pShoppingCartService;
 	}
 
-	public PriceOrderService getPriceOrderService() {
+	public PriceOrderService getPriceOrderService () {
 		return mPriceOrderService;
 	}
 
-	public void setPriceOrderService(final PriceOrderService pPriceOrderService) {
+	public void setPriceOrderService (final PriceOrderService pPriceOrderService) {
 		mPriceOrderService = pPriceOrderService;
 	}
 
-	public ProductService getProductService() {
-		return mProductService;
+	public ProductServiceImp getProductServiceImp () {
+		return productServiceImp;
 	}
 
-	public void setProductService(final ProductService pProductService) {
-		mProductService = pProductService;
+	public void setProductServiceImp (final ProductServiceImp pProductServiceImp) {
+		productServiceImp = pProductServiceImp;
 	}
 
-	public URLMapping getURLMapping() {
+	public URLMapping getURLMapping () {
 		return mURLMapping;
 	}
 
-	public void setURLMapping(URLMapping pURLMapping) {
+	public void setURLMapping (URLMapping pURLMapping) {
 		mURLMapping = pURLMapping;
 	}
 
-	public ResponseBuilderFactory getResponseBuilderFactory() {
+	public ResponseBuilderFactory getResponseBuilderFactory () {
 		return mResponseBuilderFactory;
 	}
 
-	public void setResponseBuilderFactory(ResponseBuilderFactory pResponseBuilderFactory) {
+	public void setResponseBuilderFactory (ResponseBuilderFactory pResponseBuilderFactory) {
 		mResponseBuilderFactory = pResponseBuilderFactory;
 	}
 
-	public OrderService getOrderService() {
-		return orderService;
+	public OrderService getOrderService () {
+		return mOrderService;
 	}
 
-	public void setOrderService(OrderService orderService) {
-		this.orderService = orderService;
+	public void setOrderService (OrderService orderService) {
+		this.mOrderService = orderService;
 	}
 
-	public URLConfiguration getUrlConfiguration() {
-		return urlConfiguration;
+	public URLConfiguration getURLConfiguration () {
+		return mURLConfiguration;
 	}
 
-	public void setUrlConfiguration(URLConfiguration urlConfiguration) {
-		this.urlConfiguration = urlConfiguration;
+	public void setURLConfiguration (URLConfiguration urlConfiguration) {
+		this.mURLConfiguration = urlConfiguration;
 	}
 
 }

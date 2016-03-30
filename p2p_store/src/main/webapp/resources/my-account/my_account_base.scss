@@ -1,0 +1,121 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+/*part
+**************************************************************************************************************************************************/
+@include header;
+@include footer;
+
+/*style
+**************************************************************************************************************************************************/
+body {
+  background: #f3f3f3;
+}
+
+.content {
+  margin: 20px auto 20px;
+  border: 1px solid $gray-light;
+  width: $main-width;
+  @extend %clear;
+  box-shadow: 0 0 2px 2px $gray-light;
+  background: $gray-account;
+
+  .main-area {
+    float: left;
+    border-left: 1px solid $gray-light;
+    padding: 0 40px 40px;
+    width: 906px;
+    min-height: 733px;
+    background: white;
+  }
+
+  .main-head {
+    padding: 26px 0 0 13px;
+    font-size: 18px;
+  }
+
+  .menu {
+    float: left;
+    width: 213px;
+
+    .user-face {
+      height: 200px;
+      border-bottom: 1px solid $gray-light;
+    }
+
+    .img-box {
+      margin:  0 auto;
+      padding-top: 25px;
+      @include wh(116px, 116px);
+
+      img {
+        display: block;
+        @include wh(100%, 100%);
+      }
+    }
+
+    .face-title {
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .menu-list {
+      padding: 32px 0;
+      border: 1px solid $gray-light;
+
+      a {
+        display: block;
+        height: 40px;
+        border-top: 1px solid $gray-account;
+        border-bottom: 1px solid $gray-account;
+        border-left: 5px solid $gray-account;
+        padding-left: 42px;
+        color: black;
+        line-height: 40px;
+        font-size: 16px;
+
+        &:hover {
+          color: $main;
+        }
+      }
+
+      .menu-choose {
+        border-top: 1px solid $gray-light;
+        border-bottom: 1px solid $gray-light;
+        border-left: 5px solid $main;
+        background: white;
+
+        &:hover {
+          color: black;
+        }
+      }
+    }
+
+    .menu-two-dimension {
+      padding-top: 15px;
+      //height: 1000px;
+
+      img {
+        margin: 0 auto;
+        display: block;
+        @include wh(133px, 133px);
+      }
+
+      p {
+        padding-top: 10px;
+        text-align: center;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+
+

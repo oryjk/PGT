@@ -24,7 +24,7 @@ import java.util.List;
 public class HotProductHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger(HotProductHelper.class);
     @Autowired
-    private HotProductService hotProductService;
+    private HotProductServiceImp hotProductServiceImp;
 
     @Autowired
     private CategoryHelper categoryHelper;
@@ -36,7 +36,7 @@ public class HotProductHelper {
     private Integer hotAmount = 6;
 
     public List<Product> findHomePageHotProducts() {
-        List<Product> products = hotProductService.queryProductCategoryRelationProducts(CategoryType.HOME_PAGE_HOT);
+        List<Product> products = hotProductServiceImp.queryProductCategoryRelationProducts(CategoryType.HOME_PAGE_HOT);
         if (ObjectUtils.isEmpty(products)) {
             LOGGER.debug("Can not find the hot products in home page.");
             return new ArrayList<>();
@@ -49,35 +49,46 @@ public class HotProductHelper {
     }
 
     public List<Product> findShoppingCartHotProducts() {
-        return hotProductService.queryProductCategoryRelationProducts(CategoryType.SHOPPING_CART_HOT);
+        return hotProductServiceImp.queryProductCategoryRelationProducts(CategoryType.SHOPPING_CART_HOT);
     }
 
     public List<Product> findOrderConfirmationHotProducts() {
-        return hotProductService.queryProductCategoryRelationProducts(CategoryType.ORDER_CONFIRMATION_HOT);
+        return hotProductServiceImp.queryProductCategoryRelationProducts(CategoryType.ORDER_CONFIRMATION_HOT);
     }
 
     public List<Product> findCategoryHotProduct(Integer categoryId, boolean autoComplete) {
 
-        List<Product> hotProducts = hotProductService.queryHotProductByCategoryId(categoryId);
+        List<Product> hotProducts = hotProductServiceImp.queryHotProductByCategoryId(categoryId);
 
         if (ObjectUtils.isEmpty(hotProducts)) {
             hotProducts = new ArrayList<>();
         }
 
         if (autoComplete) {
-            if (hotProducts.size() < hotAmount) {
-                SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
-                searchPaginationBean.setCategoryId(String.valueOf(categoryId));
-                searchPaginationBean.setStock(-1);
-                searchPaginationBean.setCapacity(hotAmount * 2);
-                List<Product> products = productMapper.queryProducts(searchPaginationBean);
-                hotProducts.addAll(products);
-            }
-            return hotProducts;
+            return autoCompleteHotSale(categoryId, hotProducts);
 
         }
 
         return hotProducts;
+    }
+
+    public List<Product> autoCompleteHotSale(Integer categoryId, List<Product> hotProducts) {
+        if (hotProducts.size() < hotAmount) {
+            SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
+            searchPaginationBean.setCategoryId(String.valueOf(categoryId));
+            searchPaginationBean.setStock(-1);
+            searchPaginationBean.setCapacity(hotAmount * 10);
+            List<Product> products = productMapper.queryProducts(searchPaginationBean);
+            hotProducts.addAll(products);
+        }
+        List<Product> products = new ArrayList<>();
+        hotProducts.stream().forEach(product -> {
+            if (!products.contains(product)) {
+                products.add(product);
+            }
+        });
+
+        return products;
     }
 
     public List<Product> findCategoryHotProductByRootCategoryId(Integer rootCategoryId) {
@@ -96,12 +107,12 @@ public class HotProductHelper {
     }
 
 
-    public HotProductService getHotProductService() {
-        return hotProductService;
+    public HotProductServiceImp getHotProductServiceImp() {
+        return hotProductServiceImp;
     }
 
-    public void setHotProductService(HotProductService hotProductService) {
-        this.hotProductService = hotProductService;
+    public void setHotProductServiceImp(HotProductServiceImp hotProductServiceImp) {
+        this.hotProductServiceImp = hotProductServiceImp;
     }
 
     public Configuration getConfiguration() {

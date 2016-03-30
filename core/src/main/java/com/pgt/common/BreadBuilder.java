@@ -21,6 +21,7 @@ import java.util.List;
 /**
  * Created by carlwang on 12/6/15.
  */
+@Deprecated
 @Service
 public class BreadBuilder {
 

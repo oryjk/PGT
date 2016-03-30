@@ -13,9 +13,12 @@
     <div class="top-status">
         <div class="status-box">
             <ul class="top-nav">
-                <li><a href="${pageContext.request.contextPath}/helpcenter/query">帮助中心</a></li>
+                <li>
+                    <a href="#">手机绝当品</a>
+                </li>
+                <li><a href="<spring:url value="${urlConfiguration.helpCenterPage}"/>">帮助中心</a></li>
+                <li><a href="#">网站导航</a></li>
             </ul>
-
             <c:choose>
                 <c:when test="${currentUser==null}">
                     <ul class="will-login">
@@ -35,40 +38,48 @@
             </c:choose>
         </div>
     </div>
-    <c:if test="${copyWriter!=null}">
+    <c:if test="${TopBanner.images!=null}">
         <div class="top-banner">
             <div class="top-banner-box">
-                <a href="#">
-                    <img src="<spring:url value="${juedangpinStaticPath}${copyWriter.path}"/>" alt="#" />
+
+                <a href="${pageContext.request.contextPath}${TopBanner.images[0].url}">
+                    <img src="${pageContext.request.contextPath}${TopBanner.images[0].path}"
+                         alt="${TopBanner.images[0].title}"/>
                 </a>
+
             </div>
+
         </div>
     </c:if>
 </div>
+
 <div class="head-box">
     <div class="logo-box">
-        <h1><a href="<spring:url value="${urlConfiguration.homePage}"/>">点金子绝当品——欢迎登录
-            <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
-            <div class="golds"></div>
-            <div class="light"></div>
-        </a></h1>
+        <h1>
+            <a href="/">
+                点金子绝当品——欢迎登陆
+                <!--<img src="../core/images/header/images/big-logo_pig.jpg" alt="#"/>-->
+                <!--<div class="golds"></div>-->
+                <div class="light"></div>
+            </a>
+        </h1>
     </div>
     <div class="search-box">
         <form action="${pageContext.request.contextPath}/essearch">
-            <input class="search-text" type="text" name="term" value="${term}" /><input class="search-sub" type="submit" value="搜索" />
+            <input class="search-text" name="term" value="<c:out value="${term}"/>" type="text"/><input class="search-sub" type="submit" value="搜索"/>
         </form>
         <ul class="search-tips" id="searchTips">
-            <li>小万</li>
-            <li>王霸</li>
-            <li>厉害</li>
-            <li>搜索</li>
-            <li>提示</li>
+            <li>翡翠</li>
+            <li>玛瑙</li>
+            <li>木制品</li>
+            <li>玉石</li>
+            <li>琥珀</li>
         </ul>
         <div class="hot-words">
 
             <c:forEach items="${hotSearchList}" var="hotSearch" varStatus="status">
                 <a class="" href="${pageContext.request.contextPath}/essearch?term=${hotSearch.term}">
-                    ${hotSearch.term}
+                        ${hotSearch.term}
                 </a>
             </c:forEach>
         </div>
@@ -81,68 +92,65 @@
         </a>
     </div>
 </div>
+
 <div id="fixedHead" class="fixed-head-box">
     <div class="fixed-head">
         <div class="logo-box">
             <h1>
-                <a href="<spring:url value="${urlConfiguration.homePage}"/>">
-                    <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/logo.png"/>" alt="点金子名品" />
+                <a href="<spring:url value="" />">
+                    <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/logo-red.jpg"/>"
+                         alt="点金子名品"/>
                 </a>
             </h1>
         </div>
         <div class="search-box">
-            <form action="${pageContext.request.contextPath}/essearch"><input class="search-text" type="text" name="term" value="${term}" /><input class="search-sub" type="submit" value="搜索" /></form>
-            <ul class="search-tips" id="fixedSearchTips">
-                <li>小万</li>
-                <li>王霸</li>
-                <li>厉害</li>
-                <li>搜索</li>
-                <li>提示</li>
-            </ul>
+            <form action="${pageContext.request.contextPath}/essearch">
+                <input name="term" class="search-text" type="text" value="<c:out value="${term}"/>"/><!--
+             --><input class="search-sub" type="submit" value="搜索"/>
+            </form>
         </div>
         <div class="cart-box">
-            <a class="cart" href="<spring:url value="/shoppingCart/cart" />">
+            <a href="<spring:url value="/shoppingCart/cart" />" class="cart">
                 <i class="foundicon-cart"></i>
                 <span>我的购物车</span>
-                <span id="fixedCartCount" class="cart-count">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
+                <span class="cart-count"
+                      id="fixedCartCount">${empty order.commerceItemCount ? 0 : order.commerceItemCount}</span>
             </a>
         </div>
     </div>
 </div>
 
-
 <div class="nav-box">
-
     <div class="menu">
-        <a class="menu-head" href="<spring:url value="/"/>">
+        <a class="menu-head" href="#">
             <span>全部商品分类</span>
         </a>
 
-        <ul id="menuList" class="menu-list">
-            <c:forEach items="${rootHomeCategories}" var="category">
+        <ul class="menu-list">
+            <c:forEach items="${rootHomeCategories}" var="category" varStatus="status">
                 <c:set var="rootCategory" value="${category.source}"/>
-                <li>
-                    <a class="menu-list-tittle"
-                       href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}">${rootCategory.name}</a>
-
-                    <div class="menu-list-detail">
-                        <c:forEach items="${rootCategory.children}" var="subCategory">
-                            <a href="${pageContext.request.contextPath}/essearch?parentCategoryId=${subCategory.id}">${subCategory.name}</a>
+                <li class="menu-0<c:if test="${status.last eq true}">-1</c:if>">
+                    <a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}"
+                       class="menu-h">${rootCategory.name}</a>
+                    <ul class="menu-1">
+                        <c:forEach items="${rootCategory.children}" var="subCategory" varStatus="st">
+                            <li <c:if test="${st.last eq true}">class="li-l"</c:if>><a
+                                    href="${pageContext.request.contextPath}/essearch?parentCategoryId=${subCategory.id}">${subCategory.name}</a>
+                            </li>
                         </c:forEach>
-                    </div>
+                    </ul>
                 </li>
             </c:forEach>
-
         </ul>
     </div>
 
-    <a href="http://www.dianjinzi.com" target="_blank" class="hottest">
-        <h1>点石成金即将上线！</h1>
+    <a href="#" class="hottest">
+        <h1 style="width: 300px">点金子绝当品震撼上线！</h1>
     </a>
 
     <div class="nav">
         <ul>
-            <c:forEach var="category" items="${rootHomeCategories}" begin="0" end="4">
+            <c:forEach var="category" items="${rootHomeCategories}" begin="0" end="5">
                 <c:set var="rootCategory" value="${category.source}"/>
                 <li><a href="${pageContext.request.contextPath}/essearch?rootCategoryId=${rootCategory.id}">${rootCategory.name}</a>
                 </li>

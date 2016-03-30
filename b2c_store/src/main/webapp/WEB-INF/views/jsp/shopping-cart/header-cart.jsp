@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: jeniss
+  User: Yove
   Date: 15/12/6
   Time: 上午11:43
   To change this template use File | Settings | File Templates.
@@ -54,8 +54,8 @@
         <h1>
             <a href="<spring:url value="${urlConfiguration.homePage}"/>">
                 购物车
-                <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
-                <div class="golds"></div>
+                <!--<img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>-->
+                <!--<div class="golds"></div>-->
                 <div class="light"></div>
             </a>
         </h1>

@@ -12,6 +12,8 @@ mobile/mobile.iml
 .idea
 p2p_store/src/main/webapp/node_modules
 b2c_store/src/main/webapp/node_modules
+b2c_store/src/main/webapp/resources/image/upload
+mobile/src/main/webapp/resources/image/upload
 pgt.ipr
 pgt.iws
 bin/
@@ -159,3 +161,15 @@ server/
 /classes/
 .metadata/
 admin/src/main/webapp/resources/image/upload
+admin/src/main/resources/customProperties.properties
+mobile/build
+p2p_store/build
+b2c_store/build
+admin/build
+passport/passport.iml
+/Users/supersoup/Projects/new/PGT/p2p_store/src/main/webapp/maps
+resources/image/upload
+core/src/main/resources/global.properties
+p2p_store/qqconnect.log
+p2p_store/qqconnect.log.1
+p2p_store/src/main/webapp/maps/**/*.css.map

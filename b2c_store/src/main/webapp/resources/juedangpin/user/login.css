@@ -390,7 +390,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .success-box .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -444,7 +444,7 @@ input:focus {
   text-decoration: none;
   color: #0286ce; }
   .success-box .link-btn:hover {
-    color: #ffaa00; }
+    color: #d43139; }
 
 /*span*/
 span {
@@ -538,7 +538,7 @@ span {
   .logo-box .logo {
     float: left;
     width: 280px;
-    background: url("../core/images/header/images/big-logo_text.jpg") no-repeat 91px 10px; }
+    background: url("../core/images/header/logo-red.jpg") no-repeat 0 25px; }
   .logo-box a {
     display: block;
     width: 100%;
@@ -573,9 +573,6 @@ span {
       width: 50px;
       height: 60px;
       background: url("../core/images/header/golds.png") no-repeat 0 -500px; }
-    .logo-box a:hover img {
-      -webkit-animation: mylogo 1s .5s;
-      animation: mylogo 1s .5s; }
   .logo-box h1 {
     padding: 0;
     margin: 0;
@@ -692,6 +689,14 @@ form {
   font-size: 20px;
   color: white;
   background: #ed2842; }
+
+.domain {
+  padding-left: 30px;
+  margin-top: 20px;
+  line-height: 40px;
+  overflow: hidden; }
+  .domain img {
+    padding: 10px 0 0 5px; }
 
 /*success
 *********************************************************************/

@@ -9,8 +9,7 @@
 		<if test="paginationBean!=null">
 			<if test="paginationBean.currentIndex != null">
 				<if test="paginationBean.capacity != null">
-					limit #{paginationBean.currentIndex},
-					#{paginationBean.capacity}
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
 				</if>
 			</if>
 		</if>
@@ -33,8 +32,8 @@
 	<insert id="createImage" parameterType="com.pgt.common.bean.Image"
 		keyProperty="imageId" useGeneratedKeys="true">
 		INSERT INTO
-		IMAGE(CREATE_DATE,END_DATE,LOCATION,URL,PATH,TYPE,TITLE,COLOR)
-		VALUES(#{createDate},#{endDate},#{location},#{url},#{path},#{type},#{title},#{color})
+		IMAGE(CREATE_DATE,END_DATE,LOCATION,URL,PATH,TYPE,TITLE,COLOR,BANNER_ID)
+		VALUES(#{createDate},#{endDate},#{location},#{url},#{path},#{type},#{title},#{color},#{banner.bannerId})
 	</insert>
 
 	<!-- update a Image bean -->
@@ -42,7 +41,7 @@
 		keyProperty="imageId" useGeneratedKeys="true">
 		UPDATE IMAGE SET
 		CREATE_DATE=#{createDate},END_DATE=#{endDate},LOCATION=#{location},URL=#{url},
-		PATH=#{path},TYPE=#{type},TITLE=#{title},COLOR=#{color}
+		PATH=#{path},TYPE=#{type},TITLE=#{title},COLOR=#{color},BANNER_ID=#{banner.bannerId}
 		WHERE
 		IMAGE_ID=#{imageId}
 	</update>
@@ -50,7 +49,7 @@
 	<!-- delete a Image bean -->
 	<delete id="deleteImageById">
 		DELETE FROM
-		Image WHERE
+		IMAGE WHERE
 		IMAGE_ID=#{imageId}
 	</delete>
 
@@ -80,7 +79,7 @@
 
 	<select id="queryAllImageByBannerId" parameterType="Integer"
 		resultMap="ImageResult">
-		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID}
+		SELECT * FROM IMAGE WHERE BANNER_ID = #{BANNER_ID} AND NOW() BETWEEN CREATE_DATE AND END_DATE ORDER BY LOCATION ASC
 	</select>
 
 	<!-- 查询总记录数 -->
@@ -99,6 +98,19 @@
 				LOCATION = #{location}
 			</if>
 		</where>
+	</select>
+
+
+	<select id="queryImageByBanner" parameterType="com.pgt.common.bean.ImageCustom"
+			resultMap="ImageResult">
+		SELECT * FROM IMAGE WHERE BANNER_ID = #{banner.bannerId} ORDER BY LOCATION ASC
+		<include refid="pageBean"/>
+	</select>
+
+
+	<select id="queryImageByBannerCount" parameterType="Integer"
+			resultType="Integer">
+		SELECT count(*) FROM IMAGE WHERE BANNER_ID = #{BANNER_ID}
 	</select>
 
 

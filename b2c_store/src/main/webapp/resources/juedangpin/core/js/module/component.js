@@ -26,7 +26,7 @@ define(function() {
 
         function slider() {
             sliderObj.imgBox.children().fadeOut(sliderObj.time).eq(sliderObj.next).fadeIn(slider.time);
-            sliderObj.navBox.children().removeClass('banner-nav-now').eq(sliderObj.next).addClass('banner-nav-now');
+            sliderObj.navBox.children().removeClass('banner-nav-current').eq(sliderObj.next).addClass('banner-nav-current');
             sliderObj.next ++;
             if (sliderObj.next >= sliderObj.navBox.children().size()) {
                 sliderObj.next = 0;
@@ -36,13 +36,13 @@ define(function() {
 
     /**
      * tab 标签页
-    * tabObj对象的属性必须是:
-    * tabArea: 一个jquery对象,表示被切换的区域 $('#info,#question,#talking'),
-    * tabLi:一个jquery对象,表示将要显示改变的区域 $('#tab li'),
-    * tabTarget:一个jqeury对象,表示点击的区域 $('#tab h2'),
-    * time表示切换时动画的事件,缺省时立即出现
-    * 需要有.choose 的样式
-    * */
+     * tabObj对象的属性必须是:
+     * tabArea: 一个jquery对象,表示被切换的区域 $('#info,#question,#talking'),
+     * tabLi:一个jquery对象,表示将要显示改变的区域 $('#tab li'),
+     * tabTarget:一个jqeury对象,表示点击的区域 $('#tab h2'),
+     * time表示切换时动画的事件,缺省时立即出现
+     * 需要有.choose 的样式
+     * */
     var tab = function (tabObj, time) {
         tabObj.tabTarget.click(function(event) {
             tabObj.tabArea.hide();
@@ -106,18 +106,35 @@ define(function() {
     };
 
     /**
-    * fixedHead 固定顶部
-    * fixedObj的属性必须是:
-    * head 目标对象
-    * height 零界点
-    * time 出现时间
-    * */
+     * fixedHead 固定顶部
+     * fixedObj的属性必须是:
+     * head 目标对象
+     * height 零界点
+     * time 出现时间
+     * */
     var fixedHead = function(fixedObj) {
         var doc = $(document);
         var height = 0;
         var fix = fixedObj.head;
-        $(window).scroll(function() {
+        var flag = 1;
+        $("#right-menu").mouseover(function(){
+            flag = 0;
+            //$("body").css("overflow",'hidden')
+        })
+        $("#right-menu").mouseout(function(){
+            flag = 1;
+            //$("body").css("overflow",'scroll')
+        })
+
+        $(window).scroll(function(event) {
+
             height = doc.scrollTop();
+
+            if (flag === 0) {
+                //console.log(height)
+            }
+
+
             if (height > fixedObj.height) {
                 fix.fadeIn(fixedObj.time);
             } else {

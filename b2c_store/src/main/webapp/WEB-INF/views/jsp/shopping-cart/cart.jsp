@@ -8,20 +8,21 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绝当品</title>
+    <title>点金子典当行绝当品销售平台</title>
+    <link rel="Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/shopping-cart/cart.css"/>" />
+          href="<spring:url value="${juedangpinStaticPath}/shopping-cart/cart.css"/>"/>
 </head>
 <body>
 <!--主头部-->
 <div class="header" id="header">
-    <jsp:include page="../shopping-cart/header-cart.jsp" />
+    <jsp:include page="../shopping-cart/header-cart.jsp"/>
 </div>
 
 <!--正文-->
@@ -37,7 +38,7 @@
             </div>
         </div>
 
-        <div class="error"></div>
+        <div class="error"><c:if test="${not empty error_message}"><span>${error_message}</span></c:if></div>
 
         <c:choose>
             <c:when test="${empty order or order.commerceItemCount eq 0}">
@@ -60,14 +61,20 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <c:set var="invalidItemCount" value="0"/>
                         <c:forEach var="commerceItem" items="${order.commerceItems}">
                             <tr data-value="${commerceItem.referenceId}">
                                 <td class="product-hidden">
-                                    <input type="hidden" data-item-id="${commerceItem.id}" />
+                                    <input type="hidden" data-item-id="${commerceItem.id}"/>
                                 </td>
-                                <td>
+                                <td class="img-box">
+                                    <c:if test="${not commerceItem.inStock}">
+                                        <c:set var="invalidItemCount" value="${invalidItemCount + 1}"/>
+                                        <img src="<spring:url value="${juedangpinStaticPath}/core/images/productList/out-of-stock-s.png" />"
+                                             class="out-of-stock"/>
+                                    </c:if>
                                     <img src="${pageContext.request.contextPath}/resources${commerceItem['snapshotMedia']['path']}"
-                                         alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}" />
+                                         alt="${empty commerceItem['snapshotMedia']['title'] ? commerceItem.name : commerceItem['snapshotMedia']['title']}"/>
                                 </td>
                                 <td class="product-name">
                                     <a href="<spring:url value="${urlConfiguration.pdpPage}/${commerceItem.referenceId}"/>">${commerceItem.name}</a>
@@ -76,16 +83,22 @@
                                     <span class="level">${commerceItem.quality}</span>
                                 </td>
                                 <td class="product-old-cost">
-                                    ¥<span><fmt:formatNumber value="${commerceItem.listPrice}" pattern="0.00" type="number" /></span>
+                                    ¥ <span><fmt:formatNumber value="${commerceItem.listPrice}" pattern="0.00"
+                                                              type="number"/></span>
                                 </td>
                                 <td class="product-now-cost">
-                                    ¥<span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00" type="number" /></span>
+                                    ¥ <span><fmt:formatNumber value="${commerceItem.salePrice}" pattern="0.00"
+                                                              type="number"/></span>
                                 </td>
                                 <td>
                                     <c:if test="${not empty currentUser}">
-                                        <p><a class="link-btn" href="<spring:url value="//myAccount/favouriteItemFromCart?productId=${commerceItem.referenceId}"/>">移入收藏</a></p>
+                                        <p><a class="link-btn"
+                                              href="<spring:url value="/myAccount/favouriteItemFromCart?productId=${commerceItem.referenceId}"/>">移入收藏</a>
+                                        </p>
                                     </c:if>
-                                    <p><a class="link-btn" href="<spring:url value="/shoppingCart/removeItemFromOrder?productId=${commerceItem.referenceId}"/>">删除</a></p>
+                                    <p><a class="link-btn"
+                                          href="<spring:url value="/shoppingCart/removeItemFromOrder?productId=${commerceItem.referenceId}"/>">删除</a>
+                                    </p>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -95,26 +108,39 @@
                         <div class="right">
                             <p>
                                 <span class="settlement-name">商品总金额:</span>
-                                <span class="cost">¥<span class="order-sub-total"><fmt:formatNumber value="${order.subtotal}" pattern="0.00" type="number" /></span></span>
+                                <span class="cost">¥<span class="order-sub-total"><fmt:formatNumber
+                                        value="${order.subtotal}" pattern="0.00" type="number"/></span></span>
                             </p>
-                            <%--<p>
-                                <span class="settlement-name">已选商品:</span>
-                                <span>${commerceItem.count}</span>
-                                <span>件</span>
-                            </p>--%>
+                                <%--<p>
+                                    <span class="settlement-name">已选商品:</span>
+                                    <span>${commerceItem.count}</span>
+                                    <span>件</span>
+                                </p>--%>
                         </div>
                         <div class="left">
                             <p>
                                 <a class="link-btn" href="<spring:url value="/shoppingCart/emptyCart"/>">清空购物车</a>
-                                <%--
-                                <a class="link-btn" href="#">删除选中商品</a>
-                                <a class="link-btn" href="#">移入收藏</a>
-                                --%>
+                                    <%--
+                                    <a class="link-btn" href="#">删除选中商品</a>
+                                    <a class="link-btn" href="#">移入收藏</a>
+                                    --%>
                             </p>
                         </div>
                         <div class="bottom">
-                            <span>账面应付金额 <span class="cost">¥<span class="order-total"><fmt:formatNumber value="${order.total}" pattern="0.00" type="number" /></span></span></span>
-                            <input class="d-btn" type="button" value="去结算" onclick="javascript:window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'"/>
+                            <span>账面应付金额 <span class="cost">¥<span class="order-total"><fmt:formatNumber
+                                    value="${order.total}" pattern="0.00" type="number"/></span></span></span>
+                            <c:choose>
+                                <c:when test="${invalidItemCount gt 0}">
+                                    <input class="d-btn" type="button" value="请先删除无效的商品"/>
+                                </c:when>
+                                <c:when test="${order.commerceItemCount gt orderItemLimit}">
+                                    <input class="d-btn" type="button" value="最多一次购买 ${orderItemLimit} 个商品"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input class="d-btn" type="button" value="去结算"
+                                           onclick="window.location.href='..${urlConfiguration.shippingPage}?orderId=${order.id}'"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -122,10 +148,10 @@
         </c:choose>
     </div>
 
-    <jsp:include page="horizontal-recommend-bar.jsp" />
-    <jsp:include page="../core/footer-main.jsp" />
+    <jsp:include page="horizontal-recommend-bar.jsp"/>
+    <jsp:include page="../core/footer-main.jsp"/>
 </div>
-
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script
         src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"

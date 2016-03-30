@@ -13,6 +13,7 @@
 		<result column="address" property="address" />
 		<result column="status" property="status" />
 		<result column="address_info_id" property="addressInfoId" />
+		<result column="TELEPHONE" property="telephone" />
 	</resultMap>
 	<parameterMap id="paramAddress" type="com.pgt.shipping.bean.ShippingAddress">
 	</parameterMap>
@@ -20,9 +21,9 @@
 	<insert id="addAddress" parameterMap="paramAddress"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
-		SHIPPING_ADDRESS(name,phone,province,city,district,address,address_info_id,status)
+		SHIPPING_ADDRESS(name,phone,province,city,district,address,address_info_id,status,TELEPHONE)
 		VALUES
-		(#{name},#{phone},#{province},#{city},#{district},#{address},#{addressInfoId},#{status})
+		(#{name},#{phone},#{province},#{city},#{district},#{address},#{addressInfoId},#{status},#{telephone})
 		<selectKey keyProperty="id" resultType="int">
 			select LAST_INSERT_ID()
 		</selectKey>
@@ -40,7 +41,7 @@
 	<update id="update" parameterMap="paramAddress">
 		UPDATE SHIPPING_ADDRESS SET name = #{name},phone = #{phone},province =
 		#{province},city = #{city},district = #{district},address = #{address},
-		address_info_id = #{addressInfoId},status = #{status} WHERE address_id = #{id}
+		address_info_id = #{addressInfoId},status = #{status},TELEPHONE=#{telephone} WHERE address_id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="int">

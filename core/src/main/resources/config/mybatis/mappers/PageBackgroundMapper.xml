@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.style.dao.PageBackgroundMapper">
+
+    <!-- 分页sql语句的封装 -->
+    <sql id="pageBean">
+        <if test="paginationBean!=null">
+            <if test="paginationBean.currentIndex != null">
+                <if test="paginationBean.capacity != null">
+                    limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+                </if>
+            </if>
+        </if>
+    </sql>
+
+    <!--查询条件 -->
+    <sql id="bannerListWhere">
+        <where>
+            <if test="nowDate!=null">
+                #{nowDate} BETWEEN START_DATE AND END_DATE
+            </if>
+            <if test="pageBackgroundId!=null">
+                AND PAGE_BACKGROUND_ID =#{pageBackgroundId}
+            </if>
+        </where>
+    </sql>
+
+
+    <!--PageBackground result map -->
+    <resultMap id="PageBackgroundResult" type="com.pgt.style.bean.PageBackground">
+        <id column="PAGE_BACKGROUND_ID" property="pageBackgroundId"/>
+        <result column="CREATION_DATE" property="creationDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="START_DATE" property="startDate"/>
+        <result column="END_DATE" property="endDate"/>
+        <association property="headerMedia" column="PAGE_BACKGROUND_ID" select="queryPageBackgroundHeaderMedia"/>
+        <association property="middleMedia" column="PAGE_BACKGROUND_ID" select="queryPageBackgroundMiddleMedia"/>
+        <association property="footerMedia" column="PAGE_BACKGROUND_ID" select="queryPageBackgroundFooterMedia"/>
+    </resultMap>
+
+    <!-- insert a PageBackground bean -->
+    <insert id="createPageBackground" parameterType="com.pgt.style.bean.PageBackground"
+            keyProperty="pageBackgroundId" useGeneratedKeys="true">
+        INSERT INTO
+        PAGE_BACKGROUND(CREATION_DATE,UPDATE_DATE,START_DATE,END_DATE)VALUES(#{creationDate},#{updateDate},#{startDate},#{endDate})
+    </insert>
+
+    <!-- update a PageBackground bean -->
+    <update id="updatePageBackground" parameterType="com.pgt.style.bean.PageBackground"
+            keyProperty="pageBackgroundId" useGeneratedKeys="true">
+        UPDATE PAGE_BACKGROUND SET
+         UPDATE_DATE=#{updateDate},START_DATE=#{startDate},END_DATE=#{endDate}
+        WHERE PAGE_BACKGROUND_ID=#{pageBackgroundId}
+    </update>
+
+    <!-- delete a PageBackground bean -->
+    <delete id="deletePageBackgroundById">
+        DELETE FROM
+        PAGE_BACKGROUND WHERE
+        PAGE_BACKGROUND_ID=#{pageBackgroundId}
+    </delete>
+
+
+    <!-- 批量删除 deletePageBackgroundByKes -->
+    <delete id="deletePageBackgroundByKes">
+        DELETE FROM PAGE_BACKGROUND WHERE
+        PAGE_BACKGROUND_ID IN
+        <foreach collection="array" separator="," item="id" open="("
+                 close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="queryPageBackgroundHeaderMedia" parameterType="int" resultMap="com.pgt.common.dao.MediaMapper.MediaResult">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{PAGE_BACKGROUND_ID} AND TYPE =
+        'header'
+    </select>
+
+    <select id="queryPageBackgroundMiddleMedia" parameterType="int"
+            resultMap="com.pgt.common.dao.MediaMapper.MediaResult">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{PAGE_BACKGROUND_ID} AND TYPE =
+        'middle'
+    </select>
+
+    <select id="queryPageBackgroundFooterMedia" parameterType="int"
+            resultMap="com.pgt.common.dao.MediaMapper.MediaResult">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{PAGE_BACKGROUND_ID} AND TYPE =
+        'footer'
+    </select>
+
+
+    <select id="queryPageBackground" parameterType="com.pgt.style.bean.PageBackgroundQuery"
+            resultMap="PageBackgroundResult">
+        SELECT * FROM PAGE_BACKGROUND
+        <include refid="bannerListWhere"/>
+        <include refid="pageBean"/>
+    </select>
+
+    <select id="queryPageBackgroundCount" parameterType="com.pgt.style.bean.PageBackgroundQuery"
+            resultType="Integer">
+        SELECT count(*) FROM PAGE_BACKGROUND
+        <include refid="bannerListWhere"/>
+    </select>
+
+
+</mapper>

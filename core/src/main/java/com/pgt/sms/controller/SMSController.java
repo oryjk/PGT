@@ -24,12 +24,13 @@ import java.util.Random;
 @RestController
 @RequestMapping("/sms")
 public class SMSController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SMSController.class);
+
     @Autowired
     private SmsService smsService;
+
     @Autowired
     private SimpleCacheManager cacheManager;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SMSController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public void sendLoginSms(@RequestParam(value = "phoneNumber", required = true) String phoneNumber,
@@ -58,6 +59,16 @@ public class SMSController {
         LOGGER.debug("The phone code is {}", phoneCode);
         savePhoneCode(request, phoneCode, Constants.RESET_PASSWOR_SESSION_PHONE_CODE, phoneId);
         smsService.sendResetPasswordSms(phoneNumber, phoneCode);
+    }
+
+    @RequestMapping(value = "/onlinePawn", method = RequestMethod.GET)
+    public void sendOnlinePawnSms (@RequestParam(value = "phoneNumber", required = true) String phoneNumber,
+                                   @RequestParam(value = "phoneId", required = false) String phoneId, HttpServletRequest request) {
+        LOGGER.debug("The phone number is {},phone id is {},", phoneNumber, phoneId);
+        String phoneCode = generate();
+        LOGGER.debug("The phone code is {}", phoneCode);
+        savePhoneCode(request, phoneCode, Constants.ONLINEPAWN_SESSION_PHONE_CODE, phoneId);
+        smsService.sendOnlinePawnSms(phoneNumber, phoneCode);
     }
 
 

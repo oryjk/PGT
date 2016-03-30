@@ -14,8 +14,8 @@
 	
 	
 	<insert id="createTransaction" parameterType="com.pgt.payment.bean.Transaction" keyColumn="id" useGeneratedKeys="true">
-		INSERT INTO TRANSACTIONS (ORDER_ID, PAYMENT_GROUP_ID, AMOUNT, TRACKING_ID, TRANSACTION_TIME, STATUS, CREATION_DATE, UDPATE_DATE)
-		VALUES (#{orderId}, #{paymentGroupId}, #{amount}, #{trackingNo},#{transactionTime}, #{status}, #{creationDate}, #{updateDate})
+		INSERT INTO TRANSACTIONS (ORDER_ID, PAYMENT_GROUP_ID, AMOUNT, TRACKING_ID, TRANSACTION_TIME, STATUS, CREATION_DATE, UDPATE_DATE, PAYMENT_TYPE)
+		VALUES (#{orderId}, #{paymentGroupId}, #{amount}, #{trackingNo},#{transactionTime}, #{status}, #{creationDate}, #{updateDate}, #{paymentType})
 		<selectKey resultType="long" order="AFTER" keyProperty="id">
         	SELECT LAST_INSERT_ID() as id
     	</selectKey>
@@ -32,7 +32,8 @@
 	<update id="updateTransaction" parameterType="com.pgt.payment.bean.Transaction">
 		UPDATE TRANSACTIONS
 		SET ORDER_ID = #{orderId}, PAYMENT_GROUP_ID = #{paymentGroupId}, AMOUNT = #{amount}, TRACKING_ID = #{trackingNo}, 
-		TRANSACTION_TIME = #{transactionTime}, STATUS = #{status}, CREATION_DATE = #{creationDate}, UDPATE_DATE = #{updateDate}
+		TRANSACTION_TIME = #{transactionTime}, STATUS = #{status}, CREATION_DATE = #{creationDate}, UDPATE_DATE = #{updateDate},
+		PAYMENT_TYPE = #{paymentType}
 		WHERE TRANSACTION_ID = #{id}
 	</update>
 	
@@ -46,6 +47,7 @@
 		<result column="TRACKING_NO" property="trackingNo"/>
 		<result column="CREATION_DATE" property="createDate"/>
 		<result column="UPDATE_DATE" property="updateDate"/>
+		<collection column="TRACKING_NO" property="transactions" select="findTransactionByTrackingNumber" />
 	</resultMap>
 	
 	<resultMap id="transaction" type="com.pgt.payment.bean.Transaction">
@@ -58,6 +60,7 @@
 		<result column="STATUS" property="status"/>
 		<result column="CREATION_DATE" property="creationDate"/>
 		<result column="UDPATE_DATE" property="updateDate"/>
+		<result column="PAYMENT_TYPE" property="paymentType"/>
 	</resultMap>
 	
 	
@@ -76,8 +79,69 @@
 		FROM TRANSACTIONS where TRACKING_ID = #{id}
 	</select>
 
-	
-	
-	
+	<select id="queryTransaction" resultMap="transaction" parameterType="com.pgt.payment.bean.TransactionQueryBean">
+		SELECT * FROM TRANSACTIONS
+		WHERE 1=1
+		<if test="orderId != null">
+			AND ORDER_ID LIKE CONCAT('%', #{orderId}, '%')
+		</if>
+		<if test="paymentType != null">
+			AND PAYMENT_TYPE = #{paymentType}
+		</if>
+		<if test="state != null">
+			AND `STATUS` = #{state}
+		</if>
+		<if test="trackNo != null">
+			AND TRACKING_ID LIKE CONCAT('%', #{trackNo}, '%')
+		</if>
+		<if test="endTime != null">
+			<![CDATA[
+			AND TRANSACTION_TIME < #{endTime}
+			]]>
+		</if>
+		<if test="startTime != null">
+			<![CDATA[
+			AND TRANSACTION_TIME > #{startTime}
+			]]>
+		</if>
+		<if test="paginationBean != null" >
+			<if test="paginationBean.sortFiledName != null">
+				order by #{paginationBean.sortFiledName}
+			</if>
+			<if test="paginationBean.sqlStartIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</select>
+
+	<select id="queryTransactionTotalAmount" resultType="int" parameterType="com.pgt.payment.bean.TransactionQueryBean">
+		SELECT COUNT(*) FROM TRANSACTIONS
+		WHERE 1=1
+		<if test="orderId != null">
+			AND ORDER_ID LIKE CONCAT('%', #{orderId}, '%')
+		</if>
+		<if test="paymentType != null">
+			AND PAYMENT_TYPE =#{paymentType}
+		</if>
+		<if test="state != null">
+			AND `STATUS` = #{state}
+		</if>
+		<if test="trackNo != null">
+			AND TRACKING_ID LIKE CONCAT('%', #{trackNo}, '%')
+		</if>
+		<if test="endTime != null">
+			<![CDATA[
+			AND TRANSACTION_TIME < #{endTime}
+			]]>
+		</if>
+		<if test="startTime != null">
+			<![CDATA[
+			AND TRANSACTION_TIME > #{startTime}
+			]]>
+		</if>
+	</select>
+
 	
 </mapper>

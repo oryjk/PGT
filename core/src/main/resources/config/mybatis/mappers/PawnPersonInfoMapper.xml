@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.pawn.dao.PawnPersonInfoMapper">
+
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+	<!--查询条件 -->
+	<sql id="pawnPersonInfoListWhere">
+		<where>
+			<if test="pawnType!=null and pawnType!=''">
+                PAWN_TYPE=#{pawnType}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 排序条件 -->
+	<sql id="pawnPersonInfoListOrder">
+		<if test="orderFields != null and orderFields.size > 0">
+			order by
+			<foreach collection="orderFields" separator="," item="orderField">
+				${orderField.fieldName} ${orderField.order}
+			</foreach>
+		</if>
+	</sql>
+
+	<!--PawnPersonInfo result map -->
+	<resultMap id="PawnPersonInfoResult" type="com.pgt.pawn.bean.PawnPersonInfo">
+		<id column="ID" property="id"/>
+		<id column="NAME" property="name"/>
+		<id column="GENDER" property="gender"/>
+		<id column="PHONE_NUMBER" property="phoneNumber"/>
+		<id column="ADDRESS" property="address"/>
+		<id column="DETAIL_ADDRESS" property="detailAddress"/>
+		<id column="PAWN_TYPE" property="pawnType"/>
+		<id column="TYPE" property="type"/>
+		<id column="STATUS" property="status"/>
+		<id column="PRICE" property="price"></id>
+		<id column="CREATE_DATE" property="createDate"/>
+		<id column="CONTACTS" property="contacts"/>
+	</resultMap>
+
+	<!-- insert a PawnPersonInfo bean -->
+	<insert id="createPawnPersonInfo" parameterType="com.pgt.pawn.bean.PawnPersonInfo"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO PAWN_PERSON_INFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="gender != null">
+				GENDER,
+			</if>
+			<if test="phoneNumber != null">
+				PHONE_NUMBER,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="detailAddress != null">
+				DETAIL_ADDRESS,
+			</if>
+			<if test="pawnType != null">
+				PAWN_TYPE,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="gender != null">
+				#{gender},
+			</if>
+			<if test="phoneNumber != null">
+				#{phoneNumber},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="detailAddress != null">
+				#{detailAddress},
+			</if>
+			<if test="pawnType != null">
+				#{pawnType},
+			</if>
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="price != null">
+				#{price},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+		</trim>
+
+	</insert>
+
+	<!-- update a PawnPersonInfo bean -->
+	<update id="updatePawnPersonInfo" parameterType="com.pgt.pawn.bean.PawnPersonInfo"
+		keyProperty="id" useGeneratedKeys="true">
+		UPDATE  PAWN_PERSON_INFO
+		<set>
+			<trim suffixOverrides=",">
+				<if test="name != null">
+					NAME=#{name},
+				</if>
+				<if test="gender != null">
+					GENDER=#{gender},
+				</if>
+				<if test="phoneNumber != null">
+					PHONE_NUMBER=#{phoneNumber},
+				</if>
+				<if test="address != null">
+					ADDRESS=#{address},
+				</if>
+				<if test="detailAddress != null">
+					DETAIL_ADDRESS=#{detailAddress},
+				</if>
+				<if test="pawnType != null">
+					PAWN_TYPE=#{pawnType},
+				</if>
+				<if test="type != null">
+					TYPE=#{type},
+				</if>
+				<if test="status != null">
+					STATUS=#{status},
+				</if>
+				<if test="price != null">
+					PRICE=#{price},
+				</if>
+				<if test="contacts != null">
+					CONTACTS=#{contacts},
+				</if>
+			</trim>
+		</set>
+		WHERE
+		ID=#{id}
+	</update>
+
+	<!-- delete a shareOrder bean -->
+	<delete id="deletePawnPersonInfoById">
+		DELETE FROM
+		PAWN_PERSON_INFO WHERE
+		ID=#{id}
+	</delete>
+
+	<select id="queryPawnPersonInfo" parameterType="com.pgt.pawn.bean.PawnPersonInfoQuery" resultMap="PawnPersonInfoResult">
+		SELECT * FROM PAWN_PERSON_INFO
+		<include refid="pawnPersonInfoListWhere"/>
+		<include refid="pawnPersonInfoListOrder"/>
+		<include refid="pageBean"/>
+	</select>
+
+    <select id="queryPawnPersonInfoById" parameterType="Integer" resultMap="PawnPersonInfoResult">
+		SELECT * FROM PAWN_PERSON_INFO WHERE ID =#{id}
+	</select>
+
+</mapper>

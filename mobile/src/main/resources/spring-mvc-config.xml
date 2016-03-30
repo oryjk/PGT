@@ -14,17 +14,38 @@
     <mvc:annotation-driven
             conversion-service="conversionService"
             validator="validatorFactoryBean">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
     </mvc:annotation-driven>
     <!--Do not interceptor static files.-->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <mvc:interceptors>
 
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.pgt.interceptor.TokenInterceptor"></bean>
+        </mvc:interceptor>
+
+
         <!--Initial global config-->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="com.pgt.global.interceptor.GlobalConfigInterceptor"></bean>
 
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**.*"/>
+            <bean class="com.pgt.cart.filter.ShoppingCartResolveInterceptor"></bean>
         </mvc:interceptor>
 
         <!-- find user in cookie -->
@@ -34,9 +55,8 @@
         </mvc:interceptor>
 
         <mvc:interceptor>
-            <mvc:mapping path="/shoppingCart/**"/>
-            <mvc:exclude-mapping path="/**.*"/>
-            <bean class="com.pgt.cart.filter.ShoppingCartHandlerInterceptor"></bean>
+            <mvc:mapping path="/**"/>
+            <bean class="com.pgt.cart.filter.ShoppingCartResolveInterceptor"></bean>
         </mvc:interceptor>
 
         <!-- check the user login -->
@@ -52,12 +72,7 @@
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="com.pgt.cart.filter.RecommendInterceptor"></bean>
-        </mvc:interceptor>
-
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.pgt.help.Interceptor.HelpCenterInterceptor"></bean>
+            <bean class="com.pgt.help.interceptor.HelpCenterInterceptor"></bean>
         </mvc:interceptor>
 
     </mvc:interceptors>

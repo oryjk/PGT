@@ -6,6 +6,8 @@ import com.pgt.media.bean.MediaType;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author zhangxiaodong
  *         <p>
@@ -16,10 +18,17 @@ import org.springframework.stereotype.Component;
 public interface MediaMapper extends SqlMapper {
 
 
-    Media queryMedia(@Param(value = "mediaType") MediaType mediaType, @Param(value = "referenceId") Integer referenceId);
+    List<Media> queryMediaByRefId(@Param(value = "mediaType") MediaType mediaType, @Param(value = "referenceId") Integer referenceId);
+
+    Media queryMedia(@Param(value = "id") Integer mediaId);
 
     Integer createMedia(Media media);
+
     Integer updateMedia(Media media);
-    void deleteProductMedia(@Param("mediaType")MediaType mediaType,@Param("productId")Integer productId);
-    void deleteAllProductMedia(@Param("productId")Integer productId);
+
+    void deleteProductMedia(@Param("mediaType") MediaType mediaType, @Param("productId") Integer productId);
+
+    void deleteAllProductMedia(@Param("productId") Integer productId);
+
+    void deleteMedia(@Param("mediaId") Integer mediaId);
 }

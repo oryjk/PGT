@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8">
+    <title>点金子后台管理系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">-->
+    <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+    <link href="../assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css">
+    <link href="../assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
+    <!-- END PAGE LEVEL PLUGIN STYLES -->
+    <!-- BEGIN PAGE STYLES -->
+    <link href="../assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+    <link href="../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
+    <link href="../assets/global/css/plugins.css" rel="stylesheet" type="text/css">
+    <link href="../assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
+    <link href="../assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color">
+    <link href="../assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
+    <!-- END THEME STYLES -->
+
+    <link rel="stylesheet" href="../assets/others/jcDate/jcDate.css"/>
+    <link rel="stylesheet" href="../core/css/myself-date.css"/>
+    <link rel="stylesheet" href="../core/css/table.css"/>
+    <!--<link rel="shortcut icon" href="favicon.ico">-->
+</head>
+<!-- END HEAD -->
+
+
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-menu-fixed" class to set the mega menu fixed  -->
+<!-- DOC: Apply "page-header-top-fixed" class to set the top menu fixed  -->
+<body>
+<!-- BEGIN HEADER -->
+<div id="header" class="page-header"></div>
+<!-- END HEADER -->
+
+
+<!-- BEGIN PAGE CONTAINER -->
+<div class="page-container" id="main">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <a href="#">首页</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <a href="table_managed.html">商品管理</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li class="active">
+                            <a href="#">订单列表</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- super:把错误内容放在span里面,有两种提示框 alert-danger 和 alert-success 两种.如果不需要显示时把display改为none-->
+            <div class="row" style="display: block">
+                <div class="col-xs-12">
+                    <div class="Metronic-alerts alert alert-danger fade in">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                        <p>错误信息</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-cogs font-green-sharp"></i>
+                                <span class="caption-subject font-green-sharp bold uppercase">表格</span>
+                            </div>
+                            <div class="actions btn-set">
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2">
+                                        <div class="dataTables_filter">
+                                            <label>id:<input type="search" class="form-control input-small input-inline"
+                                                             placeholder="订单id" aria-controls="sample_3">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2">
+                                        <div class="dataTables_filter">
+                                            <label>交易类型:
+                                                <select name="sample_3_length" aria-controls="sample_3"
+                                                        class="form-control input-xsmall input-inline select2-offscreen"
+                                                        tabindex="-1" title="">
+                                                    <option value="-1">所有</option>
+                                                    <option value="5">类型1</option>
+                                                    <option value="15">类型2</option>
+                                                    <option value="20">类型3</option>
+                                                </select> </label>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <div class="dataTables_filter">
+                                            <label>状态:
+                                                <select name="sample_3_length" aria-controls="sample_3"
+                                                        class="form-control input-xsmall input-inline select2-offscreen"
+                                                        tabindex="-1" title="">
+                                                    <option value="-1">所有</option>
+                                                    <option value="5">类型1</option>
+                                                    <option value="15">类型2</option>
+                                                    <option value="20">类型3</option>
+                                                </select>
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="dataTables_filter">
+                                            <label>物流单号:<input type="search" class="form-control input-small input-inline"
+                                                               placeholder="订单id" aria-controls="sample_3">
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="dataTables_filter">
+                                            <div class="row">
+                                                <div class="col-xs-1 pgt-time-tittle">
+                                                    <span>时间: </span>
+                                                </div>
+                                                <div class="col-xs-2 pgt-begin-date" style="position: relative">
+                                                    <input class="jcDate jcDateIco form-control input-small input-inline">
+                                                </div>
+                                                <div class="col-xs-2 pgt-time" style="position: relative">
+                                                    <input type="search" class="form-control input-mini input-inline"
+                                                           placeholder="时" aria-controls="sample_3">
+                                                    :
+                                                    <input type="search" class="form-control input-mini input-inline"
+                                                           placeholder="分" aria-controls="sample_3">
+                                                </div>
+
+                                                <div class="col-xs-1 pgt-date-divide">
+                                                    <span>至</span>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <input class="jcDate jcDateIco form-control input-small input-inline">
+                                                </div>
+                                                <div class="col-xs-2 pgt-time">
+                                                    <input type="search" class="form-control input-mini input-inline"
+                                                           placeholder="时" aria-controls="sample_3">
+                                                    :
+                                                    <input type="search" class="form-control input-mini input-inline"
+                                                           placeholder="分" aria-controls="sample_3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <button class="btn blue">
+                                            搜索
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="table-scrollable list-box">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                           id="list" role="grid" aria-describedby="sample_3_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th>
+                                                订单号
+                                            </th>
+                                            <th>
+                                                交易类型
+                                            </th>
+                                            <th>
+                                                金额
+                                            </th>
+                                            <th>
+                                                开始时间
+                                            </th>
+                                            <th>
+                                                结束时间
+                                            </th>
+                                            <th>
+                                                物流单号
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1">
+                                                <div class="btn-group">
+                                                    <a class="btn btn-xs  btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                        状态 <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                状态1 </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;">
+                                                                状态2 </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="gradeX odd" role="row">
+                                            <td>
+                                                0000000000001
+                                            </td>
+                                            <td>
+                                                类型1
+                                            </td>
+                                            <td>
+                                                20100.00
+                                            </td>
+                                            <td>
+                                                2015-12-28 12:23
+                                            </td>
+                                            <td>
+                                                2015-12-29 12:23
+                                            </td>
+                                            <td>
+                                                00000000000001
+                                            </td>
+                                            <td>
+                                                状态1
+                                            </td>
+                                        </tr>
+                                        <tr class="gradeX odd" role="row">
+                                            <td>
+                                                0000000000001
+                                            </td>
+                                            <td>
+                                                类型1
+                                            </td>
+                                            <td>
+                                                20100.00
+                                            </td>
+                                            <td>
+                                                2015-12-28 12:23
+                                            </td>
+                                            <td>
+                                                2015-12-29 12:23
+                                            </td>
+                                            <td>
+                                                00000000000001
+                                            </td>
+                                            <td>
+                                                状态1
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <link rel="stylesheet" href="../core/css/page.css"/>
+                                    <div class="col-xs-2">
+                                        <div class="dataTables_info pgt-page-count" id="sample_3_info" role="status" aria-live="polite">
+                                            第
+                                            <span>1</span>
+                                            条 到 第
+                                            <span>15</span>
+                                            条 共
+                                            <span>100</span>
+                                            条
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <div class="dataTables_length pgt-each-page">
+                                            <label>每页显示
+                                                <select name="sample_3_length" aria-controls="sample_3"
+                                                        class="form-control input-xsmall input-inline select2-offscreen"
+                                                        tabindex="-1" title="">
+                                                    <option value="5">5</option>
+                                                    <option value="15">15</option>
+                                                    <option value="20">20</option>
+                                                    <option value="-1">所有</option>
+                                                </select> 条</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="dataTables_paginate paging_simple_numbers pgt-page-box">
+                                            <!-- 当前页需要增加active类,首页末页的禁用是增加disabled类-->
+                                            <ul class="pagination">
+                                                <li class="paginate_button previous disabled"><a href="#"><i
+                                                        class="fa fa-angle-left"></i></a></li>
+                                                <li class="paginate_button"><a
+                                                        href="#">首页</a></li>
+                                                <li class="paginate_button disabled"><a
+                                                        href="javascript:;">...</a></li>
+                                                <li class="paginate_button "><a
+                                                        href="#">3</a></li>
+                                                <li class="paginate_button "><a
+                                                        href="#">4</a></li>
+                                                <li class="paginate_button active"><a
+                                                        href="#">5</a></li>
+                                                <li class="paginate_button"><a
+                                                        href="#">6</a></li>
+                                                <li class="paginate_button"><a
+                                                        href="#">7</a></li>
+                                                <li class="paginate_button disabled"><a
+                                                        href="javascript:;">...</a></li>
+                                                <li class="paginate_button"><a
+                                                        href="#">末页</a></li>
+                                                <li class="paginate_button next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <form class="dataTables_filter pgt-goto-page">
+                                            <label>
+                                                <input type="search" class="form-control input-xsmall input-inline" placeholder="第几页">
+                                                <input type="submit" class="btn blue" value="跳转">
+                                            </label>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--日期插件框-->
+<div id="jcDate" style="left: 0; top: 28px; display: none;"><input
+        type="hidden" value="11" id="dateHideText">
+
+    <div id="jcDateTt"><a id="d_prev"></a>
+
+        <div><span>2015</span><b>年</b><samp>12</samp><b>月</b></div>
+        <a id="d_next"></a></div>
+    <dl id="jcYeas" style="display: none;">
+        <dt>2006年</dt>
+        <dt>2007年</dt>
+        <dt>2008年</dt>
+        <dt>2009年</dt>
+        <dt>2010年</dt>
+        <dt>2011年</dt>
+        <dt>2012年</dt>
+        <dt>2013年</dt>
+        <dt>2014年</dt>
+        <dd class="visited">2015年</dd>
+        <dt>2016年</dt>
+        <dt>2017年</dt>
+        <dt>2018年</dt>
+        <dt>2019年</dt>
+        <dt>2020年</dt>
+        <dt>2021年</dt>
+        <dt>2022年</dt>
+        <dt>2023年</dt>
+    </dl>
+    <dl id="jcMonth" style="display: none;">
+        <dt>1月</dt>
+        <dt>2月</dt>
+        <dt>3月</dt>
+        <dt>4月</dt>
+        <dt>5月</dt>
+        <dt>6月</dt>
+        <dt>7月</dt>
+        <dt>8月</dt>
+        <dt>9月</dt>
+        <dt>10月</dt>
+        <dt>11月</dt>
+        <dt class="visited">12月</dt>
+    </dl>
+    <div id="jcDayWrap">
+        <dl id="jcDayCon">
+            <dt>日</dt>
+            <dt>一</dt>
+            <dt>二</dt>
+            <dt>三</dt>
+            <dt>四</dt>
+            <dt>五</dt>
+            <dt>六</dt>
+        </dl>
+        <div id="jcDateMax" style="left: -1771px;">
+            <ul>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li>31</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li class="jcDateColor">31</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+            </ul>
+            <ul>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+                <li>14</li>
+            </ul>
+            <ul>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li class="jcDateColor">31</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+            </ul>
+            <ul>
+                <li>29</li>
+                <li>30</li>
+                <li>31</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+            </ul>
+            <ul>
+                <li>26</li>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li class="jcDateColor">31</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+            </ul>
+            <ul>
+                <li>31</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+            </ul>
+            <ul>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li class="jcDateColor">31</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+            </ul>
+            <ul>
+                <li>26</li>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li>31</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li class="jcDateColor">31</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+            <ul>
+                <li>30</li>
+                <li>31</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+            </ul>
+            <ul>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li class="jcDateColor">31</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+            </ul>
+            <ul>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+            </ul>
+            <ul class="dateV">
+                <li>29</li>
+                <li>30</li>
+                <li class="jcDateColor">1</li>
+                <li class="jcDateColor">2</li>
+                <li class="jcDateColor">3</li>
+                <li class="jcDateColor">4</li>
+                <li class="jcDateColor">5</li>
+                <li class="jcDateColor">6</li>
+                <li class="jcDateColor">7</li>
+                <li class="jcDateColor">8</li>
+                <li class="jcDateColor">9</li>
+                <li class="jcDateColor">10</li>
+                <li class="jcDateColor visited">11</li>
+                <li class="jcDateColor">12</li>
+                <li class="jcDateColor">13</li>
+                <li class="jcDateColor">14</li>
+                <li class="jcDateColor">15</li>
+                <li class="jcDateColor">16</li>
+                <li class="jcDateColor">17</li>
+                <li class="jcDateColor">18</li>
+                <li class="jcDateColor">19</li>
+                <li class="jcDateColor">20</li>
+                <li class="jcDateColor">21</li>
+                <li class="jcDateColor">22</li>
+                <li class="jcDateColor">23</li>
+                <li class="jcDateColor">24</li>
+                <li class="jcDateColor">25</li>
+                <li class="jcDateColor">26</li>
+                <li class="jcDateColor">27</li>
+                <li class="jcDateColor">28</li>
+                <li class="jcDateColor">29</li>
+                <li class="jcDateColor">30</li>
+                <li class="jcDateColor">31</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+            </ul>
+        </div>
+        <div id="jcDateBtn"><samp>今天</samp><span>清空</span><a
+                id="d_sub">确定</a>
+
+            <div id="jcTimeWrap"><input type="text" value=""><label>:</label><input
+                    type="text" value=""></div>
+        </div>
+    </div>
+</div>
+
+<!--super: 确认操作modal-->
+<div class="modal fade bs-modal-sm" id="confirmModal" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">确认</h4>
+            </div>
+            <form action="#" class="form-horizontal">
+                <div class="modal-body" id="confirmText">
+                    确认你的操作
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn blue">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+
+<!-- BEGIN JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../assets/global/plugins/respond.min.js"></script>
+<script src="../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+
+<!--BEGIN load 本段内容在套模版时不引入,直接在相应位置引入jsp即可-->
+<script>
+    $('#header').load('../core/html/header.html');
+</script>
+<!--END load-->
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+        type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+
+<!--日期插件-->
+<script src="../assets/others/jcDate/jQuery-jcDate.js"></script>
+
+<!--本页面js-->
+<script src="order-list.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -1,5 +1,6 @@
 package com.pgt.common.bean;
 
+
 import java.util.Date;
 
 /**
@@ -13,17 +14,27 @@ public class Image {
 
 	private Date endDate;// 结束时间
 
-	private String location;// 位置
+	private String location;//序号
 
 	private String url; // 连接地址
 
 	private String path; // 存储图片的路径
 
-	private String type;// 类型
+	private String type;
 
 	private String title;// 标题
 
 	public String color;//背景颜色
+
+	private Banner banner;
+
+
+	public Banner getBanner() {
+		return banner;
+	}
+	public void setBanner(Banner banner) {
+		this.banner = banner;
+	}
 
 	public String getColor() {
 		return color;

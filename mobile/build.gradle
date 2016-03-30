@@ -1,9 +1,7 @@
 group 'pgt'
-version '1.0-SNAPSHOT'
 archivesBaseName = 'mobile'
 
 dependencies {
-
     compile project(":core")
     compile fileTree(dir: 'libs', include: '*.jar')
 }

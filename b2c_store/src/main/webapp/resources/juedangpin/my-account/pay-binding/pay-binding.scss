@@ -142,6 +142,9 @@
 
   .like-select {
     @include like-select(100px, 25px, 14px, $yeepayColor3, $yeepayColor2);
+    ul {
+      height: auto;
+    }
   }
 
   .row2 {

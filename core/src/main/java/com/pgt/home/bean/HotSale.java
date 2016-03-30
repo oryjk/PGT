@@ -75,4 +75,5 @@ public class HotSale {
         return 1;
     }
 
+
 }

@@ -2,6 +2,7 @@ package com.pgt.cart.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.pgt.base.mapper.SqlMapper;
@@ -22,4 +23,6 @@ public interface OrderMapper extends SqlMapper {
 	void updateOrder(Order pOrder);
 
 	void updateOrderStatus(Order order);
+
+	int getUncompleteOrderAmount(@Param("userId") int userId, @Param("type")  int type);
 }

@@ -1,5 +1,5 @@
 require.config({
-	baseUrl: "../../../resources",
+	baseUrl: "../../resources",
     paths: {
         jquery: './juedangpin/core/js/jquery.min',
         jqueryForm: './juedangpin/core/js/jquery.form',

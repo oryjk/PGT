@@ -6,7 +6,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绝当品</title>
+    <title>点金子典当行绝当品销售平台</title>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
       <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/shopping-cart/cart.css"/>" />
 </head>
@@ -41,8 +42,6 @@
     <div class="logo-box">
         <h1>
             <a href="<spring:url value="${urlConfiguration.homePage}"/>">
-                购物车
-                <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
                 <div class="golds"></div>
                 <div class="light"></div>
             </a>
@@ -75,9 +74,6 @@
 
         <form action="<c:url value="/payment/gateway"/>" method="post" >
             <fieldset class="success-box">
-                <p class="look-order">
-                    <a class="link-btn" href="#">查看我的订单</a>
-                </p>
                 <div class="row">
                     <h3>订单提交成功,请您尽快付款!</h3>
                 </div>
@@ -122,6 +118,7 @@
 
 <!--主脚部-->
     <jsp:include page="../core/footer-main.jsp"/>
+<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" defer async="true" data-main="<spring:url value="${juedangpinStaticPath}/shopping-cart/geteway.js"/>"></script>
 

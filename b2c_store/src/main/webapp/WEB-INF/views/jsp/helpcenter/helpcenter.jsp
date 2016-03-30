@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>绝当品</title>
+<title>点金子典当行绝当品销售平台</title>
 <link rel="stylesheet"
 	href="<spring:url value="${juedangpinStaticPath}/helpcenter/helpcenter.css"/>" />
 </head>
@@ -198,6 +198,7 @@
 	</div>
 	<!--主脚部-->
 	<jsp:include page="../core/footer-main.jsp" />
+	<jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script
 	src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"

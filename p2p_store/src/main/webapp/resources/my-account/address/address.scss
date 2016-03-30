@@ -1,0 +1,128 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../../core/scss/variable',
+'../../core/scss/commomExtend',
+'../../core/scss/commonMixin',
+'../../core/scss/components';
+
+/*style
+**************************************************************************************************************************************************/
+.address-altogether {
+  padding-top: 10px;
+  text-align: right;
+
+  .address-altogether-info {
+    padding-right: 35px;
+    color: $gray;
+  }
+
+  .address-add {
+    @include color-btn(120px, 35px, 3px, 16px, $main, $main-dark);
+  }
+}
+
+.address-have-no-add {
+  display: block;
+  margin-top: 20px;
+  border: 2px dashed gray;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: gray;
+
+  &:hover {
+    border-color: $main;
+    color: $main;
+  }
+}
+
+
+.address-list {
+  @extend %clear;
+
+  li {
+    position: relative;
+    margin: 10px 0;
+    padding-bottom: 15px;
+    border: 2px solid $gray-light;
+  }
+
+  .address-default {
+    border: 2px solid $main;
+    background: url('../../core/images/my_account/address-default.jpg') no-repeat left top;
+  }
+
+  .receive-name {
+    @extend %clear;
+    padding-top: 29px;
+  }
+
+  .receive-address,
+  .receive-phone {
+    @extend %clear;
+    padding-top: 18px;
+  }
+
+  .address-handle {
+    padding: 10px 20px 0 0;
+    text-align: right;
+    font-size: 14px;
+
+    .link-btn {
+      padding-left: 20px;
+    }
+  }
+
+  .receive-title {
+    float: left;
+    width: 130px;
+    text-align: right;
+  }
+
+  .receive-value {
+    float: left;
+    padding-left: 35px;
+  }
+
+  .address-delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: $gray-light;
+    &:hover {
+      color: black;
+    }
+  }
+}
+
+.pop-up {
+  @include pop;
+
+  .pop-address-title {
+    padding-bottom: 10px;
+  }
+
+  .pop-address-value {
+    padding-bottom: 20px;
+  }
+
+  .invest-province-select,
+  .invest-city-select,
+  .invest-country-select {
+    @include like-select(110px, 30px, 0, 14px, $gray-light);
+    margin-right: 4px;
+  }
+
+  .pop-address-name,
+  .pop-address-phone {
+    @include wh(240px, 26px);
+  }
+
+  .pop-address-address {
+    @include wh(470px, 26px);
+  }
+
+  .pop-error {
+    color: $main;
+  }
+}

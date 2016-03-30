@@ -3,6 +3,7 @@ package com.pgt.cart.dao;
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.ProductInventoryVector;
 import com.pgt.cart.bean.ProductPriceVector;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
@@ -17,24 +18,31 @@ import java.util.Map;
 @Repository(value = "shoppingCartDao")
 public interface ShoppingCartDao extends SqlMapper {
 
-	Order loadInitialOrderByUserId(@Param("userId") final int pUserId);
+	Order loadInitialOrderByUserId (@Param("userId") final int pUserId);
 
-	int createOrder(Order pOrder);
+	List<Order> loadInitialOrdersByUserId (@Param("userId") final int pUserId);
 
-	int updateOrder(Order pOrder);
+	int createOrder (Order pOrder);
 
-	int createCommerceItem(CommerceItem pTransientItem);
+	int updateOrder (Order pOrder);
 
-	int updateCommerceItems(List<CommerceItem> pPersistentItems);
+	int createCommerceItem (CommerceItem pTransientItem);
 
-	List<CommerceItem> loadCommerceItemsFromOrderWithRealTimePrice(@Param("orderId") int pOrderId);
+	int updateCommerceItems (List<CommerceItem> pPersistentItems);
+
+	List<CommerceItem> loadCommerceItemsFromOrderWithRealTimePrice (@Param("orderId") int pOrderId);
 
 	@MapKey("productId")
-	Map<Integer, ProductPriceVector> loadProductPrice(Integer[] pProductIds);
+	Map<Integer, ProductPriceVector> loadProductPrice (Integer[] pProductIds);
 
-	int deleteCommerceItem(@Param("commerceItemId") int pCommerceItemId);
+	int deleteCommerceItem (@Param("commerceItemId") int pCommerceItemId);
 
-	void deleteAllCommerceItems(@Param("orderId") int pOrderId);
+	void deleteAllCommerceItems (@Param("orderId") int pOrderId);
 
-	int deleteCommerceItems(List<Integer> pCommerceItemIds);
+	int deleteCommerceItems (List<Integer> pCommerceItemIds);
+
+	@MapKey("productId")
+	Map<Integer, ProductInventoryVector> loadProductInventory (Integer[] pProductIds);
+
+	void deleteOrders (List<Integer> pOrderIds);
 }

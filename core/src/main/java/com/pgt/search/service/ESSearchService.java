@@ -12,26 +12,29 @@ import com.pgt.configuration.ESConfiguration;
 import com.pgt.constant.Constants;
 import com.pgt.home.bean.HotSale;
 import com.pgt.hot.service.HotProductHelper;
-import com.pgt.product.bean.InventoryType;
+import com.pgt.product.bean.CategoryHierarchy;
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.action.update.UpdateRequestBuilder;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.Requests;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -39,6 +42,7 @@ import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -48,8 +52,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +64,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  * Created by carlwang on 11/30/15.
  */
 @Service
-public class ESSearchService {
+public class ESSearchService extends AbstractSearchEngineService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ESSearchService.class);
     @Autowired
     private ESConfiguration esConfiguration;
@@ -75,74 +79,18 @@ public class ESSearchService {
     @Autowired
     private CategoryHelper categoryHelper;
 
+    @Autowired
+    private ProductServiceImp productServiceImp;
 
     @Autowired
     private HotProductHelper hotProductHelper;
 
-    private Client indexClient;
-    private Client searchClient;
-
 
     public void initialIndex(Boolean override) {
         createIndex(Constants.SITE_INDEX_NAME, override);
-        createProductMapping(Constants.SITE_INDEX_NAME);
-        createCategoryMapping(Constants.SITE_INDEX_NAME);
-        createHotSaleMapping(Constants.SITE_INDEX_NAME);
-    }
+        createProductMapping();
+        createHotSaleMapping();
 
-    /**
-     * Do category index.
-     *
-     * @return
-     */
-    public BulkResponse categoryIndex() {
-        BulkResponse bulkResponse = null;
-        try {
-            LOGGER.debug("Begin to category index.");
-
-            Client client = getIndexClient();
-            BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Category> rootCategories = categoryHelper.findRootCategories();
-            if (!ObjectUtils.isEmpty(rootCategories)) {
-                rootCategories.stream().forEach(rootCategory -> {
-                    LOGGER.debug("The root category id {categoryId}.", rootCategory.getId());
-                    List<Category> subCategories = rootCategory.getChildren();
-                    ObjectMapper mapper = new ObjectMapper();
-                    try {
-                        byte[] rootByte = mapper.writeValueAsBytes(rootCategory);
-                        IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE,
-                                rootCategory.getId() + "")
-                                .setSource(rootByte);
-                        bulkRequest.add(indexRequestBuilder);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    if (!ObjectUtils.isEmpty(subCategories)) {
-                        subCategories.stream().forEach(category -> {
-                            LOGGER.debug("The category id {categoryId}.", category.getId());
-                            try {
-                                byte[] bytes = mapper.writeValueAsBytes(category);
-                                IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants
-                                                .CATEGORY_INDEX_TYPE,
-                                        category.getId() + "")
-                                        .setSource(bytes);
-                                bulkRequest.add(indexRequestBuilder);
-                            } catch (JsonProcessingException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
-                });
-            }
-            bulkResponse = bulkRequest.execute().actionGet(100000);
-            if (bulkResponse.hasFailures()) {
-                LOGGER.error("The category index is failed.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        LOGGER.debug("End to category index.");
-        return bulkResponse;
     }
 
 
@@ -151,7 +99,7 @@ public class ESSearchService {
      *
      * @return
      */
-    public BulkResponse productIndex() {
+    public BulkResponse productsIndex() {
 
         BulkResponse bulkResponse = null;
         try {
@@ -159,7 +107,7 @@ public class ESSearchService {
 
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Category> rootCategories = categoryHelper.findRootCategories();
+            List<Category> rootCategories = categoryHelper.findRootCategories(null);
             if (!ObjectUtils.isEmpty(rootCategories)) {
                 rootCategories.stream().forEach(rootCategory -> {
                     LOGGER.debug("The root category id {categoryId}.", rootCategory.getId());
@@ -174,10 +122,9 @@ public class ESSearchService {
                                         ESProduct esProduct = buildESProduct(product, rootCategory, category);
                                         ObjectMapper mapper = new ObjectMapper();
                                         byte[] bytes = mapper.writeValueAsBytes(esProduct);
-                                        IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants
-                                                        .PRODUCT_INDEX_TYPE,
-                                                product.getProductId() + "")
-                                                .setSource(bytes);
+                                        IndexRequestBuilder indexRequestBuilder =
+                                                client.prepareIndex(Constants.SITE_INDEX_NAME, Constants.PRODUCT_INDEX_TYPE,
+                                                        product.getProductId() + "").setSource(bytes);
                                         bulkRequest.add(indexRequestBuilder);
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -201,12 +148,66 @@ public class ESSearchService {
         return bulkResponse;
     }
 
+
+    public IndexResponse productIndex(Product product) {
+        IndexResponse response = null;
+        try {
+            if (ObjectUtils.isEmpty(product.getRelatedCategoryId())) {
+                LOGGER.debug("The relate category is empty.");
+                return response;
+            }
+
+            CategoryHierarchy categoryHierarchy = categoryService.queryCategoryHierarchy(Integer.valueOf(product.getRelatedCategoryId()));
+            Category category = categoryService.queryCategory(categoryHierarchy.getCategoryId());
+            Category rootCategory = categoryService.queryCategory(categoryHierarchy.getParentCategory().getCategoryId());
+            ESProduct esProduct = buildESProduct(product, rootCategory, category);
+            ObjectMapper mapper = new ObjectMapper();
+            byte[] bytes = mapper.writeValueAsBytes(esProduct);
+            IndexRequestBuilder indexRequestBuilder =
+                    getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants.PRODUCT_INDEX_TYPE, product.getProductId() + "")
+                            .setSource(bytes);
+            response = indexRequestBuilder.execute().actionGet(100000);
+            if (response.isCreated()) {
+                LOGGER.debug("success to create product.");
+                return response;
+            }
+            LOGGER.warn("Not success create product.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public void createHotSaleIndex(Integer rootCategoryId) {
+        try {
+            Client client = getIndexClient();
+            Category rootCategory = categoryService.queryCategory(rootCategoryId);
+            List<Product> products = hotProductHelper.findCategoryHotProductByRootCategoryId(rootCategoryId);
+            HotSale hotSale = new HotSale(rootCategory, products);
+            ObjectMapper mapper = new ObjectMapper();
+            byte[] bytes = mapper.writeValueAsBytes(hotSale);
+            IndexRequestBuilder indexRequestBuilder =
+                    client.prepareIndex(Constants.SITE_INDEX_NAME, Constants.HOT_PRODUCT_INDEX_TYPE, hotSale.getId() + "").setSource(bytes);
+            IndexResponse indexResponse = indexRequestBuilder.execute().actionGet(1000);
+            if (indexResponse.isCreated()) {
+                LOGGER.debug("Success to create hot sale products.");
+                return;
+            }
+            LOGGER.debug("Not need update hot sale.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * Do hot sale product index.
      *
      * @return
      */
-    public BulkResponse hotProductIndex() {
+    public BulkResponse hotSaleIndex() {
 
         BulkResponse bulkResponse = null;
         try {
@@ -214,19 +215,23 @@ public class ESSearchService {
 
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Category> rootCategories = categoryHelper.findRootCategories();
+            List<Category> rootCategories = categoryHelper.findRootCategories(null);
             if (!ObjectUtils.isEmpty(rootCategories)) {
                 rootCategories.stream().forEach(rootCategory -> {
                     LOGGER.debug("The root category id {categoryId}.", rootCategory.getId());
                     List<Product> products = hotProductHelper.findCategoryHotProductByRootCategoryId(rootCategory.getId());
+
+                    HashSet hSet = new HashSet(products);
+                    products.clear();
+                    products.addAll(hSet);
+
                     HotSale hotSale = new HotSale(rootCategory, products);
                     ObjectMapper mapper = new ObjectMapper();
                     try {
                         byte[] bytes = mapper.writeValueAsBytes(hotSale);
-                        IndexRequestBuilder indexRequestBuilder = client.prepareIndex(Constants.SITE_INDEX_NAME, Constants
-                                        .HOT_PRODUCT_INDEX_TYPE,
-                                hotSale.getId() + "")
-                                .setSource(bytes);
+                        IndexRequestBuilder indexRequestBuilder =
+                                client.prepareIndex(Constants.SITE_INDEX_NAME, Constants.HOT_PRODUCT_INDEX_TYPE, hotSale.getId() + "")
+                                        .setSource(bytes);
                         bulkRequest.add(indexRequestBuilder);
                     } catch (JsonProcessingException e) {
                         LOGGER.error("JsonProcessingException");
@@ -245,53 +250,154 @@ public class ESSearchService {
         return bulkResponse;
     }
 
+
     /**
      * Do product update
      *
-     * @param productIds
+     * @param productPairs
      * @return
      */
-    public boolean modifyProductInventory(List<Integer> productIds, InventoryType inventoryType) {
+
+
+    @Override
+    public boolean modifyProductInventory(List<Pair<Integer, Integer>> productPairs) {
         LOGGER.debug("Begin to reduce the product inventory.");
         BulkResponse bulkResponse;
 
-        try {
-            Client client = getIndexClient();
-            BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Product> products = productHelper.findProductsByIds(productIds);
-            products.stream().forEach(product -> {
-                Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
-                Category rootCategory =parentCategory.getParent();
-                product.setStock(0);
-                if (inventoryType == InventoryType.INCREASE) {
-                    product.setStock(1);
-                }
+        if (productPairs.size() != 0) {
+            try {
+                Client client = getIndexClient();
+                BulkRequestBuilder bulkRequest = client.prepareBulk();
+                List<Integer> productList = new ArrayList<>();
+                productPairs.stream().forEach(pair -> {
+                    productList.add(pair.getKey());
+                });
 
-                ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
-                ObjectMapper mapper = new ObjectMapper();
-                try {
-                    byte[] bytes = mapper.writeValueAsBytes(esProduct);
-                    LOGGER.debug("Product id is {}.", esProduct.getProductId());
-                    UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants
-                            .PRODUCT_INDEX_TYPE, esProduct.getProductId() + "").setDoc(bytes);
-                    bulkRequest.add(updateRequestBuilder);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                productPairs.stream().forEach(integerIntegerPair -> {
+                    Product product = productServiceImp.queryProduct(integerIntegerPair.getKey());
+                    if (!ObjectUtils.isEmpty(product)) {
+                        Category parentCategory = categoryService.queryParentCategoryByProductId(integerIntegerPair.getKey());
+                        Category rootCategory = parentCategory.getParent();
+                        product.setStock(integerIntegerPair.getValue());
+                        ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
+                        ObjectMapper mapper = new ObjectMapper();
+                        try {
+                            byte[] bytes = mapper.writeValueAsBytes(esProduct);
+                            LOGGER.debug("Product id is {}.", esProduct.getProductId());
+                            UpdateRequestBuilder updateRequestBuilder =
+                                    client.prepareUpdate(Constants.SITE_INDEX_NAME, Constants.PRODUCT_INDEX_TYPE,
+                                            esProduct.getProductId() + "").setDoc(bytes);
+                            bulkRequest.add(updateRequestBuilder);
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-            });
-            bulkResponse = bulkRequest.execute().actionGet(100000);
-            if (bulkResponse.hasFailures()) {
-                return false;
+                });
+                bulkResponse = bulkRequest.execute().actionGet(100000);
+                if (bulkResponse.hasFailures()) {
+                    return false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+
         LOGGER.debug("End to reduce the product inventory.");
         return true;
     }
+
+
+    public void updateProductIndex(Product product) {
+        Category parentCategory = categoryService.queryParentCategoryByProductId(product.getProductId());
+        Product oldProduct = productServiceImp.queryProduct(product.getProductId());
+        mergeProductMedias(product, oldProduct);
+        Category rootCategory = parentCategory.getParent();
+        ESProduct esProduct = buildESProduct(product, rootCategory, parentCategory);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] bytes = mapper.writeValueAsBytes(esProduct);
+            LOGGER.debug("Product id is {}.", esProduct.getProductId());
+            UpdateRequestBuilder updateRequestBuilder =
+                    getIndexClient().prepareUpdate(Constants.SITE_INDEX_NAME, Constants.PRODUCT_INDEX_TYPE, esProduct.getProductId() + "")
+                            .setDoc(bytes);
+            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
+            if (updateResponse.isCreated()) {
+                LOGGER.debug("Success to update product.");
+                return;
+            }
+        } catch (JsonProcessingException e) {
+            LOGGER.error(e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+        if (product.isHot()) {
+            //createHotSaleIndex(rootCategory.getId());
+        }
+    }
+
+    private void mergeProductMedias(Product product, Product oldProduct) {
+        product.setThumbnailMedia(oldProduct.getThumbnailMedia());
+        product.setAdvertisementMedia(oldProduct.getAdvertisementMedia());
+        product.setFrontMedia(oldProduct.getFrontMedia());
+        product.setHeroMedias(oldProduct.getHeroMedias());
+        product.setMainMedias(oldProduct.getMainMedias());
+        product.setExpertMedia(oldProduct.getExpertMedia());
+        product.setMobileDetailMedia(oldProduct.getMobileDetailMedia());
+    }
+
+    public void updateCategoryIndex(Category category) {
+
+        LOGGER.debug("Begin to update category index with id is {}.", category.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] rootByte = mapper.writeValueAsBytes(category);
+            UpdateRequestBuilder updateRequestBuilder =
+                    getIndexClient().prepareUpdate(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE, category.getId() + "")
+                            .setDoc(rootByte);
+            UpdateResponse updateResponse = updateRequestBuilder.execute().actionGet(10000);
+            updateResponse.getHeaders().stream().forEach(s -> LOGGER.debug(s));
+            if (updateResponse.isCreated()) {
+                LOGGER.debug("Success update category index.");
+                return;
+            }
+
+            LOGGER.debug("Not success update category index.");
+
+        } catch (JsonProcessingException e) {
+            LOGGER.error("JsonProcessingException has occur when update category.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.error("IOException has occur when update category.");
+            e.printStackTrace();
+        }
+    }
+
+    public void createCategoryIndex(Category category) {
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            byte[] rootByte = mapper.writeValueAsBytes(category);
+            IndexRequestBuilder indexRequestBuilder =
+                    getIndexClient().prepareIndex(Constants.SITE_INDEX_NAME, Constants.CATEGORY_INDEX_TYPE, category.getId() + "")
+                            .setSource(rootByte);
+            indexRequestBuilder.execute().actionGet(10000);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (category.getType().equals(CategoryType.HIERARCHY)) {
+            Category parentCategory = category.getParent();
+            createCategoryIndex(parentCategory);
+        }
+    }
+
 
     private ESProduct buildESProduct(Product product, Category rootCategory, Category parentCategory) {
         ESProduct esProduct = new ESProduct();
@@ -313,11 +419,12 @@ public class ESSearchService {
      * @param esSortList
      * @param paginationBean
      * @param categoryIdAggregation
-     * @param rangeQueryBuilderList @return
+     * @param rangeQueryBuilderList
+     * @return
      */
     public SearchResponse findProducts(ESTerm esTerm, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
-                                       PaginationBean paginationBean,
-                                       ESAggregation categoryIdAggregation, List<RangeQueryBuilder> rangeQueryBuilderList) {
+                                       PaginationBean paginationBean, ESAggregation categoryIdAggregation,
+                                       List<RangeQueryBuilder> rangeQueryBuilderList) {
         SearchResponse response = null;
         try {
             SearchRequestBuilder searchRequestBuilder = buildProductRequestBuilder();
@@ -327,9 +434,9 @@ public class ESSearchService {
                 //operator will add to configuration or from request
                 qb.must(termQuery(esTerm.getPropertyName(), esTerm.getTermValue()));
             }
-            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb);
-            response = searchRequestBuilder.execute()
-                    .actionGet();
+            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, categoryIdAggregation, searchRequestBuilder, qb, false);
+            LOGGER.debug(searchRequestBuilder.toString());
+            response = searchRequestBuilder.execute().actionGet();
             return response;
         } catch (IOException e) {
             e.printStackTrace();
@@ -337,17 +444,41 @@ public class ESSearchService {
         return response;
     }
 
+    public SearchResponse findProduct(String productId) {
+        return findProducts(productId);
+    }
+
+
+    public SearchResponse findProducts(String... productIds) {
+
+        SearchResponse response = null;
+        try {
+            SearchRequestBuilder searchRequestBuilder = buildProductRequestBuilder();
+            BoolQueryBuilder qb = boolQuery();
+            qb.must(QueryBuilders.idsQuery().ids(productIds));
+            searchRequestBuilder.setQuery(qb);
+            response = searchRequestBuilder.execute().actionGet();
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 
     public SearchResponse findHotSales(ESSort esSort) {
         SearchResponse response = null;
         try {
             SearchRequestBuilder searchRequestBuilder = buildHotSalesRequestBuilder();
-            searchRequestBuilder.addSort(Constants.SORT, SortOrder.ASC);
+            FieldSortBuilder sortBuilder = new FieldSortBuilder(Constants.SORT);
+            sortBuilder.order(SortOrder.ASC);
+            sortBuilder.unmappedType("long");
+            searchRequestBuilder.addSort(sortBuilder);
             if (esSort != null) {
-                searchRequestBuilder.addSort(Constants.SORT, esSort.getSortOrder());
+                sortBuilder.order(esSort.getSortOrder());
+                sortBuilder.unmappedType("long");
+                searchRequestBuilder.addSort(sortBuilder);
             }
-            response = searchRequestBuilder.execute()
-                    .actionGet();
+            response = searchRequestBuilder.execute().actionGet();
             return response;
         } catch (IOException e) {
             e.printStackTrace();
@@ -356,15 +487,13 @@ public class ESSearchService {
     }
 
     private SearchRequestBuilder buildHotSalesRequestBuilder() throws IOException {
-        return getSearchClient().prepareSearch(Constants.SITE_INDEX_NAME)
-                .setTypes(Constants.HOT_PRODUCT_INDEX_TYPE)
+        return getSearchClient().prepareSearch(esConfiguration.getIndexName()).setTypes(esConfiguration.getHotProductTypeName())
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
     }
 
 
     private SearchRequestBuilder buildProductRequestBuilder() throws IOException {
-        return getSearchClient().prepareSearch(Constants.SITE_INDEX_NAME)
-                .setTypes(Constants.PRODUCT_INDEX_TYPE)
+        return getSearchClient().prepareSearch(esConfiguration.getIndexName()).setTypes(esConfiguration.getProductTypeName())
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
     }
 
@@ -377,11 +506,11 @@ public class ESSearchService {
      * @param esRange
      * @param esSortList
      * @param paginationBean
-     * @param esAggregation  @return
+     * @param esAggregation
+     * @return
      */
     public SearchResponse findProducts(List<ESTerm> esTerms, List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList,
-                                       PaginationBean paginationBean,
-                                       ESAggregation esAggregation) {
+                                       PaginationBean paginationBean, ESAggregation esAggregation, boolean matchesisAnd) {
         SearchResponse response = null;
         try {
             SearchRequestBuilder searchRequestBuilder = buildProductRequestBuilder();
@@ -394,9 +523,9 @@ public class ESSearchService {
                 //operator will add to configuration or from request
 
             }
-            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, esAggregation, searchRequestBuilder, qb);
-            response = searchRequestBuilder.execute()
-                    .actionGet();
+            buildQueryBuilder(esMatches, esRange, esSortList, paginationBean, esAggregation, searchRequestBuilder, qb, matchesisAnd);
+            LOGGER.debug(searchRequestBuilder.toString());
+            response = searchRequestBuilder.execute().actionGet();
             return response;
         } catch (IOException e) {
             e.printStackTrace();
@@ -404,67 +533,46 @@ public class ESSearchService {
         return response;
     }
 
-    public SearchResponse findProductByProductId(String productId) {
-        if (StringUtils.isBlank(productId)) {
-            LOGGER.debug("The product id is empty.");
-            return new SearchResponse();
-        }
-        ESTerm esTerm = new ESTerm();
-        esTerm.setTermValue(productId);
-        esTerm.setPropertyName(Constants.PRODUCT_ID);
-        PaginationBean paginationBean = new PaginationBean();
-        paginationBean.setCapacity(10000);
-        return findProducts(esTerm, null, null, null, paginationBean, null, null);
-    }
-
-
-    public SearchResponse findProductsByProductIds(List<String> productIds) {
-        if (ObjectUtils.isEmpty(productIds)) {
-            LOGGER.debug("The product id list is empty.");
-            return new SearchResponse();
-        }
-        List<ESTerm> productTerms = new ArrayList<>();
-        productIds.stream().forEach(s -> {
-            ESTerm esTerm = new ESTerm();
-            esTerm.setTermValue(s);
-            esTerm.setPropertyName(Constants.PRODUCT_ID);
-            productTerms.add(esTerm);
-        });
-        PaginationBean paginationBean = new PaginationBean();
-        paginationBean.setCapacity(10000);
-        return findProducts(productTerms, null, null, null, paginationBean, null);
-    }
-
-
     private void buildQueryBuilder(List<ESTerm> esMatches, ESRange esRange, List<ESSort> esSortList, PaginationBean paginationBean,
-                                   ESAggregation esAggregation,
-                                   SearchRequestBuilder searchRequestBuilder, BoolQueryBuilder qb) {
-        if (!ObjectUtils.isEmpty(esMatches)) {
-            esMatches.stream().forEach(esTerm ->
-                            qb.should(matchQuery(esTerm.getPropertyName(), esTerm.getTermValue()))
-            );
+                                   ESAggregation esAggregation, SearchRequestBuilder searchRequestBuilder, BoolQueryBuilder qb,
+                                   boolean matchesisAnd) {
 
+        String queryString = null;
+
+        if (matchesisAnd == false) {
+            queryString = buildQueryString(esMatches);
+        } else {
+            queryString = buildQueryAndString(esMatches);
+        }
+
+
+        if (!ObjectUtils.isEmpty(queryString)) {
+            qb.must(QueryBuilders.queryStringQuery(queryString));
         }
         if (!ObjectUtils.isEmpty(esSortList)) {
-            esSortList.stream().forEach(esSort1 ->
-                            searchRequestBuilder.addSort(esSort1.getPropertyName(), esSort1.getSortOrder())
-            );
+            esSortList.stream().forEach(esSort1 -> {
+                FieldSortBuilder sortBuilder = new FieldSortBuilder(esSort1.getPropertyName());
+                sortBuilder.order(esSort1.getSortOrder());
+                sortBuilder.unmappedType("long");
+                searchRequestBuilder.addSort(sortBuilder);
+            });
         }
         if (!ObjectUtils.isEmpty(esAggregation)) {
-            searchRequestBuilder.addAggregation(AggregationBuilders.terms(esAggregation.getAggregationName()).field(esAggregation
-                    .getPropertyName()));
+            searchRequestBuilder
+                    .addAggregation(AggregationBuilders.terms(esAggregation.getAggregationName()).field(esAggregation.getPropertyName()));
         }
         if (!ObjectUtils.isEmpty(esRange)) {
-            searchRequestBuilder.setPostFilter(QueryBuilders.rangeQuery(esRange.getPropertyName()).from(esRange.getFrom()).to(esRange
-                    .getTo()));
+            qb.filter(QueryBuilders.rangeQuery(esRange.getPropertyName()).from(esRange.getFrom()).to(esRange.getTo()));
         }
+
         if (paginationBean != null) {
             if (paginationBean.getCapacity() == 0) {
-                paginationBean.setCapacity(configuration
-                        .getProductListPageCapacity());
+                paginationBean.setCapacity(configuration.getProductListPageCapacity());
             }
-            searchRequestBuilder.setFrom((int) paginationBean.getCurrentIndex()).setSize((int) paginationBean.getCapacity()).setExplain(true);
+            searchRequestBuilder.setFrom((int) paginationBean.getCurrentIndex()).setSize((int) paginationBean.getCapacity())
+                    .setExplain(true);
         }
+
     }
 
 
@@ -473,11 +581,12 @@ public class ESSearchService {
      *
      * @param categoryId
      * @param esMatches
+     * @param esSorts
      * @return
      */
 
-    public SearchResponse findProductsByCategoryId(String categoryId, List<ESTerm> esMatches, ESRange esRange, PaginationBean paginationBean,
-                                                   ESAggregation esAggregation) {
+    public SearchResponse findProductsByCategoryId(String categoryId, List<ESTerm> esMatches, ESRange esRange,
+                                                   PaginationBean paginationBean, ESAggregation esAggregation, List<ESSort> esSorts) {
         SearchResponse response = null;
         if (!StringUtils.isBlank(categoryId)) {
 
@@ -495,7 +604,8 @@ public class ESSearchService {
                 if (typeValue.equals(CategoryType.ROOT.toString())) {
                     LOGGER.debug("This category id is belong to ROOT category.");
                     List<ESTerm> esTerms = new ArrayList<>();
-                    List<Map<String, Object>> childrenList = (List<Map<String, Object>>) categoryHists[0].getSource().get(Constants.CHILDREN);
+                    List<Map<String, Object>> childrenList =
+                            (List<Map<String, Object>>) categoryHists[0].getSource().get(Constants.CHILDREN);
                     if (childrenList == null) {
                         return response;
                     }
@@ -508,12 +618,12 @@ public class ESSearchService {
                         LOGGER.debug("Can not find the child categories.");
                         return response;
                     }
-                    return findProducts(esTerms, esMatches, esRange, null, paginationBean, esAggregation);
+                    return findProducts(esTerms, esMatches, esRange, esSorts, paginationBean, esAggregation, false);
                 }
                 LOGGER.debug("This category id is not belong to ROOT category.");
 
-                return findProducts(getCategoryEsTerm(Constants.PARENT_CATEGORY_ID, categoryId), esMatches, esRange, null, paginationBean,
-                        esAggregation, null);
+                return findProducts(getCategoryEsTerm(Constants.PARENT_CATEGORY_ID, categoryId), esMatches, esRange, esSorts,
+                        paginationBean, esAggregation, null);
 
             }
 
@@ -549,22 +659,22 @@ public class ESSearchService {
         SearchResponse response = null;
 
         try {
-            SearchRequestBuilder searchRequestBuilder = getSearchClient().prepareSearch(Constants.SITE_INDEX_NAME).setTypes(Constants
-                    .CATEGORY_INDEX_TYPE)
-                    .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
+            SearchRequestBuilder searchRequestBuilder =
+                    getSearchClient().prepareSearch(Constants.SITE_INDEX_NAME).setTypes(Constants.CATEGORY_INDEX_TYPE)
+                            .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             if (!ObjectUtils.isEmpty(esTerms)) {
-                esTerms.stream().forEach(esTerm ->
-                                qb.should(matchQuery(esTerm.getPropertyName(), esTerm.getTermValue()))
-                );
+                esTerms.stream().forEach(esTerm -> qb.should(matchQuery(esTerm.getPropertyName(), esTerm.getTermValue())));
             }
             if (!ObjectUtils.isEmpty(esSort)) {
-                searchRequestBuilder.addSort(esSort.getPropertyName(), esSort.getSortOrder());
+                FieldSortBuilder sortBuilder = new FieldSortBuilder(esSort.getPropertyName());
+                sortBuilder.order(esSort.getSortOrder());
+                sortBuilder.unmappedType("long");
+                searchRequestBuilder.addSort(sortBuilder);
             }
             searchRequestBuilder.setTerminateAfter(Integer.MAX_VALUE);
-            response = searchRequestBuilder.execute()
-                    .actionGet();
+            response = searchRequestBuilder.execute().actionGet();
             return response;
         } catch (IOException e) {
             e.printStackTrace();
@@ -573,27 +683,26 @@ public class ESSearchService {
         return response;
     }
 
-    private Client getIndexClient() throws IOException {
-        if (indexClient == null) {
-            indexClient = TransportClient.builder().build()
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(esConfiguration.getHost()), esConfiguration.getIndexPort
-                            ()));
-        }
-        return indexClient;
+
+    @Override
+    public void index() {
+//        hotSaleIndex();
+        productsIndex();
     }
 
-    private Client getSearchClient() throws IOException {
-        if (searchClient == null) {
-            searchClient = TransportClient.builder().build()
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(esConfiguration.getHost()), esConfiguration
-                            .getSearchPort
-                                    ()));
-        }
-        return searchClient;
+    @Override
+    public void update(Integer id) {
+
     }
 
+    @Override
+    public void initialIndex() {
+        createIndex(esConfiguration.getIndexName(), esConfiguration.isClearIndex());
+        createProductMapping();
+        createHotSaleMapping();
+    }
 
-    private void createIndex(String indexName, Boolean override) {
+    protected void createIndex(String indexName, Boolean override) {
         try {
             boolean exists = getIndexClient().admin().indices().prepareExists(indexName).execute().actionGet().isExists();
             if (exists && !override) {
@@ -617,33 +726,31 @@ public class ESSearchService {
         }
     }
 
-    private void createProductMapping(String index) {
-        createMapping(index, Constants.PRODUCT_INDEX_TYPE, esConfiguration.getProductAnalyzerFields());
-    }
-
-    private void createCategoryMapping(String index) {
-        createMapping(index, Constants.CATEGORY_INDEX_TYPE, esConfiguration.getCategoryAnalyzerFields());
-    }
-
-    private void createHotSaleMapping(String index) {
-        createMapping(index, Constants.HOT_PRODUCT_INDEX_TYPE, esConfiguration.getHotSaleAnalyzerFields());
+    private void createProductMapping() {
+        LOGGER.debug("Begin create product mapping.");
+        createMapping(Constants.SITE_INDEX_NAME, Constants.PRODUCT_INDEX_TYPE, esConfiguration.getProductAnalyzerFields());
+        LOGGER.debug("End to create product mapping.");
     }
 
 
-    private void createMapping(String indexName, String indexType, List<String> analyseFields) {
+    private void createHotSaleMapping() {
+        LOGGER.debug("Begin to create hot sale mapping.");
+        createMapping(Constants.SITE_INDEX_NAME, Constants.HOT_PRODUCT_INDEX_TYPE, esConfiguration.getHotSaleAnalyzerFields());
+        LOGGER.debug("End to create hot sale mapping.");
+    }
+
+
+    protected void createMapping(String indexName, String indexType, List<String> analyseFields) {
         XContentBuilder mapping;
         try {
-            mapping = jsonBuilder().startObject()
-                    .startObject(indexType)
-                    .startObject("properties");
+            mapping = jsonBuilder().startObject().startObject(indexType).startObject("properties");
 
             if (!ObjectUtils.isEmpty(analyseFields)) {
                 final XContentBuilder finalMapping = mapping;
                 analyseFields.stream().forEach(s -> {
                     try {
-                        finalMapping.startObject(s).field("type", "string").field("store", "yes").field("analyzer", "ik_max_word").field
-                                ("include_in_all",
-                                        true).field("term_vector", "with_positions_offsets").endObject();
+                        finalMapping.startObject(s).field("type", "string").field("store", "yes").field("analyzer", "ik_max_word")
+                                .field("include_in_all", true).field("term_vector", "with_positions_offsets").endObject();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -656,6 +763,16 @@ public class ESSearchService {
             e.printStackTrace();
         }
 
+
+    }
+
+    @Override
+    protected void buildSort(SearchRequestBuilder searchRequestBuilder, List<ESSort> esSorts) {
+
+    }
+
+    @Override
+    protected void buildFilter(BoolQueryBuilder boolQueryBuilder, ESFilter esFilter) {
 
     }
 
@@ -709,5 +826,36 @@ public class ESSearchService {
         this.hotProductHelper = hotProductHelper;
     }
 
+    public void deleteProductIndex(String productId) {
+        deleteIndex(productId, Constants.PRODUCT_INDEX_TYPE);
+    }
+
+    public void deleteTender(String tenderId) {
+        deleteIndex(tenderId, Constants.TENDER_INDEX_TYPE);
+    }
+
+    public void deleteCategoryIndex(String categoryId) {
+        deleteIndex(categoryId, Constants.CATEGORY_INDEX_TYPE);
+    }
+
+
+    private void deleteIndex(String id, String type) {
+        try {
+            DeleteResponse response = getIndexClient().prepareDelete(Constants.SITE_INDEX_NAME, type, id).execute().actionGet();
+            response.getHeaders().stream().forEach(s -> LOGGER.debug(s));
+            if (response.isFound()) {
+                LOGGER.debug("Success delete with id is {},type is {}.", id, type);
+                return;
+            }
+            LOGGER.debug("Can not found to delete with id is {},type is {}.", id, type);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteHotSaleIndex(String rootCategoryId) {
+        deleteIndex(rootCategoryId, Constants.HOT_PRODUCT_INDEX_TYPE);
+    }
 }
 

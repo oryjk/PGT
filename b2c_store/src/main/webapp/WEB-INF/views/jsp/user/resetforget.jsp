@@ -16,8 +16,6 @@
         <div class="logo-box">
             <h1>
                 <a href="<spring:url value="/"/>">点金子绝当品——欢迎登录
-                    <img src="<spring:url value="${juedangpinStaticPath}/core/images/header/images/big-logo_pig.jpg"/>" alt=""/>
-                    <div class="golds"></div>
                     <div class="light"></div>
                 </a>
             </h1>
@@ -52,22 +50,24 @@
             <li class="main-font3">设置新密码</li>
             <li class="main-font4">完成</li>
         </ul>
-        <form class="forget" action="${pageContext.request.contextPath}/user/resetPassword" method="post">
+        <form:form modelAttribute="user" class="forget" action="${pageContext.request.contextPath}/user/resetPassword" method="post">
             <div class="admin">
                 账户名：<input type="text" class="text" name="username">
             </div>
+            <form:errors path="loginError"/>
             <div class="validate">
                 验证码：<input type="text" class="text" name="authCode">	
                 <div class="validate-img">
-                    <img src="<spring:url value="/code/resetPassword"/>"> 看不清楚？ <a
-                        class="link-btn" href="#">换一张</a>
+                    <img id="getAuthCode" src="<spring:url value="/code/resetPassword"/>"> 看不清楚？ <a
+                        class="link-btn" id="changeAuthCode" href="#">换一张</a>
                 </div>
             </div>
+            <div class="error-box-1"></div>
             <div class="sure-btn">
                 <input class="d-btn" type="submit" value="提交"> <input
                     class="l-btn" type="reset" value="取消" />
             </div>
-        </form>
+        </form:form>
     </div>
     <!--check phone code-->
     <div class="main2" style="display:<c:choose>
@@ -104,13 +104,12 @@
                  <input type="hidden" id="smsPath" data-value="<spring:url value="/sms/resetPassword?phoneNumber=${userResult.phoneNumber}"/>">
                     <span class="phone-code-wrong">验证码错误!</span>
             </div>      
-              
+            <div class="error-box-2"></div>
             
             <div class="sure-btn">
                 <input class="d-btn" type="submit" value="提交"> <input
                     class="l-btn" type="reset" value="取消" />
         	</div>
-        	<input type="hidden" id="smsPath" value="<spring:url value="/sms/resetPassword?phoneNumber=${userResult.phoneNumber}"/>">
     	</div>
         </form>
     </div>
@@ -139,6 +138,7 @@
             <div class="validate">
                 确认新密码：<input name="password2" type="password" class="text"> <span class="tips">两次密码不一致</span>
             </div>
+            <div class="error-box-3"></div>
             <div class="sure-btn">
                 <input class="d-btn" type="submit" value="提交"> <input
                     class="l-btn" type="reset" value="取消" />
@@ -174,6 +174,7 @@
         </form>   
     </div>
     <jsp:include page="../core/footer-main.jsp" />
+    <jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
 <script
     src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>" data-main="<spring:url value="${juedangpinStaticPath}/user/resetforget.js"/>"></script>

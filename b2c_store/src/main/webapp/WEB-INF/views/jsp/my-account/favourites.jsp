@@ -15,7 +15,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绝当品</title>
+    <title>点金子典当行绝当品销售平台</title>
+    <link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
     <link rel="stylesheet"
           href="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.css"/>" />
     <link rel="stylesheet"
@@ -111,6 +112,7 @@
     </div>
 
     <jsp:include page="../core/footer-main.jsp" />
+    <jsp:include page="../core/baidu.jsp"></jsp:include>
 </body>
     <script src="<spring:url value="${juedangpinStaticPath}/core/js/module/url.js"/>"></script>
 <script

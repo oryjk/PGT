@@ -15,7 +15,8 @@ subprojects {
     apply plugin: 'jetty'
     apply plugin: 'idea'
     apply plugin: 'org.flywaydb.flyway'
-    version = '1.0'
+//    apply plugin: 'scala'
+//    version = '1.0'
     // JVM 版本号要求
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -54,15 +55,15 @@ subprojects {
         compile 'org.springframework.security:spring-security-core:4.0.2.RELEASE'
         compile 'org.springframework.security:spring-security-web:4.0.2.RELEASE'
         compile 'org.springframework.session:spring-session:1.0.2.RELEASE'
-        compile 'org.apache.tomcat:tomcat-catalina:8.0.27'
+//        compile 'org.apache.tomcat:tomcat-catalina:8.0.27'
         compile 'javax.validation:validation-api:1.1.0.Final'
         compile 'org.hibernate:hibernate-validator:5.1.3.Final'
         compile 'com.mchange:c3p0:0.9.5.1'
         compile 'org.liquibase:liquibase-core:3.4.1'
         compile 'mysql:mysql-connector-java:5.1.36'
         compile 'org.mybatis:mybatis-spring:1.2.3'
-        compile 'opensymphony:quartz-all:1.6.0'
-        compile 'org.springframework:spring-support:2.0.8'
+        compile 'org.quartz-scheduler:quartz:2.2.1'
+        //compile 'org.springframework:spring-support:2.0.8'
         compile 'org.springframework:spring-dao:2.0.8'
         compile 'org.springframework:spring-tx:4.2.2.RELEASE'
         compile 'org.springframework:spring-jdbc:4.2.2.RELEASE'
@@ -93,7 +94,9 @@ subprojects {
         compile 'org.springframework:spring-web:4.1.6.RELEASE'
         compile 'com.alibaba:fastjson:1.2.7'
         compile 'javax:javaee-web-api:7.0'
-
+        compile 'org.apache.poi:poi:3.13'
+        compile 'org.apache.poi:poi-ooxml:3.13'
+        compile 'joda-time:joda-time:2.9.2'
         compile "javax.servlet:javax.servlet-api:3.1.0"
         compile "javax.servlet.jsp:jsp-api:2.2.1-b03"
         compile "javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1"
@@ -104,5 +107,4 @@ subprojects {
     task listJars(description: 'Display all compile jars.') << {
         configurations.compile.each { File file -> println file.name }
     }
-
 }

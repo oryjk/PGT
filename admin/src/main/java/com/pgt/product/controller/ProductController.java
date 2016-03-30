@@ -1,0 +1,437 @@
+package com.pgt.product.controller;
+
+import com.pgt.category.bean.Category;
+import com.pgt.category.service.CategoryService;
+import com.pgt.configuration.Configuration;
+import com.pgt.internal.bean.Role;
+import com.pgt.internal.controller.InternalTransactionBaseController;
+import com.pgt.media.MediaService;
+import com.pgt.media.bean.MediaType;
+import com.pgt.product.bean.Product;
+import com.pgt.product.bean.ProductMedia;
+import com.pgt.product.service.ProductServiceImp;
+import com.pgt.search.bean.SearchPaginationBean;
+import com.pgt.search.service.ESSearchService;
+import com.pgt.search.service.SearchService;
+import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by carlwang on 12/22/15.
+ */
+
+@RestController
+@RequestMapping("/product")
+public class ProductController extends InternalTransactionBaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
+    @Autowired
+    private ProductServiceImp productServiceImp;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private MediaService mediaService;
+
+    @Autowired
+    private SearchService searchService;
+
+    @Autowired
+    private ESSearchService esSearchService;
+
+    @Autowired
+    private Configuration configuration;
+
+    @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
+    public ModelAndView findProduct(@PathVariable("productId") String productId, ModelAndView modelAndView) {
+        LOGGER.debug("search the product with id {productId}.", productId);
+        Product product = productServiceImp.queryProduct(Integer.valueOf(productId));
+        if (product == null) {
+            LOGGER.debug("Can not find the product with id is {}", productId);
+            return modelAndView;
+        }
+        LOGGER.debug("Have one record with product id is {}", productId);
+        modelAndView.addObject("product", product);
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public ModelAndView createProduct(HttpServletRequest pRequest, ModelAndView modelAndView) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
+        // main logic
+        modelAndView.addObject("product", new Product());
+        List<Category> categories = categoryService.queryAllParentCategories();
+        modelAndView.addObject("categories", categories);
+        modelAndView.addObject("action", "/product/create/stepBase");
+        modelAndView.setViewName("/product/productBaseModify");
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/create/stepBase", method = RequestMethod.POST)
+    public ModelAndView createStepBase(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
+        TransactionStatus status = ensureTransaction();
+        try {
+            // main logic
+            if (ObjectUtils.isEmpty(product)) {
+                LOGGER.debug("The product is empty.");
+                return modelAndView;
+            }
+            productServiceImp.createProduct(product);
+            if (product.getStatus() == 1) {
+                esSearchService.productIndex(product);
+            }
+            modelAndView.addObject("product", product);
+            modelAndView.addObject("staticServer", configuration.getStaticServer());
+            modelAndView.setViewName("redirect:/product/update/productImageModify/" + product.getProductId());
+            return modelAndView;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/create/stepImage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createProductMedias(ProductMedia productMedia) {
+        TransactionStatus status = ensureTransaction();
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        try {
+            removeOldProductMediaRef(productMedia);
+            Integer mediaId = mediaService.create(productMedia);
+            Product product = productServiceImp.queryProduct(productMedia.getReferenceId());
+            if (ObjectUtils.isEmpty(product)) {
+                LOGGER.debug("The product is empty with id is {}.", productMedia.getReferenceId());
+                responseEntity.getBody().put("success", false);
+                responseEntity.getBody().put("message", "Can not update product index.");
+                return responseEntity;
+            }
+            esSearchService.updateProductIndex(product);
+            responseEntity.getBody().put("success", true);
+            responseEntity.getBody().put("mediaId", mediaId);
+            return responseEntity;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return responseEntity;
+
+    }
+
+    private void removeOldProductMediaRef(ProductMedia productMedia) {
+        if (productMedia.getType().equals(MediaType.front)) {
+            ProductMedia oldProductMedia = mediaService.findFrontByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.advertisement)) {
+            ProductMedia oldProductMedia = mediaService.findAdByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.thumbnail)) {
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+        if (productMedia.getType().equals(MediaType.mobileDetail)) {
+            ProductMedia oldProductMedia = mediaService.findThumbnailMediasByProductId(String.valueOf(productMedia.getReferenceId()));
+            if (!ObjectUtils.isEmpty(oldProductMedia)) {
+                mediaService.deleteMedia(oldProductMedia.getId());
+            }
+        }
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView createProduct(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
+        TransactionStatus status = ensureTransaction();
+        try {
+            // main logic
+            LOGGER.debug("Create a product.");
+            if (product == null) {
+                LOGGER.debug("Can not create a product, because the product is null");
+                return modelAndView;
+            }
+            product.setCreationDate(new Date());
+            product.setUpdateDate(new Date());
+            productServiceImp.createProduct(Integer.valueOf(product.getRelatedCategoryId()), product);
+            LOGGER.debug("Product has created, the product is is {}.", product.getProductId());
+            return modelAndView;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        esSearchService.productIndex(product);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/delete/{productId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity deleteProduct(HttpServletRequest pRequest, @PathVariable("productId") String productId, ModelAndView modelAndView) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
+        }
+        TransactionStatus status = ensureTransaction();
+        try {// main logic
+            LOGGER.debug("Delete the product with product is is {}.", productId);
+            ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<String, Object>(), HttpStatus.OK);
+            Map<String, Object> response = responseEntity.getBody();
+            if (StringUtils.isEmpty(productId)) {
+                LOGGER.debug("The parameter product id is null.");
+                response.put("success", false);
+                response.put("message", "The product id is empty.");
+                return responseEntity;
+            }
+            Category rootCategory = categoryService.queryRootCategoryByProductId(Integer.valueOf(productId));
+            productServiceImp.deleteProduct(productId);
+            esSearchService.deleteProductIndex(productId);
+            if (!ObjectUtils.isEmpty(rootCategory)) {
+//                esSearchService.createHotSaleIndex(rootCategory.getId());
+            }
+            response.put("success", true);
+            LOGGER.debug("The product has deleted with product id is {}.", productId);
+            return responseEntity;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/delete/list", method = RequestMethod.POST)
+    public ResponseEntity deleteProducts(HttpServletRequest pRequest, List<String> products) {
+        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.OK);
+        TransactionStatus status = ensureTransaction();
+        try {// verify permission
+            if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+                return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
+            }
+            // main logic
+            if (products == null || products.isEmpty()) {
+                LOGGER.debug("The products is null.");
+                return responseEntity;
+            }
+            productServiceImp.deleteProducts(products);
+            LOGGER.debug("The products has deleted.");
+            return responseEntity;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return responseEntity;
+    }
+
+    @RequestMapping(value = "/update/{productId}", method = RequestMethod.GET)
+    public ModelAndView updateProduct(HttpServletRequest pRequest, @PathVariable("productId") Integer productId, ModelAndView modelAndView) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
+        // main logic
+        Product product = productServiceImp.queryProduct(productId);
+        List<Category> categories = categoryService.queryAllParentCategories();
+        modelAndView.setViewName("/product/productBaseModify");
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty with id {}.", productId);
+            return modelAndView;
+        }
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("categories", categories);
+        modelAndView.addObject("action", "/product/update/stepBase");
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/update/stepBase", method = RequestMethod.POST)
+    public ModelAndView updateStepBase(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+        // verify permission
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+            return new ModelAndView(PERMISSION_DENIED);
+        }
+        // main logic
+        if (ObjectUtils.isEmpty(product)) {
+            LOGGER.debug("The product is empty.");
+            return modelAndView;
+        }
+        TransactionStatus status = ensureTransaction();
+        try {
+            product.setUpdateDate(new Date());
+            productServiceImp.updateProductBase(product);
+
+        } catch (Exception e) {
+            status.setRollbackOnly();
+            LOGGER.debug(e.getMessage());
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        modelAndView.setViewName("redirect:/product/update/productImageModify/" + product.getProductId());
+        if (product.getStatus() == 0) {
+            esSearchService.deleteProductIndex(String.valueOf(product.getProductId()));
+            return modelAndView;
+        }
+        esSearchService.updateProductIndex(product);
+        return modelAndView;
+
+    }
+
+    @RequestMapping(value = "/update/productImageModify/{productId}", method = RequestMethod.GET)
+    public ModelAndView productImageModify(@PathVariable(value = "productId") Integer productId, ModelAndView modelAndView) {
+        Product product = productServiceImp.queryProduct(productId);
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("staticServer", configuration.getStaticServer());
+        modelAndView.setViewName("/product/productImageModify");
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ModelAndView updateProduct(HttpServletRequest pRequest, Product product, ModelAndView modelAndView) {
+        TransactionStatus status = ensureTransaction();
+        try {
+            // verify permission
+            if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+                return new ModelAndView(PERMISSION_DENIED);
+            }
+            // main logic
+            if (product == null) {
+                LOGGER.debug("The parameter product is null.");
+                return modelAndView;
+            }
+            product.setUpdateDate(new Date());
+            productServiceImp.updateProduct(product);
+            LOGGER.debug("The product has updated with product is is {}.", product.getProductId());
+            return modelAndView;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView searchProducts(@RequestParam(required = false, value = "term") String term,
+                                       @RequestParam(required = false, value = "currentIndex") Integer currentIndex, ModelAndView modelAndView) {
+        SearchPaginationBean searchPaginationBean = new SearchPaginationBean();
+        searchPaginationBean.setCurrentIndex(currentIndex);
+        searchPaginationBean.setTerm(term);
+        List<Product> products = searchService.queryProduct(searchPaginationBean);
+        modelAndView.addObject("products", products);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/updateIsHot", method = RequestMethod.GET)
+    public ResponseEntity updateIsHot(ModelAndView modelAndView, Integer productId, Boolean isHot) {
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        TransactionStatus status = ensureTransaction();
+        try {
+
+            if (ObjectUtils.isEmpty(productId)) {
+                LOGGER.debug("The productId is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            if (ObjectUtils.isEmpty(isHot)) {
+                LOGGER.debug("The isHot is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            Product product = productServiceImp.queryProduct(productId);
+            if (ObjectUtils.isEmpty(product)) {
+                LOGGER.debug("The product is empty");
+                responseEntity.getBody().put("status", "fail");
+                return responseEntity;
+            }
+            product.setIsHot(isHot);
+            productServiceImp.updateProduct(product);
+
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        responseEntity.getBody().put("status", "success");
+        return responseEntity;
+    }
+
+
+    @RequestMapping(value = "/update/index", method = RequestMethod.POST)
+    public ResponseEntity updateIndex(HttpServletRequest pRequest, String[] products) {
+        LOGGER.debug("The method for product to index");
+        ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+        TransactionStatus status = ensureTransaction();
+        try {
+            if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+                return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
+            }
+            if (products == null) {
+                LOGGER.debug("The products  is null.");
+                return responseEntity;
+            }
+
+            for (String productId : products) {
+                Product product = productServiceImp.queryProduct(Integer.parseInt(productId));
+                LOGGER.debug("The index productId is {}.", productId);
+                if (!ObjectUtils.isEmpty(product)) {
+                    SearchResponse searchResponse = esSearchService.findProduct(productId);
+                    if (searchResponse.getHits().getTotalHits() < 1) {
+                        LOGGER.debug("The es to createIndex,productId is {}.", productId);
+                        esSearchService.productIndex(product);
+                    } else {
+                        LOGGER.debug("The es to updateIndex,productId is {}.", productId);
+                        esSearchService.updateProductIndex(product);
+                    }
+                }
+
+            }
+            LOGGER.debug("The products has index to es.");
+            responseEntity.getBody().put("status", "success");
+            return responseEntity;
+        } catch (Exception e) {
+            status.setRollbackOnly();
+        } finally {
+            getTransactionManager().commit(status);
+        }
+        return responseEntity;
+    }
+
+
+}

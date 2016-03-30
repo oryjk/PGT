@@ -59,9 +59,38 @@ public class User implements Serializable {
     private String headPortrait;
     private Integer defaultAddressId;
     private String yeepayUserName;
-    private String yeepayUserId;
+    private String yeepayUserId;//身份证
     private String authCodeError;
     private String smsError;
+    private String phoneExist;
+    private String yeepayUserNo;
+    private String  qqAccessToken;
+    private String qqOpenid;
+
+
+    public String getQqAccessToken() {
+        return qqAccessToken;
+    }
+
+    public void setQqAccessToken(String qqAccessToken) {
+        this.qqAccessToken = qqAccessToken;
+    }
+
+    public String getQqOpenid() {
+        return qqOpenid;
+    }
+
+    public void setQqOpenid(String qqOpenid) {
+        this.qqOpenid = qqOpenid;
+    }
+
+    public String getYeepayUserNo() {
+        return yeepayUserNo;
+    }
+
+    public void setYeepayUserNo(String yeepayUserNo) {
+        this.yeepayUserNo = yeepayUserNo;
+    }
 
     public Date getCreateDate() {
         return createDate;
@@ -270,4 +299,8 @@ public class User implements Serializable {
     public void setSmsError(String smsError) {
         this.smsError = smsError;
     }
+
+    public String getPhoneExist(){ return phoneExist;}
+
+    public void setPhoneExist(){ this.phoneExist = phoneExist; }
 }

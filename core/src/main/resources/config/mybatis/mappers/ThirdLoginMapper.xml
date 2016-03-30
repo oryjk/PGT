@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.user.dao.ThirdLoginMapper">
+
+    <!--查询条件 -->
+    <sql id="ThirdLoginWhere">
+        <where>
+
+        </where>
+    </sql>
+
+    <!--ThirdLogin result map -->
+    <resultMap id="thirdLoginResult" type="com.pgt.user.bean.ThirdLogin">
+        <id column="ID" property="id"/>
+        <result column="OPEN_ID" property="openId"/>
+        <result column="TYPE" property="type"/>
+        <result column="TOKEN" property="token"/>
+        <result column="EXPIRE" property="expire"/>
+        <result column="REFRESH_TOKEN" property="refreshToken"/>
+        <association property="user" column="USER_ID" select="selectUser"/>
+    </resultMap>
+
+
+    <select id="selectUser" parameterType="int" resultMap="com.pgt.user.dao.UserMapper.user">
+        SELECT *
+        FROM USERS WHERE user_id = #{USER_ID}
+    </select>
+
+    <select id="queryThirdLoginByToken" parameterType="String" resultMap="thirdLoginResult">
+     SELECT * FROM THIRD_LOGIN WHERE TOKEN =#{openId}
+    </select>
+
+
+    <select id="queryThirdLoginByOpenId" parameterType="String" resultMap="thirdLoginResult">
+        SELECT * FROM THIRD_LOGIN WHERE OPEN_ID =#{token}
+    </select>
+
+    <!-- insert a ThirdLogin bean -->
+    <insert id="createThirdLogin" parameterType="com.pgt.user.bean.ThirdLogin"
+            keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO
+        THIRD_LOGIN(OPEN_ID,TYPE,TOKEN,USER_ID,EXPIRE,REFRESH_TOKEN)VALUES(#{openId},#{type},#{token},#{user.id},#{expire},#{refreshToken})
+    </insert>
+
+    <!-- update a ThirdLogin bean -->
+    <update id="updateThirdLogin" parameterType="com.pgt.user.bean.ThirdLogin"
+            keyProperty="id" useGeneratedKeys="true">
+        UPDATE  THIRD_LOGIN SET
+        OPEN_ID=#{openId},TYPE=#{type},TOKEN=#{token},USER_ID=#{user.id},EXPIRE=#{expire},REFRESH_TOKEN=#{refreshToken}
+        WHERE ID=#{id}
+    </update>
+
+    <!-- delete a ThirdLogin bean -->
+   <delete id="deleteThirdLoginById">
+        DELETE FROM
+        THIRD_LOGIN WHERE ID=#{id}
+    </delete>
+
+    <select id="queryThirdLoginById" parameterType="Integer"  resultMap="thirdLoginResult">
+        SELECT * FROM THIRD_LOGIN WHERE ID =#{id}
+    </select>
+
+    <select id="queryThirdLogin" parameterType="com.pgt.user.bean.ThirdLogin"
+            resultMap="thirdLoginResult">
+        SELECT * FROM THIRD_LOGIN
+        <include refid="ThirdLoginWhere"/>
+    </select>
+
+</mapper>

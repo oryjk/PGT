@@ -3,35 +3,113 @@ package com.pgt.utils;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 
  * Example:
  * Please refer main method.
  * 
- * first paget currentIndex is 0. 
+ * first page currentIndex is 0.
  * 
  * @author Samli
  *
  */
 public class PaginationBean implements Mapable {
+
+	public static final int DEFAULT_CAPACITY = 5;
+	public static final int DEFAULT_SPAN_SIZE = 2;
+
 	private long capacity;
 	private long currentIndex;// start from 0;
 	private long totalAmount;
 	private String sortFiledName;
 	private boolean asc;
+	private int spanSize = DEFAULT_SPAN_SIZE;
+
+	public int getSpanSize() {
+		return spanSize;
+	}
+
+	public void setSpanSize(int spanSize) {
+		this.spanSize = spanSize;
+	}
+
+	public boolean isFirstPage() {
+		return getCurrentIndex() == 0;
+	}
+
+
+	public boolean isLastPage() {
+		return getCurrentIndex() == getMaxIndex();
+	}
+
+
+	public boolean isShowCurrentPage() {
+		if (isFirstPage() && isLastPage()) {
+			return true;
+		}
+		if (isFirstPage()) {
+			return false;
+		}
+		if (isLastPage()) {
+			return false;
+		}
+		return true;
+ 	}
+
+
+	public List<Long> getLeftSpan() {
+		List<Long> result = new ArrayList<Long>();
+		if (getCurrentIndex() > 0) {
+			for (long i = getCurrentIndex() - 1; i > 0; i--) {
+				if (getCurrentIndex() - i > spanSize) {
+					break;
+				}
+				result.add(i);
+			}
+			Collections.reverse(result);
+		}
+		return result;
+	}
+
+	public List<Long> getRightSpan() {
+		List<Long> result = new ArrayList<Long>();
+		if (getCurrentIndex() < getMaxIndex()) {
+			for (long i = getCurrentIndex() + 1; i < getMaxIndex(); i++) {
+				if (i == 0 || i - getCurrentIndex() > spanSize) {
+					break;
+				}
+				result.add(i);
+			}
+		}
+		return result;
+	}
+
+	public boolean isShowLeftDots() {
+		if (getCurrentIndex() - getSpanSize() > 0) {
+			return true;
+		}
+		return false;
+	}
+
+
+	public boolean isShowRightDots() {
+		if (getCurrentIndex() + getSpanSize() < getMaxIndex()) {
+			return true;
+		}
+		return false;
+	}
 
 	public long getNextIndex() {
 		if (0 >= capacity) {
 			throw new InvalidParameterException("capacity must greater than zero.");
 		}
 		long maxIndex = (totalAmount % capacity > 0 ? totalAmount / capacity + 1 : totalAmount / capacity) - 1;
-		if (currentIndex > maxIndex) {
+		if (getCurrentIndex() > maxIndex) {
 			return maxIndex;
 		}
-		return maxIndex > currentIndex ? currentIndex + 1 : currentIndex;
+		return maxIndex > getCurrentIndex() ? getCurrentIndex() + 1 : getCurrentIndex();
 	}
 
 	public long getPreIndex() {
@@ -39,21 +117,25 @@ public class PaginationBean implements Mapable {
 			throw new InvalidParameterException("capacity must greater than zero.");
 		}
 		long maxIndex = getMaxIndex();
-		if (currentIndex > maxIndex) {
+		if (getCurrentIndex() > maxIndex) {
 			return maxIndex > 0 ? maxIndex - 1 : maxIndex;
 		}
-		if (currentIndex <= 0) {
-			return currentIndex;
+		if (getCurrentIndex() <= 0) {
+			return getCurrentIndex();
 		}
-		return currentIndex - 1;
+		return getCurrentIndex() - 1;
 	}
 	
 	public long getMaxIndex() {
 		return (totalAmount % capacity > 0 ? totalAmount / capacity + 1 : totalAmount / capacity) - 1;
 	}
 
+	public long getMaxPageNum() {
+		return totalAmount % capacity == 0 ? totalAmount / capacity : totalAmount / capacity + 1;
+	}
+
 	public long getSqlStartIndex() {
-		return currentIndex * capacity;
+		return getCurrentIndex() * capacity;
 	}
 
 	public long getCapacity() {
@@ -65,6 +147,12 @@ public class PaginationBean implements Mapable {
 	}
 
 	public long getCurrentIndex() {
+		if (currentIndex> getMaxIndex()) {
+			return getMaxIndex();
+		}
+		if (currentIndex < 0) {
+			return 0;
+		}
 		return currentIndex;
 	}
 
@@ -81,6 +169,7 @@ public class PaginationBean implements Mapable {
 	}
 	
 	
+	@Override
 	public Map<String, Object> getMapValue() {
 		try {
 			return BeanUtils.toMap(this);
@@ -126,7 +215,7 @@ public class PaginationBean implements Mapable {
 		currentIndex = page.getNextIndex();
 		System.out.println(currentIndex + " -- " + page.getSqlStartIndex());
 		page.setCurrentIndex(currentIndex);
-		
+
 
 		System.out.println("------------------------");
 		page.setTotalAmount(15);
@@ -154,6 +243,11 @@ public class PaginationBean implements Mapable {
 			System.out.println(key + ": " + value.get(key));
 		}
 
+		System.out.println("------------------------------");
+		PaginationBean bean = new PaginationBean();
+		bean.setTotalAmount(50);
+		bean.setCapacity(7);
+		bean.setCurrentIndex(0);
 	}
 
 	public String getSortFiledName() {

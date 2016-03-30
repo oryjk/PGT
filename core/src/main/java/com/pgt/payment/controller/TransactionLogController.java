@@ -1,13 +1,21 @@
 package com.pgt.payment.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pgt.payment.bean.TransactionLog;
+import com.pgt.payment.service.TransactionLogService;
+import com.pgt.utils.PaginationBean;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -17,8 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pgt.integration.yeepay.direct.service.DirectYeePay;
-import com.pgt.loan.service.LoanService;
-
+import org.springframework.web.servlet.ModelAndView;
 
 
 @RestController
@@ -27,10 +34,10 @@ public class TransactionLogController {
 
 	@Resource(name = "mockYeepay")
 	private DirectYeePay mockYeePay;
-	
-	@Resource(name = "loanService")
-	private LoanService loanService;
 
+	@Resource(name = "transactionLogService")
+	private TransactionLogService transactionLogService;
+	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity test(HttpServletRequest pRequest, HttpServletResponse pResponse, Model pModel) {
@@ -43,7 +50,7 @@ public class TransactionLogController {
 		params.put("say", "helloworld");
 		
 		try {
-			getMockYeePay().invok(params);
+			getMockYeePay().invoke(params);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,6 +63,57 @@ public class TransactionLogController {
 		
 	}
 
+	@RequestMapping(value = "/query")
+	public ModelAndView query(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		String orderId = pRequest.getParameter("orderId");
+		String uesrId = pRequest.getParameter("uesrId");
+		String paymentGroupId = pRequest.getParameter("paymentGroupId");
+		String transactionId = pRequest.getParameter("transactionId");
+		String type  = pRequest.getParameter("type");
+		String serviceName = pRequest.getParameter("serviceName");
+		String startTimeStr = pRequest.getParameter("startTime");
+		String endTimeStr = pRequest.getParameter("endTime");
+		String currentIndexStr = pRequest.getParameter("currentIndex");
+		String capacityStr = pRequest.getParameter("capacity");
+
+		Date startTime = null;
+		Date endTime = null;
+		if (StringUtils.isNotBlank(startTimeStr)) {
+			try {
+				startTime = DateUtils.parseDate(startTimeStr, "yyyyMM-dd HH:mm:ss");
+			} catch (ParseException e) {
+				throw new IllegalArgumentException("Start time format is not correct (yyyyMM-dd HH:mm:ss)");
+			}
+		}
+		if (StringUtils.isNotBlank(endTimeStr)) {
+			try {
+				endTime = DateUtils.parseDate(endTimeStr, "yyyyMM-dd HH:mm:ss");
+			} catch (ParseException e) {
+				throw new IllegalArgumentException("Start time format is not correct (yyyyMM-dd HH:mm:ss)");
+			}
+		}
+		int currentIndex = 0;
+		if (StringUtils.isNotBlank(currentIndexStr)) {
+			if (StringUtils.isNumeric(currentIndexStr)) {
+				currentIndex = Integer.valueOf(currentIndexStr);
+			}
+ 		}
+		int capacity = PaginationBean.DEFAULT_CAPACITY;
+		if (StringUtils.isNotBlank(capacityStr)) {
+			if (StringUtils.isNumeric(capacityStr)) {
+				capacity = Integer.valueOf(capacityStr);
+			}
+		}
+		PaginationBean paginationBean = new PaginationBean();
+		paginationBean.setCurrentIndex(currentIndex);
+		paginationBean.setCapacity(capacity);
+		List<TransactionLog> result = getTransactionLogService().queryTransactionLog(orderId, uesrId, paymentGroupId, transactionId, type, serviceName,
+				startTime, endTime, paginationBean);
+
+
+		return null;
+	}
+
 	public DirectYeePay getMockYeePay() {
 		return mockYeePay;
 	}
@@ -64,14 +122,11 @@ public class TransactionLogController {
 		this.mockYeePay = mockYeePay;
 	}
 
-	public LoanService getLoanService() {
-		return loanService;
+	public TransactionLogService getTransactionLogService() {
+		return transactionLogService;
 	}
 
-	public void setLoanService(LoanService loanService) {
-		this.loanService = loanService;
+	public void setTransactionLogService(TransactionLogService transactionLogService) {
+		this.transactionLogService = transactionLogService;
 	}
-	
-	
-
 }

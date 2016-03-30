@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.dashboard.dao.DashboardDao">
+
+	<select id="queryPaidOrderCount" resultType="int">
+		SELECT COUNT(ORDER_ID)
+		FROM `ORDER`
+		WHERE STATUS >= 30
+	</select>
+
+	<select id="queryPaidCommerceItemCount" resultType="int">
+		SELECT COUNT(ci.COMMERCE_ITEM_ID)
+		FROM `ORDER` o
+		LEFT JOIN COMMERCE_ITEM ci ON o.ORDER_ID = ci.ORDER_ID
+		WHERE STATUS >= 30
+	</select>
+
+	<select id="queryTotalSaleAmount" resultType="double">
+		SELECT IFNULL(SUM(AMOUNT), 0)
+		FROM TRANSACTIONS
+		WHERE `STATUS` = 1
+	</select>
+
+	<select id="queryPaidOrderCountDuringDate" resultType="map">
+		SELECT
+		<foreach collection="list" item="date" open="" close="" separator=",">
+			COUNT( CASE WHEN t.TRANSACTION_TIME &gt; STR_TO_DATE(#{date}, '%Y-%m-%d')
+				AND t.TRANSACTION_TIME &lt; STR_TO_DATE(CONCAT(#{date}, ' 23:59:59'), '%Y-%m-%d %H:%i:%s') THEN o.ORDER_ID ELSE NULL END ) AS #{date}
+		</foreach>
+		FROM `ORDER` o
+		LEFT JOIN `TRANSACTIONS` t ON t.ORDER_ID = o.ORDER_ID
+		WHERE o.STATUS >= 30 AND t.STATUS = 1
+	</select>
+
+	<select id="queryPaidCommerceItemCountDuringDate" resultType="map">
+		SELECT
+		<foreach collection="list" item="date" open="" close="" separator=",">
+			COUNT( CASE WHEN t.TRANSACTION_TIME &gt; STR_TO_DATE(#{date}, '%Y-%m-%d')
+			AND t.TRANSACTION_TIME &lt; STR_TO_DATE(CONCAT(#{date}, ' 23:59:59'), '%Y-%m-%d %H:%i:%s') THEN ci.COMMERCE_ITEM_ID ELSE NULL END ) AS #{date}
+		</foreach>
+		FROM `ORDER` o
+		LEFT JOIN COMMERCE_ITEM ci ON o.ORDER_ID = ci.ORDER_ID
+		LEFT JOIN `TRANSACTIONS` t ON t.ORDER_ID = o.ORDER_ID
+		WHERE o.STATUS >= 30 AND t.STATUS = 1
+	</select>
+
+	<select id="queryTotalSaleAmountDuringDate" resultType="map">
+		SELECT
+		<foreach collection="list" item="date" open="" close="" separator=",">
+			IFNULL(SUM( CASE WHEN t.TRANSACTION_TIME &gt; STR_TO_DATE(#{date}, '%Y-%m-%d')
+			AND t.TRANSACTION_TIME &lt; STR_TO_DATE(CONCAT(#{date}, ' 23:59:59'), '%Y-%m-%d %H:%i:%s') THEN t.AMOUNT ELSE 0 END ), 0) AS #{date}
+		</foreach>
+		FROM TRANSACTIONS t
+		WHERE `STATUS` = 1
+	</select>
+</mapper>

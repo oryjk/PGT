@@ -18,16 +18,10 @@
     <!--Do not interceptor static files.-->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
 
-        <!--Initial global config-->
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.pgt.global.interceptor.GlobalConfigInterceptor"></bean>
 
-        </mvc:interceptor>
-
-        <!-- find user in cookie -->
+        &lt;!&ndash; find user in cookie &ndash;&gt;
         <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
             <bean class="com.pgt.permission.PersistentInterceptor"></bean>
@@ -39,7 +33,7 @@
             <bean class="com.pgt.cart.filter.ShoppingCartHandlerInterceptor"></bean>
         </mvc:interceptor>
 
-        <!-- check the user login -->
+        &lt;!&ndash; check the user login &ndash;&gt;
         <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
             <bean class="com.pgt.permission.LoginInterceptor"></bean>
@@ -50,20 +44,19 @@
             <bean class="com.pgt.cart.filter.ProductBrowseTracker"></bean>
         </mvc:interceptor>
 
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.pgt.cart.filter.RecommendInterceptor"></bean>
-        </mvc:interceptor>
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="com.pgt.help.Interceptor.HelpCenterInterceptor"></bean>
         </mvc:interceptor>
 
+    </mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.pgt.config.ConfigInterceptor"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
-
-
-
 
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -4,13 +4,51 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pgt.common.dao.BannerMapper">
 
+	<!-- 分页sql语句的封装 -->
+	<sql id="pageBean">
+		<if test="paginationBean!=null">
+			<if test="paginationBean.currentIndex != null">
+				<if test="paginationBean.capacity != null">
+					limit #{paginationBean.sqlStartIndex}, #{paginationBean.capacity}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+    <!--查询条件 -->
+	<sql id="bannerListWhere">
+		<where>
+			<if test="type!=null">
+				and TYPE =#{type}
+			</if>
+			<if test="status!=null">
+				and STATUS =#{status}
+			</if>
+			<if test="site!=null">
+				and SITE =#{site}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 需要查询的数据 -->
+	<sql id="bannerSelector">
+		SELECT
+		<if test="fields !=null">
+			${fields}
+		</if>
+		<if test="fields ==null">
+			*
+		</if>
+		FROM BANNER
+	</sql>
+
 	<!--Banner result map -->
 	<resultMap id="BannerResult" type="com.pgt.common.bean.Banner">
 		<id column="BANNER_ID" property="bannerId" />
-		<result column="IMAGE_URL" property="imageUrl"></result>
-		<result column="IMAGE_PATH" property="imagePath" />
 		<result column="TYPE" property="type" />
 		<result column="STATUS" property="status" />
+		<result column="NAME" property="name" />
+		<result column="SITE" property="site"/>
 		<collection column="BANNER_ID" property="images"
 			select="com.pgt.common.dao.ImageMapper.queryAllImageByBannerId"/>
 	</resultMap>
@@ -19,14 +57,14 @@
 	<insert id="createBanner" parameterType="com.pgt.common.bean.Banner"
 		keyProperty="bannerId" useGeneratedKeys="true">
 		INSERT INTO
-		BANNER(IMAGE_URL,IMAGE_PATH,TYPE,STATUS)VALUES(#{imageUrl},#{imagePath},#{type},#{status})
+		BANNER(TYPE,STATUS,NAME,SITE)VALUES(#{type},#{status},#{name},#{site})
 	</insert>
 
 	<!-- update a banner bean -->
 	<update id="updateBanner" parameterType="com.pgt.common.bean.Banner"
 		keyProperty="bannerId" useGeneratedKeys="true">
 		UPDATE BANNER SET
-		IMAGE_URL=#{imageUrl},IMAGE_PATH=#{imagePath},TYPE=#{type},STATUS=#{status}
+		TYPE=#{type},STATUS=#{status},NAME=#{name},SITE=#{site}
 		WHERE BANNER_ID=#{bannerId}
 	</update>
 
@@ -48,12 +86,18 @@
 		 SELECT
 		*
 		FROM BANNER WHERE
-		TYPE=#{type}
+		TYPE=#{type} AND STATUS=1
 	</select>
 
-
-	<select id="queryAllBanners" resultMap="BannerResult">
-		SELECT * FROM BANNER
+	<select id="queryBannerByQuery" parameterType="com.pgt.common.bean.BannerQuery" resultMap="BannerResult">
+		<include refid="bannerSelector"/>
+		<include refid="bannerListWhere"/>
+		<include refid="pageBean"/>
+	</select>
+	
+	<select id="queryBannerCount" parameterType="com.pgt.common.bean.BannerQuery" resultType="Integer">
+		<include refid="bannerSelector"/>
+		<include refid="bannerListWhere"/>
 	</select>
 
 </mapper>

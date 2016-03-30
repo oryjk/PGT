@@ -7,19 +7,19 @@
 
 	<bean id="yeePayConfig" class="com.pgt.integration.yeepay.YeePayConfig">
 		<property name="platformNo" value="10012485748" />
-		<property name="pfxPath"
-			value="/www/yeepay/tamade.pfx" />
+		<property name="pfxPath" value="${pfxPath}" />
 		<property name="password" value="tmd123456" />
 		<property name="connectionTimeout" value="5000" />
 		<property name="socketTimeout" value="15000" />
 		<!-- need change when go live -->
-		<property name="platformUserNoPrefix" value="pgttesttt"></property>
-		<property name="requestNoPrefix" value="pgttesttt"/>
+		<property name="platformUserNoPrefix" value="${platformUserNoPrefix}"></property>
+		<property name="requestNoPrefix" value="${requestNoPrefix}"/>
 		<property name="directRequestUrl" value="https://member.yeepay.com/member/bhaexter/bhaController" />
-		<property name="callbackUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayCallback" />
-		<property name="notifyUrl" value="http://localhost:8080/b2c_store/yeepay/yeepayNotify"/>
-		<property name="completeTransactionNotifyUrl" value="http://localhost:8080/b2c_store/yeepay/completeTransactionNotify"/>
-		<property name="targetPlatformUserNo" value="pgt14"/>
+		<property name="callbackUrl" value="${b2c_store_host}/yeepay/yeepayCallback" />
+		<property name="notifyUrl" value="${b2c_store_host}/yeepay/yeepayNotify"/>
+		<property name="completeTransactionNotifyUrl" value="${b2c_store_host}/yeepay/completeTransactionNotify"/>
+		<property name="targetPlatformUserNo" value="${targetPlatformUserNo}"/>
+		<property name="transactionExpiredMin" value="30"/>
 		<!-- need change when go live -->
 		<property name="withdrawType" value="NORMAL"/>
 		<property name="feeMode">
@@ -168,6 +168,7 @@
 
 	<bean id="registerNotificationHandler" class="com.pgt.integration.yeepay.notification.service.RegisterNotificationHandler">
 		<property name="userMapper" ref="userMapper"></property>
+		<property name="config" ref="yeePayConfig"/>
 	</bean>
 	
 	
@@ -181,6 +182,7 @@
 		<property name="paymentService" ref="paymentService"/>
 		<property name="shoppingCartDao" ref="shoppingCartDao"/>
 		<property name="userOrderDao" ref="userOrderDao"/>
+		<property name="inventoryService" ref="inventoryService"/>
 	</bean>
 
 	<!-- yeepay direct config -->

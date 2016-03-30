@@ -1,0 +1,274 @@
+/*import
+**************************************************************************************************************************************************/
+.address-list, .address-list .receive-name, .address-list .receive-address,
+.address-list .receive-phone, .pop-up .wrap, .pop-up .pop-content {
+  *zoom: 1; }
+  .address-list:after, .address-list .receive-name:after, .address-list .receive-address:after,
+  .address-list .receive-phone:after, .pop-up .wrap:after, .pop-up .pop-content:after, .address-list:before, .address-list .receive-name:before, .address-list .receive-address:before,
+  .address-list .receive-phone:before, .pop-up .wrap:before, .pop-up .pop-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+.address-list, .address-list .receive-name, .address-list .receive-address,
+.address-list .receive-phone, .pop-up .wrap, .pop-up .pop-content {
+  *zoom: 1; }
+  .address-list:after, .address-list .receive-name:after, .address-list .receive-address:after,
+  .address-list .receive-phone:after, .pop-up .wrap:after, .pop-up .pop-content:after, .address-list:before, .address-list .receive-name:before, .address-list .receive-address:before,
+  .address-list .receive-phone:before, .pop-up .wrap:before, .pop-up .pop-content:before {
+    content: " ";
+    display: table;
+    clear: both; }
+
+/*select*/
+/*color-btn*/
+/*cost*/
+/*progress-bar*/
+/*page-box*/
+/*pop-up*/
+/*file*/
+/*style
+**************************************************************************************************************************************************/
+.address-altogether {
+  padding-top: 10px;
+  text-align: right; }
+  .address-altogether .address-altogether-info {
+    padding-right: 35px;
+    color: #555555; }
+  .address-altogether .address-add {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 120px;
+    height: 35px;
+    font-size: 16px;
+    background: #c90304;
+    border-radius: 3px;
+    line-height: 35px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .address-altogether .address-add:hover {
+      background: #970203; }
+
+.address-have-no-add {
+  display: block;
+  margin-top: 20px;
+  border: 2px dashed gray;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: gray; }
+  .address-have-no-add:hover {
+    border-color: #c90304;
+    color: #c90304; }
+
+.address-list li {
+  position: relative;
+  margin: 10px 0;
+  padding-bottom: 15px;
+  border: 2px solid #cccccc; }
+
+.address-list .address-default {
+  border: 2px solid #c90304;
+  background: url("../../core/images/my_account/address-default.jpg") no-repeat left top; }
+
+.address-list .receive-name {
+  padding-top: 29px; }
+
+.address-list .receive-address,
+.address-list .receive-phone {
+  padding-top: 18px; }
+
+.address-list .address-handle {
+  padding: 10px 20px 0 0;
+  text-align: right;
+  font-size: 14px; }
+  .address-list .address-handle .link-btn {
+    padding-left: 20px; }
+
+.address-list .receive-title {
+  float: left;
+  width: 130px;
+  text-align: right; }
+
+.address-list .receive-value {
+  float: left;
+  padding-left: 35px; }
+
+.address-list .address-delete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #cccccc; }
+  .address-list .address-delete:hover {
+    color: black; }
+
+.pop-up {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); }
+  .pop-up .wrap {
+    margin: 150px auto;
+    width: 600px;
+    border-radius: 8px;
+    box-shadow: black 0 0 20px;
+    background: white;
+    font-size: 14px; }
+  .pop-up .inner {
+    border-radius: 8px;
+    overflow: hidden; }
+  .pop-up h3 {
+    padding: 10px 20px;
+    background: #c90304;
+    color: white; }
+    .pop-up h3 .pop-title {
+      color: white;
+      font-size: 18px; }
+    .pop-up h3 .close {
+      float: right;
+      color: white;
+      cursor: pointer;
+      font-weight: 100; }
+      .pop-up h3 .close:hover {
+        color: #555555; }
+  .pop-up .pop-content {
+    width: 480px;
+    margin: 20px auto 40px; }
+  .pop-up .pop-btn {
+    margin-top: 20px;
+    text-align: right; }
+  .pop-up .pop-confirm {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 60px;
+    height: 30px;
+    font-size: 16px;
+    background: #c90304;
+    border-radius: 3px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer; }
+    .pop-up .pop-confirm:hover {
+      background: #970203; }
+  .pop-up .pop-cancel {
+    margin-left: 10px;
+    display: inline-block;
+    padding: 0;
+    border: none;
+    width: 60px;
+    height: 30px;
+    font-size: 16px;
+    background: #cccccc;
+    border-radius: 3px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    color: black; }
+    .pop-up .pop-cancel:hover {
+      background: #bbb; }
+  .pop-up .pop-address-title {
+    padding-bottom: 10px; }
+  .pop-up .pop-address-value {
+    padding-bottom: 20px; }
+  .pop-up .invest-province-select,
+  .pop-up .invest-city-select,
+  .pop-up .invest-country-select {
+    position: relative;
+    display: inline-block;
+    width: 110px;
+    height: 30px;
+    margin-right: 4px; }
+    .pop-up .invest-province-select i,
+    .pop-up .invest-province-select a,
+    .pop-up .invest-city-select i,
+    .pop-up .invest-city-select a,
+    .pop-up .invest-country-select i,
+    .pop-up .invest-country-select a {
+      font-size: 14px; }
+    .pop-up .invest-province-select i,
+    .pop-up .invest-city-select i,
+    .pop-up .invest-country-select i {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      line-height: 25px;
+      text-align: center;
+      font-size: 12px;
+      color: white; }
+    .pop-up .invest-province-select a,
+    .pop-up .invest-city-select a,
+    .pop-up .invest-country-select a {
+      display: block;
+      text-decoration: none;
+      text-align: center; }
+    .pop-up .invest-province-select .select-view,
+    .pop-up .invest-city-select .select-view,
+    .pop-up .invest-country-select .select-view {
+      border: 1px solid #cccccc;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: white;
+      border-radius: 0;
+      line-height: 30px; }
+      .pop-up .invest-province-select .select-view:hover,
+      .pop-up .invest-city-select .select-view:hover,
+      .pop-up .invest-country-select .select-view:hover {
+        background: #cccccc; }
+      .pop-up .invest-province-select .select-view span,
+      .pop-up .invest-city-select .select-view span,
+      .pop-up .invest-country-select .select-view span {
+        color: black; }
+    .pop-up .invest-province-select ul,
+    .pop-up .invest-city-select ul,
+    .pop-up .invest-country-select ul {
+      position: absolute;
+      z-index: 1;
+      display: none;
+      overflow: scroll;
+      max-height: 295px;
+      top: 106%;
+      left: 0;
+      border: 1px solid black;
+      width: 110px;
+      background: white;
+      list-style: none; }
+    .pop-up .invest-province-select li,
+    .pop-up .invest-city-select li,
+    .pop-up .invest-country-select li {
+      padding: 3px 0; }
+      .pop-up .invest-province-select li a,
+      .pop-up .invest-city-select li a,
+      .pop-up .invest-country-select li a {
+        color: black; }
+      .pop-up .invest-province-select li:hover,
+      .pop-up .invest-city-select li:hover,
+      .pop-up .invest-country-select li:hover {
+        background: #cccccc; }
+        .pop-up .invest-province-select li:hover a,
+        .pop-up .invest-city-select li:hover a,
+        .pop-up .invest-country-select li:hover a {
+          color: white; }
+  .pop-up .pop-address-name,
+  .pop-up .pop-address-phone {
+    width: 240px;
+    height: 26px; }
+  .pop-up .pop-address-address {
+    width: 470px;
+    height: 26px; }
+  .pop-up .pop-error {
+    color: #c90304; }
+
+/*# sourceMappingURL=../../../maps/my-account/address/address.css.map */

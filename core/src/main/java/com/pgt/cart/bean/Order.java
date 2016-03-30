@@ -1,38 +1,74 @@
 package com.pgt.cart.bean;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import com.pgt.cart.util.RepositoryUtils;
+import com.pgt.com.pgt.order.bean.P2PInfo;
+import com.pgt.payment.bean.PaymentGroup;
+import com.pgt.shipping.bean.ShippingVO;
+import com.pgt.tender.bean.Tender;
 import org.springframework.util.CollectionUtils;
 
-import com.pgt.cart.util.RepositoryUtils;
-import com.pgt.shipping.bean.ShippingVO;
+import java.beans.Transient;
+import java.util.*;
 
 /**
  * Created by Yove on 10/26/2015.
  */
-public class Order {
+public class Order implements OrderType, OrderStatus {
 
 	private static final String PATTERN_AMOUNT = "%.2f";
 
 	private int mId;
+
 	private int mUserId;
+
+	private int mType;
+
 	private int mStatus = OrderStatus.INITIAL;
+
 	private List<CommerceItem> mCommerceItems = new ArrayList<>();
+
 	private ShippingVO mShippingVO;
-	private double mShippingFee;
+
+	private PaymentGroup mPayment;
+
 	private double mSubtotal;
+
 	private double mTotal;
+
 	private String mUserComments;
+
 	private Date mCreationDate = new Date();
+
 	private Date mUpdateDate;
+
 	private Date mSubmitDate;
+
 	private boolean mEasyBuy;
+
+	private Date estimatedShipDate;
+
+	private Integer p2pInfoId;
+
+	private P2PInfo p2pInfo;
+
+	private String holderAlias;
+
+	private Double mShippingFee;
+
+	private Tender mTender;
+
+	public Order() {
+
+	}
+
+	public Order(int pType) {
+		mType = pType;
+	}
+
+	public Order(int pUserId, int pType) {
+		mUserId = pUserId;
+		mType = pType;
+	}
 
 	public boolean emptyOrder() {
 		return CollectionUtils.isEmpty(mCommerceItems);
@@ -81,7 +117,8 @@ public class Order {
 		return commerceItem;
 	}
 
-	public List<CommerceItem> getPersistedCommerceItems() {
+	@Transient
+	public List<CommerceItem> obtainPersistedCommerceItems() {
 		if (emptyOrder()) {
 			return Collections.EMPTY_LIST;
 		}
@@ -94,7 +131,7 @@ public class Order {
 		return persistentCommerceItems;
 	}
 
-	public List<CommerceItem> getTransientCommerceItems() {
+	public List<CommerceItem> obtainTransientCommerceItems() {
 		if (emptyOrder()) {
 			return Collections.EMPTY_LIST;
 		}
@@ -130,8 +167,35 @@ public class Order {
 
 	public void resetOrderPrice() {
 		mSubtotal = 0d;
-		mShippingFee = 0d;
 		mTotal = 0d;
+	}
+
+	public int getShippedCommerceItemCount() {
+		int shippedCount = 0;
+		for (CommerceItem ci : getCommerceItems()) {
+			if (ci.getDelivery().isDelivered()) {
+				shippedCount++;
+			}
+		}
+		return shippedCount;
+	}
+
+	public int getUnshippedCommerceItemCount() {
+		int unShippedCount = 0;
+		for (CommerceItem ci : getCommerceItems()) {
+			if (!ci.getDelivery().isDelivered()) {
+				unShippedCount++;
+			}
+		}
+		return unShippedCount;
+	}
+
+	public boolean isAllCommerceItemShipped() {
+		return getCommerceItemCount() == getShippedCommerceItemCount();
+	}
+
+	public boolean isPartiallyCommerceItemShipped() {
+		return getCommerceItemCount() != getShippedCommerceItemCount();
 	}
 
 	@Override
@@ -139,16 +203,18 @@ public class Order {
 		return "Order{" +
 				"mId=" + mId +
 				", mUserId=" + mUserId +
+				", mType=" + mType +
 				", mStatus=" + mStatus +
 				", mCommerceItems=" + mCommerceItems +
 				", mShippingVO=" + mShippingVO +
-				", mShippingFee=" + mShippingFee +
+				", mPayment=" + mPayment +
 				", mSubtotal=" + mSubtotal +
 				", mTotal=" + mTotal +
 				", mUserComments='" + mUserComments + '\'' +
 				", mCreationDate=" + mCreationDate +
 				", mUpdateDate=" + mUpdateDate +
 				", mSubmitDate=" + mSubmitDate +
+				", mEasyBuy=" + mEasyBuy +
 				'}';
 	}
 
@@ -176,6 +242,14 @@ public class Order {
 		mUserId = pUserId;
 	}
 
+	public int getType() {
+		return mType;
+	}
+
+	public void setType(final int pType) {
+		mType = pType;
+	}
+
 	public int getStatus() {
 		return mStatus;
 	}
@@ -198,14 +272,6 @@ public class Order {
 
 	public void setShippingVO(ShippingVO shippingVO) {
 		this.mShippingVO = shippingVO;
-	}
-
-	public double getShippingFee() {
-		return mShippingFee;
-	}
-
-	public void setShippingFee(final double pShippingFee) {
-		mShippingFee = pShippingFee;
 	}
 
 	public double getSubtotal() {
@@ -264,4 +330,59 @@ public class Order {
 		mEasyBuy = pEasyBuy;
 	}
 
+	public PaymentGroup getPayment() {
+		return mPayment;
+	}
+
+	public void setPayment(final PaymentGroup pPayment) {
+		mPayment = pPayment;
+	}
+
+	public Integer getP2pInfoId() {
+		return p2pInfoId;
+	}
+
+	public void setP2pInfoId(Integer p2pInfoId) {
+		this.p2pInfoId = p2pInfoId;
+	}
+
+	public Double getShippingFee() {
+		return mShippingFee;
+	}
+
+	public void setShippingFee(Double pShippingFee) {
+		mShippingFee = pShippingFee;
+	}
+
+	public P2PInfo getP2pInfo() {
+		return p2pInfo;
+	}
+
+	public void setP2pInfo(final P2PInfo pP2pInfo) {
+		p2pInfo = pP2pInfo;
+	}
+
+	public String getHolderAlias() {
+		return holderAlias;
+	}
+
+	public void setHolderAlias(String holderAlias) {
+		this.holderAlias = holderAlias;
+	}
+
+	public Date getEstimatedShipDate() {
+		return estimatedShipDate;
+	}
+
+	public void setEstimatedShipDate(Date estimatedShipDate) {
+		this.estimatedShipDate = estimatedShipDate;
+	}
+
+	public Tender getTender() {
+		return mTender;
+	}
+
+	public void setTender(final Tender pTender) {
+		mTender = pTender;
+	}
 }

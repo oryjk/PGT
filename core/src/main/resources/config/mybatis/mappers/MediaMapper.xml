@@ -15,6 +15,7 @@
         <result column="PATH" property="path"></result>
         <result column="INDEX" property="index"></result>
         <result column="TYPE" property="type"></result>
+
     </resultMap>
 
     <select id="queryMedias" parameterType="int" resultMap="MediaResult">
@@ -24,10 +25,23 @@
 		ORDER BY 'index'
 		asc
 	</select>
-    <select id="queryMedia" resultMap="MediaResult">
+    <select id="queryMediaByRefId" resultMap="MediaResult">
 		SELECT *
 		FROM MEDIA
 		WHERE reference_id = #{referenceId} AND TYPE = #{mediaType}
+		ORDER BY 'index'
+		asc
+	</select>
+    <select id="queryPawnTicketMedia" resultMap="MediaResult">
+        SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{referenceId} AND TYPE = 'pawnTicket'
+    </select>
+
+    <select id="queryMedia" resultMap="MediaResult">
+		SELECT *
+		FROM MEDIA
+		WHERE MEDIA_ID = #{id}
 		ORDER BY 'index'
 		asc
 	</select>
@@ -39,17 +53,21 @@
 		WHERE MEDIA_ID = #{MEDIA_ID}
 	</select>
 
-    <insert id="createMedia" parameterMap="paramMedia">
-        INSERT INTO MEDIA(REFERENCE_ID,TITLE,PATH,TYPE,INDEX) VALUES (#{referenceId},#{title},#{path},#{type},#{index})
+    <insert id="createMedia" parameterMap="paramMedia" keyProperty="id" useGeneratedKeys="true">
+
+        INSERT INTO MEDIA(REFERENCE_ID,TITLE,PATH,TYPE,`INDEX`) VALUES (#{referenceId},#{title},#{path},#{type},#{index})
     </insert>
     <update id="updateMedia" parameterMap="paramMedia">
         UPDATE MEDIA SET
-		REFERENCE_ID=#{referenceId},TITLE=#{title},PATH=#{path},TYPE=#{type},INDEX=#{index}
+		REFERENCE_ID=#{referenceId},TITLE=#{title},PATH=#{path},TYPE=#{type},`INDEX`=#{index}
 		WHERE MEDIA_ID=#{id}
     </update>
 
     <delete id="deleteAllProductMedia" parameterType="int">
         DELETE FROM MEDIA WHERE REFERENCE_ID=#{productId} AND TYPE !='category'
+    </delete>
+    <delete id="deleteMedia" parameterType="int">
+        DELETE FROM MEDIA WHERE MEDIA_ID=#{mediaId};
     </delete>
 
 </mapper>

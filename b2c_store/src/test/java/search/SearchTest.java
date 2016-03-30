@@ -2,7 +2,7 @@ package search;
 
 import com.pgt.product.bean.Product;
 import com.pgt.product.helper.ProductHelper;
-import com.pgt.product.service.ProductService;
+import com.pgt.product.service.ProductServiceImp;
 import com.pgt.search.bean.SearchPaginationBean;
 import com.pgt.search.bean.SortBean;
 import org.junit.Ignore;
@@ -24,9 +24,9 @@ import java.util.List;
 @ContextConfiguration(locations = "classpath:spring-core-config.xml") // 加载配
 public class SearchTest {
     @Autowired
-    private ProductService productService;
+    private ProductServiceImp productServiceImp;
     @Autowired
-    private ProductHelper productHelper;
+    private ProductHelper     productHelper;
 
     @Test
     public void searchTest() {
@@ -49,7 +49,7 @@ public class SearchTest {
         sortBeanList.add(sortBean);
         sortBeanList.add(sortBean2);
         searchPaginationBean.setSortBeans(sortBeanList);
-        List<Product> products = productService.queryProducts(searchPaginationBean);
+        List<Product> products = productServiceImp.queryProducts(searchPaginationBean);
         if (!ObjectUtils.isEmpty(products)) {
             products.stream().forEach(product -> System.out.println(product.getProductId()));
         }

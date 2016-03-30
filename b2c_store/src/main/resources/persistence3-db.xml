@@ -8,9 +8,10 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl"
                   value="jdbc:mysql://localhost:3306/mp?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull" />
-        <property name="user" value="root"/>
-        <property name="password" value="root" />
+        <property name="user" value="${db_user}"/>
+        <property name="password" value="${db_password}" />
         <property name="preferredTestQuery" value="SELECT 1"/>
+        <property name="testConnectionOnCheckin" value="true"/>
     </bean>
 
 </beans>

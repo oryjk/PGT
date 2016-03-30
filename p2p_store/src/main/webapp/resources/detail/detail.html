@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="detail.css"/>
+    <style>
+        .main,
+        .hover-main:hover {
+            color: #c90304;
+        }
+        .em,
+        .hover-em:hover {
+            color: #86b4ed;
+        }
+        .bg-main,
+        .hover-bg-main:hover {
+            background: #c90304;
+        }
+        .bg-em,
+        .hover-bg-em:hover {
+            background: #86b4ed;
+        }
+    </style>
+</head>
+<body>
+    <!--header begin-->
+    <div class="header">
+        <a class="top-banner" href="#" style="background: #9e150e url('../core/images/data/top-banner.jpg') no-repeat center center"></a>
+        <div class="top">
+            <div class="top-content">
+                <div class="top-welcome">
+                    <span class="top-welcome-text">欢迎光临点金子绝当淘!</span>
+                    <span class="top-welcome-phone-title">客服电话:</span>
+                    <span class="top-welcome-phone-value main">028-88888888</span>
+                </div>
+                <div class="top-user">
+                    <div class="top-before-login" style="display: block">
+                        <a class="top-user-login hover-main" href="#">登录</a>
+                        <a class="top-user-register hover-main" href="#">注册</a>
+                    </div>
+                    <div class="top-after-login" style="display: none">
+                        <span>欢迎您:</span>
+                        <a href="#">小陈</a>
+                        <a class="top-user-logout hover-main" href="javascript:void(0);">退出</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="head">
+            <div class="head-content">
+                <h1 class="logo">
+                    <a class="logo-link" href="#"></a>
+                </h1>
+                <a href="#" class="hot-left"  style="background: url('../core/images/data/hot-left.gif') no-repeat center center"></a>
+                <form class="search">
+                    <div class="search-content">
+                        <a class="search-input-submit" href="javascript:void(0);"></a>
+                        <input class="search-input-text" type="text" placeholder="请输入要搜索的关键字"/>
+                    </div>
+                </form>
+                <a href="#" class="hot-right" style="background: url('../core/images/data/hot-right.gif') no-repeat center center"></a>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="nav-content">
+                <div class="menu">
+                    <h2 class="menu-title bg-main">开启购物新体验</h2>
+                    <ul class="menu-list">
+                        <li class="menu-item" style="background:url('') no-repeat center center">
+                            <h3 class="menu-item-title">文玩杂项</h3>
+                            <div class="menu-item-sub-box">
+                                <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                                <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                                <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                                <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                            </div>
+                        </li>
+                        <li class="menu-item" style="background:url('') no-repeat center center">
+                            <h3 class="menu-item-title">文玩杂项</h3>
+                            <div class="menu-item-sub-box">
+                                <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                                <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                                <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            </div>
+                        </li>
+                        <li class="menu-item" style="background:url('') no-repeat center center">
+                            <h3 class="menu-item-title">文玩杂项</h3>
+                            <div class="menu-item-sub-box">
+                                <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                                <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                                <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            </div>
+                        </li>
+                        <li class="menu-item" style="background:url('') no-repeat center center">
+                            <h3 class="menu-item-title">文玩杂项</h3>
+                            <div class="menu-item-sub-box">
+                                <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                                <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                                <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            </div>
+                        </li>
+                        <li class="menu-item" style="background:url('') no-repeat center center">
+                            <h3 class="menu-item-title">文玩杂项</h3>
+                            <div class="menu-item-sub-box">
+                                <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                                <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                                <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                            </div>
+                        </li>
+                        <li class="menu-item" style="background:url('') no-repeat center center">
+                            <h3 class="menu-item-title">文玩杂项</h3>
+                            <div class="menu-item-sub-box">
+                                <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                                <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                                <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                                <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                            </div>
+                        </li>
+                        <li class="menu-item" style="background:url('') no-repeat center center">
+                            <h3 class="menu-item-title">文玩杂项</h3>
+                            <div class="menu-item-sub-box">
+                                <a class="menu-item-sub hover-main" href="#">橄榄核雕</a>
+                                <a class="menu-item-sub hover-main" href="#">骆驼骨</a>
+                                <a class="menu-item-sub hover-main" href="#">牦牛角</a>
+                                <a class="menu-item-sub hover-main" href="#">玛瑙</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="nav-list">
+                    <li id="navHover" class="nav-item-hover" style="width: 96px; height: 54px; top: 0; left:0;"></li>
+                    <li class="nav-item"><a class="nav-item-link" href="#">首页</a></li>
+                    <li class="nav-item"><a class="nav-item-link" href="#">在当大厅</a></li>
+                    <li class="nav-item"><a class="nav-item-link" href="#">在线典当</a></li>
+                    <li class="nav-item"><a class="nav-item-link" href="#">帮助中心</a></li>
+                    <li class="nav-item"><a class="nav-item-link" href="#">绝当品商城</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--header end-->
+
+    <!--invest-part begin-->
+    <div class="invest">
+
+        <h2 class="invest-head">鑫鑫典当行纯金镶钻生肖戒指</h2>
+
+        <p class="invest-sub-head">2016/02/07-2016/02/30 火热抢购中</p>
+
+        <div class="invest-info">
+            <div class="invest-img"><img src="../core/images/product/invest_hero_1.png" alt=""/></div>
+            <div class="invest-handle">
+                <div class="invest-handle-group">
+                    <a class="invest-add-favorite" href="javascript:void(0);">收藏</a>
+                    <a class="invest-scan-count">已浏览<span>123</span>次</a>
+                </div>
+                <div class="invest-share-group">
+                    <div class="bdsharebuttonbox">
+                        <a href="#" class="bds_more" data-cmd="more"></a>
+                        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"> </a>
+                        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="invest-data">
+                <div class="invest-status">在当中</div>
+                <div class="data-row-1">项目金额</div>
+                <div class="data-row-2">
+
+                    <div class="cost-box">
+                        <span class="cost">¥</span><span class="cost">18,000.00</span>
+                    </div>
+                    <div class="invest-surplus-count">剩余数量 : <span>15</span>件</div>
+                    <div class="invest-begin-time">开始时间 : <span>2016年2月2日</span></div>
+                    <div class="invest-end-time">结束时间 : <span>2017年2月1日</span></div>
+
+                </div>
+                <div class="data-row-3">
+                    <div class="joiner-count"><span>4</span>名参与者</div>
+                    <div class="surplus-time">剩余<span>4天5小时36分钟</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="item-nav">
+            <ul id="itemNavBox" style="left: 0;top: 0;">
+                <!-- super:以下a标签href属性的值为锚点的id-->
+                <li><a href="#item1"><img src="../core/images/product/hero_1_00.jpg" alt=""/></a></li>
+                <li><a href="#item2"><img src="../core/images/product/hero_1_01.jpg" alt=""/></a></li>
+                <li><a href="#item3"><img src="../core/images/product/hero_1_02.jpg" alt=""/></a></li>
+                <li><a href="#item4"><img src="../core/images/product/hero_1_03.jpg" alt=""/></a></li>
+                <li><a href="#item5"><img src="../core/images/product/hero_1_02.jpg" alt=""/></a></li>
+                <li><a href="#item6"><img src="../core/images/product/hero_1_03.jpg" alt=""/></a></li>
+            </ul>
+            <a class="item-nav-right" id="itemNavRight" href="javascript:void(0);"></a>
+            <a class="item-nav-left" id="itemNavLeft" href="javascript:void(0);"></a>
+        </div>
+
+        <img class="what-is-this" src="" alt=""/>
+
+    </div>
+    <!--invest-part end-->
+
+    <!--detail-content begin-->
+    <div class="detail-content">
+        <ul class="tab">
+            <!-- super: 以下五个tab,添加类tab-choose时显示,不添加时隐藏,默认第一个显示-->
+            <li class="tab-choose"><a href="#">产品简介</a></li>
+            <li><a href="#">产品详情</a></li>
+            <li><a href="#">产品咨询</a><span class="tab-item-count">250</span></li>
+            <li><a href="#">产品讨论</a><span class="tab-item-count">250</span></li>
+            <li><a href="#">参与者</a><span class="tab-item-count">250</span></li>
+        </ul>
+        <div class="content-box"    >
+            <!-- super: 以下五个tab对应的content,添加类content-choose时显示,不添加时隐藏,默认第一个显示-->
+            <!-- content-item-list begin -->
+            <div class="content-item-list content-choose">
+                <div class="each-item">
+                    <!--锚点-->
+                    <div class="anchor"  id="item1"></div>
+
+                    <div class="item-img-box">
+                        <div class="middle-img-box">
+                            <!-- super:rel传入item的id号-->
+                            <a href="../core/images/product/hero_1_00.jpg" class="jqzoom" rel='1'  title="triumph" >
+                                <img class="middle-img" src="../core/images/product/hero_1_00.jpg"  title="triumph">
+                            </a>
+                        </div>
+
+                        <div class="small-img-box" >
+                            <div class="thumblist">
+                                <ul>
+                                    <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+                                    <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_00.jpg',largeimage: '../core/images/product/hero_1_00.jpg'}"><img class="small-img" src='../core/images/product/hero_1_00.jpg'></a></li>
+                                    <li><a href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_01.jpg',largeimage: '../core/images/product/hero_1_01.jpg'}"><img class="small-img" src='../core/images/product/hero_1_01.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_02.jpg',largeimage: '../core/images/product/hero_1_02.jpg'}"><img class="small-img" src='../core/images/product/hero_1_02.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '1', smallimage: '../core/images/product/hero_1_03.jpg',largeimage: '../core/images/product/hero_1_03.jpg'}"><img class="small-img" src='../core/images/product/hero_1_03.jpg'></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-info-box">
+                        <div class="item-row-1">
+                            <div class="col-title">产品名称:</div>
+                            <div class="col-content">金AU754镶钻水金戒指</div>
+                        </div>
+                        <div class="item-row-2">
+                            <div class="col-title">产品介绍:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-3">
+                            <div class="col-title">购买说明:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水<span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-4">
+                            <div class="col-title">配送费用:</div>
+                            <div class="col-content">免运费</div>
+                        </div>
+                        <div class="item-row-5">
+                            <div class="col-title">预计收获时间:</div>
+                            <div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
+                        </div>
+                        <div class="item-row-6">
+                            <div class="col-title">金额: </div>
+                            <div class="col-content">
+                                <span class="item-cost">¥</span><span class="item-cost">1800,00</span>
+                            </div>
+                        </div>
+                        <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span  class="item-surplus-count">5</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
+                            <div class="col-title">&nbsp; </div>
+                            <div class="col-content">
+                                <a class="item-buy-now" href="#">立即抢订</a>
+                                <a class="item-join-favorite" href="#">添加收藏</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="each-item">
+                    <!--锚点-->
+                    <div class="anchor"  id="item2"></div>
+
+                    <div class="item-img-box">
+                        <div class="middle-img-box">
+                            <!-- super:rel传入item的id号-->
+                            <a href="../core/images/product/hero_2_00.jpg" class="jqzoom" rel='2'  title="triumph" >
+                                <img class="middle-img" src="../core/images/product/hero_2_00.jpg"  title="triumph">
+                            </a>
+                        </div>
+
+                        <div class="small-img-box" >
+                            <div class="thumblist">
+                                <ul>
+                                    <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+                                    <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
+                                    <li><a href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-info-box">
+                        <div class="item-row-1">
+                            <div class="col-title">产品名称:</div>
+                            <div class="col-content">金AU754镶钻水金戒指</div>
+                        </div>
+                        <div class="item-row-2">
+                            <div class="col-title">产品介绍:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-3">
+                            <div class="col-title">购买说明:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水<span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-4">
+                            <div class="col-title">配送费用:</div>
+                            <div class="col-content">免运费</div>
+                        </div>
+                        <div class="item-row-5">
+                            <div class="col-title">预计收获时间:</div>
+                            <div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
+                        </div>
+                        <div class="item-row-6">
+                            <div class="col-title">金额: </div>
+                            <div class="col-content">
+                                <span class="item-cost">¥</span><span class="item-cost">1800,00</span>
+                            </div>
+                        </div>
+                        <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span class="item-surplus-count">5</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
+                            <div class="col-title">&nbsp; </div>
+                            <div class="col-content">
+                                <a class="item-buy-now" href="#">立即抢订</a>
+                                <a class="item-join-favorite" href="#">添加收藏</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="each-item">
+                    <!--锚点-->
+                    <div class="anchor"  id="item3"></div>
+
+                    <div class="item-img-box">
+                        <div class="middle-img-box">
+                            <!-- super:rel传入item的id号-->
+                            <a href="../core/images/product/hero_2_00.jpg" class="jqzoom" rel='2'  title="triumph" >
+                                <img class="middle-img" src="../core/images/product/hero_2_00.jpg"  title="triumph">
+                            </a>
+                        </div>
+
+                        <div class="small-img-box" >
+                            <div class="thumblist">
+                                <ul>
+                                    <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+                                    <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
+                                    <li><a href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '2', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-info-box">
+                        <div class="item-row-1">
+                            <div class="col-title">产品名称:</div>
+                            <div class="col-content">金AU754镶钻水金戒指</div>
+                        </div>
+                        <div class="item-row-2">
+                            <div class="col-title">产品介绍:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-3">
+                            <div class="col-title">购买说明:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水<span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-4">
+                            <div class="col-title">配送费用:</div>
+                            <div class="col-content">免运费</div>
+                        </div>
+                        <div class="item-row-5">
+                            <div class="col-title">预计收获时间:</div>
+                            <div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
+                        </div>
+                        <div class="item-row-6">
+                            <div class="col-title">金额: </div>
+                            <div class="col-content">
+                                <span class="item-cost">¥</span><span class="item-cost">1800,00</span>
+                            </div>
+                        </div>
+                        <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span class="item-surplus-count">5</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
+                            <div class="col-title">&nbsp; </div>
+                            <div class="col-content">
+                                <a class="item-buy-now" href="#">立即抢订</a>
+                                <a class="item-join-favorite" href="#">添加收藏</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="each-item">
+                    <!--锚点-->
+                    <div class="anchor"  id="item4"></div>
+
+                    <div class="item-img-box">
+                        <div class="middle-img-box">
+                            <!-- super:rel传入item的id号-->
+                            <a href="../core/images/product/hero_2_00.jpg" class="jqzoom" rel='4'  title="triumph" >
+                                <img class="middle-img" src="../core/images/product/hero_2_00.jpg"  title="triumph">
+                            </a>
+                        </div>
+
+                        <div class="small-img-box" >
+                            <div class="thumblist">
+                                <ul>
+                                    <!-- super:rel属性中,传入一个对象,gallery对应id号,smallimage对应主图的路径,largeimage对应大图的路径-->
+                                    <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: '4', smallimage: '../core/images/product/hero_2_00.jpg',largeimage: '../core/images/product/hero_2_00.jpg'}"><img class="small-img" src='../core/images/product/hero_2_00.jpg'></a></li>
+                                    <li><a href='javascript:void(0);' rel="{gallery: '4', smallimage: '../core/images/product/hero_2_01.jpg',largeimage: '../core/images/product/hero_2_01.jpg'}"><img class="small-img" src='../core/images/product/hero_2_01.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '4', smallimage: '../core/images/product/hero_2_02.jpg',largeimage: '../core/images/product/hero_2_02.jpg'}"><img class="small-img" src='../core/images/product/hero_2_02.jpg'></a></li>
+                                    <li><a  href='javascript:void(0);' rel="{gallery: '4', smallimage: '../core/images/product/hero_2_03.jpg',largeimage: '../core/images/product/hero_2_03.jpg'}"><img class="small-img" src='../core/images/product/hero_2_03.jpg'></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-info-box">
+                        <div class="item-row-1">
+                            <div class="col-title">产品名称:</div>
+                            <div class="col-content">金AU754镶钻水金戒指</div>
+                        </div>
+                        <div class="item-row-2">
+                            <div class="col-title">产品介绍:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-3">
+                            <div class="col-title">购买说明:</div>
+                            <div class="col-content">
+                                <p>
+                                    金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水金戒指金AU754镶钻水<span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item-row-4">
+                            <div class="col-title">配送费用:</div>
+                            <div class="col-content">免运费</div>
+                        </div>
+                        <div class="item-row-5">
+                            <div class="col-title">预计收获时间:</div>
+                            <div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
+                        </div>
+                        <div class="item-row-6">
+                            <div class="col-title">金额: </div>
+                            <div class="col-content">
+                                <span class="item-cost">¥</span><span class="item-cost">1800,00</span>
+                            </div>
+                        </div>
+                        <div class="item-row-7">
+                            <div class="col-title">数量: </div>
+                            <div class="col-content">
+                                <span class="item-buy-count">1</span>
+                                <div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a class="item-buy-minus" href="javascript:void(0);">-</a></div>
+                                ( 库存数量:<span class="item-surplus-count">5</span> )
+                            </div>
+                        </div>
+                        <div class="item-row-8">
+                            <div class="col-title">&nbsp; </div>
+                            <div class="col-content">
+                                <a class="item-buy-now" href="#">立即抢订</a>
+                                <a class="item-join-favorite" href="#">添加收藏</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- content-item-list end-->
+
+            <!-- content-invest-detail begin-->
+            <div class="content-invest-detail content-choose">
+                <img class="content-detail-image" src="../core/images/product/invest_detail_1_00.jpg" alt=""/>
+                <img class="content-detail-image" src="../core/images/product/invest_detail_1_01.jpg" alt=""/>
+                <img class="content-detail-image" src="../core/images/product/invest_detail_1_02.jpg" alt=""/>
+                <img class="content-detail-image" src="../core/images/product/invest_detail_1_03.jpg" alt=""/>
+                <img class="content-detail-image" src="../core/images/product/invest_detail_1_04.jpg" alt=""/>
+
+            </div>
+            <!-- content-invest-detail end-->
+
+            <!-- content-question begin-->
+            <div class="content-question">
+                <form class="ask-question">
+                    <div class="ask-head">
+                        <h3>有什么问题想问我们的呢?</h3>
+                        <div class="ask-font-count">还可以输入 <span>140</span> 个字</div>
+                    </div>
+                    <div class="ask-text">
+                        <textarea cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="ask-btn">
+                        <input class="ask-submit" type="button" value="提交问题"/>
+                    </div>
+                </form>
+                <ul class="question-list">
+                    <li class="each-question">
+                        <div class="user-face"><img src="../core/images/product/user-face.png" alt=""/></div>
+                        <div class="question-and-answer">
+                            <div class="question-row-1">小白菜</div>
+                            <div class="question-row-2">如果老婆遇到了比我更合适的男人,我应该怎么办才好?</div>
+                            <div class="question-row-3">回复:</div>
+                            <div class="question-row-4"><span>请不要问这种和产品无关的问题.</span>点金子淘在当祝您购物愉快!</div>
+                        </div>
+                        <div class="question-time">2015年12月12日 12:00</div>
+                    </li>
+                    <li class="each-question">
+                        <div class="user-face"><img src="../core/images/product/user-face.png" alt=""/></div>
+                        <div class="question-and-answer">
+                            <div class="question-row-1">小白菜</div>
+                            <div class="question-row-2">如果老婆遇到了比我更合适的男人,我应该怎么办才好?</div>
+                            <div class="question-row-3">回复:</div>
+                            <div class="question-row-4"><span>请不要问这种和产品无关的问题.</span>点金子淘在当祝您购物愉快!</div>
+                        </div>
+                        <div class="question-time">2015年12月12日 12:00</div>
+                    </li>
+                    <li class="each-question">
+                        <div class="user-face"><img src="../core/images/product/user-face.png" alt=""/></div>
+                        <div class="question-and-answer">
+                            <div class="question-row-1">小白菜</div>
+                            <div class="question-row-2">如果老婆遇到了比我更合适的男人,我应该怎么办才好?</div>
+                            <div class="question-row-3">回复:</div>
+                            <div class="question-row-4"><span>请不要问这种和产品无关的问题.</span>点金子淘在当祝您购物愉快!</div>
+                        </div>
+                        <div class="question-time">2015年12月12日 12:00</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- content-question end-->
+
+            <!-- content-discuss begin-->
+            <div class="content-discuss">
+                <form class="ask-question">
+                    <div class="ask-head">
+                        <h3>有什么问题想问我们的呢?</h3>
+                        <div class="ask-font-count">还可以输入 <span>140</span> 个字</div>
+                    </div>
+                    <div class="ask-text">
+                        <textarea cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="ask-btn">
+                        <input class="ask-submit" type="button" value="提交评论"/>
+                    </div>
+                </form>
+                <ul class="question-list">
+                    <li class="each-question">
+                        <div class="user-face"><img src="../core/images/product/user-face.png" alt=""/></div>
+                        <div class="question-and-answer">
+                            <div class="question-row-1">小白菜</div>
+                            <div class="question-row-2">如果老婆遇到了比我更合适的男人,我应该怎么办才好?</div>
+                        </div>
+                        <div class="question-time">2015年12月12日 12:00</div>
+                    </li>
+                    <li class="each-question">
+                        <div class="user-face"><img src="../core/images/product/user-face.png" alt=""/></div>
+                        <div class="question-and-answer">
+                            <div class="question-row-1">小白菜</div>
+                            <div class="question-row-2">如果老婆遇到了比我更合适的男人,我应该怎么办才好?</div>
+                        </div>
+                        <div class="question-time">2015年12月12日 12:00</div>
+                    </li>
+                    <li class="each-question">
+                        <div class="user-face"><img src="../core/images/product/user-face.png" alt=""/></div>
+                        <div class="question-and-answer">
+                            <div class="question-row-1">小白菜</div>
+                            <div class="question-row-2">如果老婆遇到了比我更合适的男人,我应该怎么办才好?</div>
+                        </div>
+                        <div class="question-time">2015年12月12日 12:00</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- content-discuss end-->
+
+            <!-- content-joiner begin-->
+            <div class="content-joiner content-choose">
+                <a class="touch-him" href="#">
+                    <img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
+                    <div class="joiner-info">
+                        <div class="joiner-name">小王</div>
+                        <div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
+                    </div>
+                    <div class="touch-him-opacity"><span>与他联系</span></div>
+                </a>
+                <a class="touch-him" href="#">
+                    <img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
+                    <div class="joiner-info">
+                        <div class="joiner-name">小王</div>
+                        <div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
+                    </div>
+                    <div class="touch-him-opacity"><span>与他联系</span></div>
+                </a>
+                <a class="touch-him" href="#">
+                    <img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
+                    <div class="joiner-info">
+                        <div class="joiner-name">小王</div>
+                        <div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
+                    </div>
+                    <div class="touch-him-opacity"><span>与他联系</span></div>
+                </a>
+                <a class="touch-him" href="#">
+                    <img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
+                    <div class="joiner-info">
+                        <div class="joiner-name">小王</div>
+                        <div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
+                    </div>
+                    <div class="touch-him-opacity"><span>与他联系</span></div>
+                </a>
+                <a class="touch-him" href="#">
+                    <img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
+                    <div class="joiner-info">
+                        <div class="joiner-name">小王</div>
+                        <div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
+                    </div>
+                    <div class="touch-him-opacity"><span>与他联系</span></div>
+                </a>
+                <a class="touch-him" href="#">
+                    <img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
+                    <div class="joiner-info">
+                        <div class="joiner-name">小王</div>
+                        <div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
+                    </div>
+                    <div class="touch-him-opacity"><span>与他联系</span></div>
+                </a>
+            </div>
+            <!-- content-jpiner end-->
+        </div>
+    </div>
+    <!--detail-content-end-->
+
+    <!-- recommend begin-->
+    <div class="recommend-box">
+        <div class="recommend">
+            <div class="recommend-head">
+                <h3>猜你喜欢</h3>
+                <a href="javascript:void(0);" class="recommend-change">换一批</a>
+            </div>
+            <div class="recommend-list">
+                <ul>
+                    <li>
+                        <a href="#" class="recommend-img-box"><img src="../core/images/product/invest_hero_1.png" alt=""/></a>
+                        <div class="recommend-info">
+                            <h4><a href="#">鑫鑫典当行纯金镶钻生肖戒指</a></h4>
+                            <div class="recommend-progress">
+                                <div class="recommend-progress-bar">
+                                    <div class="inner" style="width: 100px;" date-value=""></div>
+                                </div>
+                                <div class="recommend-progress-text">
+                                    <p>剩余</p>
+                                    <p><span>35</span>%</p>
+                                </div>
+                            </div>
+                            <div class="recommend-join">
+                                <div class="recommend-time">剩余时间 <span>15</span>天</div>
+                                <div class="recommend-people"><span>18</span>名参与者</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="recommend-img-box"><img src="../core/images/product/invest_hero_1.png" alt=""/></a>
+                        <div class="recommend-info">
+                            <h4><a href="#">鑫鑫典当行纯金镶钻生肖戒指</a></h4>
+                            <div class="recommend-progress">
+                                <div class="recommend-progress-bar">
+                                    <div class="inner" style="width: 100px;" date-value=""></div>
+                                </div>
+                                <div class="recommend-progress-text">
+                                    <p>剩余</p>
+                                    <p><span>35</span>%</p>
+                                </div>
+                            </div>
+                            <div class="recommend-join">
+                                <div class="recommend-time">剩余时间 <span>15</span>天</div>
+                                <div class="recommend-people"><span>18</span>名参与者</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="recommend-img-box"><img src="../core/images/product/invest_hero_1.png" alt=""/></a>
+                        <div class="recommend-info">
+                            <h4><a href="#">鑫鑫典当行纯金镶钻生肖戒指</a></h4>
+                            <div class="recommend-progress">
+                                <div class="recommend-progress-bar">
+                                    <div class="inner" style="width: 100px;" date-value=""></div>
+                                </div>
+                                <div class="recommend-progress-text">
+                                    <p>剩余</p>
+                                    <p><span>35</span>%</p>
+                                </div>
+                            </div>
+                            <div class="recommend-join">
+                                <div class="recommend-time">剩余时间 <span>15</span>天</div>
+                                <div class="recommend-people"><span>18</span>名参与者</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="recommend-item-end">
+                        <a href="#" class="recommend-img-box"><img src="../core/images/product/invest_hero_1.png" alt=""/></a>
+                        <div class="recommend-info">
+                            <h4><a href="#">鑫鑫典当行纯金镶钻生肖戒指</a></h4>
+                            <div class="recommend-progress">
+                                <div class="recommend-progress-bar">
+                                    <div class="inner" style="width: 100px;" date-value=""></div>
+                                </div>
+                                <div class="recommend-progress-text">
+                                    <p>剩余</p>
+                                    <p><span>35</span>%</p>
+                                </div>
+                            </div>
+                            <div class="recommend-join">
+                                <div class="recommend-time">剩余时间 <span>15</span>天</div>
+                                <div class="recommend-people"><span>18</span>名参与者</div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- recommend end-->
+
+    <!--footer begin-->
+    <div class="footer" id="footer">
+        <div class="goods-box">
+            <div class="our-goods">
+                <div class="our-good">
+                    <div class="icon-box">
+                        <i class="foundicon-people"></i>
+                    </div>
+                    <div class="good-text">
+                        <h4>专家鉴定</h4>
+
+                        <p>专业鉴定团队</p>
+
+                        <p>安全可靠</p>
+                    </div>
+                </div>
+                <div class="our-good">
+                    <div class="icon-box">
+                        <i class="foundicon-heart"></i>
+                    </div>
+                    <div class="good-text">
+                        <h4>用心推荐</h4>
+
+                        <p>我们的专心和用心</p>
+
+                        <p>您的放心</p>
+                    </div>
+                </div>
+                <div class="our-good">
+                    <div class="icon-box">
+                        <i class="foundicon-star"></i>
+                    </div>
+                    <div class="good-text">
+                        <h4>五星级服务</h4>
+
+                        <p>线上线下服务同步</p>
+
+                        <p>广受好评</p>
+                    </div>
+                </div>
+                <div class="our-good">
+                    <div class="icon-box">
+                        <i class="foundicon-clock"></i>
+                    </div>
+                    <div class="good-text">
+                        <h4>发货及时</h4>
+
+                        <p>每天四次发货</p>
+
+                        <p>便捷高效</p>
+                    </div>
+                </div>
+                <div class="our-good">
+                    <div class="icon-box">
+                        <i class="foundicon-smiley"></i>
+                    </div>
+                    <div class="good-text">
+                        <h4>快乐购物</h4>
+
+                        <p>体会快乐的购物</p>
+
+                        <p>期待您的笑脸</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-us">
+            <ul>
+                <li><h3>购物与支付</h3></li>
+                <li><a href="">购物流程</a></li>
+                <li><a href="">订单查询</a></li>
+                <li><a href="">支付方式</a></li>
+                <li><a href="">发票领取</a></li>
+            </ul>
+            <ul>
+                <li><h3>配送说明</h3></li>
+                <li><a href="">配送方式和时间</a></li>
+                <li><a href="">配送费用和签收</a></li>
+                <li><a href=""></a></li>
+            </ul>
+            <ul>
+                <li><h3>关于我们</h3></li>
+                <li><a href="">点金子</a></li>
+                <li><a href="">点金子绝当品</a></li>
+                <li><a href="">联系我们</a></li>
+                <li><a href="">招贤纳士</a></li>
+                <li><a href="">业务范围</a></li>
+                <li><a href="">隐私声明</a></li>
+            </ul>
+            <ul>
+                <li><h3>售后服务</h3></li>
+                <li><a href="">退换货政策</a></li>
+                <li><a href="">退款说明</a></li>
+            </ul>
+            <div class="us">
+                <div class="our-app">
+                    <a class="apple-dimension" href="#">
+                        <img class="app-icon" src="../core/images/footer/apple.png" alt="苹果客户端下载"/>
+
+                        <h3>苹果客户端</h3>
+                        <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                    </a>
+                    <a class="android-dimension" href="#">
+                        <img class="app-icon" src="../core/images/footer/android.png" alt="安卓客户端下载"/>
+
+                        <h3>安卓客户端</h3>
+                        <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                    </a>
+                    <a class="online-server" href="#">
+                        <img class="app-icon" src="../core/images/footer/weixin.png" alt="微信客户端下载"/>
+
+                        <h3>微信公众号</h3>
+                        <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                    </a>
+                    <a class="online-server" href="#">
+                        <img class="app-icon" src="../core/images/footer/weibo.png" alt="点金子在线投资"/>
+
+                        <h3>点金子投资</h3>
+                        <img class="two-dimension" src="../core/images/footer/erweima.jpg" alt="二维码"/>
+                    </a>
+                </div>
+                <div class="our-info">
+                    <h3>点金子总部地址</h3>
+
+                    <p>成都市武侯区某某某某某某某某</p>
+
+                    <p>咨询热线：028-85033350</p>
+
+                    <p>企业邮箱：zxhl998@163.com</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="approve-box">
+            <div class="approve">
+                <a href="#">
+                    <img src="../core/images/footer/approve-0.png" alt=""/>
+                </a>
+                <a href="#">
+                    <img src="../core/images/footer/approve-1.jpg" alt=""/>
+                </a>
+            </div>
+            <p>蜀ICP备15022028号 © 2015 dianjinzi, Inc. All rights reserved.</p>
+        </div>
+    </div>
+    <!--footer end-->
+    <!-- turn left and right begin-->
+    <a class="turn-right" href="#"></a>
+    <a class="turn-left" href="#"></a>
+    <!-- turn left and right end-->
+    <script src="../core/js/require.js" data-main="detail"></script>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+</body>
+</html>

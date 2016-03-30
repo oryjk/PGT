@@ -1,7 +1,8 @@
 package com.pgt.help.bean;
 
 import java.io.Serializable;
-import java.util.List;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.pgt.category.bean.Category;
 import com.pgt.common.bean.Media;
@@ -14,14 +15,22 @@ import com.pgt.common.bean.Media;
 public class HelpCenter implements Serializable {
 
 	private Integer id;
+	@NotEmpty(message = "{NotEmpty.helpCenter.title}")
 	private String title;
+	@NotEmpty(message = "{NotEmpty.helpCenter.content}")
 	private String content;
 	private Category category;
 	private Media frontMedia;
 	private String type;
 	private HelpCenter parent;
+    private String site;
 
-
+	public String getSite() {
+		return site;
+	}
+	public void setSite(String site) {
+		this.site = site;
+	}
 	public Category getCategory() {
 		return category;
 	}

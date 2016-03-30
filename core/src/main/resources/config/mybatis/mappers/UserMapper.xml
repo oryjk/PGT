@@ -17,11 +17,15 @@
         <result column="salt" property="salt"/>
         <result column="available" property="available"/>
         <result column="verify_code" property="authCode"/>
+        <result column="qq_access_token" property="qqAccessToken"/>
+        <result column="qq_openid" property="qqOpenid"/>
         <result column="YEEPAY_STATUS" property="yeepayStatus"/>
 		<result column="YEEPAY_REGI_DATE" property="yeepayRegistoredDate"/>
 		<result column="default_address_id" property="defaultAddressId"/>
 		<result column="YEEPAY_USER_NAME" property="yeepayUserName"/>
 		<result column="YEEPAY_USER_ID" property="yeepayUserId"/>
+        <result column="YEE_PAY_USER_NO" property="yeepayUserNo"/>
+
 
     </resultMap>
     <parameterMap id="paramUser" type="com.pgt.user.bean.User">
@@ -29,8 +33,8 @@
 
 
     <insert id="create" parameterMap="paramUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO USERS(login,password,salt,phone_number,email,creation_date,update_date,available)
-        VALUES (#{username},#{password},#{salt},#{phoneNumber},#{email},#{createDate},#{updateDate},#{available})
+        INSERT INTO USERS(login,password,salt,phone_number,email,creation_date,update_date,available,qq_access_token,qq_openid)
+        VALUES (#{username},#{password},#{salt},#{phoneNumber},#{email},#{createDate},#{updateDate},#{available},#{qqAccessToken},#{qqOpenid})
     </insert>
     <select id="selectUser" parameterType="int" resultMap="user">
         SELECT * FROM USERS WHERE user_id = #{id}
@@ -40,7 +44,8 @@
         UPDATE USERS SET login = #{username},password = #{password},salt = #{salt},phone_number=#{phoneNumber},
         email = #{email},creation_date = #{createDate},update_date = #{updateDate},available
         = #{available}, YEEPAY_STATUS = #{yeepayStatus}, YEEPAY_REGI_DATE = #{yeepayRegistoredDate},
-        default_address_id=#{defaultAddressId}, YEEPAY_USER_NAME = #{yeepayUserName}, YEEPAY_USER_ID = #{yeepayUserId}
+        default_address_id=#{defaultAddressId}, YEEPAY_USER_NAME = #{yeepayUserName}, YEEPAY_USER_ID = #{yeepayUserId},
+        YEE_PAY_USER_NO = #{yeepayUserNo},qq_access_token=#{qqAccessToken},qq_openid=#{qqOpenid}
         WHERE user_id = #{id}
     </update>
     <select id="delete" parameterType="int" resultMap="user">
@@ -55,7 +60,7 @@
 
 
     <select id="authorize" parameterType="string" resultMap="user">
-        SELECT * FROM USERS WHERE login = #{login}
+        SELECT * FROM USERS WHERE login = #{authorizeValue} OR PHONE_NUMBER=#{authorizeValue}
     </select>
 
 

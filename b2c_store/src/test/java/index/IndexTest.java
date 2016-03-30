@@ -1,7 +1,6 @@
 package index;
 
 import com.google.common.collect.Lists;
-import com.pgt.product.bean.InventoryType;
 import com.pgt.search.bean.ESAggregation;
 import com.pgt.search.bean.ESRange;
 import com.pgt.search.bean.ESTerm;
@@ -38,8 +37,7 @@ public class IndexTest {
     public void indexTest() throws IOException {
 
         esSearchService.initialIndex(true);
-        esSearchService.categoryIndex();
-        BulkResponse responses = esSearchService.productIndex();
+        BulkResponse responses = esSearchService.productsIndex();
         Assert.assertFalse(responses.hasFailures());
 
     }
@@ -91,7 +89,7 @@ public class IndexTest {
         PaginationBean paginationBean = new PaginationBean();
         paginationBean.setCapacity(10000);
         paginationBean.setCurrentIndex(0);
-        SearchResponse response = esSearchService.findProductsByCategoryId(9 + "", null, null, paginationBean, null);
+        SearchResponse response = esSearchService.findProductsByCategoryId(9 + "", null, null, paginationBean, null, null);
         Assert.assertNotNull(response);
         Assert.assertNotNull(response.getHits());
         Assert.assertNotNull(response.getHits().getHits());
@@ -99,11 +97,12 @@ public class IndexTest {
 
 
     @Test
-    public void updateInventory(){
-        List<Integer> ids=new ArrayList<>();
+    public void updateInventory() {
+        List<Integer> ids = new ArrayList<>();
         ids.add(131);
-        esSearchService.modifyProductInventory(ids, InventoryType.DEDUCT);
+//        esSearchService.modifyProductInventory(ids, InventoryType.DEDUCT);
     }
+
     public ESSearchService getEsSearchService() {
         return esSearchService;
     }
