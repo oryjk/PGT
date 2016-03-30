@@ -1159,5 +1159,7 @@ body {
   .pop-up .pop-error {
     color: #ff6d6d;
     font-size: 12px; }
+  .pop-up .pop-tips {
+    padding-right: 20px; }
 
 /*# sourceMappingURL=../../maps/detail/detail.css.map */

@@ -47,49 +47,68 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
             }
         });
 
-        var pop = $('#popUp');
-        var close = $('#popClose, #popReset');
-        var popSubmit = $('#popSubmit');
-        var sayPhone = $('#sayPhone');
-        var sayText = $('#sayText');
-        var sayError = $('#sayError');
-        var popFormDom = document.getElementById('popForm');
-        var popTips = $('#popTips');
+        //与他联系弹窗效果
+        (function () {
+            var pop = $('#popUp');
+            var close = $('#popClose, #popReset');
+            var popSubmit = $('#popSubmit');
+            var sayPhone = $('#sayPhone');
+            var sayText = $('#sayText');
+            var sayError = $('#sayError');
+            var popFormDom = document.getElementById('popForm');
+            var popTips = $('#popTips');
+            var userId;
 
-        $(document).on('click', '.touch-him', function (event) {
-            event.preventDefault();
-            popFormDom.reset();
-            sayError.html('');
-            pop.fadeIn(300);
-        });
-        close.click(function () {
-            pop.fadeOut(300);
-        });
-        pop.click(function (event) {
-            if (event.target == this) {
-                pop.fadeOut();
-            }
-        });
-        popSubmit.click(function () {
-            if (/1[0-9]{10}/g.test(sayPhone.val())) {
-                $.ajax({
-                    data: {
-                        phone: sayPhone.val(),
-                        text: sayText.val()
-                    }
-                }).done(function (res) {
-                    if (res.flag == 1) {
-                        popTips.html('提交成功');
-                        setTimeout(function () {
-                            pop.fadeOut();
-                        },1000);
-                    } else {
-                        popTips.html('提交失败');
+            $(document).on('click', '.touch-him', function (event) {
+                event.preventDefault();
+                popFormDom.reset();
+                popFormCleanTips();
 
-                    }
-                })
+                pop.fadeIn(300);
+            });
+            close.click(function () {
+                pop.fadeOut(300);
+            });
+            pop.click(function (event) {
+                if (event.target == this) {
+                    pop.fadeOut();
+                }
+            });
+            sayPhone.focus(function () {
+                popFormCleanTips()
+            });
+            popSubmit.click(function () {
+                if (/1[0-9]{10}$/.test(sayPhone.val())) {
+                    //请在此处写上正确的ajax方法
+                    $.ajax({
+                        data: {
+                            phone: sayPhone.val(),
+                            text: sayText.val(),
+                            userId: userId
+                        }
+                    }).done(function (res) {
+                        if (res.flag == 1) {
+                            popTips.html('提交成功');
+                            setTimeout(function () {
+                                pop.fadeOut(300);
+                            },1000);
+                        } else {
+                            popTips.html('提交失败');
+                        }
+                    })
+                } else {
+                    sayError.html('请输入正确的手机号!')
+                }
+            });
+
+            //清楚回显和错误提示
+            function popFormCleanTips() {
+                sayError.html('');
+                popTips.html('')
             }
-        });
+        }());
+
+
 
 
 
