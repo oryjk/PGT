@@ -56,7 +56,7 @@ public class Configuration {
 
 	private List<String> serviceTels=new ArrayList<>();
 	private String smsOrderContent="收到成功支付订单，请尽快去管理系统查看，订单号为：";
-	private String sendToBuyer="我的手机号码是:";
+	private String sendToBuyer="---我的手机号码是:";
 	public Integer getPlpCapacity() {
 		return plpCapacity;
 	}
