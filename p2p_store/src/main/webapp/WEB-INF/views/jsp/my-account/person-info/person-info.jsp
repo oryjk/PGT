@@ -7,7 +7,7 @@
 <head>
 
 	<meta charset="UTF-8">
-	<title>点金子典当行绝当品销售平台</title
+	<title>点金子典当行绝当品销售平台</title>
 	<link rel="Shortcut Icon" href="/resources/common/logo.png">
 	<link rel="stylesheet" href="/resources/my-account/my_account_base.css"/>
 	<link rel="stylesheet" href="/resources/my-account/person-info/person-info.css"/>

@@ -15,6 +15,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by carlwang on 1/16/16.
@@ -134,6 +135,10 @@ public class TenderService {
         }
         LOGGER.debug("Find tender with product id is {}.", productId);
         return tender;
+    }
+
+    public List<Map<String, String>> queryBuyersByTenderId(Integer tenderId) {
+        return tenderMapper.getBuyers(tenderId);
     }
 
 

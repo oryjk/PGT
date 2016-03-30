@@ -3,7 +3,11 @@ package com.pgt.sms.service;
 import com.pgt.cart.bean.Order;
 import com.pgt.configuration.Configuration;
 import com.pgt.constant.Constants;
+import com.pgt.tender.bean.TenderBuyer;
+import com.pgt.user.bean.User;
+import com.pgt.user.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -31,6 +35,8 @@ public class SmsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SmsService.class);
     @Autowired
     private Configuration configuration;
+    @Autowired
+    private UserService userService;
 
 
     public String sendLoginSms(String phoneNumber, String code) {
@@ -129,4 +135,17 @@ public class SmsService {
     }
 
 
+    public void sendToBuyer(TenderBuyer tenderBuyer) {
+        User seller = userService.findUser(String.valueOf(tenderBuyer.getSellerId()));
+        String phoneNumber = seller.getPhoneNumber();
+        if (StringUtils.isEmpty(phoneNumber)) {
+            LOGGER.debug("The seller's phone number is empty.");
+            return;
+        }
+        try {
+            sendSms(phoneNumber, tenderBuyer.getMessage() + configuration.getSendToBuyer(), tenderBuyer.getBuyerNumber());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
