@@ -5,6 +5,6 @@ package com.pgt.product.bean;
  */
 public enum ProductType {
 
-    DEAD_PAWNAGE,LIVE_PAWNAGE
+    DEAD_PAWNAGE,LIVE_PAWNAGE,PRODUCT,TENDER
 
 }
