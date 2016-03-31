@@ -82,7 +82,7 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
         }
         LOGGER.debug("" + helpList);
         //helpList = helpList.stream().filter(entry -> entry.get(Constants.P2P_HELPCENTER) != HelpCenterSites.P2P_STORE).collect(Collectors.toList());
-        request.setAttribute("helpCategorVoList", helpList);
+        request.setAttribute("helpCategorViewList", helpList);
     }
 
     @Override

@@ -43,9 +43,11 @@
 <div class="content">
     <ul class="content-nav">
         <li class="content-nav-title"><h2>帮助中心</h2></li>
-        <c:forEach items="${helpCategorVoList}" var="categoryVo">
+        <c:forEach items="${helpCategorViewList}" var="categoryVo">
             <c:forEach items="${categoryVo.helpCenterList}" var="helpVo">
-                <li><a class="menu-level-end"   href="/helpcenter/${helpVo.id}">${helpVo.title}</></li>
+                <c:if test="${not empty helpVo}">
+                    <li><a class="menu-level-end"   href="/helpcenter/${helpVo.id}">${helpVo.title}</></li>
+                </c:if>
             </c:forEach>
         </c:forEach>
     </ul>
