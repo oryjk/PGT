@@ -91,6 +91,7 @@
 			<mvc:mapping path="/myAccount/**" />
 			<mvc:mapping path="/userinformation/**" />
 			<mvc:mapping path="/user/yeepay**" />
+			<mvc:mapping path="/yeepay/**" />
 			<bean class="com.pgt.interceptor.MyAccountInterceptor"></bean>
 		</mvc:interceptor>
 

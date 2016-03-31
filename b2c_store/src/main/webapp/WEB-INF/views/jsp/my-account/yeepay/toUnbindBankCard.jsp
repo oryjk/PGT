@@ -54,7 +54,7 @@
 
     <jsp:include page="../../core/footer-main.jsp" />
     <form action="<c:url value="/yeepay/getSgin"/>" method="post" id="yeepayDataForm" auto-submit="Y">
-		userid:<input name="platformUserNo" type="text" value="${platformUserNo }" /><br/>
+		<input name="platformUserNo" type="hidden" value="${platformUserNo }" /><br/>
 		<input name="serviceName" type="hidden" value = "${serviceName }"/>
 		<input type="submit" value="提交"/>
 	</form>

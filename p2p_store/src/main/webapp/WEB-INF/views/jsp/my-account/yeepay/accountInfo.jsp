@@ -28,43 +28,51 @@
 		<div class="already-binding" style="display: block;">
 			<div class="already-row-1">
 				<span>已绑定易宝账号:</span>
-				<span class="yeepay-username">157****0997</span>
-				<a class="yeepay-goto" href="#">进入易宝</a>
+				<span class="yeepay-username">${accountNo }</span>
 			</div>
 			<div class="already-row-2">
 				<div class="already-title">易宝余额</div>
 				<div class="already-value">
-					<span class="cost">¥</span><span class="cost">12,000.00</span>
-					<a class="yeepay-shift-into" href="javascript:void(0);">转入</a>
-					<a class="yeepay-shift-out link-btn" href="javascript:void(0);">转出</a>
+					<span class="cost">¥</span><span class="cost">${result['availableAmount']}</span>
+					<a class="yeepay-shift-into" href="/yeepay/yeepayForm?serviceName=toRecharge">转入</a>
+					<a class="yeepay-shift-out link-btn" href="/yeepay/yeepayForm?serviceName=toWithdraw">转出</a>
 				</div>
 			</div>
 			<div class="already-row-3">
 				<div class="already-title">易宝账户:</div>
-				<div class="already-value">157****0097</div>
+				<div class="already-value">${accountNo }</div>
 			</div>
 			<div class="already-row-4">
 				<div class="already-title">账户类型:</div>
-				<div class="already-value">个人账户</div>
+				<c:choose><c:when test="${result['memberType'] eq 'PERSONAL'}"><div class="already-value">个人会员</div></c:when><c:when test="${result['memberType'] eq 'ENTERPRISE'}"><div class="already-value">企业会员</div></c:when></c:choose>
+
 			</div>
 			<div class="already-row-5">
-				<div class="already-title">绑定状态:</div>
+				<div class="already-title">银行卡号:</div>
 				<div class="already-value">
-					<span>已于点金子进行绑定</span>
-					<a class="yeepay-un-binding link-btn" href="javascript:void(0);">解绑</a>
+					<c:choose>
+						<c:when test="${empty result['cardNo'] }">
+							<span>未绑定</span>
+							<a class="yeepay-un-binding link-btn" href="/yeepay/yeepayForm?serviceName=toBindBankCard">绑卡</a>
+						</c:when>
+						<c:otherwise>
+							<span>${result['cardNo'] }</span>
+							<a class="yeepay-un-binding link-btn" href="/yeepay/yeepayForm?serviceName=toUnbindBankCard">解绑</a>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 			<div class="already-row-6">
 				<div class="already-title">姓名:</div>
-				<div class="already-value">核弹</div>
+				<div class="already-value">${name }</div>
 			</div>
 			<div class="already-row-7">
 				<div class="already-title">绑定手机号:</div>
-				<div class="already-value">157****0097</div>
+				<div class="already-value">${result['bindMobileNo']}</div>
 			</div>
 			<div class="already-row-8">
 				<div class="already-title">身份证号:</div>
-				<div class="already-value">4*****************1</div>
+				<div class="already-value">${idNo }</div>
 			</div>
 		</div>
 	</div>

@@ -15,10 +15,21 @@ public class ESTender implements Serializable {
     private Tender tender;
     private Category parentCategory;
     private Category rootCategory;
-    private List<Map<String,String>> buyerMap;
+    private List<Map<String, String>> buyerMap;
     private long newest;
     private long cycle;
     private long end;
+    private Integer preId = -1;
+    private Integer nextId = -1;
+
+    public ESTender(Tender tender, Category parentCategory, Category rootCategory, List<Map<String, String>> buyerMap, Integer preId, Integer nextId) {
+        this.tender = tender;
+        this.rootCategory = rootCategory;
+        this.parentCategory = parentCategory;
+        this.buyerMap = buyerMap;
+        this.preId=preId;
+        this.nextId=nextId;
+    }
 
     public long getNewest() {
         if (ObjectUtils.isEmpty(tender)) {
@@ -57,14 +68,6 @@ public class ESTender implements Serializable {
         this.end = end;
     }
 
-
-    public ESTender(Tender tender, Category parentCategory, Category rootCategory, List<Map<String, String>> buyerMap) {
-        this.tender = tender;
-        this.rootCategory = rootCategory;
-        this.parentCategory = parentCategory;
-        this.buyerMap = buyerMap;
-    }
-
     public Category getRootCategory() {
         return rootCategory;
     }
@@ -95,5 +98,21 @@ public class ESTender implements Serializable {
 
     public void setBuyerMap(List<Map<String, String>> buyerMap) {
         this.buyerMap = buyerMap;
+    }
+
+    public Integer getPreId() {
+        return preId;
+    }
+
+    public void setPreId(Integer preId) {
+        this.preId = preId;
+    }
+
+    public Integer getNextId() {
+        return nextId;
+    }
+
+    public void setNextId(Integer nextId) {
+        this.nextId = nextId;
     }
 }

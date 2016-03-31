@@ -218,10 +218,10 @@
 				<c:forEach items="${rootCategory.esChildren[0].hotTenders}" var="onSaleTender">
 					<li>${tenderId}
 						<div class="invest-inner">
-							<a class="img-box" href="#">
+							<a class="img-box" href="/tender/${onSaleTender.tenderId}">
 								<img src="${onSaleTender.p2pAdvertisement.path}" alt="产品的名字"/>
 							</a>
-							<h4><a href="#">${onSaleTender.name}</a></h4>
+							<h4><a href="/tender/${onSaleTender.tenderId}">${onSaleTender.name}</a></h4>
 
 							<div class="invest-row-1">特点:<span>名家出品,精美工艺</span></div>
 							<div class="invest-row-2">截止日期:<span><date:date value="${onSaleTender.dueDate}" style="yyyy年MM月dd日"/></span></div>
