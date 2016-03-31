@@ -134,6 +134,7 @@ public class QQController {
                     thirdLogin.setUser(user);
                     thirdLoginService.createThirdLogin(thirdLogin);
                     request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                    ssoService.cacheUser(user, null, null);
                     LOGGER.debug("set User to session and id is {}", user.getId());
                 } else {
                     //update expireIn
@@ -142,13 +143,14 @@ public class QQController {
                     user = thirdLogin.getUser();
                     if (!ObjectUtils.isEmpty(user)) {
                         request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                        ssoService.cacheUser(user, null, null);
                         LOGGER.debug("set User to session and id is {}", user.getId());
                     } else {
                         LOGGER.debug("not find User");
                         return modelAndView;
                     }
                 }
-                ssoService.cacheUser(user, null, null);
+
             }
         } catch (QQConnectException e) {
         }

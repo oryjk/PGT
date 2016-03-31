@@ -586,7 +586,7 @@ a {
 
 /*style
 **************************************************************************************************************************************************/
-.detail-content .tab a:hover, .detail-content .tab a:focus, .detail-content .tab a.tab-choose {
+.detail-content .tab a:hover, .detail-content .tab a:focus, .detail-content .tab .tab-choose a {
   color: #ff6d6d;
   padding-bottom: 4px;
   border-bottom: 2px solid #ff6d6d; }
@@ -864,6 +864,22 @@ body {
   color: #970203;
   font-size: 22px;
   font-weight: 900; }
+
+.content-item-list .item-sold-out {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 160px;
+  height: 40px;
+  font-size: 20px;
+  background: #999;
+  border-radius: 0;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+  cursor: pointer; }
+  .content-item-list .item-sold-out:hover {
+    background: #999; }
 
 .content-item-list .item-buy-now {
   display: inline-block;

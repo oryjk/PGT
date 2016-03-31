@@ -46,7 +46,9 @@ $border-gray: #cccccc;
 .content {
   margin: 0 auto;
   width: $main-width;
+  overflow: hidden;
 }
+
 
 .filter {
   border: 1px solid #cccccc;

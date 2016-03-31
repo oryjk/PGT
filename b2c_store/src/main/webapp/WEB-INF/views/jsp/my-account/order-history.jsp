@@ -155,7 +155,7 @@
                                         <c:when test="${order.status eq 30}">
                                             <span>已付款</span>
                                         </c:when>
-                                        <c:when test="${order.status eq 40}">
+                                        <c:when test="${order.status eq 80}">
                                             <span>待收货</span>
                                         </c:when>
                                         <c:when test="${order.status eq 100}">
