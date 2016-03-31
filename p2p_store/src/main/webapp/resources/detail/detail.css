@@ -586,7 +586,7 @@ a {
 
 /*style
 **************************************************************************************************************************************************/
-.detail-content .tab a:hover, .detail-content .tab a:focus, .detail-content .tab a.tab-choose {
+.detail-content .tab a:hover, .detail-content .tab a:focus, .detail-content .tab .tab-choose a {
   color: #ff6d6d;
   padding-bottom: 4px;
   border-bottom: 2px solid #ff6d6d; }
