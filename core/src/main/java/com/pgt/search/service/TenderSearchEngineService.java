@@ -144,15 +144,24 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
             List<Tender> tenders = tenderService.queryAllTender();
+            int preId = -1;
+            int nextId = -1;
+            Tender tender;
             if (!ObjectUtils.isEmpty(tenders)) {
-                tenders.stream().forEach(tender -> {
+                for (int i = 0; i < tenders.size(); i++) {
+                    tender = tenders.get(i);
                     Category category = tender.getCategory();
                     Category rootCategory = null;
                     if (!ObjectUtils.isEmpty(category)) {
                         rootCategory = category.getParent();
                     }
                     List<Map<String, String>> buyerMap = tenderService.queryBuyersByTenderId(tender.getTenderId());
-                    ESTender esTender = new ESTender(tender, category, rootCategory, buyerMap);
+
+                    if (i + 1 < tenders.size()) {
+                        nextId = tenders.get(i + 1).getTenderId();
+                    }
+                    ESTender esTender = new ESTender(tender, category, rootCategory, buyerMap, preId, nextId);
+
                     ObjectMapper mapper = new ObjectMapper();
                     String data = null;
                     try {
@@ -165,7 +174,8 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                             tender.getTenderId() + "")
                             .setSource(data);
                     bulkRequest.add(indexRequestBuilder);
-                });
+                    preId = tender.getTenderId();
+                }
             }
             if (bulkRequest.numberOfActions() > 0) {
                 bulkResponse = bulkRequest.execute().actionGet(100000);
@@ -253,7 +263,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, category, rootCategory, null);
+            ESTender esTender = new ESTender(tender, category, rootCategory, null, null, null);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -288,7 +298,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, category, rootCategory, null);
+            ESTender esTender = new ESTender(tender, category, rootCategory, null, null, null);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
