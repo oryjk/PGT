@@ -394,6 +394,11 @@ body {
     @include cost;
   }
 
+
+  .item-sold-out {
+    @include color-btn(160px, 40px, 0, 20px, #999, #999);
+  }
+
   .item-buy-now {
     @include color-btn(160px, 40px, 0, 20px, $main, $main-dark);
   }

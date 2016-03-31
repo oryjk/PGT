@@ -201,6 +201,7 @@
 						<div class="item-row-8">
 							<div class="col-title">&nbsp; </div>
 							<div class="col-content">
+								<a class="item-sold-out">已结束</a>
 								<a class="item-buy-now" id="item-buy-now" href="#">立即抢订</a>
 									<%-- product favourite --%>
 								<c:forEach var="fav" items="${productFavourites}">
