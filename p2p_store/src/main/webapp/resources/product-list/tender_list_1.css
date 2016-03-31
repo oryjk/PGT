@@ -475,7 +475,8 @@ a {
 
 .content {
   margin: 0 auto;
-  width: 1200px; }
+  width: 1200px;
+  overflow: hidden; }
 
 .filter {
   border: 1px solid #cccccc; }

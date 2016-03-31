@@ -257,7 +257,10 @@ body {
       &:focus {
         @extend %tab-hover-and-focus;
       }
-      &.tab-choose{
+    }
+
+    .tab-choose{
+      a {
         @extend %tab-hover-and-focus;
       }
     }
