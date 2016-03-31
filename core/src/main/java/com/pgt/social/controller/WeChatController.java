@@ -108,13 +108,22 @@ public class WeChatController {
             Date expireIn = TenderDateUtils.convert(String.valueOf(expires_in));
             LOGGER.debug("The expireIn time is {}", expireIn);
 
+
+            String requestInfo= "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid;
+            String responseInfo = doGet(requestInfo,createMap);
+            JSONObject info = new JSONObject(responseInfo);
+            Object nickname = (Object) info.get("nickname");
+            Object sex = (Object) info.get("sex");
+            Object headimgurl = (Object) info.get("headimgurl");
+
+
             if (ObjectUtils.isEmpty(thirdLogin)) {
 
                 LOGGER.debug("create thirdLogin .");
                 UserInformation userInformation = new UserInformation();
                 LOGGER.debug("create user");
                 User user = new User();
-                user.setUsername("");
+                user.setUsername(nickname.toString());
                 LOGGER.debug("The nickname is {}","");
                 user.setUpdateDate(new Date());
                 user.setCreateDate(new Date());
@@ -122,9 +131,11 @@ public class WeChatController {
                 userService.saveUser(user);
 
                 if (!ObjectUtils.isEmpty(user.getId())) {
-                    LOGGER.debug("create userInformation and user id is {}", user.getId());
-                    userInformation.setNickname("");
+                    LOGGER.debug("create userInformation and user  id is {}", user.getId());
+                    userInformation.setNickname(nickname.toString());
                     userInformation.setUser(user);
+                    userInformation.setPath(headimgurl.toString());
+                    userInformation.setGender(sex.toString()=="1"?"男":"女");
                     userInformationService.createInformation(userInformation);
                     LOGGER.debug("create userInformation");
                 } else {
@@ -141,6 +152,7 @@ public class WeChatController {
                 thirdLogin.setRefreshToken(refresh_token.toString());
                 thirdLoginService.createThirdLogin(thirdLogin);
                 request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                ssoService.cacheUser(user, null, null);
                 LOGGER.debug("set User to session and id is {}", user.getId());
 
             } else {

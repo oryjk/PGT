@@ -126,6 +126,7 @@ public class MicroBlogController {
                 thirdLogin.setUser(user);
                 thirdLoginService.createThirdLogin(thirdLogin);
                 request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                ssoService.cacheUser(user, null, null);
                 LOGGER.debug("set User to session and id is {}", user.getId());
 
             } else {
