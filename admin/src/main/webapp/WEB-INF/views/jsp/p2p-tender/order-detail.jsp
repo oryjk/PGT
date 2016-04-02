@@ -273,6 +273,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                   </div>
 
+                  <c:set var="address" value="${p2pOrder.shippingVO.shippingAddress}"/>
                   <!-- 商品信息-->
                   <div>
                     <h3 class="form-section">
@@ -320,73 +321,107 @@ License: You must have a valid license purchased only from themeforest(the above
                                 到期时间
                               </th>
                               <th>
-                                发货操作
+                                操作
                               </th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="gradeX odd" role="row">
-                              <td class="productlist-face-box">
-                                <img src="" alt=""/>
-                              </td>
-                              <td>
-                                小蛮妖珠宝
-                              </td>
-                              <td>
-                                6000.00
-                              </td>
-                              <td >
-                                11111
-                              </td>
-                              <td>
-                                周杰伦
-                              </td>
-                              <td>
-                                180000000
-                              </td>
-                              <td>
-                                028-88888888
-                              </td>
-                              <td>
-                                成都市下一站都市
-                              </td>
-                              <td>
-                                <!--super: blue:赎当 yellow在当 green绝当 red取消-->
-                                <div class="btn-group">
-                                  <a class="btn btn-xs yellow " href="javascript:;" data-toggle="dropdown">
-                                    在当 <i class="fa fa-angle-down"></i>
-                                  </a>
-                                  <ul class="dropdown-menu pull-right">
-                                    <li>
-                                      <a href="javascript:;" data-pgt-btn="modify">
-                                        赎当 </a>
-                                    </li>
-                                    <li>
-                                      <a href="javascript:;"  data-pgt-btn="modify">
-                                        在当 </a>
-                                    </li>
-                                    <li>
-                                      <a href="javascript:;"  data-pgt-btn="modify">
-                                        绝当 </a>
-                                    </li>
-                                    <li>
-                                      <a href="javascript:;"  data-pgt-btn="modify">
-                                        取消 </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                              <td>
-                                无
-                              </td>
-                              <td>
-                                2016年10月1日
-                              </td>
-                              <td>
-                                无
-                              </td>
-                            </tr>
+                            <c:forEach var="ci" items="${p2pOrder.commerceItems}">
+                              <tr class="gradeX odd" role="row">
+                                <td class="productlist-face-box">
+                                  <img src="${ci['snapshotMedia']['path']}"
+                                       alt="${empty ci['snapshotMedia']['title'] ? ci.name : ci['snapshotMedia']['title']}" />
+                                </td>
+                                <td>
+                                    ${ci.name}
+                                </td>
+                                <td>
+                                  <fmt:formatNumber value="${ci.salePrice}" pattern="0.00" type="number" />
+                                </td>
+                                <td >
+                                  ${p2pInfo.tenderId}
+                                </td>
+                                <td>
+                                    ${address.name}
+                                </td>
+                                <td>
+                                    ${address.phone}
+                                </td>
+                                <td>
+                                    ${address.telephone}
+                                </td>
+                                <td>
+                                    ${address.province}-${address.city}-${address.district}
+                                </td>
+                                <td>
+                                  <!--super: blue:赎当 yellow在当 green绝当 red取消-->
+                                  <div class="btn-group">
+                                    <a class="btn btn-xs yellow " href="javascript:;" data-toggle="dropdown">
+                                      <c:if test="${p2pOrder.status eq 30}">
+                                        在当
+                                      </c:if>
+                                      <c:if test="${p2pOrder.status eq 50}">
+                                        绝当
+                                      </c:if>
+                                      <c:if test="${p2pOrder.status eq 60}">
+                                        赎当
+                                      </c:if>
+                                      <c:if test="${p2pOrder.status eq 100}">
+                                        <c:if test="${ci.occupy}">
+                                          绝当
+                                        </c:if>
+                                        <c:if test="${not ci.occupy}">
+                                          赎当
+                                        </c:if>
+                                      </c:if> <i class="fa fa-angle-down"></i>
+                                    </a>
+                                  </div>
+                                </td>
+                                <td>
+                                  <c:choose>
+                                    <c:when test="${not (p2pOrder.status eq 100) and ci.occupy}">
+                                      <button data-pgt-btn="receipt1" class="btn btn-xs yellow btn-circle">赔付</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                      无
+                                    </c:otherwise>
+                                  </c:choose>
+                                </td>
+                                <td>
+                                  <fmt:formatDate value="${p2pInfo.actualDueDate == null ? p2pInfo.expectDueDate : p2pInfo.actualDueDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </td>
+                                <td>
+                                  <c:choose>
+                                    <c:when test="${p2pOrder.status eq 10}">
+                                     无
+                                    </c:when>
+                                    <c:when test="${p2pOrder.status eq 20 or 25 eq p2pOrder.status}">
+                                      无
+                                    </c:when>
+                                    <c:when test="${p2pOrder.status = 30}">
+                                      <button data-pgt-btn="receipt" class="btn btn-xs yellow btn-circle">绝当</button>
+                                      <button data-pgt-btn="receipt" class="btn btn-xs yellow btn-circle">赎当</button>
+                                    </c:when>
+                                    <c:when test="${p2pOrder.status = 50}">
+                                      <button data-pgt-btn="receipt" class="btn btn-xs yellow btn-circle">发货</button>
+                                    </c:when>
+                                    <c:when test="${p2pOrder.status = 60}">
+                                      <button data-pgt-btn="receipt" class="btn btn-xs yellow btn-circle">赔付</button>
+                                    </c:when>
+                                    <c:when test="${p2pOrder.status = 80}">
+                                      <button data-pgt-btn="receipt" class="btn btn-xs yellow btn-circle">确认收获</button>
+                                    </c:when>
+                                    <c:when test="${p2pOrder.status = 100}">
+                                      无
+                                    </c:when>
+                                    <c:when test="${p2pOrder.status = -10}">
+                                      无
+                                    </c:when>
+                                  </c:choose>
+                                </td>
+                              </tr>
+                            </c:forEach>
                             </tbody>
                           </table>
                         </div>
@@ -395,7 +430,7 @@ License: You must have a valid license purchased only from themeforest(the above
                   </div>
 
                   <!-- 收货人信息-->
-                  <c:set var="address" value="${p2pOrder.shippingVO.shippingAddress}"/>
+
                   <div>
                     <h3 class="form-section">
                       收货人信息

@@ -358,7 +358,7 @@ public class P2POrderService extends OrderService {
         return result;
     }
 
-    private boolean completeOrder(Order order, boolean ocuppy, Date dueDate) {
+    public boolean completeOrder(Order order, boolean ocuppy, Date dueDate) {
         boolean result = true;
         if (ocuppy) {
             order.setStatus(OrderStatus.PENDING_SHIPPING);

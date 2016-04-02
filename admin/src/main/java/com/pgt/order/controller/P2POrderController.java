@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * Created by Yove on 16/2/7.
@@ -45,6 +46,38 @@ public class P2POrderController extends InternalTransactionBaseController implem
         int orderIdInt = RepositoryUtils.safeParseId(orderId);
         Order order = getB2COrderService().loadOrder(orderIdInt);
         P2PInfo info = getP2pOrderService().queryP2PInfoByOrderId(orderIdInt);
+        ModelAndView mav = new ModelAndView("/p2p-order/order-detail");
+        mav.addObject(ResponseConstant.P2P_ORDER, order);
+        mav.addObject(ResponseConstant.P2P_INFO, info);
+        return mav;
+    }
+
+    @RequestMapping(value = "/complete-item", method = RequestMethod.GET)
+    public ModelAndView completeItem(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+        String orderIdStr = pRequest.getParameter("orderId");
+        String occupyStr = pRequest.getParameter("occupy");
+        int orderId =  Integer.valueOf(orderIdStr);
+        Order order = getB2COrderService().loadOrder(orderId);
+        boolean occupy = Boolean.valueOf(occupyStr);
+        getP2pOrderService().completeOrder(order, occupy, new Date());
+        order = getB2COrderService().loadOrder(orderId);
+        P2PInfo info = getP2pOrderService().queryP2PInfoByOrderId(orderId);
+        ModelAndView mav = new ModelAndView("/p2p-order/order-detail");
+        mav.addObject(ResponseConstant.P2P_ORDER, order);
+        mav.addObject(ResponseConstant.P2P_INFO, info);
+        return mav;
+    }
+
+
+    @RequestMapping(value = "/change-order-status", method = RequestMethod.GET)
+    public ModelAndView changeOrderStatus(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+        String orderIdStr = pRequest.getParameter("orderId");
+        String statusStr = pRequest.getParameter("status");
+        int orderId =  Integer.valueOf(orderIdStr);
+        Order order = getB2COrderService().loadOrder(orderId);
+        int status = Integer.valueOf(statusStr);
+        getB2COrderService().updateOrderStatus(orderId, status);
+        P2PInfo info = getP2pOrderService().queryP2PInfoByOrderId(orderId);
         ModelAndView mav = new ModelAndView("/p2p-order/order-detail");
         mav.addObject(ResponseConstant.P2P_ORDER, order);
         mav.addObject(ResponseConstant.P2P_INFO, info);

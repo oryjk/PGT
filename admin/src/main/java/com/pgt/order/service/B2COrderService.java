@@ -83,6 +83,8 @@ public class B2COrderService implements OrderStatus {
 		return false;
 	}
 
+
+
 	public boolean updateOrder2TransitStatus(Order pOrder) {
 		for (int status : getPreStatus4CancelOrder()) {
 			if (status == pOrder.getStatus()) {
@@ -92,6 +94,11 @@ public class B2COrderService implements OrderStatus {
 		LOGGER.debug("Failed to change order: {} to cancel status for current status: {}", pOrder.getId(), pOrder.getStatus());
 		return false;
 	}
+
+	public boolean updateOrderStatus(int orderId, int status) {
+		return getB2COrderDao().updateOrder2Status(orderId, status) > 0;
+	}
+
 	public boolean createDelivery(final Delivery pDelivery) {
 		return getB2COrderDao().createDelivery(pDelivery) > 0;
 	}
