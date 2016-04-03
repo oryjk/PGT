@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class CompleteTransactionNotificationHandler extends Transactionable implements YeepayNotificationHandler {
@@ -108,10 +109,15 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 	}
 
 	private void handleP2POrder(PaymentGroup paymentGroup, Map<String, String> result, Date now, Order order) throws IOException {
-
+		LOGGER.debug("=================== handleP2POrde start r======================");
 		P2PInfo info = getP2pMapper().queryInfoByOrderId(order.getId());
+		info.setPayTime(new Date());
+		getP2pMapper().updateInfo(info);
+		LOGGER.debug("total: " + order.getTotal() + "; handlingFee:" + info.getHandlingFee());
 		double resultAmount = order.getTotal() - info.getHandlingFee();
-		// TODO ROUND;
+		LOGGER.debug("resultAmount: " + resultAmount);
+		resultAmount = new BigDecimal(Double.toString(resultAmount)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		LOGGER.debug("resultAmount: " + resultAmount);
 		Map<String, Object> params = new HashMap<String, Object>();
 		Transaction transaction = new Transaction();
 		transaction.setOrderId(Long.valueOf(order.getUserId()));
@@ -130,7 +136,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 //		params.put(YeePayConstants.PARAM_NAME_REQUEST_NO, trackingNo);
 		params.put(YeePayConstants.PARAM_NAME_MODE, YeePayConstants.MODE_CONFIRM);
 		params.put(YeePayConstants.PARAM_NAME_NOTIFY_URL, getConfig().getCompleteTransactionNotifyUrl());
-
+		params.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
 		params.put(YeePayConstants.PARAM_NAME_USER_TYPE, YeePayConstants.USER_TYPE_MERCHANT);
 
 		params.put(YeePayConstants.PARAM_NAME_PLATFORM_USER_NO, getConfig().getTargetPlatformUserNo());
@@ -143,10 +149,10 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 
 		Map<String, Object> detail = new HashMap<String, Object>();
 		detail.put(YeePayConstants.PARAM_NAME_TARGET_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
-		// TODO
 		String platformUserNo = YeePayHelper.generateOutboundRequestNo(getConfig(), Long.valueOf(info.getPawnShopOwnerId()));
 		detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, platformUserNo);
-		detail.put(YeePayConstants.PARAM_NAME_AMOUNT, resultAmount);
+		detail.put(YeePayConstants.PARAM_NAME_AMOUNT, String.valueOf(resultAmount));
+		detail.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
 		detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);
 		boolean success = false;
 		try {
@@ -166,6 +172,7 @@ public class CompleteTransactionNotificationHandler extends Transactionable impl
 			getShoppingCartDao().updateOrder(order);
 		}
 		getPaymentService().updateTransaction(transaction);
+		LOGGER.debug("=================== handleP2POrde end r======================");
 	}
 
 	public void handleResult(PaymentGroup paymentGroup, String trackingNo, Map<String, String> result,

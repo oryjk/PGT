@@ -264,7 +264,7 @@ public class ShippingController implements CartMessages {
             return mav;
         }
 
-        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.B2C_ORDER)) {
+        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.B2C_ORDER, order.getId())) {
             mav.setViewName("redirect:" + urlConfiguration.getShippingPage());
             mav.addObject(CartConstant.ORDER_ID, order.getId());
             mav.addObject("error", "HAS.UNSUBMIT.ORDER");
@@ -342,7 +342,7 @@ public class ShippingController implements CartMessages {
         }
 
         if (!isPayOnly && getOrderService().hasUncompleteOrder(user.getId().intValue(), getShoppingCartService().getShoppingCartConfiguration()
-                .getDefaultOrderType())) {
+                .getDefaultOrderType(), order.getId())) {
             LOGGER.error("Has incomplete order.");
             result.put(WebServiceConstants.NAME_CODE, WebServiceConstants.CODE_HAS_INCOMPLETE_ORDER);
             return new ResponseEntity(result, HttpStatus.OK);
