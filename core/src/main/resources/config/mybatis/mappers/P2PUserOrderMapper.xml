@@ -173,41 +173,16 @@
 		WHERE 1 = 1
 		<choose>
 			<when test="status == 21">
-				AND (o.STATUS &gt;= 30 AND o.STATUS &lt; 100)
-				AND o.ORDER_ID IN (
-				SELECT tmp.ORDER_ID FROM (
-				SELECT o.ORDER_ID, COUNT(ci.COMMERCE_ITEM_ID)
-				FROM `ORDER` o
-				LEFT JOIN `COMMERCE_ITEM` ci ON ci.ORDER_ID = o.ORDER_ID
-				LEFT JOIN `COMMERCE_ITEM_DELIVERY` cid ON cid.COMMERCE_ITEM_ID = ci.COMMERCE_ITEM_ID
-				WHERE o.USER_ID = #{userId}
-				AND o.`TYPE` = 2
-				AND cid.delivered IS NULL
-				GROUP BY o.ORDER_ID
-				) tmp
-				)
+				AND (o.STATUS = 30 OR o.STATUS = 50)
 			</when>
 			<when test="status == 22">
-				AND (o.STATUS &gt;= 30 AND o.STATUS &lt; 100)
-				AND o.ORDER_ID IN (
-				SELECT tmp.ORDER_ID FROM (
-				SELECT o.ORDER_ID, COUNT(ci.COMMERCE_ITEM_ID)
-				FROM `ORDER` o
-				LEFT JOIN `COMMERCE_ITEM` ci ON ci.ORDER_ID = o.ORDER_ID
-				LEFT JOIN `COMMERCE_ITEM_DELIVERY` cid ON cid.COMMERCE_ITEM_ID = ci.COMMERCE_ITEM_ID
-				WHERE o.USER_ID = #{userId}
-				AND o.`TYPE` = 2
-				AND cid.delivered = 1
-				GROUP BY o.ORDER_ID
-				HAVING COUNT(ci.COMMERCE_ITEM_ID) &gt; 0
-				) tmp
-				)
+				AND o.STATUS = 80
 			</when>
 			<when test="status == 29">
 				AND o.STATUS = 100
 			</when>
 			<otherwise>
-				AND (o.STATUS &gt;= 30 AND o.STATUS &lt;= 100)
+				AND (o.STATUS = 30 OR o.STATUS = 50 OR o.STATUS = 80 OR o.STATUS = 100)
 			</otherwise>
 		</choose>
 		AND t.STATUS = 20
@@ -221,41 +196,16 @@
 		WHERE 1 = 1
 		<choose>
 			<when test="status == 21">
-				AND (o.STATUS &gt;= 30 AND o.STATUS &lt; 100)
-				AND o.ORDER_ID IN (
-				SELECT tmp.ORDER_ID FROM (
-				SELECT o.ORDER_ID, COUNT(ci.COMMERCE_ITEM_ID)
-				FROM `ORDER` o
-				LEFT JOIN `COMMERCE_ITEM` ci ON ci.ORDER_ID = o.ORDER_ID
-				LEFT JOIN `COMMERCE_ITEM_DELIVERY` cid ON cid.COMMERCE_ITEM_ID = ci.COMMERCE_ITEM_ID
-				WHERE o.USER_ID = #{userId}
-				AND o.`TYPE` = 2
-				AND cid.delivered IS NULL
-				GROUP BY o.ORDER_ID
-				) tmp
-				)
+				AND (o.STATUS = 30 OR o.STATUS = 50)
 			</when>
 			<when test="status == 22">
-				AND (o.STATUS &gt;= 30 AND o.STATUS &lt; 100)
-				AND o.ORDER_ID IN (
-				SELECT tmp.ORDER_ID FROM (
-				SELECT o.ORDER_ID, COUNT(ci.COMMERCE_ITEM_ID)
-				FROM `ORDER` o
-				LEFT JOIN `COMMERCE_ITEM` ci ON ci.ORDER_ID = o.ORDER_ID
-				LEFT JOIN `COMMERCE_ITEM_DELIVERY` cid ON cid.COMMERCE_ITEM_ID = ci.COMMERCE_ITEM_ID
-				WHERE o.USER_ID = #{userId}
-				AND o.`TYPE` = 2
-				AND cid.delivered = 1
-				GROUP BY o.ORDER_ID
-				HAVING COUNT(ci.COMMERCE_ITEM_ID) &gt; 0
-				) tmp
-				)
+				AND o.STATUS = 80
 			</when>
 			<when test="status == 29">
 				AND o.STATUS = 100
 			</when>
 			<otherwise>
-				AND (o.STATUS &gt;= 30 AND o.STATUS &lt;= 100)
+				AND (o.STATUS = 30 OR o.STATUS = 50 OR o.STATUS = 80 OR o.STATUS = 100)
 			</otherwise>
 		</choose>
 		AND t.STATUS = 20
@@ -272,13 +222,13 @@
 		AND o.`TYPE` = 2
 		<choose>
 			<when test="status == 31">
-				AND (o.STATUS &gt;= 30 AND o.STATUS &lt; 100)
+				AND (o.STATUS = 30 OR o.STATUS = 60)
 			</when>
 			<when test="status == 32">
 				AND o.STATUS = 100
 			</when>
 			<otherwise>
-				AND o.STATUS &gt;= 30
+				AND (o.STATUS = 30 OR o.STATUS = 60 OR o.STATUS = 100)
 			</otherwise>
 		</choose>
 		AND t.STATUS = 30
@@ -293,13 +243,13 @@
 		AND o.`TYPE` = 2
 		<choose>
 			<when test="status == 31">
-				AND (o.STATUS &gt;= 30 AND o.STATUS &lt; 100)
+				AND (o.STATUS = 30 OR o.STATUS = 60)
 			</when>
 			<when test="status == 32">
 				AND o.STATUS = 100
 			</when>
 			<otherwise>
-				AND o.STATUS &gt;= 30
+				AND (o.STATUS = 30 OR o.STATUS = 60 OR o.STATUS = 100)
 			</otherwise>
 		</choose>
 		AND t.STATUS = 30

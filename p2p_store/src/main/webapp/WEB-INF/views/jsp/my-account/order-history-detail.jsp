@@ -37,7 +37,7 @@
     <c:when test="${historyOrder.tender.state eq 20}">
         <div class="send-info">
             <c:choose>
-                <c:when test="${historyOrder.status eq 30 and historyOrder.shippedCommerceItemCount eq 0}">
+                <c:when test="${historyOrder.status eq 30 or historyOrder.status eq 50}">
                     <!-- super:绝当未发货时,以及在当时显示-->
                     <div class="send-will" style="display: block;">
                         <div class="send-row-1">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </c:when>
-                <c:when test="${historyOrder.status eq 40 or historyOrder.status eq 100}">
+                <c:when test="${historyOrder.status eq 80 or historyOrder.status eq 100}">
                     <!-- super:绝当已发货时显示-->
                     <div class="send-already" style="display: block;">
                         <div class="send-row-2">
@@ -67,7 +67,7 @@
     <c:when test="${historyOrder.tender.state eq 30}">
         <div class="compensate">
             <c:choose>
-                <c:when test="${historyOrder.status eq 30}">
+                <c:when test="${historyOrder.status eq 30 or historyOrder.status eq 60}">
                     <!-- super:赎当未赔付时显示-->
                     <div class="compensate-will">
                         <div class="tip">温馨提示:您所预定的商品已经赎当,我们将会对您进行一定的赔付,请您耐心等待.</div>
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </c:when>
-                <c:when test="${historyOrder.status eq 40 or historyOrder.status eq 100}">
+                <c:when test="${historyOrder.status eq 100}">
                     <!-- super:赎当已赔付时显示-->
                     <div class="compensate-already">
                         <div class="tip">温馨提示:您所预定的商品已经赎当,我们已对您进行了赔付,请核对查收,谢谢您的支持!.</div>
@@ -114,21 +114,21 @@
 </div>
 <div class="money-box">
     <c:choose>
-        <c:when test="${historyOrder.tender.state eq 30}">
-            <!--super: 赎当后显示-->
-            <div style="display: block">
-                <span>将获得本金加赔付共计:</span>
-                <span class="cost">¥</span>
-        <span class="cost"><fmt:formatNumber value="${historyOrder.p2pInfo.actualIncoming}" pattern="0.00"
-                                             type="number"/></span>
-            </div>
-        </c:when>
         <c:when test="${historyOrder.tender.state eq 20}">
             <!--super: 在当何绝当时显示-->
             <div style="display: block">
                 <span>订单总额:</span>
                 <span class="cost">¥</span>
                 <span class="cost"><fmt:formatNumber value="${historyOrder.total}" pattern="0.00" type="number"/></span>
+            </div>
+        </c:when>
+        <c:when test="${historyOrder.tender.state eq 30}">
+            <!--super: 赎当后显示-->
+            <div style="display: block">
+                <span>将获得本金加赔付共计:</span>
+                <span class="cost">¥</span>
+                <span class="cost">
+                <fmt:formatNumber value="${historyOrder.p2pInfo.actualIncoming}" pattern="0.00" type="number"/></span>
             </div>
         </c:when>
     </c:choose>
