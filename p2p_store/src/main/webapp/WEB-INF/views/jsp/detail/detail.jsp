@@ -182,27 +182,42 @@
 							<div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
 						</div>
 						<div class="item-row-6">
-							<div class="col-title">金额:</div>
+							<div class="col-title">单个金额:</div>
 							<div class="col-content">
 								<span class="item-cost">¥</span><span class="item-cost">${product.salePrice}</span>
 							</div>
 						</div>
-						<div class="item-row-7">
-							<div class="col-title">数量:</div>
-							<div class="col-content">
-								<span class="item-buy-count">1</span>
+						<c:choose>
+							<c:when test="${product.stock<1 || ESTender.tender.residueDate<1}">
+							</c:when>
+							<c:otherwise>
+								<div class="item-row-7">
+									<div class="col-title">数量:</div>
+									<div class="col-content">
 
-								<div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a
-										class="item-buy-minus" href="javascript:void(0);">-</a>
+										<span class="item-buy-count">1</span>
+
+										<div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a
+												class="item-buy-minus" href="javascript:void(0);">-</a>
+										</div>
+										( 库存数量:<span class="item-surplus-count">${product.stock}</span> )
+									</div>
 								</div>
-								( 库存数量:<span class="item-surplus-count">${product.stock}</span> )
-							</div>
-						</div>
+							</c:otherwise>
+						</c:choose>
+
+
 						<div class="item-row-8">
 							<div class="col-title">&nbsp; </div>
 							<div class="col-content">
-								<a class="item-sold-out">已结束</a>
-								<a class="item-buy-now" id="item-buy-now" href="#">立即抢订</a>
+								<c:choose>
+									<c:when test="${product.stock<1 || ESTender.tender.residueDate<1}">
+										<a class="item-sold-out">已结束</a>
+									</c:when>
+									<c:otherwise>
+										<a class="item-buy-now" id="item-buy-now" href="#">立即抢订</a>
+									</c:otherwise>
+								</c:choose>
 									<%-- product favourite --%>
 								<c:forEach var="fav" items="${productFavourites}">
 									<c:if test="${fav.productId eq product.productId}">
