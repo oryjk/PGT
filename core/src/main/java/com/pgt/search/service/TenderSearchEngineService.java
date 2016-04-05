@@ -367,7 +367,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             boolQueryBuilder.filter(QueryBuilders.termQuery(esConfiguration.getTenderParentCategoryIdTerm(), esTenderListFilter.getCategoryId()));
         }
         if (!StringUtils.isBlank(esTenderListFilter.getRootCategoryId())) {
-            boolQueryBuilder.filter(QueryBuilders.termQuery(esConfiguration.getTenderRootCategoryIdTerm(), esTenderListFilter.getCategoryId()));
+            boolQueryBuilder.filter(QueryBuilders.termQuery(esConfiguration.getTenderRootCategoryIdTerm(), esTenderListFilter.getRootCategoryId()));
         }
         if (esTenderListFilter.isAll()) {
             LOGGER.debug("The filter is all.");
