@@ -5,33 +5,65 @@
 <mapper namespace="com.pgt.cart.dao.RecommendDao">
 
 	<select id="countCategoryProductMapping" resultType="map">
-		SELECT pc.category_id AS categoryId, count(pc.product_id) `count`
+		SELECT pc.CATEGORY_ID AS categoryId, count(pc.PRODUCT_ID) `count`
 		FROM PRODUCT_CATEGORY pc
-		LEFT JOIN CATEGORIES c ON pc.category_id = c.CATEGORY_ID AND c.TYPE = 'HIERARCHY'
-		WHERE pc.product_id IN
+		LEFT JOIN CATEGORIES c ON pc.CATEGORY_ID = c.CATEGORY_ID AND c.TYPE = 'HIERARCHY'
+		WHERE pc.PRODUCT_ID IN
 		<foreach collection="list" item="item" open="(" close=")" separator=", ">
 			#{item}
 		</foreach>
-		GROUP BY pc.category_id
+		GROUP BY pc.CATEGORY_ID
 	</select>
 
 	<select id="queryAvailableProductIds" resultType="int">
-		SELECT p.product_id
+		SELECT p.PRODUCT_ID
 		FROM PRODUCT p
-		LEFT JOIN PRODUCT_CATEGORY pc ON p.product_id = pc.product_id
-		LEFT JOIN CATEGORIES c ON c.category_id = pc.category_id AND c.TYPE = 'HIERARCHY'
-		WHERE c.category_id = #{categoryId}
+		LEFT JOIN PRODUCT_CATEGORY pc ON p.PRODUCT_ID = pc.PRODUCT_ID
+		LEFT JOIN CATEGORIES c ON c.CATEGORY_ID = pc.CATEGORY_ID AND c.TYPE = 'HIERARCHY'
+		WHERE c.CATEGORY_ID = #{categoryId}
 		<if test="!includeOutOfStock">
-			AND p.stock != 0
+			AND p.STOCK != 0
 		</if>
 	</select>
 
 	<select id="queryCategoryIdsExclude" resultType="int">
-		SELECT category_id
+		SELECT CATEGORY_ID
 		FROM CATEGORIES
 		WHERE TYPE = 'HIERARCHY'
 		<if test="@Ognl@isNotEmptyCollection(list)">
-			AND category_id NOT IN
+			AND CATEGORY_ID NOT IN
+			<foreach collection="list" item="item" open="(" close=")" separator=", ">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="countCategoryTenderMapping" resultType="map">
+		SELECT tc.CATEGORY_ID AS categoryId, count(tc.TENDER_ID) `count`
+		FROM TENDER_CATEGORY tc
+		LEFT JOIN CATEGORIES c ON tc.CATEGORY_ID = c.CATEGORY_ID AND c.TYPE = 'TENDER_HIERARCHY'
+		WHERE tc.TENDER_ID IN
+		<foreach collection="list" item="item" open="(" close=")" separator=", ">
+			#{item}
+		</foreach>
+		GROUP BY tc.CATEGORY_ID
+	</select>
+
+	<select id="queryAvailableTenderIds" resultType="int">
+		SELECT t.ID
+		FROM TENDER t
+			LEFT JOIN TENDER_CATEGORY tc ON t.ID = tc.TENDER_ID
+			LEFT JOIN CATEGORIES c ON c.CATEGORY_ID = tc.CATEGORY_ID AND c.TYPE = 'TENDER_HIERARCHY'
+		WHERE c.CATEGORY_ID = #{categoryId}
+		      AND t.STATUS = 10
+	</select>
+
+	<select id="queryTenderCategoryIdsExclude" resultType="int">
+		SELECT CATEGORY_ID
+		FROM CATEGORIES
+		WHERE TYPE = 'TENDER_HIERARCHY'
+		<if test="@Ognl@isNotEmptyCollection(list)">
+			AND CATEGORY_ID NOT IN
 			<foreach collection="list" item="item" open="(" close=")" separator=", ">
 				#{item}
 			</foreach>

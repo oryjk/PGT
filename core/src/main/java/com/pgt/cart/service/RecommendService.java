@@ -25,7 +25,7 @@ import java.util.Map;
  * Created by Yove on 12/3/2015.
  */
 @Service(value = "recommendService")
-public class RecommendService {
+public class RecommendService implements IRecommendService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductBrowseTrackService.class);
 	private static final String SUFFIX_JS = ".js";
