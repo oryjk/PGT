@@ -441,7 +441,7 @@ body {
 
 .content {
   margin: 20px auto 50px;
-  padding: 50px 0;
+  padding: 100px 0;
   border: 1px solid #cccccc;
   height: 600px;
   background: white; }
@@ -460,7 +460,6 @@ body {
     border: 1px solid #cccccc;
     border-top: 3px solid #c90304;
     width: 400px;
-    height: 600px;
     box-shadow: 0 10px 15px #555555; }
     .content .login .login-title {
       padding-top: 20px;
@@ -539,6 +538,13 @@ body {
         color: #86b4ed; }
       .content .login .login-content .agreement .agreement-checkbox {
         width: 20px; }
+    .content .login .login-content .domain {
+      padding: 0 0 20px 35px;
+      font-size: 12px;
+      line-height: 40px;
+      overflow: hidden; }
+      .content .login .login-content .domain img {
+        padding: 10px 0 0 5px; }
 
 .content .login .input-text:focus {
   border-color: #86b4ed !important; }
