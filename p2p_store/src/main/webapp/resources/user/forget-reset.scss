@@ -21,6 +21,7 @@ body {
 }
 
 .content {
+  overflow: hidden;
   margin: 20px auto 50px;
   padding-bottom: 50px;
   border: 1px solid $gray-light;
@@ -34,15 +35,22 @@ body {
   }
 }
 
+.step-img{
+  margin-top: 50px;
+  height: 50px;
+  background: url("../core/images/shipping/b1.png") no-repeat 150px 0;
+}
+
 .step {
-  margin: 56px auto 70px;
-  @include wh($main-width, 50px);
+  margin: 0 auto 70px;
+  padding-left: 115px;
+  @include wh(1140px, 50px);
   text-align: center;
   background: white;
 
   li {
     float: left;
-    @include wh(25%, 100%);
+    @include wh(21%, 100%);
     line-height: 50px;
   }
 }
