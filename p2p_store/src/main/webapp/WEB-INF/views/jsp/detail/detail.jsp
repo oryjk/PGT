@@ -85,14 +85,13 @@
 	</div>
 	<div class="item-nav">
 		<ul id="itemNavBox" style="left: 0;top: 0;">
-			<c:forEach items="${ESTender.tender. p2pHeroMedias}" var="media">
+			<c:forEach items="${ESTender.tender.p2pHeroMedias}" var="media">
 				<li><a href="#"><img src="${media.path}" alt="${ESTender.tender.imageDesc}"/></a></li>
 			</c:forEach>
 		</ul>
 		<a class="item-nav-right" id="itemNavRight" href="javascript:void(0);"></a>
 		<a class="item-nav-left" id="itemNavLeft" href="javascript:void(0);"></a>
 	</div>
-
 	<img class="what-is-this" src="" alt=""/>
 
 </div>
@@ -239,7 +238,7 @@
 									</c:when>
 									<c:otherwise>
 										<a class="item-join-favorite" href="javascript:void(0);"
-										   data-id="${productFav.id}"
+										   data-id="${productFav.id}":q
 										   data-pid="${product.productId}" data-type="5" data-processed="true">已收藏</a>
 									</c:otherwise>
 								</c:choose>
