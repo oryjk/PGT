@@ -67,14 +67,13 @@ public class QQController {
     public ModelAndView afterComplete(ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=utf-8");
 
-        PrintWriter out = response.getWriter();
 
         try {
             AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(request);
 
-            String accessToken = null,
-                    openID = null;
-            long tokenExpireIn = 0L;
+            String accessToken,
+                    openID;
+            long tokenExpireIn;
 
 
             if (accessTokenObj.getAccessToken().equals("")) {
