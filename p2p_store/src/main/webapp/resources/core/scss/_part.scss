@@ -874,3 +874,15 @@
     }
   }
 }
+
+@mixin side-bar(){
+  .side-bar{
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    width: 100px;
+    height: 200px;
+    background: rgba(25,25,25,0.5);
+  }
+
+}
