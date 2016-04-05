@@ -81,16 +81,16 @@ body {
     @include wh(287px, 80px);
   }
 
+
   .invest-add-favorite {
     float: left;
-    @include color-btn(131px, 43px, 3px, 16px, $main, $main-dark);
+    @include color-btn(131px, 43px, 20px, 16px, $main, $main);
     margin-top: 16px;
-
   }
 
   .invest-scan-count {
     float: right;
-    @include color-btn(131px, 43px, 3px, 16px, $em, $em);
+    @include color-btn(131px, 43px, 20px, 16px, $em, $em);
     margin-top: 16px;
   }
 
@@ -396,16 +396,17 @@ body {
 
 
   .item-sold-out {
-    @include color-btn(160px, 40px, 0, 20px, #999, #999);
+    @include color-btn(160px, 40px, 20px, 20px, #999, #999);
   }
 
   .item-buy-now {
-    @include color-btn(160px, 40px, 0, 20px, $main, $main-dark);
+    @include color-btn(160px, 40px, 20px, 20px, $main, $main);
   }
 
   .item-join-favorite {
-    @include color-btn(160px, 40px, 0, 20px, $em, $em-dark);
+    @include color-btn(160px, 40px, 20px, 20px, $em, $em);
   }
+
 
   .item-row-7 {
     position: relative;

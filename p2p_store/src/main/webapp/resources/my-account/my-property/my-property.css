@@ -86,6 +86,7 @@
 .will-binding .will-row-3 {
   padding: 63px 0 0 88px; }
   .will-binding .will-row-3 .yeepay-binding {
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -98,8 +99,21 @@
     color: white;
     text-align: center;
     cursor: pointer; }
+    .will-binding .will-row-3 .yeepay-binding .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 32px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .will-binding .will-row-3 .yeepay-binding:hover {
       background: #207c40; }
+      .will-binding .will-row-3 .yeepay-binding:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
   .will-binding .will-row-3 .yeepay-tips {
     padding-left: 32px;
     font-size: 14px;
@@ -115,6 +129,7 @@
       color: #207c40; }
     .already-binding .already-row-1 .yeepay-goto {
       margin-left: 65px;
+      position: relative;
       display: inline-block;
       padding: 0;
       border: none;
@@ -127,8 +142,21 @@
       color: white;
       text-align: center;
       cursor: pointer; }
+      .already-binding .already-row-1 .yeepay-goto .color-hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 32px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        transform: scaleX(0);
+        transition: transform .3s; }
       .already-binding .already-row-1 .yeepay-goto:hover {
         background: #207c40; }
+        .already-binding .already-row-1 .yeepay-goto:hover .color-hover {
+          transform: scaleX(1);
+          transition: transform .3s; }
   .already-binding .already-title {
     float: left;
     width: 280px;
@@ -141,6 +169,7 @@
     font-size: 20px; }
   .already-binding .yeepay-shift-into {
     margin-left: 57px;
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -153,8 +182,21 @@
     color: white;
     text-align: center;
     cursor: pointer; }
+    .already-binding .yeepay-shift-into .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 57px;
+      height: 28px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .already-binding .yeepay-shift-into:hover {
       background: #970203; }
+      .already-binding .yeepay-shift-into:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
   .already-binding .yeepay-shift-out {
     margin-left: 23px;
     font-size: 14px; }
@@ -202,6 +244,7 @@
   .info-import .row2 {
     padding: 25px 0 0 325px; }
   .info-import .yeepay-btn {
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -214,7 +257,20 @@
     color: white;
     text-align: center;
     cursor: pointer; }
+    .info-import .yeepay-btn .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 32px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .info-import .yeepay-btn:hover {
       background: #207c40; }
+      .info-import .yeepay-btn:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
 
 /*# sourceMappingURL=../../../maps/my-account/my-property/my-property.css.map */

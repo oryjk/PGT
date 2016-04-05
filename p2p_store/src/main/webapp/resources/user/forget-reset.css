@@ -480,6 +480,7 @@ td {
   height: 30px; }
 
 .input-next {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -492,10 +493,24 @@ td {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .input-next .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 30px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .input-next:hover {
     background: #970203; }
+    .input-next:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .input-cancel {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -509,8 +524,21 @@ td {
   text-align: center;
   cursor: pointer;
   color: black; }
+  .input-cancel .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 30px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .input-cancel:hover {
     background: #bbb; }
+    .input-cancel:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .error {
   font-size: 14px;
@@ -540,6 +568,7 @@ td {
 .test-identity .get-phone-confirm-code,
 .test-identity .get-email-confirm-code {
   margin-left: 20px;
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -552,9 +581,24 @@ td {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .test-identity .get-phone-confirm-code .color-hover,
+  .test-identity .get-email-confirm-code .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 30px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .test-identity .get-phone-confirm-code:hover,
   .test-identity .get-email-confirm-code:hover {
     background: #970203; }
+    .test-identity .get-phone-confirm-code:hover .color-hover,
+    .test-identity .get-email-confirm-code:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .test-identity select {
   width: 120px;

@@ -20,6 +20,8 @@ public class ShoppingCartConfiguration {
 
 	private int mBrowsedCookieExpired = 604800; //60s * 60m * 24h * 7d
 
+	private int mEstimatedShippingDay = 3;
+
 	public ShoppingCartConfiguration() {
 	}
 
@@ -61,5 +63,13 @@ public class ShoppingCartConfiguration {
 
 	public void setBrowsedCookieExpired(final int pBrowsedCookieExpired) {
 		mBrowsedCookieExpired = pBrowsedCookieExpired;
+	}
+
+	public int getEstimatedShippingDay() {
+		return mEstimatedShippingDay;
+	}
+
+	public void setEstimatedShippingDay(final int pEstimatedShippingDay) {
+		mEstimatedShippingDay = pEstimatedShippingDay;
 	}
 }
