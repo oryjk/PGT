@@ -40,7 +40,9 @@
 				<c:choose>
 					<c:when test="${empty tenderFav}">
 						<a class="invest-add-favorite" href="javascript:void(0);" data-id=""
-						   data-pid="${ESTender.tender.tenderId}" data-type="6" data-processed="false">添加收藏</a>
+						   data-pid="${ESTender.tender.tenderId}" data-type="6" data-processed="false">
+							<span class="color-hover"></span>
+							添加收藏</a>
 					</c:when>
 					<c:otherwise>
 						<a class="invest-add-favorite" href="javascript:void(0);" data-id="${tenderFav.id}"
@@ -91,7 +93,12 @@
 		<a class="item-nav-left" id="itemNavLeft" href="javascript:void(0);"></a>
 	</div>
 
-	<img class="what-is-this" src="" alt=""/>
+	<div class="what-is-this">
+		<p>特点1</p>
+		<p>特点1</p>
+		<p>特点1</p>
+		<p>特点1</p>
+	</div>
 
 </div>
 <!--invest-part end-->
@@ -210,12 +217,15 @@
 						<div class="item-row-8">
 							<div class="col-title">&nbsp; </div>
 							<div class="col-content">
+
 								<c:choose>
 									<c:when test="${product.stock<1 || ESTender.tender.residueDate<1}">
 										<a class="item-sold-out">已结束</a>
 									</c:when>
 									<c:otherwise>
-										<a class="item-buy-now" id="item-buy-now" href="#">立即抢订</a>
+										<a class="item-buy-now" id="item-buy-now" href="#">
+											<span class="color-hover"></span>
+											立即抢订</a>
 									</c:otherwise>
 								</c:choose>
 									<%-- product favourite --%>
@@ -227,7 +237,10 @@
 								<c:choose>
 									<c:when test="${empty productFav}">
 										<a class="item-join-favorite" href="javascript:void(0);" data-id=""
-										   data-pid="${product.productId}" data-type="5" data-processed="false">添加收藏</a>
+										   data-pid="${product.productId}" data-type="5" data-processed="false">
+											<span class="color-hover"></span>
+											添加收藏
+										</a>
 									</c:when>
 									<c:otherwise>
 										<a class="item-join-favorite" href="javascript:void(0);"

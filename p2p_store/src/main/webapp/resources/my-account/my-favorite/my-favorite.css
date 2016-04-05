@@ -117,6 +117,7 @@
   .favorite-list .will-pay {
     color: #c90304; }
   .favorite-list .favorite-handle .pay-now {
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -129,8 +130,21 @@
     color: white;
     text-align: center;
     cursor: pointer; }
+    .favorite-list .favorite-handle .pay-now .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90px;
+      height: 25px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .favorite-list .favorite-handle .pay-now:hover {
       background: #970203; }
+      .favorite-list .favorite-handle .pay-now:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
 
 td p {
   line-height: 30px; }

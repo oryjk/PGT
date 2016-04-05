@@ -475,6 +475,7 @@ a {
   text-align: center; }
 
 .login-success .go-to-home {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -487,8 +488,21 @@ a {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .login-success .go-to-home .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 40px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .login-success .go-to-home:hover {
     background: #970203; }
+    .login-success .go-to-home:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 /*for js
 ********************************************************************/
