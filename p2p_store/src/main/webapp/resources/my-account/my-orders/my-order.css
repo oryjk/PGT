@@ -218,6 +218,7 @@
   padding: 45px 0;
   text-align: center; }
   .close-box .close {
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -231,8 +232,21 @@
     text-align: center;
     cursor: pointer;
     margin-right: 20px; }
+    .close-box .close .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 40px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .close-box .close:hover {
       background: #970203; }
+      .close-box .close:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
 
 .invest-status {
   position: absolute;
@@ -339,6 +353,7 @@
   .order-list .order-handle p {
     line-height: 30px; }
   .order-list .order-handle .pay-now {
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -351,8 +366,21 @@
     color: white;
     text-align: center;
     cursor: pointer; }
+    .order-list .order-handle .pay-now .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90px;
+      height: 25px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .order-list .order-handle .pay-now:hover {
       background: #970203; }
+      .order-list .order-handle .pay-now:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
 
 .page-box {
   padding-top: 20px; }

@@ -36,6 +36,7 @@
     padding-right: 35px;
     color: #555555; }
   .address-altogether .address-add {
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -48,8 +49,21 @@
     color: white;
     text-align: center;
     cursor: pointer; }
+    .address-altogether .address-add .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 120px;
+      height: 35px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .address-altogether .address-add:hover {
       background: #970203; }
+      .address-altogether .address-add:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
 
 .address-have-no-add {
   display: block;
@@ -144,6 +158,7 @@
     margin-top: 20px;
     text-align: right; }
   .pop-up .pop-confirm {
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -156,10 +171,24 @@
     color: white;
     text-align: center;
     cursor: pointer; }
+    .pop-up .pop-confirm .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60px;
+      height: 30px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .pop-up .pop-confirm:hover {
       background: #970203; }
+      .pop-up .pop-confirm:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
   .pop-up .pop-cancel {
     margin-left: 10px;
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -173,8 +202,21 @@
     text-align: center;
     cursor: pointer;
     color: black; }
+    .pop-up .pop-cancel .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60px;
+      height: 30px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .pop-up .pop-cancel:hover {
       background: #bbb; }
+      .pop-up .pop-cancel:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
   .pop-up .pop-address-title {
     padding-bottom: 10px; }
   .pop-up .pop-address-value {

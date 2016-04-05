@@ -87,6 +87,7 @@ td {
   color: #c90304; }
 
 .person-info-submit {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -99,10 +100,24 @@ td {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .person-info-submit .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 130px;
+    height: 40px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .person-info-submit:hover {
     background: #970203; }
+    .person-info-submit:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .person-info-cancel {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -116,7 +131,20 @@ td {
   text-align: center;
   cursor: pointer;
   color: black; }
+  .person-info-cancel .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 40px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .person-info-cancel:hover {
     background: #bbb; }
+    .person-info-cancel:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 /*# sourceMappingURL=../../../maps/my-account/person-info/person-info.css.map */

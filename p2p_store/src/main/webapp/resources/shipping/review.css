@@ -405,6 +405,7 @@ a {
 .shipping-btn {
   margin: 30px 0 0 700px;
   color: white;
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -417,11 +418,25 @@ a {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .shipping-btn .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 155px;
+    height: 40px;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .shipping-btn:hover {
     background: #ec5555; }
+    .shipping-btn:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .shipping-btn-back {
   color: white;
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -434,7 +449,20 @@ a {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .shipping-btn-back .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 155px;
+    height: 40px;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .shipping-btn-back:hover {
     background: #666; }
+    .shipping-btn-back:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 /*# sourceMappingURL=../../maps/shipping/review.css.map */
