@@ -20,11 +20,11 @@ import java.util.List;
 /**
  * Created by Yove on 12/3/2015.
  */
-public class RecommendResolveInterceptor extends ItemLoadInterceptor {
+public class P2PRecommendResolveInterceptor extends ItemLoadInterceptor {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RecommendResolveInterceptor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(P2PRecommendResolveInterceptor.class);
 
-	@Resource(name = "recommendService")
+	@Resource(name = "p2pRecommendService")
 	private IRecommendService mRecommendService;
 
 	@Resource(name = "productBrowseTrackService")

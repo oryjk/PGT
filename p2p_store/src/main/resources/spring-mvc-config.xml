@@ -84,6 +84,49 @@
 
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/**.*" />
+			<bean class="com.pgt.cart.filter.P2PRecommendResolveInterceptor">
+				<property name="enable" value="true" />
+				<property name="excludeURISuffixes">
+					<list>
+						<util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_CSS" />
+						<util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_JPG" />
+						<util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_JS" />
+						<util:constant static-field="com.pgt.cart.filter.ItemLoadInterceptor.SUFFIX_PNG" />
+					</list>
+				</property>
+				<property name="requestConstantName">
+					<util:constant static-field="com.pgt.cart.constant.CartConstant.RECOMMEND_PRODUCTS" />
+				</property>
+				<property name="interceptURIs">
+					<list>
+						<!-- 404 -->
+						<value>/404</value>
+						<!-- shopping cart -->
+						<value>/shoppingCart/cart</value>
+						<!-- pdp, plp, indexed plp -->
+						<value>/product</value>
+						<value>/category</value>
+						<value>/essearch</value>
+						<!-- my account -->
+						<value>/myAccount/orderHistory</value>
+						<value>/myAccount/favourites</value>
+						<value>/myAccount/browsedProducts</value>
+						<!-- checkout -->
+						<value>/checkout/shipping</value>
+						<value>/payment/gateway</value>
+						<value>/payment/complete</value>
+						<!-- others -->
+						<value>/my-account/person-info/address</value>
+						<value>/user/updatePassword</value>
+						<value>/userinformation/query</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
 			<bean class="com.pgt.help.interceptor.HelpCenterInterceptor"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
