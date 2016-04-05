@@ -66,6 +66,27 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     }
 
     @Override
+    public String createCategoryAndUpdateMedia(Category category, Integer mediaId) {
+        TransactionStatus transactionStatus = ensureTransaction();
+        try {
+            LOGGER.debug("Begin create category.");
+            categoryMapper.createCategory(category);
+            Media media = mediaService.findMedia(mediaId, MediaType.livepawn_categroy_banner);
+            if (!ObjectUtils.isEmpty(media)) {
+                media.setReferenceId(category.getId());
+                mediaService.updateMedia(media);
+            }
+            LOGGER.debug("End create category.");
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            getTransactionManager().rollback(transactionStatus);
+        } finally {
+            getTransactionManager().commit(transactionStatus);
+        }
+        return String.valueOf(category.getId());
+    }
+
+    @Override
     public String createCategory(Category category, Integer mediaId) {
         TransactionStatus transactionStatus = ensureTransaction();
         try {
@@ -194,6 +215,11 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     @Override
     public List<Category> queryOnlinePawnCategories () {
         return categoryMapper.queryOnlinePawnCategories();
+    }
+
+    @Override
+    public List<Category> queryLivepawnCategroys() {
+        return categoryMapper.queryLivepawnCategroys();
     }
 
     public CategoryMapper getCategoryMapper() {

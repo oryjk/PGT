@@ -53,13 +53,7 @@ public class BannerPawnController  extends InternalTransactionBaseController {
         Integer total = categoryService.queryCategoryTotal(categoryRequest);
         if (total > 0) {
             paginationBean.setTotalAmount(total);
-            List<Category> categoriesList = categoryService.queryCategories(categoryRequest, paginationBean);
-            for(int i = 0;i<categoriesList.size();i++){
-                Integer mediaid = categoriesList.get(i).getFrontMedia().getId();
-                Media media = mediaService.findMedia(mediaid, MediaType.livepawn_categroy_banner);
-                LOGGER.debug("" + media.getPath());
-                categoriesList.get(i).setDescription(media.getPath());
-            }
+            List<Category> categoriesList = categoryService.queryLivepawnCategroys();
             modelAndView.addObject("categoriesList", categoriesList);
             LOGGER.debug("" + JSONObject.toJSONString(categoriesList));
         }
@@ -86,7 +80,7 @@ public class BannerPawnController  extends InternalTransactionBaseController {
             return new ModelAndView(PERMISSION_DENIED);
         }
         category.setType(CategoryType.livepawn_categroy_banner);
-        String categoryId = categoryService.createCategory(category);
+        String categoryId = categoryService.createCategoryAndUpdateMedia(category,category.getFrontMedia().getId());
         LOGGER.debug("" + categoryId);
         LOGGER.debug("" + category.getFrontMedia().getId());
         LOGGER.debug("" + category.getName());

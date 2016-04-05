@@ -80,11 +80,10 @@
                                                         ${categorie.name}
                                                     </td>
                                                     <td class="face-box">${categorie.frontMedia.id}
-                                                        <img src="${categorie.description}" alt=""  style="width: 320px;height: 200px;"/>
+                                                        <img src="${categorie.frontMedia.path}" alt=""  style="width: 320px;height: 200px;"/>
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-xs green btn-circle">修改</button>
-                                                        <button class="btn btn-xs red btn-circle">删除</button>
+                                                        <a class="btn btn-xs red btn-circle" data-pgt-btn="delete" href="/category/delete/${categorie.id}?categoryType=livepawn_categroy_banner">删除</a>
                                                     </td>
                                             </tr>
                                             </c:forEach>
