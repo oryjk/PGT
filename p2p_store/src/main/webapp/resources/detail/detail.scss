@@ -224,7 +224,8 @@ body {
 
   .what-is-this {
     display: block;
-    @include wh($main-width-s, 175px);
+    line-height: 2;
+    width: $main-width-s;
   }
 }
 

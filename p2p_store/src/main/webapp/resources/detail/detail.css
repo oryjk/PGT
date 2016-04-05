@@ -780,8 +780,8 @@ body {
       height: 245px; }
   .invest .what-is-this {
     display: block;
-    width: 1040px;
-    height: 175px; }
+    line-height: 2;
+    width: 1040px; }
 
 .detail-content {
   margin: 0 auto;
