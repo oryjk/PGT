@@ -42,7 +42,9 @@
                     <div class="send-will" style="display: block;">
                         <div class="send-row-1">
                             <div class="send-title">预计发货时间:</div>
-                            <div class="send-value">2015年12月12日</div>
+                            <div class="send-value"><fmt:formatDate
+                                    value="${historyOrder.estimatedShipDate}"
+                                    pattern="yyyy-MM-dd HH:mm:ss"/></div>
                         </div>
                     </div>
                 </c:when>

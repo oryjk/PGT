@@ -45,7 +45,7 @@ public class Order implements OrderType, OrderStatus {
 
 	private boolean mEasyBuy;
 
-	private Date estimatedShipDate;
+	private Date mEstimatedShipDate;
 
 	private Integer p2pInfoId;
 
@@ -371,11 +371,11 @@ public class Order implements OrderType, OrderStatus {
 	}
 
 	public Date getEstimatedShipDate() {
-		return estimatedShipDate;
+		return mEstimatedShipDate;
 	}
 
-	public void setEstimatedShipDate(Date estimatedShipDate) {
-		this.estimatedShipDate = estimatedShipDate;
+	public void setEstimatedShipDate(Date pEstimatedShipDate) {
+		this.mEstimatedShipDate = pEstimatedShipDate;
 	}
 
 	public Tender getTender() {
@@ -385,4 +385,5 @@ public class Order implements OrderType, OrderStatus {
 	public void setTender(final Tender pTender) {
 		mTender = pTender;
 	}
+
 }
