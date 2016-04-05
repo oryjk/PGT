@@ -74,18 +74,20 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <c:forEach items="${categoriesList}" var="categorie">
                                             <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    首页banner
-                                                </td>
-                                                <td class="face-box">
-                                                    <img src="" alt=""  style="width: 320px;height: 200px;"/>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-xs green btn-circle">修改</button>
-                                                    <button class="btn btn-xs red btn-circle">删除</button>
-                                                </td>
+                                                    <td>
+                                                        ${categorie.name}
+                                                    </td>
+                                                    <td class="face-box">${categorie.frontMedia.id}
+                                                        <img src="${categorie.description}" alt=""  style="width: 320px;height: 200px;"/>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-xs green btn-circle">修改</button>
+                                                        <button class="btn btn-xs red btn-circle">删除</button>
+                                                    </td>
                                             </tr>
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>
