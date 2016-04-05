@@ -82,7 +82,6 @@
 				<a class="logo-link" href="/"></a>
 			</h1>
 			<a href="#" class="hot-left" style="background: url('/resources/core/images/data/hot-left.gif') no-repeat center center"></a>
-			keyword:${param.keyword}
 			<form class="search" action="/tender/tenderList" method="get">
 				<div class="search-content">
 					<a class="search-input-submit" href="javascript:($('.search').submit());"></a>

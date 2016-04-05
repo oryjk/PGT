@@ -84,19 +84,17 @@ public class TenderListController {
         List<BreadCrumb> breadCrumbs = breadCrumbService.buildSearchBreadCrumb(categoryId, keyword);
         modelAndView.addObject(Constants.BREAD_CRUMB, breadCrumbs);
         List<Map<String, Object>> tenderList = buildTenderList(keyword, esTenderListFilter, paginationBean, esSorts);
+        LOGGER.debug("Begin to build categoryList.");
+        List<Map<String, Object>> categoryList = buildCategoryList();
+        modelAndView.addObject(ESConstants.ROOT_CATEGORY_LIST, categoryList);
+        LOGGER.debug("Complete to begin categoryList.");
+        modelAndView.addObject(ESConstants.TENDER_LIST_RESULT, tenderList);
+        LOGGER.debug("Complete to begin tenderList.");
         //if no result, need go to no result page.
         if (CollectionUtils.isEmpty(tenderList)) {
             modelAndView.setViewName("/tenderList/noResult");
             return modelAndView;
         }
-        modelAndView.addObject(ESConstants.TENDER_LIST_RESULT, tenderList);
-        LOGGER.debug("Complete to begin tenderList.");
-
-        LOGGER.debug("Begin to build categoryList.");
-        List<Map<String, Object>> categoryList = buildCategoryList();
-        modelAndView.addObject(ESConstants.ROOT_CATEGORY_LIST, categoryList);
-        LOGGER.debug("Complete to begin categoryList.");
-
         LOGGER.debug("Begin to build paginationBean.");
         paginationBean = buildResultPagination(paginationBean);
         modelAndView.addObject(ESConstants.PAGINATION, paginationBean);
