@@ -257,7 +257,7 @@
 						</c:when>
 					</c:choose>
 					<li class="tender-item ${tenderStatus}">
-						<div class="tender-img-box">
+						<a class="tender-img-box" href="/tender/${tenderItem.tender.tenderId}">
 							<img class="tender-img" src="${tenderItem.tender.p2pFrontMedia.path}" alt="${tenderItem.tender.name}"/>
 
 							<div class="tender-status"></div>
@@ -275,7 +275,7 @@
 									<div class="tender-about-title">已购人数</div>
 								</div>
 							</div>
-						</div>
+						</a>
 
 						<p class="tender-name"><a class="tender-name-link" href="#">${tenderItem.tender.name}</a></p>
 
