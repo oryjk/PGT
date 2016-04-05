@@ -426,7 +426,32 @@ a {
   right: 10px;
   width: 100px;
   height: 200px;
-  background: rgba(25, 25, 25, 0.5); }
+  background: rgba(25, 25, 25, 0); }
+
+.side-bar-img {
+  position: relative;
+  float: left;
+  display: block;
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+  background: url("../core/images/side-bar/bg.png") no-repeat; }
+  .side-bar-img img {
+    margin: 5px 0 0 5px; }
+  .side-bar-img p {
+    display: none;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 0;
+    left: 0;
+    font-size: 14px;
+    background: #c90304;
+    color: white;
+    text-align: center;
+    line-height: 20px; }
+  .side-bar-img:hover > p {
+    display: block; }
 
 /*style
 **************************************************************************************************************************************************/
