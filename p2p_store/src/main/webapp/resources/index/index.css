@@ -420,6 +420,39 @@ a {
     width: 100%;
     height: 100%; }
 
+.side-bar {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  width: 100px;
+  height: 200px;
+  background: rgba(25, 25, 25, 0); }
+
+.side-bar-img {
+  position: relative;
+  float: left;
+  display: block;
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+  background: url("../core/images/side-bar/bg.png") no-repeat; }
+  .side-bar-img img {
+    margin: 5px 0 0 5px; }
+  .side-bar-img p {
+    display: none;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 0;
+    left: 0;
+    font-size: 14px;
+    background: #c90304;
+    color: white;
+    text-align: center;
+    line-height: 20px; }
+  .side-bar-img:hover > p {
+    display: block; }
+
 /*style
 **************************************************************************************************************************************************/
 .menu-list {
@@ -459,10 +492,10 @@ a {
 /*our-goods
   ************************************************/
 .goods-box {
-  background: #f5f5f5; }
+  background: white; }
 
 .our-goods {
-  margin: 0 auto;
+  margin: 10px auto;
   padding: 20px 0;
   width: 1040px;
   height: 70px; }
@@ -470,22 +503,30 @@ a {
 .our-good {
   float: left;
   width: 20%;
-  height: 70px; }
+  height: 90px; }
+  .our-good img {
+    margin-top: 20px; }
+  .our-good .good-text {
+    width: 100%;
+    margin-left: 0;
+    text-align: center; }
   .our-good .icon-box {
     float: left;
-    margin-right: 5px;
-    width: 70px;
-    height: 100%;
+    margin-left: 60px;
+    width: 90px;
+    height: 90px;
     border-radius: 50px;
     line-height: 70px;
+    background: #c90304;
     text-align: center; }
   .our-good i {
     color: white;
     font-size: 35px; }
   .our-good h4 {
     padding-top: 10px;
-    font-size: 16px; }
+    font-size: 23px; }
   .our-good p {
+    color: #666;
     padding-top: 5px;
     font-size: 14px;
     line-height: 1.2; }

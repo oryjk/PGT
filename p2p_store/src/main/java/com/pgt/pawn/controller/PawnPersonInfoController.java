@@ -125,7 +125,7 @@ public class PawnPersonInfoController {
             }
         }
 
-        modelAndView.setViewName("/index/index");
+        modelAndView.setViewName("/invest/invest-end");
         return modelAndView;
     }
 

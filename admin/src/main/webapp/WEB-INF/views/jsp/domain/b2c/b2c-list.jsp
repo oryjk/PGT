@@ -44,66 +44,6 @@
                             </div>
                             <div class="portlet-body">
                                 <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
-                                    <div class="row">
-                                        <div class="col-md-2 col-sm-2">
-                                            <div class="dataTables_filter">
-                                                <label>id:<input type="search" class="form-control input-small input-inline"
-                                                                 placeholder="订单id" aria-controls="sample_3">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <div class="dataTables_filter">
-                                                <label>金额:
-                                                    <input type="search" class="form-control input-xsmall input-inline"
-                                                           placeholder="最低" aria-controls="sample_3">
-                                                    -
-                                                    <input type="search" class="form-control input-xsmall input-inline"
-                                                           placeholder="最高" aria-controls="sample_3">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-10">
-                                            <div class="dataTables_filter">
-                                                <div class="row">
-                                                    <div class="col-xs-1 pgt-time-tittle">
-                                                        <span>时间: </span>
-                                                    </div>
-                                                    <div class="col-xs-2 pgt-begin-date" style="position: relative">
-                                                        <input class="jcDate jcDateIco form-control input-small input-inline" >
-                                                    </div>
-                                                    <div class="col-xs-2 pgt-time" style="position: relative">
-                                                        <input type="search" class="form-control input-mini input-inline"
-                                                               placeholder="时" aria-controls="sample_3">
-                                                        :
-                                                        <input type="search" class="form-control input-mini input-inline"
-                                                               placeholder="分" aria-controls="sample_3">
-                                                    </div>
-
-                                                    <div class="col-xs-1 pgt-date-divide">
-                                                        <span>至</span>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        <input class="jcDate jcDateIco form-control input-small input-inline">
-                                                    </div>
-                                                    <div class="col-xs-2 pgt-time">
-                                                        <input type="search" class="form-control input-mini input-inline"
-                                                               placeholder="时" aria-controls="sample_3">
-                                                        :
-                                                        <input type="search" class="form-control input-mini input-inline"
-                                                               placeholder="分" aria-controls="sample_3">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-1">
-                                            <button class="btn blue">
-                                                搜索
-                                            </button>
-                                        </div>
-                                    </div>
                                     <div class="table-scrollable list-box">
                                         <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                                id="list" role="grid" aria-describedby="sample_3_info">

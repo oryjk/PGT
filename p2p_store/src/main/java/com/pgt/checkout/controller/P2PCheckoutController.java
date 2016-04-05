@@ -122,7 +122,7 @@ public class P2PCheckoutController {
         int tenderId = Integer.valueOf(tenderIdStr);
 
         // check if has not pay order
-        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER)) {
+        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER, 0)) {
             LOGGER.debug("user has incomplete order redirect to tender page");
             LOGGER.debug("============= P2PCheckoutController#createOrder end =============");
             // TODO redirect to tendId
@@ -285,7 +285,7 @@ public class P2PCheckoutController {
             return modelAndView;
         }
 
-        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER)) {
+        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER, order.getId())) {
             // TODO REDIRECT TO MY ORDERS
             modelAndView.setViewName("redirect:" + urlConfiguration.getShippingPage());
             modelAndView.addObject(CartConstant.ORDER_ID, order.getId());
@@ -471,7 +471,7 @@ public class P2PCheckoutController {
         int placeQuantity = Integer.valueOf(placeQuantityStr);
 
         // check if has not pay order
-        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER)) {
+        if (getOrderService().hasUncompleteOrder(user.getId().intValue(), OrderType.P2P_ORDER, 0)) {
             // TODOo redirect to tendId
         }
         // TODOo QUERY TENDER BY ID

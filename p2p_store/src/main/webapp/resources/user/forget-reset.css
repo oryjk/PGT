@@ -434,6 +434,7 @@ body {
   background: #f3f3f3; }
 
 .content {
+  overflow: hidden;
   margin: 20px auto 50px;
   padding-bottom: 50px;
   border: 1px solid #cccccc;
@@ -444,15 +445,21 @@ body {
     font-size: 20px;
     font-weight: 700; }
 
+.step-img {
+  margin-top: 50px;
+  height: 50px;
+  background: url("../core/images/shipping/b1.png") no-repeat 150px 0; }
+
 .step {
-  margin: 56px auto 70px;
-  width: 1200px;
+  margin: 0 auto 70px;
+  padding-left: 115px;
+  width: 1140px;
   height: 50px;
   text-align: center;
   background: white; }
   .step li {
     float: left;
-    width: 25%;
+    width: 21%;
     height: 100%;
     line-height: 50px; }
 

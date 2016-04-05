@@ -26,4 +26,6 @@ public interface ResponseConstant {
 	String PAWN_TICKET_PAGE = "pawnTicketPage";
 	String PAWN_TICKET = "pawnTicket";
 
+	String P2P_INFO = "p2pInfo";
+	String P2P_ORDER = "p2pOrder";
 }

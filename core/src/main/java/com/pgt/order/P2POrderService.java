@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -175,7 +176,7 @@ public class P2POrderService extends OrderService {
 
     private void maintainCommerceItem(Order order, P2PInfo info, List<Product> relatedProducts, String[] productIds) {
         double investTotal = info.getUnitPrice() * info.getPlaceQuantity();
-        // TODO ROUND;
+        investTotal = new BigDecimal(Double.toString(investTotal)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         double productTotal = 0D;
 
         List<CommerceItem> commerceItems = new ArrayList<CommerceItem>();
@@ -207,7 +208,7 @@ public class P2POrderService extends OrderService {
                 }
                 ci.setType(CommerceItem.TYPE_P2P_NOMAL);
                 productTotal += ci.getAmount();
-                //TODO ROUND
+                productTotal = new BigDecimal(Double.toString(productTotal)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 commerceItems.add(ci);
                 count++;
             }
@@ -222,7 +223,7 @@ public class P2POrderService extends OrderService {
             LOGGER.debug("item id=" + item.getId() + "; item type=" + item.getType() + "; amount=" + item.getAmount());
             orderTotal += item.getAmount();
         }
-        // TODO ROUND
+        orderTotal = new BigDecimal(Double.toString(orderTotal)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         LOGGER.debug("order subtotal=" + orderTotal);
         order.setSubtotal(orderTotal);
         double shippingFee = order.getShippingFee() == null ? 0D : order.getShippingFee();
@@ -263,7 +264,7 @@ public class P2POrderService extends OrderService {
                 ());
         double total = order.getTotal();
         double result = total * info.getHandlingFeeRate();
-        // TODO ROUND
+        result = new BigDecimal(Double.toString(result)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         LOGGER.debug(" HandlingFee result=" + result);
         return result;
     }
@@ -337,8 +338,8 @@ public class P2POrderService extends OrderService {
         double total = basePrice * (1 + interestRate);
         int effectDates = dateGap - prePeriod;
         LOGGER.debug("total=" + total + "; dateGap=" + dateGap + "; prePeriod=" + prePeriod + "; effectDates=" + effectDates);
-        double result = total * effectDates / DAYS_ONE_YEAR;
-        // TODO ROUND
+        double result = basePrice + total * effectDates / DAYS_ONE_YEAR;
+        result = new BigDecimal(Double.toString(result)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         LOGGER.debug("Incoming result=" + result);
         return result;
     }
@@ -358,7 +359,7 @@ public class P2POrderService extends OrderService {
         return result;
     }
 
-    private boolean completeOrder(Order order, boolean ocuppy, Date dueDate) {
+    public boolean completeOrder(Order order, boolean ocuppy, Date dueDate) {
         boolean result = true;
         if (ocuppy) {
             order.setStatus(OrderStatus.PENDING_SHIPPING);

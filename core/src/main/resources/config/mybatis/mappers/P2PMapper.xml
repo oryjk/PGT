@@ -29,7 +29,7 @@
     <resultMap id="tender" type="com.pgt.tender.bean.Tender">
         <id column="ID" property="tenderId"/>
         <result column="PAWN_SHOP_ID" property="pawnShopId"/>
-        <result column="PAWN_SHOP_OWNER_ID" property="pawnShopOwnerId"/>
+        <result column="PAWN_OWNER_ID" property="pawnShopOwnerId"/>
         <result column="PAWN_TICKET_ID" property="pawnTicketId"/>
         <result column="TENDER_TOTAL" property="tenderTotal"/>
         <result column="TENDER_QUANTITY" property="tenderQuantity"/>

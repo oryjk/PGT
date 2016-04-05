@@ -78,5 +78,5 @@ public interface ProductMapper extends SqlMapper {
 
     Integer queryProductTotal(SearchPaginationBean searchPaginationBean);
 
-    List<Product> queryProductByTenderId(@Param("tenderId") Integer tenderId);
+    List<P2PProduct> queryProductByTenderId(@Param("tenderId") Integer tenderId);
 }

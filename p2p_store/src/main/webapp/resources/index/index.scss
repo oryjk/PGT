@@ -10,6 +10,7 @@
 
 @include header;
 @include footer;
+@include side-bar;
 
 /*style
 **************************************************************************************************************************************************/
@@ -58,26 +59,36 @@
 /*our-goods
   ************************************************/
 .goods-box {
-  background: #f5f5f5;
+  background: white;
 }
 
 .our-goods {
-  margin: 0 auto;
+  margin: 10px auto;
   padding: 20px 0;
   @include wh($main-width-s, 70px);
 }
 
 .our-good {
   float: left;
-  @include wh(20%, 70px);
+  @include wh(20%, 90px);
 
+  img{
+    margin-top: 20px;
+  }
+
+  .good-text{
+    width:100%;
+    margin-left: 0;
+    text-align: center;
+  }
 
   .icon-box {
     float: left;
-    margin-right: 5px;
-    @include wh(70px, 100%);
+    margin-left: 60px;
+    @include wh(90px,90px);
     border-radius: 50px;
     line-height: 70px;
+    background: $main;
     text-align: center;
   }
 
@@ -88,9 +99,10 @@
 
   h4 {
     padding-top: 10px;
-    font-size: 16px;
+    font-size: 23px;
   }
   p {
+    color: #666;
     padding-top: 5px;
     font-size: 14px;
     line-height: 1.2;

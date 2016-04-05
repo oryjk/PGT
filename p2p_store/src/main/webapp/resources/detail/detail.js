@@ -138,7 +138,7 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
         });
 
         var setQuantity = function (obj, num) {
-            $(obj).parent('.each-item').find('.quantity').val(num);
+            $(obj).parents('.each-item').find('.quantity').val(num);
         };
 
 

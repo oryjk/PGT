@@ -169,9 +169,9 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
     }
 
     public Integer getDeadline() {
-        Integer end=0;
-        if(!ObjectUtils.isEmpty(dueDate)){
-            end=TenderDateUtils.getDaySub(new Date(),dueDate);
+        Integer end = 0;
+        if (!ObjectUtils.isEmpty(dueDate)) {
+            end = TenderDateUtils.getDaySub(new Date(), dueDate);
         }
         return end;
     }
@@ -236,6 +236,20 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
      * 剩余产品数量
      */
     private Integer productResidue;
+
+    /**
+     * 剩余多少天
+     */
+    private Long residueDate;
+
+    public Long getResidueDate() {
+        Date date = DateUtils.addDays(new Date(), getPostPeriod());
+        Long day = (dueDate.getTime() - date.getTime()) / (24 * 60 * 60 * 1000);
+        if (day > 0) {
+            return day;
+        }
+        return 0L;
+    }
 
 
     public Integer getTenderStatus() {

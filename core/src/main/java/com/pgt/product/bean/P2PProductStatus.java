@@ -13,6 +13,7 @@ public interface P2PProductStatus {
 
     //赎当状态
     int REDEEM_PAWNAGE = 30;
+    int COMMING_SOON = 0;
 
     //审核阶段
     int REVIEW_PAWNAGE = -10;

@@ -184,6 +184,7 @@
 		<property name="userOrderDao" ref="userOrderDao"/>
 		<property name="inventoryService" ref="inventoryService"/>
 		<property name="p2pMapper" ref="p2pMapper"/>
+		<property name="directTransactionYeepay" ref="directTransactionYeepay"/>
 	</bean>
 
 	<!-- yeepay direct config -->
@@ -238,5 +239,10 @@
 		<property name="requireRequestNo" value="true" />
 	</bean>
 
+	<bean id="directTransactionYeepay" parent="baseYeepay">
+		<property name="serviceName" value="DIRECT_TRANSACTION" />
+		<property name="paramValidateor" ref="emptyParamValidator" />
+		<property name="requireRequestNo" value="true" />
+	</bean>
 
 </beans>

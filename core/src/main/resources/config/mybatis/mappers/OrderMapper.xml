@@ -71,8 +71,10 @@
 	</update>
 
     <select id="getUncompleteOrderAmount" resultType="int">
+        <![CDATA[
         SELECT COUNT(ORDER_ID)
         FROM `ORDER`
-        WHERE USER_ID = #{userId} AND `TYPE` = #{type} AND STATUS = 20;
+        WHERE USER_ID = #{userId} AND `TYPE` = #{type} AND STATUS = 20 and ORDER_ID <> #{orderId}
+        ]]>
     </select>
 </mapper>

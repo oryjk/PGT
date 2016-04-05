@@ -1,6 +1,8 @@
 package com.pgt.tender.service;
 
+import com.pgt.product.bean.P2PProduct;
 import com.pgt.product.bean.Product;
+import com.pgt.product.dao.ProductMapper;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.bean.TenderCategory;
 import com.pgt.tender.bean.TenderQuery;
@@ -28,6 +30,9 @@ public class TenderService {
 
     @Autowired
     private TenderMapper tenderMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Autowired
     private TenderCategoryMapper tenderCategoryMapper;
@@ -99,6 +104,7 @@ public class TenderService {
         LOGGER.debug("Begin to update tender,the tender id is {}.", tender.getTenderId());
 
         Tender old_tender = tenderMapper.queryTenderById(tender.getTenderId(), false);
+        List<P2PProduct> products = productMapper.queryProductByTenderId(tender.getTenderId());
         if (!ObjectUtils.isEmpty(old_tender)) {
             TenderCategory tenderCategory = new TenderCategory();
 
@@ -115,6 +121,7 @@ public class TenderService {
         tender.setUpdateDate(new Date());
         tender.setHandlingFeeRate(tender.getHandlingFeeRate() * 0.01);
         tender.setInterestRate(tender.getInterestRate() * 0.01);
+        tender.setProducts(products);
         tenderMapper.updateTender(tender);
         LOGGER.debug("Success for update tender.");
         return tender.getTenderId();
