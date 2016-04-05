@@ -281,9 +281,7 @@
 
 						<div class="tender-time">
 							<span class="tender-time-title">倒计时:</span>
-							<jsp:useBean id="nowDate" class="java.util.Date"/>
-							<c:set value="${((tenderItem.tender.dueDate)/1000-(nowDate.time)/1000)/(1000 * 60 * 60 * 24)}" var="lastDay"/>
-							<span class="tender-time-value"><span><fmt:formatNumber value="${lastDay}" pattern="0" type="number"/></span>天</span>
+							<span class="tender-time-value">${tenderItem.tender.residueDate}</span>天</span>
 						</div>
 						<div class="tender-add-favorite">
 							<!-- 已加入收藏,则添加类tender-have-favorite-->

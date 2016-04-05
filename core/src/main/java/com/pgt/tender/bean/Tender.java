@@ -237,15 +237,19 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
      */
     private Integer productResidue;
 
-    public Integer getResidueDate() {
-
-        return residueDate;
-    }
-
     /**
      * 剩余多少天
      */
-    private Integer residueDate;
+    private Long residueDate;
+
+    public Long getResidueDate() {
+        Date date = DateUtils.addDays(new Date(), getPostPeriod());
+        Long day = (dueDate.getTime() - date.getTime()) / (24 * 60 * 60 * 1000);
+        if (day > 0) {
+            return day;
+        }
+        return 0L;
+    }
 
 
     public Integer getTenderStatus() {
