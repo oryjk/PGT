@@ -185,7 +185,7 @@
 </div>
 <!--process end-->
 <!--footer begin-->
-<div class="footer"></div>
+<jsp:include page="../core/footer-main.jsp"/>
 <!--footer end-->
 <jsp:include page="../core/baidu.jsp" />
 </body>
