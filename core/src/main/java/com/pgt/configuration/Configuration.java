@@ -35,6 +35,16 @@ public class Configuration {
 	private String imageFolder="/image/upload/";
 	private String staticServer="http://www.pgt_admin.com";
 	private Site currentSite;
+	private String host;
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
 	public static final String ADMIN_PHONENUMBER = "";
 
 	private boolean useProxy=true;

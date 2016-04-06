@@ -145,12 +145,12 @@
         <table>
             <tr class="input-row-1">
                 <th>新密码 :</th>
-                <td><input name="password"  class="input-text" type="text"/></td>
+                <td><input name="password"  class="input-text" type="password"/></td>
             </tr>
             <tr class="input-row-2">
                 <th>确认新密码 :</th>
                 <td>
-                    <input name="password2" class="input-text" type="text"/>
+                    <input name="password2" class="input-text" type="password"/>
                 </td>
             </tr>
             <tr class="input-row-3">

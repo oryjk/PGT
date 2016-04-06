@@ -1,5 +1,6 @@
 package com.pgt.social.controller;
 
+import com.pgt.configuration.Configuration;
 import com.pgt.constant.UserConstant;
 import com.pgt.integration.alipay.AlipaySubmit;
 import com.pgt.integration.alipay.MD5;
@@ -50,10 +51,14 @@ public class AliPayController {
     @Autowired
     private SSOService ssoService;
 
+    @Autowired
+    private Configuration configuration;
+
     private String partner = "2088021829216373";
     private String _input_charset = "utf-8";
     //private String return_url="http%3A%2F%2Fdev.p2p.dianjinzi.com%2FaliPayLogin%2FafterLogin";
-    private String return_url = "http://dev.p2p.dianjinzi.com/aliPayLogin/afterLogin";
+    private String return_url = "";
+    private String return_url_end = "/aliPayLogin/afterLogin";
     private String target_service = "user.auth.quick.login";
     private String service = "alipay.auth.authorize";
 
@@ -63,6 +68,7 @@ public class AliPayController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public void login(HttpServletRequest request, HttpServletResponse response) {
 
+        return_url = configuration.getHost()+return_url_end;
        // http://dev.p2p.dianjinzi.com/aliPayLogin/afterLogin?is_success=T&notify_id=RqPnCoPT3K9%252Fvwbh3InUHyGfw4ruXjdd6skyhuzURie4IrguwX2iwY0ac2LwAlo7GaPw&token=20160406514556a6dfc748348f8b36febe896X37&user_id=2088021829216373&sign=e1c82ad81dd6e4e2f5134605fb503a8d&sign_type=MD5
         Map<String, String> sParaTemp = new HashMap<String, String>();
         sParaTemp.put("service", "alipay.auth.authorize");
@@ -88,7 +94,7 @@ public class AliPayController {
             String token = (String)request.getParameter("token");
             user_id = "ali"+user_id;
             ThirdLogin thirdLogin = thirdLoginService.queryThirdLoginByOpenId(user_id);
-            Date expireIn = TenderDateUtils.convert(String.valueOf(new Date()));
+            Date expireIn = TenderDateUtils.convert(String.valueOf(new Date().getTime()));
             if(ObjectUtils.isEmpty(thirdLogin)){
                 LOGGER.debug("create thirdLogin");
                 UserInformation userInformation = new UserInformation();

@@ -8,7 +8,28 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<link rel="stylesheet" href="/resources/user/login.css"/>
-	<%--<link rel="stylesheet" href="/resources/core/header/header-con.css"/>--%>
+	<style>
+		.main,
+		.hover-main:hover {
+			color: #c90304;
+		}
+
+		.em,
+		.hover-em:hover {
+			color: #86b4ed;
+		}
+
+		.bg-main,
+		.hover-bg-main:hover {
+			background: #c90304;
+		}
+
+		.bg-em,
+		.hover-bg-em:hover {
+			background: #86b4ed;
+		}
+	</style>
+
 </head>
 <body>
 <div id="loading">
