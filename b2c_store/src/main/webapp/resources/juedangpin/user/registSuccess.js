@@ -24,7 +24,7 @@ require(['jquery'], function($) {
                 setTimeout(numDown5, 1000);
             } else {
                 //结束循环.
-                window.location = ''
+                window.location.href = '/'
             }
         }
     });

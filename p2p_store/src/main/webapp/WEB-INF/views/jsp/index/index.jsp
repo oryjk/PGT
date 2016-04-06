@@ -139,88 +139,31 @@
 		<div>在线典当</div>
 	</h2>
 	<ul class="pawn-point-list">
-		<li class="pawn-point-item pawn-point-item-current" style="background:url('../core/images/data/pawn-1.jpg') no-repeat 77% center">
-			<a class="pawn-point-link" href="#">
-				<div class="pawn-point-text">
-					<div class="pawn-point-head">房产典当</div>
-					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
-				</div>
-			</a>
-		</li>
-		<li class="pawn-point-item" style="background:url('../core/images/data/pawn-2.jpg') no-repeat 77% center">
-			<a class="pawn-point-link" href="#">
-				<div class="pawn-point-text">
-					<div class="pawn-point-head">贵金属典当</div>
-					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
-				</div>
-			</a>
-		</li>
-		<li class="pawn-point-item" style="background:url('../core/images/data/pawn-3.jpg') no-repeat 77% center">
-			<a class="pawn-point-link" href="#">
-				<div class="pawn-point-text">
-					<div class="pawn-point-head">珠宝典当</div>
-					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
-				</div>
-			</a>
-		</li>
-		<li class="pawn-point-item" style="background:url('../core/images/data/pawn-4.jpg') no-repeat 77% center">
-			<a class="pawn-point-link" href="#">
-				<div class="pawn-point-text">
-					<div class="pawn-point-head">车辆典当</div>
-					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
-				</div>
-			</a>
-		</li>
-		<li class="pawn-point-item" style="background:url('../core/images/data/pawn-5.jpg') no-repeat 77% center">
-			<a class="pawn-point-link" href="#">
-				<div class="pawn-point-text">
-					<div class="pawn-point-head">名表典当</div>
-					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
-				</div>
-			</a>
-		</li>
-		<li class="pawn-point-item" style="background:url('../core/images/data/pawn-6.jpg') no-repeat 77% center">
-			<a class="pawn-point-link" href="#">
-				<div class="pawn-point-text">
-					<div class="pawn-point-head">民用品典当</div>
-					<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
-				</div>
-			</a>
-		</li>
+		<c:forEach items="${livePawnList}" var="livePawn">
+			<li class="pawn-point-item pawn-point-item-current" style="background:url('${livePawn.frontMedia.path}') no-repeat 77% center;background-size:100% 100%">
+				<a class="pawn-point-link" href="#">
+					<div class="pawn-point-text">
+						<div class="pawn-point-head">${livePawn.name}</div>
+						<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
+					</div>
+				</a>
+			</li>
+		</c:forEach>
 	</ul>
 	<ul class="pawn-nav-list">
-		<li class="pawn-nav-item pawn-nav-current" data-value="0">
-			<a class="pawn-nav-link" href="#">立即了解</a>
-			<img class="pawn-nav-img" src="../core/images/data/pawn-1.jpg" alt=""/>
-		</li>
-		<li class="pawn-nav-item" data-value="1">
-			<a class="pawn-nav-link" href="#">立即了解</a>
-			<img class="pawn-nav-img" src="../core/images/data/pawn-2.jpg" alt=""/>
-		</li>
-		<li class="pawn-nav-item" data-value="2">
-			<a class="pawn-nav-link" href="#">立即了解</a>
-			<img class="pawn-nav-img" src="../core/images/data/pawn-3.jpg" alt=""/>
-		</li>
-		<li class="pawn-nav-item" data-value="3">
-			<a class="pawn-nav-link" href="#">立即了解</a>
-			<img class="pawn-nav-img" src="../core/images/data/pawn-4.jpg" alt=""/>
-		</li>
-		<li class="pawn-nav-item" data-value="4">
-			<a class="pawn-nav-link" href="#">立即了解</a>
-			<img class="pawn-nav-img pawn-nav-end" src="../core/images/data/pawn-5.jpg" alt=""/>
-		</li>
-		<li class="pawn-nav-item" data-value="5">
-			<a class="pawn-nav-link" href="#">立即了解</a>
-			<img class="pawn-nav-img pawn-nav-end" src="../core/images/data/pawn-6.jpg" alt=""/>
-		</li>
-
+		<c:forEach items="${livePawnList}" var="livePawn">
+			<li class="pawn-nav-item pawn-nav-current" data-value="0">
+				<a class="pawn-nav-link" href="#">立即了解${livePawn.frontMedia.id}</a>
+				<img class="pawn-nav-img" src="${livePawn.frontMedia.path}" alt=""/>
+			</li>
+		</c:forEach>
 	</ul>
 
 </div>
 <!--pawn end-->
 
 <!--category begin-->
-<div class="category">
+<div class="category" style="min-height:300px;">
 	<h2 class="headline">
 		<div>在当品预售</div>
 	</h2>
@@ -263,6 +206,26 @@
 <!--footer begin-->
 <jsp:include page="../core/footer-main.jsp"/>
 <!--footer end-->
+
+<!-- side-bar begin -->
+<div class="side-bar">
+	<a class="side-bar-img" href="#">
+		<img src="../core/images/side-bar/icon1.png" alt=""/>
+		<p>个人中心</p>
+	</a>
+	<a class="side-bar-img" href="#">
+		<img src="../core/images/side-bar/icon2.png" alt=""/>
+		<p>订单管理</p>
+	</a>
+	<a class="side-bar-img" href="#"><img src="../core/images/side-bar/icon3.png" alt=""/>
+		<p>最近浏览</p></a>
+	<a class="side-bar-img" href="#"><img src="../core/images/side-bar/icon4.png" alt=""/>
+		<p>我的收藏</p></a>
+	<a class="side-bar-img" href="#"><img src="../core/images/side-bar/icon6.png" alt=""/>
+		<p>客服中心</p></a>
+	<a class="side-bar-img" href="#"><img src="../core/images/side-bar/icon5.png" alt=""/>
+		<p>回到顶端</p></a>
+</div>
 
 <script src="/resources/core/js/require.js" data-main="/resources/index/index"></script>
 </body>

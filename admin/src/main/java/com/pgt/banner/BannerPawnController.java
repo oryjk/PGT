@@ -36,8 +36,6 @@ public class BannerPawnController  extends InternalTransactionBaseController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private  MediaService mediaService;
-    @Autowired
     private Configuration configuration;
 
     @RequestMapping(value = "/onlinepawmbannerList", method = RequestMethod.GET)

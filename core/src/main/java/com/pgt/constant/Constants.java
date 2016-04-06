@@ -114,5 +114,6 @@ public class Constants {
     public static final String ROOT_CATEGORY_ID = "rootCategoryId";
 
     public static final String BANNER = "banner";
+    public static final String LIVE_PAWN = "livePawnList";
     public static final String HEAD_TITLE = "headTitle";
 }

@@ -1,6 +1,8 @@
 package com.pgt.home;
 
+import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
+import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.Banner;
 import com.pgt.constant.Constants;
 import com.pgt.home.controller.BaseHomeController;
@@ -45,6 +47,7 @@ public class HomeController extends BaseHomeController {
         buildSiteOnSaleTender(modelAndView);
         buildRootCategory(modelAndView);
         buildCategoryOnSaleTender(modelAndView);
+        buildLivePawn(modelAndView);
         return modelAndView;
     }
 
@@ -58,6 +61,13 @@ public class HomeController extends BaseHomeController {
         modelAndView.addObject("categoryOnSaleTender", tenders);
         modelAndView.setViewName("/index/categoryOnSaleTender");
         return modelAndView;
+    }
+
+    @Autowired
+    private CategoryService categoryService;
+    private void buildLivePawn(ModelAndView modelAndView){
+        List<Category> livePawnList = categoryService.queryLivepawnCategroys();
+        modelAndView.addObject(Constants.LIVE_PAWN,livePawnList);
     }
 
     private void buildBanner(ModelAndView modelAndView) {
