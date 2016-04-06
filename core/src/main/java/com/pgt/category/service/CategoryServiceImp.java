@@ -97,18 +97,20 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
                 media.setReferenceId(category.getId());
                 mediaService.updateMedia(media);
             }
-
-            Media icon = mediaService.findMedia(category.getIconMedia().getId(), MediaType.icon);
-            if (!ObjectUtils.isEmpty(icon)) {
-                LOGGER.debug(" Create  category media,the category id is {}.", category.getId());
-                icon.setReferenceId(category.getId());
-                mediaService.updateMedia(icon);
+            if (!ObjectUtils.isEmpty(category.getIconMedia())) {
+                Media icon = mediaService.findMedia(category.getIconMedia().getId(), MediaType.icon);
+                if (!ObjectUtils.isEmpty(icon)) {
+                    LOGGER.debug(" Create  category media,the category id is {}.", category.getId());
+                    icon.setReferenceId(category.getId());
+                    mediaService.updateMedia(icon);
+                }
             }
+
 
             LOGGER.debug("End create category.");
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            getTransactionManager().rollback(transactionStatus);
+            transactionStatus.setRollbackOnly();
         } finally {
             getTransactionManager().commit(transactionStatus);
         }
@@ -158,7 +160,7 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     @Override
     public List<Category> queryAllTenderParentCategories() {
 
-        List<Category> categories=categoryMapper.queryAllTenderParentCategories();
+        List<Category> categories = categoryMapper.queryAllTenderParentCategories();
         return categories;
     }
 
@@ -213,7 +215,7 @@ public class CategoryServiceImp extends TransactionService implements CategorySe
     }
 
     @Override
-    public List<Category> queryOnlinePawnCategories () {
+    public List<Category> queryOnlinePawnCategories() {
         return categoryMapper.queryOnlinePawnCategories();
     }
 
