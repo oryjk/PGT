@@ -139,12 +139,12 @@
 		<div>在线典当</div>
 	</h2>
 	<ul class="pawn-point-list">
-		<c:forEach items="${livePawnList}" var="livePawn">
+		<c:forEach items="${livePawnList}" var="livePawn" varStatus="status">
 			<li class="pawn-point-item pawn-point-item-current" style="background:url('${livePawn.frontMedia.path}') no-repeat 77% center;background-size:100% 100%">
 				<a class="pawn-point-link" href="#">
 					<div class="pawn-point-text">
 						<div class="pawn-point-head">${livePawn.name}</div>
-						<div class="pawn-point-content">专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅速放款.典当率高.专业的房产典当,当天迅</div>
+						<div class="pawn-point-content">${livePawn.description}</div>
 					</div>
 				</a>
 			</li>
@@ -153,7 +153,7 @@
 	<ul class="pawn-nav-list">
 		<c:forEach items="${livePawnList}" var="livePawn">
 			<li class="pawn-nav-item pawn-nav-current" data-value="0">
-				<a class="pawn-nav-link" href="#">立即了解${livePawn.frontMedia.id}</a>
+				<a class="pawn-nav-link" href="/pawnPersonInfo/createPawnPersonInfo?url=${livePawn.frontMedia.path}&type=${livePawn.name}">立即了解${livePawn.frontMedia.id}</a>
 				<img class="pawn-nav-img" src="${livePawn.frontMedia.path}" alt=""/>
 			</li>
 		</c:forEach>

@@ -71,6 +71,13 @@
                                     </p>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">分类描述:</label>
+                                <div class="col-md-4">
+                                    <form:input type="text" class="form-control" placeholder="6个字以下" path="description"/>
+                                    </p>
+                                </div>
+                            </div>
                             <div style="margin-top: 320px"></div>
                         </div>
                         <!-- super:修改产品时才出现下面一个div.form-group-->

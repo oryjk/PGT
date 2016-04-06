@@ -56,12 +56,11 @@ require(['jquery', 'component', 'ajax'], function($, Cpn, Ajax) {
 
         var pawnPointList = $('.pawn-point-item');
         var pawnNavList = $('.pawn-nav-item');
+        pawnPointList.hide();
+        pawnPointList.eq(0).show();
         pawnNavList.mouseenter(function () {
-            var $this = $(this);
-            var i = $this.attr('data-value');
-            pawnNavList.removeClass('pawn-nav-current');
-            $this.addClass('pawn-nav-current');
-            pawnPointList.hide().eq(i).fadeIn(1000);
+            pawnPointList.hide();
+            pawnPointList.eq($(this).index()).show();
         })
     });
 

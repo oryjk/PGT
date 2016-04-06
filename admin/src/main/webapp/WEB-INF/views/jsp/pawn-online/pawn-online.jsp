@@ -65,6 +65,9 @@
                                                     类型
                                                 </th>
                                                 <th>
+                                                    描述
+                                                </th>
+                                                <th>
                                                     图片
                                                 </th>
 
@@ -78,6 +81,9 @@
                                             <tr class="gradeX odd" role="row">
                                                     <td>
                                                         ${categorie.name}
+                                                    </td>
+                                                    <td>
+                                                        ${categorie.description}
                                                     </td>
                                                     <td class="face-box">${categorie.frontMedia.id}
                                                         <img src="${categorie.frontMedia.path}" alt=""  style="width: 320px;height: 200px;"/>
