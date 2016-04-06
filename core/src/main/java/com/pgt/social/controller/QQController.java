@@ -154,7 +154,7 @@ public class QQController {
             }
         } catch (QQConnectException e) {
         }
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("/user/successLogin");
         return modelAndView;
     }
 
