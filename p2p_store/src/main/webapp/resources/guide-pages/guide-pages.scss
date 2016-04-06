@@ -1,0 +1,83 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+@include header;
+@include footer-con;
+
+/*style
+**************************************************************************************************************************************************/
+.head-content{
+  overflow: hidden;
+
+  a{
+    float: right;
+    margin:50px 70px 0 0;
+    padding-bottom: 20px;
+    font-size: 20px;
+    color: #000;
+
+    &:hover{
+      color: #ff4040;
+      background: url("../core/images/guide-pages/xian2.png") no-repeat 4px 30px;
+    }
+
+  }
+
+  .head-hover{
+    color: #ff4040;
+    background: url("../core/images/guide-pages/xian.png") no-repeat 4px 30px;
+
+    &:hover{
+      background: url("../core/images/guide-pages/xian.png") no-repeat 4px 30px;
+    }
+  }
+
+
+}
+
+
+/*banner
+*******************************************************/
+.banner-box {
+  position: relative;
+  height: 561px;
+}
+
+.banner {
+  @include wh(100%, 100%);
+
+  a {
+    display: none;
+    position: absolute;
+    @include wh(100%, 100%);
+  }
+}
+
+.banner-nav {
+  position: absolute;
+  right: 15%;
+  bottom: 3%;
+
+  li {
+    float: left;
+    margin-right: 5px;
+    @include wh(30px, 8px);
+    border-radius: 3px;
+    background: #6c6c6c;
+    text-indent: -5000px;
+    cursor: pointer;
+  }
+
+  .banner-nav-current {
+    background: white;
+  }
+}
+/* banner end
+*********************************************************/
