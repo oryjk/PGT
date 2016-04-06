@@ -6,6 +6,7 @@ include 'p2p_store'
 include 'mobile'
 include 'passport'
 include 'utils'
+include 'advertisement'
 
 
 
