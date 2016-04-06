@@ -50,6 +50,10 @@
 
       a {
         color: #6c6c6c;
+        margin-left: 5px;
+        &:hover{
+          color: $main;
+        }
       }
     }
 
