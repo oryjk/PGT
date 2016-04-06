@@ -8,7 +8,7 @@
 <jsp:include page="../core/head.jspf">
 	<jsp:param name="cssPath" value="/index/index.css"/>
 	<jsp:param name="title" value="点金子网旗下绝当品销售平台"/>
-	<jsp:param name="keywords" value="点金子,绝当淘,绝当品,绝当品销售,绝当品商城,当铺,典当行,典当行销售,当铺销售,绝当淘网上商城,绝当淘绝当品商城"/>
+	<jsp:param name="keywords" value="点金子,点金子典当,典当,典当行,当铺,在线典当,在线典当商城,绝当品,绝当品商城,绝当品预售,网上抵押借款,网上当铺,网上典当,闲置物品变现,闲置物品典当,文玩在线鉴定,珠宝在线鉴定"/>
 	<jsp:param name="description" value="点金子网旗下绝当品商城，专业绝当品销售，绝当品保真价优，珠宝销售、钻石销售、翡翠销售、玉石销售、文玩销售。"/>
 </jsp:include>
 <body>
