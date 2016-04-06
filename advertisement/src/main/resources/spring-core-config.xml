@@ -156,6 +156,19 @@
 
 
     <bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
+
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/"/>
+        <property name="velocityProperties">
+            <props>
+                <prop key="default.contentType">text/html; charset=utf-8</prop>
+                <prop key="output.encoding">utf-8</prop>
+                <prop key="input.encoding">utf-8</prop>
+            </props>
+        </property>
+    </bean>
+
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.mxhichina.com"/>
         <property name="username" value="service@dianjinzi.com"/>
@@ -167,28 +180,17 @@
             </props>
         </property>
     </bean>
-
-
-    <bean id="B2COrderService" class="com.pgt.order.service.B2COrderService">
-        <property name="orderStatusMapping">
-            <map>
-                <entry key="10" value="待提交"/>
-                <entry key="20" value="待付款"/>
-                <entry key="25" value="待完成支付"/>
-                <entry key="30" value="待收货"/>
-                <entry key="100" value="已完成"/>
-                <entry key="-10" value="已取消"/>
-            </map>
+    <bean id="JavaMailSenderImpl" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/"/>
+        <property name="velocityProperties">
+            <props>
+                <prop key="default.contentType">text/html; charset=utf-8</prop>
+                <prop key="output.encoding">utf-8</prop>
+                <prop key="input.encoding">utf-8</prop>
+            </props>
         </property>
     </bean>
 
-    <bean class="com.pgt.executor.processor.InstantiationTracingBeanPostProcessor">
-        <property name="initializationHandlers">
-            <array>
-                <ref bean="adminSessionPathInitHandler"/>
-            </array>
-        </property>
-    </bean>
     <bean class="com.pgt.data.index.service.AllIndexService">
         <property name="searchEngineServiceList">
             <list value-type="com.pgt.search.service.AbstractSearchEngineService">
@@ -200,5 +202,4 @@
         </property>
     </bean>
 
-    <bean id="adminSessionPathInitHandler" class="com.pgt.executor.handler.AdminSessionPathInitHandler"/>
 </beans>
