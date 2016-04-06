@@ -57,5 +57,5 @@ public interface CategoryMapper extends SqlMapper {
 
     List<Category> queryCategoryByQuery(CategoryQuery categoryQuery);
 
-
+    List<Category> queryLivepawnCategroys();
 }

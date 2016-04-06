@@ -107,6 +107,7 @@
 
 /*color-btn*/
 @mixin color-btn($w, $h, $border-radius, $font-size, $color, $hover-color) {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -119,8 +120,24 @@
   text-align: center;
   cursor: pointer;
 
+  .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include wh($w, $h);
+    border-radius: $border-radius;
+    background: rgba(255,255,255,.2);
+    transform: scaleX(0);
+    transition: transform .3s;
+  }
+
   &:hover {
     background: $hover-color;
+
+    .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s;
+    }
   }
 }
 

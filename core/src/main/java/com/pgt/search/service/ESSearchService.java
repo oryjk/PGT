@@ -377,8 +377,10 @@ public class ESSearchService extends AbstractSearchEngineService {
     }
 
     public void createCategoryIndex(Category category) {
-
-
+        if (ObjectUtils.isEmpty(category)) {
+            LOGGER.debug("The category is empty.");
+            return;
+        }
         ObjectMapper mapper = new ObjectMapper();
         try {
             byte[] rootByte = mapper.writeValueAsBytes(category);

@@ -478,6 +478,23 @@
                         </li>
                     </c:if>
 
+                    <c:if test="${roleValue eq 9}">
+                        <li class="menu-dropdown classic-menu-dropdown ">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                               href="javascript:;">
+                                在线典当 <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/banner/onlinepawmbannerList">
+                                        <i class="fa-angle-right"></i>
+                                        典当banner设置
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:if>
+
                     <!-- !!!list 系统设置-->
                     <c:if test="${roleValue eq 9}">
                         <li class="menu-dropdown classic-menu-dropdown ">

@@ -40,7 +40,9 @@
 				<c:choose>
 					<c:when test="${empty tenderFav}">
 						<a class="invest-add-favorite" href="javascript:void(0);" data-id=""
-						   data-pid="${ESTender.tender.tenderId}" data-type="6" data-processed="false">添加收藏</a>
+						   data-pid="${ESTender.tender.tenderId}" data-type="6" data-processed="false">
+							<span class="color-hover"></span>
+							添加收藏</a>
 					</c:when>
 					<c:otherwise>
 						<a class="invest-add-favorite" href="javascript:void(0);" data-id="${tenderFav.id}"
@@ -83,15 +85,18 @@
 	</div>
 	<div class="item-nav">
 		<ul id="itemNavBox" style="left: 0;top: 0;">
-			<c:forEach items="${ESTender.tender. p2pHeroMedias}" var="media">
+			<c:forEach items="${ESTender.tender.p2pHeroMedias}" var="media">
 				<li><a href="#"><img src="${media.path}" alt="${ESTender.tender.imageDesc}"/></a></li>
 			</c:forEach>
 		</ul>
 		<a class="item-nav-right" id="itemNavRight" href="javascript:void(0);"></a>
 		<a class="item-nav-left" id="itemNavLeft" href="javascript:void(0);"></a>
 	</div>
-
-	<img class="what-is-this" src="" alt=""/>
+	<c:if test="${!empty ESTender.tender.description}">
+		<div class="what-is-this">
+				${ESTender.tender.description}
+		</div>
+	</c:if>
 
 </div>
 <!--invest-part end-->
@@ -182,27 +187,45 @@
 							<div class="col-content">现在下单,预计<span>2016年2月18日</span>送达</div>
 						</div>
 						<div class="item-row-6">
-							<div class="col-title">金额:</div>
+							<div class="col-title">单个金额:</div>
 							<div class="col-content">
 								<span class="item-cost">¥</span><span class="item-cost">${product.salePrice}</span>
 							</div>
 						</div>
-						<div class="item-row-7">
-							<div class="col-title">数量:</div>
-							<div class="col-content">
-								<span class="item-buy-count">1</span>
+						<c:choose>
+							<c:when test="${product.stock<1 || ESTender.tender.residueDate<1}">
+							</c:when>
+							<c:otherwise>
+								<div class="item-row-7">
+									<div class="col-title">数量:</div>
+									<div class="col-content">
 
-								<div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a
-										class="item-buy-minus" href="javascript:void(0);">-</a>
+										<span class="item-buy-count">1</span>
+
+										<div class="plus-and-minus"><a class="item-buy-plus" href="javascript:void(0);">+</a><a
+												class="item-buy-minus" href="javascript:void(0);">-</a>
+										</div>
+										( 库存数量:<span class="item-surplus-count">${product.stock}</span> )
+									</div>
 								</div>
-								( 库存数量:<span class="item-surplus-count">${product.stock}</span> )
-							</div>
-						</div>
+							</c:otherwise>
+						</c:choose>
+
+
 						<div class="item-row-8">
 							<div class="col-title">&nbsp; </div>
 							<div class="col-content">
-								<a class="item-sold-out">已结束</a>
-								<a class="item-buy-now" id="item-buy-now" href="#">立即抢订</a>
+
+								<c:choose>
+									<c:when test="${product.stock<1 || ESTender.tender.residueDate<1}">
+										<a class="item-sold-out">已结束</a>
+									</c:when>
+									<c:otherwise>
+										<a class="item-buy-now" id="item-buy-now" href="#">
+											<span class="color-hover"></span>
+											立即抢订</a>
+									</c:otherwise>
+								</c:choose>
 									<%-- product favourite --%>
 								<c:forEach var="fav" items="${productFavourites}">
 									<c:if test="${fav.productId eq product.productId}">
@@ -212,11 +235,14 @@
 								<c:choose>
 									<c:when test="${empty productFav}">
 										<a class="item-join-favorite" href="javascript:void(0);" data-id=""
-										   data-pid="${product.productId}" data-type="5" data-processed="false">添加收藏</a>
+										   data-pid="${product.productId}" data-type="5" data-processed="false">
+											<span class="color-hover"></span>
+											添加收藏
+										</a>
 									</c:when>
 									<c:otherwise>
 										<a class="item-join-favorite" href="javascript:void(0);"
-										   data-id="${productFav.id}"
+										   data-id="${productFav.id}" :q
 										   data-pid="${product.productId}" data-type="5" data-processed="true">已收藏</a>
 									</c:otherwise>
 								</c:choose>

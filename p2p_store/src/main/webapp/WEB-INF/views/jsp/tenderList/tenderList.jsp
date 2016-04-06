@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -47,7 +48,7 @@
 		<div class="filter-title">
 			<span class="filter-name">${param.keyword}</span>
 			<span class="filter-title-headline">商品筛选</span>
-			<span class="filter-count">共计<span>100</span>个项目</span>
+			<span class="filter-count">共计<span>${fn:length(tenderListResult)}</span>个项目</span>
 		</div>
 		<div class="filter-content">
 			<div class="filter-content-row">
@@ -61,7 +62,7 @@
 								<c:forEach var="sub" items="${item.children}">
 									<li class="filter-sub-item">
 										<a class="filter-sub-link"
-										   href="/tender/tenderList?sort=${param.sort}&page=${param.page}&keyword=${param.keyword}&tenderFilter=${param.tenderFilter}&cid=${sub.id}&ctype=TENDER_HIERARCHY&">橄榄核桃系列</a>
+										   href="/tender/tenderList?sort=${param.sort}&page=${param.page}&keyword=${param.keyword}&tenderFilter=${param.tenderFilter}&cid=${sub.id}&ctype=TENDER_HIERARCHY&">${sub.name}</a>
 									</li>
 								</c:forEach>
 							</ul>
@@ -240,10 +241,7 @@
 			</div>
 
 
-			<!-- super:项目下没有时显示no-tender-->
-			<div class="no-tender" style="display: block">
-				<p class="no-tender-text">对不起,该项目下暂时没有内容,以下是为您推荐的项目:</p>
-			</div>
+
 
 			<ul class="tender-list">
 				<c:forEach items="${tenderListResult}" var="tenderItem">
@@ -259,7 +257,7 @@
 						</c:when>
 					</c:choose>
 					<li class="tender-item ${tenderStatus}">
-						<div class="tender-img-box">
+						<a class="tender-img-box" href="/tender/${tenderItem.tender.tenderId}">
 							<img class="tender-img" src="${tenderItem.tender.p2pFrontMedia.path}" alt="${tenderItem.tender.name}"/>
 
 							<div class="tender-status"></div>
@@ -277,15 +275,13 @@
 									<div class="tender-about-title">已购人数</div>
 								</div>
 							</div>
-						</div>
+						</a>
 
 						<p class="tender-name"><a class="tender-name-link" href="#">${tenderItem.tender.name}</a></p>
 
 						<div class="tender-time">
 							<span class="tender-time-title">倒计时:</span>
-							<jsp:useBean id="nowDate" class="java.util.Date"/>
-							<c:set value="${((tenderItem.tender.dueDate)/1000-(nowDate.time)/1000)/(1000 * 60 * 60 * 24)}" var="lastDay"/>
-							<span class="tender-time-value"><span><fmt:formatNumber value="${lastDay}" pattern="0" type="number"/></span>天</span>
+							<span class="tender-time-value">${tenderItem.tender.residueDate}</span>天</span>
 						</div>
 						<div class="tender-add-favorite">
 							<!-- 已加入收藏,则添加类tender-have-favorite-->

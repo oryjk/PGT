@@ -75,6 +75,14 @@
 		<collection property="productTotal" column="CATEGORY_ID" select="queryProductTotalByCategoryId"/>
 	</resultMap>
 
+	<resultMap id="LivepawnCategroyBannerCategoryResult" type="com.pgt.category.bean.Category">
+		<id column="CATEGORY_ID" property="id"/>
+		<result column="NAME" property="name"></result>
+		<result column="TYPE" property="type"></result>
+		<association property="frontMedia" column="CATEGORY_ID"
+					 select="queryLivepawnCategroyBanner"/>
+	</resultMap>
+
 	<resultMap id="resultProduct" type="com.pgt.product.bean.Product">
 		<id column="PRODUCT_ID" property="productId"/>
 		<result column="NAME" property="name"></result>
@@ -212,6 +220,17 @@
         ORDER BY 'index'
         asc
     </select>
+
+	<select id="queryLivepawnCategroys" resultMap="LivepawnCategroyBannerCategoryResult">
+		SELECT * FROM CATEGORIES WHERE type='livepawn_categroy_banner'
+	</select>
+	<select id="queryLivepawnCategroyBanner" parameterType="int" resultMap="productMedia">
+		SELECT *
+        FROM MEDIA
+        WHERE reference_id = #{categoryId} AND TYPE='livepawn_categroy_banner'
+        ORDER BY 'index'
+        asc
+	</select>
 
 	<select id="queryCategoryHierarchy" parameterType="int" resultMap="CategoryHierarchyResult">
         SELECT CATEGORY_ID,NAME,TYPE,PARENT_CATEGORY_ID FROM CATEGORIES WHERE CATEGORY_ID=#{categoryId}
