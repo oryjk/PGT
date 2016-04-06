@@ -1,16 +1,15 @@
-@charset "UTF-8";
 /*import
 **************************************************************************************************************************************************/
-.header .top-content, .about-us, .approve, .content {
+.header .top-content {
   *zoom: 1; }
-  .header .top-content:after, .about-us:after, .approve:after, .content:after, .header .top-content:before, .about-us:before, .approve:before, .content:before {
+  .header .top-content:after, .header .top-content:before {
     content: " ";
     display: table;
     clear: both; }
 
-.header .top-content, .about-us, .approve, .content {
+.header .top-content {
   *zoom: 1; }
-  .header .top-content:after, .about-us:after, .approve:after, .content:after, .header .top-content:before, .about-us:before, .approve:before, .content:before {
+  .header .top-content:after, .header .top-content:before {
     content: " ";
     display: table;
     clear: both; }
@@ -22,16 +21,16 @@
 /*page-box*/
 /*pop-up*/
 /*file*/
-.header .top-content, .about-us, .approve, .content {
+.header .top-content {
   *zoom: 1; }
-  .header .top-content:after, .about-us:after, .approve:after, .content:after, .header .top-content:before, .about-us:before, .approve:before, .content:before {
+  .header .top-content:after, .header .top-content:before {
     content: " ";
     display: table;
     clear: both; }
 
-.header .top-content, .about-us, .approve, .content {
+.header .top-content {
   *zoom: 1; }
-  .header .top-content:after, .about-us:after, .approve:after, .content:after, .header .top-content:before, .about-us:before, .approve:before, .content:before {
+  .header .top-content:after, .header .top-content:before {
     content: " ";
     display: table;
     clear: both; }
@@ -155,8 +154,6 @@ a {
 .show-inline {
   display: inline; }
 
-/*part
-**************************************************************************************************************************************************/
 .header {
   background: white; }
   .header .top-banner {
@@ -297,205 +294,136 @@ a {
     font-weight: 400;
     color: white; }
 
+/*  footer begin
+******************************************************************************/
 .footer {
-  background: #3f3f3f; }
+  width: 100%;
+  background: #3b3b3b; }
 
-.goods-box {
-  background: #cccccc; }
-
-.us {
-  position: relative; }
-
-/*our-goods
-  ************************************************/
-.our-goods {
+.footer-main {
   margin: 0 auto;
-  padding: 20px 0;
-  width: 1040px;
-  height: 70px; }
+  width: 1200px;
+  height: 245px; }
 
-.our-good {
+.footer-main-left {
   float: left;
-  width: 20%;
-  height: 70px; }
-  .our-good .icon-box {
-    float: left;
-    width: 70px;
-    height: 100%;
-    border-radius: 50px;
-    background: #c90304;
-    line-height: 70px;
-    text-align: center; }
-  .our-good i {
-    color: white;
-    font-size: 35px; }
+  width: 500px;
+  height: 80px; }
+  .footer-main-left .footer-title {
+    padding: 30px 0 0 40px;
+    font-size: 16px;
+    color: #e6e6e6; }
+  .footer-main-left .footer-help {
+    padding-top: 20px;
+    height: 160px;
+    font-size: 14px;
+    color: #909090; }
+    .footer-main-left .footer-help ul {
+      float: left;
+      padding-left: 40px; }
+    .footer-main-left .footer-help li {
+      padding-top: 10px;
+      display: block;
+      text-align: center; }
+      .footer-main-left .footer-help li a {
+        color: #909090; }
+        .footer-main-left .footer-help li a:hover {
+          color: #e6e6e6; }
 
-/*2维码*/
-.two-dimension {
-  width: 100px;
-  height: 100px;
-  opacity: 0;
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0) \9;
-  position: absolute;
-  top: 0;
-  left: 100px; }
-
-.our-app a:hover .two-dimension {
-  opacity: 1;
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100) \9;
-  transition: opacity 1s linear; }
-
-.good-text {
-  margin-left: 80px;
-  padding-top: 10px; }
-  .good-text h4 {
-    color: black;
-    font-size: 16px; }
-  .good-text p {
-    padding-top: 5px;
-    color: #000;
+.footer-main-right {
+  float: right;
+  margin-top: 70px;
+  width: 340px;
+  height: 130px;
+  background: #3e3e3e;
+  border: 1px solid #5c5c5c; }
+  .footer-main-right p {
+    margin: 10px 0;
+    padding-left: 45px;
+    color: #909090;
     font-size: 14px; }
+  .footer-main-right .footer-main-right-title {
+    padding: 10px 25px;
+    color: #e6e6e6;
+    font-size: 16px; }
+  .footer-main-right .footer-main-right-p1 {
+    background: url("../core/images/footer/phone.png") no-repeat 25px 0; }
+  .footer-main-right .footer-main-right-p2 {
+    background: url("../core/images/footer/e-mail.png") no-repeat 25px 0; }
+  .footer-main-right .footer-main-right-p3 {
+    background: url("../core/images/footer/add.png") no-repeat 25px 0; }
 
-/*about-us
-  ************************************************/
-.about-us {
-  margin: 0 auto;
-  padding: 20px 0;
-  width: 1040px; }
-  .about-us h3 {
-    padding-bottom: 10px;
-    color: #cccccc; }
-  .about-us a {
-    color: #cccccc;
-    font-size: 13px; }
-    .about-us a:hover {
-      color: white; }
-  .about-us p {
-    color: #cccccc;
-    font-size: 13px;
-    line-height: 1.6; }
-  .about-us ul {
-    float: left;
-    width: 15%;
-    list-style: none; }
-  .about-us li {
-    padding: 2px 0; }
-  .about-us .us {
-    margin-left: 60%; }
-  .about-us .our-app {
-    float: right;
-    width: 50%; }
-  .about-us .apple-dimension,
-  .about-us .android-dimension,
-  .about-us .online-server,
-  .about-us .online-server {
-    float: left;
-    display: block;
-    margin-bottom: 10px;
-    width: 50%;
+.footer-bottom {
+  width: 100%;
+  background: #333; }
+  .footer-bottom .footer-bottom-mid {
+    margin: 0 auto;
+    width: 1200px;
+    height: 35px;
+    color: #909090;
+    font-size: 12px;
+    line-height: 35px;
     text-align: center; }
-    .about-us .apple-dimension .app-icon,
-    .about-us .android-dimension .app-icon,
-    .about-us .online-server .app-icon,
-    .about-us .online-server .app-icon {
-      margin-bottom: 5px;
-      width: 40px;
-      height: 40px; }
+  .footer-bottom .footer-bottom-img {
+    padding: 10px 0 0  450px;
+    height: 50px; }
+    .footer-bottom .footer-bottom-img img {
+      float: left;
+      margin-left: 10px; }
 
-/*approve-box
-  ************************************************/
-.approve-box {
-  background: #333333;
-  padding: 20px 0 5px;
-  text-align: center; }
-  .approve-box p {
-    padding-top: 5px;
-    color: #cccccc;
-    font-size: 13px; }
+/*    footer end
+  *********************************************************************/
+/*style
+**************************************************************************************************************************************************/
+.head-content {
+  overflow: hidden; }
+  .head-content a {
+    float: right;
+    margin: 50px 70px 0 0;
+    padding-bottom: 20px;
+    font-size: 20px;
+    color: #000; }
+    .head-content a:hover {
+      color: #ff4040;
+      background: url("../core/images/guide-pages/xian2.png") no-repeat 4px 30px; }
+  .head-content .head-hover {
+    color: #ff4040;
+    background: url("../core/images/guide-pages/xian.png") no-repeat 4px 30px; }
+    .head-content .head-hover:hover {
+      background: url("../core/images/guide-pages/xian.png") no-repeat 4px 30px; }
 
-.approve {
-  margin: 0 auto;
-  width: 240px; }
-  .approve a {
-    float: left;
-    padding-right: 20px;
-    width: 100px;
-    height: 30px; }
-  .approve img {
+/*banner
+*******************************************************/
+.banner-box {
+  position: relative;
+  height: 561px; }
+
+.banner {
+  width: 100%;
+  height: 100%; }
+  .banner a {
+    display: none;
+    position: absolute;
     width: 100%;
     height: 100%; }
 
-/*style
-**************************************************************************************************************************************************/
-body {
-  background: #f3f3f3; }
-
-.content {
-  margin: 20px auto 20px;
-  border: 1px solid #cccccc;
-  width: 1200px;
-  box-shadow: 0 0 2px 2px #cccccc;
-  background: #eaedf4; }
-  .content .main-area {
+.banner-nav {
+  position: absolute;
+  right: 15%;
+  bottom: 3%; }
+  .banner-nav li {
     float: left;
-    border-left: 1px solid #cccccc;
-    padding: 0 40px 40px;
-    width: 906px;
-    min-height: 733px;
+    margin-right: 5px;
+    width: 30px;
+    height: 8px;
+    border-radius: 3px;
+    background: #6c6c6c;
+    text-indent: -5000px;
+    cursor: pointer; }
+  .banner-nav .banner-nav-current {
     background: white; }
-  .content .main-head {
-    padding: 26px 0 0 13px;
-    font-size: 18px; }
-  .content .menu {
-    float: left;
-    width: 213px; }
-    .content .menu .user-face {
-      height: 200px;
-      border-bottom: 1px solid #cccccc; }
-    .content .menu .img-box {
-      margin: 0 auto;
-      padding-top: 25px;
-      width: 116px;
-      height: 116px; }
-      .content .menu .img-box img {
-        display: block;
-        width: 100%;
-        height: 100%; }
-    .content .menu .face-title {
-      padding-top: 10px;
-      text-align: center; }
-    .content .menu .menu-list {
-      padding: 32px 0;
-      border: 1px solid #cccccc; }
-      .content .menu .menu-list a {
-        display: block;
-        height: 40px;
-        border-top: 1px solid #eaedf4;
-        border-bottom: 1px solid #eaedf4;
-        border-left: 5px solid #eaedf4;
-        padding-left: 42px;
-        color: black;
-        line-height: 40px;
-        font-size: 16px; }
-        .content .menu .menu-list a:hover {
-          color: #c90304; }
-      .content .menu .menu-list .menu-choose {
-        border-top: 1px solid #cccccc;
-        border-bottom: 1px solid #cccccc;
-        border-left: 5px solid #c90304;
-        background: white; }
-        .content .menu .menu-list .menu-choose:hover {
-          color: black; }
-    .content .menu .menu-two-dimension {
-      padding-top: 15px; }
-      .content .menu .menu-two-dimension img {
-        margin: 0 auto;
-        display: block;
-        width: 133px;
-        height: 133px; }
-      .content .menu .menu-two-dimension p {
-        padding-top: 10px;
-        text-align: center;
-        font-size: 14px; }
 
-/*# sourceMappingURL=../../maps/my-account/my_account_base.css.map */
+/* banner end
+*********************************************************/
+
+/*# sourceMappingURL=../../maps/guide-pages/guide-pages.css.map */

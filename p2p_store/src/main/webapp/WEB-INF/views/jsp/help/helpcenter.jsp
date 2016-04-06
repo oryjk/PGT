@@ -39,7 +39,7 @@
 <!--header begin-->
 <jsp:include page="../core/header-main.jsp"/>
 <!--header end-->
-
+<c:set var="first" value=""/>
 <!-- content begin -->
 <div class="content">
     <ul class="content-nav">
@@ -47,8 +47,8 @@
             <li class="content-nav-title"><h2>${categoryVo.category.name}</h2></li>
             <c:forEach items="${categoryVo.helpCenterList}" var="helpVo" varStatus="status">
                 <c:if test="${not empty helpVo}">
-                    <c:if test="${status.first}">
-                        <c:set var="first" scope="request" value="${helpVo.id}"/>
+                    <c:if test="${status.index == 1}">
+                        <c:set var="first" value="${helpVo.id}"/>
                     </c:if>
                     <c:if test="${helpCenter.id == helpVo.id}">
                         <li class="content-nav-active"><a href="/helpcenter/${helpVo.id}">${helpVo.title}</></li>
@@ -82,6 +82,6 @@
     //not regex return -1 else > 0
     if(window.location.href.indexOf("query") > 0){
         //跳转到菜单第一位li元素
-        window.location.href = "/helpcenter/<c:out value="${first}"/>";
+        window.location.href = "/helpcenter/${first}";
     }
 </script>

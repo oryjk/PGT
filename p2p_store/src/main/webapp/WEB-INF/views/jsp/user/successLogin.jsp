@@ -47,8 +47,8 @@
 	var time = document.getElementById('time');
 	var timeout = function () {
 		time.innerHTML --;
-		if (time.innerHTML == 0) {
-			window.location = '';
+		if (time.innerHTML <= 0) {
+			window.location.href = '/';
 		}
 		window.setTimeout(timeout, 1000);
 	};

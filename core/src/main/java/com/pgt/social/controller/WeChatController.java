@@ -112,9 +112,9 @@ public class WeChatController {
             String requestInfo= "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid;
             String responseInfo = doGet(requestInfo,createMap);
             JSONObject info = new JSONObject(responseInfo);
-            Object nickname = (Object) info.get("nickname");
-            Object sex = (Object) info.get("sex");
-            Object headimgurl = (Object) info.get("headimgurl");
+            Object nickname = (Object) info.getString("nickname");
+            Object sex = (Object) info.getInt("sex");
+            Object headimgurl = (Object) info.getString("headimgurl");
 
 
             if (ObjectUtils.isEmpty(thirdLogin)) {
@@ -173,9 +173,10 @@ public class WeChatController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+       // modelAndView.setViewName("/user/successLogin");
 
-
-        modelAndView.setViewName("redirect:/");
+       // modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("/user/successLogin");
         return modelAndView;
     }
 

@@ -53,7 +53,7 @@ public class UserServiceImp extends TransactionService implements UserService {
             userMapper.create(user);
         } catch (Exception e) {
             LOGGER.error("The error message is {}.", e.getMessage());
-            getTransactionManager().rollback(transactionStatus);
+            transactionStatus.setRollbackOnly();
         } finally {
             getTransactionManager().commit(transactionStatus);
         }
