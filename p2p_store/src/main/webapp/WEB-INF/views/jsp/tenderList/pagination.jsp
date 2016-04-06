@@ -83,15 +83,10 @@
 		<span>${totalPage}</span>
 	</div>
 	<div class="page-goto">
-		<form action="/tender/tenderList" method="get">
-			<input type="hidden" name="keyword" value="${param.keyword}">
-			<input type="hidden" name="sort" value="${param.sort}">
-			<input type="hidden" name="tenderFilter" value="${param.tenderFilter}">
-			<span>跳转至</span>
-			<input class="page-which" name="page" type="text"/>
-			<span>页</span>
-			<input class="page-goto-btn" type="submit" value="跳转"/>
-		</form>
+		<span>跳转至</span>
+		<input class="page-which" id="page" type="text"/>
+		<span>页</span>
+		<input class="page-goto-btn" type="submit" value="跳转"/>
 	</div>
 </div>
 
@@ -105,5 +100,11 @@
 	</c:if>
 	<c:if test="${not empty param.tenderFilter}">
 		+ "&tenderFilter=${param.tenderFilter}"
+	</c:if>
+	<c:if test="${not empty param.ctype}">
+		+ "&ctype=${param.ctype}"
+	</c:if>
+	<c:if test="${not empty param.cid}">
+		+ "&cid=${param.cid}"
 	</c:if>
 </script>
