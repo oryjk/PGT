@@ -63,6 +63,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		<property name="imagePath" value="${imagePath}"></property>
 		<property name="imageFolder" value="${imageFolder}"></property>
 		<property name="currentSite" value="P2P"></property>
+		<property name="host" value="http://dev.p2p.dianjinzi.com"></property>
 		<property name="pawnType">
 			<map>
 				<entry key="jewellery" value="珠宝"></entry>

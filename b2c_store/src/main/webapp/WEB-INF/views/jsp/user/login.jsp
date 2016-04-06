@@ -62,6 +62,7 @@
                 <a href="/qqLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/QQ.png"/>"></a>
                 <a href="/weChatLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/wet.jpg"/>"></a>
                 <a href="/microBlogLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/sina.jpg"/>"></a>
+                <a href="/aliPayLogin/login"><img src="<spring:url value="${juedangpinStaticPath}/core/images/user/pay.jpg"/>"></a>
             </div>
         </form:form>
 

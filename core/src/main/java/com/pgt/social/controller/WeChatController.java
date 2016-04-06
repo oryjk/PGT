@@ -1,5 +1,6 @@
 package com.pgt.social.controller;
 
+import com.pgt.configuration.Configuration;
 import com.pgt.constant.UserConstant;
 import com.pgt.sso.service.SSOService;
 import com.pgt.user.bean.ThirdLogin;
@@ -59,9 +60,14 @@ public class WeChatController {
     @Autowired
     private SSOService ssoService;
 
+    @Autowired
+    private Configuration configuration;
+
     private String appId = "wxc0ba761c7a33d4d5";
 
-    private String redirect_uri = "http%3A%2F%2Fdev.p2p.dianjinzi.com%2FweChatLogin%2FafterLogin";
+    private String redirect_uri ="";
+
+    private String redirect_uri_end = "/weChatLogin/afterLogin";
 
     private String appSecret="dc2dbef683fcc208e7710889fe2dc920";
 
@@ -69,6 +75,7 @@ public class WeChatController {
     public void login(HttpServletRequest request, HttpServletResponse response) {
         try {
 
+            redirect_uri = configuration.getHost()+redirect_uri_end;
             WeChatAutho weChatAutho = new WeChatAutho();
             String sessionId = request.getSession().getId();
             String m = weChatAutho.GetWeiXinCode(appId, DigestUtils.md5Hex(sessionId), redirect_uri);
