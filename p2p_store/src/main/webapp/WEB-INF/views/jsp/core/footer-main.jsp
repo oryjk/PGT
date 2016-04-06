@@ -1,69 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="footer" id="footer">
-    <div class="goods-box">
-        <div class="our-goods">
-            <div class="our-good">
-                <div class="icon-box">
-                    <i class="foundicon-people"></i>
-                </div>
-                <div class="good-text">
-                    <h4>专家鉴定</h4>
 
-                    <p>专业鉴定团队</p>
-
-                    <p>安全可靠</p>
-                </div>
-            </div>
-            <div class="our-good">
-                <div class="icon-box">
-                    <i class="foundicon-heart"></i>
-                </div>
-                <div class="good-text">
-                    <h4>用心推荐</h4>
-
-                    <p>我们的专心和用心</p>
-
-                    <p>您的放心</p>
-                </div>
-            </div>
-            <div class="our-good">
-                <div class="icon-box">
-                    <i class="foundicon-star"></i>
-                </div>
-                <div class="good-text">
-                    <h4>五星级服务</h4>
-
-                    <p>线上线下服务同步</p>
-
-                    <p>广受好评</p>
-                </div>
-            </div>
-            <div class="our-good">
-                <div class="icon-box">
-                    <i class="foundicon-clock"></i>
-                </div>
-                <div class="good-text">
-                    <h4>发货及时</h4>
-
-                    <p>每天四次发货</p>
-
-                    <p>便捷高效</p>
-                </div>
-            </div>
-            <div class="our-good">
-                <div class="icon-box">
-                    <i class="foundicon-smiley"></i>
-                </div>
-                <div class="good-text">
-                    <h4>快乐购物</h4>
-
-                    <p>体会快乐的购物</p>
-
-                    <p>期待您的笑脸</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="about-us">
         <ul>

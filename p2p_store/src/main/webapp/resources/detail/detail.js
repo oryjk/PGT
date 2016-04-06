@@ -58,13 +58,16 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
             var popFormDom = document.getElementById('popForm');
             var popTips = $('#popTips');
             var userId;
+            var productName;
 
             $(document).on('click', '.touch-him', function (event) {
                 event.preventDefault();
                 popFormDom.reset();
                 popFormCleanTips();
-
+                userId=$(this).attr('data-value');
+                productName=$(this).attr('data-product-name');
                 pop.fadeIn(300);
+
             });
             close.click(function () {
                 pop.fadeOut(300);
@@ -81,17 +84,20 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
                 if (/1[0-9]{10}$/.test(sayPhone.val())) {
                     //请在此处写上正确的ajax方法
                     $.ajax({
+                        type: "POST",
+                        url: "/sms/sendToBuyer",
                         data: {
-                            phone: sayPhone.val(),
-                            text: sayText.val(),
-                            userId: userId
+                            buyerNumber: sayPhone.val(),
+                            message: sayText.val(),
+                            sellerId: userId,
+                            productName: productName
                         }
                     }).done(function (res) {
-                        if (res.flag == 1) {
+                        if (res.success.equals('true')) {
                             popTips.html('提交成功');
                             setTimeout(function () {
                                 pop.fadeOut(300);
-                            },1000);
+                            }, 1000);
                         } else {
                             popTips.html('提交失败');
                         }
@@ -107,12 +113,6 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
                 popTips.html('')
             }
         }());
-
-
-
-
-
-
 
 
         $(".detail-content>ul>li").click(function (event) {

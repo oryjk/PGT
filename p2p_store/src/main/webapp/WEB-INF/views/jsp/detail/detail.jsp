@@ -366,7 +366,7 @@
 
 		<!-- content-joiner begin-->
 		<div class="content-joiner ">
-			<a class="touch-him" href="#">
+			<a class="touch-him" href="#" data-value="" data-product-name="">
 				<img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
 
 				<div class="joiner-info">
@@ -547,6 +547,36 @@
 		<a class="turn-left" href="#"></a>
 	</c:otherwise>
 </c:choose>
+<div id="popUp" class="pop-up">
+	<div class="wrap">
+		<div class="inner">
+			<h3>
+				<span id="popTitle" class="pop-title">与他联系</span>
+				<span id="popClose" class="close">X</span>
+			</h3>
+			<form id="popForm" class="pop-content" action="">
+
+				<div class="pop-address-title">您的手机号: <span class="pop-error" id="sayError"></span></div>
+				<div class="pop-address-value"><input name="phone" id="sayPhone" class="pop-phone" type="text" maxlength="11"/></div>
+
+				<div class="pop-address-title">想对他说的话: </div>
+				<div class="pop-address-value">
+					<div class="pop-text-box">
+						<textarea name="text" id="sayText" class="pop-text"></textarea>
+					</div>
+				</div>
+
+				<div class="pop-address-value">备注: 请输入对他的留言, 我们将尽快向他转答.</div>
+
+				<div class="pop-btn">
+					<span id="popTips" class="pop-tips"></span>
+					<input id="popSubmit" class="pop-confirm" type="button" value="确认"/>
+					<input id="popReset" class="pop-cancel" type="reset" value="取消"/>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <!-- turn left and right end-->
 
