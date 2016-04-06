@@ -14,10 +14,10 @@
 	<logger name="org.springframework" level="info" additivity="false">
 		<appender-ref ref="STDOUT"/>
 	</logger>
-	<logger name="com.pgt" level="debug" additivity="false">
+	<logger name="com.pgt" level="info" additivity="false">
 		<appender-ref ref="STDOUT"/>
 	</logger>
-	<logger name="org.mybatis" level="debug" additivity="false">
+	<logger name="org.mybatis" level="info" additivity="false">
 		<appender-ref ref="STDOUT"/>
 	</logger>
 
