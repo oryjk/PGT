@@ -19,7 +19,9 @@ require(['jquery', 'component', 'ajax', 'vue', 'normalInit'], function ($, Cpn, 
             $(this).removeClass('filter-item-hover');
         })
 
-
-
+        $(".page-link").click(function () {
+            var currenthref =  $(this).attr("href");
+            $(this).attr("href",currenthref + filter_obj);
+        })
     });
 });
