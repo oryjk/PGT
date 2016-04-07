@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgt.order.dao.P2POrderDao">
+
+	<sql id="limit-split-page">
+		<if test="@Ognl@isNotBlankString(pagination.sortFieldName)">
+			ORDER BY ${pagination.sortFieldName}
+			<if test="!pagination.asc">
+				DESC
+			</if>
+		</if>
+		<if test="!pagination.invalidPagination">
+			LIMIT #{pagination.sqlStartIndex}, #{pagination.capacity}
+		</if>
+	</sql>
+
+	<sql id="query-order-condition">
+		<if test="@Ognl@isValidId(vo.orderId)">
+			AND o.ORDER_ID = #{vo.orderId}
+		</if>
+		<if test="@Ognl@isNotBlankString(vo.userName)">
+			AND u.LOGIN LIKE CONCAT('%', #{vo.userName}, '%')
+		</if>
+		<if test="vo.priceBeg != null">
+			AND o.TOTAL &gt;= #{vo.priceBeg}
+		</if>
+		<if test="vo.priceEnd != null">
+			AND o.TOTAL &lt;= #{vo.priceEnd}
+		</if>
+		<if test="vo.submitTimeBeg != null">
+			AND o.SUBMIT_DATE &gt;= #{vo.submitTimeBeg}
+		</if>
+		<if test="vo.submitTimeEnd != null">
+			AND o.SUBMIT_DATE &lt;= #{vo.submitTimeEnd}
+		</if>
+	</sql>
+
+	<select id="queryP2POrderCount" resultType="long">
+		SELECT COUNT(o.ORDER_ID)
+		FROM `ORDER` o
+		LEFT JOIN `USERS` u ON u.USER_ID = o.USER_ID
+		WHERE 1 = 1
+		AND o.TYPE = 2
+		AND o.STATUS &gt; 10
+		<include refid="query-order-condition" />
+	</select>
+
+	<select id="queryP2POrderPage" resultMap="com.pgt.cart.dao.UserOrderDao.orderWithCommerceItem">
+		SELECT o.*
+		FROM `ORDER` o
+		LEFT JOIN `USERS` u ON u.USER_ID = o.USER_ID
+		WHERE 1 = 1
+		AND o.TYPE = 2
+		AND o.STATUS &gt; 10
+		<include refid="query-order-condition" />
+		<include refid="limit-split-page" />
+	</select>
+
+	<insert id="createDelivery">
+		INSERT INTO COMMERCE_ITEM_DELIVERY (`COMMERCE_ITEM_ID`, `CONSIGNOR`, `DELIVERED`, `RECEIVED`, `LOGISTICS`, `DELIVERY_TIME`, `TRACKING_NO`)
+		VALUES
+			(#{commerceItemId}, #{consignor}, #{delivered}, #{received}, #{logistics}, #{deliveryTime}, #{trackingNo} )
+			 ON DUPLICATE KEY
+			    UPDATE
+			    `CONSIGNOR`     = #{consignor},
+			    `DELIVERED`     = #{delivered},
+			    `RECEIVED`      = #{received},
+			    `LOGISTICS` = #{logistics},
+			 `DELIVERY_TIME` = #{deliveryTime},
+			 `TRACKING_NO` = #{trackingNo}
+	</insert>
+
+	<update id="updateCommerceItemAsReceived" parameterType="int">
+		UPDATE COMMERCE_ITEM_DELIVERY
+		<set>
+			`RECEIVED` = 1
+		</set>
+		WHERE `COMMERCE_ITEM_ID` = #{commerceItemId};
+	</update>
+</mapper>
