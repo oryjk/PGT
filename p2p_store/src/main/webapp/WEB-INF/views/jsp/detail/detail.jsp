@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/tags" prefix="date" %>
 <!DOCTYPE html>
@@ -109,7 +110,7 @@
 		<li><a href="javascripyt:(0);">产品详情</a></li>
 		<li><a href="javascripyt:(0);">产品咨询</a><span class="tab-item-count">250</span></li>
 		<li><a href="javascripyt:(0);">产品讨论</a><span class="tab-item-count">250</span></li>
-		<li><a href="javascripyt:(0);">参与者</a><span class="tab-item-count">250</span></li>
+		<li><a href="javascripyt:(0);">参与者</a><span class="tab-item-count">${fn:length(ESTender.buyerMap)}</span></li>
 	</ul>
 	<div class="content-box">
 		<!-- super: 以下五个tab对应的content,添加类content-choose时显示,不添加时隐藏,默认第一个显示-->

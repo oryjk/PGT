@@ -263,7 +263,14 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, category, rootCategory, null, null, null);
+            List<Map<String, Object>> tenders = SearchConvertToList.searchConvertToList(findTenderById(tender.getTenderId()));
+            if (CollectionUtils.isEmpty(tenders)) {
+                return;
+            }
+            Map<String, Object> tenderMap = tenders.get(0);
+            List<Map<String, String>> buyerMap = tenderService.queryBuyersByTenderId(tender.getTenderId());
+            ESTender esTender = new ESTender(tender, category, rootCategory, buyerMap, Integer.valueOf(String.valueOf(tenderMap.get("preId"))),
+                    Integer.valueOf(String.valueOf(tenderMap.get("nextId"))));
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -293,12 +300,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         IndexResponse response = null;
         try {
             LOGGER.debug("Tender id is {}.", tender.getTenderId());
-            Category category = tender.getCategory();
-            Category rootCategory = null;
-            if (!ObjectUtils.isEmpty(category)) {
-                rootCategory = category.getParent();
-            }
-            ESTender esTender = new ESTender(tender, category, rootCategory, null, null, null);
+            ESTender esTender = createESTender(tender);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -321,6 +323,17 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             e.printStackTrace();
         }
         return response;
+    }
+
+    private ESTender createESTender(Tender tender) {
+        Category category = tender.getCategory();
+        Category rootCategory = null;
+        if (!ObjectUtils.isEmpty(category)) {
+            rootCategory = category.getParent();
+        }
+        Tender lastTender = tenderService.findSecondLastTender();
+        return new ESTender(tender, category, rootCategory, null, lastTender.getTenderId(), null);
+
     }
 
 
