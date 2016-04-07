@@ -10,6 +10,8 @@ import com.pgt.search.procedure.RecommendIndexProcedure;
 import com.pgt.utils.SearchConvertToList;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -138,6 +140,14 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
         if (response.isCreated()) {
             LOGGER.debug("Success to update RecommendedProduct.");
         }
+    }
+
+    public void daleteRecommendProduct(Integer recommendedProductId) {
+        if (ObjectUtils.isEmpty(recommendedProductId)) {
+            LOGGER.debug("The recommendedProductId is empty,do not run delete process.");
+            return;
+        }
+        deleteIndex(String.valueOf(recommendedProductId), esConfiguration.getAdvertisementIndexName(), esConfiguration.getRecommendProductTypeName());
     }
 
 
