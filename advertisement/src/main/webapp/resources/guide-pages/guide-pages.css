@@ -497,6 +497,8 @@ body {
       height: 265px; }
       .content-product .content-product-box .content-product-box-left img,
       .content-product .content-product-box .content-product-box-right img {
+        width: 200px;
+        height: 200px;
         border: 1px solid #ccc; }
       .content-product .content-product-box .content-product-box-left p,
       .content-product .content-product-box .content-product-box-right p {
