@@ -90,7 +90,7 @@ public class P2POrderController extends InternalTransactionBaseController implem
 		int orderIdInt = RepositoryUtils.safeParseId(orderId);
 		Order order = getB2COrderService().loadOrder(orderIdInt);
 		P2PInfo info = getP2pOrderService().queryP2PInfoByOrderId(orderIdInt);
-		ModelAndView mav = new ModelAndView("/p2p-order/order-detail");
+		ModelAndView mav = new ModelAndView("p2p-order/p2p-order");
 		mav.addObject(ResponseConstant.P2P_ORDER, order);
 		mav.addObject(ResponseConstant.P2P_INFO, info);
 		return mav;
@@ -106,7 +106,7 @@ public class P2POrderController extends InternalTransactionBaseController implem
 		getP2pOrderService().completeOrder(order, occupy, new Date());
 		order = getB2COrderService().loadOrder(orderId);
 		P2PInfo info = getP2pOrderService().queryP2PInfoByOrderId(orderId);
-		ModelAndView mav = new ModelAndView("/p2p-order/order-detail");
+		ModelAndView mav = new ModelAndView("p2p-order/p2p-order");
 		mav.addObject(ResponseConstant.P2P_ORDER, order);
 		mav.addObject(ResponseConstant.P2P_INFO, info);
 		return mav;
@@ -122,7 +122,7 @@ public class P2POrderController extends InternalTransactionBaseController implem
 		int status = Integer.valueOf(statusStr);
 		getB2COrderService().updateOrderStatus(orderId, status);
 		P2PInfo info = getP2pOrderService().queryP2PInfoByOrderId(orderId);
-		ModelAndView mav = new ModelAndView("/p2p-order/order-detail");
+		ModelAndView mav = new ModelAndView("p2p-order/p2p-order");
 		mav.addObject(ResponseConstant.P2P_ORDER, order);
 		mav.addObject(ResponseConstant.P2P_INFO, info);
 		return mav;

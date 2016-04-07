@@ -20,15 +20,15 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li class="active">
-                <a href="/order-p2p/order-list">订单列表</a>
+                <a href="/order-p2p/order-list">P2P订单列表</a>
                 <i class="fa fa-circle"></i>
             </li>
             <c:choose>
                 <c:when test="${param.step eq 'info'}">
-                    <li>订单详情</li>
+                    <li>P2P订单详情</li>
                 </c:when>
                 <c:when test="${param.step eq 'delivery'}">
-                    <li>修改发货信息</li>
+                    <li>P2P修改发货信息</li>
                 </c:when>
             </c:choose>
         </ul>

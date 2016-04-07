@@ -13,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="pagination" value="${p2pOrderPage}" scope="request"/>
 
-<pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/order-list.js">
+<pgt:container id="content" loadJsDateInput="true" pageJsPath="/resources/order/p2p-order-list.js">
     <jsp:include page="include/bread-crumb-row.jspf"/>
     <div class="row" style="display: none;">
         <div class="col-xs-12">
@@ -29,13 +29,13 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-cogs font-green-sharp"></i>
-                        <span class="caption-subject font-green-sharp bold uppercase">订单列表 </span>
+                        <span class="caption-subject font-green-sharp bold uppercase">P2P订单列表 </span>
                     </div>
                     <div class="actions btn-set">
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <form action="/order/order-list">
+                    <form action="/order-p2p/order-list">
                         <input type="hidden" name="currentIndex" value="${param.currentIndex}"/>
                         <input type="hidden" name="capacity" value="${param.capacity}"/>
 
@@ -179,7 +179,8 @@
                                     <td>${order.commerceItemCount}</td>
                                     <td><fmt:formatNumber value="${order.total}" pattern="0.00" type="number"/></td>
                                     <td>${order.userId}</td>
-                                    <td><a href="/order/order-info?id=${order.id}" class="btn btn-xs btn-circle">查看</a>
+                                    <td><a href="/order-p2p/order-info?id=${order.id}"
+                                           class="btn btn-xs btn-circle">查看</a>
                                     </td>
                                     <td>
                                         <div class="btn-group">
@@ -247,11 +248,11 @@
                     </div>
 
                         <%-- pagination row --%>
-                    <form action="/order/order-list" method="get">
+                    <form action="/order-p2p/order-list" method="get">
                         <div class="row">
                             <jsp:include page="include/pagination-capacity-selection.jsp">
                                 <jsp:param name="paginationURL"
-                                           value="/order/order-list?id=${param.id}&userName=${param.userName}&priceBeg=${param.priceBeg}&priceEnd=${param.priceEnd}&submitTimeBeg=${param.submitTimeBeg}&submitTimeEnd=${param.submitTimeEnd}"/>
+                                           value="/order-p2p/order-list?id=${param.id}&userName=${param.userName}&priceBeg=${param.priceBeg}&priceEnd=${param.priceEnd}&submitTimeBeg=${param.submitTimeBeg}&submitTimeEnd=${param.submitTimeEnd}"/>
                             </jsp:include>
                         </div>
                         <input type="hidden" name="id" value="${param.id}"/>

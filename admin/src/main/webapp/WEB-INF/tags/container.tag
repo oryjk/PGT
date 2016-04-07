@@ -554,7 +554,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/domain/b2c">
+                                    <a href="/domain/advertismentB2C">
                                         <i class="fa-angle-right"></i>
                                         在当淘推荐
                                     </a>
