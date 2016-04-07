@@ -275,4 +275,9 @@
 	<select id="queryTenderByProductId" parameterType="int" resultMap="tenderResult">
 		SELECT * FROM TENDER t LEFT JOIN PRODUCT p ON t.ID=p.TENDER_ID WHERE p.PRODUCT_ID=#{productId}
 	</select>
+	<select id="findSecondLastTender" resultMap="tenderResult">
+		select * from tender where id=(SELECT id FROM tender where 1 order by id desc limit 1,1)
+	</select>
+
+
 </mapper>

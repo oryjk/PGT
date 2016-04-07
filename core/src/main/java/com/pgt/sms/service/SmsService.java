@@ -148,7 +148,13 @@ public class SmsService {
             return;
         }
         try {
-            sendSms(phoneNumber, tenderBuyer.getMessage() + configuration.getSendToBuyer(), tenderBuyer.getBuyerNumber());
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append("您好，您在点金子网购买的");
+            stringBuffer.append(tenderBuyer.getProductName());
+            stringBuffer.append("有其他的用户对这件宝贝很感兴趣，以下是他对您说的：");
+            stringBuffer.append(tenderBuyer.getMessage());
+            stringBuffer.append(configuration.getSendToBuyer());
+            sendSms(phoneNumber, stringBuffer.toString(), tenderBuyer.getBuyerNumber());
         } catch (IOException e) {
             e.printStackTrace();
         }
