@@ -12,6 +12,8 @@ mobile/mobile.iml
 .idea
 p2p_store/src/main/webapp/node_modules
 b2c_store/src/main/webapp/node_modules
+advertisement/src/main/webapp/node_modules
+
 b2c_store/src/main/webapp/resources/image/upload
 mobile/src/main/webapp/resources/image/upload
 pgt.ipr
