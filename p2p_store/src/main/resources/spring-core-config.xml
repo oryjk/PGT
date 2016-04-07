@@ -198,4 +198,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 			</list>
 		</property>
 	</bean>
+
+	<bean id="PawnDataList" class="com.pgt.data.PawnDataList" scope="singleton"/>
+	<bean class="com.pgt.data.PawnDataListener"/>
 </beans>

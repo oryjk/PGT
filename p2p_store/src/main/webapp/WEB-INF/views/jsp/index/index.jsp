@@ -138,7 +138,7 @@
 	<h2 class="headline">
 		<div>在线典当</div>
 	</h2>
-	<ul class="pawn-point-list">
+	<ul class="pawn-point-list" style="overflow: hidden">
 		<c:forEach items="${livePawnList}" var="livePawn" varStatus="status">
 			<li class="pawn-point-item pawn-point-item-current" style="background:url('${livePawn.frontMedia.path}') no-repeat 77% center;background-size:100% 100%">
 				<a class="pawn-point-link" href="#">

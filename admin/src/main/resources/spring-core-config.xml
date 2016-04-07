@@ -210,4 +210,5 @@
     </bean>
 
     <bean id="adminSessionPathInitHandler" class="com.pgt.executor.handler.AdminSessionPathInitHandler"/>
+    <bean id="VelocityEngine" class="org.apache.velocity.app.VelocityEngine"/>
 </beans>

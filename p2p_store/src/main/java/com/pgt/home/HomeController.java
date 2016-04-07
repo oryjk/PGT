@@ -1,10 +1,13 @@
 package com.pgt.home;
 
+import com.alibaba.fastjson.JSONObject;
 import com.pgt.category.bean.Category;
 import com.pgt.category.bean.CategoryType;
 import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.Banner;
 import com.pgt.constant.Constants;
+import com.pgt.data.PawnDataList;
+import com.pgt.data.PawnService;
 import com.pgt.home.controller.BaseHomeController;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.CategorySearchEngineService;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,9 +69,9 @@ public class HomeController extends BaseHomeController {
     }
 
     @Autowired
-    private CategoryService categoryService;
+    private PawnService pawnService;
     private void buildLivePawn(ModelAndView modelAndView){
-        List<Category> livePawnList = categoryService.queryLivepawnCategroys();
+        List<Category> livePawnList = pawnService.findAllPawnCategroys();
         modelAndView.addObject(Constants.LIVE_PAWN,livePawnList);
     }
 
