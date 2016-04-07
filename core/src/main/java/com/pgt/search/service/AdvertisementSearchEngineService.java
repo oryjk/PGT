@@ -10,8 +10,6 @@ import com.pgt.search.procedure.RecommendIndexProcedure;
 import com.pgt.utils.SearchConvertToList;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -95,6 +93,11 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
         LOGGER.debug("End to category index.");
     }
 
+    /**
+     * This method is used to create a RecommendedProduct in elasticsearch.
+     *
+     * @param recommendedProduct
+     */
     public void createRecommendProduct(RecommendedProduct recommendedProduct) {
         if (ObjectUtils.isEmpty(recommendedProduct)) {
             LOGGER.debug("The recommend product is empty.");
@@ -118,7 +121,11 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
         }
     }
 
-
+    /**
+     * This method is used to update a RecommendedProduct in elasticsearch.
+     *
+     * @param recommendedProduct
+     */
     public void updateRecommendProduct(RecommendedProduct recommendedProduct) {
         if (ObjectUtils.isEmpty(recommendedProduct)) {
             LOGGER.debug("The recommend product is empty.");
@@ -142,6 +149,11 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
         }
     }
 
+    /**
+     * This method is used to remove a RecommendedProduct from elasticsearch.
+     *
+     * @param recommendedProductId
+     */
     public void daleteRecommendProduct(Integer recommendedProductId) {
         if (ObjectUtils.isEmpty(recommendedProductId)) {
             LOGGER.debug("The recommendedProductId is empty,do not run delete process.");
@@ -151,6 +163,12 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
     }
 
 
+    /**
+     * This method is used to find recommendedProducts from elasticsearch.
+     *
+     * @param productType allow null
+     * @return
+     */
     public List<Map<String, Object>> findRecommendProducts(ProductType productType) {
 
         try {
@@ -160,7 +178,9 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
                             .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
-            qb.must(matchQuery("productType", productType));
+            if (!ObjectUtils.isEmpty(productType)) {
+                qb.must(matchQuery("productType", productType));
+            }
             FieldSortBuilder sortBuilder = new FieldSortBuilder("sort");
             sortBuilder.order(SortOrder.ASC);
             sortBuilder.unmappedType("long");
