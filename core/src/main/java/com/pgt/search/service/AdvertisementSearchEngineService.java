@@ -179,7 +179,7 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
             BoolQueryBuilder qb = boolQuery();
             searchRequestBuilder.setQuery(qb);
             if (!ObjectUtils.isEmpty(productType)) {
-                qb.must(matchQuery("productType", productType));
+                qb.filter(matchQuery("productType", productType));
             }
             FieldSortBuilder sortBuilder = new FieldSortBuilder("sort");
             sortBuilder.order(SortOrder.ASC);
