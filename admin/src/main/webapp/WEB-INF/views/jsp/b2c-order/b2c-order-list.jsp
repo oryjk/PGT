@@ -29,7 +29,7 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-cogs font-green-sharp"></i>
-                        <span class="caption-subject font-green-sharp bold uppercase">订单列表 </span>
+                        <span class="caption-subject font-green-sharp bold uppercase">B2C订单列表 </span>
                     </div>
                     <div class="actions btn-set">
                     </div>
@@ -195,6 +195,9 @@
                                                     </c:when>
                                                     <c:when test="${order.status eq 30}">
                                                         <span>已付款</span>
+                                                    </c:when>
+                                                    <c:when test="${order.status eq 50}">
+                                                        <span>待发货</span>
                                                     </c:when>
                                                     <c:when test="${order.status eq 80}">
                                                         <span>已发货</span>
