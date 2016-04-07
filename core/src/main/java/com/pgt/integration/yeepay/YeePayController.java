@@ -511,7 +511,7 @@ public class YeePayController {
 
         Map<String, Object> detail = new HashMap<String, Object>();
         detail.put(YeePayConstants.PARAM_NAME_BIZ_TYPE, YeePayConstants.BIZ_TYPE_TRANSFER);
-        detail.put(YeePayConstants.PARAM_NAME_TARGET_USER_TYPE, YeePayConstants.USER_TYPE_MEMBER);
+        detail.put(YeePayConstants.PARAM_NAME_TARGET_USER_TYPE, YeePayConstants.USER_TYPE_MERCHANT);
         detail.put(YeePayConstants.PARAM_NAME_TARGET_PLATFORM_USER_NO, getConfig().getTargetPlatformUserNo());
         detail.put(YeePayConstants.PARAM_NAME_AMOUNT, String.valueOf(order.getTotal()));
         detailMap.put(YeePayConstants.PARAM_NAME_DETAIL, detail);

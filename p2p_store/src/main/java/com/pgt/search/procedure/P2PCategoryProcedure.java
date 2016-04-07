@@ -25,7 +25,7 @@ import java.util.List;
  * Created by carlwang on 3/20/16.
  */
 @Service
-public class P2PCategoryProcedure implements IndexProcedure {
+public class P2PCategoryProcedure implements CategoryIndexProcedure {
     private static final Logger LOGGER = LoggerFactory.getLogger(P2PCategoryProcedure.class);
     @Autowired
     private CategoryHelper categoryHelper;

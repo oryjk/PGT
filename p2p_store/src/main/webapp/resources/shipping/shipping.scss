@@ -73,6 +73,18 @@ a {
     background: url("../core/images/shipping/add.png") no-repeat 70px -1px;
   }
 
+  .pop-up{
+    margin-left: -250px;
+    width: 500px;
+    height: 300px;
+    background: red;
+    position: fixed;
+    left: 50%;
+    top: 200px;
+    box-shadow: 0 10px 15px #555555;
+
+  }
+
   .content-shipping-add {
     overflow: hidden;
     margin: 10px 0 0 20px;

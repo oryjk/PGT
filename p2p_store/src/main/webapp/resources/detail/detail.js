@@ -8,7 +8,8 @@ require.config({
         ajax: '../core/js/module/ajax',
         jqzoom: '../core/js/jquery.jqzoom-core',
         radialindicator: '../core/js/radialindicator',
-        normalInit: '../core/js/module/normalInit'
+        normalInit: '../core/js/module/normalInit',
+        vue: '../core/js/vue'
 
     },
     shim: {
@@ -17,8 +18,32 @@ require.config({
     }
 });
 
-require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit'], function ($, Cpn, Ajax) {
+require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit', 'vue'], function ($, Cpn, Ajax, jqzoom, radialindicator, normalInit, Vue) {
     $(document).ready(function () {
+
+        new Vue({
+            el: '.content-question',
+            data: {
+                content: '',
+                tenderId: ''
+            },
+            methods: {
+                submit: function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/consulting/createconsulting",
+                        data: {
+                            content: this.content,
+                            tenderId: this.tenderId
+                        }
+                    }).done(function (res) {
+                            alert("体检成功!")
+                        }
+                    )
+                }
+            }
+        })
+
 
         $('.jqzoom').jqzoom({
             zoomType: 'standard',
@@ -47,6 +72,77 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
             }
         });
 
+        //与他联系弹窗效果
+        (function () {
+            var pop = $('#popUp');
+            var close = $('#popClose, #popReset');
+            var popSubmit = $('#popSubmit');
+            var sayPhone = $('#sayPhone');
+            var sayText = $('#sayText');
+            var sayError = $('#sayError');
+            var popFormDom = document.getElementById('popForm');
+            var popTips = $('#popTips');
+            var userId;
+            var productName;
+
+            $(document).on('click', '.touch-him', function (event) {
+                event.preventDefault();
+                popFormDom.reset();
+                popFormCleanTips();
+                userId = $(this).attr('data-value');
+                productName = $(this).attr('data-product-name');
+                pop.fadeIn(300);
+
+            });
+            close.click(function () {
+                pop.fadeOut(300);
+            });
+            pop.click(function (event) {
+                if (event.target == this) {
+                    pop.fadeOut();
+                }
+            });
+            sayPhone.focus(function () {
+                popFormCleanTips()
+            });
+            popSubmit.click(function () {
+                if (/1[0-9]{10}$/.test(sayPhone.val())) {
+                    //请在此处写上正确的ajax方法
+                    $.ajax({
+                        type: "POST",
+                        url: "/sms/sendToBuyer",
+                        data: {
+                            buyerNumber: sayPhone.val(),
+                            message: sayText.val(),
+                            sellerId: userId,
+                            productName: productName
+                        }
+                    }).done(function (res) {
+                            if (res.success == 'true') {
+                                popTips.html('提交成功');
+                                setTimeout(function () {
+                                    pop.fadeOut(300);
+                                }, 1000);
+                            }
+                            else {
+                                popTips.html('提交失败');
+                            }
+                        }
+                    )
+                }
+                else {
+                    sayError.html('请输入正确的手机号!')
+                }
+            });
+
+            //清楚回显和错误提示
+            function popFormCleanTips() {
+                sayError.html('');
+                popTips.html('')
+            }
+        }());
+
+
         $(".detail-content>ul>li").click(function (event) {
             event.preventDefault();
 
@@ -70,8 +166,10 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
         });
 
         var setQuantity = function (obj, num) {
-            $(obj).parent('.each-item').find('.quantity').val(num);
+            $(obj).parents('.each-item').find('.quantity').val(num);
         };
+
+
         //add product quantity
         $(".item-buy-plus").click(function () {
 
@@ -90,11 +188,7 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
             $(this).parent().prev().text(num);
             setQuantity(this, num);
         });
-
-
         //reduce product quantity
-
-
         $(".item-buy-minus").click(function () {
 
             var num = $(this).parent().prev().text();
@@ -149,4 +243,5 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
             }
         });
     });
-});
+})
+;

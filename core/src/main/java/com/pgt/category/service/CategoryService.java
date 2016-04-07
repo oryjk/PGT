@@ -11,6 +11,7 @@ import java.util.List;
  * Created by carlwang on 11/13/15.
  */
 public interface CategoryService {
+    String createCategoryAndUpdateMedia(Category category, Integer mediaId);
 
     String createCategory(Category category);
 
@@ -51,4 +52,6 @@ public interface CategoryService {
     List<Category> queryOnlinePawnCategories ();
 
     List<Category> queryCategoryByQuery(CategoryQuery categoryQuery);
+
+    List<Category> queryLivepawnCategroys();
 }

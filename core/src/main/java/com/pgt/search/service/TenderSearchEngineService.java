@@ -144,14 +144,24 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
             List<Tender> tenders = tenderService.queryAllTender();
+            int preId = -1;
+            int nextId = -1;
+            Tender tender;
             if (!ObjectUtils.isEmpty(tenders)) {
-                tenders.stream().forEach(tender -> {
+                for (int i = 0; i < tenders.size(); i++) {
+                    tender = tenders.get(i);
                     Category category = tender.getCategory();
                     Category rootCategory = null;
                     if (!ObjectUtils.isEmpty(category)) {
                         rootCategory = category.getParent();
                     }
-                    ESTender esTender = new ESTender(tender, category, rootCategory);
+                    List<Map<String, String>> buyerMap = tenderService.queryBuyersByTenderId(tender.getTenderId());
+
+                    if (i + 1 < tenders.size()) {
+                        nextId = tenders.get(i + 1).getTenderId();
+                    }
+                    ESTender esTender = new ESTender(tender, category, rootCategory, buyerMap, preId, nextId);
+
                     ObjectMapper mapper = new ObjectMapper();
                     String data = null;
                     try {
@@ -164,7 +174,8 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                             tender.getTenderId() + "")
                             .setSource(data);
                     bulkRequest.add(indexRequestBuilder);
-                });
+                    preId = tender.getTenderId();
+                }
             }
             if (bulkRequest.numberOfActions() > 0) {
                 bulkResponse = bulkRequest.execute().actionGet(100000);
@@ -196,7 +207,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
                                      ESAggregation categoryIdAggregation, String indexType) {
         SearchResponse response = null;
         try {
-            SearchRequestBuilder searchRequestBuilder ;
+            SearchRequestBuilder searchRequestBuilder;
             if (ObjectUtils.isEmpty(indexType)) {
                 searchRequestBuilder = initialSearchRequestBuilder(Constants.P2P_INDEX_NAME, Constants.TENDER_INDEX_TYPE);
             } else {
@@ -252,7 +263,14 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             if (!ObjectUtils.isEmpty(category)) {
                 rootCategory = category.getParent();
             }
-            ESTender esTender = new ESTender(tender, category, rootCategory);
+            List<Map<String, Object>> tenders = SearchConvertToList.searchConvertToList(findTenderById(tender.getTenderId()));
+            if (CollectionUtils.isEmpty(tenders)) {
+                return;
+            }
+            Map<String, Object> tenderMap = tenders.get(0);
+            List<Map<String, String>> buyerMap = tenderService.queryBuyersByTenderId(tender.getTenderId());
+            ESTender esTender = new ESTender(tender, category, rootCategory, buyerMap, Integer.valueOf(String.valueOf(tenderMap.get("preId"))),
+                    Integer.valueOf(String.valueOf(tenderMap.get("nextId"))));
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -282,12 +300,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
         IndexResponse response = null;
         try {
             LOGGER.debug("Tender id is {}.", tender.getTenderId());
-            Category category = tender.getCategory();
-            Category rootCategory = null;
-            if (!ObjectUtils.isEmpty(category)) {
-                rootCategory = category.getParent();
-            }
-            ESTender esTender = new ESTender(tender, category, rootCategory);
+            ESTender esTender = createESTender(tender);
             String data = null;
             try {
                 data = mapper.writeValueAsString(esTender);
@@ -310,6 +323,17 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             e.printStackTrace();
         }
         return response;
+    }
+
+    private ESTender createESTender(Tender tender) {
+        Category category = tender.getCategory();
+        Category rootCategory = null;
+        if (!ObjectUtils.isEmpty(category)) {
+            rootCategory = category.getParent();
+        }
+        Tender lastTender = tenderService.findSecondLastTender();
+        return new ESTender(tender, category, rootCategory, null, lastTender.getTenderId(), null);
+
     }
 
 
@@ -356,7 +380,7 @@ public class TenderSearchEngineService extends AbstractSearchEngineService {
             boolQueryBuilder.filter(QueryBuilders.termQuery(esConfiguration.getTenderParentCategoryIdTerm(), esTenderListFilter.getCategoryId()));
         }
         if (!StringUtils.isBlank(esTenderListFilter.getRootCategoryId())) {
-            boolQueryBuilder.filter(QueryBuilders.termQuery(esConfiguration.getTenderRootCategoryIdTerm(), esTenderListFilter.getCategoryId()));
+            boolQueryBuilder.filter(QueryBuilders.termQuery(esConfiguration.getTenderRootCategoryIdTerm(), esTenderListFilter.getRootCategoryId()));
         }
         if (esTenderListFilter.isAll()) {
             LOGGER.debug("The filter is all.");

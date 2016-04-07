@@ -110,10 +110,10 @@
                                         </c:when>
                                         <c:when test="${order.tender.state eq 20}">
                                             <c:choose>
-                                                <c:when test="${order.status eq 30 and order.shippedCommerceItemCount eq 0}">
+                                                <c:when test="${order.status eq 30 or order.status eq 50}">
                                                     <span class="will-pay">待发货</span>
                                                 </c:when>
-                                                <c:when test="${order.status eq 40}">
+                                                <c:when test="${order.status eq 80}">
                                                     <span class="will-pay">已发货</span>
                                                 </c:when>
                                                 <c:when test="${order.status eq 100}">
@@ -123,10 +123,10 @@
                                         </c:when>
                                         <c:when test="${order.tender.state eq 30}">
                                             <c:choose>
-                                                <c:when test="${order.status eq 30}">
+                                                <c:when test="${order.status eq 30 or order.status eq 60}">
                                                     <span class="will-pay">待赔付</span>
                                                 </c:when>
-                                                <c:when test="${order.status eq 40 or order.status eq 100}">
+                                                <c:when test="${order.status eq 100}">
                                                     <span class="will-pay">已赔付</span>
                                                 </c:when>
                                             </c:choose>
@@ -157,9 +157,9 @@
         <div class="page-box">
             <ol>
                 <li class="page-list">
-                    <c:if test="${favourites.maxIndex gt 0}">
+                    <c:if test="${historyOrders.maxIndex gt 0}">
                         <ol id="pages">
-                            <c:forEach var="pageNum" items="${favourites.pageNumbers}">
+                            <c:forEach var="pageNum" items="${historyOrders.pageNumbers}">
                                 <c:choose>
                                     <c:when test="${pageNum gt 0}">
                                         <li>

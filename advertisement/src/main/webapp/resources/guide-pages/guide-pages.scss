@@ -1,0 +1,296 @@
+/*import
+**************************************************************************************************************************************************/
+@import '../core/scss/variable',
+'../core/scss/commomExtend',
+'../core/scss/commonMixin',
+'../core/scss/components',
+'../core/scss/part',
+'../core/scss/reset',
+'../core/scss/generalStyle';
+
+@include header;
+@include footer-con;
+
+/*style
+**************************************************************************************************************************************************/
+body{
+  background: #f5f5f5;
+}
+
+.head-content{
+  overflow: hidden;
+
+  a{
+    float: right;
+    margin:50px 70px 0 0;
+    padding-bottom: 20px;
+    font-size: 20px;
+    color: #000;
+
+    &:hover{
+      color: #ff4040;
+      background: url("../core/images/guide-pages/xian2.png") no-repeat 4px 30px;
+    }
+
+  }
+
+  .head-hover{
+    color: #ff4040;
+    background: url("../core/images/guide-pages/xian.png") no-repeat 4px 30px;
+
+    &:hover{
+      background: url("../core/images/guide-pages/xian.png") no-repeat 4px 30px;
+    }
+  }
+}
+
+.content{
+  margin: 65px auto;
+  @include wh($main-width);
+
+  .b2c-title{
+    margin-top: 85px;
+    margin-bottom: 65px;
+    padding-left: 315px;
+    font-size: 40px;
+    color: #ff4040;
+
+    img{
+      margin-bottom: 10px;
+    }
+  }
+
+  p{
+    margin: 20px 0 ;
+    font-size: 20px;
+    color: #666;
+    text-align: center;
+  }
+
+  .content-btn{
+    margin: -50px 50px 0 0 ;
+    float: right;
+    padding: 8px 16px;
+    border: 1px solid #ff4040;
+    font-size: 16px;
+    color:#ff4040 ;
+
+    &:hover{
+      background: #ff4040;
+      color: white;
+    }
+  }
+
+  .content-tender{
+
+    margin-top: 65px;
+    padding:30px;
+    @include wh(1140px,880px);
+    background: #ebebeb;
+
+
+    .content-tender-box{
+      position: relative;
+      float: left;
+      margin: 7px 6px;
+      @include wh(270px,430px);
+
+      .tender-img-border{
+        border: 1px solid #ff4040;
+      }
+
+      img{
+        width: 268px;
+        height: 330px;
+
+        border: 1px solid #ccc;
+      }
+
+      .tender-p-border{
+        border: 1px solid #ff4040;
+      }
+
+      p{
+        margin: 0;
+        margin-top: 15px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        height: 40px;
+        font-size: 16px;
+        text-align: left;
+        color: #343434;
+        background: white;
+      }
+
+      .content-tender-img-border,
+      .content-tender-img{
+        position: absolute;
+        right: 130px;
+        bottom: 79px;
+        width: 12px;
+        height: 9px;
+        background: url("../core/images/guide-pages/h-jiantou.png") no-repeat;
+      }
+
+      .content-tender-img-border{
+        background:  url("../core/images/guide-pages/r-jiantou.png") no-repeat;
+      }
+
+      .content-tender-left-img-border,
+      .content-tender-left-img{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 72px;
+        height:72px;
+        background: url("../core/images/guide-pages/jinxuan.png") no-repeat;
+      }
+
+      .content-tender-left-img-border{
+        background: url("../core/images/guide-pages/tuijian.png") no-repeat;
+      }
+    }
+  }
+
+}
+
+.content-banner{
+  overflow: hidden;
+  display: block;
+  margin: 0 auto;
+  @include wh(1440px,400px);
+}
+
+.content-product{
+  margin-top: 65px;
+  position: relative;
+  height: 850px;
+
+  .content-product-box{
+    float: left;
+    padding: 80px;
+    width: 440px;
+    height: 265px;
+    background: white;
+
+
+    .content-product-box-left,
+    .content-product-box-right{
+      float: left;
+      margin-left: 20px;
+      width: 200px;
+      height: 265px;
+
+      img{
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ccc;
+      }
+
+      p{
+        margin: 0;
+        margin-top: 10px;
+        font-size: 15px;
+
+        span{
+          color: #ff4040;
+        }
+      }
+    }
+
+    .content-product-box-left{
+      margin-left: 0;
+      margin-right: 20px;
+    }
+  }
+  .box-bg{
+    background: #e6e6e6;
+  }
+  
+  .content-product-img1{
+    position: absolute;
+    top:425px;
+    left: 600px;
+    margin-top: -109px;
+    margin-left: -109px;
+    width: 217px;
+    height: 217px;
+    background: url("../core/images/guide-pages/juezt.png") no-repeat;
+  }
+
+  .content-product-img2{
+    position: absolute;
+    top:420px;
+    left: 280px;
+    width: 211px;
+    height: 11px;
+    background: url("../core/images/guide-pages/lin3.png") no-repeat;
+  }
+
+  .content-product-img3{
+    position: absolute;
+    top:420px;
+    left: 706px;
+    width: 211px;
+    height: 11px;
+    background: url("../core/images/guide-pages/lin1.png") no-repeat;
+  }
+
+  .content-product-img4{
+    position: absolute;
+    top:530px;
+    left: 595px;
+    width: 11px;
+    height: 211px ;
+    background: url("../core/images/guide-pages/lin2.png") no-repeat;
+  }
+
+  .content-product-img5{
+    position: absolute;
+    top:110px;
+    left: 595px;
+    width: 11px;
+    height: 211px ;
+    background: url("../core/images/guide-pages/lin4.png") no-repeat;
+  }
+}
+
+
+/*banner
+*******************************************************/
+.banner-box {
+  position: relative;
+  height: 561px;
+}
+
+.banner {
+  @include wh(100%, 100%);
+
+  a {
+    display: none;
+    position: absolute;
+    @include wh(100%, 100%);
+  }
+}
+
+.banner-nav {
+  position: absolute;
+  right: 15%;
+  bottom: 3%;
+
+  li {
+    float: left;
+    margin-right: 5px;
+    @include wh(30px, 8px);
+    border-radius: 3px;
+    background: #6c6c6c;
+    text-indent: -5000px;
+    cursor: pointer;
+  }
+
+  .banner-nav-current {
+    background: white;
+  }
+}
+/* banner end
+*********************************************************/

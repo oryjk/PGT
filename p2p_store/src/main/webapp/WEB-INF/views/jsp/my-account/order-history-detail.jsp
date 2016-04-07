@@ -13,7 +13,7 @@
             <span class="name">${historyOrder.shippingVO.shippingAddress.name}</span>
             <span class="phone">${historyOrder.shippingVO.shippingAddress.phone}</span>
             <span class="address">${historyOrder.shippingVO.shippingAddress.province} ${historyOrder.shippingVO.shippingAddress.city} ${historyOrder.shippingVO.shippingAddress.district} ${historyOrder.shippingVO.shippingAddress.address}</span>
-            <a class="link-btn" href="javacript:void(0);">修改</a>
+            <%--<a class="link-btn" href="javacript:void(0);">修改</a>--%>
         </div>
     </div>
     <div class="base-row-2">
@@ -34,38 +34,42 @@
     </div>
 </div>
 <c:choose>
-    <c:when test="${order.tender.state eq 20}">
+    <c:when test="${historyOrder.tender.state eq 20}">
         <div class="send-info">
             <c:choose>
-                <c:when test="${order.status eq 30 and order.shippedCommerceItemCount eq 0}">
+                <c:when test="${historyOrder.status eq 30 or historyOrder.status eq 50}">
                     <!-- super:绝当未发货时,以及在当时显示-->
                     <div class="send-will" style="display: block;">
                         <div class="send-row-1">
                             <div class="send-title">预计发货时间:</div>
-                            <div class="send-value">2015年12月12日</div>
+                            <div class="send-value"><fmt:formatDate
+                                    value="${historyOrder.estimatedShipDate}"
+                                    pattern="yyyy-MM-dd HH:mm:ss"/></div>
                         </div>
                     </div>
                 </c:when>
-                <c:when test="${order.status eq 40 or order.status eq 100}">
+                <c:when test="${historyOrder.status eq 80 or historyOrder.status eq 100}">
                     <!-- super:绝当已发货时显示-->
                     <div class="send-already" style="display: block;">
                         <div class="send-row-2">
                             <div class="send-title">发货时间:</div>
-                            <div class="send-value">2015年12月12日</div>
+                            <div class="send-value"><fmt:formatDate
+                                    value="${historyOrder.commerceItems[0].delivery.deliveryTime}"
+                                    pattern="yyyy-MM-dd HH:mm:ss"/></div>
                         </div>
                         <div class="send-row-3">
                             <div class="send-title">快递单号:</div>
-                            <div class="send-value">34567890987654</div>
+                            <div class="send-value">${historyOrder.commerceItems[0].delivery.trackingNo}</div>
                         </div>
                     </div>
                 </c:when>
             </c:choose>
         </div>
     </c:when>
-    <c:when test="${order.tender.state eq 30}">
+    <c:when test="${historyOrder.tender.state eq 30}">
         <div class="compensate">
             <c:choose>
-                <c:when test="${order.status eq 30}">
+                <c:when test="${historyOrder.status eq 30 or historyOrder.status eq 60}">
                     <!-- super:赎当未赔付时显示-->
                     <div class="compensate-will">
                         <div class="tip">温馨提示:您所预定的商品已经赎当,我们将会对您进行一定的赔付,请您耐心等待.</div>
@@ -76,7 +80,7 @@
                         </div>
                     </div>
                 </c:when>
-                <c:when test="${order.status eq 40 or order.status eq 100}">
+                <c:when test="${historyOrder.status eq 100}">
                     <!-- super:赎当已赔付时显示-->
                     <div class="compensate-already">
                         <div class="tip">温馨提示:您所预定的商品已经赎当,我们已对您进行了赔付,请核对查收,谢谢您的支持!.</div>
@@ -106,24 +110,30 @@
             <td><span>¥</span><span>0.00</span></td>
             <td><span class="cost">¥</span><span class="cost">${historyOrder.commerceItems[0].amount}</span></td>
             <td>${historyOrder.commerceItems[0].quantity}</td>
-            <td><fmt:formatNumber value="${order.p2pInfo.interestRate}" pattern="0.00" type="number"/>%</td>
+            <td><fmt:formatNumber value="${historyOrder.p2pInfo.interestRate}" pattern="0.00" type="number"/>%</td>
         </tr>
     </table>
 </div>
 <div class="money-box">
-    <!--super: 赎当后显示-->
-    <div style="display: block">
-        <span>将获得本金加赔付共计:</span>
-        <span class="cost">¥</span>
-        <span class="cost"><fmt:formatNumber value="${order.p2pInfo.actualIncoming}" pattern="0.00"
-                                             type="number"/></span>
-    </div>
-    <!--super: 在当何绝当时显示-->
-    <div style="display: block">
-        <span>订单总额:</span>
-        <span class="cost">¥</span>
-        <span class="cost"><fmt:formatNumber value="${order.total}" pattern="0.00" type="number"/></span>
-    </div>
+    <c:choose>
+        <c:when test="${historyOrder.tender.state eq 20}">
+            <!--super: 在当何绝当时显示-->
+            <div style="display: block">
+                <span>订单总额:</span>
+                <span class="cost">¥</span>
+                <span class="cost"><fmt:formatNumber value="${historyOrder.total}" pattern="0.00" type="number"/></span>
+            </div>
+        </c:when>
+        <c:when test="${historyOrder.tender.state eq 30}">
+            <!--super: 赎当后显示-->
+            <div style="display: block">
+                <span>将获得本金加赔付共计:</span>
+                <span class="cost">¥</span>
+                <span class="cost">
+                <fmt:formatNumber value="${historyOrder.p2pInfo.actualIncoming}" pattern="0.00" type="number"/></span>
+            </div>
+        </c:when>
+    </c:choose>
 </div>
 <div class="close-box">
     <a class="close" href="javascript: void(0);">关闭</a>

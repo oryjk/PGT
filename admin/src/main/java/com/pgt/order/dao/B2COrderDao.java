@@ -5,7 +5,7 @@ import com.pgt.cart.bean.CommerceItem;
 import com.pgt.cart.bean.Delivery;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.pagination.InternalPagination;
-import com.pgt.order.bean.B2COrderSearchVO;
+import com.pgt.order.bean.OrderSearchVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -17,9 +17,9 @@ import java.util.List;
 @Repository(value = "B2COrderDao")
 public interface B2COrderDao extends SqlMapper {
 
-	long queryB2COrderCount(@Param("vo") B2COrderSearchVO pB2COrderSearchVO, @Param("pagination") InternalPagination pPagination);
+	long queryB2COrderCount(@Param("vo") OrderSearchVO pOrderSearchVO, @Param("pagination") InternalPagination pPagination);
 
-	List<Order> queryB2COrderPage(@Param("vo") B2COrderSearchVO pB2COrderSearchVO, @Param("pagination") InternalPagination pPagination);
+	List<Order> queryB2COrderPage(@Param("vo") OrderSearchVO pOrderSearchVO, @Param("pagination") InternalPagination pPagination);
 
 	Order loadOrder(int pOrderId);
 

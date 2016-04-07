@@ -29,7 +29,7 @@ public class PersistentInterceptor implements HandlerInterceptor {
         String requestUri = request.getRequestURI();
         String contextPath = request.getContextPath();
         String url = requestUri.substring(contextPath.length());
-        if(!url.matches(PathConstant.RESET_PASSWORD)){
+        if (!url.matches(PathConstant.RESET_PASSWORD)) {
             request.getSession().removeAttribute(Constants.STEP);
         }
         if (request.getSession().getAttribute(UserConstant.CURRENT_USER) != null) {
@@ -42,7 +42,7 @@ public class PersistentInterceptor implements HandlerInterceptor {
                 if (cookie.getName().equals(UserConstant.CURRENT_USER)) {
                     String code = cookie.getValue();
                     String userId = CookieUtils.decodeBase64(code);
-                    User user = userService.findUser(userId);
+                    User user = userService.findUser(Integer.valueOf(userId));
                     if (user != null) {
                         request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
                     }
@@ -54,7 +54,7 @@ public class PersistentInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-            ModelAndView modelAndView) throws Exception {
+                           ModelAndView modelAndView) throws Exception {
 
     }
 

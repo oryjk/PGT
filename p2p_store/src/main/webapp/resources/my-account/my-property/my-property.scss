@@ -124,3 +124,52 @@ $yeepay-dark: darken($yeepay, 10%);
     padding-top: 23px;
   }
 }
+
+.info-import {
+  padding-top: 40px;
+  color: rgb(85,85,85);
+
+  .row1 {
+    @extend %bfc;
+    height :40px;
+    line-height: 35px;
+  }
+
+  .row-title {
+    float: left;
+    width: 280px;
+    text-align: right;
+  }
+
+  .row-text {
+    float: left;
+    padding-left: 45px;
+  }
+
+  .input-text {
+    border: 1px solid $gray-light;
+    @include wh(200px, 25px);
+
+    &:focus {
+      border-color: $yeepay-dark;
+    }
+  }
+
+  label {
+    padding-right: 20px;
+  }
+
+  .row-tips {
+    padding-left: 25px;
+    font-size: 14px;
+    color: $main;
+  }
+
+  .row2 {
+    padding: 25px 0 0 325px;
+  }
+
+  .yeepay-btn {
+    @include color-btn(100px, 32px, 3px, 16px, $yeepay, $yeepay-dark);
+  }
+}

@@ -161,9 +161,9 @@ a {
 .header {
   overflow: hidden; }
 
-.top-banner {
+.top-banner-end {
   display: block;
-  height: 80px; }
+  height: 560px; }
 
 .top {
   height: 37px;
@@ -346,7 +346,7 @@ a {
   height: 40px; }
   .content-title h1 {
     float: left;
-    margin: 0 50px;
+    margin: 0 45px;
     font-size: 25px;
     color: #595959; }
   .content-title .content-border {
@@ -401,6 +401,7 @@ a {
   .content-box-show a {
     float: left;
     margin: 60px 0 0 90px;
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -413,7 +414,20 @@ a {
     color: white;
     text-align: center;
     cursor: pointer; }
+    .content-box-show a .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 120px;
+      height: 40px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .content-box-show a:hover {
       background: #c90304; }
+      .content-box-show a:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
 
 /*# sourceMappingURL=../../maps/invest/invest-end.css.map */

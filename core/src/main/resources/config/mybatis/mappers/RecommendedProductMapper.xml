@@ -10,6 +10,8 @@
 		<result column="PRODUCT_TYPE" property="productType"/>
 		<result column="SORT" property="sort"/>
 		<result column="URL" property="url"/>
+		<result column="TYPE" property="type"/>
+		<result column="PRICE" property="price"/>
 		<association property="media" column="MEDIA_ID"
 					 select="com.pgt.common.dao.MediaMapper.queryMedia"/>
 	</resultMap>
@@ -25,7 +27,10 @@
 	</insert>
 
 	<select id="queryAllRecommendedProduct" parameterMap="paramRecommendedProduct" resultMap="recommendedProduct">
-		SELECT * FROM RECOMMENDED_PRODUCT WHERE PRODUCT_TYPE = #{productType}
+		SELECT * FROM RECOMMENDED_PRODUCT
+		<if test="paramRecommendedProduct!=null">
+			WHERE PRODUCT_TYPE = #{productType}
+		</if>
 	</select>
 	<update id="updateRecommendedProduct" parameterMap="paramRecommendedProduct">
 		UPDATE RECOMMENDED_PRODUCT SET NAME = #{name},PRODUCT_TYPE = #{productType},SORT = #{sort},URL =

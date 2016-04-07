@@ -60,7 +60,7 @@
 			<div class="top-user">
 				<c:choose>
 					<c:when test="${currentUser==null}">
-						<div class="top-before-login" >
+						<div class="top-before-login">
 							<a class="top-user-login hover-main" href="/user/login">登录</a>
 							<a class="top-user-register hover-main" href="/user/register">注册</a>
 						</div>
@@ -82,11 +82,10 @@
 				<a class="logo-link" href="/"></a>
 			</h1>
 			<a href="#" class="hot-left" style="background: url('/resources/core/images/data/hot-left.gif') no-repeat center center"></a>
-
-			<form class="search">
+			<form class="search" action="/tender/tenderList" method="get">
 				<div class="search-content">
-					<a class="search-input-submit" href="javascript:void(0);"></a>
-					<input class="search-input-text" type="text" placeholder="请输入要搜索的关键字"/>
+					<a class="search-input-submit" href="javascript:($('.search').submit());"></a>
+					<input class="search-input-text" type="text" name="keyword" value="${param.keyword}" placeholder="请输入要搜索的关键字"/>
 				</div>
 			</form>
 			<a href="#" class="hot-right" style="background: url('/resources/core/images/data/hot-right.gif') no-repeat center center"></a>

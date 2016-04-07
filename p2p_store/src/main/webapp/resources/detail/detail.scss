@@ -81,16 +81,16 @@ body {
     @include wh(287px, 80px);
   }
 
+
   .invest-add-favorite {
     float: left;
-    @include color-btn(131px, 43px, 3px, 16px, $main, $main-dark);
+    @include color-btn(131px, 43px, 20px, 16px, $main, $main);
     margin-top: 16px;
-
   }
 
   .invest-scan-count {
     float: right;
-    @include color-btn(131px, 43px, 3px, 16px, $em, $em);
+    @include color-btn(131px, 43px, 20px, 16px, $em, $em);
     margin-top: 16px;
   }
 
@@ -224,7 +224,8 @@ body {
 
   .what-is-this {
     display: block;
-    @include wh($main-width-s, 175px);
+    line-height: 2;
+    width: $main-width-s;
   }
 }
 
@@ -257,7 +258,10 @@ body {
       &:focus {
         @extend %tab-hover-and-focus;
       }
-      &.tab-choose{
+    }
+
+    .tab-choose{
+      a {
         @extend %tab-hover-and-focus;
       }
     }
@@ -391,13 +395,19 @@ body {
     @include cost;
   }
 
+
+  .item-sold-out {
+    @include color-btn(160px, 40px, 20px, 20px, #999, #999);
+  }
+
   .item-buy-now {
-    @include color-btn(160px, 40px, 0, 20px, $main, $main-dark);
+    @include color-btn(160px, 40px, 20px, 20px, $main, $main);
   }
 
   .item-join-favorite {
-    @include color-btn(160px, 40px, 0, 20px, $em, $em-dark);
+    @include color-btn(160px, 40px, 20px, 20px, $em, $em);
   }
+
 
   .item-row-7 {
     position: relative;
@@ -452,6 +462,7 @@ body {
   background: white;
 
   .ask-question {
+    padding-bottom: 30px;
     @include block-center(942px);
   }
 
@@ -479,7 +490,9 @@ body {
   }
 
   .ask-btn {
+    width: 948px;
     padding-top: 12px;
+    margin-bottom: 20px;
     text-align: right;
   }
 
@@ -488,7 +501,7 @@ body {
   }
 
   .question-list {
-    padding-top: 20px;
+    padding-top: 10px;
     @include block-center(942px);
   }
 
@@ -625,4 +638,45 @@ body {
   margin-left: - $main-width-s / 2 - 90px;
   @include wh(50px, 75px);
   background: url('../core/images/detail/turn-left.png');
+}
+
+.pop-up {
+  @include pop(410px);
+
+  .pop-address-title {
+    padding-top: 20px;
+  }
+
+  .pop-address-value {
+    padding-top: 10px;
+    line-height: 20px;
+  }
+
+  .pop-phone {
+    border: 1px solid $gray-light;
+    padding-left: 10px;
+    @include wh(250px, 25px);
+  }
+
+  .pop-text-box {
+    border: 1px solid $gray-light;
+    padding: 10px;
+  }
+
+  .pop-text {
+    display: block;
+    border: none;
+    @include wh(98%, 100px);
+    font-size: 16px;
+  }
+
+  .pop-error {
+    color: $main;
+    font-size: 12px;
+  }
+
+  .pop-tips {
+    padding-right: 20px;
+  }
+
 }

@@ -204,7 +204,10 @@ a {
     width: 50%;
     text-align: right; }
     .header .top-user a {
-      color: #6c6c6c; }
+      color: #6c6c6c;
+      margin-left: 5px; }
+      .header .top-user a:hover {
+        color: #c90304; }
   .header .top-user-register {
     padding-left: 10px; }
   .header .head {
@@ -724,6 +727,7 @@ body {
         color: white; }
 
 .order-info .receive-button {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -736,14 +740,28 @@ body {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .order-info .receive-button .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 40px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .order-info .receive-button:hover {
     background: #5a98e6; }
+    .order-info .receive-button:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .order-info .info-row-8 {
   padding-top: 35px;
   text-align: center; }
 
 .order-info .receive-ifo-submit {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -756,8 +774,21 @@ body {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .order-info .receive-ifo-submit .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 40px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .order-info .receive-ifo-submit:hover {
     background: #970203; }
+    .order-info .receive-ifo-submit:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .order-confirm .confirm-title {
   float: left;
@@ -834,6 +865,7 @@ body {
   text-align: center; }
 
 .order-confirm .confirm-submit {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -847,10 +879,24 @@ body {
   text-align: center;
   cursor: pointer;
   margin-right: 20px; }
+  .order-confirm .confirm-submit .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 40px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .order-confirm .confirm-submit:hover {
     background: #970203; }
+    .order-confirm .confirm-submit:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .order-confirm .confirm-reset {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -864,8 +910,21 @@ body {
   text-align: center;
   cursor: pointer;
   color: black; }
+  .order-confirm .confirm-reset .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 40px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .order-confirm .confirm-reset:hover {
     background: #b6b6b6; }
+    .order-confirm .confirm-reset:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .order-pay {
   background: white;
@@ -917,6 +976,7 @@ body {
   .order-pay .pay-submit {
     margin: 70px 0 0 0; }
     .order-pay .pay-submit .pay-submit-btn {
+      position: relative;
       display: inline-block;
       padding: 0;
       border: none;
@@ -931,8 +991,21 @@ body {
       cursor: pointer;
       display: block;
       margin: 0 auto; }
+      .order-pay .pay-submit .pay-submit-btn .color-hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 40px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        transform: scaleX(0);
+        transition: transform .3s; }
       .order-pay .pay-submit .pay-submit-btn:hover {
         background: #970203; }
+        .order-pay .pay-submit .pay-submit-btn:hover .color-hover {
+          transform: scaleX(1);
+          transition: transform .3s; }
 
 .pay-end {
   background: white; }
@@ -1005,6 +1078,7 @@ body {
     margin-top: 20px;
     text-align: right; }
   .pop-up .pop-confirm {
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -1017,10 +1091,24 @@ body {
     color: white;
     text-align: center;
     cursor: pointer; }
+    .pop-up .pop-confirm .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60px;
+      height: 30px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .pop-up .pop-confirm:hover {
       background: #970203; }
+      .pop-up .pop-confirm:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
   .pop-up .pop-cancel {
     margin-left: 10px;
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -1034,8 +1122,21 @@ body {
     text-align: center;
     cursor: pointer;
     color: black; }
+    .pop-up .pop-cancel .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60px;
+      height: 30px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .pop-up .pop-cancel:hover {
       background: #bbb; }
+      .pop-up .pop-cancel:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
   .pop-up .pop-address-title {
     padding-bottom: 10px; }
   .pop-up .pop-address-value {

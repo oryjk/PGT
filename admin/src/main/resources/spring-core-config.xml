@@ -156,30 +156,6 @@
 
 
     <bean class="com.pgt.search.service.ESSearchService" id="esSearchService"/>
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.mxhichina.com"/>
-        <property name="username" value="service@dianjinzi.com"/>
-        <property name="password" value="Zxhl123456"/>
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.timeout">25000</prop>
-            </props>
-        </property>
-    </bean>
-
-    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/"/>
-        <property name="velocityProperties">
-            <props>
-                <prop key="default.contentType">text/html; charset=utf-8</prop>
-                <prop key="output.encoding">utf-8</prop>
-                <prop key="input.encoding">utf-8</prop>
-            </props>
-        </property>
-    </bean>
-
-
     <bean id="B2COrderService" class="com.pgt.order.service.B2COrderService">
         <property name="orderStatusMapping">
             <map>
@@ -190,6 +166,17 @@
                 <entry key="100" value="已完成"/>
                 <entry key="-10" value="已取消"/>
             </map>
+        </property>
+    </bean>
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.mxhichina.com"/>
+        <property name="username" value="service@dianjinzi.com"/>
+        <property name="password" value="Zxhl123456"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+            </props>
         </property>
     </bean>
 
@@ -207,9 +194,11 @@
                 <ref bean="esSearchService"/>
                 <ref bean="staticResourceSearchEngineService"/>
                 <ref bean="tenderSearchEngineService"/>
+                <ref bean="advertisementSearchEngineService"/>
             </list>
         </property>
     </bean>
 
     <bean id="adminSessionPathInitHandler" class="com.pgt.executor.handler.AdminSessionPathInitHandler"/>
+    <bean id="VelocityEngine" class="org.apache.velocity.app.VelocityEngine"/>
 </beans>

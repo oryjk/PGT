@@ -1,69 +1,65 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>点金子典当行绝当品销售平台</title>
-	<link rel = "Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
-     <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/pay-binding/pay-binding.css"/>" />
-    <link rel="stylesheet"
-          href="<spring:url value="${juedangpinStaticPath}/my-account/other-part.css"/>" />
+
+	<meta charset="UTF-8">
+	<title>点金子典当行绝当品销售平台</title>
+	<link rel="Shortcut Icon" href="/resources/common/logo.png">
+	<link rel="stylesheet" href="/resources/my-account/my_account_base.css"/>
+	<link rel="stylesheet" href="/resources/my-account/my-property/my-property.css"/>
+
+
 </head>
 <body>
-    <!--主头部-->
-    <div class="header" id="header">
-        <jsp:include page="../../core/header-main.jsp" />
-    </div>
 
-    <!--正文-->
-    <div class="content-box">
+<!--主头部-->
+<jsp:include page="../../core/header-login.jsp"/>
 
-        <div class="content">
+<!--正文-->
+<div class="content">
+	<jsp:include page="../vertical-my-account-directory.jsp"/>
+	<div class="main-area">
+		<h2 class="main-head">我的资产</h2>
+		<!-- super: will-binding和already-binding,根据不同的情况显示和隐藏-->
+		<div class="will-binding" style="display: block;">
+			<div class="will-row-1">
+				您还没有绑定易宝!
+			</div>
+			<div class="will-row-2">
+				为了您的购物更加安全方便快捷,淘在当网站推荐用户与易宝进行支付绑定!
+			</div>
+			<div class="will-row-3">
+				<a class="yeepay-binding" href="#">绑定易宝</a>
+				<span class="yeepay-tips">点击跳转到易宝绑定页面</span>
+			</div>
+		</div>
+		<!-- person-info-box end-->
+	</div>
+</div>
+<form action="/yeepay/yeepayForm" method="get" style="display:hidden">
+	<input type="hidden" name="serviceName" value="toRegister"/>
+	<input class="yeepay-btn" type="submit" value="绑定易宝">
+	<span>点击跳转到易宝绑定页面</span>
+</form>
 
-            <!-- 侧边栏-->
-            <jsp:include page="../vertical-my-account-directory.jsp"/>
-
-            <!-- 详细内容列表-->
-            <div id="main" class="main-box">
-
-	            <!--面包屑-->
-	            <div class="bread-nav">
-	                <p>
-	                    <a href="#">个人中心</a>
-	                    &gt;
-	                    <a href="#">支付绑定</a>
-	                </p>
-	            </div>
-	
-	            <!-- 未绑定-->
-	            <div class="no-binding" style="display: block">
-	                <div class="message-box">
-	                    <p>您未绑定易宝!</p>
-	                </div>
-	                <div class="row1">
-	                    <p>为了使您购物更加安全方便快捷,点金子推荐用户与易宝支付绑定,祝您购物愉快!</p>
-	                </div>
-	                <div class="row2">
-	                	<form action="<c:url value="/yeepay/yeepayForm"/>" method="get">
-	                	<input type="hidden" name="serviceName" value="toRegister"/>
-	                	<input class="yeepay-btn" type="submit" value="绑定易宝">
-	                    <span>点击跳转到易宝绑定页面</span>
-	                	</form>
-	                </div>
-	            </div>
-	        </div>
-        </div>
-    </div>
-
-    <jsp:include page="../../core/footer-main.jsp" />
-	<jsp:include page="../../core/baidu.jsp"></jsp:include>
+<!--主脚部-->
+<jsp:include page="../../core/footer-main.jsp"></jsp:include>
+<jsp:include page="../../core/baidu.jsp"></jsp:include>
 </body>
-<script
-        src="<spring:url value="${juedangpinStaticPath}/core/js/require.js"/>"
-        data-main="<spring:url value="${juedangpinStaticPath}/my-account/collection/collection.js"/>"></script>
+<script src="/resources/core/js/jquery.min.js"></script>
+<script src="/resources/core/js/jquery.form.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$(".yeepay-binding").click(function() {
+			$(".yeepay-btn").click();
+		})
+	});
+
+</script>
+
 </html>

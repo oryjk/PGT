@@ -5,11 +5,10 @@ import com.pgt.cart.bean.Delivery;
 import com.pgt.cart.bean.Order;
 import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.pagination.InternalPagination;
-import com.pgt.order.bean.B2COrderSearchVO;
+import com.pgt.order.bean.OrderSearchVO;
 import com.pgt.order.dao.B2COrderDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -36,12 +35,12 @@ public class B2COrderService implements OrderStatus {
 	private int mCancelStatus = CANCEL;
 	private int mTransitStatus = TRANSIT;
 
-	public List<Order> queryB2COrderPage(final B2COrderSearchVO pB2COrderSearchVO, final InternalPagination pPagination) {
-		long count = getB2COrderDao().queryB2COrderCount(pB2COrderSearchVO, pPagination);
+	public List<Order> queryB2COrderPage(final OrderSearchVO pOrderSearchVO, final InternalPagination pPagination) {
+		long count = getB2COrderDao().queryB2COrderCount(pOrderSearchVO, pPagination);
 		pPagination.setCount(count);
 		LOGGER.debug("Get b2c-orders count: {}", count);
 		if (count > 0) {
-			List<Order> orders = getB2COrderDao().queryB2COrderPage(pB2COrderSearchVO, pPagination);
+			List<Order> orders = getB2COrderDao().queryB2COrderPage(pOrderSearchVO, pPagination);
 			pPagination.setResult(orders);
 		} else {
 			pPagination.setResult(Collections.emptyList());
@@ -83,6 +82,8 @@ public class B2COrderService implements OrderStatus {
 		return false;
 	}
 
+
+
 	public boolean updateOrder2TransitStatus(Order pOrder) {
 		for (int status : getPreStatus4CancelOrder()) {
 			if (status == pOrder.getStatus()) {
@@ -92,6 +93,11 @@ public class B2COrderService implements OrderStatus {
 		LOGGER.debug("Failed to change order: {} to cancel status for current status: {}", pOrder.getId(), pOrder.getStatus());
 		return false;
 	}
+
+	public boolean updateOrderStatus(int orderId, int status) {
+		return getB2COrderDao().updateOrder2Status(orderId, status) > 0;
+	}
+
 	public boolean createDelivery(final Delivery pDelivery) {
 		return getB2COrderDao().createDelivery(pDelivery) > 0;
 	}

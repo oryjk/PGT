@@ -24,5 +24,5 @@ public interface OrderMapper extends SqlMapper {
 
 	void updateOrderStatus(Order order);
 
-	int getUncompleteOrderAmount(@Param("userId") int userId, @Param("type")  int type);
+	int getUncompleteOrderAmount(@Param("userId") int userId, @Param("type")  int type, @Param("orderId") int orderId);
 }

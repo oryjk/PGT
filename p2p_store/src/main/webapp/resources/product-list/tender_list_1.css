@@ -218,7 +218,10 @@ a {
     width: 50%;
     text-align: right; }
     .header .top-user a {
-      color: #6c6c6c; }
+      color: #6c6c6c;
+      margin-left: 5px; }
+      .header .top-user a:hover {
+        color: #c90304; }
   .header .top-user-register {
     padding-left: 10px; }
   .header .head {
@@ -475,7 +478,8 @@ a {
 
 .content {
   margin: 0 auto;
-  width: 1200px; }
+  width: 1200px;
+  overflow: hidden; }
 
 .filter {
   border: 1px solid #cccccc; }
@@ -502,6 +506,7 @@ a {
 .filter-content {
   position: relative;
   padding: 10px 20px;
+  height: 60px;
   line-height: 35px;
   font-size: 14px; }
 
@@ -579,6 +584,7 @@ a {
 
 .filter-cost-btn {
   margin-left: 5px;
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -591,8 +597,21 @@ a {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .filter-cost-btn .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 24px;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .filter-cost-btn:hover {
     background: #970203; }
+    .filter-cost-btn:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .content-body {
   margin: 20px 0; }
@@ -651,6 +670,7 @@ a {
   padding-top: 10px; }
 
 .recommend-buy {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -663,8 +683,21 @@ a {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .recommend-buy .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 26px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .recommend-buy:hover {
     background: #970203; }
+    .recommend-buy:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .recommend-count {
   float: right;
@@ -884,6 +917,7 @@ a {
     height: 20px; }
   .pager .page-goto-btn {
     margin-left: 5px;
+    position: relative;
     display: inline-block;
     padding: 0;
     border: none;
@@ -896,8 +930,21 @@ a {
     color: white;
     text-align: center;
     cursor: pointer; }
+    .pager .page-goto-btn .color-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50px;
+      height: 24px;
+      border-radius: 0;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transition: transform .3s; }
     .pager .page-goto-btn:hover {
       background: #970203; }
+      .pager .page-goto-btn:hover .color-hover {
+        transform: scaleX(1);
+        transition: transform .3s; }
   .pager .page-current {
     border-color: #c90304;
     color: #c90304; }

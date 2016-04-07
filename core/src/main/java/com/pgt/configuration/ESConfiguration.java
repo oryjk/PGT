@@ -31,7 +31,18 @@ public class ESConfiguration {
 
     //index,type
     private String indexName = "mp";
+    private String advertisementIndexName = "advertisement";
     private String categoryTypeName = "category";
+
+    public String getRecommendProductTypeName() {
+        return recommendProductTypeName;
+    }
+
+    public void setRecommendProductTypeName(String recommendProductTypeName) {
+        this.recommendProductTypeName = recommendProductTypeName;
+    }
+
+    private String recommendProductTypeName = "recommendProduct";
     private String productTypeName = "product";
     private CategoryType categoryType = CategoryType.ROOT;
     private String hotProductTypeName="hotProduct";
@@ -228,5 +239,13 @@ public class ESConfiguration {
 
     public void setTenderParentCategoryIdTerm(String tenderParentCategoryIdTerm) {
         this.tenderParentCategoryIdTerm = tenderParentCategoryIdTerm;
+    }
+
+    public String getAdvertisementIndexName() {
+        return advertisementIndexName;
+    }
+
+    public void setAdvertisementIndexName(String advertisementIndexName) {
+        this.advertisementIndexName = advertisementIndexName;
     }
 }

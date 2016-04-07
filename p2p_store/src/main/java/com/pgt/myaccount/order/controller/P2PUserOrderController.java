@@ -2,6 +2,7 @@ package com.pgt.myaccount.order.controller;
 
 import com.pgt.base.bean.MyAccountNavigationEnum;
 import com.pgt.cart.bean.Order;
+import com.pgt.cart.bean.OrderStatus;
 import com.pgt.cart.bean.pagination.InternalPagination;
 import com.pgt.cart.bean.pagination.InternalPaginationBuilder;
 import com.pgt.cart.constant.CartConstant;
@@ -10,6 +11,7 @@ import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.constant.Constants;
 import com.pgt.myaccount.order.service.P2POrderSearchStatus;
 import com.pgt.myaccount.order.service.P2PUserOrderService;
+import com.pgt.product.bean.P2PProductStatus;
 import com.pgt.tender.bean.Tender;
 import com.pgt.tender.service.TenderService;
 import com.pgt.user.bean.User;
@@ -83,7 +85,14 @@ public class P2PUserOrderController extends TransactionBaseController implements
 			return new ModelAndView(REDIRECT_LOGIN);
 		}
 		Order order = getUserOrderService().loadOrderInformation(orderIdInt);
-		Tender tender = getTenderService().queryTenderById(order.getP2pInfo().getTenderId(), Boolean.TRUE);
+		Tender tender = getTenderService().queryTenderById(order.getP2pInfo().getTenderId(), Boolean.FALSE);
+		if (tender.getTenderStatus() == P2PProductStatus.DEAD_PAWNAGE) {
+			if (order.getStatus() == OrderStatus.PAID || order.getStatus() == OrderStatus.PENDING_SHIPPING) {
+				// set estimate shipping date
+				getUserOrderService().calcEstimateShipping(order, tender);
+			}
+
+		}
 		ModelAndView mav = new ModelAndView("/my-account/order-history-detail");
 		mav.addObject(CartConstant.ORDER_HISTORY_DETAIL, order);
 		mav.addObject(CartConstant.ORDER_TENDER, tender);

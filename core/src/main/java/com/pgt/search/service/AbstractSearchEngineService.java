@@ -2,6 +2,7 @@ package com.pgt.search.service;
 
 import com.pgt.configuration.Configuration;
 import com.pgt.configuration.ESConfiguration;
+import com.pgt.constant.Constants;
 import com.pgt.search.bean.*;
 import com.pgt.utils.PaginationBean;
 import org.apache.commons.collections.CollectionUtils;
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -306,6 +308,21 @@ public abstract class AbstractSearchEngineService {
         return esTerms;
     }
 
+
+    protected void deleteIndex(String id, String indexName, String type) {
+        try {
+            DeleteResponse response = getIndexClient().prepareDelete(indexName, type, id).execute().actionGet();
+            response.getHeaders().stream().forEach(s -> LOGGER.debug(s));
+            if (response.isFound()) {
+                LOGGER.debug("Success delete with id is {},type is {}.", id, type);
+                return;
+            }
+            LOGGER.debug("Can not found to delete with id is {},type is {}.", id, type);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public boolean modifyProductInventory(List<Pair<Integer, Integer>> productPairs) {
         return false;

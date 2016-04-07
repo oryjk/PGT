@@ -99,7 +99,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
             LOGGER.debug("The userId is empty");
              return null;
          }
-         User user=userService.findUser(userId.toString());
+         User user=userService.findUser(userId);
          if(ObjectUtils.isEmpty( user)){
             LOGGER.debug("The user is empty and id is {}",userId);
             return null;

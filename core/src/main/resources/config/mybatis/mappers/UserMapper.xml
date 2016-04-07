@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pgt.user.dao.UserMapper">
 
-    <resultMap id="user" type="com.pgt.user.bean.User">
-        <id column="user_id" property="id"/>
+	<resultMap id="user" type="com.pgt.user.bean.User">
+		<id column="user_id" property="id"/>
 
-        <result column="login" property="username"/>
-        <result column="password" property="password"/>
-        <result column="email" property="email"/>
-        <result column="phone_number" property="phoneNumber"/>
-        <result column="creation_date" property="createDate"/>
-        <result column="update_date" property="updateDate"/>
-        <result column="count" property="count"/>
-        <result column="salt" property="salt"/>
-        <result column="available" property="available"/>
-        <result column="verify_code" property="authCode"/>
-        <result column="qq_access_token" property="qqAccessToken"/>
-        <result column="qq_openid" property="qqOpenid"/>
-        <result column="YEEPAY_STATUS" property="yeepayStatus"/>
+		<result column="login" property="username"/>
+		<result column="password" property="password"/>
+		<result column="email" property="email"/>
+		<result column="phone_number" property="phoneNumber"/>
+		<result column="creation_date" property="createDate"/>
+		<result column="update_date" property="updateDate"/>
+		<result column="count" property="count"/>
+		<result column="salt" property="salt"/>
+		<result column="available" property="available"/>
+		<result column="verify_code" property="authCode"/>
+		<result column="qq_access_token" property="qqAccessToken"/>
+		<result column="qq_openid" property="qqOpenid"/>
+		<result column="YEEPAY_STATUS" property="yeepayStatus"/>
 		<result column="YEEPAY_REGI_DATE" property="yeepayRegistoredDate"/>
 		<result column="default_address_id" property="defaultAddressId"/>
 		<result column="YEEPAY_USER_NAME" property="yeepayUserName"/>
 		<result column="YEEPAY_USER_ID" property="yeepayUserId"/>
-        <result column="YEE_PAY_USER_NO" property="yeepayUserNo"/>
+		<result column="YEE_PAY_USER_NO" property="yeepayUserNo"/>
 
 
-    </resultMap>
-    <parameterMap id="paramUser" type="com.pgt.user.bean.User">
-    </parameterMap>
+	</resultMap>
+	<parameterMap id="paramUser" type="com.pgt.user.bean.User">
+	</parameterMap>
 
 
-    <insert id="create" parameterMap="paramUser" useGeneratedKeys="true" keyProperty="id">
+	<insert id="create" parameterMap="paramUser" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO USERS(login,password,salt,phone_number,email,creation_date,update_date,available,qq_access_token,qq_openid)
         VALUES (#{username},#{password},#{salt},#{phoneNumber},#{email},#{createDate},#{updateDate},#{available},#{qqAccessToken},#{qqOpenid})
     </insert>
-    <select id="selectUser" parameterType="int" resultMap="user">
+	<select id="selectUser" parameterType="int" resultMap="user">
         SELECT * FROM USERS WHERE user_id = #{id}
     </select>
 
-    <update id="update" parameterMap="paramUser">
+	<update id="update" parameterMap="paramUser">
         UPDATE USERS SET login = #{username},password = #{password},salt = #{salt},phone_number=#{phoneNumber},
         email = #{email},creation_date = #{createDate},update_date = #{updateDate},available
         = #{available}, YEEPAY_STATUS = #{yeepayStatus}, YEEPAY_REGI_DATE = #{yeepayRegistoredDate},
@@ -48,28 +48,30 @@
         YEE_PAY_USER_NO = #{yeepayUserNo},qq_access_token=#{qqAccessToken},qq_openid=#{qqOpenid}
         WHERE user_id = #{id}
     </update>
-    <select id="delete" parameterType="int" resultMap="user">
+	<select id="delete" parameterType="int" resultMap="user">
         DELETE FROM USERS WHERE user_id = #{id}
     </select>
-    <select id="selectAll" resultType="List">
+	<select id="selectAll" resultType="List">
         DELETE FROM USERS WHERE user_id = #{id}
     </select>
-    <select id="findUser" resultMap="user">
+	<select id="findUser" resultMap="user">
         SELECT * FROM USERS WHERE login = #{login} AND password = #{password}
     </select>
 
 
-    <select id="authorize" parameterType="string" resultMap="user">
+	<select id="authorize" parameterType="string" resultMap="user">
         SELECT * FROM USERS WHERE login = #{authorizeValue} OR PHONE_NUMBER=#{authorizeValue}
+    </select>
+	<select id="findUserById" parameterType="int" resultMap="user">
+        SELECT * FROM USERS WHERE USER_ID = #{userId};
     </select>
 
 
-    <update id="updateLastLogin" parameterType="Long">
+	<update id="updateLastLogin" parameterType="Long">
         UPDATE USERS
         SET update_date = now()
         WHERE user_id = #{id}
     </update>
-    
-    
+
 
 </mapper>

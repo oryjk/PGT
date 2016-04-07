@@ -17,7 +17,7 @@
 <jsp:include page="../core/header-main.jsp"/>
 <!--header end-->
 <!--banner begin-->
-<div class="banner">
+<div class="banner" style="background:url('${url}') no-repeat 77% center;background-size:100% 100%">
     <div class="banner-content">
         <form id="form" action="/pawnPersonInfo/createPawnPersonInfo" method="post">
             <h2>典当个人信息</h2>
@@ -110,15 +110,31 @@
                         <!-- 仿select组件begin-->
                         <div class="invest-type-select">
                             <a class="select-view"  href="#">
-                                <span class="selected">请选择</span>
+                                <c:choose>
+                                    <c:when test="${not empty pawnPersonInfo.pawnType}">
+                                        <span class="selected">${pawnPersonInfo.pawnType}</span>
+                                    </c:when>
+                                    <c:when test="${not empty type}">
+                                        <span class="selected">${type}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="selected">请选择</span>
+                                    </c:otherwise>
+                                </c:choose>
                                 <i class="foundicon-down-arrow"></i>
                             </a>
                             <ul>
+                                <li><a class="option-view" data-value="${type}" href="#">${type}</a></li>
                                 <c:forEach items="${pawnTypes}" var="pawnType">
                                     <li><a class="option-view" data-value="${pawnType.key}" href="#">${pawnType.value}</a></li>
                                 </c:forEach>
                             </ul>
-                            <input name="pawnType" type="hidden" value="${pawnPersonInfo.pawnType}"/>
+                            <c:if test="${not empty pawnPersonInfo.pawnType}">
+                                <input name="pawnType" type="hidden" value="${pawnPersonInfo.pawnType}"/>
+                            </c:if>
+                            <c:if test="${not empty type}">
+                                <input name="pawnType" type="hidden" value="${type}"/>
+                            </c:if>
                         </div>
                         <!-- 仿select组件end-->
                     </td>
@@ -169,7 +185,7 @@
 </div>
 <!--process end-->
 <!--footer begin-->
-<div class="footer"></div>
+<jsp:include page="../core/footer-main.jsp"/>
 <!--footer end-->
 <jsp:include page="../core/baidu.jsp" />
 </body>

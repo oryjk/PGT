@@ -52,8 +52,9 @@ public class PawnPersonInfoController {
     private SmsService smsService;
 
     @RequestMapping(value = "/createPawnPersonInfo",method = RequestMethod.GET)
-    public ModelAndView createPawnPersonInfo(ModelAndView modelAndView){
-
+    public ModelAndView createPawnPersonInfo(ModelAndView modelAndView,@RequestParam String url,@RequestParam String type){
+        modelAndView.addObject("url",url);
+        modelAndView.addObject("type",type);
         LOGGER.debug("The method create PawnPersonInfo UI");
         Map pawnTypes=configuration.getPawnType();
         if(!CollectionUtils.isEmpty(pawnTypes)){
@@ -125,7 +126,7 @@ public class PawnPersonInfoController {
             }
         }
 
-        modelAndView.setViewName("/index/index");
+        modelAndView.setViewName("/invest/invest-end");
         return modelAndView;
     }
 

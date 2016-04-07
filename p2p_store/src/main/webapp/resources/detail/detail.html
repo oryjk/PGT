@@ -152,7 +152,10 @@
             <div class="invest-img"><img src="../core/images/product/invest_hero_1.png" alt=""/></div>
             <div class="invest-handle">
                 <div class="invest-handle-group">
-                    <a class="invest-add-favorite" href="javascript:void(0);">收藏</a>
+                    <a class="invest-add-favorite" href="javascript:void(0);">
+                        <span>收藏</span>
+                        <span class="color-hover"></span>
+                    </a>
                     <a class="invest-scan-count">已浏览<span>123</span>次</a>
                 </div>
                 <div class="invest-share-group">
@@ -199,7 +202,12 @@
             <a class="item-nav-left" id="itemNavLeft" href="javascript:void(0);"></a>
         </div>
 
-        <img class="what-is-this" src="" alt=""/>
+        <div class="what-is-this">
+            <p>特点1</p>
+            <p>特点1</p>
+            <p>特点1</p>
+            <p>特点1</p>
+        </div>
 
     </div>
     <!--invest-part end-->
@@ -214,7 +222,7 @@
             <li><a href="#">产品讨论</a><span class="tab-item-count">250</span></li>
             <li><a href="#">参与者</a><span class="tab-item-count">250</span></li>
         </ul>
-        <div class="content-box"    >
+        <div class="content-box">
             <!-- super: 以下五个tab对应的content,添加类content-choose时显示,不添加时隐藏,默认第一个显示-->
             <!-- content-item-list begin -->
             <div class="content-item-list content-choose">
@@ -289,8 +297,13 @@
                         <div class="item-row-8">
                             <div class="col-title">&nbsp; </div>
                             <div class="col-content">
-                                <a class="item-buy-now" href="#">立即抢订</a>
-                                <a class="item-join-favorite" href="#">添加收藏</a>
+                                <a class="item-sold-out">已结束</a>
+                                <a class="item-buy-now" href="#">
+                                    <span class="color-hover"></span>
+                                    立即抢订</a>
+                                <a class="item-join-favorite" href="#">
+                                    <span class="color-hover"></span>
+                                    添加收藏</a>
                             </div>
                         </div>
                     </div>
@@ -940,8 +953,40 @@
     <a class="turn-right" href="#"></a>
     <a class="turn-left" href="#"></a>
     <!-- turn left and right end-->
+
+    <!--pop begin-->
+    <div id="popUp" class="pop-up">
+        <div class="wrap">
+            <div class="inner">
+                <h3>
+                    <span id="popTitle" class="pop-title">与他联系</span>
+                    <span id="popClose" class="close">X</span>
+                </h3>
+                <form id="popForm" class="pop-content" action="">
+
+                    <div class="pop-address-title">您的手机号: <span class="pop-error" id="sayError"></span></div>
+                    <div class="pop-address-value"><input name="phone" id="sayPhone" class="pop-phone" type="text"/></div>
+
+                    <div class="pop-address-title">想对他说的话: </div>
+                    <div class="pop-address-value">
+                        <div class="pop-text-box">
+                            <textarea name="text" id="sayText" class="pop-text"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="pop-address-value">备注: 请输入对他的留言, 我们将尽快向他转答.</div>
+
+                    <div class="pop-btn">
+                        <span id="popTips" class="pop-tips"></span>
+                        <input id="popSubmit" class="pop-confirm" type="button" value="确认"/>
+                        <input id="popReset" class="pop-cancel" type="reset" value="取消"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--pop end-->
     <script src="../core/js/require.js" data-main="detail"></script>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
 </body>
 </html>

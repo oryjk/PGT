@@ -15,7 +15,6 @@ import com.pgt.media.helper.MediaHelper;
 import com.pgt.product.bean.P2PProduct;
 import com.pgt.product.bean.Product;
 import com.pgt.product.bean.ProductMedia;
-import com.pgt.product.service.ProductServiceImp;
 import com.pgt.product.service.TenderProductService;
 import com.pgt.search.service.ESSearchService;
 import com.pgt.search.service.TenderSearchEngineService;
@@ -96,7 +95,7 @@ public class TenderController extends InternalTransactionBaseController {
                             HttpServletRequest pRequest, TenderQuery tenderQuery) {
 
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         modelAndView.setViewName(viewMapperConfiguration.getTenderListPage());
@@ -134,7 +133,7 @@ public class TenderController extends InternalTransactionBaseController {
     public ModelAndView createTenderUI(ModelAndView modelAndView, HttpServletRequest pRequest) {
 
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
 
@@ -182,7 +181,7 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/updateUI/{tenderId}", method = RequestMethod.GET)
     public ModelAndView updateTenderUI(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         if (ObjectUtils.isEmpty(tenderId)) {
@@ -206,7 +205,7 @@ public class TenderController extends InternalTransactionBaseController {
     public ModelAndView createTenderStepBase(ModelAndView modelAndView, @Validated(value = CreateTender.class) Tender tender,
                                              BindingResult bindingResult, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         List<Category> categories = categoryService.queryAllTenderParentCategories();
@@ -274,7 +273,7 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/addProductStepBase", method = RequestMethod.GET)
     public ModelAndView addProducts(ModelAndView modelAndView, @RequestParam("tenderId") Integer tenderId, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         modelAndView.setViewName("/p2p-tender/addProductStepBase");
@@ -286,7 +285,7 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/addProductStepBase", method = RequestMethod.POST)
     public ModelAndView addProducts(HttpServletRequest pRequest, P2PProduct product, ModelAndView modelAndView) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
 
@@ -304,7 +303,7 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/addProductImageModify", method = RequestMethod.GET)
     public ModelAndView addProductImageModify(ModelAndView modelAndView, @RequestParam("productId") Integer productId, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         modelAndView.setViewName("/p2p-tender/productImageModify");
@@ -355,7 +354,7 @@ public class TenderController extends InternalTransactionBaseController {
     public ModelAndView updateTender(ModelAndView modelAndView, Tender tender, HttpServletRequest pRequest) {
         modelAndView.setViewName("/tender/tenderAddAndModify");
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         if (ObjectUtils.isEmpty(tender)) {
@@ -423,7 +422,7 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/queryTenderById/{tenderId}")
     public ModelAndView queryTenderById(@PathVariable("tenderId") Integer tenderId, ModelAndView modelAndView, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         LOGGER.debug("delete the tenderId is {} ", tenderId);
@@ -447,7 +446,7 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/createTenderProduct/{tenderId}", method = RequestMethod.GET)
     public ModelAndView createTenderProduct(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         LOGGER.debug("The method createTenderProduct");
@@ -468,7 +467,7 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/createTenderProduct", method = RequestMethod.POST)
     public ModelAndView createTenderProduct(ModelAndView modelAndView, P2PProduct product, Integer tenderId, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         LOGGER.debug("The method crateTenderProduct");
@@ -506,7 +505,7 @@ public class TenderController extends InternalTransactionBaseController {
     public ModelAndView updateTenderProduct(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId,
                                             @PathVariable("productId") Integer productId, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         LOGGER.debug("The method updateTenderProduct");
@@ -538,7 +537,7 @@ public class TenderController extends InternalTransactionBaseController {
     @RequestMapping(value = "/updateTenderProduct", method = RequestMethod.POST)
     public ModelAndView updateTenderProduct(ModelAndView modelAndView, P2PProduct product, Integer tenderId, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         LOGGER.debug("The method updateTenderProduct");
@@ -556,7 +555,7 @@ public class TenderController extends InternalTransactionBaseController {
     public ModelAndView queryTenderByProductId(ModelAndView modelAndView, @PathVariable("tenderId") Integer tenderId,
                                                @PathVariable("productId") Integer productId, HttpServletRequest pRequest) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ModelAndView(PERMISSION_DENIED);
         }
         LOGGER.debug("The method queryTenderByProductId");
@@ -588,7 +587,7 @@ public class TenderController extends InternalTransactionBaseController {
     @ResponseBody
     public ResponseEntity deleteProduct(HttpServletRequest pRequest, @PathVariable("productId") String productId) {
         // verify permission
-        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR)) {
+        if (!verifyPermission(pRequest, Role.MERCHANDISER, Role.PROD_ORDER_MANAGER, Role.ADMINISTRATOR, Role.INVESTOR)) {
             return new ResponseEntity<>(new HashMap(), HttpStatus.FORBIDDEN);
         }
         TransactionStatus status = ensureTransaction();
@@ -676,7 +675,7 @@ public class TenderController extends InternalTransactionBaseController {
     }
 
     @RequestMapping(value = "/description/{tenderId}", method = RequestMethod.GET)
-    public ModelAndView tenderDescription(ModelAndView modelAndView, @PathVariable("tenderId") String tenderId){
+    public ModelAndView tenderDescription(ModelAndView modelAndView, @PathVariable("tenderId") String tenderId) {
         modelAndView.addObject("tenderId", tenderId);
         modelAndView.setViewName("/p2p-tender/tender-description-Article");
         return modelAndView;

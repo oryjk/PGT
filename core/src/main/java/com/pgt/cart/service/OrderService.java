@@ -98,8 +98,8 @@ public class OrderService {
     }
 
 
-    public boolean hasUncompleteOrder(int userId, int type) {
-        int amount = getOrderMapper().getUncompleteOrderAmount(userId, type);
+    public boolean hasUncompleteOrder(int userId, int type, int orderId) {
+        int amount = getOrderMapper().getUncompleteOrderAmount(userId, type, orderId);
         return amount > 0;
     }
 

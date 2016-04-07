@@ -260,18 +260,24 @@
 		<result property="alias" column="HOLDER_ALIAS"/>
 		<result property="productName" column="NAME"/>
 		<result property="path" column="PATH"/>
+		<result property="userId" column="USER_ID"/>
 	</resultMap>
 
 	<select id="getBuyers" parameterType="int" resultMap="buyerMap">
-		SELECT o.HOLDER_ALIAS, c.NAME, m.PATH FROM TENDER AS t
-		INNER JOIN p2p_info AS p on p.TENDER_ID = t.ID
+		SELECT o.USER_ID AS userId, o.HOLDER_ALIAS AS userName, c.NAME AS itemName, m.PATH AS mediaPath FROM TENDER AS t
+		INNER JOIN P2P_INFO AS p on p.TENDER_ID = t.ID
 		INNER JOIN `ORDER` AS o ON o.P2P_INFO_ID = p.ID
-		INNER JOIN commerce_item as c on c.ORDER_ID = o.ORDER_ID
-		INNER JOIN media AS m on m.MEDIA_ID = c.SNAPSHOT_ID
-		WHERE o.STATUS > 30 AND t.id = #{id}
+		INNER JOIN COMMERCE_ITEM as c on c.ORDER_ID = o.ORDER_ID
+		INNER JOIN MEDIA AS m on m.MEDIA_ID = c.SNAPSHOT_ID
+		WHERE o.STATUS >= 30 AND t.id = #{id}
 	</select>
 
 	<select id="queryTenderByProductId" parameterType="int" resultMap="tenderResult">
 		SELECT * FROM TENDER t LEFT JOIN PRODUCT p ON t.ID=p.TENDER_ID WHERE p.PRODUCT_ID=#{productId}
 	</select>
+	<select id="findSecondLastTender" resultMap="tenderResult">
+		select * from tender where id=(SELECT id FROM tender where 1 order by id desc limit 1,1)
+	</select>
+
+
 </mapper>

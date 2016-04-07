@@ -106,7 +106,7 @@
                                                             <c:when test="${b2cOrder.status eq 30}">
                                                                 <span>已付款</span>
                                                             </c:when>
-                                                            <c:when test="${b2cOrder.status eq 40}">
+                                                            <c:when test="${b2cOrder.status eq 80}">
                                                                 <span>待收货</span>
                                                             </c:when>
                                                             <c:when test="${b2cOrder.status eq 100}">

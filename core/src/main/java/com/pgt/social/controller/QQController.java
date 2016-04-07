@@ -67,14 +67,13 @@ public class QQController {
     public ModelAndView afterComplete(ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=utf-8");
 
-        PrintWriter out = response.getWriter();
 
         try {
             AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(request);
 
-            String accessToken = null,
-                    openID = null;
-            long tokenExpireIn = 0L;
+            String accessToken,
+                    openID;
+            long tokenExpireIn;
 
 
             if (accessTokenObj.getAccessToken().equals("")) {
@@ -134,6 +133,7 @@ public class QQController {
                     thirdLogin.setUser(user);
                     thirdLoginService.createThirdLogin(thirdLogin);
                     request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                    ssoService.cacheUser(user, null, null);
                     LOGGER.debug("set User to session and id is {}", user.getId());
                 } else {
                     //update expireIn
@@ -142,17 +142,18 @@ public class QQController {
                     user = thirdLogin.getUser();
                     if (!ObjectUtils.isEmpty(user)) {
                         request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                        ssoService.cacheUser(user, null, null);
                         LOGGER.debug("set User to session and id is {}", user.getId());
                     } else {
                         LOGGER.debug("not find User");
                         return modelAndView;
                     }
                 }
-                ssoService.cacheUser(user, null, null);
+
             }
         } catch (QQConnectException e) {
         }
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("/user/successLogin");
         return modelAndView;
     }
 

@@ -46,7 +46,9 @@ $border-gray: #cccccc;
 .content {
   margin: 0 auto;
   width: $main-width;
+  overflow: hidden;
 }
+
 
 .filter {
   border: 1px solid #cccccc;
@@ -78,6 +80,7 @@ $border-gray: #cccccc;
 .filter-content {
   position: relative;
   padding: 10px 20px;
+  height: 60px;
   line-height: 35px;
   font-size: 14px;
 }

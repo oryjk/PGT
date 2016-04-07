@@ -5,6 +5,8 @@ import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by carlwang on 1/20/16.
@@ -13,9 +15,21 @@ public class ESTender implements Serializable {
     private Tender tender;
     private Category parentCategory;
     private Category rootCategory;
+    private List<Map<String, String>> buyerMap;
     private long newest;
     private long cycle;
     private long end;
+    private Integer preId = -1;
+    private Integer nextId = -1;
+
+    public ESTender(Tender tender, Category parentCategory, Category rootCategory, List<Map<String, String>> buyerMap, Integer preId, Integer nextId) {
+        this.tender = tender;
+        this.rootCategory = rootCategory;
+        this.parentCategory = parentCategory;
+        this.buyerMap = buyerMap;
+        this.preId=preId;
+        this.nextId=nextId;
+    }
 
     public long getNewest() {
         if (ObjectUtils.isEmpty(tender)) {
@@ -54,13 +68,6 @@ public class ESTender implements Serializable {
         this.end = end;
     }
 
-
-    public ESTender(Tender tender, Category parentCategory, Category rootCategory) {
-        this.tender = tender;
-        this.rootCategory = rootCategory;
-        this.parentCategory = parentCategory;
-    }
-
     public Category getRootCategory() {
         return rootCategory;
     }
@@ -83,5 +90,29 @@ public class ESTender implements Serializable {
 
     public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
+    }
+
+    public List<Map<String, String>> getBuyerMap() {
+        return buyerMap;
+    }
+
+    public void setBuyerMap(List<Map<String, String>> buyerMap) {
+        this.buyerMap = buyerMap;
+    }
+
+    public Integer getPreId() {
+        return preId;
+    }
+
+    public void setPreId(Integer preId) {
+        this.preId = preId;
+    }
+
+    public Integer getNextId() {
+        return nextId;
+    }
+
+    public void setNextId(Integer nextId) {
+        this.nextId = nextId;
     }
 }

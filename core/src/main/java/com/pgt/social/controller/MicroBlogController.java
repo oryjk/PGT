@@ -1,6 +1,7 @@
 package com.pgt.social.controller;
 
 
+import com.pgt.configuration.Configuration;
 import com.pgt.constant.UserConstant;
 import com.pgt.sso.service.SSOService;
 import com.pgt.user.bean.ThirdLogin;
@@ -54,16 +55,23 @@ public class MicroBlogController {
     @Autowired
     private SSOService ssoService;
 
+    @Autowired
+    private Configuration configuration;
+
     private String client_id="3367852669";
 
     private String  client_secret="28369d211db53c05862eea23c795a078";
 
-    private String redirect_uri="http://dev.p2p.dianjinzi.com/microBlogLogin/afterLogin";
+    private String redirect_uri="";
 
-    private String  requestCode="https://api.weibo.com/oauth2/authorize"+"?client_id="+client_id+"&redirect_uri="+redirect_uri+"&response_type=code";
+    private String redirect_uri_end ="/microBlogLogin/afterLogin";
+
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public void login(HttpServletRequest request, HttpServletResponse response){
+        redirect_uri = configuration.getHost()+redirect_uri_end;
+        String  requestCode="https://api.weibo.com/oauth2/authorize"+"?client_id="+client_id+"&redirect_uri="+redirect_uri+"&response_type=code"+"&forcelogin=true";
         try {
             response.sendRedirect(requestCode);
         } catch (IOException e) {
@@ -126,6 +134,7 @@ public class MicroBlogController {
                 thirdLogin.setUser(user);
                 thirdLoginService.createThirdLogin(thirdLogin);
                 request.getSession().setAttribute(UserConstant.CURRENT_USER, user);
+                ssoService.cacheUser(user, null, null);
                 LOGGER.debug("set User to session and id is {}", user.getId());
 
             } else {
@@ -147,7 +156,7 @@ public class MicroBlogController {
             LOGGER.debug("has exception {}",e.getMessage());
             return modelAndView;
         }
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("/user/successLogin");
         return modelAndView;
     }
 

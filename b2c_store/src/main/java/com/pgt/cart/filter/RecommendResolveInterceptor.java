@@ -2,8 +2,8 @@ package com.pgt.cart.filter;
 
 import com.pgt.cart.constant.CartConstant;
 import com.pgt.cart.constant.SessionConstant;
+import com.pgt.cart.service.IRecommendService;
 import com.pgt.cart.service.ProductBrowseTrackService;
-import com.pgt.cart.service.RecommendService;
 import com.pgt.cart.util.RepositoryUtils;
 import com.pgt.product.bean.Product;
 import org.apache.commons.collections.CollectionUtils;
@@ -25,7 +25,7 @@ public class RecommendResolveInterceptor extends ItemLoadInterceptor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RecommendResolveInterceptor.class);
 
 	@Resource(name = "recommendService")
-	private RecommendService mRecommendService;
+	private IRecommendService mRecommendService;
 
 	@Resource(name = "productBrowseTrackService")
 	private ProductBrowseTrackService mBrowseTrackService;
@@ -56,11 +56,11 @@ public class RecommendResolveInterceptor extends ItemLoadInterceptor {
 	}
 
 
-	public RecommendService getRecommendService() {
+	public IRecommendService getRecommendService() {
 		return mRecommendService;
 	}
 
-	public void setRecommendService(final RecommendService pRecommendService) {
+	public void setRecommendService(final IRecommendService pRecommendService) {
 		mRecommendService = pRecommendService;
 	}
 

@@ -19,4 +19,10 @@ public interface RecommendDao extends SqlMapper {
 
 	List<Integer> queryCategoryIdsExclude(List<String> pRecommendedCategoryIds);
 
+	List<Map<String, Object>> countCategoryTenderMapping(List<Integer> pRecentBrowsedProductIds);
+
+	List<Integer> queryAvailableTenderIds(@Param("categoryId") int pCategoryId);
+
+	List<Integer> queryTenderCategoryIdsExclude(List<String> pRecommendedCategoryIds);
+
 }

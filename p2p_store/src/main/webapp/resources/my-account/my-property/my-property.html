@@ -43,7 +43,7 @@
                     <a class="top-user-login hover-main" href="#">登录</a>
                     <a class="top-user-register hover-main" href="#">注册</a>
                 </div>
-                <div class="top-after-login" style="display: none">
+                <div class="top-after-login" style="display: block">
                     <span>欢迎您:</span>
                     <a href="#">小陈</a>
                     <a class="top-user-logout hover-main" href="javascript:void(0);">退出</a>
@@ -165,6 +165,7 @@
             <p>扫一扫,淘在当手机版</p>
         </div>
     </div>
+
     <div class="main-area">
         <h2 class="main-head">我的交易订单</h2>
         <!-- super: will-binding和already-binding,根据不同的情况显示和隐藏-->
@@ -222,6 +223,41 @@
                 <div class="already-value">4*****************1</div>
             </div>
         </div>
+        <form class="info-import" style="display: block">
+            <div class="row1">
+                <span class="row-title">昵称 :</span>
+                <span class="row-text"><input class="input-text" type="text"></span>
+            </div>
+            <div class="row1">
+                <span class="row-title">真实姓名 :</span>
+                <span class="row-text"><input class="input-text" type="text"></span>
+            </div>
+            <div class="row1">
+                <span class="row-title">身份证类型 :</span>
+                    <span class="row-text">
+                        <label><input type="radio" name="gender"/>男</label>
+                        <label><input type="radio" name="gender"/>女</label>
+                    </span>
+            </div>
+            <div class="row1">
+                <span class="row-title">身份证号 :</span>
+                <span class="row-text"><input class="input-text" type="text"></span>
+                <span class="row-tips">身份证格式不正确</span>
+            </div>
+            <div class="row1">
+                <span class="row-title">手机号 :</span>
+                <span class="row-text"><input class="input-text" type="text"></span>
+                <span class="row-tips">手机格式不正确</span>
+            </div>
+            <div class="row1">
+                <span class="row-title">邮箱 :</span>
+                <span class="row-text"><input class="input-text" type="text"></span>
+                <span class="row-tips">邮箱格式不正确</span>
+            </div>
+            <div class="row2">
+                <input class="yeepay-btn" type="submit" value="提交">
+            </div>
+        </form>
     </div>
 </div>
 

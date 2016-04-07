@@ -70,18 +70,19 @@ public class HelpCenterInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         List<Map<Object,Object>> helpList = SearchConvertToList.requestAttributeConvertToList(request,"helpCategoryVoList");
-        List helpFilterList = new ArrayList<>();
+        //List helpFilterList = new ArrayList<>();
         for(int i = 0;i < helpList.size();i++){
             List<Map<String,Object>> list = (ArrayList)helpList.get(i).get("helpCenterList");
             for(int j = 0; j< list.size(); j++){
-                if(!ObjectUtils.isEmpty(list.get(j).get("site")) && list.get(j).get("site").toString().contentEquals(HelpCenterSites.P2P_STORE.toString())){
-                    helpFilterList.add(list.get(j));
+                if(!ObjectUtils.isEmpty(list.get(j).get("site")) && list.get(j).get("site").toString().contentEquals(HelpCenterSites.B2C_STORE.toString())){
+                    //helpFilterList.add(list.get(j));
+                    list.set(j, null);
                 }
             }
         }
-        LOGGER.debug("" + helpFilterList);
+        LOGGER.debug("" + helpList);
         //helpList = helpList.stream().filter(entry -> entry.get(Constants.P2P_HELPCENTER) != HelpCenterSites.P2P_STORE).collect(Collectors.toList());
-        request.setAttribute("helpCategorVoList", helpFilterList);
+        request.setAttribute("helpCategorViewList", helpList);
     }
 
     @Override

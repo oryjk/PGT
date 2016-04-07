@@ -1,0 +1,1 @@
+alter table mp.RECOMMENDED_PRODUCT add (TYPE int(11), PRICE int(11));

@@ -21,6 +21,18 @@
     <h2>忘记密码</h2>
     <!-- step begin-->
     <!--super: 下面四步依次加上step-1到step-4-->
+    <c:if test="${step=='CHECK_USER_EXIST'}">
+        <div class="step-img" style=" background: url('/resources/core/images/shipping/b1.png') no-repeat 150px 0;"></div>
+    </c:if>
+    <c:if test="${step=='CHECK_PHONE_CODE'}">
+        <div class="step-img" style=" background: url('/resources/core/images/shipping/b2.png') no-repeat 150px 0;"></div>
+    </c:if>
+    <c:if test="${step=='SET_NEW_PASSWORD'}">
+        <div class="step-img" style=" background: url('/resources/core/images/shipping/b3.png') no-repeat 150px 0;"></div>
+    </c:if>
+    <c:if test="${step=='COMPLETE'}">
+        <div class="step-img" style=" background: url('/resources/core/images/shipping/b4.png') no-repeat 150px 0;"></div>
+    </c:if>
     <ul class="step step-1">
         <li class="main-font1">填写用户名</li>
         <li class="main-font2">验证身份</li>
@@ -133,12 +145,12 @@
         <table>
             <tr class="input-row-1">
                 <th>新密码 :</th>
-                <td><input name="password"  class="input-text" type="text"/></td>
+                <td><input name="password"  class="input-text" type="password"/></td>
             </tr>
             <tr class="input-row-2">
                 <th>确认新密码 :</th>
                 <td>
-                    <input name="password2" class="input-text" type="text"/>
+                    <input name="password2" class="input-text" type="password"/>
                 </td>
             </tr>
             <tr class="input-row-3">

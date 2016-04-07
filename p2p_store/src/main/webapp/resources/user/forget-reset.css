@@ -186,7 +186,10 @@ a {
     width: 50%;
     text-align: right; }
     .header .top-user a {
-      color: #6c6c6c; }
+      color: #6c6c6c;
+      margin-left: 5px; }
+      .header .top-user a:hover {
+        color: #c90304; }
   .header .top-user-register {
     padding-left: 10px; }
   .header .head {
@@ -434,6 +437,7 @@ body {
   background: #f3f3f3; }
 
 .content {
+  overflow: hidden;
   margin: 20px auto 50px;
   padding-bottom: 50px;
   border: 1px solid #cccccc;
@@ -444,15 +448,21 @@ body {
     font-size: 20px;
     font-weight: 700; }
 
+.step-img {
+  margin-top: 50px;
+  height: 50px;
+  background: url("../core/images/shipping/b1.png") no-repeat 150px 0; }
+
 .step {
-  margin: 56px auto 70px;
-  width: 1200px;
+  margin: 0 auto 70px;
+  padding-left: 115px;
+  width: 1140px;
   height: 50px;
   text-align: center;
   background: white; }
   .step li {
     float: left;
-    width: 25%;
+    width: 21%;
     height: 100%;
     line-height: 50px; }
 
@@ -473,6 +483,7 @@ td {
   height: 30px; }
 
 .input-next {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -485,10 +496,24 @@ td {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .input-next .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 30px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .input-next:hover {
     background: #970203; }
+    .input-next:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .input-cancel {
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -502,8 +527,21 @@ td {
   text-align: center;
   cursor: pointer;
   color: black; }
+  .input-cancel .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 30px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .input-cancel:hover {
     background: #bbb; }
+    .input-cancel:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .error {
   font-size: 14px;
@@ -516,6 +554,9 @@ td {
 
 .input-username .input-row-3, .set-password .input-row-3 {
   height: 30px; }
+
+.input-username .input-row-3-1, .set-password .input-row-3-1 {
+  height: 20px; }
 
 .input-username .confirm-code, .set-password .confirm-code {
   float: left;
@@ -530,9 +571,16 @@ td {
 .test-identity tr {
   height: 50px; }
 
+.test-identity .input-row-3-1 {
+  height: 20px; }
+  .test-identity .input-row-3-1 td {
+    color: #999;
+    font-size: 13px; }
+
 .test-identity .get-phone-confirm-code,
 .test-identity .get-email-confirm-code {
   margin-left: 20px;
+  position: relative;
   display: inline-block;
   padding: 0;
   border: none;
@@ -545,23 +593,75 @@ td {
   color: white;
   text-align: center;
   cursor: pointer; }
+  .test-identity .get-phone-confirm-code .color-hover,
+  .test-identity .get-email-confirm-code .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 30px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
   .test-identity .get-phone-confirm-code:hover,
   .test-identity .get-email-confirm-code:hover {
     background: #970203; }
+    .test-identity .get-phone-confirm-code:hover .color-hover,
+    .test-identity .get-email-confirm-code:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
+
+.test-identity .get-phone-confirm-code-new {
+  margin-left: 20px;
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 120px;
+  height: 30px;
+  font-size: 14px;
+  background: #f5f5f5;
+  border-radius: 3px;
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  color: #979797;
+  border: 1px solid #979797; }
+  .test-identity .get-phone-confirm-code-new .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 30px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
+  .test-identity .get-phone-confirm-code-new:hover {
+    background: #f5f5f5; }
+    .test-identity .get-phone-confirm-code-new:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
 
 .test-identity select {
   width: 120px;
   height: 40px; }
 
 .reset-success {
-  padding-left: 528px; }
+  height: 300px;
+  padding-top: 150px;
+  padding-left: 528px;
+  background: url("../core/images/duihao.png") no-repeat 430px 150px; }
   .reset-success .success-row-1 {
     font-size: 25px;
-    color: #c90304; }
+    color: #48c344; }
   .reset-success .success-row-2,
   .reset-success .success-row-3 {
     padding-top: 20px; }
   .reset-success .link-btn {
+    color: #c90304;
     margin-right: 20px; }
 
 /*# sourceMappingURL=../../maps/user/forget-reset.css.map */

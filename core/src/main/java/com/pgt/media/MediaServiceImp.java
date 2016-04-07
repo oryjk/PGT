@@ -96,7 +96,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
             mediaMapper.createMedia(media);
         } catch (Exception e) {
             LOGGER.error("Can not create media");
-            getTransactionManager().rollback(transactionStatus);
+            transactionStatus.setRollbackOnly();
         } finally {
             getTransactionManager().commit(transactionStatus);
         }
@@ -120,7 +120,7 @@ public class MediaServiceImp extends TransactionService implements MediaService 
             mediaMapper.deleteMedia(mediaId);
         } catch (Exception e) {
             LOGGER.error("Can not delete product media with id is {}.", mediaId);
-            getTransactionManager().rollback(transactionStatus);
+            transactionStatus.setRollbackOnly();
         } finally {
             getTransactionManager().commit(transactionStatus);
         }
