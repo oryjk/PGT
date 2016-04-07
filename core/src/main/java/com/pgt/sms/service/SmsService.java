@@ -8,6 +8,7 @@ import com.pgt.user.bean.User;
 import com.pgt.user.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -136,7 +137,11 @@ public class SmsService {
 
 
     public void sendToBuyer(TenderBuyer tenderBuyer) {
-        User seller = userService.findUser(String.valueOf(tenderBuyer.getSellerId()));
+        User seller = userService.findUser(tenderBuyer.getSellerId());
+        if (org.springframework.util.ObjectUtils.isEmpty(seller)) {
+            LOGGER.debug("Can not find the user by user id is {}.", tenderBuyer.getSellerId());
+            return;
+        }
         String phoneNumber = seller.getPhoneNumber();
         if (StringUtils.isEmpty(phoneNumber)) {
             LOGGER.debug("The seller's phone number is empty.");

@@ -148,6 +148,7 @@ public class P2PCheckoutController {
         try {
             Pair<Order, P2PInfo> result = getOrderService().createP2POrder(user, tender, relatedProducts, productIds, quantities);
             Order order = result.getLeft();
+
             // check inventory
             getTenderInventoryService().lockInventory(order);
             ModelAndView modelAndView = new ModelAndView("redirect:/checkout/shipping");

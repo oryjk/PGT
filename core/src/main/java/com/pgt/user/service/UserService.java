@@ -8,7 +8,7 @@ import java.util.List;
  * Created by cwang7 on 10/18/15.
  */
 public interface UserService {
-    User findUser(String id);
+    User findUser(Integer id);
 
     void saveUser(User user);
 

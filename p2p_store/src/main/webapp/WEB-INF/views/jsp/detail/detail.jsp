@@ -366,60 +366,17 @@
 
 		<!-- content-joiner begin-->
 		<div class="content-joiner ">
-			<a class="touch-him" href="#" data-value="" data-product-name="">
-				<img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
+			<c:forEach items="${ESTender.buyerMap}" var="buyer">
+				<a class="touch-him" href="#" data-value="${buyer.userId}" data-product-name="${buyer.itemName}">
+					<img class="joiner-face" src="${buyer.mediaPath}" alt="#"/>
 
-				<div class="joiner-info">
-					<div class="joiner-name">小王</div>
-					<div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
-				</div>
-				<div class="touch-him-opacity"><span>与他联系</span></div>
-			</a>
-			<a class="touch-him" href="#">
-				<img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
-
-				<div class="joiner-info">
-					<div class="joiner-name">小王</div>
-					<div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
-				</div>
-				<div class="touch-him-opacity"><span>与他联系</span></div>
-			</a>
-			<a class="touch-him" href="#">
-				<img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
-
-				<div class="joiner-info">
-					<div class="joiner-name">小王</div>
-					<div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
-				</div>
-				<div class="touch-him-opacity"><span>与他联系</span></div>
-			</a>
-			<a class="touch-him" href="#">
-				<img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
-
-				<div class="joiner-info">
-					<div class="joiner-name">小王</div>
-					<div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
-				</div>
-				<div class="touch-him-opacity"><span>与他联系</span></div>
-			</a>
-			<a class="touch-him" href="#">
-				<img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
-
-				<div class="joiner-info">
-					<div class="joiner-name">小王</div>
-					<div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
-				</div>
-				<div class="touch-him-opacity"><span>与他联系</span></div>
-			</a>
-			<a class="touch-him" href="#">
-				<img class="joiner-face" src="../core/images/product/user-face.png" alt="#"/>
-
-				<div class="joiner-info">
-					<div class="joiner-name">小王</div>
-					<div class="joiner-text">已预购<span>纯金生肖戒指怕啊怕怕啊怕</span></div>
-				</div>
-				<div class="touch-him-opacity"><span>与他联系</span></div>
-			</a>
+					<div class="joiner-info">
+						<div class="joiner-name">买家:${buyer.userName}</div>
+						<div class="joiner-text">已预购<span>${buyer.itemName}</span></div>
+					</div>
+					<div class="touch-him-opacity"><span>与他联系</span></div>
+				</a>
+			</c:forEach>
 		</div>
 		<!-- content-jpiner end-->
 	</div>
@@ -554,12 +511,13 @@
 				<span id="popTitle" class="pop-title">与他联系</span>
 				<span id="popClose" class="close">X</span>
 			</h3>
+
 			<form id="popForm" class="pop-content" action="">
 
 				<div class="pop-address-title">您的手机号: <span class="pop-error" id="sayError"></span></div>
 				<div class="pop-address-value"><input name="phone" id="sayPhone" class="pop-phone" type="text" maxlength="11"/></div>
 
-				<div class="pop-address-title">想对他说的话: </div>
+				<div class="pop-address-title">想对他说的话:</div>
 				<div class="pop-address-value">
 					<div class="pop-text-box">
 						<textarea name="text" id="sayText" class="pop-text"></textarea>

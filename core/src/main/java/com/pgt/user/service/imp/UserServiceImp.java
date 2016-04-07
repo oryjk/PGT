@@ -36,8 +36,8 @@ public class UserServiceImp extends TransactionService implements UserService {
 
 
     @Override
-    public User findUser(String id) {
-        return null;
+    public User findUser(Integer id) {
+        return userMapper.findUserById(id);
     }
 
     @Override

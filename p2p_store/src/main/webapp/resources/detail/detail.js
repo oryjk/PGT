@@ -64,8 +64,8 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
                 event.preventDefault();
                 popFormDom.reset();
                 popFormCleanTips();
-                userId=$(this).attr('data-value');
-                productName=$(this).attr('data-product-name');
+                userId = $(this).attr('data-value');
+                productName = $(this).attr('data-product-name');
                 pop.fadeIn(300);
 
             });
@@ -93,126 +93,132 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
                             productName: productName
                         }
                     }).done(function (res) {
-                        if (res.success.equals('true')) {
+                        if (res.success == 'true') {
                             popTips.html('提交成功');
-                            setTimeout(function () {
-                                pop.fadeOut(300);
-                            }, 1000);
-                        } else {
-                            popTips.html('提交失败');
-                        }
-                    })
-                } else {
-                    sayError.html('请输入正确的手机号!')
+                        setTimeout(function () {
+                            pop.fadeOut(300);
+                        }, 1000);
+                    }
+                else
+                    {
+                        popTips.html('提交失败');
+                    }
                 }
-            });
-
-            //清楚回显和错误提示
-            function popFormCleanTips() {
-                sayError.html('');
-                popTips.html('')
+                )
             }
-        }());
-
-
-        $(".detail-content>ul>li").click(function (event) {
-            event.preventDefault();
-
-            $(".detail-content>ul>li").each(function () {
-                $(this).removeAttr("class");
-            });
-
-            $(this).attr("class", "tab-choose");
-
-            var tabindex = $(this).index();
-
-            $(".content-box > div").each(function () {
-
-                $(this).removeClass("content-choose");
-
-                if (tabindex == $(this).index()) {
-                    $(this).addClass("content-choose");
-                }
-
-            });
+            else
+            {
+                sayError.html('请输入正确的手机号!')
+            }
         });
 
-        var setQuantity = function (obj, num) {
-            $(obj).parents('.each-item').find('.quantity').val(num);
-        };
+        //清楚回显和错误提示
+        function popFormCleanTips() {
+            sayError.html('');
+            popTips.html('')
+        }
+    }());
 
 
-        //add product quantity
-        $(".item-buy-plus").click(function () {
+    $(".detail-content>ul>li").click(function (event) {
+        event.preventDefault();
 
-            //get limit quantity
-            var limitQuantity = $(this).parent().next().text();
-
-            //get buy quantity
-            var num = $(this).parent().prev().text();
-
-            num++;
-            if (num > limitQuantity) {
-                alert("此商品购买的数量不能超过" + limitQuantity + "件");
-                return;
-            }
-            //set buy quantity
-            $(this).parent().prev().text(num);
-            setQuantity(this, num);
-        });
-        //reduce product quantity
-        $(".item-buy-minus").click(function () {
-
-            var num = $(this).parent().prev().text();
-
-            num--;
-
-            if (num == 0) {
-                return;
-            }
-
-            $(this).parent().prev().text(num);
-            setQuantity(this, num);
-
+        $(".detail-content>ul>li").each(function () {
+            $(this).removeAttr("class");
         });
 
-        $('.item-buy-now').on('click', function (event) {
-            event.preventDefault();
-            $(this).parent('.col-content').find('.addToCart').submit();
-        });
+        $(this).attr("class", "tab-choose");
 
-        $('.invest-add-favorite, .item-join-favorite').on('click', function (event) {
-            var target = event.target;
-            if (target) {
-                if ($(target).data('processed') == false) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/myAccount/favourite',
-                        data: {
-                            'productId': $(target).data('pid'),
-                            'type': $(target).data('type')
-                        },
-                        success: function (data) {
-                            if (data && data.success === 1) {
-                                $(target).data('id', data.data.id).data('processed', 'true').text('已收藏');
-                            }
-                        }
-                    });
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/myAccount/dislike',
-                        data: {
-                            'favouriteId': $(target).data('id')
-                        },
-                        success: function (data) {
-                            if (data && data.success === 1) {
-                                $(target).data('id', '').data('processed', 'false').text('添加收藏');
-                            }
-                        }
-                    });
-                }
+        var tabindex = $(this).index();
+
+        $(".content-box > div").each(function () {
+
+            $(this).removeClass("content-choose");
+
+            if (tabindex == $(this).index()) {
+                $(this).addClass("content-choose");
             }
+
         });
     });
+
+    var setQuantity = function (obj, num) {
+        $(obj).parents('.each-item').find('.quantity').val(num);
+    };
+
+
+    //add product quantity
+    $(".item-buy-plus").click(function () {
+
+        //get limit quantity
+        var limitQuantity = $(this).parent().next().text();
+
+        //get buy quantity
+        var num = $(this).parent().prev().text();
+
+        num++;
+        if (num > limitQuantity) {
+            alert("此商品购买的数量不能超过" + limitQuantity + "件");
+            return;
+        }
+        //set buy quantity
+        $(this).parent().prev().text(num);
+        setQuantity(this, num);
+    });
+    //reduce product quantity
+    $(".item-buy-minus").click(function () {
+
+        var num = $(this).parent().prev().text();
+
+        num--;
+
+        if (num == 0) {
+            return;
+        }
+
+        $(this).parent().prev().text(num);
+        setQuantity(this, num);
+
+    });
+
+    $('.item-buy-now').on('click', function (event) {
+        event.preventDefault();
+        $(this).parent('.col-content').find('.addToCart').submit();
+    });
+
+    $('.invest-add-favorite, .item-join-favorite').on('click', function (event) {
+        var target = event.target;
+        if (target) {
+            if ($(target).data('processed') == false) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/myAccount/favourite',
+                    data: {
+                        'productId': $(target).data('pid'),
+                        'type': $(target).data('type')
+                    },
+                    success: function (data) {
+                        if (data && data.success === 1) {
+                            $(target).data('id', data.data.id).data('processed', 'true').text('已收藏');
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/myAccount/dislike',
+                    data: {
+                        'favouriteId': $(target).data('id')
+                    },
+                    success: function (data) {
+                        if (data && data.success === 1) {
+                            $(target).data('id', '').data('processed', 'false').text('添加收藏');
+                        }
+                    }
+                });
+            }
+        }
+    });
 });
+})
+;

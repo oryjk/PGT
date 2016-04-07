@@ -10,9 +10,12 @@ import com.pgt.cart.exception.OrderPersistentException;
 import com.pgt.cart.service.OrderService;
 import com.pgt.cart.service.ShoppingCartService;
 import com.pgt.com.pgt.order.bean.P2PInfo;
+import com.pgt.common.bean.Media;
 import com.pgt.integration.yeepay.YeePayConstants;
 import com.pgt.integration.yeepay.YeePayHelper;
 import com.pgt.integration.yeepay.direct.service.DirectYeePay;
+import com.pgt.media.MediaService;
+import com.pgt.media.bean.MediaType;
 import com.pgt.payment.PaymentConstants;
 import com.pgt.payment.bean.Transaction;
 import com.pgt.payment.service.PaymentService;
@@ -26,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -47,6 +51,9 @@ public class P2POrderService extends OrderService {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
+
+    @Autowired
+    private MediaService mediaService;
     @Autowired
     private P2PMapper p2PMapper;
 
@@ -124,8 +131,7 @@ public class P2POrderService extends OrderService {
                 ci.setQuantity(Integer.valueOf(quantities[count]));
                 ci.setReferenceId(relatedProduct.getProductId());
                 ci.setSalePrice(relatedProduct.getSalePrice());
-                // TODO Snapshotid
-                // ci.setSnapshotId();
+                setCommerceItemSnapshot(relatedProduct, ci);
                 ci.setType(CommerceItem.TYPE_P2P_NOMAL);
                 commerceItems.add(ci);
             }
@@ -133,6 +139,19 @@ public class P2POrderService extends OrderService {
         }
         order.setCommerceItems(commerceItems);
 
+    }
+
+    private void setCommerceItemSnapshot(Product relatedProduct, CommerceItem ci) {
+        ProductMedia productMedia =mediaService.findThumbnailMediasByProductId(String.valueOf(relatedProduct.getProductId()));
+        if(ObjectUtils.isEmpty(productMedia)){
+            LOGGER.debug("The product thumbnail media is empty.");
+            return;
+        }
+        Media media=new Media();
+        media.setPath(productMedia.getPath());
+        media.setType(MediaType.snapshot);
+        mediaService.createMedia(media);
+        ci.setSnapshotId(media.getId());
     }
 
 
