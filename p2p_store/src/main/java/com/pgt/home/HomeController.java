@@ -7,6 +7,7 @@ import com.pgt.category.service.CategoryService;
 import com.pgt.common.bean.Banner;
 import com.pgt.constant.Constants;
 import com.pgt.data.PawnDataList;
+import com.pgt.data.PawnService;
 import com.pgt.home.controller.BaseHomeController;
 import com.pgt.search.bean.ESTerm;
 import com.pgt.search.service.CategorySearchEngineService;
@@ -44,9 +45,6 @@ public class HomeController extends BaseHomeController {
     @Autowired
     private CategorySearchEngineService categorySearchEngineService;
 
-    @Autowired
-    private PawnDataList pawnDataList;
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getHomePage(ModelAndView modelAndView) {
         modelAndView.setViewName("/index/index");
@@ -54,11 +52,6 @@ public class HomeController extends BaseHomeController {
         buildSiteOnSaleTender(modelAndView);
         buildRootCategory(modelAndView);
         buildCategoryOnSaleTender(modelAndView);
-
-        WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-        pawnDataList = (PawnDataList) wac.getBean("PawnDataList");
-        LOGGER.debug("" + JSONObject.toJSONString(pawnDataList.getPawnDataList()));
-
         buildLivePawn(modelAndView);
         return modelAndView;
     }
@@ -76,9 +69,9 @@ public class HomeController extends BaseHomeController {
     }
 
     @Autowired
-    private CategoryService categoryService;
+    private PawnService pawnService;
     private void buildLivePawn(ModelAndView modelAndView){
-        List<Category> livePawnList = categoryService.queryLivepawnCategroys();
+        List<Category> livePawnList = pawnService.findAllPawnCategroys();
         modelAndView.addObject(Constants.LIVE_PAWN,livePawnList);
     }
 

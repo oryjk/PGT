@@ -1,5 +1,6 @@
 package com.pgt.data;
 
+import com.pgt.category.bean.Category;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +14,11 @@ import java.util.Map;
 @Component
 @Scope("singleton")
 public class PawnDataList {
-    public List<Map<String,Object>> pawnDataList;
-
-    public List<Map<String, Object>> getPawnDataList() {
+    public List<Category> pawnDataList;
+    public List<Category> getPawnDataList() {
         return pawnDataList;
     }
-
-    public void setPawnDataList(List<Map<String, Object>> pawnDataList) {
+    public void setPawnDataList(List<Category> pawnDataList) {
         this.pawnDataList = pawnDataList;
     }
 }
