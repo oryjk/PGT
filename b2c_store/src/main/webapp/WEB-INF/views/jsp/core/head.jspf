@@ -7,7 +7,9 @@
 	<title>${param.title}</title>
 	<link rel="Shortcut Icon" href="<spring:url value="${juedangpinStaticPath}/common/logo.png"/>">
 	<link rel="stylesheet" href="<spring:url value="${juedangpinStaticPath}${param.cssPath}"/>"/>
+	<c:if test="${!empty param.jsPath}">
 	<script src="${juedangpinStaticPath}${param.jsPath}"></script>
+	</c:if>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="keywords" content="${param.keywords}">
 	<meta name="description" content="${param.description}">

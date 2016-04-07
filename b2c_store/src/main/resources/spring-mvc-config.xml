@@ -46,8 +46,9 @@
 
 		<!-- find user in cookie -->
 		<mvc:interceptor>
-			<mvc:mapping path="/user/**"/>
+			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/**.*"/>
+			<mvc:exclude-mapping path="/user/**"/>
 			<bean class="com.pgt.permission.PersistentInterceptor"></bean>
 		</mvc:interceptor>
 
