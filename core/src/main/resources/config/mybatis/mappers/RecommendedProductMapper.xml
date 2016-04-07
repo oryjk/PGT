@@ -10,6 +10,8 @@
 		<result column="PRODUCT_TYPE" property="productType"/>
 		<result column="SORT" property="sort"/>
 		<result column="URL" property="url"/>
+		<result column="TYPE" property="type"/>
+		<result column="PRICE" property="price"/>
 		<association property="media" column="MEDIA_ID"
 					 select="com.pgt.common.dao.MediaMapper.queryMedia"/>
 	</resultMap>
