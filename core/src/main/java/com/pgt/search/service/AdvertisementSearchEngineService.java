@@ -1,9 +1,11 @@
 package com.pgt.search.service;
 
 import com.pgt.configuration.ESConfiguration;
+import com.pgt.product.bean.ProductType;
 import com.pgt.search.bean.ESFilter;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.procedure.RecommendIndexProcedure;
+import com.pgt.utils.SearchConvertToList;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
@@ -11,16 +13,25 @@ import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 
 /**
  * Created by carlwang on 4/7/16.
@@ -53,7 +64,8 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
             }
             recommendProducts.stream().forEach(stringStringPair -> {
                 IndexRequestBuilder indexRequestBuilder =
-                        client.prepareIndex(esConfiguration.getAdvertisementIndexName(), esConfiguration.getRecommendProductTypeName(), stringStringPair.getLeft())
+                        client.prepareIndex(esConfiguration.getAdvertisementIndexName(), esConfiguration.getRecommendProductTypeName(),
+                                stringStringPair.getLeft())
                                 .setSource(stringStringPair.getRight());
                 bulkRequest.add(indexRequestBuilder);
             });
@@ -76,7 +88,31 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
         LOGGER.debug("End to category index.");
     }
 
+    public List<Map<String, Object>> findRecommendProducts(ProductType productType) {
+
+        try {
+            SearchRequestBuilder searchRequestBuilder =
+                    getSearchClient().prepareSearch(esConfiguration.getAdvertisementIndexName()).setTypes(esConfiguration
+                            .getRecommendProductTypeName())
+                            .setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
+            BoolQueryBuilder qb = boolQuery();
+            searchRequestBuilder.setQuery(qb);
+            qb.must(matchQuery("productType", productType));
+            FieldSortBuilder sortBuilder = new FieldSortBuilder("sort");
+            sortBuilder.order(SortOrder.ASC);
+            sortBuilder.unmappedType("long");
+            searchRequestBuilder.addSort(sortBuilder);
+            searchRequestBuilder.setTerminateAfter(Integer.MAX_VALUE);
+            SearchResponse response = searchRequestBuilder.execute().actionGet();
+            return SearchConvertToList.searchConvertToList(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
+
     public void update(Integer id) {
 
     }
