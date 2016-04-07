@@ -9,6 +9,11 @@
 <script type="text/javascript" charset="utf-8" src="/resources/core/js/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="/resources/core/js/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="/resources/core/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+<style>
+	.pgt-error{
+		color: #fd1f25;
+	}
+</style>
 <admin:container id="tenderList" pageJsPath="/resources/p2p-tender/tender-add-and-modify.js">
 	<div class="row">
 		<div class="col-xs-12">

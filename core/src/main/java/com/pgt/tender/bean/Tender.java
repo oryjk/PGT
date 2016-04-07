@@ -83,13 +83,13 @@ public class Tender implements TenderState, TenderAuditState, Serializable {
      * 投资名称
      */
     @NotEmpty(message = "{NotEmpty.tender.name}", groups = {CreateTender.class})
-    @Length(min = 2, max = 20, message = "{Length.tender.name}", groups = {CreateTender.class})
+    @Length(max = 40, message = "{Length.tender.name}", groups = {CreateTender.class})
     private String name;
     /**
      * 投资的详情
      */
     @NotEmpty(message = "{NotEmpty.tender.description}", groups = {CreateTender.class})
-    @Length(min = 2, max = 20, message = "{Length.tender.descriptione}", groups = {CreateTender.class})
+    @Length(max = 40, message = "{Length.tender.description}", groups = {CreateTender.class})
     private String description;
     /**
      * 投资后多久天后开始算收益
