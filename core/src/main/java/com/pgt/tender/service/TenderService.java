@@ -152,4 +152,9 @@ public class TenderService {
     public List<Product> queryTenderProduct(int tenderId) {
         return tenderMapper.queryTenderProduct(tenderId);
     }
+
+    public Tender findSecondLastTender() {
+        return tenderMapper.findSecondLastTender();
+
+    }
 }

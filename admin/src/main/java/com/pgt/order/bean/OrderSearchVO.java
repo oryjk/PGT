@@ -13,9 +13,9 @@ import java.util.Date;
 /**
  * Created by Yove on 12/22/2015.
  */
-public class B2COrderSearchVO {
+public class OrderSearchVO {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(B2COrderSearchVO.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderSearchVO.class);
 
 	private static final DateFormat DT_FORMAT = new SimpleDateFormat("yyyy-MM-dd H:mm");
 
@@ -26,17 +26,17 @@ public class B2COrderSearchVO {
 	private Date mSubmitTimeBeg;
 	private Date mSubmitTimeEnd;
 
-	public static B2COrderSearchVO getInstance() {
-		return new B2COrderSearchVO();
+	private OrderSearchVO() {
+
 	}
 
-	private B2COrderSearchVO() {
-
+	public static OrderSearchVO getInstance() {
+		return new OrderSearchVO();
 	}
 
 	@Override
 	public String toString() {
-		return "B2COrderSearchVO{" +
+		return "OrderSearchVO{" +
 				"mOrderId=" + mOrderId +
 				", mUserName='" + mUserName + '\'' +
 				", mPriceBeg=" + mPriceBeg +
@@ -50,13 +50,13 @@ public class B2COrderSearchVO {
 		return mOrderId;
 	}
 
-	public B2COrderSearchVO setOrderId(final int pOrderId) {
-		mOrderId = pOrderId;
+	public OrderSearchVO setOrderId(final String pOrderId) {
+		mOrderId = RepositoryUtils.safeParseId(pOrderId);
 		return this;
 	}
 
-	public B2COrderSearchVO setOrderId(final String pOrderId) {
-		mOrderId = RepositoryUtils.safeParseId(pOrderId);
+	public OrderSearchVO setOrderId(final int pOrderId) {
+		mOrderId = pOrderId;
 		return this;
 	}
 
@@ -64,7 +64,7 @@ public class B2COrderSearchVO {
 		return mUserName;
 	}
 
-	public B2COrderSearchVO setUserName(final String pUserName) {
+	public OrderSearchVO setUserName(final String pUserName) {
 		mUserName = pUserName;
 		return this;
 	}
@@ -73,12 +73,7 @@ public class B2COrderSearchVO {
 		return mPriceBeg;
 	}
 
-	public B2COrderSearchVO setPriceBeg(final Double pPriceBeg) {
-		mPriceBeg = pPriceBeg;
-		return this;
-	}
-
-	public B2COrderSearchVO setPriceBeg(final String pPriceBeg) {
+	public OrderSearchVO setPriceBeg(final String pPriceBeg) {
 		if (StringUtils.isNotBlank(pPriceBeg)) {
 			try {
 				mPriceBeg = new Double(pPriceBeg);
@@ -91,17 +86,16 @@ public class B2COrderSearchVO {
 		return this;
 	}
 
+	public OrderSearchVO setPriceBeg(final Double pPriceBeg) {
+		mPriceBeg = pPriceBeg;
+		return this;
+	}
 
 	public Double getPriceEnd() {
 		return mPriceEnd;
 	}
 
-	public B2COrderSearchVO setPriceEnd(final Double pPriceEnd) {
-		mPriceEnd = pPriceEnd;
-		return this;
-	}
-
-	public B2COrderSearchVO setPriceEnd(final String pPriceEnd) {
+	public OrderSearchVO setPriceEnd(final String pPriceEnd) {
 		if (StringUtils.isNotBlank(pPriceEnd)) {
 			try {
 				mPriceEnd = new Double(pPriceEnd);
@@ -114,16 +108,16 @@ public class B2COrderSearchVO {
 		return this;
 	}
 
+	public OrderSearchVO setPriceEnd(final Double pPriceEnd) {
+		mPriceEnd = pPriceEnd;
+		return this;
+	}
+
 	public Date getSubmitTimeBeg() {
 		return mSubmitTimeBeg;
 	}
 
-	public B2COrderSearchVO setSubmitTimeBeg(final Date pSubmitTimeBeg) {
-		mSubmitTimeBeg = pSubmitTimeBeg;
-		return this;
-	}
-
-	public B2COrderSearchVO setSubmitTimeBeg(final String pSubmitTimeBeg) {
+	public OrderSearchVO setSubmitTimeBeg(final String pSubmitTimeBeg) {
 		if (StringUtils.isNotBlank(pSubmitTimeBeg)) {
 			try {
 				mSubmitTimeBeg = DT_FORMAT.parse(pSubmitTimeBeg);
@@ -136,16 +130,16 @@ public class B2COrderSearchVO {
 		return this;
 	}
 
+	public OrderSearchVO setSubmitTimeBeg(final Date pSubmitTimeBeg) {
+		mSubmitTimeBeg = pSubmitTimeBeg;
+		return this;
+	}
+
 	public Date getSubmitTimeEnd() {
 		return mSubmitTimeEnd;
 	}
 
-	public B2COrderSearchVO setSubmitTimeEnd(final Date pSubmitTimeEnd) {
-		mSubmitTimeEnd = pSubmitTimeEnd;
-		return this;
-	}
-
-	public B2COrderSearchVO setSubmitTimeEnd(final String pSubmitTimeEnd) {
+	public OrderSearchVO setSubmitTimeEnd(final String pSubmitTimeEnd) {
 		if (StringUtils.isNotBlank(pSubmitTimeEnd)) {
 			try {
 				mSubmitTimeEnd = DT_FORMAT.parse(pSubmitTimeEnd);
@@ -155,6 +149,11 @@ public class B2COrderSearchVO {
 				mSubmitTimeEnd = null;
 			}
 		}
+		return this;
+	}
+
+	public OrderSearchVO setSubmitTimeEnd(final Date pSubmitTimeEnd) {
+		mSubmitTimeEnd = pSubmitTimeEnd;
 		return this;
 	}
 }

@@ -1028,6 +1028,7 @@ body {
   border: 1px solid #cccccc;
   background: white; }
   .content-question .ask-question, .content-discuss .ask-question {
+    padding-bottom: 30px;
     margin: 0 auto;
     width: 942px; }
   .content-question .ask-head, .content-discuss .ask-head {
@@ -1041,7 +1042,9 @@ body {
   .content-question .ask-text textarea, .content-discuss .ask-text textarea {
     width: 100%; }
   .content-question .ask-btn, .content-discuss .ask-btn {
+    width: 948px;
     padding-top: 12px;
+    margin-bottom: 20px;
     text-align: right; }
   .content-question .ask-submit, .content-discuss .ask-submit {
     position: relative;
@@ -1073,7 +1076,7 @@ body {
         transform: scaleX(1);
         transition: transform .3s; }
   .content-question .question-list, .content-discuss .question-list {
-    padding-top: 20px;
+    padding-top: 10px;
     margin: 0 auto;
     width: 942px; }
   .content-question .each-question, .content-discuss .each-question {

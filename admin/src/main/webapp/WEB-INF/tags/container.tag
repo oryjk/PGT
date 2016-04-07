@@ -303,7 +303,15 @@
                                     <li>
                                         <a href="/order/order-list">
                                             <i class="fa-angle-right"></i>
-                                            订单管理
+                                            B2C订单管理
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${roleValue eq 4 or roleValue eq 9}">
+                                    <li>
+                                        <a href="/order-p2p/order-list">
+                                            <i class="fa-angle-right"></i>
+                                            P2P订单管理
                                         </a>
                                     </li>
                                 </c:if>

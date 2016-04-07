@@ -170,7 +170,8 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
      * @return
      */
     public List<Map<String, Object>> findRecommendProducts(ProductType productType) {
-
+        LOGGER.debug("Begin to findRecommendProducts.");
+        LOGGER.debug("The product type is {}", productType);
         try {
             SearchRequestBuilder searchRequestBuilder =
                     getSearchClient().prepareSearch(esConfiguration.getAdvertisementIndexName()).setTypes(esConfiguration
@@ -184,13 +185,17 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
             FieldSortBuilder sortBuilder = new FieldSortBuilder("sort");
             sortBuilder.order(SortOrder.ASC);
             sortBuilder.unmappedType("long");
+            LOGGER.debug("The sort key is {},value is {}.", "sort", SortOrder.ASC);
             searchRequestBuilder.addSort(sortBuilder);
             searchRequestBuilder.setTerminateAfter(Integer.MAX_VALUE);
             SearchResponse response = searchRequestBuilder.execute().actionGet();
+            LOGGER.debug("End to findRecommendProducts.");
             return SearchConvertToList.searchConvertToList(response);
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
+        LOGGER.debug("Some error occur.");
         return null;
     }
 
