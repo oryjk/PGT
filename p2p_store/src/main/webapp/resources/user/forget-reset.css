@@ -555,6 +555,9 @@ td {
 .input-username .input-row-3, .set-password .input-row-3 {
   height: 30px; }
 
+.input-username .input-row-3-1, .set-password .input-row-3-1 {
+  height: 20px; }
+
 .input-username .confirm-code, .set-password .confirm-code {
   float: left;
   width: 100px;
@@ -567,6 +570,12 @@ td {
 
 .test-identity tr {
   height: 50px; }
+
+.test-identity .input-row-3-1 {
+  height: 20px; }
+  .test-identity .input-row-3-1 td {
+    color: #999;
+    font-size: 13px; }
 
 .test-identity .get-phone-confirm-code,
 .test-identity .get-email-confirm-code {
@@ -600,6 +609,39 @@ td {
     background: #970203; }
     .test-identity .get-phone-confirm-code:hover .color-hover,
     .test-identity .get-email-confirm-code:hover .color-hover {
+      transform: scaleX(1);
+      transition: transform .3s; }
+
+.test-identity .get-phone-confirm-code-new {
+  margin-left: 20px;
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  border: none;
+  width: 120px;
+  height: 30px;
+  font-size: 14px;
+  background: #f5f5f5;
+  border-radius: 3px;
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  color: #979797;
+  border: 1px solid #979797; }
+  .test-identity .get-phone-confirm-code-new .color-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 30px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform .3s; }
+  .test-identity .get-phone-confirm-code-new:hover {
+    background: #f5f5f5; }
+    .test-identity .get-phone-confirm-code-new:hover .color-hover {
       transform: scaleX(1);
       transition: transform .3s; }
 
