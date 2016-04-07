@@ -65,4 +65,5 @@ public class PawnService {
         }
         return  typeList;
     }
+
 }
