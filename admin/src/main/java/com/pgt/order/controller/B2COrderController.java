@@ -9,7 +9,7 @@ import com.pgt.internal.bean.Role;
 import com.pgt.internal.constant.ResponseConstant;
 import com.pgt.internal.controller.InternalTransactionBaseController;
 import com.pgt.mail.service.MailService;
-import com.pgt.order.bean.B2COrderSearchVO;
+import com.pgt.order.bean.OrderSearchVO;
 import com.pgt.order.service.B2COrderService;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -64,7 +64,7 @@ public class B2COrderController extends InternalTransactionBaseController implem
 		long ciLong = RepositoryUtils.safeParse2LongId(currentIndex);
 		long caLong = RepositoryUtils.safeParse2LongId(capacity);
 		LOGGER.debug("Query b2c-orders at index: {} with capacity: {} by sort filed: {} and asc: {}", ciLong, caLong, sortFieldName, asc);
-		B2COrderSearchVO searchVO = B2COrderSearchVO.getInstance().setOrderId(id).setUserName(userName);
+		OrderSearchVO searchVO = OrderSearchVO.getInstance().setOrderId(id).setUserName(userName);
 		searchVO.setPriceBeg(priceBeg).setPriceEnd(priceEnd);
 		searchVO.setSubmitTimeBeg(submitTimeBeg).setSubmitTimeEnd(submitTimeEnd);
 		LOGGER.debug("Query b2c-orders with search conditions: {}", searchVO);
