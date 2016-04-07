@@ -132,11 +132,14 @@ td {
 }
 
 .reset-success {
+  height: 300px;
+  padding-top: 150px;
   padding-left: 528px;
+  background: url("../core/images/duihao.png") no-repeat 430px 150px;
 
   .success-row-1 {
     font-size: 25px;
-    color: $main;
+    color: #48c344;
   }
 
   .success-row-2,
@@ -145,6 +148,7 @@ td {
   }
 
   .link-btn {
+    color: $main;
     margin-right: 20px;
   }
 }

@@ -608,14 +608,18 @@ td {
   height: 40px; }
 
 .reset-success {
-  padding-left: 528px; }
+  height: 300px;
+  padding-top: 150px;
+  padding-left: 528px;
+  background: url("../core/images/duihao.png") no-repeat 430px 150px; }
   .reset-success .success-row-1 {
     font-size: 25px;
-    color: #c90304; }
+    color: #48c344; }
   .reset-success .success-row-2,
   .reset-success .success-row-3 {
     padding-top: 20px; }
   .reset-success .link-btn {
+    color: #c90304;
     margin-right: 20px; }
 
 /*# sourceMappingURL=../../maps/user/forget-reset.css.map */
