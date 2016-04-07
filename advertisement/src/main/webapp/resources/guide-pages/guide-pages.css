@@ -411,8 +411,18 @@ body {
     font-size: 20px;
     color: #666;
     text-align: center; }
+  .content .content-btn {
+    margin: -50px 50px 0 0;
+    float: right;
+    padding: 8px 16px;
+    border: 1px solid #ff4040;
+    font-size: 16px;
+    color: #ff4040; }
+    .content .content-btn:hover {
+      background: #ff4040;
+      color: white; }
   .content .content-tender {
-    margin-top: 60px;
+    margin-top: 65px;
     padding: 30px;
     width: 1140px;
     height: 880px;
@@ -423,9 +433,13 @@ body {
       margin: 7px 6px;
       width: 270px;
       height: 430px; }
+      .content .content-tender .content-tender-box .tender-img-border {
+        border: 1px solid #ff4040; }
       .content .content-tender .content-tender-box img {
         width: 268px;
         border: 1px solid #ccc; }
+      .content .content-tender .content-tender-box .tender-p-border {
+        border: 1px solid #ff4040; }
       .content .content-tender .content-tender-box p {
         margin: 0;
         margin-top: 15px;
@@ -436,13 +450,26 @@ body {
         text-align: left;
         color: #343434;
         background: white; }
+      .content .content-tender .content-tender-box .content-tender-img-border,
       .content .content-tender .content-tender-box .content-tender-img {
         position: absolute;
-        right: 100px;
-        bottom: 80px;
-        width: 10px;
-        height: 10px;
-        background: white url("../core/images/guide-pages/h-jiantou.png") no-repeat; }
+        right: 130px;
+        bottom: 81px;
+        width: 12px;
+        height: 9px;
+        background: url("../core/images/guide-pages/h-jiantou.png") no-repeat; }
+      .content .content-tender .content-tender-box .content-tender-img-border {
+        background: url("../core/images/guide-pages/r-jiantou.png") no-repeat; }
+      .content .content-tender .content-tender-box .content-tender-left-img-border,
+      .content .content-tender .content-tender-box .content-tender-left-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 72px;
+        height: 72px;
+        background: url("../core/images/guide-pages/jinxuan.png") no-repeat; }
+      .content .content-tender .content-tender-box .content-tender-left-img-border {
+        background: url("../core/images/guide-pages/tuijian.png") no-repeat; }
 
 .content-banner {
   overflow: hidden;

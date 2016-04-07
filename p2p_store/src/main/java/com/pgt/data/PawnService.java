@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by fei on 2016/4/7.
@@ -27,5 +30,40 @@ public class PawnService {
         return pawnDataList.getPawnDataList();
     }
 
+    //获取类型集合
+    public List<Map<String,Object>> findAllPawnCategroysType(){
+        List<Category> pawnList = findAllPawnCategroys();
+        List<Map<String,Object>> typeList = new ArrayList<>();
+        for(Category category:pawnList){
+            Map<String,Object> typeMap = new HashMap<>();
+            typeMap.put("type", category.getType());
+            typeList.add(typeMap);
+        }
+        return  typeList;
+    }
+
+    //获取分类id集合
+    public List<Map<String,Object>> findAllPawnCategroysId(){
+        List<Category> pawnList = findAllPawnCategroys();
+        List<Map<String,Object>> typeList = new ArrayList<>();
+        for(Category category:pawnList){
+            Map<String,Object> typeMap = new HashMap<>();
+            typeMap.put("type", category.getId());
+            typeList.add(typeMap);
+        }
+        return  typeList;
+    }
+
+    //获取图片id集合
+    public List<Map<String,Object>> findAllPawnCategroysFrontMediaId(){
+        List<Category> pawnList = findAllPawnCategroys();
+        List<Map<String,Object>> typeList = new ArrayList<>();
+        for(Category category:pawnList){
+            Map<String,Object> typeMap = new HashMap<>();
+            typeMap.put("type", category.getFrontMedia().getId());
+            typeList.add(typeMap);
+        }
+        return  typeList;
+    }
 
 }
