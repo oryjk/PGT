@@ -1,0 +1,26 @@
+//color:
+$main: #c90304;
+$vice: #a4cc4d;
+$em: #86b4ed;
+
+$main-dark: darken($main, 10%);
+$vice-dark: darken($vice, 10%);
+$em-dark: darken($em, 10%);
+
+$main-light: lighten($main, 10%);
+$vice-light: lighten($vice, 10%);
+$em-light: lighten($em, 10%);
+
+$gray-base: #000 !default;
+$gray-darker: lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:   lighten($gray-base, 20%) !default;   // #333
+$gray: lighten($gray-base, 33.5%) !default; // #555
+$gray-light:  #cccccc;
+$gray-lighter: #fefefe;
+$gray-bg: #f2f2f2;
+
+$gray-account: #eaedf4;
+
+//size
+$main-width: 1200px;
+$main-width-s: 1040px;
