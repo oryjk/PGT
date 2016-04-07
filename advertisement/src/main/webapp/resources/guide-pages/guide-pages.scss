@@ -19,7 +19,7 @@ body{
 
 .head-content{
   overflow: hidden;
-
+  
   a{
     float: right;
     margin:50px 70px 0 0;
@@ -83,7 +83,7 @@ body{
 
   .content-tender{
 
-    margin-top: 100px;
+    margin-top: 65px;
     padding:30px;
     @include wh(1140px,880px);
     background: #ebebeb;
