@@ -5,11 +5,13 @@ import java.util.List;
 import com.pgt.base.mapper.SqlMapper;
 import com.pgt.communication.bean.Consulting;
 import com.pgt.communication.bean.ConsultingCustom;
+import org.springframework.stereotype.Component;
 
 /**
  * 
  * Created by ddjunshi 2015年11月17日
  */
+@Component
 public interface ConsultingMapper extends SqlMapper {
 
 	// 创建一个咨询或回复

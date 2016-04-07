@@ -1,13 +1,17 @@
 package com.pgt.home.bean;
 
 import com.pgt.common.bean.Media;
+import com.pgt.constant.Constants;
 import com.pgt.product.bean.ProductType;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
  * Created by carlwang on 3/29/16.
  */
+@Component
 public class RecommendedProduct implements Serializable {
     static final long serialVersionUID = 42L;
     private Integer recommendedProductId;
@@ -17,6 +21,24 @@ public class RecommendedProduct implements Serializable {
     private Integer sort;
     private Integer mediaId;
     private Media media;
+    private Integer type;
+    private Integer price;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public Integer getRecommendedProductId() {
         return recommendedProductId;

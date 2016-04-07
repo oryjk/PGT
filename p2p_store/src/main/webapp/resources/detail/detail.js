@@ -8,7 +8,8 @@ require.config({
         ajax: '../core/js/module/ajax',
         jqzoom: '../core/js/jquery.jqzoom-core',
         radialindicator: '../core/js/radialindicator',
-        normalInit: '../core/js/module/normalInit'
+        normalInit: '../core/js/module/normalInit',
+        vue: '../core/js/vue'
 
     },
     shim: {
@@ -17,8 +18,32 @@ require.config({
     }
 });
 
-require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit'], function ($, Cpn, Ajax) {
+require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit', 'vue'], function ($, Cpn, Ajax, jqzoom, radialindicator, normalInit, Vue) {
     $(document).ready(function () {
+
+        new Vue({
+            el: '.content-question',
+            data: {
+                content: '',
+                tenderId: ''
+            },
+            methods: {
+                submit: function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/consulting/createconsulting",
+                        data: {
+                            content: this.content,
+                            tenderId: this.tenderId
+                        }
+                    }).done(function (res) {
+                            alert("体检成功!")
+                        }
+                    )
+                }
+            }
+        })
+
 
         $('.jqzoom').jqzoom({
             zoomType: 'standard',
@@ -93,132 +118,130 @@ require(['jquery', 'component', 'ajax', 'jqzoom', 'radialindicator', 'normalInit
                             productName: productName
                         }
                     }).done(function (res) {
-                        if (res.success == 'true') {
-                            popTips.html('提交成功');
-                        setTimeout(function () {
-                            pop.fadeOut(300);
-                        }, 1000);
-                    }
-                else
-                    {
-                        popTips.html('提交失败');
-                    }
+                            if (res.success == 'true') {
+                                popTips.html('提交成功');
+                                setTimeout(function () {
+                                    pop.fadeOut(300);
+                                }, 1000);
+                            }
+                            else {
+                                popTips.html('提交失败');
+                            }
+                        }
+                    )
                 }
-                )
+                else {
+                    sayError.html('请输入正确的手机号!')
+                }
+            });
+
+            //清楚回显和错误提示
+            function popFormCleanTips() {
+                sayError.html('');
+                popTips.html('')
             }
-            else
-            {
-                sayError.html('请输入正确的手机号!')
-            }
+        }());
+
+
+        $(".detail-content>ul>li").click(function (event) {
+            event.preventDefault();
+
+            $(".detail-content>ul>li").each(function () {
+                $(this).removeAttr("class");
+            });
+
+            $(this).attr("class", "tab-choose");
+
+            var tabindex = $(this).index();
+
+            $(".content-box > div").each(function () {
+
+                $(this).removeClass("content-choose");
+
+                if (tabindex == $(this).index()) {
+                    $(this).addClass("content-choose");
+                }
+
+            });
         });
 
-        //清楚回显和错误提示
-        function popFormCleanTips() {
-            sayError.html('');
-            popTips.html('')
-        }
-    }());
+        var setQuantity = function (obj, num) {
+            $(obj).parents('.each-item').find('.quantity').val(num);
+        };
 
 
-    $(".detail-content>ul>li").click(function (event) {
-        event.preventDefault();
+        //add product quantity
+        $(".item-buy-plus").click(function () {
 
-        $(".detail-content>ul>li").each(function () {
-            $(this).removeAttr("class");
+            //get limit quantity
+            var limitQuantity = $(this).parent().next().text();
+
+            //get buy quantity
+            var num = $(this).parent().prev().text();
+
+            num++;
+            if (num > limitQuantity) {
+                alert("此商品购买的数量不能超过" + limitQuantity + "件");
+                return;
+            }
+            //set buy quantity
+            $(this).parent().prev().text(num);
+            setQuantity(this, num);
         });
+        //reduce product quantity
+        $(".item-buy-minus").click(function () {
 
-        $(this).attr("class", "tab-choose");
+            var num = $(this).parent().prev().text();
 
-        var tabindex = $(this).index();
+            num--;
 
-        $(".content-box > div").each(function () {
-
-            $(this).removeClass("content-choose");
-
-            if (tabindex == $(this).index()) {
-                $(this).addClass("content-choose");
+            if (num == 0) {
+                return;
             }
 
+            $(this).parent().prev().text(num);
+            setQuantity(this, num);
+
         });
-    });
 
-    var setQuantity = function (obj, num) {
-        $(obj).parents('.each-item').find('.quantity').val(num);
-    };
+        $('.item-buy-now').on('click', function (event) {
+            event.preventDefault();
+            $(this).parent('.col-content').find('.addToCart').submit();
+        });
 
-
-    //add product quantity
-    $(".item-buy-plus").click(function () {
-
-        //get limit quantity
-        var limitQuantity = $(this).parent().next().text();
-
-        //get buy quantity
-        var num = $(this).parent().prev().text();
-
-        num++;
-        if (num > limitQuantity) {
-            alert("此商品购买的数量不能超过" + limitQuantity + "件");
-            return;
-        }
-        //set buy quantity
-        $(this).parent().prev().text(num);
-        setQuantity(this, num);
-    });
-    //reduce product quantity
-    $(".item-buy-minus").click(function () {
-
-        var num = $(this).parent().prev().text();
-
-        num--;
-
-        if (num == 0) {
-            return;
-        }
-
-        $(this).parent().prev().text(num);
-        setQuantity(this, num);
-
-    });
-
-    $('.item-buy-now').on('click', function (event) {
-        event.preventDefault();
-        $(this).parent('.col-content').find('.addToCart').submit();
-    });
-
-    $('.invest-add-favorite, .item-join-favorite').on('click', function (event) {
-        var target = event.target;
-        if (target) {
-            if ($(target).data('processed') == false) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/myAccount/favourite',
-                    data: {
-                        'productId': $(target).data('pid'),
-                        'type': $(target).data('type')
-                    },
-                    success: function (data) {
-                        if (data && data.success === 1) {
-                            $(target).data('id', data.data.id).data('processed', 'true').text('已收藏');
+        $('.invest-add-favorite, .item-join-favorite').on('click', function (event) {
+            var target = event.target;
+            if (target) {
+                if ($(target).data('processed') == false) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/myAccount/favourite',
+                        data: {
+                            'productId': $(target).data('pid'),
+                            'type': $(target).data('type')
+                        },
+                        success: function (data) {
+                            if (data && data.success === 1) {
+                                $(target).data('id', data.data.id).data('processed', 'true').text('已收藏');
+                            }
                         }
-                    }
-                });
-            } else {
-                $.ajax({
-                    type: 'POST',
-                    url: '/myAccount/dislike',
-                    data: {
-                        'favouriteId': $(target).data('id')
-                    },
-                    success: function (data) {
-                        if (data && data.success === 1) {
-                            $(target).data('id', '').data('processed', 'false').text('添加收藏');
+                    });
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/myAccount/dislike',
+                        data: {
+                            'favouriteId': $(target).data('id')
+                        },
+                        success: function (data) {
+                            if (data && data.success === 1) {
+                                $(target).data('id', '').data('processed', 'false').text('添加收藏');
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
-        }
+        });
     });
-});
 })
 ;

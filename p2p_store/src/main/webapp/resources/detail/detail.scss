@@ -462,6 +462,7 @@ body {
   background: white;
 
   .ask-question {
+    padding-bottom: 30px;
     @include block-center(942px);
   }
 
@@ -489,7 +490,9 @@ body {
   }
 
   .ask-btn {
+    width: 948px;
     padding-top: 12px;
+    margin-bottom: 20px;
     text-align: right;
   }
 
@@ -498,7 +501,7 @@ body {
   }
 
   .question-list {
-    padding-top: 20px;
+    padding-top: 10px;
     @include block-center(942px);
   }
 

@@ -116,4 +116,7 @@ public class Constants {
     public static final String BANNER = "banner";
     public static final String LIVE_PAWN = "livePawnList";
     public static final String HEAD_TITLE = "headTitle";
+
+    public static final Integer RecommendedHotType = 1;
+    public static final Integer RecommendeProductType = 2;
 }
