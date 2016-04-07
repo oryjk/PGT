@@ -181,7 +181,16 @@
             </map>
         </property>
     </bean>
-
+    <bean id="JavaMailSenderImpl" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="/WEB-INF/vilocitytemplate/"/>
+        <property name="velocityProperties">
+            <props>
+                <prop key="default.contentType">text/html; charset=utf-8</prop>
+                <prop key="output.encoding">utf-8</prop>
+                <prop key="input.encoding">utf-8</prop>
+            </props>
+        </property>
+    </bean>
     <bean class="com.pgt.executor.processor.InstantiationTracingBeanPostProcessor">
         <property name="initializationHandlers">
             <array>
