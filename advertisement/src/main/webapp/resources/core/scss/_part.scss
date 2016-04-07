@@ -1,0 +1,924 @@
+@import "variable","commonMixin","commomExtend", 'components';
+
+@mixin header($simple: false) {
+  //传入true参数,则为简单header,隐藏掉.top-banner和.nav
+
+  .header {
+    background: white;
+
+    .top-banner {
+      display: block;
+      height: 80px;
+    }
+
+    .top {
+      height: 37px;
+      line-height: 37px;
+      background: #f5f5f5;
+      font-size: 12px;
+      color: #6c6c6c;
+
+      * {
+        vertical-align: middle;
+      }
+    }
+
+    .top-content {
+      @extend %clear;
+      margin: 0 auto;
+      width: $main-width;
+    }
+
+    .top-welcome {
+      float: left;
+      width: 50%;
+      text-align: left;
+    }
+
+    .top-welcome-phone-title {
+      padding-left: 20px;
+    }
+
+    .top-welcome-phone-value {
+      padding-left: 5px;
+    }
+
+    .top-user {
+      float: right;
+      width: 50%;
+      text-align: right;
+
+      a {
+        color: #6c6c6c;
+        margin-left: 5px;
+        &:hover{
+          color: $main;
+        }
+      }
+    }
+
+    .top-user-register {
+      padding-left: 10px;
+    }
+
+    .head {
+      margin: 0 auto;
+      @include wh($main-width, 110px);
+    }
+
+    .logo,
+    .hot-left,
+    .search,
+    .hot-right {
+      float: left;
+      height: 110px;
+    }
+
+    .logo {
+      width: 230px;
+      background: url("../core/images/header/logo-red.jpg") no-repeat left center;
+    }
+
+    .logo-link {
+      display: block;
+      height: 100%;
+    }
+
+    .hot-left {
+      width: 150px;
+    }
+
+    .search {
+      width: 560px;
+    }
+
+    .search-content {
+      float: right;
+      margin-top: 36px;
+      border: 1px solid #a9b7b7;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .search-input-text{
+      float: right;
+      border: none;
+      border-right: 1px solid #a9b7b7;
+      padding: 0 10px;
+      @include wh(400px, 37px);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .search-input-submit{
+      float: right;
+      border: none;
+      @include wh(37px, 37px);
+      background: url("../core/images/header/icon-search.png") no-repeat center center;
+
+      &:hover {
+        background: #a9b7b7 url("../core/images/header/icon-search-hover.png") no-repeat center center;
+      }
+    }
+
+    .hot-right {
+      margin-left: 100px;
+      width: 160px;
+    }
+
+    .nav {
+      background: #272727;
+    }
+
+    .nav-content {
+      margin: 0 auto;
+      @include wh($main-width, 54px);
+    }
+
+    .menu {
+      position: relative;
+      z-index: 1;
+      float: left;
+      @include wh(230px, 54px);
+    }
+
+    .menu-title {
+      line-height: 54px;
+      font-size: 18px;
+      font-weight: 400;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+    }
+
+    .menu-list {
+      position: absolute;
+      display: none;
+      width: 230px;
+      top: 54px;
+      left: 0;
+      background: url("../core/images/opacity/opacity_white_9.png") repeat;
+    }
+
+
+    .menu-item {
+      margin: 0 15px;
+      padding: 15px 0 15px 40px;
+      border-bottom: 1px dashed $gray-light;
+    }
+
+    .menu-item-title {
+      color: #6c6c6c;
+    }
+
+    .menu-item-sub-box {
+      padding-top: 5px;
+      line-height: 1.2;
+    }
+
+    .menu-item-sub {
+      font-size: 14px;
+      color: #6c6c6c;
+    }
+
+    .nav-list {
+      position: relative;
+      float: left;
+    }
+
+    .nav-item-hover {
+      position: absolute;
+      z-index: 1;
+      background: #414141;
+      transition: all .3s;
+    }
+
+    .nav-item {
+      position: relative;
+      z-index: 2;
+      float: left;
+    }
+
+    .nav-item-link {
+      display: block;
+      padding: 0 30px;
+      height: 54px;
+      line-height: 54px;
+      font-size: 18px;
+      font-weight: 400;
+      color: white;
+    }
+  }
+
+  @if $simple == true {
+    .top-banner {
+      display: none !important;
+    }
+    .nav {
+      display: none;
+    }
+  }
+}
+
+@mixin header-con(){
+  .header{
+    background: white;
+  }
+  .top {
+    height: 37px;
+    line-height: 37px;
+    background: #f5f5f5;
+    font-size: 12px;
+    color: #6c6c6c;
+
+    * {
+      vertical-align: middle;
+    }
+  }
+
+  .top-content {
+    @extend %clear;
+    margin: 0 auto;
+    width: $main-width;
+  }
+
+  .top-welcome {
+    float: left;
+    width: 50%;
+    text-align: left;
+  }
+
+  .top-welcome-phone-title {
+    padding-left: 20px;
+  }
+
+  .top-welcome-phone-value {
+    padding-left: 5px;
+  }
+
+  .top-user {
+    float: right;
+    width: 50%;
+    text-align: right;
+
+    a {
+      color: #6c6c6c;
+    }
+  }
+
+  .top-user-register {
+    padding-left: 10px;
+  }
+
+  .head {
+    margin: 0 auto;
+    @include wh($main-width, 110px);
+    h2{
+      float: left;
+      margin: 50px 0 0 100px;
+      font-size: 25px;
+    }
+  }
+
+  .logo {
+    float: left;
+    height: 110px;
+    width: 230px;
+    background: url("../core/images/header/logo-red.jpg") no-repeat left center;
+  }
+
+  .logo-link {
+    display: block;
+    height: 100%;
+  }
+}
+
+@mixin old-header() {
+
+  .header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px #eeeeee;
+    border-bottom: 1px solid $gray-light \9;
+    @include wh(100%, 100px);
+    background: white;
+
+    .header-inner {
+      margin: 0 auto;
+      @include wh(1200px, 100%);
+    }
+
+    .logo,
+    .nav,
+    .search {
+      float: left;
+    }
+
+    .logo {
+      @include wh(242px, 100%);
+      background: url("../core/images/header/logo-red.jpg") no-repeat left center;
+
+      a {
+        display: block;
+        @include wh(100%, 100%);
+      }
+    }
+
+    .nav {
+      @extend %clear;
+
+      li {
+        float: left;
+        padding: 0 23px;
+      }
+
+      a {
+        font-size: 22px;
+        line-height: 100px;
+        color: black;
+
+        &:hover {
+          color: $main;
+        }
+      }
+    }
+
+    .search {
+      padding-top: 30px;
+
+      input {
+        border: 1px solid $gray-light;
+        padding: 10px;
+        @include wh(260px);
+        line-height: 20px;
+        font-size: 14px;
+        background: $gray-lighter;
+        transition: width .2s linear;
+
+        &:focus {
+          @include wh(300px);
+          background: white;
+          transition: width .2s linear;
+        }
+      }
+    }
+
+    .status {
+      float: right;
+      @include wh(234px, 100px);
+      line-height: 100px;
+      text-align: right;
+      .status-logout{
+        height: 100px;
+      }
+    }
+    .status-login-btn,
+    .status-help-center,
+    .status-register-btn {
+      margin-right: 20px;
+    }
+    .status-login-btn,
+    .status-help-center,
+    .status-register-btn,
+    .status-help-center {
+      height: 90px;
+      vertical-align: middle;
+
+      &:hover {
+        border-bottom: 4px solid $main;
+        color: $main;
+      }
+    }
+    .status-login-btn,
+    .status-help-center,
+    .status-register-btn,
+    .status-help-center{
+      float: right;
+    }
+
+
+    .status-my-account {
+      margin: 15px 15px 0 0 ;
+      position: relative;
+      display: inline-block;
+      @include wh(80px, 80px);
+      &:hover{
+        background: $main;
+        top: -5px;
+        box-shadow: 0 10px 15px $gray;
+      }
+    }
+
+    .status-my-account-detail {
+      position: absolute;
+      display: none;
+      @include wh(200px,auto);
+      top: 80px;
+      right: -120px;
+      line-height: 25px;
+      background: white;
+      text-align: center;
+
+      .detail-top{
+        height: 70px;
+        background: $main;
+        box-shadow: 0 10px 15px $gray;
+        a{
+          padding: 0;
+          margin-top: 5px;
+        }
+        img{
+          @include wh(15px,15px);
+
+        }
+      }
+      .user-name{
+        margin-top: 30px;
+        width: 160px;
+        text-align: center;
+        float: left;
+      }
+      .detail-bot{
+        background: white;
+        box-shadow: 0 10px 15px $gray;
+        height: 70px;
+        .detail-person{
+          background:url("../core/images/header/man.png") no-repeat 24px 10px;
+          &:hover{
+            background:url("../core/images/header/r-man.png") no-repeat 24px 10px;
+          }
+        }
+        .detail-order{
+          background: url("../core/images/header/buy.png")no-repeat 21px 10px;
+          &:hover{
+            background:url("../core/images/header/r-buy.png") no-repeat 21px 10px;
+          }
+        }
+        .detail-exit{
+          background: url("../core/images/header/exit.png")no-repeat 26px 10px;
+          &:hover{
+            background:url("../core/images/header/r-exit.png") no-repeat 26px 10px;
+          }
+        }
+      }
+      a {
+        float: left;
+        padding: 10px 0 0 8px;
+        height: 50px;
+        font-size: 14px;
+        line-height: 80px;
+        color:#000;
+        &:hover {
+          color: $main;
+        }
+      }
+    }
+
+    .status-user-face-box {
+      padding-left: 20px;
+      float: left;
+      @include wh(50%, 50%);
+    }
+
+    .status-user-face {
+      border-radius: 20px;
+      @include wh(100%, 100%);
+    }
+  }
+}
+
+@mixin footer() {
+  .footer {
+    background: #3f3f3f;
+  }
+
+  .goods-box {
+    background: $gray-light;
+  }
+
+  .us {
+    position: relative;
+  }
+
+  /*our-goods
+  ************************************************/
+  .our-goods {
+    margin: 0 auto;
+    padding: 20px 0;
+    @include wh($main-width-s, 70px);
+  }
+
+  .our-good {
+    float: left;
+    @include wh(20%, 70px);
+
+
+    .icon-box {
+      float: left;
+      @include wh(70px, 100%);
+      border-radius: 50px;
+      background: $main;
+      line-height: 70px;
+      text-align: center;
+    }
+
+    i {
+      color: white;
+      font-size: 35px;
+    }
+  }
+
+  /*2维码*/
+  .two-dimension {
+    @include wh(100px, 100px);
+    opacity: 0;
+    //transition: opacity 0.1s linear;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0)\9;
+    position: absolute;
+    top: 0;
+    left: 100px;
+  }
+
+  .our-app a:hover {
+    .two-dimension {
+      opacity: 1;
+      filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100)\9;
+      transition: opacity 1s linear;
+    }
+  }
+
+
+
+  .good-text {
+    margin-left: 80px;
+    padding-top: 10px;
+    h4 {
+      color: black;
+      font-size: 16px;
+    }
+    p {
+      padding-top: 5px;
+      color: $gray-base;
+      font-size: 14px;
+    }
+
+  }
+
+  /*about-us
+  ************************************************/
+  .about-us {
+    margin: 0 auto;
+    @extend %clear;
+    padding: 20px 0;
+    width: $main-width-s;
+
+    h3 {
+      padding-bottom: 10px;
+      color: $gray-light;
+    }
+
+    a {
+      color: $gray-light;
+      font-size: 13px;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    p {
+      color: $gray-light;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    ul {
+      float: left;
+      width: 15%;
+      list-style: none;
+    }
+
+    li {
+      padding: 2px 0;
+    }
+
+    .us {
+      margin-left: 60%;
+    }
+
+    .our-app {
+      float: right;
+      width: 50%;
+    }
+
+    .apple-dimension,
+    .android-dimension,
+    .online-server,
+    .online-server {
+      float: left;
+      display: block;
+      margin-bottom: 10px;
+      width: 50%;
+      text-align: center;
+
+      .app-icon {
+        margin-bottom: 5px;
+        @include wh(40px, 40px);
+      }
+    }
+  }
+
+  /*approve-box
+  ************************************************/
+  .approve-box {
+    background: $gray-dark;
+    padding: 20px 0 5px;
+    text-align: center;
+
+    p {
+      padding-top: 5px;
+      color: $gray-light;
+      font-size: 13px;
+    }
+  }
+
+  .approve {
+    @extend %clear;
+    margin: 0 auto;
+    width: 240px;
+
+    a {
+      float: left;
+      padding-right: 20px;
+      @include wh(100px, 30px);
+    }
+
+    img {
+      @include wh(100%, 100%);
+    }
+  }
+}
+
+@mixin footer-con(){
+  /*  footer begin
+******************************************************************************/
+
+  .footer{
+    @include wh(100%);
+    background: #3b3b3b;
+  }
+
+  .footer-main{
+    margin: 0 auto;
+    @include wh($main-width,245px);
+  }
+
+  .footer-main-left{
+    float: left;
+    @include wh(500px,80px);
+
+    .footer-title{
+      padding: 30px 0 0 40px;
+      font-size: 16px;
+      color: #e6e6e6;
+    }
+
+    .footer-help{
+      padding-top: 20px;
+      height: 160px;
+      font-size: 14px;
+      color: #909090;
+      ul{
+        float: left;
+        padding-left: 40px;
+      }
+
+      li{
+        padding-top: 10px;
+        display: block;
+        text-align: center;
+        a{
+          color: #909090;
+          &:hover{
+            color: #e6e6e6;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-main-right{
+    float: right;
+    margin-top: 70px;
+    @include wh(340px,130px);
+    background: #3e3e3e;
+    border: 1px solid #5c5c5c;
+
+    p{
+      margin: 10px 0;
+      padding-left: 45px;
+      color: #909090;
+      font-size: 14px;
+    }
+
+    .footer-main-right-title{
+      padding: 10px 25px;
+      color: #e6e6e6;
+      font-size: 16px;
+    }
+
+    .footer-main-right-p1{
+      background: url("../core/images/footer/phone.png") no-repeat 25px 0 ;
+    }
+
+    .footer-main-right-p2{
+      background: url("../core/images/footer/e-mail.png") no-repeat 25px 0 ;
+    }
+
+    .footer-main-right-p3{
+      background: url("../core/images/footer/add.png") no-repeat 25px 0 ;
+    }
+  }
+
+  .footer-bottom{
+    @include wh(100%);
+    background: #333;
+
+    .footer-bottom-mid{
+      margin: 0 auto;
+      @include wh(1200px,35px);
+      color:#909090;
+      font-size: 12px;
+      line-height: 35px;
+      text-align: center;
+    }
+    .footer-bottom-img{
+      padding:10px 0 0  450px;
+      height: 50px;
+      img{
+        float: left;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  /*    footer end
+  *********************************************************************/
+}
+
+@mixin recommend-box() {
+  .recommend-box {
+    margin-top: 20px;
+    padding-bottom: 57px;
+    background: #eaeaea;
+
+    .recommend {
+      @include block-center($main-width-s);
+    }
+
+    .recommend-head {
+      height: 75px;
+      line-height: 75px;
+    }
+
+    h3 {
+      float: left;
+      padding-left: 40px;
+      font-size: 20px;
+    }
+
+    .recommend-change {
+      float: right;
+      margin-top: 30px;
+      line-height: 1;
+      color: $gray;
+
+      &:hover {
+        color: $main;
+      }
+    }
+
+    ul {
+      @extend %clear;
+    }
+
+    li {
+      position: relative;
+      top: 0;
+      float: left;
+      border: 1px solid $gray-light;
+      width: 248px;
+      background: white;
+      margin-right: ($main-width-s - 250px * 4) / 3;
+      transition: all .4s;
+
+      &:hover {
+        top: -5px;
+        transition: all 1s;
+        box-shadow: 0 10px 15px $gray;
+      }
+    }
+
+    .recommend-item-end {
+      margin-right: 0;
+    }
+
+    .recommend-img-box {
+      display: block;
+      margin: 8px auto 0;
+      @include wh(234px, 234px);
+
+      img {
+        @include wh(100%, 100%);
+      }
+    }
+
+    h4 {
+      padding-top: 20px;
+      text-align: center;
+
+      a {
+        color: black;
+        &:hover {
+          color: $main;
+        }
+      }
+    }
+
+    .recommend-progress {
+      @extend %clear;
+    }
+
+    .recommend-progress-bar {
+      @include progress-bar;
+      float: left;
+      margin: 25px 10px 0 20px;
+    }
+
+
+    .recommend-progress-text {
+      float: left;
+      padding-top: 12px;
+      line-height: 1.2;
+    }
+
+    .recommend-join {
+      @extend %clear;
+      padding: 13px 20px 17px;
+    }
+
+    .recommend-time {
+      float: left;
+    }
+
+    .recommend-people {
+      float: right;
+    }
+  }
+}
+
+@mixin side-bar(){
+  .side-bar{
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    width: 100px;
+    height: 200px;
+    background: rgba(25,25,25,0);
+  }
+
+  .side-bar-img{
+      position: relative;
+      float: left;
+      display: block;
+      margin: 5px;
+      width: 40px;
+      height: 40px;
+      background: url("../core/images/side-bar/bg.png") no-repeat;
+
+      img{
+        margin: 5px 0 0 5px;
+      }
+
+      p{
+        display:none;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 0;
+        left: 0;
+        font-size: 14px;
+        background: $main ;
+        color: white;
+        text-align: center;
+        line-height: 20px;
+      }
+
+      &:hover > p{
+        display: block;
+      }
+    }
+
+}
