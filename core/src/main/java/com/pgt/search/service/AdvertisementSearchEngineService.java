@@ -1,6 +1,8 @@
 package com.pgt.search.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pgt.configuration.ESConfiguration;
+import com.pgt.home.bean.RecommendedProduct;
 import com.pgt.product.bean.ProductType;
 import com.pgt.search.bean.ESFilter;
 import com.pgt.search.bean.ESSort;
@@ -11,9 +13,12 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.action.update.UpdateRequestBuilder;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -28,7 +33,6 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
@@ -45,6 +49,7 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
 
     @Autowired
     private ESConfiguration esConfiguration;
+
 
     public SearchResponse findAll(String indexName, String indexType) {
         return super.findAll(indexName, indexType);
@@ -88,6 +93,54 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
         LOGGER.debug("End to category index.");
     }
 
+    public void createRecommendProduct(RecommendedProduct recommendedProduct) {
+        if (ObjectUtils.isEmpty(recommendedProduct)) {
+            LOGGER.debug("The recommend product is empty.");
+            return;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+
+        IndexResponse response;
+        IndexRequestBuilder indexRequestBuilder =
+                null;
+        try {
+            indexRequestBuilder = getIndexClient().prepareIndex(esConfiguration.getAdvertisementIndexName(), esConfiguration
+                    .getRecommendProductTypeName(), recommendedProduct.getRecommendedProductId() + "")
+                    .setSource(mapper.writeValueAsString(recommendedProduct));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        response = indexRequestBuilder.execute().actionGet(100000);
+        if (response.isCreated()) {
+            LOGGER.debug("Success to create RecommendedProduct.");
+        }
+    }
+
+
+    public void updateRecommendProduct(RecommendedProduct recommendedProduct) {
+        if (ObjectUtils.isEmpty(recommendedProduct)) {
+            LOGGER.debug("The recommend product is empty.");
+            return;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+
+        UpdateResponse response;
+        UpdateRequestBuilder updateRequestBuilder =
+                null;
+        try {
+            updateRequestBuilder = getIndexClient().prepareUpdate(esConfiguration.getAdvertisementIndexName(), esConfiguration
+                    .getRecommendProductTypeName(), recommendedProduct.getRecommendedProductId() + "")
+                    .setDoc(mapper.writeValueAsString(recommendedProduct));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        response = updateRequestBuilder.execute().actionGet(100000);
+        if (response.isCreated()) {
+            LOGGER.debug("Success to update RecommendedProduct.");
+        }
+    }
+
+
     public List<Map<String, Object>> findRecommendProducts(ProductType productType) {
 
         try {
@@ -112,7 +165,6 @@ public class AdvertisementSearchEngineService extends AbstractSearchEngineServic
     }
 
     @Override
-
     public void update(Integer id) {
 
     }
