@@ -47,6 +47,7 @@
     </style>
 </head>
 <body>
+<jsp:include page="../core/head-main.jsp"/>
 
 <!--banner begin-->
 <div id="bannerBox" class="banner-box">
@@ -76,22 +77,24 @@
     <a href="#" class="content-btn">查看更多</a>
 
     <div class="content-tender">
-        <!-- 推荐 begin-->
-        <a href="#" class="content-tender-box">
-            <img class="tender-img-border" src="../core/images/guide-pages/product.jpg" alt=""/>
-            <p class="tender-p-border">天然翡翠天然翡翠天然翡翠天然翡翠天然翡翠天然翡翠</p>
-            <div class="content-tender-img-border"></div>
-            <div class="content-tender-left-img-border"></div>
-        </a>
-        <!-- 推荐 end-->
+        <%--<!-- 推荐 begin-->--%>
+        <%--<a href="#" class="content-tender-box">--%>
+            <%--<img class="tender-img-border" src="../core/images/guide-pages/product.jpg" alt=""/>--%>
+            <%--<p class="tender-p-border">天然翡翠天然翡翠天然翡翠天然翡翠天然翡翠天然翡翠</p>--%>
+            <%--<div class="content-tender-img-border"></div>--%>
+            <%--<div class="content-tender-left-img-border"></div>--%>
+        <%--</a>--%>
+        <%--<!-- 推荐 end-->--%>
 
         <!-- 精选-->
         <c:forEach items="${advertisementB2CList}" var="b2cList" varStatus="status">
-            <a href="#" class="content-tender-box">
-            <img src="${b2cList.url}" alt=""/>
-            <p>${b2cList.name}</p>
-            <div class="content-tender-img" style="background: url('/resources/core/images/guide-pages/h-jiantou.png') no-repeat"></div>
-            <div class="content-tender-left-img" style="background: url('/resources/core/images/guide-pages/jinxuan.png') no-repeat;"></div>
+            <c:if test="${status.count < 9}">
+                <a href="#" class="content-tender-box">
+                <img src="${b2cList.url}" alt=""/>
+                <p>${b2cList.name}</p>
+                <div class="content-tender-img" style="background: url('/resources/core/images/guide-pages/h-jiantou.png') no-repeat"></div>
+                <div class="content-tender-left-img" style="background: url('/resources/core/images/guide-pages/jinxuan.png') no-repeat;"></div>
+            </c:if>
         </a>
         </c:forEach>
     </div>
@@ -110,41 +113,54 @@
 
     <a href="#" class="content-btn">查看更多</a>
     <div class="content-product">
-        <c:forEach items="${advertisementP2PList}" var="p2pList" varStatus="status">
-            <c:if test="${status.index % 2  == 1}">
-                <div class="content-product-box">
+            <div class="content-product-box">
                 <a href="#" class="content-product-box-left">
-                    <img src="${p2pList.url}" alt=""/>
-                    <p>${p2pList.name}</p>
+                    <img src="${advertisementP2PList[0].url}" alt=""/>
+                    <p>${advertisementP2PList[0].name}</p>
                     <p><span>1111.00</span>元</p>
                 </a>
                 <a href="#" class="content-product-box-right">
-                    <img src="${p2pList.url}" alt=""/>
-                    <p>${p2pList.name}</p>
+                    <img src="${advertisementP2PList[1].url}" alt=""/>
+                    <p>${advertisementP2PList[1].name}</p>
                     <p><span>1111.00</span>元</p>
                 </a>
-
             </div>
-            </c:if>
-            <c:if test="${status.index % 2 == 0}">
-                <div class="content-product-box box-bg">
-                    <a href="#" class="content-product-box-left">
-                        <img src="../core/images/guide-pages/product2.jpg" alt=""/>
-
-                        <p>天然翡翠 福在眼前</p>
-
-                        <p><span>1111.00</span>元</p>
-                    </a>
-                    <a href="#" class="content-product-box-right">
-                        <img src="../core/images/guide-pages/product2.jpg" alt=""/>
-
-                        <p>天然翡翠 福在眼前</p>
-
-                        <p><span>1111.00</span>元</p>
-                    </a>
-                </div>
-            </c:if>
-        </c:forEach>
+            <div class="content-product-box box-bg">
+                <a href="#" class="content-product-box-left">
+                    <img src="${advertisementP2PList[2].url}" alt=""/>
+                    <p>${advertisementP2PList[2].name}</p>
+                    <p><span>1111.00</span>元</p>
+                </a>
+                <a href="#" class="content-product-box-right">
+                    <img src="${advertisementP2PList[3].url}" alt=""/>
+                    <p>${advertisementP2PList[3].name}</p>
+                    <p><span>1111.00</span>元</p>
+                </a>
+            </div>
+            <div class="content-product-box box-bg">
+                <a href="#" class="content-product-box-left">
+                    <img src="${advertisementP2PList[4].url}" alt=""/>
+                    <p>${advertisementP2PList[4].name}</p>
+                    <p><span>1111.00</span>元</p>
+                </a>
+                <a href="#" class="content-product-box-right">
+                    <img src="${advertisementP2PList[5].url}" alt=""/>
+                    <p>${advertisementP2PList[5].name}</p>
+                    <p><span>1111.00</span>元</p>
+                </a>
+            </div>
+            <div class="content-product-box">
+                <a href="#" class="content-product-box-left">
+                    <img src="${advertisementP2PList[6].url}" alt=""/>
+                    <p>${advertisementP2PList[6].name}</p>
+                    <p><span>1111.00</span>元</p>
+                </a>
+                <a href="#" class="content-product-box-right">
+                    <img src="${advertisementP2PList[7].url}" alt=""/>
+                    <p>${advertisementP2PList[7].name}</p>
+                    <p><span>1111.00</span>元</p>
+                </a>
+            </div>
 
         <div class="content-product-img1" style="background: url('/resources/core/images/guide-pages/juezt.png') no-repeat;"></div>
         <div class="content-product-img2" style="background: url('/resources/core/images/guide-pages/lin3.png') no-repeat;"></div>
@@ -155,6 +171,7 @@
 </div>
 <!--content end -->
 
+<jsp:include page="../core/footer-main.jsp"/>
 
 <script src="/resources/core/js/require.js" data-main="/resources/guide-pages/guide-pages"></script>
 </body>
