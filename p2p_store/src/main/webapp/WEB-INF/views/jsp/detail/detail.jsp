@@ -272,18 +272,18 @@
 		<!-- content-invest-detail end-->
 
 		<!-- content-question begin-->
-		<div class="content-question ">
-			<form class="ask-question">
+		<div class="content-question">
+			<form class="ask-question" action="" method="post">
 				<div class="ask-head">
 					<h3>有什么问题想问我们的呢?</h3>
-
 					<div class="ask-font-count">还可以输入 <span>140</span> 个字</div>
 				</div>
 				<div class="ask-text">
-					<textarea cols="30" rows="10"></textarea>
+					<textarea cols="30" rows="10" v-model="content"></textarea>
 				</div>
 				<div class="ask-btn">
-					<input class="ask-submit" type="button" value="提交问题"/>
+					<input type="hidden" value="${ESTender.tender.tenderId}" v-model="tenderId"/>
+					<input class="ask-submit" type="button" value="提交问题" @click="submit"/>
 				</div>
 			</form>
 			<ul class="question-list">
