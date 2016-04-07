@@ -10,7 +10,7 @@ import com.pgt.constant.Constants;
 import com.pgt.search.bean.ESFilter;
 import com.pgt.search.bean.ESSort;
 import com.pgt.search.bean.ESTerm;
-import com.pgt.search.procedure.IndexProcedure;
+import com.pgt.search.procedure.CategoryIndexProcedure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -49,18 +49,21 @@ public class CategorySearchEngineService extends AbstractSearchEngineService {
     @Autowired
     private ESConfiguration esConfiguration;
 
-    @Autowired
-    private IndexProcedure indexProcedure;
+    @Autowired(required = false)
+    private CategoryIndexProcedure categoryIndexProcedure;
 
     @Override
     public void index() {
+        if (ObjectUtils.isEmpty(categoryIndexProcedure)) {
+            return;
+        }
         BulkResponse bulkResponse;
         try {
             LOGGER.debug("Begin to category index.");
 
             Client client = getIndexClient();
             BulkRequestBuilder bulkRequest = client.prepareBulk();
-            List<Pair<String, String>> categoryList = indexProcedure.buildSourceList();
+            List<Pair<String, String>> categoryList = categoryIndexProcedure.buildSourceList();
             if (CollectionUtils.isEmpty(categoryList)) {
                 LOGGER.debug("The category is empty.");
                 return;

@@ -19,7 +19,7 @@ import java.util.List;
  * Created by carlwang on 3/21/16.
  */
 @Service
-public class B2BCategoryIndexProcedure implements IndexProcedure {
+public class B2BCategoryIndexProcedure implements CategoryIndexProcedure {
     private static final Logger LOGGER = LoggerFactory.getLogger(B2BCategoryIndexProcedure.class);
     @Autowired
     private CategoryHelper categoryHelper;

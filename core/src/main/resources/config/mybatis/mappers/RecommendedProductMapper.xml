@@ -25,7 +25,10 @@
 	</insert>
 
 	<select id="queryAllRecommendedProduct" parameterMap="paramRecommendedProduct" resultMap="recommendedProduct">
-		SELECT * FROM RECOMMENDED_PRODUCT WHERE PRODUCT_TYPE = #{productType}
+		SELECT * FROM RECOMMENDED_PRODUCT
+		<if test="paramRecommendedProduct!=null">
+			WHERE PRODUCT_TYPE = #{productType}
+		</if>
 	</select>
 	<update id="updateRecommendedProduct" parameterMap="paramRecommendedProduct">
 		UPDATE RECOMMENDED_PRODUCT SET NAME = #{name},PRODUCT_TYPE = #{productType},SORT = #{sort},URL =
